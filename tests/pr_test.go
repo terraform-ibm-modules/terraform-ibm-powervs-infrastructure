@@ -9,7 +9,7 @@ import (
 )
 
 // Use existing resource group
-const resourceGroup           = "geretain-test-mod-template"
+const resourceGroup           = "geretain-test-resources"
 const defaultExampleTerraformDir = "examples/default"
 const prefix = "work"
 const workspace_id = ""
