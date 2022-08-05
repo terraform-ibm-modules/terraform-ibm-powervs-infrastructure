@@ -1,120 +1,57 @@
-<!-- Update the title to match the module name and add a description -->
-# Terraform IBM Module Template
+# PowerVS Infrastructure Module
 
-<!-- UPDATE BADGE: Update the link for the badge below-->
-[![Build Status](https://github.com/terraform-ibm-modules/terraform-ibm-module-template/actions/workflows/ci.yml/badge.svg)](https://github.com/terraform-ibm-modules/terraform-ibm-module-template/actions/workflows/ci.yml)
-[![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
-[![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)
+It does the following jobs:
+- Creates the PowerVS service
+- Creates A ssh key
+- Creates 2 private networks: management network and backup network
+- Creates 2 cloud connections/ option to reuse cloud connections
+- Attaches the cloud connections to transit gateway
+- Attaches the private networks to cloud connections
 
-<!-- Remove the content in this H2 heading after completing the steps -->
+## Example Usage
+```
+provider "ibm" {
+  region    =   var.pvs_region
+  zone      =   var.pvs_zone
+  ibmcloud_api_key = var.ibmcloud_api_key != null ? var.ibmcloud_api_key : null
+}
 
-## Submit a new module
 
-:+1::tada: Thank you for taking the time to contribute! :tada::+1:
+module "power-infrastructure" {
+  source = "terraform-ibm-modules/powervs/ibm/modules/powervs-infrastructure"
 
-This template repository exists to help you create Terraform modules for IBM Cloud.
-
-The default structure includes the following files:
-
-- `README.md`: A description of the module
-- `main.tf`: The logic for the module
-- `version.tf`: The required terraform and provider versions
-- `variables.tf`: The input variables for the module
-- `outputs.tf`: The values that are output from the module
-
-For more information, see [Module structure](https://terraform-ibm-modules.github.io/documentation/#/module-structure) in the project documentation.
-
-You can add other content to support what your module does and how it works. For example, you might add a `scripts/` directory that contains shell scripts that are run by a `local-exec` `null_resource` in the Terraform module.
-
-Follow this process to create and submit a Terraform module.
-
-### Create a repo from this repo template
-
-1.  Create a repository from this repository template by clicking `Use this template` in the upper right of the GitHub UI.
-
-    For more information about creating a repository from a template, see the [GitHub docs](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template).
-1.  Select `terraform-ibm-modules` as the owner.
-1.  Enter a name for the module in format `terraform-ibm-<NAME>`, where `<NAME>` reflects the type of infrastructure that the module manages.
-
-    Use hyphens as delimiters for names with multiple words (for example, terraform-ibm-`activity-tracker`).
-1.  Provide a short description of the module.
-
-    The description is displayed under the repository title on the [organization page](https://github.com/terraform-ibm-modules) and in the **About** section of the repository. Use the description to help users understand what your repo does by looking at the description.
-
-### Clone the repo and set up your development environment
-
-Locally clone the new repository and set up your development environment by completing the tasks in [Local development setup](https://terraform-ibm-modules.github.io/documentation/#/local-dev-setup) in the project documentation.
-
-### Update the Terraform files
-
-Implement the logic for your module by updating the `main.tf`, `version.tf`, `variables.tf`, and `outputs.tf` Terraform files. For more information, see [Creating Terraform on IBM Cloud templates](https://cloud.ibm.com/docs/ibm-cloud-provider-for-terraform?topic=ibm-cloud-provider-for-terraform-create-tf-config).
-
-### Create examples and tests
-
-Add one or more examples in the `examples` directory that consume your new module, and configure tests for them in the `tests` directory.
-
-### Update the content in the readme file
-
-After you implement the logic for your module and create examples and tests, update this readme file in your repository by following these steps:
-
-1.  Update the title heading and add a description about your module.
-1.  Update the badge links.
-1.  Remove all the content in this H2 heading section.
-1.  Complete the [Usage](#usage), [Required IAM access policies](#required-iam-access-policies), and [Examples](#examples) sections. The [Requirements](#requirements) section is populated by a pre-commit hook.
-
-### Commit your code and submit your module for review
-
-1.  Before you commit any code, review [Contributing to the IBM Cloud Terraform modules project](https://terraform-ibm-modules.github.io/documentation/#/contribute-module) in the project documentation.
-1.  Create a pull request for review.
-
-### Post-merge steps
-After the first PR for your module is merged, follow these post-merge steps:
-
-1.  Create a PR to enable the upgrade test by removing the `t.Skip` line in `tests/pr_test.go`.
-
-<!-- Remove the content in this previous H2 heading -->
-
-## Usage
-
-<!-- Add sample usage of the module itself in the following code block -->
-```hcl
-
+  pvs_zone                    = var.pvs_zone
+  pvs_resource_group_name     = var.pvs_resource_group_name
+  pvs_service_name            = var.pvs_service_name
+  tags                        = var.tags
+  pvs_sshkey_name             = var.pvs_sshkey_name
+  ssh_public_key              = var.ssh_public_key
+  pvs_management_network      = var.pvs_management_network
+  pvs_backup_network          = var.pvs_backup_network
+  transit_gw_name             = var.transit_gw_name
+  cloud_connection_count      = var.cloud_connection_count
+  cloud_connection_speed      = var.cloud_connection_speed
+  cloud_connection_gr         = var.cloud_connection_gr
+  cloud_connection_metered    = var.cloud_connection_metered
+  ibmcloud_api_key            = var.ibmcloud_api_key
+}
 ```
 
-## Required IAM access policies
-You need the following permissions to run this module.
-
-<!--
-Update these sample permissions, following this format. Replace the sample
-Cloud service name and roles with the information in the console at
-Manage > Access (IAM) > Access groups > Access policies.
- -->
-
-- Account Management
-    - **Sample Account Service** service
-        - `Editor` platform access
-        - `Manager` service access
-- IAM Services
-    - **Sample Cloud Service** service
-        - `Administrator` platform access
-
-## Examples
-
-<!-- Update the sample examples in the examples folder and link to them. -->
-- [End to end example with default values](examples/default)
-- [End to end example with nondefault values](examples/non-default)
-- [Example that uses existing resources](examples/existing-resources)
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.0 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >=1.1 |
 
 ## Modules
 
-No modules.
+| Name | Source | Version |
+|------|--------|---------|
+| <a name="module_cloud-connection-attach"></a> [cloud-connection-attach](#module\_cloud-connection-attach) | ./submodules/power-cloudconnection-attach | n/a |
+| <a name="module_cloud-connection-create"></a> [cloud-connection-create](#module\_cloud-connection-create) | ./submodules/power-cloudconnection-create | n/a |
+| <a name="module_power-service"></a> [power-service](#module\_power-service) | ./submodules/power-service | n/a |
 
 ## Resources
 
@@ -122,25 +59,34 @@ No resources.
 
 ## Inputs
 
-No inputs.
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| <a name="input_cloud_connection_count"></a> [cloud\_connection\_count](#input\_cloud\_connection\_count) | Required number of Cloud connections which will be created. Ignore when Transit gateway is empty. Maximum is 2 per location | `string` | `2` | no |
+| <a name="input_cloud_connection_gr"></a> [cloud\_connection\_gr](#input\_cloud\_connection\_gr) | Enable global routing for this cloud connection.Can be specified when creating new connection | `bool` | `null` | no |
+| <a name="input_cloud_connection_metered"></a> [cloud\_connection\_metered](#input\_cloud\_connection\_metered) | Enable metered for this cloud connection. Can be specified when creating new connection | `bool` | `null` | no |
+| <a name="input_cloud_connection_speed"></a> [cloud\_connection\_speed](#input\_cloud\_connection\_speed) | Speed in megabits per sec. Supported values are 50, 100, 200, 500, 1000, 2000, 5000, 10000. Required when creating new connection | `string` | `null` | no |
+| <a name="input_ibmcloud_api_key"></a> [ibmcloud\_api\_key](#input\_ibmcloud\_api\_key) | IBM Cloud Api Key | `string` | `null` | no |
+| <a name="input_pvs_backup_network"></a> [pvs\_backup\_network](#input\_pvs\_backup\_network) | PowerVS Backup Network name and cidr which will be created. | `map(any)` | <pre>{<br>  "cidr": "10.52.0.0/24",<br>  "name": "bkp_net"<br>}</pre> | no |
+| <a name="input_pvs_management_network"></a> [pvs\_management\_network](#input\_pvs\_management\_network) | PowerVS Management Subnet name and cidr which will be created. | `map(any)` | <pre>{<br>  "cidr": "10.51.0.0/24",<br>  "name": "mgmt_net"<br>}</pre> | no |
+| <a name="input_pvs_resource_group_name"></a> [pvs\_resource\_group\_name](#input\_pvs\_resource\_group\_name) | Existing Resource Group Name | `string` | n/a | yes |
+| <a name="input_pvs_service_name"></a> [pvs\_service\_name](#input\_pvs\_service\_name) | Name of PowerVS service which will be created | `string` | n/a | yes |
+| <a name="input_pvs_sshkey_name"></a> [pvs\_sshkey\_name](#input\_pvs\_sshkey\_name) | Name of PowerVS SSH Key which will be created | `string` | n/a | yes |
+| <a name="input_pvs_zone"></a> [pvs\_zone](#input\_pvs\_zone) | IBM PowerVS Cloud Zone. | `string` | n/a | yes |
+| <a name="input_ssh_public_key"></a> [ssh\_public\_key](#input\_ssh\_public\_key) | Public SSH Key for PowerVM creation | `string` | n/a | yes |
+| <a name="input_tags"></a> [tags](#input\_tags) | List of Tag names for PowerVS service | `list(string)` | `null` | no |
+| <a name="input_transit_gw_name"></a> [transit\_gw\_name](#input\_transit\_gw\_name) | Name of the existing transit gateway. If empty / null, cloud connections will be reused. | `string` | `null` | no |
 
 ## Outputs
 
 No outputs.
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
-<!-- Leave this section as is so that your module has a link to local development environment set up steps for contributors to follow -->
+NOTE: We can configure all details in input.tfvars
 
-## Contributing
+## Usage
 
-You can report issues and request features for this module in the [terraform-ibm-issue-tracker](https://github.com/terraform-ibm-modules/terraform-ibm-issue-tracker/issues) repo. See [Report an issue or request a feature](https://github.com/terraform-ibm-modules/.github/blob/main/.github/SUPPORT.md).
+terraform apply -var-file="input.tfvars"
 
-To set up your local development environment, see [Local development setup](https://terraform-ibm-modules.github.io/documentation/#/local-dev-setup) in the project documentation.
+## Note
 
-<!-- BEGIN EXAMPLES HOOK -->
-## Examples
-
-- [# Default example](examples/default)
-- [# Non default example](examples/non-default)
-- [# Example that uses existing resources](examples/existing-resources)
-<!-- END EXAMPLES HOOK -->
+For all optional fields, default values (Eg: `null`) are given in variable.tf file. User can configure the same by overwriting with appropriate values.

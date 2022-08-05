@@ -14,7 +14,7 @@ terraform {
     }
   }
 }
-If we dont configure the version parameter, it fetches the latest provider version.
+If we don't configure the version parameter, it fetches the latest provider version.
 ****************************************************/
 
 terraform {
