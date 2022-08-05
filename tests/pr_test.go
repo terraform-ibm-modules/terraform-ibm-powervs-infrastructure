@@ -9,7 +9,7 @@ import (
 )
 
 // Use existing resource group
-// const resourceGroup           = "geretain-test-mod-template"
+const resourceGroup           = "geretain-test-mod-template"
 const defaultExampleTerraformDir = "examples/default"
 const prefix = "work"
 const workspace_id = ""
@@ -29,7 +29,7 @@ func TestRunDefaultExample(t *testing.T) {
 	options := testhelper.TestOptionsDefault(&testhelper.TestOptions{
 		Testing:                 t,
 		TerraformDir:            defaultExampleTerraformDir,
-		ResourceGroup:           pvs_resource_group_name,
+		ResourceGroup:           resourceGroup,
 		Prefix:                  prefix,
 		workspace_id:            workspace_id,
 		pvs_zone:                pvs_zone,
