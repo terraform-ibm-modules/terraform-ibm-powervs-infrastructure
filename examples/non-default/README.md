@@ -1,4 +1,4 @@
-# Non default example
+# End to end example with nondefault values
 
 Optionally add an example for a use case of the module that differs from the default one.
 
