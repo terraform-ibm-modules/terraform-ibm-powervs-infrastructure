@@ -4,7 +4,7 @@
 #####################################################
 
 module "power-service" {
-  source = "./submodules/power-service"
+  source = "./submodules/power_service"
 
   pvs_zone                = var.pvs_zone
   pvs_resource_group_name = var.pvs_resource_group_name
@@ -17,7 +17,7 @@ module "power-service" {
 }
 
 module "cloud-connection-create" {
-  source                   = "./submodules/power-cloudconnection-create"
+  source                   = "./submodules/power_cloudconnection_create"
   depends_on               = [module.power-service]
   count                    = var.transit_gw_name != null && var.transit_gw_name != "" ? 1 : 0
   pvs_zone                 = var.pvs_zone
@@ -32,7 +32,7 @@ module "cloud-connection-create" {
 }
 
 module "cloud-connection-attach" {
-  source                  = "./submodules/power-cloudconnection-attach"
+  source                  = "./submodules/power_cloudconnection_attach"
   depends_on              = [module.power-service, module.cloud-connection-create]
   pvs_zone                = var.pvs_zone
   pvs_resource_group_name = var.pvs_resource_group_name
