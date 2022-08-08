@@ -49,9 +49,9 @@ module "power-infrastructure" {
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_cloud-connection-attach"></a> [cloud-connection-attach](#module\_cloud-connection-attach) | ./submodules/power_cloudconnection_attach | n/a |
-| <a name="module_cloud-connection-create"></a> [cloud-connection-create](#module\_cloud-connection-create) | ./submodules/power_cloudconnection_create | n/a |
-| <a name="module_power-service"></a> [power-service](#module\_power-service) | ./submodules/power_service | n/a |
+| <a name="module_cloud_connection_attach"></a> [cloud\_connection\_attach](#module\_cloud\_connection\_attach) | ./submodules/power_cloudconnection_attach | n/a |
+| <a name="module_cloud_connection_create"></a> [cloud\_connection\_create](#module\_cloud\_connection\_create) | ./submodules/power_cloudconnection_create | n/a |
+| <a name="module_power_service"></a> [power\_service](#module\_power\_service) | ./submodules/power_service | n/a |
 
 ## Resources
 
