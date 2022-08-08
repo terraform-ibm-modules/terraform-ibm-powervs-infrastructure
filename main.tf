@@ -3,7 +3,7 @@
 # Copyright 2022 IBM
 #####################################################
 
-module "power-service" {
+module "power_service" {
   source = "./submodules/power_service"
 
   pvs_zone                = var.pvs_zone
@@ -16,9 +16,9 @@ module "power-service" {
   pvs_backup_network      = var.pvs_backup_network
 }
 
-module "cloud-connection-create" {
+module "cloud_connection_create" {
   source                   = "./submodules/power_cloudconnection_create"
-  depends_on               = [module.power-service]
+  depends_on               = [module.power_service]
   count                    = var.transit_gw_name != null && var.transit_gw_name != "" ? 1 : 0
   pvs_zone                 = var.pvs_zone
   pvs_resource_group_name  = var.pvs_resource_group_name
@@ -31,9 +31,9 @@ module "cloud-connection-create" {
 
 }
 
-module "cloud-connection-attach" {
+module "cloud_connection_attach" {
   source                  = "./submodules/power_cloudconnection_attach"
-  depends_on              = [module.power-service, module.cloud-connection-create]
+  depends_on              = [module.power_service, module.cloud_connection_create]
   pvs_zone                = var.pvs_zone
   pvs_resource_group_name = var.pvs_resource_group_name
   pvs_service_name        = var.pvs_service_name
