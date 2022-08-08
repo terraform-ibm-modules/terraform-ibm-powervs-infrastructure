@@ -18,7 +18,6 @@ const pvs_resource_group_name = "Automation"
 const ssh_public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDZdQYXrRuCOES9/7DhBZ5BHG5/y6/x8algnv8vbg07pM7r+DtIQ6ZekVFuDzsq+76TurwQRW1hypRqjtPzUYeJMRPJUILHWl6CwXo6ihxUzmBBmdxp1bIrJ8Zpgp9e7W+F2iQrLq5VsUD61+lJYj/zIL939ycGn/+yLoJ721vcj5fguhnBoiuk493us2ltJ+BCkU0LArLDPg1+YIRnfqic8FTBrSq+3qT4JOAMbWUlxbCAn1UzQ7Je8gJYEPwle+ONKdhcgNBxHQUaLQQAmCxjzqZ/nU54Inow+gpeNUktYTYUQvZ5Zo8oMhxPsLff+gOt8Ibv09WgJaUFGy7YS2DaMcr2HvOKwOylYviokmS8K/mJ85hrW4Ifl+CZvNLvIIZct8G9TNNyYL7sZpb39uGpewGz1psEAynA/Kka2O9rvoJ0PvRSIwgHLQ2kM/83N+vLq18gqBfvxyRETPT+DV5Rk+v5Q1TvfiNxJ4+V9lTp/lGwHVEExk3BrFHDaCD9pos= AzureAD+SurajSanathKumarBhar@LAPTOP-QNUBGG8L"
 const transit_gw_name = "sao-gw"
 
-
 // const pvs_management_network     = { "name" = "mgmt_net", "cidr" = "10.81.0.0/24" }
 // const pvs_backup_network         = { "name" = "bkp_net", "cidr" = "10.82.0.0/24" }
 const cloud_connection_count = "2"
