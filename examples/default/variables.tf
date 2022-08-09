@@ -1,7 +1,7 @@
 variable "pvs_zone" {
   description = "IBM Cloud PVS Zone. Valid values: sao01,osa21,tor01,us-south,dal12,us-east,tok04,lon04,lon06,eu-de-1,eu-de-2,syd04,syd05"
   type        = string
-  default        = "syd04"
+  default     = "syd04"
 }
 
 variable "resource_group_name" {
@@ -12,7 +12,7 @@ variable "resource_group_name" {
 
 variable "existing_resource_group_name" {
   description = "An existing resource group name to use for this example, mutually exclusive with resource_group_name"
-  default = null
+  default     = null
 }
 
 variable "prefix" {
