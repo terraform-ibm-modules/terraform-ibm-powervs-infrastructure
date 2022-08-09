@@ -1,22 +1,24 @@
-variable "workspace_id" {
-  description = "IBM cloud schematics workspace ID to reuse values from other workspaces. IF value is provided, then prefix and ssh_public_key are overridden. Taking values from the workspace"
-  type        = string
-  default     = null
-}
-
 variable "pvs_zone" {
   description = "IBM Cloud PVS Zone. Valid values: sao01,osa21,tor01,us-south,dal12,us-east,tok04,lon04,lon06,eu-de-1,eu-de-2,syd04,syd05"
   type        = string
+  default        = "syd04"
 }
 
-variable "pvs_resource_group_name" {
-  description = "Existing Resource Group Name"
+variable "resource_group_name" {
   type        = string
+  description = "A new resource group will be created, mutually exclusive with existing_resource_group_name"
+  default     = null
+}
+
+variable "existing_resource_group_name" {
+  description = "An existing resource group name to use for this example, mutually exclusive with resource_group_name"
+  default = null
 }
 
 variable "prefix" {
   description = "Prefix for resources which will be created."
   type        = string
+  default     = "pvs"
 }
 
 variable "pvs_service_name" {
@@ -29,11 +31,6 @@ variable "pvs_sshkey_name" {
   description = "Name of PowerVS SSH Key which will be created"
   type        = string
   default     = "ssh-key-pvs"
-}
-
-variable "ssh_public_key" {
-  description = "Public SSH Key for PowerVM creation.  IF workspace id is provided, then value is overridden."
-  type        = string
 }
 
 variable "pvs_management_network" {
@@ -76,10 +73,10 @@ variable "cloud_connection_speed" {
 # Optional Parameters
 #####################################################
 
-variable "tags" {
-  description = "List of Tag names for PowerVS service"
+variable "resource_tags" {
   type        = list(string)
-  default     = null
+  description = "Optional list of tags to be added to created resources"
+  default     = []
 }
 
 variable "cloud_connection_gr" {
@@ -96,26 +93,7 @@ variable "cloud_connection_metered" {
 
 variable "ibmcloud_api_key" {
   description = "IBM Cloud Api Key"
+  sensitive   = true
   type        = string
   default     = null
-}
-
-variable "ibm_pvs_zone_region_map" {
-  description = "Map of IBM Power VS zone to the region of PowerVS Infrastructure"
-  type        = map(any)
-  default = {
-    "syd04"    = "syd"
-    "syd05"    = "syd"
-    "eu-de-1"  = "eu-de"
-    "eu-de-2"  = "eu-de"
-    "lon04"    = "lon"
-    "lon06"    = "lon"
-    "tok04"    = "tok"
-    "us-east"  = "us-east"
-    "us-south" = "us-south"
-    "dal12"    = "us-south"
-    "tor01"    = "tor"
-    "osa21"    = "osa"
-    "sao01"    = "sao"
-  }
 }
