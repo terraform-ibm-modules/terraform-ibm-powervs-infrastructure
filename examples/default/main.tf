@@ -26,24 +26,6 @@ locals {
     "sao01"    = "sao"
   }
 
-  ### Check if both groups were given
-  exist_both_resource_group_cdn = !(var.resource_group != null && var.existing_resource_group != null)
-  exist_both_resource_group_msg = "only 'resource_group_name' or 'existing_resource_group_name' can be given, but both have been given"
-  # tflint-ignore: terraform_unused_declarations
-  exist_both_resource_group_check = regex("^${local.exist_both_resource_group_msg}$", (local.exist_both_resource_group_cdn ? local.exist_both_resource_group_msg : ""))
-
-  resource_group = var.existing_resource_group != null ? data.ibm_resource_group.existing_resource_group[0].name : ibm_resource_group.resource_group[0].name
-}
-
-data "ibm_resource_group" "existing_resource_group" {
-  count = var.existing_resource_group != null ? 1 : 0
-  name  = var.existing_resource_group
-}
-
-resource "ibm_resource_group" "resource_group" {
-  count    = var.existing_resource_group != null ? 0 : 1
-  name     = var.resource_group
-  quota_id = null
 }
 
 resource "tls_private_key" "tls_key" {
@@ -60,7 +42,7 @@ module "pvs" {
   source = "../../"
 
   pvs_zone                 = var.pvs_zone
-  pvs_resource_group_name  = local.resource_group
+  pvs_resource_group_name  = var.resource_group
   pvs_service_name         = "${var.prefix}-${var.pvs_service_name}"
   tags                     = var.resource_tags
   pvs_sshkey_name          = "${var.prefix}-${var.pvs_sshkey_name}"
