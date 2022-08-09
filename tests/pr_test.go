@@ -13,6 +13,10 @@ const resourceGroup = "geretain-test-resources"
 const defaultExampleTerraformDir = "examples/default"
 const prefix = "pvs"
 
+var terraformVars = map[string]interface{}{
+	"resource_group": resourceGroup,
+}
+
 func TestRunDefaultExample(t *testing.T) {
 	t.Parallel()
 
@@ -21,6 +25,7 @@ func TestRunDefaultExample(t *testing.T) {
 		TerraformDir:  defaultExampleTerraformDir,
 		ResourceGroup: resourceGroup,
 		Prefix:        prefix,
+		TerraformVars: terraformVars,
 	})
 
 	output, err := options.RunTestConsistency()
@@ -37,8 +42,10 @@ func TestRunUpgradeExample(t *testing.T) {
 	options := testhelper.TestOptionsDefaultWithVars(&testhelper.TestOptions{
 		Testing:       t,
 		TerraformDir:  defaultExampleTerraformDir,
-		Prefix:        "mod-template-upg",
+		Prefix:        prefix,
 		ResourceGroup: resourceGroup,
+
+		TerraformVars: terraformVars,
 	})
 
 	output, err := options.RunTestUpgrade()
