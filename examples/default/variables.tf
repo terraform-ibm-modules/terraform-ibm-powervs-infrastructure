@@ -4,13 +4,13 @@ variable "pvs_zone" {
   default     = "syd04"
 }
 
-variable "resource_group_name" {
+variable "resource_group" {
   type        = string
   description = "A new resource group will be created, mutually exclusive with existing_resource_group_name"
   default     = null
 }
 
-variable "existing_resource_group_name" {
+variable "existing_resource_group" {
   description = "An existing resource group name to use for this example, mutually exclusive with resource_group_name"
   default     = null
 }

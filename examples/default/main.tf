@@ -27,22 +27,22 @@ locals {
   }
 
   ### Check if both groups were given
-  exist_both_resource_group_cdn = !(var.resource_group_name != null && var.existing_resource_group_name != null)
+  exist_both_resource_group_cdn = !(var.resource_group != null && var.existing_resource_group != null)
   exist_both_resource_group_msg = "only 'resource_group_name' or 'existing_resource_group_name' can be given, but both have been given"
   # tflint-ignore: terraform_unused_declarations
   exist_both_resource_group_check = regex("^${local.exist_both_resource_group_msg}$", (local.exist_both_resource_group_cdn ? local.exist_both_resource_group_msg : ""))
 
-  resource_group = var.existing_resource_group_name != null ? data.ibm_resource_group.existing_resource_group[0].name : ibm_resource_group.resource_group[0].name
+  resource_group = var.existing_resource_group != null ? data.ibm_resource_group.existing_resource_group[0].name : ibm_resource_group.resource_group[0].name
 }
 
 data "ibm_resource_group" "existing_resource_group" {
-  count = var.existing_resource_group_name != null ? 1 : 0
-  name  = var.existing_resource_group_name
+  count = var.existing_resource_group != null ? 1 : 0
+  name  = var.existing_resource_group
 }
 
 resource "ibm_resource_group" "resource_group" {
-  count    = var.existing_resource_group_name != null ? 0 : 1
-  name     = var.resource_group_name
+  count    = var.existing_resource_group != null ? 0 : 1
+  name     = var.resource_group
   quota_id = null
 }
 
