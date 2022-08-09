@@ -89,6 +89,6 @@ resource "ibm_tg_connection" "ibm_tg_connection_2" {
   gateway      = data.ibm_tg_gateway.tg_gateway_ds.id
   network_type = "directlink"
   name         = "${var.pvs_zone}-conn-2"
-  network_id   = data.ibm_dl_gateway.gateway_ds_2.0.crn
+  network_id   = data.ibm_dl_gateway.gateway_ds_2[0].crn
   #time_sleep.dl_resource_propagation.triggers["dl_2_crn"]
 }

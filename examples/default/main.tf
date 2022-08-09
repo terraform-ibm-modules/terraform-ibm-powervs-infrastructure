@@ -15,7 +15,7 @@ data "ibm_schematics_workspace" "schematics_workspace" {
 }
 
 locals {
-  workspace_values = var.workspace_id != null && var.workspace_id != "" ? data.ibm_schematics_workspace.schematics_workspace.0.template_inputs : null
+  workspace_values = var.workspace_id != null && var.workspace_id != "" ? data.ibm_schematics_workspace.schematics_workspace[0].template_inputs : null
 }
 
 module "pvs" {
