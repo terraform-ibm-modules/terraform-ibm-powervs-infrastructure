@@ -6,7 +6,7 @@ variable "pvs_zone" {
 
 variable "resource_group" {
   type        = string
-  description = "An existing resource group  to use for this example"
+  description = "An existing resource group name to use for this example"
   default     = null
 }
 
