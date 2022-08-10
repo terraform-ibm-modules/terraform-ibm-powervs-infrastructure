@@ -47,7 +47,7 @@ variable "pvs_backup_network" {
 }
 
 variable "transit_gw_name" {
-  description = "Name of the existing transit gateway. EExisiting name must be provided when you want to create new cloud connections. When value is null, cloud connections will be reused (and is already attached to Transit gateway)"
+  description = "Name of the existing transit gateway. Existing name must be provided when you want to create new cloud connections. When value is null, cloud connections will be reused (and is already attached to Transit gateway)"
   type        = string
   default     = null
 }

@@ -10,7 +10,7 @@ import (
 
 // Use existing resource group
 const resourceGroup = "geretain-test-resources"
-const defaultExampleTerraformDir = "examples/default"
+const defaultExampleTerraformDir = "examples/basic"
 const prefix = "pvs"
 
 var terraformVars = map[string]interface{}{

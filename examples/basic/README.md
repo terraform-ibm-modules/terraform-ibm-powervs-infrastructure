@@ -50,7 +50,7 @@ This example illustrates how to use the `power-infrastructure` module.
 | <a name="input_pvs_zone"></a> [pvs\_zone](#input\_pvs\_zone) | IBM Cloud PVS Zone. Valid values: sao01,osa21,tor01,us-south,dal12,us-east,tok04,lon04,lon06,eu-de-1,eu-de-2,syd04,syd05 | `string` | `"syd04"` | no |
 | <a name="input_resource_group"></a> [resource\_group](#input\_resource\_group) | An existing resource group name to use for this example | `string` | `null` | no |
 | <a name="input_resource_tags"></a> [resource\_tags](#input\_resource\_tags) | Optional list of tags to be added to created resources | `list(string)` | `[]` | no |
-| <a name="input_transit_gw_name"></a> [transit\_gw\_name](#input\_transit\_gw\_name) | Name of the existing transit gateway. EExisiting name must be provided when you want to create new cloud connections. When value is null, cloud connections will be reused (and is already attached to Transit gateway) | `string` | `null` | no |
+| <a name="input_transit_gw_name"></a> [transit\_gw\_name](#input\_transit\_gw\_name) | Name of the existing transit gateway. Existing name must be provided when you want to create new cloud connections. When value is null, cloud connections will be reused (and is already attached to Transit gateway) | `string` | `null` | no |
 
 ## Outputs
 
