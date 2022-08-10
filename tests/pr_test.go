@@ -2,6 +2,9 @@
 package test
 
 import (
+	"fmt"
+	"github.com/gruntwork-io/terratest/modules/random"
+	"strings"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -11,7 +14,8 @@ import (
 // Use existing resource group
 const resourceGroup = "geretain-test-resources"
 const defaultExampleTerraformDir = "examples/basic"
-const prefix = "pvs"
+
+var prefix = fmt.Sprintf("pvs-%s", strings.ToLower(random.UniqueId()))
 
 var terraformVars = map[string]interface{}{
 	"resource_group": resourceGroup,

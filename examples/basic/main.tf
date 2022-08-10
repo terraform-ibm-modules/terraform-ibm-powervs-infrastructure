@@ -59,7 +59,7 @@ resource "tls_private_key" "tls_key" {
 
 resource "ibm_is_ssh_key" "ssh_key" {
   provider   = ibm.ibm-is
-  name       = var.prefix
+  name       = "${var.prefix}-${var.pvs_sshkey_name}"
   public_key = trimspace(tls_private_key.tls_key.public_key_openssh)
 }
 
