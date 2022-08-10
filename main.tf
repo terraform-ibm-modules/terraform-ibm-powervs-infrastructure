@@ -37,5 +37,6 @@ module "cloud_connection_attach" {
   pvs_zone                = var.pvs_zone
   pvs_resource_group_name = var.pvs_resource_group_name
   pvs_service_name        = var.pvs_service_name
+  cloud_connection_count  = var.cloud_connection_count
   pvs_subnet_names        = [var.pvs_management_network.name, var.pvs_backup_network.name]
 }
