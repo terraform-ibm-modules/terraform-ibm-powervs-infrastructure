@@ -19,6 +19,7 @@ var prefix = fmt.Sprintf("pvs-%s", strings.ToLower(random.UniqueId()))
 
 var terraformVars = map[string]interface{}{
 	"resource_group": resourceGroup,
+	"prefix":         prefix,
 }
 
 func TestRunDefaultExample(t *testing.T) {
