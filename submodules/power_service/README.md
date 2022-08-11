@@ -1,4 +1,4 @@
-# SubModule power-service
+# Module power-service
 
 This submodule is used to create a PowerVS service, SSH Key, and 2 private networks for management network and backup network
 
