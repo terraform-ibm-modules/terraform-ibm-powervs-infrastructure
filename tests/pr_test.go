@@ -2,6 +2,9 @@
 package test
 
 import (
+	"fmt"
+	"github.com/gruntwork-io/terratest/modules/random"
+	"strings"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -10,16 +13,24 @@ import (
 
 // Use existing resource group
 const resourceGroup = "geretain-test-resources"
-const defaultExampleTerraformDir = "examples/default"
+const defaultExampleTerraformDir = "examples/basic"
+
+var prefix = fmt.Sprintf("pvs-%s", strings.ToLower(random.UniqueId()))
+
+var terraformVars = map[string]interface{}{
+	"resource_group": resourceGroup,
+	"prefix":         prefix,
+}
 
 func TestRunDefaultExample(t *testing.T) {
 	t.Parallel()
 
-	options := testhelper.TestOptionsDefaultWithVars(&testhelper.TestOptions{
+	options := testhelper.TestOptionsDefault(&testhelper.TestOptions{
 		Testing:       t,
 		TerraformDir:  defaultExampleTerraformDir,
-		Prefix:        "mod-template",
 		ResourceGroup: resourceGroup,
+		Prefix:        prefix,
+		TerraformVars: terraformVars,
 	})
 
 	output, err := options.RunTestConsistency()
@@ -36,8 +47,10 @@ func TestRunUpgradeExample(t *testing.T) {
 	options := testhelper.TestOptionsDefaultWithVars(&testhelper.TestOptions{
 		Testing:       t,
 		TerraformDir:  defaultExampleTerraformDir,
-		Prefix:        "mod-template-upg",
+		Prefix:        prefix,
 		ResourceGroup: resourceGroup,
+
+		TerraformVars: terraformVars,
 	})
 
 	output, err := options.RunTestUpgrade()
