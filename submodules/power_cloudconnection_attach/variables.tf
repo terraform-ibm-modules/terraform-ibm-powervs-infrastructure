@@ -1,5 +1,5 @@
 variable "pvs_zone" {
-  description = "IBM PowerVS Cloud Zone"
+  description = "IBM Cloud PowerVS Zone"
   type        = string
 }
 
@@ -9,12 +9,12 @@ variable "pvs_resource_group_name" {
 }
 
 variable "pvs_service_name" {
-  description = "Existing PowerVS Service Name"
+  description = "Existing IBM Cloud PowerVS Service Name"
   type        = string
 }
 
 variable "pvs_subnet_names" {
-  description = "List of PowerVs subnet names to be attached to Cloud connection"
+  description = "List of IBM Cloud PowerVS subnet names to be attached to Cloud connection"
   type        = list(any)
 }
 

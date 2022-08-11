@@ -1,6 +1,5 @@
 #####################################################
-# PowerVs cloud connection Configuration
-# Copyright 2022 IBM
+# IBM Cloud PowerVS cloud connection Configuration
 #####################################################
 
 locals {
@@ -21,7 +20,6 @@ data "ibm_resource_instance" "pvs_service_ds" {
 
 #####################################################
 # Create Cloud Connection to attach PVS subnets
-# Copyright 2022 IBM
 #####################################################
 
 resource "ibm_pi_cloud_connection" "cloud_connection" {
@@ -46,7 +44,6 @@ resource "ibm_pi_cloud_connection" "cloud_connection_backup" {
 
 #####################################################
 # Get transit gateway
-# Copyright 2022 IBM
 #####################################################
 
 data "ibm_tg_gateway" "tg_gateway_ds" {
@@ -55,7 +52,6 @@ data "ibm_tg_gateway" "tg_gateway_ds" {
 
 #####################################################
 # Get direct link CRNs from created cloud connections
-# Copyright 2022 IBM
 #####################################################
 
 data "ibm_dl_gateway" "gateway_ds_1" {
@@ -72,7 +68,6 @@ data "ibm_dl_gateway" "gateway_ds_2" {
 
 #####################################################
 # Attach direct link CRNs to transit gateway
-# Copyright 2022 IBM
 #####################################################
 
 resource "ibm_tg_connection" "ibm_tg_connection_1" {

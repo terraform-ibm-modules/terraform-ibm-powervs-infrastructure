@@ -1,8 +1,3 @@
-#####################################################
-# PowerVs cloud connection Configuration
-# Copyright 2022 IBM
-#####################################################
-
 locals {
   service_type = "power-iaas"
 }
@@ -20,8 +15,7 @@ data "ibm_resource_instance" "pvs_service_ds" {
 
 
 #####################################################
-# Get PowerVS subnet IDs
-# Copyright 2022 IBM
+# Get IBM Cloud PowerVS subnet IDs
 #####################################################
 
 data "ibm_pi_network" "pvs_subnets_ds" {
@@ -32,7 +26,6 @@ data "ibm_pi_network" "pvs_subnets_ds" {
 
 #####################################################
 # Reuse Cloud Connection to attach PVS subnets
-# Copyright 2022 IBM
 #####################################################
 
 data "ibm_pi_cloud_connections" "cloud_connection_ds" {

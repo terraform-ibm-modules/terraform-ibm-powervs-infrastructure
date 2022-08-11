@@ -1,6 +1,5 @@
 #####################################################
-# PowerVs Resource Configuration
-# Copyright 2022 IBM
+# IBM Cloud PowerVS Resource Configuration
 #####################################################
 
 locals {
@@ -28,8 +27,7 @@ resource "ibm_resource_instance" "pvs_service" {
 }
 
 #####################################################
-# Create PowerVs SSH Key
-# Copyright 2022 IBM
+# Create IBM Cloud PowerVS SSH Key
 #####################################################
 
 resource "ibm_pi_key" "ssh_key" {
@@ -40,7 +38,6 @@ resource "ibm_pi_key" "ssh_key" {
 
 #####################################################
 # Create Public and Private Subnets
-# Copyright 2022 IBM
 #####################################################
 
 resource "ibm_pi_network" "management_network" {

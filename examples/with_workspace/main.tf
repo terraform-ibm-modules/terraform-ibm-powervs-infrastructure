@@ -1,21 +1,35 @@
-####################################################
-# PVS Configuration
-# Copyright 2022 IBM
-#####################################################
+
+locals {
+  workspace_values = var.workspace_id != null && var.workspace_id != "" ? data.ibm_schematics_workspace.schematics_workspace[0].template_inputs : null
+  ibm_pvs_zone_region_map = {
+    "syd04"    = "syd"
+    "syd05"    = "syd"
+    "eu-de-1"  = "eu-de"
+    "eu-de-2"  = "eu-de"
+    "lon04"    = "lon"
+    "lon06"    = "lon"
+    "tok04"    = "tok"
+    "us-east"  = "us-east"
+    "us-south" = "us-south"
+    "dal12"    = "us-south"
+    "tor01"    = "tor"
+    "osa21"    = "osa"
+    "sao01"    = "sao"
+  }
+
+}
 
 provider "ibm" {
-  region           = lookup(var.ibm_pvs_zone_region_map, var.pvs_zone, null)
+  alias            = "ibm-pvs"
+  region           = lookup(local.ibm_pvs_zone_region_map, var.pvs_zone, null)
   zone             = var.pvs_zone
-  ibmcloud_api_key = var.ibmcloud_api_key != null ? var.ibmcloud_api_key : null
+  ibmcloud_api_key = var.ibmcloud_api_key
 }
+
 
 data "ibm_schematics_workspace" "schematics_workspace" {
   count        = var.workspace_id != null && var.workspace_id != "" ? 1 : 0
   workspace_id = var.workspace_id
-}
-
-locals {
-  workspace_values = var.workspace_id != null && var.workspace_id != "" ? data.ibm_schematics_workspace.schematics_workspace[0].template_inputs : null
 }
 
 module "pvs" {
@@ -34,5 +48,4 @@ module "pvs" {
   cloud_connection_speed   = var.cloud_connection_speed
   cloud_connection_gr      = var.cloud_connection_gr
   cloud_connection_metered = var.cloud_connection_metered
-  ibmcloud_api_key         = var.ibmcloud_api_key
 }

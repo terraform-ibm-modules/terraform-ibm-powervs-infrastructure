@@ -1,5 +1,5 @@
 variable "pvs_zone" {
-  description = "IBM PowerVS Cloud Zone"
+  description = "IBM Cloud PowerVS Zone"
   type        = string
 }
 
@@ -9,7 +9,7 @@ variable "pvs_resource_group_name" {
 }
 
 variable "pvs_service_name" {
-  description = "Existing PowerVS Service Name"
+  description = "Existing IBM Cloud PowerVS Service Name"
   type        = string
 }
 
@@ -40,11 +40,5 @@ variable "cloud_connection_gr" {
 variable "cloud_connection_metered" {
   description = "Enable metered for this cloud connection. Can be specified when creating new connection"
   type        = bool
-  default     = null
-}
-
-variable "ibmcloud_api_key" {
-  description = "IBM Cloud Api Key"
-  type        = string
   default     = null
 }

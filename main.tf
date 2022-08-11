@@ -1,6 +1,5 @@
 #####################################################
-# PVS Configuration
-# Copyright 2022 IBM
+# IBM Cloud PowerVS Configuration
 #####################################################
 
 module "power_service" {

@@ -1,5 +1,5 @@
 variable "pvs_zone" {
-  description = "IBM Cloud PVS Zone. Valid values: sao01,osa21,tor01,us-south,dal12,us-east,tok04,lon04,lon06,eu-de-1,eu-de-2,syd04,syd05"
+  description = "IBM Cloud PowerVS Zone. Valid values: sao01,osa21,tor01,us-south,dal12,us-east,tok04,lon04,lon06,eu-de-1,eu-de-2,syd04,syd05"
   type        = string
   default     = "syd04"
 }
@@ -17,19 +17,19 @@ variable "prefix" {
 }
 
 variable "pvs_service_name" {
-  description = "Name of PowerVS service which will be created"
+  description = "Name of IBM Cloud PowerVS service which will be created"
   type        = string
   default     = "power-service"
 }
 
 variable "pvs_sshkey_name" {
-  description = "Name of PowerVS SSH Key which will be created"
+  description = "Name of IBM Cloud PowerVS SSH Key which will be created"
   type        = string
   default     = "ssh-key-pvs"
 }
 
 variable "pvs_management_network" {
-  description = "PowerVS Management Subnet name and cidr which will be created."
+  description = "IBM Cloud PowerVS Management Subnet name and cidr which will be created."
   type        = map(any)
   default = {
     "name" = "mgmt_net"
@@ -38,7 +38,7 @@ variable "pvs_management_network" {
 }
 
 variable "pvs_backup_network" {
-  description = "PowerVS Backup Network name and cidr which will be created."
+  description = "IBM Cloud PowerVS Backup Network name and cidr which will be created."
   type        = map(any)
   default = {
     "name" = "bkp_net"
@@ -64,6 +64,13 @@ variable "cloud_connection_speed" {
   default     = "5000"
 }
 
+variable "ibmcloud_api_key" {
+  description = "IBM Cloud Api Key"
+  sensitive   = true
+  type        = string
+}
+
+
 #####################################################
 # Optional Parameters
 #####################################################
@@ -75,7 +82,7 @@ variable "resource_tags" {
 }
 
 variable "cloud_connection_gr" {
-  description = "Enable global routing for this cloud connection.Can be specified when creating new connection"
+  description = "Enable global routing for this cloud connection. Can be specified when creating new connection"
   type        = bool
   default     = true
 }
@@ -84,11 +91,4 @@ variable "cloud_connection_metered" {
   description = "Enable metered for this cloud connection. Can be specified when creating new connection"
   type        = bool
   default     = false
-}
-
-variable "ibmcloud_api_key" {
-  description = "IBM Cloud Api Key"
-  sensitive   = true
-  type        = string
-  default     = null
 }

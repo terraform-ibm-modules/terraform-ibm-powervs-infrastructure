@@ -1,4 +1,4 @@
-# PowerVS Infrastructure Module Example
+# PowerVS Infrastructure Module Example Using Workspace
 
 This example does the following jobs:
 - Creates the PowerVS service
@@ -39,8 +39,7 @@ This example illustrates how to use the `power-infrastructure` module.
 | <a name="input_cloud_connection_gr"></a> [cloud\_connection\_gr](#input\_cloud\_connection\_gr) | Enable global routing for this cloud connection.Can be specified when creating new connection | `bool` | `true` | no |
 | <a name="input_cloud_connection_metered"></a> [cloud\_connection\_metered](#input\_cloud\_connection\_metered) | Enable metered for this cloud connection. Can be specified when creating new connection | `bool` | `false` | no |
 | <a name="input_cloud_connection_speed"></a> [cloud\_connection\_speed](#input\_cloud\_connection\_speed) | Speed in megabits per sec. Supported values are 50, 100, 200, 500, 1000, 2000, 5000, 10000. Required when creating new connection | `string` | `"5000"` | no |
-| <a name="input_ibm_pvs_zone_region_map"></a> [ibm\_pvs\_zone\_region\_map](#input\_ibm\_pvs\_zone\_region\_map) | Map of IBM Power VS zone to the region of PowerVS Infrastructure | `map(any)` | <pre>{<br>  "dal12": "us-south",<br>  "eu-de-1": "eu-de",<br>  "eu-de-2": "eu-de",<br>  "lon04": "lon",<br>  "lon06": "lon",<br>  "osa21": "osa",<br>  "sao01": "sao",<br>  "syd04": "syd",<br>  "syd05": "syd",<br>  "tok04": "tok",<br>  "tor01": "tor",<br>  "us-east": "us-east",<br>  "us-south": "us-south"<br>}</pre> | no |
-| <a name="input_ibmcloud_api_key"></a> [ibmcloud\_api\_key](#input\_ibmcloud\_api\_key) | IBM Cloud Api Key | `string` | `null` | no |
+| <a name="input_ibmcloud_api_key"></a> [ibmcloud\_api\_key](#input\_ibmcloud\_api\_key) | IBM Cloud Api Key | `string` | n/a | yes |
 | <a name="input_prefix"></a> [prefix](#input\_prefix) | Prefix for resources which will be created. | `string` | n/a | yes |
 | <a name="input_pvs_backup_network"></a> [pvs\_backup\_network](#input\_pvs\_backup\_network) | PowerVS Backup Network name and cidr which will be created. | `map(any)` | <pre>{<br>  "cidr": "10.52.0.0/24",<br>  "name": "bkp_net"<br>}</pre> | no |
 | <a name="input_pvs_management_network"></a> [pvs\_management\_network](#input\_pvs\_management\_network) | PowerVS Management Subnet name and cidr which will be created. | `map(any)` | <pre>{<br>  "cidr": "10.51.0.0/24",<br>  "name": "mgmt_net"<br>}</pre> | no |

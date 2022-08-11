@@ -72,6 +72,12 @@ variable "cloud_connection_speed" {
   default     = "5000"
 }
 
+variable "ibmcloud_api_key" {
+  description = "IBM Cloud Api Key"
+  sensitive   = true
+  type        = string
+}
+
 #####################################################
 # Optional Parameters
 #####################################################
@@ -92,30 +98,4 @@ variable "cloud_connection_metered" {
   description = "Enable metered for this cloud connection. Can be specified when creating new connection"
   type        = bool
   default     = false
-}
-
-variable "ibmcloud_api_key" {
-  description = "IBM Cloud Api Key"
-  type        = string
-  default     = null
-}
-
-variable "ibm_pvs_zone_region_map" {
-  description = "Map of IBM Power VS zone to the region of PowerVS Infrastructure"
-  type        = map(any)
-  default = {
-    "syd04"    = "syd"
-    "syd05"    = "syd"
-    "eu-de-1"  = "eu-de"
-    "eu-de-2"  = "eu-de"
-    "lon04"    = "lon"
-    "lon06"    = "lon"
-    "tok04"    = "tok"
-    "us-east"  = "us-east"
-    "us-south" = "us-south"
-    "dal12"    = "us-south"
-    "tor01"    = "tor"
-    "osa21"    = "osa"
-    "sao01"    = "sao"
-  }
 }
