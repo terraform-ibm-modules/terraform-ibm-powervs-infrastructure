@@ -41,8 +41,8 @@ module "power-infrastructure" {
 <!-- BEGIN EXAMPLES HOOK -->
 ## Examples
 
-- [ Basic PowerVS Infrastructure Module Example](examples/basic)
-- [ PowerVS Infrastructure Module Example Using Workspace](examples/with_workspace)
+- [# PowerVS Infrastructure Module Example Using Workspace](examples/with_workspace)
+- [# Basic PowerVS Infrastructure Module Example](examples/basic)
 <!-- END EXAMPLES HOOK -->
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

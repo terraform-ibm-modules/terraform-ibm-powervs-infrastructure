@@ -1,15 +1,31 @@
 # Basic PowerVS Infrastructure Module Example
 
+
+This example illustrates how to use the `power-infrastructure` module. It provisions the following infrastructure:
+- Creates a [PowerVS service instance](https://cloud.ibm.com/docs/power-iaas?topic=power-iaas-getting-started) with the following network topology:
+   - 2 private networks: management network and backup network
+   - 1 [IBM Cloud connection](https://cloud.ibm.com/docs/power-iaas?topic=power-iaas-cloud-connections), with the option to reuse existing IBM Cloud connections
+   - The IBM Cloud connections are attached to a [transit gateway](https://cloud.ibm.com/docs/transit-gateway?topic=transit-gateway-getting-started)
+   - Attaches the PowerVS service instance private networks to the IBM Cloud connections
+- Creates a ssh key
+
+:warning: For experimentation purposes only.
+For ease of use, this quick start example generates a private/public ssh key pair. The private key generated in this example will be stored unencrypted in your Terraform state file.
+Use of this resource for production deployments is not recommended. Instead, generate a ssh key pair outside of Terraform and pass the public key via the [ssh_public_key input](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/tree/v0.1#input_ssh_public_key)
+
+
+
+
 This example does the following jobs:
 - Creates the PowerVS service
-- Creates A ssh key
+- Creates a ssh key
 - Creates 2 private networks: management network and backup network
 - Creates 1 cloud connection/ option to reuse cloud connections
 - Attaches the cloud connections to transit gateway
 - Attaches the private networks to cloud connections
 
 
-This example illustrates how to use the `power-infrastructure` module.
+
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
