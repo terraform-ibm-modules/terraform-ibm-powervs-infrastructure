@@ -13,20 +13,6 @@ This example illustrates how to use the `power-infrastructure` module. It provis
 For ease of use, this quick start example generates a private/public ssh key pair. The private key generated in this example will be stored unencrypted in your Terraform state file.
 Use of this resource for production deployments is not recommended. Instead, generate a ssh key pair outside of Terraform and pass the public key via the [ssh_public_key input](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/tree/v0.1#input_ssh_public_key)
 
-
-
-
-This example does the following jobs:
-- Creates the PowerVS service
-- Creates a ssh key
-- Creates 2 private networks: management network and backup network
-- Creates 1 cloud connection/ option to reuse cloud connections
-- Attaches the cloud connections to transit gateway
-- Attaches the private networks to cloud connections
-
-
-
-
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
