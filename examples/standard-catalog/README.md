@@ -1,4 +1,4 @@
-# Basic PowerVS Infrastructure Module Example
+# Catalog PowerVS Infrastructure Module Example
 
 
 This example illustrates how to use the `power-infrastructure` module. It provisions the following infrastructure:
