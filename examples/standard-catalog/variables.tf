@@ -1,5 +1,5 @@
-variable "workspace_id" {
-  description = "IBM cloud schematics workspace ID to reuse values from other workspaces"
+variable "slz_workspace_id" {
+  description = "IBM cloud schematics workspace ID to reuse values from SLZ workspace"
   type        = string
   default     = null
 }
