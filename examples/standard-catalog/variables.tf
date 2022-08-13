@@ -16,20 +16,20 @@ variable "pvs_resource_group_name" {
 
 variable "pvs_management_network" {
   description = "PowerVS Management Subnet name and cidr which will be created."
-  type        = map
-  default    = {
-                 "name" = "mgmt_net"
-                 "cidr" = "10.51.0.0/24"
-               }
+  type        = map(any)
+  default = {
+    "name" = "mgmt_net"
+    "cidr" = "10.51.0.0/24"
+  }
 }
 
 variable "pvs_backup_network" {
   description = "PowerVS Backup Network name and cidr which will be created."
-  type        = map
-  default    = {
-                 "name" = "bkp_net"
-                 "cidr" = "10.52.0.0/24"
-               }
+  type        = map(any)
+  default = {
+    "name" = "bkp_net"
+    "cidr" = "10.52.0.0/24"
+  }
 }
 
 variable "reuse_cloud_connections" {

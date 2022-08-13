@@ -3,15 +3,15 @@
 #####################################################
 
 module "validate_vars" {
-  source                    = "./submodules/validate_variables"
-  cloud_connection_validate = { 
-                                reuse_cloud_connections = var.reuse_cloud_connections
-                                transit_gateway_name    = var.transit_gateway_name
-                              }
+  source = "./submodules/validate_variables"
+  cloud_connection_validate = {
+    reuse_cloud_connections = var.reuse_cloud_connections
+    transit_gateway_name    = var.transit_gateway_name
+  }
 }
 
 module "power_service" {
-  source                  = "./submodules/power_service"
+  source = "./submodules/power_service"
 
   pvs_zone                = var.pvs_zone
   pvs_resource_group_name = var.pvs_resource_group_name

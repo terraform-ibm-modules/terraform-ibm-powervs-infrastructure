@@ -43,7 +43,7 @@ variable "pvs_backup_network" {
   }
 }
 
-variable "transit_gateway_name" {  
+variable "transit_gateway_name" {
   description = "Name of the existing transit gateway. Required when creating new cloud connections"
   type        = string
   default     = null
