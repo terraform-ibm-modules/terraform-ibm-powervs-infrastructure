@@ -28,11 +28,11 @@ provider "ibm" {
 }
 
 data "ibm_schematics_workspace" "schematics_workspace" {
-  slz_workspace_id = var.slz_workspace_id
+  workspace_id = var.slz_workspace_id
 }
 
 data "ibm_schematics_output" "schematics_output" {
-  slz_workspace_id = var.slz_workspace_id
+  workspace_id = var.slz_workspace_id
   template_id  = data.ibm_schematics_workspace.schematics_workspace.runtime_data[0].id
 }
 
