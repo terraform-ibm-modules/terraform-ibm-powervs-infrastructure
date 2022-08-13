@@ -6,7 +6,7 @@ variable "cloud_connection_validate" {
                       })
   
   validation {
-    condition     = var.cloud_connection_validate.transit_gateway_name != null && var.cloud_connection_validate.transit_gateway_name != "" && !var.cloud_connection_validate.reuse_cloud_connections
+    condition     = (var.cloud_connection_validate.transit_gateway_name == null or var.cloud_connection_validate.transit_gateway_name == "") && var.cloud_connection_validate.reuse_cloud_connections
     error_message = "If resusing cloud connections, Transit gateway name must be provided."
   }
 }
