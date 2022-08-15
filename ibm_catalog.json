@@ -1,0 +1,123 @@
+{
+    "name": "terraform-ibm-powervs-catalog-powervs-sap-infrastructure",
+    "flavors": [
+        {
+            "label": "Standard",
+            "name": "standard",
+            "working_directory": "examples/standard-catalog",
+            "usage": "module \"power-infrastructure\" {\n   source                  = \"https://cm.globalcatalog.cloud.ibm.com/api/v1-beta/offering/source?archive=tgz\u0026kind=terraform\u0026name=terraform-ibm-powervs-catalog-powervs-sap-infrastructure\u0026version=1.1.0\"\n  }",
+            "compliance": {
+                "controls": [
+                    {
+                        "profile_name": "SAP on IBM Power compliance v0.1.2",
+                        "control_id": "AC-2(1)"
+                    },
+                    {
+                        "profile_name": "SAP on IBM Power compliance v0.1.2",
+                        "control_id": "AC-2(a)"
+                    },
+                    {
+                        "profile_name": "SAP on IBM Power compliance v0.1.2",
+                        "control_id": "AC-2(c)"
+                    },
+                    {
+                        "profile_name": "SAP on IBM Power compliance v0.1.2",
+                        "control_id": "AC-2(i)"
+                    },
+                    {
+                        "profile_name": "SAP on IBM Power compliance v0.1.2",
+                        "control_id": "AC-2(j)"
+                    },
+                    {
+                        "profile_name": "SAP on IBM Power compliance v0.1.2",
+                        "control_id": "AC-3"
+                    },
+                    {
+                        "profile_name": "SAP on IBM Power compliance v0.1.2",
+                        "control_id": "AC-4"
+                    },
+                    {
+                        "profile_name": "SAP on IBM Power compliance v0.1.2",
+                        "control_id": "AC-6-0"
+                    },
+                    {
+                        "profile_name": "SAP on IBM Power compliance v0.1.2",
+                        "control_id": "AU-2(a)"
+                    },
+                    {
+                        "profile_name": "SAP on IBM Power compliance v0.1.2",
+                        "control_id": "CA-7(a)"
+                    },
+                    {
+                        "profile_name": "SAP on IBM Power compliance v0.1.2",
+                        "control_id": "CM-2"
+                    },
+                    {
+                        "profile_name": "SAP on IBM Power compliance v0.1.2",
+                        "control_id": "CM-8(4)"
+                    },
+                    {
+                        "profile_name": "SAP on IBM Power compliance v0.1.2",
+                        "control_id": "IA-4"
+                    },
+                    {
+                        "profile_name": "SAP on IBM Power compliance v0.1.2",
+                        "control_id": "SC-8-0"
+                    },
+                    {
+                        "profile_name": "SAP on IBM Power compliance v0.1.2",
+                        "control_id": "RA-5(a)"
+                    },
+                    {
+                        "profile_name": "SAP on IBM Power compliance v0.1.2",
+                        "control_id": "SC-12"
+                    },
+                    {
+                        "profile_name": "SAP on IBM Power compliance v0.1.2",
+                        "control_id": "SC-13"
+                    },
+                    {
+                        "profile_name": "SAP on IBM Power compliance v0.1.2",
+                        "control_id": "SC-36"
+                    }
+                ]
+            },
+            "iam_permissions": [
+                {
+                    "role_crns": [
+                        "crn:v1:bluemix:public:iam::::serviceRole:Manager"
+                    ],
+                    "service_name": "power-iaas"
+                }
+            ],
+            "dependencies": [
+                {
+                    "flavors": [
+                        "power"
+                    ],
+                    "id": "a87ed9a5-d130-47a3-980b-5ceb1d4f9280-global",
+                    "name": "slz-vpc-with-vsis",
+                    "version": "^=0.0.20"
+                }
+            ],
+            "architecture": {
+                "features": [
+                    {
+                        "description": "1",
+                        "title": "PowerVS Service"
+                    }
+                ],
+                "diagrams": [
+                    {
+                        "diagram": {
+                            "caption": "IBM Power Virtual Service",
+                            "url": "https://globalcatalog.cloud.ibm.com/api/v1/goldeneye-artifacts/artifacts/sap_power_slz-infrastructure-layer.drawio.svg",
+                            "metadata": []
+                        },
+                        "description": "Building upon the management VPC and workload VPC that were previously created by using Secure Landing Zone VPC with VSIs, Power VS Infrastructure creates a Power Virtual Server instance. In the instance, Direct Link Connections provide consistent connectivity and access between the IBM Cloud Management VPC and Power Virtual Service networking zones. \n\n\n\n\nAfter the creation of the Power Virtual Server instance, the management VPC provides a secure virtual machine to access the Power Virtual Servers. The workload VPC provides virtual machines that run critical services such as Domain Name System, Lightweight Directory Access Protocol, and Network File System that are accessible to the Power Virtual Server service and LPARs."
+                    }
+                ]
+            }
+        }
+    ]
+}

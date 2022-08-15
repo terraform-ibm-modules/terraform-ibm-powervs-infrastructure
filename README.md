@@ -59,8 +59,8 @@ module "power-infrastructure" {
 |------|--------|---------|
 | <a name="module_cloud_connection_attach"></a> [cloud\_connection\_attach](#module\_cloud\_connection\_attach) | ./submodules/power_cloudconnection_attach | n/a |
 | <a name="module_cloud_connection_create"></a> [cloud\_connection\_create](#module\_cloud\_connection\_create) | ./submodules/power_cloudconnection_create | n/a |
+| <a name="module_initial_validation"></a> [initial\_validation](#module\_initial\_validation) | ./submodules/initial_validation | n/a |
 | <a name="module_power_service"></a> [power\_service](#module\_power\_service) | ./submodules/power_service | n/a |
-| <a name="module_validate_vars"></a> [validate\_vars](#module\_validate\_vars) | ./submodules/initial_validation | n/a |
 
 ## Resources
 

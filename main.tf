@@ -2,7 +2,7 @@
 # IBM Cloud PowerVS Configuration
 #####################################################
 
-module "validate_vars" {
+module "initial_validation" {
   source = "./submodules/initial_validation"
   cloud_connection_validate = {
     reuse_cloud_connections = var.reuse_cloud_connections
