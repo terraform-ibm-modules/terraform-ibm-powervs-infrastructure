@@ -1,5 +1,5 @@
-variable "workspace_id" {
-  description = "IBM cloud schematics workspace ID to reuse values from other workspaces. IF value is provided, then prefix and ssh_public_key are overridden. Taking values from the workspace"
+variable "slz_workspace_id" {
+  description = "IBM cloud schematics workspace ID to reuse values from SLZ workspace"
   type        = string
   default     = null
 }
@@ -11,28 +11,6 @@ variable "pvs_zone" {
 
 variable "pvs_resource_group_name" {
   description = "Existing Resource Group Name"
-  type        = string
-}
-
-variable "prefix" {
-  description = "Prefix for resources which will be created."
-  type        = string
-}
-
-variable "pvs_service_name" {
-  description = "Name of PowerVS service which will be created"
-  type        = string
-  default     = "power-service"
-}
-
-variable "pvs_sshkey_name" {
-  description = "Name of PowerVS SSH Key which will be created"
-  type        = string
-  default     = "ssh-key-pvs"
-}
-
-variable "ssh_public_key" {
-  description = "Public SSH Key for PowerVM creation.  IF workspace id is provided, then value is overridden."
   type        = string
 }
 
@@ -54,14 +32,14 @@ variable "pvs_backup_network" {
   }
 }
 
-variable "transit_gw_name" {
-  description = "Name of the existing transit gateway. EExisiting name must be provided when you want to create new cloud connections. When value is null, cloud connections will be reused (and is already attached to Transit gateway)"
-  type        = string
-  default     = null
+variable "reuse_cloud_connections" {
+  description = "When the value is true, cloud connections will be reused (and is already attached to Transit gateway)"
+  type        = bool
+  default     = false
 }
 
 variable "cloud_connection_count" {
-  description = "Required number of Cloud connections which will be created. Ignore when Transit gateway is empty. Maximum is 2 per location"
+  description = "Required number of Cloud connections which will be created/Reused. Maximum is 2 per location"
   type        = string
   default     = 2
 }
@@ -70,12 +48,6 @@ variable "cloud_connection_speed" {
   description = "Speed in megabits per sec. Supported values are 50, 100, 200, 500, 1000, 2000, 5000, 10000. Required when creating new connection"
   type        = string
   default     = "5000"
-}
-
-variable "ibmcloud_api_key" {
-  description = "IBM Cloud Api Key"
-  sensitive   = true
-  type        = string
 }
 
 #####################################################
@@ -98,4 +70,10 @@ variable "cloud_connection_metered" {
   description = "Enable metered for this cloud connection. Can be specified when creating new connection"
   type        = bool
   default     = false
+}
+
+variable "ibmcloud_api_key" {
+  description = "IBM Cloud Api Key"
+  type        = string
+  default     = null
 }
