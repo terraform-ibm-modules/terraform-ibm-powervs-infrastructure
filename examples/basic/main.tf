@@ -79,7 +79,8 @@ module "pvs" {
   ssh_public_key           = ibm_is_ssh_key.ssh_key.public_key
   pvs_management_network   = var.pvs_management_network
   pvs_backup_network       = var.pvs_backup_network
-  transit_gw_name          = var.transit_gw_name
+  transit_gateway_name     = var.transit_gateway_name
+  reuse_cloud_connections  = var.reuse_cloud_connections
   cloud_connection_count   = var.cloud_connection_count
   cloud_connection_speed   = var.cloud_connection_speed
   cloud_connection_gr      = var.cloud_connection_gr

@@ -19,7 +19,7 @@ variable "pvs_subnet_names" {
 }
 
 variable "cloud_connection_count" {
-  description = "Required number of Cloud connections which will be created. Ignore when Transit gateway is empty. Maximum is 2 per location"
+  description = "Required number of Cloud connections which will be created/Reused. Maximum is 2 per location"
   type        = string
   default     = 2
 }

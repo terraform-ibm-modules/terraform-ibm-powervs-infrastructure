@@ -46,14 +46,20 @@ variable "pvs_backup_network" {
   }
 }
 
-variable "transit_gw_name" {
-  description = "Name of the existing transit gateway. Existing name must be provided when you want to create new cloud connections. When value is null, cloud connections will be reused (and is already attached to Transit gateway)"
+variable "transit_gateway_name" {
+  description = "Name of the existing transit gateway. Existing name must be provided when you want to create new cloud connections."
   type        = string
   default     = null
 }
 
+variable "reuse_cloud_connections" {
+  description = "When the value is true, cloud connections will be reused (and is already attached to Transit gateway)"
+  type        = bool
+  default     = true
+}
+
 variable "cloud_connection_count" {
-  description = "Required number of Cloud connections which will be created. Ignore when Transit gateway is empty. Maximum is 2 per location"
+  description = "Required number of Cloud connections which will be created/Reused. Maximum is 2 per location"
   type        = string
   default     = 1
 }

@@ -2,6 +2,14 @@
 # IBM Cloud PowerVS Configuration
 #####################################################
 
+module "validate_vars" {
+  source = "./submodules/initial_validation"
+  cloud_connection_validate = {
+    reuse_cloud_connections = var.reuse_cloud_connections
+    transit_gateway_name    = var.transit_gateway_name
+  }
+}
+
 module "power_service" {
   source = "./submodules/power_service"
 
@@ -18,11 +26,11 @@ module "power_service" {
 module "cloud_connection_create" {
   source                   = "./submodules/power_cloudconnection_create"
   depends_on               = [module.power_service]
-  count                    = var.transit_gw_name != null && var.transit_gw_name != "" ? 1 : 0
+  count                    = var.reuse_cloud_connections ? 0 : 1
   pvs_zone                 = var.pvs_zone
   pvs_resource_group_name  = var.pvs_resource_group_name
   pvs_service_name         = var.pvs_service_name
-  transit_gw_name          = var.transit_gw_name
+  transit_gateway_name     = var.transit_gateway_name
   cloud_connection_count   = var.cloud_connection_count
   cloud_connection_speed   = var.cloud_connection_speed
   cloud_connection_gr      = var.cloud_connection_gr
