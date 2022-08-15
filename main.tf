@@ -3,7 +3,7 @@
 #####################################################
 
 module "validate_vars" {
-  source = "./submodules/validate_variables"
+  source = "./submodules/initial_validation"
   cloud_connection_validate = {
     reuse_cloud_connections = var.reuse_cloud_connections
     transit_gateway_name    = var.transit_gateway_name
