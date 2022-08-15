@@ -28,6 +28,7 @@ module "power-infrastructure" {
   ssh_public_key              = var.ssh_public_key
   pvs_management_network      = var.pvs_management_network
   pvs_backup_network          = var.pvs_backup_network
+  reuse_cloud_connections     = var.reuse_cloud_connections
   transit_gateway_name        = var.transit_gateway_name
   cloud_connection_count      = var.cloud_connection_count
   cloud_connection_speed      = var.cloud_connection_speed
