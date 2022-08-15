@@ -13,14 +13,14 @@ variable "pvs_service_name" {
   type        = string
 }
 
-variable "transit_gateway_name" {
-  description = "Name of the existing transit gateway. Required when creating new cloud connections"
+variable "transit_gw_name" {
+  description = "Name of the existing transit gateway. If empty / null, cloud connections will be reused."
   type        = string
   default     = null
 }
 
 variable "cloud_connection_count" {
-  description = "Required number of Cloud connections which will be created/Reused. Maximum is 2 per location"
+  description = "Required number of Cloud connections which will be created. Ignore when Transit gateway is empty. Maximum is 2 per location"
   type        = string
   default     = 2
 }

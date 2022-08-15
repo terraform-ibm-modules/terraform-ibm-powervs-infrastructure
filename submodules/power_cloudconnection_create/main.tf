@@ -47,7 +47,7 @@ resource "ibm_pi_cloud_connection" "cloud_connection_backup" {
 #####################################################
 
 data "ibm_tg_gateway" "tg_gateway_ds" {
-  name = var.transit_gateway_name
+  name = var.transit_gw_name
 }
 
 #####################################################
