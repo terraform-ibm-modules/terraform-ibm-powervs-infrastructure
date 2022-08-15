@@ -1,0 +1,204 @@
+{
+  "path": ".",
+  "variables": {
+    "cloud_connection_count": {
+      "name": "cloud_connection_count",
+      "type": "string",
+      "description": "Required number of Cloud connections which will be created. Ignore when Transit gateway is empty. Maximum is 2 per location",
+      "default": 2,
+      "pos": {
+        "filename": "variables.tf",
+        "line": 50
+      }
+    },
+    "cloud_connection_gr": {
+      "name": "cloud_connection_gr",
+      "type": "bool",
+      "description": "Enable global routing for this cloud connection.Can be specified when creating new connection",
+      "pos": {
+        "filename": "variables.tf",
+        "line": 72
+      }
+    },
+    "cloud_connection_metered": {
+      "name": "cloud_connection_metered",
+      "type": "bool",
+      "description": "Enable metered for this cloud connection. Can be specified when creating new connection",
+      "pos": {
+        "filename": "variables.tf",
+        "line": 78
+      }
+    },
+    "cloud_connection_speed": {
+      "name": "cloud_connection_speed",
+      "type": "string",
+      "description": "Speed in megabits per sec. Supported values are 50, 100, 200, 500, 1000, 2000, 5000, 10000. Required when creating new connection",
+      "pos": {
+        "filename": "variables.tf",
+        "line": 56
+      }
+    },
+    "pvs_backup_network": {
+      "name": "pvs_backup_network",
+      "type": "map(any)",
+      "description": "IBM Cloud PowerVS Backup Network name and cidr which will be created",
+      "default": {
+        "cidr": "10.52.0.0/24",
+        "name": "bkp_net"
+      },
+      "pos": {
+        "filename": "variables.tf",
+        "line": 35
+      }
+    },
+    "pvs_management_network": {
+      "name": "pvs_management_network",
+      "type": "map(any)",
+      "description": "IBM Cloud PowerVS Management Subnet name and cidr which will be created",
+      "default": {
+        "cidr": "10.51.0.0/24",
+        "name": "mgmt_net"
+      },
+      "pos": {
+        "filename": "variables.tf",
+        "line": 26
+      }
+    },
+    "pvs_resource_group_name": {
+      "name": "pvs_resource_group_name",
+      "type": "string",
+      "description": "Existing Resource Group Name",
+      "required": true,
+      "pos": {
+        "filename": "variables.tf",
+        "line": 6
+      }
+    },
+    "pvs_service_name": {
+      "name": "pvs_service_name",
+      "type": "string",
+      "description": "Name of IBM Cloud PowerVS service which will be created",
+      "required": true,
+      "pos": {
+        "filename": "variables.tf",
+        "line": 11
+      }
+    },
+    "pvs_sshkey_name": {
+      "name": "pvs_sshkey_name",
+      "type": "string",
+      "description": "Name of IBM Cloud PowerVS SSH Key which will be created",
+      "required": true,
+      "pos": {
+        "filename": "variables.tf",
+        "line": 16
+      }
+    },
+    "pvs_zone": {
+      "name": "pvs_zone",
+      "type": "string",
+      "description": "IBM Cloud PowerVS Zone",
+      "required": true,
+      "pos": {
+        "filename": "variables.tf",
+        "line": 1
+      }
+    },
+    "ssh_public_key": {
+      "name": "ssh_public_key",
+      "type": "string",
+      "description": "Public SSH Key for PowerVM creation",
+      "required": true,
+      "pos": {
+        "filename": "variables.tf",
+        "line": 21
+      }
+    },
+    "tags": {
+      "name": "tags",
+      "type": "list(string)",
+      "description": "List of Tag names for IBM Cloud PowerVS service",
+      "pos": {
+        "filename": "variables.tf",
+        "line": 66
+      }
+    },
+    "transit_gw_name": {
+      "name": "transit_gw_name",
+      "type": "string",
+      "description": "Name of the existing transit gateway. If empty / null, cloud connections will be reused",
+      "pos": {
+        "filename": "variables.tf",
+        "line": 44
+      }
+    }
+  },
+  "outputs": {},
+  "required_core": [
+    "\u003e= 1.1.0"
+  ],
+  "required_providers": {
+    "ibm": {
+      "source": "IBM-Cloud/ibm",
+      "version_constraints": [
+        "\u003e= 1.21.0"
+      ]
+    }
+  },
+  "managed_resources": {},
+  "data_resources": {},
+  "module_calls": {
+    "cloud_connection_attach": {
+      "name": "cloud_connection_attach",
+      "source": "./submodules/power_cloudconnection_attach",
+      "attributes": {
+        "cloud_connection_count": "cloud_connection_count",
+        "pvs_resource_group_name": "pvs_resource_group_name",
+        "pvs_service_name": "pvs_service_name",
+        "pvs_subnet_names": "pvs_management_network",
+        "pvs_zone": "pvs_zone"
+      },
+      "pos": {
+        "filename": "main.tf",
+        "line": 33
+      }
+    },
+    "cloud_connection_create": {
+      "name": "cloud_connection_create",
+      "source": "./submodules/power_cloudconnection_create",
+      "attributes": {
+        "cloud_connection_count": "cloud_connection_count",
+        "cloud_connection_gr": "cloud_connection_gr",
+        "cloud_connection_metered": "cloud_connection_metered",
+        "cloud_connection_speed": "cloud_connection_speed",
+        "count": "transit_gw_name",
+        "pvs_resource_group_name": "pvs_resource_group_name",
+        "pvs_service_name": "pvs_service_name",
+        "pvs_zone": "pvs_zone",
+        "transit_gw_name": "transit_gw_name"
+      },
+      "pos": {
+        "filename": "main.tf",
+        "line": 18
+      }
+    },
+    "power_service": {
+      "name": "power_service",
+      "source": "./submodules/power_service",
+      "attributes": {
+        "pvs_backup_network": "pvs_backup_network",
+        "pvs_management_network": "pvs_management_network",
+        "pvs_resource_group_name": "pvs_resource_group_name",
+        "pvs_service_name": "pvs_service_name",
+        "pvs_sshkey_name": "pvs_sshkey_name",
+        "pvs_zone": "pvs_zone",
+        "ssh_public_key": "ssh_public_key",
+        "tags": "tags"
+      },
+      "pos": {
+        "filename": "main.tf",
+        "line": 5
+      }
+    }
+  }
+}
