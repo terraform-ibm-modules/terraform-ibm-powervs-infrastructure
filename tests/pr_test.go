@@ -41,12 +41,11 @@ func TestRunDefaultExample(t *testing.T) {
 func TestRunUpgradeExample(t *testing.T) {
 	t.Parallel()
 
-	options := testhelper.TestOptionsDefaultWithVars(&testhelper.TestOptions{
+	options := testhelper.TestOptionsDefault(&testhelper.TestOptions{
 		Testing:       t,
 		TerraformDir:  defaultExampleTerraformDir,
-		Prefix:        prefix + "-upg",
 		ResourceGroup: resourceGroup,
-
+		Prefix:        prefix + "-upg",
 		TerraformVars: terraformVars,
 	})
 
