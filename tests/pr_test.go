@@ -44,7 +44,7 @@ func TestRunUpgradeExample(t *testing.T) {
 	options := testhelper.TestOptionsDefaultWithVars(&testhelper.TestOptions{
 		Testing:       t,
 		TerraformDir:  defaultExampleTerraformDir,
-		Prefix:        prefix + "-upg,
+		Prefix:        prefix + "-upg",
 		ResourceGroup: resourceGroup,
 
 		TerraformVars: terraformVars,
