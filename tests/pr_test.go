@@ -36,7 +36,7 @@ func TestRunDefaultExample(t *testing.T) {
 		TerraformDir:  defaultExampleTerraformDir,
 		ResourceGroup: resourceGroup,
 		Prefix:        prefix,
-		TerraformVars: terraformVars,
+		TerraformVars: terraformVarsStandard,
 	})
 
 	output, err := options.RunTestConsistency()
