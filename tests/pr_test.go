@@ -21,7 +21,7 @@ var terraformVarsStandard = map[string]interface{}{
 	"prefix":         prefix,
 }
 
-# Upgrade test must use different prefix to standard test to avoid name clashes
+// Upgrade test must use different prefix to standard test to avoid name clashes
 var prefixUpg = prefix + "-upg"
 var terraformVarsUpgrade = map[string]interface{}{
 	"resource_group": resourceGroup,
