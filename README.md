@@ -1,12 +1,12 @@
 # PowerVS Infrastructure Module
 
-It does the following jobs:
-- Creates the PowerVS service
-- Creates A ssh key
-- Creates 2 private networks: management network and backup network
-- Creates 2 cloud connections/ option to reuse cloud connections
-- Attaches the cloud connections to transit gateway
-- Attaches the private networks to cloud connections
+- Creates a [PowerVS service instance](https://cloud.ibm.com/docs/power-iaas?topic=power-iaas-getting-started) with the following network topology:
+   - 2 private networks: management network and backup network
+   - 2 [IBM Cloud connection](https://cloud.ibm.com/docs/power-iaas?topic=power-iaas-cloud-connections), with the option to reuse existing IBM Cloud connections
+   - Attaches the new cloud connections to the exisiting [transit gateway](https://cloud.ibm.com/docs/transit-gateway?topic=transit-gateway-getting-started)
+   - Attaches the PowerVS service instance private networks to the new/resused IBM Cloud connections
+- Creates a ssh key
+- Option to Install and Configure the VSIs with NTP, NFS, SQUID, DNS services to act as servers for the services
 
 ## Usage
 ```
@@ -26,15 +26,20 @@ module "power-infrastructure" {
   tags                        = var.tags
   pvs_sshkey_name             = var.pvs_sshkey_name
   ssh_public_key              = var.ssh_public_key
+  ssh_private_key             = var.ssh_private_key               # pragma: allowlist secret
   pvs_management_network      = var.pvs_management_network
   pvs_backup_network          = var.pvs_backup_network
-  reuse_cloud_connections     = var.reuse_cloud_connections
   transit_gateway_name        = var.transit_gateway_name
+  reuse_cloud_connections     = var.reuse_cloud_connections
   cloud_connection_count      = var.cloud_connection_count
   cloud_connection_speed      = var.cloud_connection_speed
   cloud_connection_gr         = var.cloud_connection_gr
   cloud_connection_metered    = var.cloud_connection_metered
-  ibmcloud_api_key            = var.ibmcloud_api_key
+  access_host_or_ip           = var.access_host_or_ip
+  squid_config                = var.squid_config
+  dns_forwarder_config        = var.dns_forwarder_config
+  ntp_forwarder_config        = var.ntp_forwarder_config
+  nfs_config                  = var.nfs_config
 }
 ```
 
@@ -61,6 +66,10 @@ module "power-infrastructure" {
 | <a name="module_cloud_connection_attach"></a> [cloud\_connection\_attach](#module\_cloud\_connection\_attach) | ./submodules/power_cloudconnection_attach | n/a |
 | <a name="module_cloud_connection_create"></a> [cloud\_connection\_create](#module\_cloud\_connection\_create) | ./submodules/power_cloudconnection_create | n/a |
 | <a name="module_initial_validation"></a> [initial\_validation](#module\_initial\_validation) | ./submodules/initial_validation | n/a |
+| <a name="module_power_management_service_dns"></a> [power\_management\_service\_dns](#module\_power\_management\_service\_dns) | ./submodules/power_management_services_setup | n/a |
+| <a name="module_power_management_service_nfs"></a> [power\_management\_service\_nfs](#module\_power\_management\_service\_nfs) | ./submodules/power_management_services_setup | n/a |
+| <a name="module_power_management_service_ntp"></a> [power\_management\_service\_ntp](#module\_power\_management\_service\_ntp) | ./submodules/power_management_services_setup | n/a |
+| <a name="module_power_management_service_squid"></a> [power\_management\_service\_squid](#module\_power\_management\_service\_squid) | ./submodules/power_management_services_setup | n/a |
 | <a name="module_power_service"></a> [power\_service](#module\_power\_service) | ./submodules/power_service | n/a |
 
 ## Resources
@@ -71,10 +80,14 @@ No resources.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| <a name="input_access_host_or_ip"></a> [access\_host\_or\_ip](#input\_access\_host\_or\_ip) | Jump/Bastion server Public IP to reach the target/server\_host ip to configure the DNS,NTP,NFS,SQUID services | `string` | n/a | yes |
 | <a name="input_cloud_connection_count"></a> [cloud\_connection\_count](#input\_cloud\_connection\_count) | Required number of Cloud connections which will be created/Reused. Maximum is 2 per location | `string` | `2` | no |
 | <a name="input_cloud_connection_gr"></a> [cloud\_connection\_gr](#input\_cloud\_connection\_gr) | Enable global routing for this cloud connection.Can be specified when creating new connection | `bool` | `null` | no |
 | <a name="input_cloud_connection_metered"></a> [cloud\_connection\_metered](#input\_cloud\_connection\_metered) | Enable metered for this cloud connection. Can be specified when creating new connection | `bool` | `null` | no |
 | <a name="input_cloud_connection_speed"></a> [cloud\_connection\_speed](#input\_cloud\_connection\_speed) | Speed in megabits per sec. Supported values are 50, 100, 200, 500, 1000, 2000, 5000, 10000. Required when creating new connection | `string` | `5000` | no |
+| <a name="input_dns_forwarder_config"></a> [dns\_forwarder\_config](#input\_dns\_forwarder\_config) | Configure DNS forwarder to existing DNS service that is not reachable directly from PowerVS | `map(any)` | <pre>{<br>  "dns_enable": "false",<br>  "dns_servers": "161.26.0.7; 161.26.0.8; 9.9.9.9;",<br>  "server_host_or_ip": "inet-svs"<br>}</pre> | no |
+| <a name="input_nfs_config"></a> [nfs\_config](#input\_nfs\_config) | Configure shared NFS file system (e.g., for installation media) | `map(any)` | <pre>{<br>  "nfs_directory": "/nfs",<br>  "nfs_enable": "true",<br>  "server_host_or_ip": "private-svs"<br>}</pre> | no |
+| <a name="input_ntp_forwarder_config"></a> [ntp\_forwarder\_config](#input\_ntp\_forwarder\_config) | Configure NTP forwarder to existing NTP service that is not reachable directly from PowerVS | `map(any)` | <pre>{<br>  "ntp_enable": "false",<br>  "server_host_or_ip": "inet-svs"<br>}</pre> | no |
 | <a name="input_pvs_backup_network"></a> [pvs\_backup\_network](#input\_pvs\_backup\_network) | IBM Cloud PowerVS Backup Network name and cidr which will be created | `map(any)` | <pre>{<br>  "cidr": "10.52.0.0/24",<br>  "name": "bkp_net"<br>}</pre> | no |
 | <a name="input_pvs_management_network"></a> [pvs\_management\_network](#input\_pvs\_management\_network) | IBM Cloud PowerVS Management Subnet name and cidr which will be created | `map(any)` | <pre>{<br>  "cidr": "10.51.0.0/24",<br>  "name": "mgmt_net"<br>}</pre> | no |
 | <a name="input_pvs_resource_group_name"></a> [pvs\_resource\_group\_name](#input\_pvs\_resource\_group\_name) | Existing Resource Group Name | `string` | n/a | yes |
@@ -82,6 +95,8 @@ No resources.
 | <a name="input_pvs_sshkey_name"></a> [pvs\_sshkey\_name](#input\_pvs\_sshkey\_name) | Name of PowerVS SSH Key which will be created | `string` | `"ssh-key-pvs"` | no |
 | <a name="input_pvs_zone"></a> [pvs\_zone](#input\_pvs\_zone) | IBM Cloud PowerVS Zone | `string` | n/a | yes |
 | <a name="input_reuse_cloud_connections"></a> [reuse\_cloud\_connections](#input\_reuse\_cloud\_connections) | When the value is true, cloud connections will be reused (and is already attached to Transit gateway) | `bool` | `false` | no |
+| <a name="input_squid_config"></a> [squid\_config](#input\_squid\_config) | Configure DNS forwarder to existing DNS service that is not reachable directly from PowerVS | `map(any)` | <pre>{<br>  "server_host_or_ip": "inet-svs",<br>  "squid_enable": "false"<br>}</pre> | no |
+| <a name="input_ssh_private_key"></a> [ssh\_private\_key](#input\_ssh\_private\_key) | SSh private key value to login to server. It will not be uploaded / stored anywhere. | `string` | n/a | yes |
 | <a name="input_ssh_public_key"></a> [ssh\_public\_key](#input\_ssh\_public\_key) | Public SSH Key for PowerVM creation | `string` | n/a | yes |
 | <a name="input_tags"></a> [tags](#input\_tags) | List of Tag names for IBM Cloud PowerVS service | `list(string)` | `null` | no |
 | <a name="input_transit_gateway_name"></a> [transit\_gateway\_name](#input\_transit\_gateway\_name) | Name of the existing transit gateway. Required when creating new cloud connections | `string` | `null` | no |

@@ -1,8 +1,3 @@
-#####################################################
-# PowerVS Infrastructure configuration Configuration
-# Copyright 2022 IBM
-#####################################################
-
 locals {
   ibm_pvs_zone_region_map = {
     "syd04"    = "syd"
@@ -36,6 +31,29 @@ data "ibm_schematics_output" "schematics_output" {
   template_id  = data.ibm_schematics_workspace.schematics_workspace.runtime_data[0].id
 }
 
+locals {
+  squid_config = {
+    "squid_enable"      = var.configure_proxy
+    "server_host_or_ip" = "10.10.10.6"
+    #data.ibm_schematics_output.schematics_output.output_values.inet-svs.ip
+  }
+  dns_forwarder_config = merge({
+    "dns_enable"        = var.configure_dns_forwarder
+    "server_host_or_ip" = "10.10.10.6"
+    #data.ibm_schematics_output.schematics_output.output_values.inet-svs.ip
+  }, var.dns_config)
+  ntp_forwarder_config = {
+    "ntp_enable"        = var.configure_ntp_forwarder
+    "server_host_or_ip" = "10.10.10.6"
+    #data.ibm_schematics_output.schematics_output.output_values.private_svs.ip
+  }
+  nfs_config = merge({
+    "nfs_enable"        = var.configure_nfs_server
+    "server_host_or_ip" = "10.10.10.6"
+    #data.ibm_schematics_output.schematics_output.output_values.private_svs.ip
+  }, var.nfs_config)
+}
+
 module "powervs_infra" {
   source = "../.."
 
@@ -45,6 +63,7 @@ module "powervs_infra" {
   tags                     = var.tags
   pvs_sshkey_name          = "${data.ibm_schematics_output.schematics_output.output_values.prefix}-ssh-pvs-key"
   ssh_public_key           = data.ibm_schematics_output.schematics_output.output_values.ssh_public_key
+  ssh_private_key          = var.ssh_private_key
   pvs_management_network   = var.pvs_management_network
   pvs_backup_network       = var.pvs_backup_network
   transit_gateway_name     = data.ibm_schematics_output.schematics_output.output_values.transit_gateway_name
@@ -53,4 +72,10 @@ module "powervs_infra" {
   cloud_connection_speed   = var.cloud_connection_speed
   cloud_connection_gr      = var.cloud_connection_gr
   cloud_connection_metered = var.cloud_connection_metered
+  access_host_or_ip        = "159.23.89.11"
+  #data.ibm_schematics_output.schematics_output.output_values.jump-box.ip
+  squid_config         = local.squid_config
+  dns_forwarder_config = local.dns_forwarder_config
+  ntp_forwarder_config = local.ntp_forwarder_config
+  nfs_config           = local.nfs_config
 }

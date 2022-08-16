@@ -32,10 +32,40 @@ variable "pvs_backup_network" {
   }
 }
 
+variable "ssh_private_key" {
+  description = "SSH private key value to login to servers. It will not be uploaded / stored anywhere."
+  type        = string
+  sensitive   = true
+}
+
 variable "reuse_cloud_connections" {
   description = "When the value is true, cloud connections will be reused (and is already attached to Transit gateway)"
   type        = bool
   default     = false
+}
+
+variable "configure_proxy" {
+  description = "Specify if SQUID proxy will be configured. Proxy is mandatory for the landscape, so set this to 'false' only if proxy already exists."
+  type        = bool
+  default     = true
+}
+
+variable "configure_dns_forwarder" {
+  description = "Specify if DNS forwarder will be configured. If yes, ensure 'dns_config' optional variable is set properly."
+  type        = bool
+  default     = true
+}
+
+variable "configure_ntp_forwarder" {
+  description = "Specify if NTP forwarder will be configured."
+  type        = bool
+  default     = true
+}
+
+variable "configure_nfs_server" {
+  description = "Specify if NFS forwarder will be configured. If yes, ensure 'nfs_config' optional variable is set properly."
+  type        = bool
+  default     = true
 }
 
 variable "cloud_connection_count" {
@@ -72,8 +102,25 @@ variable "cloud_connection_metered" {
   default     = false
 }
 
+variable "dns_config" {
+  description = "Configure DNS forwarder to existing DNS service that is not reachable directly from PowerVS"
+  type        = map(any)
+  default = {
+    "dns_servers" = "161.26.0.7; 161.26.0.8; 9.9.9.9;"
+  }
+}
+
+variable "nfs_config" {
+  description = "Configure shared NFS file system (e.g., for installation media). Semicolon separated values."
+  type        = map(any)
+  default = {
+    "nfs_directory" = "/nfs"
+  }
+}
+
 variable "ibmcloud_api_key" {
   description = "IBM Cloud Api Key"
   type        = string
   default     = null
+  sensitive   = true
 }

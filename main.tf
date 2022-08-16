@@ -47,3 +47,51 @@ module "cloud_connection_attach" {
   cloud_connection_count  = var.cloud_connection_count
   pvs_subnet_names        = [var.pvs_management_network.name, var.pvs_backup_network.name]
 }
+
+module "power_management_service_squid" {
+
+  source     = "./submodules/power_management_services_setup"
+  depends_on = [module.cloud_connection_attach]
+  count      = var.squid_config["squid_enable"] ? 1 : 0
+
+  access_host_or_ip = var.access_host_or_ip
+  target_server_ip  = var.squid_config["server_host_or_ip"]
+  ssh_private_key   = var.ssh_private_key
+  service_config    = var.squid_config
+}
+
+module "power_management_service_dns" {
+
+  source     = "./submodules/power_management_services_setup"
+  depends_on = [module.cloud_connection_attach, module.power_management_service_squid]
+  count      = var.dns_forwarder_config["dns_enable"] ? 1 : 0
+
+  access_host_or_ip = var.access_host_or_ip
+  target_server_ip  = var.dns_forwarder_config["server_host_or_ip"]
+  ssh_private_key   = var.ssh_private_key
+  service_config    = var.dns_forwarder_config
+}
+
+module "power_management_service_ntp" {
+
+  source     = "./submodules/power_management_services_setup"
+  depends_on = [module.cloud_connection_attach, module.power_management_service_squid, module.power_management_service_dns]
+  count      = var.ntp_forwarder_config["ntp_enable"] ? 1 : 0
+
+  access_host_or_ip = var.access_host_or_ip
+  target_server_ip  = var.ntp_forwarder_config["server_host_or_ip"]
+  ssh_private_key   = var.ssh_private_key
+  service_config    = var.ntp_forwarder_config
+}
+
+module "power_management_service_nfs" {
+
+  source     = "./submodules/power_management_services_setup"
+  depends_on = [module.cloud_connection_attach, module.power_management_service_squid, module.power_management_service_dns, module.power_management_service_ntp]
+  count      = var.nfs_config["nfs_enable"] ? 1 : 0
+
+  access_host_or_ip = var.access_host_or_ip
+  target_server_ip  = var.nfs_config["server_host_or_ip"]
+  ssh_private_key   = var.ssh_private_key
+  service_config    = var.nfs_config
+}
