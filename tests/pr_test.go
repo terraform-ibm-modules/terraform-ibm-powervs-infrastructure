@@ -16,10 +16,16 @@ const resourceGroup = "geretain-test-resources"
 const defaultExampleTerraformDir = "examples/basic"
 
 var prefix = fmt.Sprintf("pvs-%s", strings.ToLower(random.UniqueId()))
-
-var terraformVars = map[string]interface{}{
+var terraformVarsStandard = map[string]interface{}{
 	"resource_group": resourceGroup,
 	"prefix":         prefix,
+}
+
+# Upgrade test must use different prefix to standard test to avoid name clashes
+var prefixUpg = prefix + "-upg"
+var terraformVarsUpgrade = map[string]interface{}{
+	"resource_group": resourceGroup,
+	"prefix":         prefixUpg,
 }
 
 func TestRunDefaultExample(t *testing.T) {
@@ -45,8 +51,8 @@ func TestRunUpgradeExample(t *testing.T) {
 		Testing:       t,
 		TerraformDir:  defaultExampleTerraformDir,
 		ResourceGroup: resourceGroup,
-		Prefix:        prefix + "-upg",
-		TerraformVars: terraformVars,
+		Prefix:        prefixUpg,
+		TerraformVars: terraformVarsUpgrade,
 	})
 
 	output, err := options.RunTestUpgrade()
