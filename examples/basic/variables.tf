@@ -76,6 +76,12 @@ variable "ibmcloud_api_key" {
   type        = string
 }
 
+variable "access_host_or_ip" {
+  description = "Jump/Access server public host name or IP address. This host name/IP is used to reach the landscape."
+  type        = string
+  default     = "not_used"
+}
+
 
 #####################################################
 # Optional Parameters

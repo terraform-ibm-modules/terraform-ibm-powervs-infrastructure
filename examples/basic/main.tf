@@ -64,7 +64,7 @@ resource "ibm_is_ssh_key" "ssh_key" {
   public_key = trimspace(tls_private_key.tls_key.public_key_openssh)
 }
 
-module "pvs" {
+module "powervs_infra" {
   providers = {
     ibm = ibm.ibm-pvs
   }
@@ -77,6 +77,8 @@ module "pvs" {
   tags                     = var.resource_tags
   pvs_sshkey_name          = "${var.prefix}-${var.pvs_sshkey_name}"
   ssh_public_key           = ibm_is_ssh_key.ssh_key.public_key
+  ssh_private_key          = trimspace(tls_private_key.tls_key.private_key_openssh)
+  access_host_or_ip        = var.access_host_or_ip
   pvs_management_network   = var.pvs_management_network
   pvs_backup_network       = var.pvs_backup_network
   transit_gateway_name     = var.transit_gateway_name
