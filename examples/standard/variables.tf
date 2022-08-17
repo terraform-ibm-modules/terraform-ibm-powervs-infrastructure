@@ -132,9 +132,7 @@ variable "cloud_connection_metered" {
 
 variable "squid_proxy_config" {
   description = "Configure SQUID proxy to use with IBM Cloud PowerVS instances."
-  type = object({
-    squid_proxy_host_or_ip = string
-  })
+  type        = map(any)
   default = {
     squid_proxy_host_or_ip = null
   }
@@ -151,9 +149,7 @@ variable "dns_forwarder_config" {
 
 variable "ntp_forwarder_config" {
   description = "Configure NTP forwarder to existing NTP service that is not reachable directly from PowerVS."
-  type = object({
-    ntp_forwarder_host_or_ip = string
-  })
+  type        = map(any)
   default = {
     ntp_forwarder_host_or_ip = null
   }
@@ -161,23 +157,10 @@ variable "ntp_forwarder_config" {
 
 variable "nfs_server_config" {
   description = "Configure shared NFS file system (e.g., for installation media)."
-  type = object({
-    nfs_server_host_or_ip = string
-    nfs_directory         = string
-  })
+  type        = map(any)
   default = {
     nfs_server_host_or_ip = null
     nfs_directory         = "/nfs"
-  }
-}
-
-variable "awscli_config" {
-  description = "Configure awscli in order to access data in IBM Cloud Object Storage."
-  type = object({
-    awscli_host_or_ip = string
-  })
-  default = {
-    awscli_host_or_ip = null
   }
 }
 

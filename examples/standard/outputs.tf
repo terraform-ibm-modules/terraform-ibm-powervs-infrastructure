@@ -23,16 +23,5 @@ output "entered_data_non_sensitive" {
     dns_forwarder_config         = var.dns_forwarder_config
     ntp_forwarder_config         = var.ntp_forwarder_config
     nfs_server_config            = var.nfs_server_config
-    awscli_config                = var.awscli_config
-    ibm_pvs_zone_region_map      = var.ibm_pvs_zone_region_map
   }
-}
-
-output "entered_data_sensitive" {
-  description = "User input (sensitive)"
-  value = {
-    ssh_private_key = var.ssh_private_key
-    ssh_public_key  = var.ssh_public_key
-  }
-  sensitive = true
 }
