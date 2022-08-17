@@ -40,6 +40,7 @@ module "power-infrastructure" {
   dns_forwarder_config        = var.dns_forwarder_config
   ntp_forwarder_config        = var.ntp_forwarder_config
   nfs_config                  = var.nfs_config
+  perform_proxy_client_setup  = var.perform_proxy_client_setup
 }
 ```
 
@@ -88,6 +89,7 @@ No resources.
 | <a name="input_dns_forwarder_config"></a> [dns\_forwarder\_config](#input\_dns\_forwarder\_config) | Configure DNS forwarder to existing DNS service that is not reachable directly from PowerVS | `map(any)` | <pre>{<br>  "dns_enable": "false",<br>  "dns_servers": "161.26.0.7; 161.26.0.8; 9.9.9.9;",<br>  "server_host_or_ip": "inet-svs"<br>}</pre> | no |
 | <a name="input_nfs_config"></a> [nfs\_config](#input\_nfs\_config) | Configure shared NFS file system (e.g., for installation media) | `map(any)` | <pre>{<br>  "nfs_directory": "/nfs",<br>  "nfs_enable": "true",<br>  "server_host_or_ip": "private-svs"<br>}</pre> | no |
 | <a name="input_ntp_forwarder_config"></a> [ntp\_forwarder\_config](#input\_ntp\_forwarder\_config) | Configure NTP forwarder to existing NTP service that is not reachable directly from PowerVS | `map(any)` | <pre>{<br>  "ntp_enable": "false",<br>  "server_host_or_ip": "inet-svs"<br>}</pre> | no |
+| <a name="input_perform_proxy_client_setup"></a> [perform\_proxy\_client\_setup](#input\_perform\_proxy\_client\_setup) | Configures a Vm/Lpar to have internet access by setting proxy on it. | <pre>object(<br>    {<br>      squid_client_ips = list(string)<br>      squid_server_ip  = string<br>      no_proxy_env     = string<br>    }<br>  )</pre> | `null` | no |
 | <a name="input_pvs_backup_network"></a> [pvs\_backup\_network](#input\_pvs\_backup\_network) | IBM Cloud PowerVS Backup Network name and cidr which will be created | `map(any)` | <pre>{<br>  "cidr": "10.52.0.0/24",<br>  "name": "bkp_net"<br>}</pre> | no |
 | <a name="input_pvs_management_network"></a> [pvs\_management\_network](#input\_pvs\_management\_network) | IBM Cloud PowerVS Management Subnet name and cidr which will be created | `map(any)` | <pre>{<br>  "cidr": "10.51.0.0/24",<br>  "name": "mgmt_net"<br>}</pre> | no |
 | <a name="input_pvs_resource_group_name"></a> [pvs\_resource\_group\_name](#input\_pvs\_resource\_group\_name) | Existing Resource Group Name | `string` | n/a | yes |

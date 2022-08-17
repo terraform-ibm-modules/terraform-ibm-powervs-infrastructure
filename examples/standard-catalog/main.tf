@@ -31,27 +31,37 @@ data "ibm_schematics_output" "schematics_output" {
   template_id  = data.ibm_schematics_workspace.schematics_workspace.runtime_data[0].id
 }
 
+#locals {
+#outputMap = jsondecode(data.ibm_schematics_output.schematics_output.output_json)
+#}
+
 locals {
   squid_config = {
     "squid_enable"      = var.configure_proxy
-    "server_host_or_ip" = "10.10.10.6"
+    "server_host_or_ip" = "10.30.10.4"
     #data.ibm_schematics_output.schematics_output.output_values.inet-svs.ip
   }
   dns_forwarder_config = merge({
     "dns_enable"        = var.configure_dns_forwarder
-    "server_host_or_ip" = "10.10.10.6"
+    "server_host_or_ip" = "10.20.10.4"
     #data.ibm_schematics_output.schematics_output.output_values.inet-svs.ip
   }, var.dns_config)
   ntp_forwarder_config = {
     "ntp_enable"        = var.configure_ntp_forwarder
-    "server_host_or_ip" = "10.10.10.6"
+    "server_host_or_ip" = "10.20.10.4"
     #data.ibm_schematics_output.schematics_output.output_values.private_svs.ip
   }
   nfs_config = merge({
     "nfs_enable"        = var.configure_nfs_server
-    "server_host_or_ip" = "10.10.10.6"
+    "server_host_or_ip" = "10.20.10.4"
     #data.ibm_schematics_output.schematics_output.output_values.private_svs.ip
   }, var.nfs_config)
+
+  perform_proxy_client_setup = {
+    squid_client_ips = ["10.20.10.4"]
+    squid_server_ip  = "10.30.10.4"
+    no_proxy_env     = "161.0.0.0/8"
+  }
 }
 
 module "powervs_infra" {
@@ -72,10 +82,11 @@ module "powervs_infra" {
   cloud_connection_speed   = var.cloud_connection_speed
   cloud_connection_gr      = var.cloud_connection_gr
   cloud_connection_metered = var.cloud_connection_metered
-  access_host_or_ip        = "159.23.89.11"
+  access_host_or_ip        = "159.23.100.160"
   #data.ibm_schematics_output.schematics_output.output_values.jump-box.ip
-  squid_config         = local.squid_config
-  dns_forwarder_config = local.dns_forwarder_config
-  ntp_forwarder_config = local.ntp_forwarder_config
-  nfs_config           = local.nfs_config
+  squid_config               = local.squid_config
+  dns_forwarder_config       = local.dns_forwarder_config
+  ntp_forwarder_config       = local.ntp_forwarder_config
+  nfs_config                 = local.nfs_config
+  perform_proxy_client_setup = local.perform_proxy_client_setup
 }

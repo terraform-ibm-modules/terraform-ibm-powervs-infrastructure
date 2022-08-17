@@ -18,3 +18,15 @@ variable "service_config" {
   type        = map(any)
   default     = {}
 }
+
+variable "perform_proxy_client_setup" {
+  description = "Configures a Vm/Lpar to have internet access by setting proxy on it."
+  type = object(
+    {
+      squid_client_ips = list(string)
+      squid_server_ip  = string
+      no_proxy_env     = string
+    }
+  )
+  default = null
+}
