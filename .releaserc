@@ -10,7 +10,7 @@
     }],
     ["@semantic-release/exec", {
       "successCmd": "echo \"SEMVER_VERSION=${nextRelease.version}\" >> $GITHUB_ENV",
-      "publishCmd": "./ci/run-catalog-onboarding-pipeline.sh terraform-ibm-powervs-infrastructure 7df1e4ca-d54c-4fd0-82ce-3d13247308cd 6bf25237-ffe2-4ca0-b062-43e0dc5a3ed6 v${nextRelease.version} account basic github.com terraform-ibm-modules NO_PREFIX"
+      "publishCmd": "./ci/run-catalog-onboarding-pipeline.sh terraform-ibm-powervs-infrastructure 7df1e4ca-d54c-4fd0-82ce-3d13247308cd 6bf25237-ffe2-4ca0-b062-43e0dc5a3ed6 v${nextRelease.version} account basic github.com terraform-ibm-modules NO_PREFIX true $CATALOG_PUBLISH_APIKEY $CATALOG_VALIDATION_APIKEY"
     }]
   ]
 }
