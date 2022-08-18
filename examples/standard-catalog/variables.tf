@@ -63,7 +63,7 @@ variable "configure_ntp_forwarder" {
 }
 
 variable "configure_nfs_server" {
-  description = "Specify if NFS forwarder will be configured. If yes, ensure 'nfs_config' optional variable is set properly."
+  description = "Specify if NFS will be configured. If yes, ensure 'nfs_config' optional variable is set properly."
   type        = bool
   default     = true
 }
