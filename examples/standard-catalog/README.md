@@ -68,7 +68,7 @@ This example illustrates how to use the `power-infrastructure` module. It provis
 
 | Name | Description |
 |------|-------------|
-| <a name="output_at_id"></a> [at\_id](#output\_at\_id) | Activity tracker id |
+| <a name="output_powervs_infra"></a> [powervs\_infra](#output\_powervs\_infra) | Standard-catalog PowerVS Infrastructure outputs for next solution consumption |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 NOTE: We can configure all details in input.tfvars

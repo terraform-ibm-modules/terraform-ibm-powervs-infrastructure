@@ -44,12 +44,12 @@ locals {
     "server_host_or_ip" = var.squid_config["server_host_or_ip"] != null && var.squid_config["server_host_or_ip"] != "" ? var.squid_config["server_host_or_ip"] : local.inet_svs_ip
   }
 
-  dns_forwarder_config = merge(var.dns_config, {
+  dns_config = merge(var.dns_config, {
     "dns_enable"        = var.configure_dns_forwarder
     "server_host_or_ip" = var.dns_config["server_host_or_ip"] != null && var.dns_config["server_host_or_ip"] != "" ? var.dns_config["server_host_or_ip"] : local.private_svs_ip
   })
 
-  ntp_forwarder_config = {
+  ntp_config = {
     "ntp_enable"        = var.configure_ntp_forwarder
     "server_host_or_ip" = var.ntp_config["server_host_or_ip"] != null && var.ntp_config["server_host_or_ip"] != "" ? var.ntp_config["server_host_or_ip"] : local.private_svs_ip
   }
@@ -86,8 +86,8 @@ module "powervs_infra" {
   cloud_connection_metered   = var.cloud_connection_metered
   access_host_or_ip          = local.slz_output[0].fip_vsi.value[0].floating_ip
   squid_config               = local.squid_config
-  dns_forwarder_config       = local.dns_forwarder_config
-  ntp_forwarder_config       = local.ntp_forwarder_config
+  dns_forwarder_config       = local.dns_config
+  ntp_forwarder_config       = local.ntp_config
   nfs_config                 = local.nfs_config
   perform_proxy_client_setup = local.perform_proxy_client_setup
 }
