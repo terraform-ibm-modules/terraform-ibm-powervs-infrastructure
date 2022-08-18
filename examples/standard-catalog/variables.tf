@@ -102,11 +102,28 @@ variable "cloud_connection_metered" {
   default     = false
 }
 
+variable "squid_config" {
+  description = "Squid Configuration on server"
+  type        = map(any)
+  default = {
+    "server_host_or_ip" = ""
+  }
+}
+
 variable "dns_config" {
   description = "Configure DNS forwarder to existing DNS service that is not reachable directly from PowerVS"
   type        = map(any)
   default = {
-    "dns_servers" = "161.26.0.7; 161.26.0.8; 9.9.9.9;"
+    "dns_servers"       = "161.26.0.7; 161.26.0.8; 9.9.9.9;"
+    "server_host_or_ip" = ""
+  }
+}
+
+variable "ntp_config" {
+  description = "Ntp configuration on server"
+  type        = map(any)
+  default = {
+    "server_host_or_ip" = ""
   }
 }
 
@@ -114,9 +131,12 @@ variable "nfs_config" {
   description = "Configure shared NFS file system (e.g., for installation media). Semicolon separated values."
   type        = map(any)
   default = {
-    "nfs_directory" = "/nfs"
+    "nfs_directory"     = "/nfs"
+    "server_host_or_ip" = ""
   }
 }
+
+
 
 variable "ibmcloud_api_key" {
   description = "IBM Cloud Api Key"

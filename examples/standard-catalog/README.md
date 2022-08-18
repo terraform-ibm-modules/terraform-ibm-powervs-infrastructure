@@ -50,28 +50,28 @@ This example illustrates how to use the `power-infrastructure` module. It provis
 | <a name="input_configure_nfs_server"></a> [configure\_nfs\_server](#input\_configure\_nfs\_server) | Specify if NFS forwarder will be configured. If yes, ensure 'nfs\_config' optional variable is set properly. | `bool` | `true` | no |
 | <a name="input_configure_ntp_forwarder"></a> [configure\_ntp\_forwarder](#input\_configure\_ntp\_forwarder) | Specify if NTP forwarder will be configured. | `bool` | `true` | no |
 | <a name="input_configure_proxy"></a> [configure\_proxy](#input\_configure\_proxy) | Specify if SQUID proxy will be configured. Proxy is mandatory for the landscape, so set this to 'false' only if proxy already exists. | `bool` | `true` | no |
-| <a name="input_dns_config"></a> [dns\_config](#input\_dns\_config) | Configure DNS forwarder to existing DNS service that is not reachable directly from PowerVS | `map(any)` | <pre>{<br>  "dns_servers": "161.26.0.7; 161.26.0.8; 9.9.9.9;"<br>}</pre> | no |
+| <a name="input_dns_config"></a> [dns\_config](#input\_dns\_config) | Configure DNS forwarder to existing DNS service that is not reachable directly from PowerVS | `map(any)` | <pre>{<br>  "dns_servers": "161.26.0.7; 161.26.0.8; 9.9.9.9;",<br>  "server_host_or_ip": ""<br>}</pre> | no |
 | <a name="input_ibmcloud_api_key"></a> [ibmcloud\_api\_key](#input\_ibmcloud\_api\_key) | IBM Cloud Api Key | `string` | `null` | no |
-| <a name="input_nfs_config"></a> [nfs\_config](#input\_nfs\_config) | Configure shared NFS file system (e.g., for installation media). Semicolon separated values. | `map(any)` | <pre>{<br>  "nfs_directory": "/nfs"<br>}</pre> | no |
+| <a name="input_nfs_config"></a> [nfs\_config](#input\_nfs\_config) | Configure shared NFS file system (e.g., for installation media). Semicolon separated values. | `map(any)` | <pre>{<br>  "nfs_directory": "/nfs",<br>  "server_host_or_ip": ""<br>}</pre> | no |
+| <a name="input_ntp_config"></a> [ntp\_config](#input\_ntp\_config) | Ntp configuration on server | `map(any)` | <pre>{<br>  "server_host_or_ip": ""<br>}</pre> | no |
 | <a name="input_pvs_backup_network"></a> [pvs\_backup\_network](#input\_pvs\_backup\_network) | PowerVS Backup Network name and cidr which will be created. | `map(any)` | <pre>{<br>  "cidr": "10.52.0.0/24",<br>  "name": "bkp_net"<br>}</pre> | no |
 | <a name="input_pvs_management_network"></a> [pvs\_management\_network](#input\_pvs\_management\_network) | PowerVS Management Subnet name and cidr which will be created. | `map(any)` | <pre>{<br>  "cidr": "10.51.0.0/24",<br>  "name": "mgmt_net"<br>}</pre> | no |
 | <a name="input_pvs_resource_group_name"></a> [pvs\_resource\_group\_name](#input\_pvs\_resource\_group\_name) | Existing Resource Group Name | `string` | n/a | yes |
 | <a name="input_pvs_zone"></a> [pvs\_zone](#input\_pvs\_zone) | IBM Cloud PVS Zone. Valid values: sao01,osa21,tor01,us-south,dal12,us-east,tok04,lon04,lon06,eu-de-1,eu-de-2,syd04,syd05 | `string` | n/a | yes |
 | <a name="input_reuse_cloud_connections"></a> [reuse\_cloud\_connections](#input\_reuse\_cloud\_connections) | When the value is true, cloud connections will be reused (and is already attached to Transit gateway) | `bool` | `false` | no |
 | <a name="input_slz_workspace_id"></a> [slz\_workspace\_id](#input\_slz\_workspace\_id) | IBM cloud schematics workspace ID to reuse values from SLZ workspace | `string` | `null` | no |
+| <a name="input_squid_config"></a> [squid\_config](#input\_squid\_config) | Squid Configuration on server | `map(any)` | <pre>{<br>  "server_host_or_ip": ""<br>}</pre> | no |
 | <a name="input_ssh_private_key"></a> [ssh\_private\_key](#input\_ssh\_private\_key) | SSH private key value to login to servers. It will not be uploaded / stored anywhere. | `string` | n/a | yes |
 | <a name="input_tags"></a> [tags](#input\_tags) | List of Tag names for PowerVS service | `list(string)` | `null` | no |
 
 ## Outputs
 
-No outputs.
+| Name | Description |
+|------|-------------|
+| <a name="output_at_id"></a> [at\_id](#output\_at\_id) | Activity tracker id |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 NOTE: We can configure all details in input.tfvars
-
-## Usage
-
-terraform apply -var-file="input.tfvars"
 
 ## Note
 

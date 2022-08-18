@@ -31,35 +31,37 @@ data "ibm_schematics_output" "schematics_output" {
   template_id  = data.ibm_schematics_workspace.schematics_workspace.runtime_data[0].id
 }
 
-#locals {
-#outputMap = jsondecode(data.ibm_schematics_output.schematics_output.output_json)
-#}
+locals {
+  slz_output = jsondecode(data.ibm_schematics_output.schematics_output.output_json)
+
+  inet_svs_ip    = [for vsi in local.slz_output[0].vsi_list.value : vsi.ipv4_address if vsi.name == "${local.slz_output[0].prefix.value}-inet-svs-1"][0]
+  private_svs_ip = [for vsi in local.slz_output[0].vsi_list.value : vsi.ipv4_address if vsi.name == "${local.slz_output[0].prefix.value}-private-svs-1"][0]
+}
 
 locals {
   squid_config = {
     "squid_enable"      = var.configure_proxy
-    "server_host_or_ip" = "10.30.10.4"
-    #data.ibm_schematics_output.schematics_output.output_values.inet-svs.ip
+    "server_host_or_ip" = var.squid_config["server_host_or_ip"] != null && var.squid_config["server_host_or_ip"] != "" ? var.squid_config["server_host_or_ip"] : local.inet_svs_ip
   }
-  dns_forwarder_config = merge({
+
+  dns_forwarder_config = merge(var.dns_config, {
     "dns_enable"        = var.configure_dns_forwarder
-    "server_host_or_ip" = "10.20.10.4"
-    #data.ibm_schematics_output.schematics_output.output_values.inet-svs.ip
-  }, var.dns_config)
+    "server_host_or_ip" = var.dns_config["server_host_or_ip"] != null && var.dns_config["server_host_or_ip"] != "" ? var.dns_config["server_host_or_ip"] : local.private_svs_ip
+  })
+
   ntp_forwarder_config = {
     "ntp_enable"        = var.configure_ntp_forwarder
-    "server_host_or_ip" = "10.20.10.4"
-    #data.ibm_schematics_output.schematics_output.output_values.private_svs.ip
+    "server_host_or_ip" = var.ntp_config["server_host_or_ip"] != null && var.ntp_config["server_host_or_ip"] != "" ? var.ntp_config["server_host_or_ip"] : local.private_svs_ip
   }
-  nfs_config = merge({
+
+  nfs_config = merge(var.nfs_config, {
     "nfs_enable"        = var.configure_nfs_server
-    "server_host_or_ip" = "10.20.10.4"
-    #data.ibm_schematics_output.schematics_output.output_values.private_svs.ip
-  }, var.nfs_config)
+    "server_host_or_ip" = var.nfs_config["server_host_or_ip"] != null && var.nfs_config["server_host_or_ip"] != "" ? var.nfs_config["server_host_or_ip"] : local.private_svs_ip
+  })
 
   perform_proxy_client_setup = {
-    squid_client_ips = ["10.20.10.4"]
-    squid_server_ip  = "10.30.10.4"
+    squid_client_ips = [local.private_svs_ip]
+    squid_server_ip  = local.inet_svs_ip
     no_proxy_env     = "161.0.0.0/8"
   }
 }
@@ -67,23 +69,22 @@ locals {
 module "powervs_infra" {
   source = "../.."
 
-  pvs_zone                 = var.pvs_zone
-  pvs_resource_group_name  = var.pvs_resource_group_name
-  pvs_service_name         = "${data.ibm_schematics_output.schematics_output.output_values.prefix}-power-service"
-  tags                     = var.tags
-  pvs_sshkey_name          = "${data.ibm_schematics_output.schematics_output.output_values.prefix}-ssh-pvs-key"
-  ssh_public_key           = data.ibm_schematics_output.schematics_output.output_values.ssh_public_key
-  ssh_private_key          = var.ssh_private_key
-  pvs_management_network   = var.pvs_management_network
-  pvs_backup_network       = var.pvs_backup_network
-  transit_gateway_name     = data.ibm_schematics_output.schematics_output.output_values.transit_gateway_name
-  reuse_cloud_connections  = var.reuse_cloud_connections
-  cloud_connection_count   = var.cloud_connection_count
-  cloud_connection_speed   = var.cloud_connection_speed
-  cloud_connection_gr      = var.cloud_connection_gr
-  cloud_connection_metered = var.cloud_connection_metered
-  access_host_or_ip        = "159.23.100.160"
-  #data.ibm_schematics_output.schematics_output.output_values.jump-box.ip
+  pvs_zone                   = var.pvs_zone
+  pvs_resource_group_name    = var.pvs_resource_group_name
+  pvs_service_name           = "${local.slz_output[0].prefix.value}-power-service"
+  tags                       = var.tags
+  pvs_sshkey_name            = "${local.slz_output[0].prefix.value}-ssh-pvs-key"
+  ssh_public_key             = local.slz_output[0].ssh_public_key.value
+  ssh_private_key            = var.ssh_private_key
+  pvs_management_network     = var.pvs_management_network
+  pvs_backup_network         = var.pvs_backup_network
+  transit_gateway_name       = local.slz_output[0].transit_gateway_name.value
+  reuse_cloud_connections    = var.reuse_cloud_connections
+  cloud_connection_count     = var.cloud_connection_count
+  cloud_connection_speed     = var.cloud_connection_speed
+  cloud_connection_gr        = var.cloud_connection_gr
+  cloud_connection_metered   = var.cloud_connection_metered
+  access_host_or_ip          = local.slz_output[0].fip_vsi.value[0].floating_ip
   squid_config               = local.squid_config
   dns_forwarder_config       = local.dns_forwarder_config
   ntp_forwarder_config       = local.ntp_forwarder_config
