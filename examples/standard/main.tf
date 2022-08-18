@@ -10,22 +10,22 @@ provider "ibm" {
 }
 
 locals {
-  squid_config = merge({
+  squid_config = merge(var.squid_proxy_config, {
     "squid_enable"      = var.configure_proxy
-    "server_host_or_ip" = var.internet_services_host_or_ip
-  }, var.squid_proxy_config)
-  dns_forwarder_config = merge({
+    "server_host_or_ip" = var.squid_proxy_config["squid_proxy_host_or_ip"] != null && var.squid_proxy_config["squid_proxy_host_or_ip"] != "" ? var.squid_proxy_config["squid_proxy_host_or_ip"] : var.internet_services_host_or_ip
+  })
+  dns_forwarder_config = merge(var.dns_forwarder_config, {
     "dns_enable"        = var.configure_dns_forwarder
-    "server_host_or_ip" = var.private_services_host_or_ip
-  }, var.dns_forwarder_config)
-  ntp_forwarder_config = merge({
+    "server_host_or_ip" = var.dns_forwarder_config["dns_forwarder_host_or_ip"] != null && var.dns_forwarder_config["dns_forwarder_host_or_ip"] != "" ? var.dns_forwarder_config["dns_forwarder_host_or_ip"] : var.private_services_host_or_ip
+  })
+  ntp_forwarder_config = merge(var.ntp_forwarder_config, {
     "ntp_enable"        = var.configure_ntp_forwarder
-    "server_host_or_ip" = var.private_services_host_or_ip
-  }, var.ntp_forwarder_config)
-  nfs_config = merge({
+    "server_host_or_ip" = var.ntp_forwarder_config["ntp_forwarder_host_or_ip"] != null && var.ntp_forwarder_config["ntp_forwarder_host_or_ip"] != "" ? var.ntp_forwarder_config["ntp_forwarder_host_or_ip"] : var.private_services_host_or_ip
+  })
+  nfs_config = merge(var.nfs_server_config, {
     "nfs_enable"        = var.configure_nfs_server
-    "server_host_or_ip" = var.private_services_host_or_ip
-  }, var.nfs_server_config)
+    "server_host_or_ip" = var.nfs_server_config["nfs_server_host_or_ip"] != null && var.nfs_server_config["nfs_server_host_or_ip"] != "" ? var.nfs_server_config["nfs_server_host_or_ip"] : var.private_services_host_or_ip
+  })
 }
 
 module "powervs_infra" {
