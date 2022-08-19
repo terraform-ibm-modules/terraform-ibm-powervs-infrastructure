@@ -1,5 +1,5 @@
 #####################################################
-# IBM Cloud PowerVS cloud connection create Module
+# IBM Cloud PowerVS service Module
 #####################################################
 
 terraform {
@@ -8,10 +8,6 @@ terraform {
     ibm = {
       source  = "IBM-Cloud/ibm"
       version = ">= 1.43.0"
-    }
-    time = {
-      source  = "hashicorp/time"
-      version = ">= 0.8.0"
     }
   }
 }

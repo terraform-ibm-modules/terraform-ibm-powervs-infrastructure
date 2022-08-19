@@ -188,5 +188,6 @@ variable "ibm_pvs_zone_region_map" {
     "tor01"    = "tor"
     "osa21"    = "osa"
     "sao01"    = "sao"
+    "mon01"    = "mon"
   }
 }
