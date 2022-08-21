@@ -17,3 +17,8 @@ variable "pvs_subnet_names" {
   description = "List of IBM Cloud PowerVS subnet names to be attached to Cloud connection"
   type        = list(any)
 }
+
+variable "pvs_cloud_connection_count" {
+  description = "Number of cloud coonections where private networks should be attached to. Default is to use redundant cloud connection pair."
+  default = 2
+}

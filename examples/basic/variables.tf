@@ -7,7 +7,7 @@ variable "pvs_zone" {
 variable "resource_group" {
   type        = string
   description = "An existing resource group name to use for this example"
-  default     = null
+  default     = "Default"
 }
 
 variable "prefix" {
@@ -61,7 +61,7 @@ variable "reuse_cloud_connections" {
 variable "cloud_connection_count" {
   description = "Required number of Cloud connections which will be created/Reused. Maximum is 2 per location"
   type        = string
-  default     = 1
+  default     = 0
 }
 
 variable "cloud_connection_speed" {
@@ -80,6 +80,42 @@ variable "access_host_or_ip" {
   description = "Jump/Access server public host name or IP address. This host name/IP is used to reach the landscape."
   type        = string
   default     = "not_used"
+}
+
+variable "private_services_host_or_ip" {
+  description = "Private IP address where management services should be configured. Not used here."
+  type        = string
+  default     = "not_used"
+}
+
+variable "internet_services_host_or_ip" {
+  description = "Private IP address where internet services (like proxy) should be configured. Not used here."
+  type        = string
+  default     = "not_used"
+}
+
+variable "configure_proxy" {
+  description = "Proxy is required to establish connectivity from PowerVS VSIs to the public internet. Do not configure proxy in this example by default."
+  type        = bool
+  default     = false
+}
+
+variable "configure_ntp_forwarder" {
+  description = "NTP is required to sync time over time server not reachable directly from PowerVS VSIs. Do not configure NTP forwarder in this example by default."
+  type        = bool
+  default     = false
+}
+
+variable "configure_dns_forwarder" {
+  description = "DNS is required to configure DNS resolution over server that is not reachable directly from PowerVS VSIs. Do not configure DNS forwarder in this example by default."
+  type        = bool
+  default     = false
+}
+
+variable "configure_nfs_server" {
+  description = "NFS server may be used to provide shared FS for PowerVS VSIs. Do not configure NFS server in this example by default."
+  type        = bool
+  default     = false
 }
 
 
@@ -103,4 +139,38 @@ variable "cloud_connection_metered" {
   description = "Enable metered for this cloud connection. Can be specified when creating new connection"
   type        = bool
   default     = false
+}
+
+variable "squid_proxy_config" {
+  description = "Configure SQUID proxy to use with IBM Cloud PowerVS instances."
+  type        = map(any)
+  default = {
+    squid_proxy_host_or_ip = null
+  }
+}
+
+variable "dns_forwarder_config" {
+  description = "Configure DNS forwarder to existing DNS service that is not reachable directly from PowerVS."
+  type        = map(any)
+  default = {
+    dns_forwarder_host_or_ip = null
+    dns_servers              = "161.26.0.7; 161.26.0.8; 9.9.9.9;"
+  }
+}
+
+variable "ntp_forwarder_config" {
+  description = "Configure NTP forwarder to existing NTP service that is not reachable directly from PowerVS."
+  type        = map(any)
+  default = {
+    ntp_forwarder_host_or_ip = null
+  }
+}
+
+variable "nfs_server_config" {
+  description = "Configure shared NFS file system (e.g., for installation media)."
+  type        = map(any)
+  default = {
+    nfs_server_host_or_ip = null
+    nfs_directory         = "/nfs"
+  }
 }
