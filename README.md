@@ -1,24 +1,26 @@
-# PowerVS Infrastructure Module
+# PowerVS infrastructure module
 
-It does the following jobs:
+The PowerVS infrastructure module automates the following tasks:
+
 - Creates the PowerVS service
-- Creates A ssh key
-- Creates 2 private networks: management network and backup network
-- Creates 2 cloud connections/ option to reuse cloud connections
-- Attaches the cloud connections to transit gateway
-- Attaches the private networks to cloud connections
+- Creates an ssh key
+- Creates two private networks: a management network and a backup network
+- Creates two IBM Cloud connections with an option to reuse cloud connections
+- Attaches the IBM Cloud connections to a transit gateway
+- Attaches the private networks to the IBM Cloud connections
 
 ## Usage
-```
+
+```hcl
 provider "ibm" {
   region    =   var.pvs_region
   zone      =   var.pvs_zone
   ibmcloud_api_key = var.ibmcloud_api_key != null ? var.ibmcloud_api_key : null
 }
 
-
 module "power-infrastructure" {
-  source = "terraform-ibm-modules/powervs/ibm/modules/powervs-infrastructure"
+  # Replace "main" with a GIT release version to lock into a specific release
+  source = "git::https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure.git?ref=main"
 
   pvs_zone                    = var.pvs_zone
   pvs_resource_group_name     = var.pvs_resource_group_name
@@ -38,6 +40,15 @@ module "power-infrastructure" {
 }
 ```
 
+You can configure the details in a `input.tfvars` variable definitions file.
+
+```bash
+terraform apply -var-file="input.tfvars"
+```
+
+## Required IAM access policies
+
+TBC
 
 <!-- BEGIN EXAMPLES HOOK -->
 ## Examples
@@ -91,12 +102,8 @@ No resources.
 No outputs.
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
-NOTE: We can configure all details in input.tfvars
+## Contributing
 
-## Usage
+You can report issues and request features for this module in the [terraform-ibm-issue-tracker](https://github.com/terraform-ibm-modules/terraform-ibm-issue-tracker/issues) repo. See [Report an issue or request a feature](https://github.com/terraform-ibm-modules/.github/blob/main/.github/SUPPORT.md).
 
-terraform apply -var-file="input.tfvars"
-
-## Note
-
-For all optional fields, default values (Eg: `null`) are given in variable.tf file. User can configure the same by overwriting with appropriate values.
+To set up your local development environment, see [Local development setup](https://terraform-ibm-modules.github.io/documentation/#/local-dev-setup) in the project documentation.
