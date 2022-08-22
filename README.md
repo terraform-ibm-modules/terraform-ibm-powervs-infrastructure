@@ -105,7 +105,14 @@ No resources.
 
 ## Outputs
 
-No outputs.
+| Name | Description |
+|------|-------------|
+| <a name="output_pvs_backup_network_name"></a> [pvs\_backup\_network\_name](#output\_pvs\_backup\_network\_name) | Name of the created backup network. |
+| <a name="output_pvs_management_network_name"></a> [pvs\_management\_network\_name](#output\_pvs\_management\_network\_name) | Name of the created management network. |
+| <a name="output_pvs_resource_group_name"></a> [pvs\_resource\_group\_name](#output\_pvs\_resource\_group\_name) | Name of the IBM PowerVS resource group where elements were created. |
+| <a name="output_pvs_service_name"></a> [pvs\_service\_name](#output\_pvs\_service\_name) | Name of the service where elements were created. |
+| <a name="output_pvs_ssh_key_name"></a> [pvs\_ssh\_key\_name](#output\_pvs\_ssh\_key\_name) | Name of the created ssh key. |
+| <a name="output_pvs_zone"></a> [pvs\_zone](#output\_pvs\_zone) | Name of the IBM PowerVS zone where elements were created. |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 NOTE: We can configure all details in input.tfvars
