@@ -25,5 +25,5 @@ output "pvs_service_name" {
 
 output "pvs_ssh_key_name" {
   description = "Name of the created ssh key."
-  value       = var.pvs_service_name
+  value       = var.pvs_sshkey_name
 }
