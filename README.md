@@ -15,6 +15,7 @@ This module provisions the following infrastructure
 For ease of use, this quick start example generates a private/public ssh key pair. The private key generated in this example will be stored unencrypted in your Terraform state file.
 Use of this resource for production deployments is not recommended. Instead, generate a ssh key pair outside of Terraform and pass the public key via the [ssh_public_key input](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/tree/v0.1#input_ssh_public_key)
 
+
 ## Usage
 ```
 provider "ibm" {
@@ -53,9 +54,9 @@ perform_proxy_client_setup  = var.perform_proxy_client_setup
 <!-- BEGIN EXAMPLES HOOK -->
 ## Examples
 
-- [ Basic PowerVS Infrastructure Module Example](examples/basic)
-- [ Catalog PowerVS Infrastructure Module Example](examples/standard-catalog)
-- [ Standard PowerVS Infrastructure Module Example](examples/standard)
+- [<!-- BEGIN_TF_DOCS -->](examples/basic)
+- [<!-- BEGIN_TF_DOCS -->](examples/standard-catalog)
+- [<!-- BEGIN_TF_DOCS -->](examples/standard)
 <!-- END EXAMPLES HOOK -->
 
 
