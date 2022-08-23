@@ -5,7 +5,7 @@
 This example illustrates how to use the `power-infrastructure` module.
 It provisions the following infrastructure:
 - Creates a [PowerVS service instance](https://cloud.ibm.com/docs/power-iaas?topic=power-iaas-getting-started) with the following network topology <br/>
-(1) 2 private networks, management network and backup network <br/>
+- 2 private networks, management network and backup network <br/>
 - Creates a ssh key
 
 :warning: For experimentation purposes only.
@@ -13,8 +13,6 @@ For ease of use, this quick start example generates a private/public ssh key pai
 Use of this resource for production deployments is not recommended. Instead, generate a ssh key pair outside of Terraform and pass the public key via the [ssh_public_key input](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/tree/v0.1#input_ssh_public_key)
 
 
-## Prerequisites
-Make sure you installed the Power flavor of version 0.0.19 or higher of Secure Landing Zone VPC with VSIs.
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
