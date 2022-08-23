@@ -50,8 +50,6 @@ perform_proxy_client_setup  = var.perform_proxy_client_setup
 - <a name="catalog">[Catalog PowerVS Infrastructure Module Example](examples/standard-catalog)</a>
 
 
-## Prerequisites
-Make sure you installed the Power flavor of version 0.0.19 or higher of Secure Landing Zone VPC with VSIs.
 
 ## Requirements
 

@@ -59,8 +59,6 @@ content: |-
   - <a name="catalog">[Catalog PowerVS Infrastructure Module Example](examples/standard-catalog)</a>
 
   {{ .Header }}
-  ## Prerequisites
-  Make sure you installed the Power flavor of version 0.0.19 or higher of Secure Landing Zone VPC with VSIs.
 
   ## Requirements
 
