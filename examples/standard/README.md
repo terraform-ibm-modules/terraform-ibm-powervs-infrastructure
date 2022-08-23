@@ -6,18 +6,14 @@ This example illustrates how to use the `power-infrastructure` module.
 It provisions the following infrastructure
 - Creates a [PowerVS service instance](https://cloud.ibm.com/docs/power-iaas?topic=power-iaas-getting-started) with the following network topology <br/>
 (1) 2 private networks, management network and backup network <br/>
-(2) 1 or 2 [IBM Cloud connection](https://cloud.ibm.com/docs/power-iaas?topic=power-iaas-cloud-connections), with the option to reuse existing IBM Cloud connections <br/>
-(3) The IBM Cloud connections are attached to a [transit gateway](https://cloud.ibm.com/docs/transit-gateway?topic=transit-gateway-getting-started) <br/>
+(2) 1 or 2 [IBM Cloud connection](https://cloud.ibm.com/docs/power-iaas?topic=power-iaas-cloud-connections), with the option to reuse existing IBM Cloud connections.
+If reusing cloud connections make sure cloud connection is already attached to transit gateway <br/>
+(3) Attaches the IBM Cloud connections to a [transit gateway](https://cloud.ibm.com/docs/transit-gateway?topic=transit-gateway-getting-started) <br/>
 (4) Attaches the PowerVS service instance private networks to the IBM Cloud connections <br/>
 - Creates a ssh key
-
-:warning: For experimentation purposes only.
-For ease of use, this quick start example generates a private/public ssh key pair. The private key generated in this example will be stored unencrypted in your Terraform state file.
-Use of this resource for production deployments is not recommended. Instead, generate a ssh key pair outside of Terraform and pass the public key via the [ssh_public_key input](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/tree/v0.1#input_ssh_public_key)
+- Option to Install and Configure Squid proxy, NFS, NTP forwarder, DNS forwarder on specified hosts.
 
 
-## Prerequisites
-Make sure you installed the Power flavor of version 0.0.19 or higher of Secure Landing Zone VPC with VSIs.
 
 ## Requirements
 
