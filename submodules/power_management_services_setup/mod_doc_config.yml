@@ -5,10 +5,10 @@ content: |-
 
   # Submodule power_management_services_setup
 
-  This submodule is used to Install and configure the services DNS, NTP, NFS, SQUID on target host and sets the host as server for these services
+  This submodule Installs and configures the Squid Proxy, DNS Forwarder, NTP Forwarder, NFS on specified host and sets the host as server for these services
 
   ## Usage
-  ```
+  ```hcl
   provider "ibm" {
     region           = "sao"
     zone             = "sao01"

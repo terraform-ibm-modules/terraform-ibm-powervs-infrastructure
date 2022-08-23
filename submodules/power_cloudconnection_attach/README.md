@@ -2,7 +2,7 @@
 
 # Submodule power-cloudconnection-attach
 
-This submodule is used to attach PowerVS subnets to cloud connections
+This submodule attaches PowerVS subnets to cloud connections
 
 ## Usage
 ```

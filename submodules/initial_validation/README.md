@@ -2,10 +2,10 @@
 
 # Submodule initial-validation
 
-This submodule check whether the variables for cloud connections reuse and transit gateway name are provided
+This submodule checks the right combination of variables and validates them
 
 ## Usage
-```
+```hcl
 provider "ibm" {
 region           = "sao"
 zone             = "sao01"

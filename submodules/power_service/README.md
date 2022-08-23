@@ -2,9 +2,10 @@
 
 # Submodule power-cloudconnection-create
 
-This submodule is used to create Cloud Connections and attach the cloud connections to the Transit gateway.
+This submodule creates a PowerVs service, 2 private networks and a SSH key
+
 ## Usage
-```
+```hcl
 provider "ibm" {
 region           = "sao"
 zone             = "sao01"

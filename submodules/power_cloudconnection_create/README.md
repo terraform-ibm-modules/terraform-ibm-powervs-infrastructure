@@ -2,9 +2,10 @@
 
 # Submodule power-cloudconnection-create
 
-This submodule is used to create Cloud Connections and attach the cloud connections to the Transit gateway.
+This submodule creates Cloud Connections and attaches the cloud connections to the Transit gateway.
+
 ## Usage
-```
+```hcl
 provider "ibm" {
 region           = "sao"
 zone             = "sao01"
