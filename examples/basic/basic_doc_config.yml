@@ -8,7 +8,7 @@ content: |-
   This example illustrates how to use the `power-infrastructure` module.
   It provisions the following infrastructure:
   - Creates a [PowerVS service instance](https://cloud.ibm.com/docs/power-iaas?topic=power-iaas-getting-started) with the following network topology <br/>
-    - 2 private networks, management network and backup network <br/>
+    -- 2 private networks, management network and backup network <br/>
   - Creates a ssh key
 
   :warning: For experimentation purposes only.
