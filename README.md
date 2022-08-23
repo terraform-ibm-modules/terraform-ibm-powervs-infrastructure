@@ -2,21 +2,16 @@
 
 # PowerVS Infrastructure Module
 
-This module provisions the following infrastructure
-- Creates a [PowerVS service instance](https://cloud.ibm.com/docs/power-iaas?topic=power-iaas-getting-started) with the following network topology <br/>
-(1) 2 private networks, management network and backup network <br/>
-(2) 1 or 2 [IBM Cloud connection](https://cloud.ibm.com/docs/power-iaas?topic=power-iaas-cloud-connections), with the option to reuse existing IBM Cloud connections <br/>
-(3) The IBM Cloud connections are attached to a [transit gateway](https://cloud.ibm.com/docs/transit-gateway?topic=transit-gateway-getting-started) <br/>
-(4) Attaches the PowerVS service instance private networks to the IBM Cloud connections <br/>
-- Creates a ssh key
-- Option to Install and Configure the VSIs with NTP, NFS, SQUID, DNS services to act as servers for the services
-
-:warning: For experimentation purposes only.
-For ease of use, this quick start example generates a private/public ssh key pair. The private key generated in this example will be stored unencrypted in your Terraform state file.
-Use of this resource for production deployments is not recommended. Instead, generate a ssh key pair outside of Terraform and pass the public key via the [ssh_public_key input](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/tree/v0.1#input_ssh_public_key)
+The PowerVS infrastructure module automates the following tasks:
+- Creates the PowerVS service
+- Creates an ssh key
+- Creates two private networks: a management network and a backup network
+- Creates two IBM Cloud connections with an option to reuse cloud connections
+- Attaches the IBM Cloud connections to a transit gateway
+- Attaches the private networks to the IBM Cloud connections
 
 ## Usage
-```
+```hcl
 provider "ibm" {
 region    =   var.pvs_region
 zone      =   var.pvs_zone
@@ -123,4 +118,16 @@ No resources.
 ## Note
 
 For all optional fields, default values (Eg: `null`) are given in variable.tf file. User can configure the same by overwriting with appropriate values.
+
+## Contributing
+
+You can report issues and request features for this module in the [terraform-ibm-issue-tracker](https://github.com/terraform-ibm-modules/terraform-ibm-issue-tracker/issues) repo. See [Report an issue or request a feature](https://github.com/terraform-ibm-modules/.github/blob/main/.github/SUPPORT.md).
+
+To set up your local development environment, see [Local development setup](https://terraform-ibm-modules.github.io/documentation/#/local-dev-setup) in the project documentation.
 <!-- END_TF_DOCS -->
+
+## Contributing
+
+You can report issues and request features for this module in the [terraform-ibm-issue-tracker](https://github.com/terraform-ibm-modules/terraform-ibm-issue-tracker/issues) repo. See [Report an issue or request a feature](https://github.com/terraform-ibm-modules/.github/blob/main/.github/SUPPORT.md).
+
+To set up your local development environment, see [Local development setup](https://terraform-ibm-modules.github.io/documentation/#/local-dev-setup) in the project documentation.
