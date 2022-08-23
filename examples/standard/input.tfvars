@@ -39,9 +39,7 @@ configure_nfs_server          = false
 configure_dns_forwarder       = false
 ssh_public_key                = "<value>"
 ssh_private_key               = <<-EOF
------BEGIN OPENSSH PRIVATE KEY-----
 <value>
------END OPENSSH PRIVATE KEY-----
 EOF
 
 ******************************************************/
@@ -76,9 +74,7 @@ configure_nfs_server          = false
 configure_dns_forwarder       = false
 ssh_public_key                = "<value>"
 ssh_private_key               = <<-EOF
------BEGIN OPENSSH PRIVATE KEY-----
 <value>
------END OPENSSH PRIVATE KEY-----
 EOF
 
 ******************************************************/
