@@ -9,11 +9,6 @@ It provisions the following infrastructure
 (4) Attaches the PowerVS service instance private networks to the IBM Cloud connections <br/>
 - Creates a ssh key
 
-:warning: For experimentation purposes only.
-For ease of use, this quick start example generates a private/public ssh key pair. The private key generated in this example will be stored unencrypted in your Terraform state file.
-Use of this resource for production deployments is not recommended. Instead, generate a ssh key pair outside of Terraform and pass the public key via the [ssh_public_key input](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/tree/v0.1#input_ssh_public_key)
-
-
 ## Prerequisites
 Make sure you installed the Power flavor of version 0.0.19 or higher of Secure Landing Zone VPC with VSIs.
 
