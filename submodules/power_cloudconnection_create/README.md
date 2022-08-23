@@ -65,4 +65,5 @@ cloud_connection_metered = var.cloud_connection_metered
 ## Outputs
 
 No outputs.
-<!-- END_TF_DOCS -->
+
+<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

@@ -1,5 +1,3 @@
-<!-- BEGIN_TF_DOCS -->
-
 # Submodule power-cloudconnection-attach
 
 This submodule attaches PowerVS subnets to cloud connections
@@ -56,4 +54,5 @@ pvs_subnet_names        = var.pvs_subnet_names
 ## Outputs
 
 No outputs.
-<!-- END_TF_DOCS -->
+
+<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

@@ -3,9 +3,10 @@ package test
 
 import (
 	"fmt"
-	"github.com/gruntwork-io/terratest/modules/random"
 	"strings"
 	"testing"
+
+	"github.com/gruntwork-io/terratest/modules/random"
 
 	"github.com/stretchr/testify/assert"
 	"github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper/testhelper"
@@ -18,8 +19,8 @@ const defaultExampleTerraformDir = "examples/basic"
 var prefix = fmt.Sprintf("pvs-%s", strings.ToLower(random.UniqueId()))
 
 var terraformVars = map[string]interface{}{
-	"resource_group": resourceGroup,
-	"prefix":         prefix,
+	"existing_resource_group_name": resourceGroup,
+	"prefix":                       prefix,
 }
 
 func TestRunDefaultExample(t *testing.T) {

@@ -1,5 +1,3 @@
-<!-- BEGIN_TF_DOCS -->
-
 # Submodule power-cloudconnection-create
 
 This submodule creates a PowerVs service, 2 private networks and a SSH key
@@ -24,6 +22,7 @@ ssh_public_key          = var.ssh_public_key
 pvs_management_network  = var.pvs_management_network
 pvs_backup_network      = var.pvs_backup_network
 }
+
 ```
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
@@ -60,4 +59,5 @@ pvs_backup_network      = var.pvs_backup_network
 ## Outputs
 
 No outputs.
-<!-- END_TF_DOCS -->
+
+<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

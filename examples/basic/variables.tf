@@ -4,10 +4,10 @@ variable "pvs_zone" {
   default     = "syd04"
 }
 
-variable "resource_group" {
+variable "existing_resource_group_name" {
   type        = string
-  description = "An existing resource group name to use for this example"
-  default     = "Default"
+  description = "Existing resource group name to use for this example. If null, a new resource group will be created."
+  default     = null
 }
 
 variable "prefix" {
