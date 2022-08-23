@@ -1,5 +1,3 @@
-<!-- BEGIN_TF_DOCS -->
-
 # Submodule power_management_services_setup
 
 This submodule Installs and configures the Squid Proxy, DNS Forwarder, NTP Forwarder, NFS on specified host and sets the host as server for these services
@@ -53,4 +51,4 @@ perform_proxy_client_setup = var.perform_proxy_client_setup
 ## Outputs
 
 No outputs.
-<!-- END_TF_DOCS -->
+<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

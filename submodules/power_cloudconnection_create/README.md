@@ -1,5 +1,3 @@
-<!-- BEGIN_TF_DOCS -->
-
 # Submodule power-cloudconnection-create
 
 This submodule creates Cloud Connections and attaches the cloud connections to the Transit gateway.

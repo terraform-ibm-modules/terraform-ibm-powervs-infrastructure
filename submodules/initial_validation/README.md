@@ -1,5 +1,3 @@
-<!-- BEGIN_TF_DOCS -->
-
 # Submodule initial-validation
 
 This submodule checks the right combination of variables and validates them
@@ -18,7 +16,7 @@ cloud_connection_validate = var.cloud_connection_validate
 }
 
 ```
-
+<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
 | Name | Version |
@@ -39,4 +37,4 @@ No resources.
 ## Outputs
 
 No outputs.
-<!-- END_TF_DOCS -->
+<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

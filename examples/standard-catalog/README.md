@@ -18,7 +18,6 @@ Use of this resource for production deployments is not recommended. Instead, gen
 Make sure you installed the Power flavor of version 0.0.19 or higher of Secure Landing Zone VPC with VSIs.
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
-
 ## Requirements
 
 | Name | Version |
@@ -75,5 +74,4 @@ Make sure you installed the Power flavor of version 0.0.19 or higher of Secure L
 ## Note
 
 For all optional fields, default values (Eg: `null`) are given in variable.tf file. User can configure the same by overwriting with appropriate values.
-
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

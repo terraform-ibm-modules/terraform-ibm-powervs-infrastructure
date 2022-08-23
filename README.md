@@ -1,5 +1,3 @@
-<!-- BEGIN_TF_DOCS -->
-
 # PowerVS Infrastructure Module
 
 The PowerVS infrastructure module automates the following tasks:
@@ -50,7 +48,7 @@ perform_proxy_client_setup  = var.perform_proxy_client_setup
 - <a name="standard">[Standard PowerVS Infrastructure Module Example](examples/standard)</a>
 - <a name="catalog">[Catalog PowerVS Infrastructure Module Example](examples/standard-catalog)</a>
 
-
+<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 ## Requirements
 
@@ -123,10 +121,5 @@ For all optional fields, default values (Eg: `null`) are given in variable.tf fi
 You can report issues and request features for this module in the [terraform-ibm-issue-tracker](https://github.com/terraform-ibm-modules/terraform-ibm-issue-tracker/issues) repo. See [Report an issue or request a feature](https://github.com/terraform-ibm-modules/.github/blob/main/.github/SUPPORT.md).
 
 To set up your local development environment, see [Local development setup](https://terraform-ibm-modules.github.io/documentation/#/local-dev-setup) in the project documentation.
-<!-- END_TF_DOCS -->
 
-## Contributing
-
-You can report issues and request features for this module in the [terraform-ibm-issue-tracker](https://github.com/terraform-ibm-modules/terraform-ibm-issue-tracker/issues) repo. See [Report an issue or request a feature](https://github.com/terraform-ibm-modules/.github/blob/main/.github/SUPPORT.md).
-
-To set up your local development environment, see [Local development setup](https://terraform-ibm-modules.github.io/documentation/#/local-dev-setup) in the project documentation.
+<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

@@ -1,5 +1,3 @@
-<!-- BEGIN_TF_DOCS -->
-
 # Standard PowerVS Infrastructure Module Example
 
 This example illustrates how to use the `power-infrastructure` module.
@@ -13,8 +11,7 @@ If reusing cloud connections make sure cloud connection is already attached to t
 - Creates a ssh key
 - Option to Install and Configure Squid proxy, NFS, NTP forwarder, DNS forwarder on specified hosts.
 
-
-
+<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
 | Name | Version |
@@ -79,4 +76,5 @@ terraform apply -var-file="input.tfvars"
 ## Note
 
 For all optional fields, default values (Eg: `null`) are given in variable.tf file. User can configure the same by overwriting with appropriate values.
-<!-- END_TF_DOCS -->
+
+<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
