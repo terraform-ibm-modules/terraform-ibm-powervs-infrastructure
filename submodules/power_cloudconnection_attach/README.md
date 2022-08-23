@@ -5,7 +5,7 @@
 This submodule attaches PowerVS subnets to cloud connections
 
 ## Usage
-```
+```hcl
 provider "ibm" {
 region           = "sao"
 zone             = "sao01"
