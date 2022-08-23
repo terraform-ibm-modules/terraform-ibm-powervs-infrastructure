@@ -64,7 +64,37 @@ resource "ibm_is_ssh_key" "ssh_key" {
   public_key = trimspace(tls_private_key.tls_key.public_key_openssh)
 }
 
+########################################################################################################################
+# Account Resource Group
+########################################################################################################################
+
+locals {
+  resource_group_name = var.existing_resource_group_name == null ? module.resource_group[0].resource_group_name : module.existing_resource_group[0].resource_group_name
+}
+
+module "existing_resource_group" {
+  count                        = var.existing_resource_group_name == null ? 0 : 1
+  source                       = "git::https://github.com/terraform-ibm-modules/terraform-ibm-resource-group.git?ref=v1.0.0"
+  existing_resource_group_name = var.existing_resource_group_name
+}
+
+module "resource_group" {
+  count               = var.existing_resource_group_name == null ? 1 : 0
+  source              = "git::https://github.com/terraform-ibm-modules/terraform-ibm-resource-group.git?ref=v1.0.0"
+  resource_group_name = "${var.prefix}-rg"
+}
+
+########################################################################################################################
+# Instantiate PowerVS infrastructure
+########################################################################################################################
+
+
 module "pvs" {
+  # Explicit dependency needed here - likely due to different provider alias used in this example
+  depends_on = [
+    local.resource_group_name
+  ]
+
   providers = {
     ibm = ibm.ibm-pvs
   }
@@ -72,7 +102,7 @@ module "pvs" {
   source = "../../"
 
   pvs_zone                 = var.pvs_zone
-  pvs_resource_group_name  = var.resource_group
+  pvs_resource_group_name  = local.resource_group_name
   pvs_service_name         = "${var.prefix}-${var.pvs_service_name}"
   tags                     = var.resource_tags
   pvs_sshkey_name          = "${var.prefix}-${var.pvs_sshkey_name}"
