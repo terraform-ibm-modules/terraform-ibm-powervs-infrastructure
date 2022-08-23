@@ -65,6 +65,22 @@ data "ibm_dl_gateway" "gateway_ds_2" {
   name       = "${var.pvs_zone}-conn-2"
 }
 
+resource "time_sleep" "dl_1_resource_propagation" {
+  depends_on      = [data.ibm_dl_gateway.gateway_ds_1]
+  create_duration = "120s"
+  triggers = {
+    dl_crn = data.ibm_dl_gateway.gateway_ds_1.crn
+  }
+}
+
+resource "time_sleep" "dl_2_resource_propagation" {
+  depends_on      = [data.ibm_dl_gateway.gateway_ds_2]
+  count           = var.cloud_connection_count > 1 ? 1 : 0
+  create_duration = "120s"
+  triggers = {
+    dl_crn = data.ibm_dl_gateway.gateway_ds_2[0].crn
+  }
+}
 
 #####################################################
 # Attach direct link CRNs to transit gateway
@@ -75,7 +91,7 @@ resource "ibm_tg_connection" "ibm_tg_connection_1" {
   gateway      = data.ibm_tg_gateway.tg_gateway_ds.id
   network_type = "directlink"
   name         = "${var.pvs_zone}-conn-1"
-  network_id   = data.ibm_dl_gateway.gateway_ds_1.crn
+  network_id   = time_sleep.dl_1_resource_propagation.triggers["dl_crn"]
 }
 
 resource "ibm_tg_connection" "ibm_tg_connection_2" {
@@ -84,6 +100,5 @@ resource "ibm_tg_connection" "ibm_tg_connection_2" {
   gateway      = data.ibm_tg_gateway.tg_gateway_ds.id
   network_type = "directlink"
   name         = "${var.pvs_zone}-conn-2"
-  network_id   = data.ibm_dl_gateway.gateway_ds_2[0].crn
-  #time_sleep.dl_resource_propagation.triggers["dl_2_crn"]
+  network_id   = time_sleep.dl_2_resource_propagation[0].triggers["dl_crn"]
 }
