@@ -8,6 +8,7 @@ It provisions the following infrastructure
 (3) The IBM Cloud connections are attached to a [transit gateway](https://cloud.ibm.com/docs/transit-gateway?topic=transit-gateway-getting-started) <br/>
 (4) Attaches the PowerVS service instance private networks to the IBM Cloud connections <br/>
 - Creates a ssh key
+- Option to Install and Configure Squid proxy, NFS, NTP forwarder, DNS forwarder on specified hosts.
 
 ## Prerequisites
 Make sure you installed the Power flavor of version 0.0.19 or higher of Secure Landing Zone VPC with VSIs.
