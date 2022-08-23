@@ -19,7 +19,8 @@ ibmcloud_api_key = var.ibmcloud_api_key != null ? var.ibmcloud_api_key : null
 }
 
 module "power-infrastructure" {
-source = "terraform-ibm-modules/powervs/ibm/modules/powervs-infrastructure"
+# Replace "main" with a GIT release version to lock into a specific release
+source = "git::https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure.git?ref=main"
 
 pvs_zone                    = var.pvs_zone
 pvs_resource_group_name     = var.pvs_resource_group_name
