@@ -5,7 +5,19 @@
 This submodule check whether the variables for cloud connections reuse and transit gateway name are provided
 
 ## Usage
-Make sure you installed the Power flavor of version 0.0.19 or higher of Secure Landing Zone VPC with VSIs.
+```
+provider "ibm" {
+region           = "sao"
+zone             = "sao01"
+ibmcloud_api_key = "your api key" != null ? "your api key" : null
+}
+
+module "initial_validation" {
+source = "./submodules/initial_validation"
+cloud_connection_validate = var.cloud_connection_validate
+}
+
+```
 
 ## Requirements
 
@@ -14,9 +26,9 @@ Make sure you installed the Power flavor of version 0.0.19 or higher of Secure L
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >=1.1 |
 | <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | >= 1.43.0 |
 
-## Modules
+## Resources
 
-No modules.
+No resources.
 
 ## Inputs
 
@@ -27,17 +39,4 @@ No modules.
 ## Outputs
 
 No outputs.
-
-## Resources
-
-No resources.
-
-
-## Usage
-
-terraform apply -var-file="input.tfvars"
-
-## Note
-
-For all optional fields, default values (Eg: `null`) are given in variable.tf file. User can configure the same by overwriting with appropriate values.
 <!-- END_TF_DOCS -->

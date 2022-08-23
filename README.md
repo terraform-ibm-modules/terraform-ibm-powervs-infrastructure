@@ -5,7 +5,7 @@
 This module provisions the following infrastructure
 - Creates a [PowerVS service instance](https://cloud.ibm.com/docs/power-iaas?topic=power-iaas-getting-started) with the following network topology <br/>
 (1) 2 private networks, management network and backup network <br/>
-(2) 1 [IBM Cloud connection](https://cloud.ibm.com/docs/power-iaas?topic=power-iaas-cloud-connections), with the option to reuse existing IBM Cloud connections <br/>
+(2) 1 or 2 [IBM Cloud connection](https://cloud.ibm.com/docs/power-iaas?topic=power-iaas-cloud-connections), with the option to reuse existing IBM Cloud connections <br/>
 (3) The IBM Cloud connections are attached to a [transit gateway](https://cloud.ibm.com/docs/transit-gateway?topic=transit-gateway-getting-started) <br/>
 (4) Attaches the PowerVS service instance private networks to the IBM Cloud connections <br/>
 - Creates a ssh key
@@ -14,7 +14,6 @@ This module provisions the following infrastructure
 :warning: For experimentation purposes only.
 For ease of use, this quick start example generates a private/public ssh key pair. The private key generated in this example will be stored unencrypted in your Terraform state file.
 Use of this resource for production deployments is not recommended. Instead, generate a ssh key pair outside of Terraform and pass the public key via the [ssh_public_key input](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/tree/v0.1#input_ssh_public_key)
-
 
 ## Usage
 ```
@@ -33,7 +32,7 @@ pvs_service_name            = var.pvs_service_name
 tags                        = var.tags
 pvs_sshkey_name             = var.pvs_sshkey_name
 ssh_public_key              = var.ssh_public_key
-ssh_private_key             = var.ssh_private_key               # pragma: allowlist secret
+ssh_private_key             = var.ssh_private_key
 pvs_management_network      = var.pvs_management_network
 pvs_backup_network          = var.pvs_backup_network
 transit_gateway_name        = var.transit_gateway_name
@@ -49,21 +48,16 @@ ntp_forwarder_config        = var.ntp_forwarder_config
 nfs_config                  = var.nfs_config
 perform_proxy_client_setup  = var.perform_proxy_client_setup
 }
-
 ```
-<!-- BEGIN EXAMPLES HOOK -->
 ## Examples
-
-- [<!-- BEGIN_TF_DOCS -->](examples/basic)
-- [<!-- BEGIN_TF_DOCS -->](examples/standard-catalog)
-- [<!-- BEGIN_TF_DOCS -->](examples/standard)
-<!-- END EXAMPLES HOOK -->
+- <a name="basic">[Basic PowerVS Infrastructure Module Example](examples/basic)</a>
+- <a name="standard">[Standard PowerVS Infrastructure Module Example](examples/standard)</a>
+- <a name="catalog">[Catalog PowerVS Infrastructure Module Example](examples/standard-catalog)</a>
 
 
 ## Prerequisites
 Make sure you installed the Power flavor of version 0.0.19 or higher of Secure Landing Zone VPC with VSIs.
 
-<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
 | Name | Version |
@@ -125,12 +119,6 @@ No resources.
 | <a name="output_pvs_resource_group_name"></a> [pvs\_resource\_group\_name](#output\_pvs\_resource\_group\_name) | Name of the IBM PowerVS resource group where elements were created. |
 | <a name="output_pvs_service_name"></a> [pvs\_service\_name](#output\_pvs\_service\_name) | Name of the service where elements were created. |
 | <a name="output_pvs_ssh_key_name"></a> [pvs\_ssh\_key\_name](#output\_pvs\_ssh\_key\_name) | Name of the created ssh key. |
-
-<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
-
-## Usage
-
-terraform apply -var-file="input.tfvars"
 
 ## Note
 

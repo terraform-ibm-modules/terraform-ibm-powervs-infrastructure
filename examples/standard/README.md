@@ -6,7 +6,7 @@ This example illustrates how to use the `power-infrastructure` module.
 It provisions the following infrastructure
 - Creates a [PowerVS service instance](https://cloud.ibm.com/docs/power-iaas?topic=power-iaas-getting-started) with the following network topology <br/>
 (1) 2 private networks, management network and backup network <br/>
-(2) 1 [IBM Cloud connection](https://cloud.ibm.com/docs/power-iaas?topic=power-iaas-cloud-connections), with the option to reuse existing IBM Cloud connections <br/>
+(2) 1 or 2 [IBM Cloud connection](https://cloud.ibm.com/docs/power-iaas?topic=power-iaas-cloud-connections), with the option to reuse existing IBM Cloud connections <br/>
 (3) The IBM Cloud connections are attached to a [transit gateway](https://cloud.ibm.com/docs/transit-gateway?topic=transit-gateway-getting-started) <br/>
 (4) Attaches the PowerVS service instance private networks to the IBM Cloud connections <br/>
 - Creates a ssh key

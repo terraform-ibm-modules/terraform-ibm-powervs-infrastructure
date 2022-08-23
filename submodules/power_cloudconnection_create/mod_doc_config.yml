@@ -14,17 +14,16 @@ content: |-
     ibmcloud_api_key = "your api key" != null ? "your api key" : null
   }
 
-  module "cloud-connection-create" {
-    source  = "./power-cloudconnection-create"
-    count                       = var.transit_gateway_name != null && var.transit_gateway_name != "" ? 1 : 0
-    pvs_zone                    = var.pvs_zone
-    pvs_resource_group_name     = var.pvs_resource_group_name
-    pvs_service_name            = var.pvs_service_name
-    transit_gateway_name        = var.transit_gateway_name
-    cloud_connection_count      = var.cloud_connection_count
-    cloud_connection_speed      = var.cloud_connection_speed
-    cloud_connection_gr         = var.cloud_connection_gr
-    cloud_connection_metered    = var.cloud_connection_metered
+  module "cloud_connection_create" {
+    source                   = "./submodules/power_cloudconnection_create"
+    pvs_zone                 = var.pvs_zone
+    pvs_resource_group_name  = var.pvs_resource_group_name
+    pvs_service_name         = var.pvs_service_name
+    transit_gateway_name     = var.transit_gateway_name
+    cloud_connection_count   = var.cloud_connection_count
+    cloud_connection_speed   = var.cloud_connection_speed
+    cloud_connection_gr      = var.cloud_connection_gr
+    cloud_connection_metered = var.cloud_connection_metered
   }
   ```
 
@@ -35,8 +34,6 @@ content: |-
     |------|---------|
     | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >=1.1 |
     | <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | >= 1.43.0 |
-
-  {{ .Modules }}
 
   {{ .Resources }}
 

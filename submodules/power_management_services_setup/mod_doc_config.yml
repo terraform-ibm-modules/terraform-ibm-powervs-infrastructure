@@ -6,7 +6,7 @@ content: |-
   # Submodule power_management_services_setup
 
   This submodule is used to Install and configure the services DNS, NTP, NFS, SQUID on target host and sets the host as server for these services
-  
+
   ## Usage
   ```
   provider "ibm" {
@@ -15,14 +15,14 @@ content: |-
     ibmcloud_api_key = "your api key" != null ? "your api key" : null
   }
 
-  module "cloud-connection-create" {
-    source  = "./power_management_services_setup"
-    count                       = var.dns_forwarder_config["dns_enable"] ? 1 : 0
+  module "power_management_service_squid" {
 
-    access_host_or_ip           = var.access_host_or_ip
-    target_server_ip            = var.dns_forwarder_config["server_host_or_ip"]
-    ssh_private_key             = var.ssh_private_key  # pragma: allowlist secret
-    service_config              = var.dns_forwarder_config
+    source     = "./submodules/power_management_services_setup"
+    access_host_or_ip          = var.access_host_or_ip
+    target_server_ip           = var.target_server_ip
+    ssh_private_key            = var.ssh_private_key
+    service_config             = var.service_config
+    perform_proxy_client_setup = var.perform_proxy_client_setup
   }
 
   ```
@@ -34,8 +34,6 @@ content: |-
     |------|---------|
     | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >=1.1 |
     | <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | >= 1.43.0 |
-
-  {{ .Modules }}
 
   {{ .Resources }}
 
