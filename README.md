@@ -53,8 +53,8 @@ TBC
 <!-- BEGIN EXAMPLES HOOK -->
 ## Examples
 
-- [# Catalog PowerVS Infrastructure Module Example](examples/standard-catalog)
-- [# Basic PowerVS Infrastructure Module Example](examples/basic)
+- [ Basic PowerVS Infrastructure Module Example](examples/basic)
+- [ Catalog PowerVS Infrastructure Module Example](examples/standard-catalog)
 <!-- END EXAMPLES HOOK -->
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
