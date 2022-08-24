@@ -1,5 +1,5 @@
 variable "slz_workspace_id" {
-  description = "IBM cloud schematics workspace ID to reuse values from SLZ workspace"
+  description = "IBM Cloud Schematics workspace ID of an existing Secure Landing Zone with VSIs deployment.If you do not yet have an existing deployment, click [here](https://cloud.ibm.com/catalog/content/slz-vpc-with-vsis-a87ed9a5-d130-47a3-980b-5ceb1d4f9280-global#create) to create one. Please note: a specific  configuration is needed for the deployment. You may find it [here](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/tree/main/examples/ibm-catalog/standard-solution/slz_json_configs_for_powervs/vpc_landscape_config.json). Copy and paste that configuration into the `override_json_string` deployment value."
   type        = string
   default     = null
 }
