@@ -87,7 +87,7 @@ variable "cloud_connection_speed" {
 variable "tags" {
   description = "List of Tag names for PowerVS service"
   type        = list(string)
-  default     = null
+  default     = ["sap"]
 }
 
 variable "cloud_connection_gr" {
@@ -135,8 +135,6 @@ variable "nfs_config" {
     "server_host_or_ip" = ""
   }
 }
-
-
 
 variable "ibmcloud_api_key" {
   description = "IBM Cloud Api Key"

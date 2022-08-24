@@ -62,7 +62,7 @@ Make sure you installed the Power flavor of version 0.0.19 or higher of Secure L
 | <a name="input_slz_workspace_id"></a> [slz\_workspace\_id](#input\_slz\_workspace\_id) | IBM cloud schematics workspace ID to reuse values from SLZ workspace | `string` | `null` | no |
 | <a name="input_squid_config"></a> [squid\_config](#input\_squid\_config) | Squid Configuration on server | `map(any)` | <pre>{<br>  "server_host_or_ip": ""<br>}</pre> | no |
 | <a name="input_ssh_private_key"></a> [ssh\_private\_key](#input\_ssh\_private\_key) | SSH private key value to login to servers. It will not be uploaded / stored anywhere. | `string` | n/a | yes |
-| <a name="input_tags"></a> [tags](#input\_tags) | List of Tag names for PowerVS service | `list(string)` | `null` | no |
+| <a name="input_tags"></a> [tags](#input\_tags) | List of Tag names for PowerVS service | `list(string)` | <pre>[<br>  "sap"<br>]</pre> | no |
 
 ## Outputs
 
