@@ -64,37 +64,26 @@ resource "ibm_is_ssh_key" "ssh_key" {
   public_key = trimspace(tls_private_key.tls_key.public_key_openssh)
 }
 
-########################################################################################################################
-# Account Resource Group
-########################################################################################################################
-
 locals {
-  resource_group_name = var.existing_resource_group_name == null ? module.resource_group[0].resource_group_name : module.existing_resource_group[0].resource_group_name
+  squid_config = merge(var.squid_proxy_config, {
+    "squid_enable"      = var.configure_proxy
+    "server_host_or_ip" = var.squid_proxy_config["squid_proxy_host_or_ip"] != null && var.squid_proxy_config["squid_proxy_host_or_ip"] != "" ? var.squid_proxy_config["squid_proxy_host_or_ip"] : var.internet_services_host_or_ip
+  })
+  dns_forwarder_config = merge(var.dns_forwarder_config, {
+    "dns_enable"        = var.configure_dns_forwarder
+    "server_host_or_ip" = var.dns_forwarder_config["dns_forwarder_host_or_ip"] != null && var.dns_forwarder_config["dns_forwarder_host_or_ip"] != "" ? var.dns_forwarder_config["dns_forwarder_host_or_ip"] : var.private_services_host_or_ip
+  })
+  ntp_forwarder_config = merge(var.ntp_forwarder_config, {
+    "ntp_enable"        = var.configure_ntp_forwarder
+    "server_host_or_ip" = var.ntp_forwarder_config["ntp_forwarder_host_or_ip"] != null && var.ntp_forwarder_config["ntp_forwarder_host_or_ip"] != "" ? var.ntp_forwarder_config["ntp_forwarder_host_or_ip"] : var.private_services_host_or_ip
+  })
+  nfs_config = merge(var.nfs_server_config, {
+    "nfs_enable"        = var.configure_nfs_server
+    "server_host_or_ip" = var.nfs_server_config["nfs_server_host_or_ip"] != null && var.nfs_server_config["nfs_server_host_or_ip"] != "" ? var.nfs_server_config["nfs_server_host_or_ip"] : var.private_services_host_or_ip
+  })
 }
 
-module "existing_resource_group" {
-  count                        = var.existing_resource_group_name == null ? 0 : 1
-  source                       = "git::https://github.com/terraform-ibm-modules/terraform-ibm-resource-group.git?ref=v1.0.0"
-  existing_resource_group_name = var.existing_resource_group_name
-}
-
-module "resource_group" {
-  count               = var.existing_resource_group_name == null ? 1 : 0
-  source              = "git::https://github.com/terraform-ibm-modules/terraform-ibm-resource-group.git?ref=v1.0.0"
-  resource_group_name = "${var.prefix}-rg"
-}
-
-########################################################################################################################
-# Instantiate PowerVS infrastructure
-########################################################################################################################
-
-
-module "pvs" {
-  # Explicit dependency needed here - likely due to different provider alias used in this example
-  depends_on = [
-    local.resource_group_name
-  ]
-
+module "powervs_infra" {
   providers = {
     ibm = ibm.ibm-pvs
   }
@@ -102,11 +91,13 @@ module "pvs" {
   source = "../../"
 
   pvs_zone                 = var.pvs_zone
-  pvs_resource_group_name  = local.resource_group_name
+  pvs_resource_group_name  = var.resource_group
   pvs_service_name         = "${var.prefix}-${var.pvs_service_name}"
   tags                     = var.resource_tags
   pvs_sshkey_name          = "${var.prefix}-${var.pvs_sshkey_name}"
   ssh_public_key           = ibm_is_ssh_key.ssh_key.public_key
+  ssh_private_key          = trimspace(tls_private_key.tls_key.private_key_openssh)
+  access_host_or_ip        = var.access_host_or_ip
   pvs_management_network   = var.pvs_management_network
   pvs_backup_network       = var.pvs_backup_network
   transit_gateway_name     = var.transit_gateway_name
@@ -115,4 +106,8 @@ module "pvs" {
   cloud_connection_speed   = var.cloud_connection_speed
   cloud_connection_gr      = var.cloud_connection_gr
   cloud_connection_metered = var.cloud_connection_metered
+  squid_config             = local.squid_config
+  dns_forwarder_config     = local.dns_forwarder_config
+  ntp_forwarder_config     = local.ntp_forwarder_config
+  nfs_config               = local.nfs_config
 }

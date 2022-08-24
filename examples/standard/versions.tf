@@ -1,17 +1,14 @@
 #####################################################
-# IBM Cloud PowerVS cloud connection create Module
+# powervs service Module
+# Copyright 2022 IBM
 #####################################################
 
 terraform {
-  required_version = ">=1.1"
+  required_version = ">=1.2"
   required_providers {
     ibm = {
       source  = "IBM-Cloud/ibm"
-      version = ">= 1.43.0"
-    }
-    time = {
-      source  = "hashicorp/time"
-      version = ">= 0.8.0"
+      version = ">= 1.44.2"
     }
   }
 }

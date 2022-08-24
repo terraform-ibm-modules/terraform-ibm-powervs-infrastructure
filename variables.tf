@@ -23,6 +23,13 @@ variable "pvs_sshkey_name" {
 variable "ssh_public_key" {
   description = "Public SSH Key for PowerVM creation"
   type        = string
+  sensitive   = true
+}
+
+variable "ssh_private_key" {
+  description = "SSh private key value to login to server. It will not be uploaded / stored anywhere."
+  type        = string
+  sensitive   = true
 }
 
 variable "pvs_management_network" {
@@ -87,4 +94,59 @@ variable "cloud_connection_metered" {
   description = "Enable metered for this cloud connection. Can be specified when creating new connection"
   type        = bool
   default     = null
+}
+
+variable "access_host_or_ip" {
+  description = "Jump/Bastion server Public IP to reach the target/server_host ip to configure the DNS,NTP,NFS,SQUID services"
+  type        = string
+}
+
+variable "squid_config" {
+  description = "Configure DNS forwarder to existing DNS service that is not reachable directly from PowerVS"
+  type        = map(any)
+  default = {
+    "squid_enable"      = "false"
+    "server_host_or_ip" = "inet-svs"
+  }
+}
+
+variable "dns_forwarder_config" {
+  description = "Configure DNS forwarder to existing DNS service that is not reachable directly from PowerVS"
+  type        = map(any)
+  default = {
+    "dns_enable"        = "false"
+    "server_host_or_ip" = "inet-svs"
+    "dns_servers"       = "161.26.0.7; 161.26.0.8; 9.9.9.9;"
+  }
+}
+
+variable "ntp_forwarder_config" {
+  description = "Configure NTP forwarder to existing NTP service that is not reachable directly from PowerVS"
+  type        = map(any)
+  default = {
+    "ntp_enable"        = "false"
+    "server_host_or_ip" = "inet-svs"
+  }
+}
+
+variable "nfs_config" {
+  description = "Configure shared NFS file system (e.g., for installation media)"
+  type        = map(any)
+  default = {
+    "nfs_enable"        = "true"
+    "server_host_or_ip" = "private-svs"
+    "nfs_directory"     = "/nfs"
+  }
+}
+
+variable "perform_proxy_client_setup" {
+  description = "Configures a Vm/Lpar to have internet access by setting proxy on it."
+  type = object(
+    {
+      squid_client_ips = list(string)
+      squid_server_ip  = string
+      no_proxy_env     = string
+    }
+  )
+  default = null
 }

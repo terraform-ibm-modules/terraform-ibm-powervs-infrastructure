@@ -1,30 +1,27 @@
 # Submodule power-cloudconnection-create
 
-This submodule is used to create Cloud Connections and attach the cloud connections to the Transit gateway.
+This submodule creates Cloud Connections and attaches the cloud connections to the Transit gateway.
 
 ## Usage
-```
+```hcl
 provider "ibm" {
-  region           = "sao"
-  zone             = "sao01"
-  ibmcloud_api_key = "your api key" != null ? "your api key" : null
+region           = "sao"
+zone             = "sao01"
+ibmcloud_api_key = "your api key" != null ? "your api key" : null
 }
 
-module "cloud-connection-create" {
-  source  = "./power-cloudconnection-create"
-  count                       = var.transit_gateway_name != null && var.transit_gateway_name != "" ? 1 : 0
-  pvs_zone                    = var.pvs_zone
-  pvs_resource_group_name     = var.pvs_resource_group_name
-  pvs_service_name            = var.pvs_service_name
-  transit_gateway_name        = var.transit_gateway_name
-  cloud_connection_count      = var.cloud_connection_count
-  cloud_connection_speed      = var.cloud_connection_speed
-  cloud_connection_gr         = var.cloud_connection_gr
-  cloud_connection_metered    = var.cloud_connection_metered
-
+module "cloud_connection_create" {
+source                   = "./submodules/power_cloudconnection_create"
+pvs_zone                 = var.pvs_zone
+pvs_resource_group_name  = var.pvs_resource_group_name
+pvs_service_name         = var.pvs_service_name
+transit_gateway_name     = var.transit_gateway_name
+cloud_connection_count   = var.cloud_connection_count
+cloud_connection_speed   = var.cloud_connection_speed
+cloud_connection_gr      = var.cloud_connection_gr
+cloud_connection_metered = var.cloud_connection_metered
 }
 ```
-
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
@@ -33,6 +30,7 @@ module "cloud-connection-create" {
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >=1.1 |
 | <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | >= 1.43.0 |
+| <a name="requirement_time"></a> [time](#requirement\_time) | >= 0.8.0 |
 
 ## Modules
 
@@ -46,6 +44,8 @@ No modules.
 | [ibm_pi_cloud_connection.cloud_connection_backup](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/pi_cloud_connection) | resource |
 | [ibm_tg_connection.ibm_tg_connection_1](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/tg_connection) | resource |
 | [ibm_tg_connection.ibm_tg_connection_2](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/tg_connection) | resource |
+| [time_sleep.dl_1_resource_propagation](https://registry.terraform.io/providers/hashicorp/time/latest/docs/resources/sleep) | resource |
+| [time_sleep.dl_2_resource_propagation](https://registry.terraform.io/providers/hashicorp/time/latest/docs/resources/sleep) | resource |
 | [ibm_dl_gateway.gateway_ds_1](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/data-sources/dl_gateway) | data source |
 | [ibm_dl_gateway.gateway_ds_2](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/data-sources/dl_gateway) | data source |
 | [ibm_resource_group.resource_group_ds](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/data-sources/resource_group) | data source |

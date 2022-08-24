@@ -1,28 +1,27 @@
-# Module power-service
+# Submodule power-cloudconnection-create
 
-This submodule is used to create a PowerVS service, SSH Key, and 2 private networks for management network and backup network
+This submodule creates a PowerVs service, 2 private networks and a SSH key
 
 ## Usage
-```
+```hcl
 provider "ibm" {
-  region           = "sao"
-  zone             = "sao01"
-  ibmcloud_api_key = "your api key" != null ? "your api key" : null
+region           = "sao"
+zone             = "sao01"
+ibmcloud_api_key = "your api key" != null ? "your api key" : null
 }
 
-module "power-service" {
-  source = "./power-service"
+module "power_service" {
+source = "./submodules/power_service"
 
-  pvs_zone                  = var.pvs_zone
-  pvs_resource_group_name   = var.pvs_resource_group_name
-  pvs_service_name          = var.pvs_service_name
-  tags                      = var.tags
-  pvs_sshkey_name           = var.pvs_sshkey_name
-  ssh_public_key            = var.ssh_public_key
-  pvs_management_network    = var.pvs_management_network
-  pvs_backup_network        = var.pvs_backup_network
+pvs_zone                = var.pvs_zone
+pvs_resource_group_name = var.pvs_resource_group_name
+pvs_service_name        = var.pvs_service_name
+tags                    = var.tags
+pvs_sshkey_name         = var.pvs_sshkey_name
+ssh_public_key          = var.ssh_public_key
+pvs_management_network  = var.pvs_management_network
+pvs_backup_network      = var.pvs_backup_network
 }
-
 ```
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
