@@ -1,8 +1,3 @@
-#####################################################
-# PVS Configuration
-# Copyright 2022 IBM
-#####################################################
-
 provider "ibm" {
   region           = lookup(var.ibm_pvs_zone_region_map, var.pvs_zone, null)
   zone             = var.pvs_zone
