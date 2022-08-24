@@ -1,39 +1,39 @@
 variable "pvs_zone" {
-  description = "IBM Cloud PowerVS Zone"
+  description = "IBM Cloud PowerVS zone"
   type        = string
 }
 
 variable "pvs_resource_group_name" {
-  description = "Existing Resource Group Name"
+  description = "Existing resource group name"
   type        = string
 }
 
 variable "pvs_service_name" {
-  description = "Name of PowerVS service which will be created"
+  description = "Name of the PowerVS service to create"
   type        = string
   default     = "power-service"
 }
 
 variable "pvs_sshkey_name" {
-  description = "Name of PowerVS SSH Key which will be created"
+  description = "Name of the PowerVS SSH key to create"
   type        = string
   default     = "ssh-key-pvs"
 }
 
 variable "ssh_public_key" {
-  description = "Public SSH Key for PowerVM creation"
+  description = "Public SSH Key for the PowerVM to create"
   type        = string
   sensitive   = true
 }
 
 variable "ssh_private_key" {
-  description = "SSh private key value to login to server. It will not be uploaded / stored anywhere."
+  description = "SSH private key value to log into the server. The key is not uploaded or stored."
   type        = string
   sensitive   = true
 }
 
 variable "pvs_management_network" {
-  description = "IBM Cloud PowerVS Management Subnet name and cidr which will be created"
+  description = "Name of the IBM Cloud PowerVS management subnet and CIDR to create"
   type        = map(any)
   default = {
     name = "mgmt_net"
@@ -42,7 +42,7 @@ variable "pvs_management_network" {
 }
 
 variable "pvs_backup_network" {
-  description = "IBM Cloud PowerVS Backup Network name and cidr which will be created"
+  description = "Name of the IBM Cloud PowerVS backup network and CIDR to create"
   type        = map(any)
   default = {
     name = "bkp_net"
@@ -51,25 +51,25 @@ variable "pvs_backup_network" {
 }
 
 variable "transit_gateway_name" {
-  description = "Name of the existing transit gateway. Required when creating new cloud connections"
+  description = "Name of the existing transit gateway. Required when you create new IBM Cloud connections."
   type        = string
   default     = null
 }
 
 variable "reuse_cloud_connections" {
-  description = "When the value is true, cloud connections will be reused (and is already attached to Transit gateway)"
+  description = "When true, IBM Cloud connections are reused (if attached to the transit gateway)."
   type        = bool
   default     = false
 }
 
 variable "cloud_connection_count" {
-  description = "Required number of Cloud connections which will be created/Reused. Maximum is 2 per location"
+  description = "Required number of Cloud connections to create or reuse. The maximum number of connections i two per location."
   type        = string
   default     = 2
 }
 
 variable "cloud_connection_speed" {
-  description = "Speed in megabits per sec. Supported values are 50, 100, 200, 500, 1000, 2000, 5000, 10000. Required when creating new connection"
+  description = "Speed in megabits per second. Supported values are 50, 100, 200, 500, 1000, 2000, 5000, 10000. Required when you create a connection."
   type        = string
   default     = 5000
 }
@@ -79,30 +79,30 @@ variable "cloud_connection_speed" {
 #####################################################
 
 variable "tags" {
-  description = "List of Tag names for IBM Cloud PowerVS service"
+  description = "List of tag names for the IBM Cloud PowerVS service"
   type        = list(string)
   default     = null
 }
 
 variable "cloud_connection_gr" {
-  description = "Enable global routing for this cloud connection.Can be specified when creating new connection"
+  description = "Whether to enable global routing for this IBM Cloud connection. You can specify thia value when you create a connection."
   type        = bool
   default     = null
 }
 
 variable "cloud_connection_metered" {
-  description = "Enable metered for this cloud connection. Can be specified when creating new connection"
+  description = "Whether to enable metering for this IBM Cloud connection. You can specify thia value when you create a connection."
   type        = bool
   default     = null
 }
 
 variable "access_host_or_ip" {
-  description = "Jump/Bastion server Public IP to reach the target/server_host ip to configure the DNS,NTP,NFS,SQUID services"
+  description = "The public IP address for the jump or Bastion server. The address is used to reach the target or server_host IP address and to configure the DNS, NTP, NFS, and Squid proxy services."
   type        = string
 }
 
 variable "squid_config" {
-  description = "Configure DNS forwarder to existing DNS service that is not reachable directly from PowerVS"
+  description = "Configuration for the Squid proxy to a DNS service that is not reachable directly from PowerVS"
   type        = map(any)
   default = {
     "squid_enable"      = "false"
@@ -111,7 +111,7 @@ variable "squid_config" {
 }
 
 variable "dns_forwarder_config" {
-  description = "Configure DNS forwarder to existing DNS service that is not reachable directly from PowerVS"
+  description = "Configuration for the DNS forwarder to a DNS service that is not reachable directly from PowerVS"
   type        = map(any)
   default = {
     "dns_enable"        = "false"
@@ -121,7 +121,7 @@ variable "dns_forwarder_config" {
 }
 
 variable "ntp_forwarder_config" {
-  description = "Configure NTP forwarder to existing NTP service that is not reachable directly from PowerVS"
+  description = "Configuration for the NTP forwarder to an NTP service that is not reachable directly from PowerVS"
   type        = map(any)
   default = {
     "ntp_enable"        = "false"
@@ -130,7 +130,7 @@ variable "ntp_forwarder_config" {
 }
 
 variable "nfs_config" {
-  description = "Configure shared NFS file system (e.g., for installation media)"
+  description = "Configuration for the shared NFS file system (for example, for the installation media)."
   type        = map(any)
   default = {
     "nfs_enable"        = "true"
@@ -140,7 +140,7 @@ variable "nfs_config" {
 }
 
 variable "perform_proxy_client_setup" {
-  description = "Configures a Vm/Lpar to have internet access by setting proxy on it."
+  description = "Proxy configuration to allow internet access for a VM or LPAR."
   type = object(
     {
       squid_client_ips = list(string)
