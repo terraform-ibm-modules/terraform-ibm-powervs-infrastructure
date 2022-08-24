@@ -4,7 +4,7 @@
     "access_host_or_ip": {
       "name": "access_host_or_ip",
       "type": "string",
-      "description": "Jump/Bastion server Public IP to reach the target/server_host ip to configure the DNS,NTP,NFS,SQUID services",
+      "description": "The public IP address for the jump or Bastion server. The address is used to reach the target or server_host IP address and to configure the DNS, NTP, NFS, and Squid proxy services.",
       "required": true,
       "pos": {
         "filename": "variables.tf",
@@ -14,7 +14,7 @@
     "cloud_connection_count": {
       "name": "cloud_connection_count",
       "type": "string",
-      "description": "Required number of Cloud connections which will be created/Reused. Maximum is 2 per location",
+      "description": "Required number of Cloud connections to create or reuse. The maximum number of connections i two per location.",
       "default": 2,
       "pos": {
         "filename": "variables.tf",
@@ -24,7 +24,7 @@
     "cloud_connection_gr": {
       "name": "cloud_connection_gr",
       "type": "bool",
-      "description": "Enable global routing for this cloud connection.Can be specified when creating new connection",
+      "description": "Whether to enable global routing for this IBM Cloud connection. You can specify thia value when you create a connection.",
       "pos": {
         "filename": "variables.tf",
         "line": 87
@@ -33,7 +33,7 @@
     "cloud_connection_metered": {
       "name": "cloud_connection_metered",
       "type": "bool",
-      "description": "Enable metered for this cloud connection. Can be specified when creating new connection",
+      "description": "Whether to enable metering for this IBM Cloud connection. You can specify thia value when you create a connection.",
       "pos": {
         "filename": "variables.tf",
         "line": 93
@@ -42,7 +42,7 @@
     "cloud_connection_speed": {
       "name": "cloud_connection_speed",
       "type": "string",
-      "description": "Speed in megabits per sec. Supported values are 50, 100, 200, 500, 1000, 2000, 5000, 10000. Required when creating new connection",
+      "description": "Speed in megabits per second. Supported values are 50, 100, 200, 500, 1000, 2000, 5000, 10000. Required when you create a connection.",
       "default": 5000,
       "pos": {
         "filename": "variables.tf",
@@ -52,7 +52,7 @@
     "dns_forwarder_config": {
       "name": "dns_forwarder_config",
       "type": "map(any)",
-      "description": "Configure DNS forwarder to existing DNS service that is not reachable directly from PowerVS",
+      "description": "Configuration for the DNS forwarder to a DNS service that is not reachable directly from PowerVS",
       "default": {
         "dns_enable": "false",
         "dns_servers": "161.26.0.7; 161.26.0.8; 9.9.9.9;",
@@ -66,7 +66,7 @@
     "nfs_config": {
       "name": "nfs_config",
       "type": "map(any)",
-      "description": "Configure shared NFS file system (e.g., for installation media)",
+      "description": "Configuration for the shared NFS file system (for example, for the installation media).",
       "default": {
         "nfs_directory": "/nfs",
         "nfs_enable": "true",
@@ -80,7 +80,7 @@
     "ntp_forwarder_config": {
       "name": "ntp_forwarder_config",
       "type": "map(any)",
-      "description": "Configure NTP forwarder to existing NTP service that is not reachable directly from PowerVS",
+      "description": "Configuration for the NTP forwarder to an NTP service that is not reachable directly from PowerVS",
       "default": {
         "ntp_enable": "false",
         "server_host_or_ip": "inet-svs"
@@ -93,7 +93,7 @@
     "perform_proxy_client_setup": {
       "name": "perform_proxy_client_setup",
       "type": "object(\n    {\n      squid_client_ips = list(string)\n      squid_server_ip  = string\n      no_proxy_env     = string\n    }\n  )",
-      "description": "Configures a Vm/Lpar to have internet access by setting proxy on it.",
+      "description": "Proxy configuration to allow internet access for a VM or LPAR.",
       "pos": {
         "filename": "variables.tf",
         "line": 142
@@ -102,7 +102,7 @@
     "pvs_backup_network": {
       "name": "pvs_backup_network",
       "type": "map(any)",
-      "description": "IBM Cloud PowerVS Backup Network name and cidr which will be created",
+      "description": "Name of the IBM Cloud PowerVS backup network and CIDR to create",
       "default": {
         "cidr": "10.52.0.0/24",
         "name": "bkp_net"
@@ -115,7 +115,7 @@
     "pvs_management_network": {
       "name": "pvs_management_network",
       "type": "map(any)",
-      "description": "IBM Cloud PowerVS Management Subnet name and cidr which will be created",
+      "description": "Name of the IBM Cloud PowerVS management subnet and CIDR to create",
       "default": {
         "cidr": "10.51.0.0/24",
         "name": "mgmt_net"
@@ -128,7 +128,7 @@
     "pvs_resource_group_name": {
       "name": "pvs_resource_group_name",
       "type": "string",
-      "description": "Existing Resource Group Name",
+      "description": "Existing resource group name",
       "required": true,
       "pos": {
         "filename": "variables.tf",
@@ -138,7 +138,7 @@
     "pvs_service_name": {
       "name": "pvs_service_name",
       "type": "string",
-      "description": "Name of PowerVS service which will be created",
+      "description": "Name of the PowerVS service to create",
       "default": "power-service",
       "pos": {
         "filename": "variables.tf",
@@ -148,7 +148,7 @@
     "pvs_sshkey_name": {
       "name": "pvs_sshkey_name",
       "type": "string",
-      "description": "Name of PowerVS SSH Key which will be created",
+      "description": "Name of the PowerVS SSH key to create",
       "default": "ssh-key-pvs",
       "pos": {
         "filename": "variables.tf",
@@ -158,7 +158,7 @@
     "pvs_zone": {
       "name": "pvs_zone",
       "type": "string",
-      "description": "IBM Cloud PowerVS Zone",
+      "description": "IBM Cloud PowerVS zone",
       "required": true,
       "pos": {
         "filename": "variables.tf",
@@ -168,7 +168,7 @@
     "reuse_cloud_connections": {
       "name": "reuse_cloud_connections",
       "type": "bool",
-      "description": "When the value is true, cloud connections will be reused (and is already attached to Transit gateway)",
+      "description": "When true, IBM Cloud connections are reused (if attached to the transit gateway).",
       "default": false,
       "pos": {
         "filename": "variables.tf",
@@ -178,7 +178,7 @@
     "squid_config": {
       "name": "squid_config",
       "type": "map(any)",
-      "description": "Configure DNS forwarder to existing DNS service that is not reachable directly from PowerVS",
+      "description": "Configuration for the Squid proxy to a DNS service that is not reachable directly from PowerVS",
       "default": {
         "server_host_or_ip": "inet-svs",
         "squid_enable": "false"
@@ -191,7 +191,7 @@
     "ssh_private_key": {
       "name": "ssh_private_key",
       "type": "string",
-      "description": "SSh private key value to login to server. It will not be uploaded / stored anywhere.",
+      "description": "SSH private key value to log into the server. The key is not uploaded or stored.",
       "required": true,
       "sensitive": true,
       "pos": {
@@ -202,7 +202,7 @@
     "ssh_public_key": {
       "name": "ssh_public_key",
       "type": "string",
-      "description": "Public SSH Key for PowerVM creation",
+      "description": "Public SSH Key for the PowerVM to create",
       "required": true,
       "sensitive": true,
       "pos": {
@@ -213,7 +213,7 @@
     "tags": {
       "name": "tags",
       "type": "list(string)",
-      "description": "List of Tag names for IBM Cloud PowerVS service",
+      "description": "List of tag names for the IBM Cloud PowerVS service",
       "pos": {
         "filename": "variables.tf",
         "line": 81
@@ -222,7 +222,7 @@
     "transit_gateway_name": {
       "name": "transit_gateway_name",
       "type": "string",
-      "description": "Name of the existing transit gateway. Required when creating new cloud connections",
+      "description": "Name of the existing transit gateway. Required when you create new IBM Cloud connections.",
       "pos": {
         "filename": "variables.tf",
         "line": 53
