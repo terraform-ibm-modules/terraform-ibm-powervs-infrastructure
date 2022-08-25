@@ -4,7 +4,7 @@
         {
             "label": "Standard",
             "name": "standard",
-            "working_directory": "examples/standard-catalog",
+            "working_directory": "examples/ibm-catalog/standard-solution",
             "usage": "module \"power-infrastructure\" {\n   source                  = \"https://cm.globalcatalog.cloud.ibm.com/api/v1-beta/offering/source?archive=tgz\u0026kind=terraform\u0026name=terraform-ibm-powervs-catalog-powervs-sap-infrastructure\u0026version=1.1.0\"\n  }",
             "compliance": {
                 "controls": [
