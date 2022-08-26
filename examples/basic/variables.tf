@@ -144,51 +144,51 @@ variable "cloud_connection_metered" {
 variable "squid_proxy_config" {
   description = "Configuration for the Squid proxy to a DNS service that is not reachable directly from PowerVS"
   type = object({
-    squid_enable      = bool
-    server_host_or_ip = string
+    squid_enable           = bool
+    squid_proxy_host_or_ip = string
   })
   default = {
-    "squid_enable"      = "false"
-    "server_host_or_ip" = "inet-svs"
+    "squid_enable"           = "false"
+    "squid_proxy_host_or_ip" = "inet-svs"
   }
 }
 
 variable "dns_forwarder_config" {
   description = "Configuration for the DNS forwarder to a DNS service that is not reachable directly from PowerVS"
   type = object({
-    dns_enable        = bool
-    server_host_or_ip = string
-    dns_servers       = string
+    dns_enable               = bool
+    dns_forwarder_host_or_ip = string
+    dns_servers              = string
   })
   default = {
-    "dns_enable"        = "false"
-    "server_host_or_ip" = "inet-svs"
-    "dns_servers"       = "161.26.0.7; 161.26.0.8; 9.9.9.9;"
+    "dns_enable"               = "false"
+    "dns_forwarder_host_or_ip" = "inet-svs"
+    "dns_servers"              = "161.26.0.7; 161.26.0.8; 9.9.9.9;"
   }
 }
 
 variable "ntp_forwarder_config" {
   description = "Configuration for the NTP forwarder to an NTP service that is not reachable directly from PowerVS"
   type = object({
-    ntp_enable        = bool
-    server_host_or_ip = string
+    ntp_enable               = bool
+    ntp_forwarder_host_or_ip = string
   })
   default = {
-    "ntp_enable"        = "false"
-    "server_host_or_ip" = "inet-svs"
+    "ntp_enable"               = "false"
+    "ntp_forwarder_host_or_ip" = "inet-svs"
   }
 }
 
 variable "nfs_server_config" {
   description = "Configuration for the shared NFS file system (for example, for the installation media)."
   type = object({
-    nfs_enable        = bool
-    server_host_or_ip = string
-    nfs_directory     = string
+    nfs_enable            = bool
+    nfs_server_host_or_ip = string
+    nfs_directory         = string
   })
   default = {
-    "nfs_enable"        = "false"
-    "server_host_or_ip" = "private-svs"
-    "nfs_directory"     = "/nfs"
+    "nfs_enable"            = "false"
+    "nfs_server_host_or_ip" = "private-svs"
+    "nfs_directory"         = "/nfs"
   }
 }
