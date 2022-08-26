@@ -60,14 +60,14 @@ variable "reuse_cloud_connections" {
 
 variable "cloud_connection_count" {
   description = "Required number of Cloud connections which will be created/Reused. Maximum is 2 per location"
-  type        = string
+  type        = number
   default     = 0
 }
 
 variable "cloud_connection_speed" {
   description = "Speed in megabits per sec. Supported values are 50, 100, 200, 500, 1000, 2000, 5000, 10000. Required when creating new connection"
-  type        = string
-  default     = "5000"
+  type        = number
+  default     = 5000
 }
 
 variable "ibmcloud_api_key" {
@@ -142,35 +142,53 @@ variable "cloud_connection_metered" {
 }
 
 variable "squid_proxy_config" {
-  description = "Configure SQUID proxy to use with IBM Cloud PowerVS instances."
-  type        = map(any)
+  description = "Configuration for the Squid proxy to a DNS service that is not reachable directly from PowerVS"
+  type = object({
+    squid_enable      = bool
+    server_host_or_ip = string
+  })
   default = {
-    squid_proxy_host_or_ip = null
+    "squid_enable"      = "false"
+    "server_host_or_ip" = "inet-svs"
   }
 }
 
 variable "dns_forwarder_config" {
-  description = "Configure DNS forwarder to existing DNS service that is not reachable directly from PowerVS."
-  type        = map(any)
+  description = "Configuration for the DNS forwarder to a DNS service that is not reachable directly from PowerVS"
+  type = object({
+    dns_enable        = bool
+    server_host_or_ip = string
+    dns_servers       = string
+  })
   default = {
-    dns_forwarder_host_or_ip = null
-    dns_servers              = "161.26.0.7; 161.26.0.8; 9.9.9.9;"
+    "dns_enable"        = "false"
+    "server_host_or_ip" = "inet-svs"
+    "dns_servers"       = "161.26.0.7; 161.26.0.8; 9.9.9.9;"
   }
 }
 
 variable "ntp_forwarder_config" {
-  description = "Configure NTP forwarder to existing NTP service that is not reachable directly from PowerVS."
-  type        = map(any)
+  description = "Configuration for the NTP forwarder to an NTP service that is not reachable directly from PowerVS"
+  type = object({
+    ntp_enable        = bool
+    server_host_or_ip = string
+  })
   default = {
-    ntp_forwarder_host_or_ip = null
+    "ntp_enable"        = "false"
+    "server_host_or_ip" = "inet-svs"
   }
 }
 
 variable "nfs_server_config" {
-  description = "Configure shared NFS file system (e.g., for installation media)."
-  type        = map(any)
+  description = "Configuration for the shared NFS file system (for example, for the installation media)."
+  type = object({
+    nfs_enable        = bool
+    server_host_or_ip = string
+    nfs_directory     = string
+  })
   default = {
-    nfs_server_host_or_ip = null
-    nfs_directory         = "/nfs"
+    "nfs_enable"        = "false"
+    "server_host_or_ip" = "private-svs"
+    "nfs_directory"     = "/nfs"
   }
 }

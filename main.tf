@@ -8,6 +8,7 @@ module "initial_validation" {
     reuse_cloud_connections = var.reuse_cloud_connections
     transit_gateway_name    = var.transit_gateway_name
   }
+  #cloud_connection_speed_validate = var.cloud_connection_speed
 }
 
 module "power_service" {

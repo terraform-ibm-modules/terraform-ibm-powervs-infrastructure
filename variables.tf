@@ -34,7 +34,10 @@ variable "ssh_private_key" {
 
 variable "pvs_management_network" {
   description = "Name of the IBM Cloud PowerVS management subnet and CIDR to create"
-  type        = map(any)
+  type = object({
+    name = string
+    cidr = string
+  })
   default = {
     name = "mgmt_net"
     cidr = "10.51.0.0/24"
@@ -43,7 +46,10 @@ variable "pvs_management_network" {
 
 variable "pvs_backup_network" {
   description = "Name of the IBM Cloud PowerVS backup network and CIDR to create"
-  type        = map(any)
+  type = object({
+    name = string
+    cidr = string
+  })
   default = {
     name = "bkp_net"
     cidr = "10.52.0.0/24"
@@ -63,14 +69,14 @@ variable "reuse_cloud_connections" {
 }
 
 variable "cloud_connection_count" {
-  description = "Required number of Cloud connections to create or reuse. The maximum number of connections i two per location."
-  type        = string
+  description = "Required number of Cloud connections to create or reuse. The maximum number of connections is two per location."
+  type        = number
   default     = 2
 }
 
 variable "cloud_connection_speed" {
   description = "Speed in megabits per second. Supported values are 50, 100, 200, 500, 1000, 2000, 5000, 10000. Required when you create a connection."
-  type        = string
+  type        = number
   default     = 5000
 }
 
@@ -99,11 +105,15 @@ variable "cloud_connection_metered" {
 variable "access_host_or_ip" {
   description = "The public IP address for the jump or Bastion server. The address is used to reach the target or server_host IP address and to configure the DNS, NTP, NFS, and Squid proxy services."
   type        = string
+  default     = null
 }
 
 variable "squid_config" {
   description = "Configuration for the Squid proxy to a DNS service that is not reachable directly from PowerVS"
-  type        = map(any)
+  type = object({
+    squid_enable      = bool
+    server_host_or_ip = string
+  })
   default = {
     "squid_enable"      = "false"
     "server_host_or_ip" = "inet-svs"
@@ -112,7 +122,11 @@ variable "squid_config" {
 
 variable "dns_forwarder_config" {
   description = "Configuration for the DNS forwarder to a DNS service that is not reachable directly from PowerVS"
-  type        = map(any)
+  type = object({
+    dns_enable        = bool
+    server_host_or_ip = string
+    dns_servers       = string
+  })
   default = {
     "dns_enable"        = "false"
     "server_host_or_ip" = "inet-svs"
@@ -122,7 +136,10 @@ variable "dns_forwarder_config" {
 
 variable "ntp_forwarder_config" {
   description = "Configuration for the NTP forwarder to an NTP service that is not reachable directly from PowerVS"
-  type        = map(any)
+  type = object({
+    ntp_enable        = bool
+    server_host_or_ip = string
+  })
   default = {
     "ntp_enable"        = "false"
     "server_host_or_ip" = "inet-svs"
@@ -131,7 +148,11 @@ variable "ntp_forwarder_config" {
 
 variable "nfs_config" {
   description = "Configuration for the shared NFS file system (for example, for the installation media)."
-  type        = map(any)
+  type = object({
+    nfs_enable        = bool
+    server_host_or_ip = string
+    nfs_directory     = string
+  })
   default = {
     "nfs_enable"        = "true"
     "server_host_or_ip" = "private-svs"
