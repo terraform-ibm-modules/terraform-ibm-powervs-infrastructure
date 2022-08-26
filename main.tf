@@ -62,10 +62,16 @@ module "power_management_service_squid" {
   perform_proxy_client_setup = var.perform_proxy_client_setup
 }
 
+resource "time_sleep" "wait_60_seconds" {
+  depends_on = [module.power_management_service_squid]
+
+  create_duration = "60s"
+}
+
 module "power_management_service_dns" {
 
   source     = "./submodules/power_management_services_setup"
-  depends_on = [module.cloud_connection_attach, module.power_management_service_squid]
+  depends_on = [module.time_sleep.wait_60_seconds, module.cloud_connection_attach, module.power_management_service_squid]
   count      = var.dns_forwarder_config["dns_enable"] ? 1 : 0
 
   access_host_or_ip          = var.access_host_or_ip
@@ -78,7 +84,7 @@ module "power_management_service_dns" {
 module "power_management_service_ntp" {
 
   source     = "./submodules/power_management_services_setup"
-  depends_on = [module.cloud_connection_attach, module.power_management_service_squid, module.power_management_service_dns]
+  depends_on = [module.time_sleep.wait_60_seconds, module.cloud_connection_attach, module.power_management_service_squid, module.power_management_service_dns]
   count      = var.ntp_forwarder_config["ntp_enable"] ? 1 : 0
 
   access_host_or_ip          = var.access_host_or_ip
@@ -91,7 +97,7 @@ module "power_management_service_ntp" {
 module "power_management_service_nfs" {
 
   source     = "./submodules/power_management_services_setup"
-  depends_on = [module.cloud_connection_attach, module.power_management_service_squid, module.power_management_service_dns, module.power_management_service_ntp]
+  depends_on = [module.time_sleep.wait_60_seconds, module.cloud_connection_attach, module.power_management_service_squid, module.power_management_service_dns, module.power_management_service_ntp]
   count      = var.nfs_config["nfs_enable"] ? 1 : 0
 
   access_host_or_ip          = var.access_host_or_ip

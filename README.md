@@ -58,6 +58,7 @@ perform_proxy_client_setup  = var.perform_proxy_client_setup
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.1.0 |
 | <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | >= 1.21.0 |
+| <a name="requirement_time"></a> [time](#requirement\_time) | 0.8.0 |
 
 ## Modules
 
@@ -74,7 +75,9 @@ perform_proxy_client_setup  = var.perform_proxy_client_setup
 
 ## Resources
 
-No resources.
+| Name | Type |
+|------|------|
+| [time_sleep.wait_60_seconds](https://registry.terraform.io/providers/hashicorp/time/0.8.0/docs/resources/sleep) | resource |
 
 ## Inputs
 
