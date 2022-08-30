@@ -24,6 +24,7 @@ pvs_zone                    = var.pvs_zone
 pvs_resource_group_name     = var.pvs_resource_group_name
 pvs_service_name            = var.pvs_service_name
 tags                        = var.tags
+pvs_image_names             = var.pvs_image_names
 pvs_sshkey_name             = var.pvs_sshkey_name
 ssh_public_key              = var.ssh_public_key
 ssh_private_key             = var.ssh_private_key
@@ -58,7 +59,6 @@ perform_proxy_client_setup  = var.perform_proxy_client_setup
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.1.0 |
 | <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | >= 1.21.0 |
-| <a name="requirement_time"></a> [time](#requirement\_time) | 0.8.0 |
 
 ## Modules
 
@@ -75,9 +75,7 @@ perform_proxy_client_setup  = var.perform_proxy_client_setup
 
 ## Resources
 
-| Name | Type |
-|------|------|
-| [time_sleep.wait_60_seconds](https://registry.terraform.io/providers/hashicorp/time/0.8.0/docs/resources/sleep) | resource |
+No resources.
 
 ## Inputs
 
@@ -93,6 +91,7 @@ perform_proxy_client_setup  = var.perform_proxy_client_setup
 | <a name="input_ntp_forwarder_config"></a> [ntp\_forwarder\_config](#input\_ntp\_forwarder\_config) | Configuration for the NTP forwarder to an NTP service that is not reachable directly from PowerVS | <pre>object({<br>    ntp_enable        = bool<br>    server_host_or_ip = string<br>  })</pre> | <pre>{<br>  "ntp_enable": "false",<br>  "server_host_or_ip": "inet-svs"<br>}</pre> | no |
 | <a name="input_perform_proxy_client_setup"></a> [perform\_proxy\_client\_setup](#input\_perform\_proxy\_client\_setup) | Proxy configuration to allow internet access for a VM or LPAR. | <pre>object(<br>    {<br>      squid_client_ips = list(string)<br>      squid_server_ip  = string<br>      no_proxy_env     = string<br>    }<br>  )</pre> | `null` | no |
 | <a name="input_pvs_backup_network"></a> [pvs\_backup\_network](#input\_pvs\_backup\_network) | Name of the IBM Cloud PowerVS backup network and CIDR to create | <pre>object({<br>    name = string<br>    cidr = string<br>  })</pre> | <pre>{<br>  "cidr": "10.52.0.0/24",<br>  "name": "bkp_net"<br>}</pre> | no |
+| <a name="input_pvs_image_names"></a> [pvs\_image\_names](#input\_pvs\_image\_names) | List of Images to be imported into cloud account from catalog images | `list(string)` | <pre>[<br>  "SLES15-SP3-SAP",<br>  "SLES15-SP3-SAP-NETWEAVER",<br>  "RHEL8-SP4-SAP",<br>  "RHEL8-SP4-SAP-NETWEAVER"<br>]</pre> | no |
 | <a name="input_pvs_management_network"></a> [pvs\_management\_network](#input\_pvs\_management\_network) | Name of the IBM Cloud PowerVS management subnet and CIDR to create | <pre>object({<br>    name = string<br>    cidr = string<br>  })</pre> | <pre>{<br>  "cidr": "10.51.0.0/24",<br>  "name": "mgmt_net"<br>}</pre> | no |
 | <a name="input_pvs_resource_group_name"></a> [pvs\_resource\_group\_name](#input\_pvs\_resource\_group\_name) | Existing resource group name | `string` | n/a | yes |
 | <a name="input_pvs_service_name"></a> [pvs\_service\_name](#input\_pvs\_service\_name) | Name of the PowerVS service to create | `string` | `"power-service"` | no |

@@ -90,6 +90,12 @@ variable "tags" {
   default     = null
 }
 
+variable "pvs_image_names" {
+  description = "List of Images to be imported into cloud account from catalog images"
+  type        = list(string)
+  default     = ["SLES15-SP3-SAP", "SLES15-SP3-SAP-NETWEAVER", "RHEL8-SP4-SAP", "RHEL8-SP4-SAP-NETWEAVER"]
+}
+
 variable "cloud_connection_gr" {
   description = "Whether to enable global routing for this IBM Cloud connection. You can specify thia value when you create a connection."
   type        = bool

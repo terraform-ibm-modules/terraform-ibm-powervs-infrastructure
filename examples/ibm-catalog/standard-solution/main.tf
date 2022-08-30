@@ -6,14 +6,17 @@ locals {
     "eu-de-2"  = "eu-de"
     "lon04"    = "lon"
     "lon06"    = "lon"
-    "tok04"    = "tok"
+    "wdc04"    = "us-east"
     "us-east"  = "us-east"
     "us-south" = "us-south"
     "dal12"    = "us-south"
+    "dal13"    = "us-south"
     "tor01"    = "tor"
+    "tok04"    = "tok"
     "osa21"    = "osa"
     "sao01"    = "sao"
     "mon01"    = "mon"
+
   }
 }
 
@@ -74,6 +77,7 @@ module "powervs_infra" {
   pvs_resource_group_name    = var.pvs_resource_group_name
   pvs_service_name           = "${local.slz_output[0].prefix.value}-power-service"
   tags                       = var.tags
+  pvs_image_names            = var.pvs_image_names
   pvs_sshkey_name            = "${local.slz_output[0].prefix.value}-ssh-pvs-key"
   ssh_public_key             = local.slz_output[0].ssh_public_key.value
   ssh_private_key            = var.ssh_private_key

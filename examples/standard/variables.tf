@@ -133,53 +133,59 @@ variable "cloud_connection_metered" {
 variable "squid_proxy_config" {
   description = "Configuration for the Squid proxy to a DNS service that is not reachable directly from PowerVS"
   type = object({
-    squid_enable      = bool
-    server_host_or_ip = string
+    squid_enable           = bool
+    squid_proxy_host_or_ip = string
   })
   default = {
-    "squid_enable"      = "false"
-    "server_host_or_ip" = ""
+    "squid_enable"           = "false"
+    "squid_proxy_host_or_ip" = ""
   }
 }
 
 variable "dns_forwarder_config" {
   description = "Configuration for the DNS forwarder to a DNS service that is not reachable directly from PowerVS"
   type = object({
-    dns_enable        = bool
-    server_host_or_ip = string
-    dns_servers       = string
+    dns_enable               = bool
+    dns_forwarder_host_or_ip = string
+    dns_servers              = string
   })
   default = {
-    "dns_enable"        = "false"
-    "server_host_or_ip" = ""
-    "dns_servers"       = "161.26.0.7; 161.26.0.8; 9.9.9.9;"
+    "dns_enable"               = "false"
+    "dns_forwarder_host_or_ip" = ""
+    "dns_servers"              = "161.26.0.7; 161.26.0.8; 9.9.9.9;"
   }
 }
 
 variable "ntp_forwarder_config" {
   description = "Configuration for the NTP forwarder to an NTP service that is not reachable directly from PowerVS"
   type = object({
-    ntp_enable        = bool
-    server_host_or_ip = string
+    ntp_enable               = bool
+    ntp_forwarder_host_or_ip = string
   })
   default = {
-    "ntp_enable"        = "false"
-    "server_host_or_ip" = ""
+    "ntp_enable"               = "false"
+    "ntp_forwarder_host_or_ip" = ""
   }
 }
 
 variable "nfs_server_config" {
   description = "Configuration for the shared NFS file system (for example, for the installation media)."
   type = object({
-    nfs_enable        = bool
-    server_host_or_ip = string
-    nfs_directory     = string
+    nfs_enable            = bool
+    nfs_server_host_or_ip = string
+    nfs_directory         = string
   })
   default = {
-    "nfs_enable"        = "true"
-    "server_host_or_ip" = ""
-    "nfs_directory"     = "/nfs"
+    "nfs_enable"            = "true"
+    "nfs_server_host_or_ip" = ""
+    "nfs_directory"         = "/nfs"
   }
+}
+
+variable "pvs_image_names" {
+  description = "List of Images to be imported into cloud account from catalog images"
+  type        = list(string)
+  default     = ["SLES15-SP3-SAP", "SLES15-SP3-SAP-NETWEAVER", "RHEL8-SP4-SAP", "RHEL8-SP4-SAP-NETWEAVER"]
 }
 
 variable "ibmcloud_api_key" {
@@ -187,25 +193,4 @@ variable "ibmcloud_api_key" {
   type        = string
   default     = null
   sensitive   = true
-}
-
-variable "ibm_pvs_zone_region_map" {
-  description = "Map of IBM Power VS zone to the region of PowerVS Infrastructure"
-  type        = map(any)
-  default = {
-    "syd04"    = "syd"
-    "syd05"    = "syd"
-    "eu-de-1"  = "eu-de"
-    "eu-de-2"  = "eu-de"
-    "lon04"    = "lon"
-    "lon06"    = "lon"
-    "tok04"    = "tok"
-    "us-east"  = "us-east"
-    "us-south" = "us-south"
-    "dal12"    = "us-south"
-    "tor01"    = "tor"
-    "osa21"    = "osa"
-    "sao01"    = "sao"
-    "mon01"    = "mon"
-  }
 }

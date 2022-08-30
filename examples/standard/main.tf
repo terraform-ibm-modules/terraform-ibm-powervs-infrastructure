@@ -1,5 +1,27 @@
+locals {
+  ibm_pvs_zone_region_map = {
+    "syd04"    = "syd"
+    "syd05"    = "syd"
+    "eu-de-1"  = "eu-de"
+    "eu-de-2"  = "eu-de"
+    "lon04"    = "lon"
+    "lon06"    = "lon"
+    "wdc04"    = "us-east"
+    "us-east"  = "us-east"
+    "us-south" = "us-south"
+    "dal12"    = "us-south"
+    "dal13"    = "us-south"
+    "tor01"    = "tor"
+    "tok04"    = "tok"
+    "osa21"    = "osa"
+    "sao01"    = "sao"
+    "mon01"    = "mon"
+
+  }
+}
+
 provider "ibm" {
-  region           = lookup(var.ibm_pvs_zone_region_map, var.pvs_zone, null)
+  region           = lookup(local.ibm_pvs_zone_region_map, var.pvs_zone, null)
   zone             = var.pvs_zone
   ibmcloud_api_key = var.ibmcloud_api_key != null ? var.ibmcloud_api_key : null
 }
@@ -30,6 +52,7 @@ module "powervs_infra" {
   pvs_resource_group_name  = var.pvs_resource_group_name
   pvs_service_name         = "${var.prefix}-pvs"
   tags                     = var.tags
+  pvs_image_names          = var.pvs_image_names
   pvs_sshkey_name          = "${var.prefix}-ssh-pvs-key"
   ssh_public_key           = var.ssh_public_key
   ssh_private_key          = var.ssh_private_key

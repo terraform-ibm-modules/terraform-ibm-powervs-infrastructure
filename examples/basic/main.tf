@@ -123,6 +123,7 @@ module "powervs_infra" {
   pvs_resource_group_name  = local.resource_group_name
   pvs_service_name         = "${var.prefix}-${var.pvs_service_name}"
   tags                     = var.resource_tags
+  pvs_image_names          = var.pvs_image_names
   pvs_sshkey_name          = "${var.prefix}-${var.pvs_sshkey_name}"
   ssh_public_key           = ibm_is_ssh_key.ssh_key.public_key
   ssh_private_key          = trimspace(tls_private_key.tls_key.private_key_openssh)

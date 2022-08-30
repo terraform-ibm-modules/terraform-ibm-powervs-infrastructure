@@ -2,6 +2,11 @@
 # Configure Squid client
 #####################################################
 
+locals {
+  scripts_location     = "${path.module}/scripts"
+  squidscript_location = "${local.scripts_location}/squid_proxy.sh"
+}
+
 resource "null_resource" "perform_proxy_client_setup" {
 
   count = var.perform_proxy_client_setup != null ? length(var.perform_proxy_client_setup["squid_client_ips"]) : 0
@@ -16,19 +21,19 @@ resource "null_resource" "perform_proxy_client_setup" {
     timeout      = "15m"
   }
 
+  provisioner "file" {
+    source      = local.squidscript_location
+    destination = "/root/squid_proxy.sh"
+  }
+
   provisioner "remote-exec" {
     inline = [
-
       #######  SQUID Forward PROXY CLIENT SETUP ############
-      "LINE=$'export http_proxy=http://${var.perform_proxy_client_setup["squid_server_ip"]}:3128\nexport https_proxy=http://${var.perform_proxy_client_setup["squid_server_ip"]}:3128\nexport HTTP_proxy=http://${var.perform_proxy_client_setup["squid_server_ip"]}:3128\nexport HTTPS_proxy=http://${var.perform_proxy_client_setup["squid_server_ip"]}:3128\nexport no_proxy=${var.perform_proxy_client_setup["no_proxy_env"]}'",
-      "FILE='/etc/bash.bashrc'",
-      "grep -qF -- \"$LINE\" \"$FILE\" || echo \"$LINE\" >> \"$FILE\"",
-
-      ###### Restart Network #######
-
-      "/usr/bin/systemctl restart network ",
+      "chmod +x /root/squid_proxy.sh",
+      "/root/squid_proxy.sh -p ${var.perform_proxy_client_setup["squid_server_ip"]}:3128 -n ${var.perform_proxy_client_setup["no_proxy_env"]}",
     ]
   }
+
 }
 
 #####################################################
@@ -48,13 +53,16 @@ resource "null_resource" "install_packages" {
     timeout      = "15m"
   }
 
+  provisioner "file" {
+    source      = local.squidscript_location
+    destination = "/root/squid_proxy.sh"
+  }
+
   provisioner "remote-exec" {
     inline = [
-
-      ##### Install Ansible and git ####
-      "zypper install -y python3-pip",
-      "pip install -q ansible ",
-      "pip install -q awscli"
+      #######  Install packages ############
+      "chmod +x /root/squid_proxy.sh",
+      "/root/squid_proxy.sh -i",
     ]
   }
 }

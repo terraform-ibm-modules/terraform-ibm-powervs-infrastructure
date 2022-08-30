@@ -129,6 +129,12 @@ variable "resource_tags" {
   default     = []
 }
 
+variable "pvs_image_names" {
+  description = "List of Images to be imported into cloud account from catalog images"
+  type        = list(string)
+  default     = ["SLES15-SP3-SAP", "SLES15-SP3-SAP-NETWEAVER", "RHEL8-SP4-SAP", "RHEL8-SP4-SAP-NETWEAVER"]
+}
+
 variable "cloud_connection_gr" {
   description = "Enable global routing for this cloud connection. Can be specified when creating new connection"
   type        = bool
