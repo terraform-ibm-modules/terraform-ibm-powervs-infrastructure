@@ -39,7 +39,5 @@ No resources.
 
 ## Outputs
 
-| Name | Description |
-|------|-------------|
-| <a name="output_cloud_connection_validate"></a> [cloud\_connection\_validate](#output\_cloud\_connection\_validate) | Name of the created management network. |
+No outputs.
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
