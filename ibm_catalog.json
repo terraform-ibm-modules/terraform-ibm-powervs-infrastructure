@@ -100,29 +100,23 @@
                     "version": "^=1.5.0"
                 }
             ],
-            "features": [
-                {
-                    "description": "Includes SSH and two private networks",
-                    "title": "Power Virtual Server"
-                },
-                {
-                    "description": "2",
-                    "title": "IBM Cloud Connections"
-                },
-                {
-                    "description": "SQUID proxy",
-                    "title": "Internet proxy"
-                },
-                {
-                    "description": "NFS server, NTP forwarder, and DNS forwarder",
-                    "title": "Additional management configurations"
-                }
-            ],
             "architecture": {
                 "features": [
                     {
-                        "description": "1",
-                        "title": "PowerVS Service"
+                        "description": "Includes SSH and two private networks",
+                        "title": "Power Virtual Server"
+                    },
+                    {
+                        "description": "2",
+                        "title": "IBM Cloud Connections"
+                    },
+                    {
+                        "description": "SQUID proxy",
+                        "title": "Internet proxy"
+                    },
+                    {
+                        "description": "NFS server, NTP forwarder, and DNS forwarder",
+                        "title": "Additional management configurations"
                     }
                 ],
                 "diagrams": [
