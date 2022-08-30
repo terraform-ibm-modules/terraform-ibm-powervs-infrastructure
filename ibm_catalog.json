@@ -5,7 +5,7 @@
             "label": "Standard",
             "name": "standard",
             "working_directory": "examples/ibm-catalog/standard-solution",
-            "usage": "module \"power-infrastructure\" {\n   source                  = \"https://cm.globalcatalog.cloud.ibm.com/api/v1-beta/offering/source?archive=tgz\u0026kind=terraform\u0026name=terraform-ibm-powervs-catalog-powervs-sap-infrastructure\u0026version=1.1.0\"\n  }",
+            "usage": "module \"power-infrastructure\" {\n   source = \"https://cm.globalcatalog.cloud.ibm.com/api/v1-beta/offering/source?archive=tgz\u0026kind=terraform\u0026name=terraform-ibm-powervs-catalog-powervs-sap-infrastructure\u0026version=2.0.9\"\n  }",
             "compliance": {
                 "controls": [
                     {
@@ -93,11 +93,29 @@
             "dependencies": [
                 {
                     "flavors": [
-                        "power"
+                        "standard"
                     ],
                     "id": "a87ed9a5-d130-47a3-980b-5ceb1d4f9280-global",
                     "name": "slz-vpc-with-vsis",
-                    "version": "^=0.0.20"
+                    "version": "^=1.5.0"
+                }
+            ],
+            "features": [
+                {
+                    "description": "Includes SSH and two private networks",
+                    "title": "Power Virtual Server"
+                },
+                {
+                    "description": "2",
+                    "title": "IBM Cloud Connections"
+                },
+                {
+                    "description": "SQUID proxy",
+                    "title": "Internet proxy"
+                },
+                {
+                    "description": "NFS server, NTP forwarder, and DNS forwarder",
+                    "title": "Additional management configurations"
                 }
             ],
             "architecture": {
