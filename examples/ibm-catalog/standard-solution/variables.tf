@@ -33,7 +33,7 @@ variable "pvs_backup_network" {
 }
 
 variable "ssh_private_key" {
-  description = "SSH private key value to login to servers. It will not be uploaded / stored anywhere."
+  description = "SSH private key value to login to servers. It will not be uploaded / stored anywhere. This private key needs to be paired with the public SSH key which was provided to [Secure infrastructure on VPC for regulated industries](https://cloud.ibm.com/catalog/content/slz-vpc-with-vsis-a87ed9a5-d130-47a3-980b-5ceb1d4f9280-global) when it was deployed."
   type        = string
   sensitive   = true
 }
