@@ -4,8 +4,8 @@
         {
             "label": "Standard",
             "name": "standard",
-            "working_directory": "examples/standard-catalog",
-            "usage": "module \"power-infrastructure\" {\n   source                  = \"https://cm.globalcatalog.cloud.ibm.com/api/v1-beta/offering/source?archive=tgz\u0026kind=terraform\u0026name=terraform-ibm-powervs-catalog-powervs-sap-infrastructure\u0026version=1.1.0\"\n  }",
+            "working_directory": "examples/ibm-catalog/standard-solution",
+            "usage": "module \"power-infrastructure\" {\n   source = \"https://cm.globalcatalog.cloud.ibm.com/api/v1-beta/offering/source?archive=tgz\u0026kind=terraform\u0026name=terraform-ibm-powervs-catalog-powervs-sap-infrastructure\u0026version=2.0.9\"\n  }",
             "compliance": {
                 "controls": [
                     {
@@ -93,28 +93,48 @@
             "dependencies": [
                 {
                     "flavors": [
-                        "power"
+                        "standard"
                     ],
                     "id": "a87ed9a5-d130-47a3-980b-5ceb1d4f9280-global",
                     "name": "slz-vpc-with-vsis",
-                    "version": "^=0.0.20"
+                    "version": "^=1.5.0"
                 }
             ],
             "architecture": {
                 "features": [
                     {
-                        "description": "1",
-                        "title": "PowerVS Service"
+                        "description": "Includes SSH and two private networks",
+                        "title": "Power Virtual Server"
+                    },
+                    {
+                        "description": "2",
+                        "title": "IBM Cloud Connections"
+                    },
+                    {
+                        "description": "SQUID proxy",
+                        "title": "Internet proxy"
+                    },
+                    {
+                        "description": "NFS server, NTP forwarder, and DNS forwarder",
+                        "title": "Additional management configurations"
                     }
                 ],
                 "diagrams": [
                     {
                         "diagram": {
                             "caption": "IBM Power Virtual Service",
-                            "url": "https://globalcatalog.cloud.ibm.com/api/v1/goldeneye-artifacts/artifacts/sap_power_slz-infrastructure-layer.drawio.svg",
+                            "url": "https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/tree/main/examples/ibm-catalog/standard-solution/layer_deployment_prerequisite.svg",
                             "metadata": []
                         },
                         "description": "Building upon the management VPC and workload VPC that were previously created by using Secure Landing Zone VPC with VSIs, Power VS Infrastructure creates a Power Virtual Server instance. In the instance, Direct Link Connections provide consistent connectivity and access between the IBM Cloud Management VPC and Power Virtual Service networking zones. \n\n\n\n\nAfter the creation of the Power Virtual Server instance, the management VPC provides a secure virtual machine to access the Power Virtual Servers. The workload VPC provides virtual machines that run critical services such as Domain Name System, Lightweight Directory Access Protocol, and Network File System that are accessible to the Power Virtual Server service and LPARs."
+                    },
+                    {
+                        "diagram": {
+                            "caption": "IBM Power Serice Deployment Target",
+                            "url": "https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/tree/main/examples/ibm-catalog/standard-solution/layer_deployment_target_target.svg",
+                            "metadata": []
+                        },
+                        "description": "Add description"
                     }
                 ]
             }

@@ -21,13 +21,13 @@ variable "transit_gateway_name" {
 
 variable "cloud_connection_count" {
   description = "Required number of Cloud connections which will be created/Reused. Maximum is 2 per location"
-  type        = string
+  type        = number
   default     = 2
 }
 
 variable "cloud_connection_speed" {
   description = "Speed in megabits per sec. Supported values are 50, 100, 200, 500, 1000, 2000, 5000, 10000. Required when creating new connection"
-  type        = string
+  type        = number
   default     = null
 }
 

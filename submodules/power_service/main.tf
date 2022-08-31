@@ -58,3 +58,23 @@ resource "ibm_pi_network" "backup_network" {
   pi_network_type      = "vlan"
   pi_network_jumbo     = true
 }
+
+#####################################################
+# Import Catalog Images
+#####################################################
+
+data "ibm_pi_catalog_images" "catalog_images_ds" {
+  sap                  = true
+  pi_cloud_instance_id = ibm_resource_instance.pvs_service.guid
+}
+
+locals {
+  catalog_images_to_import = flatten([for stock_image in data.ibm_pi_catalog_images.catalog_images_ds.images : [for image_name in var.pvs_image_names : stock_image if stock_image.name == image_name]])
+}
+
+resource "ibm_pi_image" "import_images" {
+  count                = length(var.pvs_image_names)
+  pi_cloud_instance_id = ibm_resource_instance.pvs_service.guid
+  pi_image_id          = local.catalog_images_to_import[count.index].image_id
+  pi_image_name        = var.pvs_image_names[count.index]
+}

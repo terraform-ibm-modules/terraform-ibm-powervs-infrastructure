@@ -19,7 +19,7 @@ variable "pvs_subnet_names" {
 }
 
 variable "cloud_connection_count" {
-  description = "Required number of Cloud connections which will be created/Reused. Maximum is 2 per location"
-  type        = string
+  description = "Number of cloud connections where private networks should be attached to. Default is to use redundant cloud connection pair."
+  type        = number
   default     = 2
 }
