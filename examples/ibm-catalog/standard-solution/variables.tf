@@ -33,7 +33,7 @@ variable "pvs_backup_network" {
 }
 
 variable "ssh_private_key" {
-  description = "SSH private key value to login to servers. It will not be uploaded / stored anywhere."
+  description = "Private SSH key used to login to IBM PowerVS instances. Should match to uploaded public SSH key referenced by 'ssh_public_key' in VPC services. Entered data must be in heredoc strings format (https://www.terraform.io/language/expressions/strings#heredoc-strings). The key is not uploaded or stored."
   type        = string
   sensitive   = true
 }

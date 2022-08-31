@@ -27,7 +27,7 @@ variable "ssh_public_key" {
 }
 
 variable "ssh_private_key" {
-  description = "SSH private key value to log into the server. The key is not uploaded or stored."
+  description = "Private SSH key used to login to IBM PowerVS instances. Should match to uploaded public SSH key referenced by 'ssh_public_key'. Entered data must be in heredoc strings format (https://www.terraform.io/language/expressions/strings#heredoc-strings). The key is not uploaded or stored."
   type        = string
   sensitive   = true
 }
