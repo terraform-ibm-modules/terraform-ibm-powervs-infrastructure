@@ -1,5 +1,5 @@
 #####################################################
-# IBM Cloud PowerVS validation Sub Module
+# IBM Cloud PowerVS validation submodule
 #####################################################
 
 terraform {

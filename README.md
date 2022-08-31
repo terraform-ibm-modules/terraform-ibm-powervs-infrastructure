@@ -11,37 +11,37 @@ The PowerVS infrastructure module automates the following tasks:
 ## Usage
 ```hcl
 provider "ibm" {
-      region           = var.pvs_region
-      zone             = var.pvs_zone
-      ibmcloud_api_key = var.ibmcloud_api_key != null ? var.ibmcloud_api_key : null
+  region           = var.pvs_region
+  zone             = var.pvs_zone
+  ibmcloud_api_key = var.ibmcloud_api_key != null ? var.ibmcloud_api_key : null
 }
 
 module "power-infrastructure" {
-# Replace "main" with a GIT release version to lock into a specific release
-source = "git::https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure.git?ref=main"
+  # Replace "main" with a GIT release version to lock into a specific release
+  source = "git::https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure.git?ref=main"
 
-pvs_zone                    = var.pvs_zone
-pvs_resource_group_name     = var.pvs_resource_group_name
-pvs_service_name            = var.pvs_service_name
-tags                        = var.tags
-pvs_image_names             = var.pvs_image_names
-pvs_sshkey_name             = var.pvs_sshkey_name
-ssh_public_key              = var.ssh_public_key
-ssh_private_key             = var.ssh_private_key
-pvs_management_network      = var.pvs_management_network
-pvs_backup_network          = var.pvs_backup_network
-transit_gateway_name        = var.transit_gateway_name
-reuse_cloud_connections     = var.reuse_cloud_connections
-cloud_connection_count      = var.cloud_connection_count
-cloud_connection_speed      = var.cloud_connection_speed
-cloud_connection_gr         = var.cloud_connection_gr
-cloud_connection_metered    = var.cloud_connection_metered
-access_host_or_ip           = var.access_host_or_ip
-squid_config                = var.squid_config
-dns_forwarder_config        = var.dns_forwarder_config
-ntp_forwarder_config        = var.ntp_forwarder_config
-nfs_config                  = var.nfs_config
-perform_proxy_client_setup  = var.perform_proxy_client_setup
+  pvs_zone                    = var.pvs_zone
+  pvs_resource_group_name     = var.pvs_resource_group_name
+  pvs_service_name            = var.pvs_service_name
+  tags                        = var.tags
+  pvs_image_names             = var.pvs_image_names
+  pvs_sshkey_name             = var.pvs_sshkey_name
+  ssh_public_key              = var.ssh_public_key
+  ssh_private_key             = var.ssh_private_key
+  pvs_management_network      = var.pvs_management_network
+  pvs_backup_network          = var.pvs_backup_network
+  transit_gateway_name        = var.transit_gateway_name
+  reuse_cloud_connections     = var.reuse_cloud_connections
+  cloud_connection_count      = var.cloud_connection_count
+  cloud_connection_speed      = var.cloud_connection_speed
+  cloud_connection_gr         = var.cloud_connection_gr
+  cloud_connection_metered    = var.cloud_connection_metered
+  access_host_or_ip           = var.access_host_or_ip
+  squid_config                = var.squid_config
+  dns_forwarder_config        = var.dns_forwarder_config
+  ntp_forwarder_config        = var.ntp_forwarder_config
+  nfs_config                  = var.nfs_config
+  perform_proxy_client_setup  = var.perform_proxy_client_setup
 }
 ```
 <!-- BEGIN EXAMPLES HOOK -->

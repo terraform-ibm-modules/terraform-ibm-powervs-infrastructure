@@ -1,6 +1,10 @@
 variable "pvs_zone" {
   description = "IBM Cloud PowerVS zone"
   type        = string
+  validation {
+    condition     = contains(["syd04", "syd05", "eu-de-1", "eu-de-2", "lon04", "lon06", "wdc04", "us-east", "us-south", "dal12", "dal13", "tor01", "tok04", "osa21", "sao01", "mon01"], var.pvs_zone)
+    error_message = "Valid values: syd04,syd05,eu-de-1,eu-de-2,lon04,lon06,wdc04,us-east,us-south,dal12,dal13,tor01,tok04,osa21,sao01,mon01"
+  }
 }
 
 variable "pvs_resource_group_name" {

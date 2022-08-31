@@ -7,7 +7,7 @@
       "description": "The public IP address for the jump or Bastion server. The address is used to reach the target or server_host IP address and to configure the DNS, NTP, NFS, and Squid proxy services.",
       "pos": {
         "filename": "variables.tf",
-        "line": 111
+        "line": 115
       }
     },
     "cloud_connection_count": {
@@ -17,7 +17,7 @@
       "default": 2,
       "pos": {
         "filename": "variables.tf",
-        "line": 71
+        "line": 75
       }
     },
     "cloud_connection_gr": {
@@ -26,7 +26,7 @@
       "description": "Whether to enable global routing for this IBM Cloud connection. You can specify thia value when you create a connection.",
       "pos": {
         "filename": "variables.tf",
-        "line": 99
+        "line": 103
       }
     },
     "cloud_connection_metered": {
@@ -35,7 +35,7 @@
       "description": "Whether to enable metering for this IBM Cloud connection. You can specify thia value when you create a connection.",
       "pos": {
         "filename": "variables.tf",
-        "line": 105
+        "line": 109
       }
     },
     "cloud_connection_speed": {
@@ -45,7 +45,7 @@
       "default": 5000,
       "pos": {
         "filename": "variables.tf",
-        "line": 77
+        "line": 81
       }
     },
     "dns_forwarder_config": {
@@ -59,7 +59,7 @@
       },
       "pos": {
         "filename": "variables.tf",
-        "line": 129
+        "line": 133
       }
     },
     "nfs_config": {
@@ -73,7 +73,7 @@
       },
       "pos": {
         "filename": "variables.tf",
-        "line": 155
+        "line": 159
       }
     },
     "ntp_forwarder_config": {
@@ -86,7 +86,7 @@
       },
       "pos": {
         "filename": "variables.tf",
-        "line": 143
+        "line": 147
       }
     },
     "perform_proxy_client_setup": {
@@ -95,7 +95,7 @@
       "description": "Proxy configuration to allow internet access for a VM or LPAR.",
       "pos": {
         "filename": "variables.tf",
-        "line": 169
+        "line": 173
       }
     },
     "pvs_backup_network": {
@@ -108,7 +108,7 @@
       },
       "pos": {
         "filename": "variables.tf",
-        "line": 47
+        "line": 51
       }
     },
     "pvs_image_names": {
@@ -123,7 +123,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 93
+        "line": 97
       }
     },
     "pvs_management_network": {
@@ -136,7 +136,7 @@
       },
       "pos": {
         "filename": "variables.tf",
-        "line": 35
+        "line": 39
       }
     },
     "pvs_resource_group_name": {
@@ -146,7 +146,7 @@
       "required": true,
       "pos": {
         "filename": "variables.tf",
-        "line": 6
+        "line": 10
       }
     },
     "pvs_service_name": {
@@ -156,7 +156,7 @@
       "default": "power-service",
       "pos": {
         "filename": "variables.tf",
-        "line": 11
+        "line": 15
       }
     },
     "pvs_sshkey_name": {
@@ -166,7 +166,7 @@
       "default": "ssh-key-pvs",
       "pos": {
         "filename": "variables.tf",
-        "line": 17
+        "line": 21
       }
     },
     "pvs_zone": {
@@ -186,7 +186,7 @@
       "default": false,
       "pos": {
         "filename": "variables.tf",
-        "line": 65
+        "line": 69
       }
     },
     "squid_config": {
@@ -199,7 +199,7 @@
       },
       "pos": {
         "filename": "variables.tf",
-        "line": 117
+        "line": 121
       }
     },
     "ssh_private_key": {
@@ -210,7 +210,7 @@
       "sensitive": true,
       "pos": {
         "filename": "variables.tf",
-        "line": 29
+        "line": 33
       }
     },
     "ssh_public_key": {
@@ -221,7 +221,7 @@
       "sensitive": true,
       "pos": {
         "filename": "variables.tf",
-        "line": 23
+        "line": 27
       }
     },
     "tags": {
@@ -230,7 +230,7 @@
       "description": "List of tag names for the IBM Cloud PowerVS service",
       "pos": {
         "filename": "variables.tf",
-        "line": 87
+        "line": 91
       }
     },
     "transit_gateway_name": {
@@ -239,7 +239,7 @@
       "description": "Name of the existing transit gateway. Required when you create new IBM Cloud connections.",
       "pos": {
         "filename": "variables.tf",
-        "line": 59
+        "line": 63
       }
     }
   },
@@ -319,7 +319,7 @@
       },
       "pos": {
         "filename": "main.tf",
-        "line": 43
+        "line": 42
       }
     },
     "cloud_connection_create": {
@@ -338,7 +338,7 @@
       },
       "pos": {
         "filename": "main.tf",
-        "line": 28
+        "line": 27
       }
     },
     "initial_validation": {
@@ -365,7 +365,7 @@
       },
       "pos": {
         "filename": "main.tf",
-        "line": 66
+        "line": 65
       }
     },
     "power_management_service_nfs": {
@@ -381,7 +381,7 @@
       },
       "pos": {
         "filename": "main.tf",
-        "line": 92
+        "line": 91
       }
     },
     "power_management_service_ntp": {
@@ -397,7 +397,7 @@
       },
       "pos": {
         "filename": "main.tf",
-        "line": 79
+        "line": 78
       }
     },
     "power_management_service_squid": {
@@ -413,7 +413,7 @@
       },
       "pos": {
         "filename": "main.tf",
-        "line": 53
+        "line": 52
       }
     },
     "power_service": {
@@ -432,7 +432,7 @@
       },
       "pos": {
         "filename": "main.tf",
-        "line": 14
+        "line": 13
       }
     }
   }

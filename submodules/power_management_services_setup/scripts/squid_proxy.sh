@@ -1,4 +1,5 @@
 #!/bin/bash
+set -euo pipefail
 ############################################################
 # Help                                                     #
 ############################################################
@@ -90,12 +91,12 @@ if [ "$OS_DETECTED" == "SLES" ]; then
      #######  SQUID Forward PROXY CLIENT SETUP ############
      echo "Proxy Server IP:  $proxy_ip_and_port"
      echo "Setting exports in /etc/bash.bashrc file On SLES"
-	  FILE="/etc/bash.bashrc"
-	  grep -qx "export http_proxy=http://$proxy_ip_and_port" "$FILE"  || echo "export http_proxy=http://$proxy_ip_and_port"  >> "$FILE"
+     FILE="/etc/bash.bashrc"
+     grep -qx "export http_proxy=http://$proxy_ip_and_port" "$FILE"  || echo "export http_proxy=http://$proxy_ip_and_port"  >> "$FILE"
      grep -qx "export https_proxy=http://$proxy_ip_and_port" "$FILE" || echo "export https_proxy=http://$proxy_ip_and_port" >> "$FILE"
-	  grep -qx "export HTTP_proxy=http://$proxy_ip_and_port" "$FILE"  || echo "export HTTP_proxy=http://$proxy_ip_and_port"  >> "$FILE"
-	  grep -qx "export HTTPS_proxy=http://$proxy_ip_and_port" "$FILE" || echo "export HTTPS_proxy=http://$proxy_ip_and_port" >> "$FILE"
-	  grep -qx "export no_proxy=$no_proxy_ip" "$FILE"                 || echo "export no_proxy=$no_proxy_ip"                 >> "$FILE"
+     grep -qx "export HTTP_proxy=http://$proxy_ip_and_port" "$FILE"  || echo "export HTTP_proxy=http://$proxy_ip_and_port"  >> "$FILE"
+     grep -qx "export HTTPS_proxy=http://$proxy_ip_and_port" "$FILE" || echo "export HTTPS_proxy=http://$proxy_ip_and_port" >> "$FILE"
+      grep -qx "export no_proxy=$no_proxy_ip" "$FILE"                 || echo "export no_proxy=$no_proxy_ip"                 >> "$FILE"
 
       ###### Restart Network #######
 
@@ -107,7 +108,7 @@ if [ "$OS_DETECTED" == "SLES" ]; then
       do
          echo "Waiting for OS Activation"
          OS_Activated="$(SUSEConnect --status | grep  -c "\"status\":\"Not Registered\"")"
-		   No_Error="$(SUSEConnect --status | grep -c "error")"
+         No_Error="$(SUSEConnect --status | grep -c "error")"
          if [ "$OS_Activated" = 0 ] && [ "$No_Error" = 0 ] ; then
               echo "OS is Registered"
               break;
@@ -119,16 +120,16 @@ if [ "$OS_DETECTED" == "SLES" ]; then
          PID=$(pidof zypper)
          if [ -e /proc/"$PID" ];then
               break;
-	     else
+         else
               echo "Process: Zypper is still running"
          fi
       done
 
     ##### Install Ansible and awscli ####
     if [ "$install_packages" = true ] ; then
-	      zypper install -y python3-pip
-	      pip install -q ansible
-	      pip install -q awscli
+         zypper install -y python3-pip
+         pip install -q ansible
+         pip install -q awscli
     fi
 fi
 
@@ -140,14 +141,14 @@ if [ "$OS_DETECTED" == "RHEL" ]; then
 
    if [[ $proxy_ip_and_port =~ ^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+:[0-9]+$ ]] ; then
 
-      echo "Setting exports in /etc/bashrc and /etc/dnf file On RHEL"
-	  FILE="/etc/bashrc"
-	  grep -qx "export http_proxy=http://$proxy_ip_and_port" "$FILE"  || echo "export http_proxy=http://$proxy_ip_and_port"  >> "$FILE"
+     echo "Setting exports in /etc/bashrc and /etc/dnf file On RHEL"
+     FILE="/etc/bashrc"
+     grep -qx "export http_proxy=http://$proxy_ip_and_port" "$FILE"  || echo "export http_proxy=http://$proxy_ip_and_port"  >> "$FILE"
      grep -qx "export https_proxy=http://$proxy_ip_and_port" "$FILE" || echo "export https_proxy=http://$proxy_ip_and_port" >> "$FILE"
-	  grep -qx "export HTTP_proxy=http://$proxy_ip_and_port" "$FILE"  || echo "export HTTP_proxy=http://$proxy_ip_and_port"  >> "$FILE"
-	  grep -qx "export HTTPS_proxy=http://$proxy_ip_and_port" "$FILE" || echo "export HTTPS_proxy=http://$proxy_ip_and_port" >> "$FILE"
-	  grep -qx "export no_proxy=$no_proxy_ip" "$FILE"                 || echo "export no_proxy=$no_proxy_ip"                 >> "$FILE"
-	  grep -qx "proxy=http://$proxy_ip_and_port" "$FILE"              || echo "proxy=http://$proxy_ip_and_port"              >> /etc/dnf/dnf.conf
+     grep -qx "export HTTP_proxy=http://$proxy_ip_and_port" "$FILE"  || echo "export HTTP_proxy=http://$proxy_ip_and_port"  >> "$FILE"
+     grep -qx "export HTTPS_proxy=http://$proxy_ip_and_port" "$FILE" || echo "export HTTPS_proxy=http://$proxy_ip_and_port" >> "$FILE"
+     grep -qx "export no_proxy=$no_proxy_ip" "$FILE"                 || echo "export no_proxy=$no_proxy_ip"                 >> "$FILE"
+     grep -qx "proxy=http://$proxy_ip_and_port" "$FILE"              || echo "proxy=http://$proxy_ip_and_port"              >> /etc/dnf/dnf.conf
 
       ###### Restart Network #######
 
