@@ -126,7 +126,7 @@ variable "squid_config" {
   })
   default = {
     "squid_enable"      = "false"
-    "server_host_or_ip" = "inet-svs"
+    "server_host_or_ip" = ""
   }
 }
 
@@ -139,7 +139,7 @@ variable "dns_forwarder_config" {
   })
   default = {
     "dns_enable"        = "false"
-    "server_host_or_ip" = "inet-svs"
+    "server_host_or_ip" = ""
     "dns_servers"       = "161.26.0.7; 161.26.0.8; 9.9.9.9;"
   }
 }
@@ -152,7 +152,7 @@ variable "ntp_forwarder_config" {
   })
   default = {
     "ntp_enable"        = "false"
-    "server_host_or_ip" = "inet-svs"
+    "server_host_or_ip" = ""
   }
 }
 
@@ -164,8 +164,8 @@ variable "nfs_config" {
     nfs_directory     = string
   })
   default = {
-    "nfs_enable"        = "true"
-    "server_host_or_ip" = "private-svs"
+    "nfs_enable"        = "false"
+    "server_host_or_ip" = ""
     "nfs_directory"     = "/nfs"
   }
 }

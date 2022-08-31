@@ -55,7 +55,7 @@
       "default": {
         "dns_enable": "false",
         "dns_servers": "161.26.0.7; 161.26.0.8; 9.9.9.9;",
-        "server_host_or_ip": "inet-svs"
+        "server_host_or_ip": ""
       },
       "pos": {
         "filename": "variables.tf",
@@ -68,8 +68,8 @@
       "description": "Configuration for the shared NFS file system (for example, for the installation media).",
       "default": {
         "nfs_directory": "/nfs",
-        "nfs_enable": "true",
-        "server_host_or_ip": "private-svs"
+        "nfs_enable": "false",
+        "server_host_or_ip": ""
       },
       "pos": {
         "filename": "variables.tf",
@@ -82,7 +82,7 @@
       "description": "Configuration for the NTP forwarder to an NTP service that is not reachable directly from PowerVS",
       "default": {
         "ntp_enable": "false",
-        "server_host_or_ip": "inet-svs"
+        "server_host_or_ip": ""
       },
       "pos": {
         "filename": "variables.tf",
@@ -194,7 +194,7 @@
       "type": "object({\n    squid_enable      = bool\n    server_host_or_ip = string\n  })",
       "description": "Configuration for the Squid proxy to a DNS service that is not reachable directly from PowerVS",
       "default": {
-        "server_host_or_ip": "inet-svs",
+        "server_host_or_ip": "",
         "squid_enable": "false"
       },
       "pos": {
