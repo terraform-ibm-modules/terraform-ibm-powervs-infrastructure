@@ -11,8 +11,8 @@ The PowerVS infrastructure module automates the following tasks:
 ## Usage
 ```hcl
 provider "ibm" {
-region    =   var.pvs_region
-zone      =   var.pvs_zone
+region           = var.pvs_region
+zone             = var.pvs_zone
 ibmcloud_api_key = var.ibmcloud_api_key != null ? var.ibmcloud_api_key : null
 }
 
