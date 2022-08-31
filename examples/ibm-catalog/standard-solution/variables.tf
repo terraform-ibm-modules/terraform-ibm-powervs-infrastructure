@@ -10,36 +10,42 @@ variable "pvs_zone" {
 }
 
 variable "pvs_resource_group_name" {
-  description = "Existing Resource Group Name"
+  description = "Existing resource group name"
   type        = string
 }
 
-variable "pvs_management_network" {
-  description = "PowerVS Management Subnet name and cidr which will be created."
-  type        = map(any)
-  default = {
-    "name" = "mgmt_net"
-    "cidr" = "10.51.0.0/24"
-  }
-}
-
-variable "pvs_backup_network" {
-  description = "PowerVS Backup Network name and cidr which will be created."
-  type        = map(any)
-  default = {
-    "name" = "bkp_net"
-    "cidr" = "10.52.0.0/24"
-  }
-}
-
 variable "ssh_private_key" {
-  description = "Private SSH key used to login to IBM PowerVS instances. Should match to uploaded public SSH key referenced by 'ssh_public_key' in VPC services. Entered data must be in heredoc strings format (https://www.terraform.io/language/expressions/strings#heredoc-strings). The key is not uploaded or stored."
+  description = "Private SSH key used to login to IBM PowerVS instances. Should match to uploaded public SSH key referenced by 'ssh_public_key'. Entered data must be in heredoc strings format (https://www.terraform.io/language/expressions/strings#heredoc-strings). The key is not uploaded or stored."
   type        = string
   sensitive   = true
 }
 
+variable "pvs_management_network" {
+  description = "Name of the IBM Cloud PowerVS management subnet and CIDR to create"
+  type = object({
+    name = string
+    cidr = string
+  })
+  default = {
+    name = "mgmt_net"
+    cidr = "10.51.0.0/24"
+  }
+}
+
+variable "pvs_backup_network" {
+  description = "Name of the IBM Cloud PowerVS backup network and CIDR to create"
+  type = object({
+    name = string
+    cidr = string
+  })
+  default = {
+    name = "bkp_net"
+    cidr = "10.52.0.0/24"
+  }
+}
+
 variable "reuse_cloud_connections" {
-  description = "When the value is true, cloud connections will be reused (and is already attached to Transit gateway)"
+  description = "When true, IBM Cloud connections are reused (if attached to the transit gateway)."
   type        = bool
   default     = false
 }
@@ -51,13 +57,13 @@ variable "configure_proxy" {
 }
 
 variable "configure_dns_forwarder" {
-  description = "Specify if DNS forwarder will be configured. If yes, ensure 'dns_config' optional variable is set properly."
+  description = "Specify if DNS forwarder will be configured. If yes, ensure 'dns_forwarder_config' optional variable is set properly."
   type        = bool
   default     = true
 }
 
 variable "configure_ntp_forwarder" {
-  description = "Specify if NTP forwarder will be configured."
+  description = "Specify if NTP forwarder will be configured. If yes, ensure 'ntp_forwarder_config' optional variable is set properly."
   type        = bool
   default     = true
 }
@@ -69,13 +75,13 @@ variable "configure_nfs_server" {
 }
 
 variable "cloud_connection_count" {
-  description = "Required number of Cloud connections which will be created/Reused. Maximum is 2 per location"
+  description = "Required number of Cloud connections to create or reuse. The maximum number of connections is two per location."
   type        = number
   default     = 2
 }
 
 variable "cloud_connection_speed" {
-  description = "Speed in megabits per sec. Supported values are 50, 100, 200, 500, 1000, 2000, 5000, 10000. Required when creating new connection"
+  description = "Speed in megabits per second. Supported values are 50, 100, 200, 500, 1000, 2000, 5000, 10000. Required when you create a connection."
   type        = number
   default     = 5000
 }
@@ -85,54 +91,64 @@ variable "cloud_connection_speed" {
 #####################################################
 
 variable "tags" {
-  description = "List of Tag names for PowerVS service"
+  description = "List of tag names for the IBM Cloud PowerVS service"
   type        = list(string)
   default     = ["sap"]
 }
 
 variable "cloud_connection_gr" {
-  description = "Enable global routing for this cloud connection.Can be specified when creating new connection"
+  description = "Whether to enable global routing for this IBM Cloud connection. You can specify thia value when you create a connection."
   type        = bool
   default     = true
 }
 
 variable "cloud_connection_metered" {
-  description = "Enable metered for this cloud connection. Can be specified when creating new connection"
+  description = "Whether to enable metering for this IBM Cloud connection. You can specify thia value when you create a connection."
   type        = bool
   default     = false
 }
 
 variable "squid_config" {
-  description = "Squid Configuration on server"
-  type        = map(any)
+  description = "Configuration for the Squid proxy to a DNS service that is not reachable directly from PowerVS"
+  type = object({
+    server_host_or_ip = string
+  })
   default = {
     "server_host_or_ip" = ""
   }
 }
 
-variable "dns_config" {
-  description = "Configure DNS forwarder to existing DNS service that is not reachable directly from PowerVS"
-  type        = map(any)
+variable "dns_forwarder_config" {
+  description = "Configuration for the DNS forwarder to a DNS service that is not reachable directly from PowerVS"
+  type = object({
+    server_host_or_ip = string
+    dns_servers       = string
+  })
   default = {
+    "server_host_or_ip" = ""
     "dns_servers"       = "161.26.0.7; 161.26.0.8; 9.9.9.9;"
-    "server_host_or_ip" = ""
   }
 }
 
-variable "ntp_config" {
-  description = "Ntp configuration on server"
-  type        = map(any)
+variable "ntp_forwarder_config" {
+  description = "Configuration for the NTP forwarder to an NTP service that is not reachable directly from PowerVS"
+  type = object({
+    server_host_or_ip = string
+  })
   default = {
     "server_host_or_ip" = ""
   }
 }
 
 variable "nfs_config" {
-  description = "Configure shared NFS file system (e.g., for installation media). Semicolon separated values."
-  type        = map(any)
+  description = "Configuration for the shared NFS file system (for example, for the installation media)."
+  type = object({
+    server_host_or_ip = string
+    nfs_directory     = string
+  })
   default = {
-    "nfs_directory"     = "/nfs"
     "server_host_or_ip" = ""
+    "nfs_directory"     = "/nfs"
   }
 }
 

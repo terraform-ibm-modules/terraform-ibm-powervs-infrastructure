@@ -48,14 +48,14 @@ locals {
     "server_host_or_ip" = var.squid_config["server_host_or_ip"] != null && var.squid_config["server_host_or_ip"] != "" ? var.squid_config["server_host_or_ip"] : local.inet_svs_ip
   }
 
-  dns_config = merge(var.dns_config, {
+  dns_config = merge(var.dns_forwarder_config, {
     "dns_enable"        = var.configure_dns_forwarder
-    "server_host_or_ip" = var.dns_config["server_host_or_ip"] != null && var.dns_config["server_host_or_ip"] != "" ? var.dns_config["server_host_or_ip"] : local.private_svs_ip
+    "server_host_or_ip" = var.dns_forwarder_config["server_host_or_ip"] != null && var.dns_forwarder_config["server_host_or_ip"] != "" ? var.dns_forwarder_config["server_host_or_ip"] : local.private_svs_ip
   })
 
   ntp_config = {
     "ntp_enable"        = var.configure_ntp_forwarder
-    "server_host_or_ip" = var.ntp_config["server_host_or_ip"] != null && var.ntp_config["server_host_or_ip"] != "" ? var.ntp_config["server_host_or_ip"] : local.private_svs_ip
+    "server_host_or_ip" = var.ntp_forwarder_config["server_host_or_ip"] != null && var.ntp_forwarder_config["server_host_or_ip"] != "" ? var.ntp_forwarder_config["server_host_or_ip"] : local.private_svs_ip
   }
 
   nfs_config = merge(var.nfs_config, {
@@ -63,9 +63,12 @@ locals {
     "server_host_or_ip" = var.nfs_config["server_host_or_ip"] != null && var.nfs_config["server_host_or_ip"] != "" ? var.nfs_config["server_host_or_ip"] : local.private_svs_ip
   })
 
+  host_ips         = [local.dns_config["server_host_or_ip"], local.ntp_config["server_host_or_ip"], local.nfs_config["server_host_or_ip"]]
+  squid_client_ips = distinct([for host_ip in local.host_ips : host_ip if host_ip != local.squid_config["server_host_or_ip"]])
+
   perform_proxy_client_setup = {
-    squid_client_ips = [local.private_svs_ip]
-    squid_server_ip  = local.inet_svs_ip
+    squid_client_ips = local.squid_client_ips
+    squid_server_ip  = local.squid_config["server_host_or_ip"]
     no_proxy_env     = "161.0.0.0/8"
   }
 }

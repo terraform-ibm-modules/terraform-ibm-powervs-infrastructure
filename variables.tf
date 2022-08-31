@@ -27,7 +27,6 @@ variable "pvs_sshkey_name" {
 variable "ssh_public_key" {
   description = "Public SSH Key for the PowerVM to create"
   type        = string
-  sensitive   = true
 }
 
 variable "ssh_private_key" {
@@ -119,7 +118,7 @@ variable "access_host_or_ip" {
 }
 
 variable "squid_config" {
-  description = "Configuration for the Squid proxy to a DNS service that is not reachable directly from PowerVS"
+  description = "Configuration for the Squid proxy Setup"
   type = object({
     squid_enable      = bool
     server_host_or_ip = string
