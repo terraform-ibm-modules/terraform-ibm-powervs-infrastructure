@@ -110,6 +110,12 @@ variable "cloud_connection_metered" {
   default     = false
 }
 
+variable "access_host_or_ip" {
+  description = "The public IP address for the jump or Bastion server. The address is used to reach the target or server_host IP address and to configure the DNS, NTP, NFS, and Squid proxy services."
+  type        = string
+  default     = null
+}
+
 variable "squid_config" {
   description = "Configuration for the Squid proxy to a DNS service that is not reachable directly from PowerVS"
   type = object({
