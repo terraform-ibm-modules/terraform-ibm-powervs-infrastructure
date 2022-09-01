@@ -17,8 +17,8 @@ Use of this resource for production deployments is not recommended. Instead, gen
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >=1.1 |
-| <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | >= 1.43.0 |
-| <a name="requirement_tls"></a> [tls](#requirement\_tls) | 4.0.1 |
+| <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | >= 1.44.3 |
+| <a name="requirement_tls"></a> [tls](#requirement\_tls) | 4.0.2 |
 
 ## Modules
 
@@ -33,7 +33,7 @@ Use of this resource for production deployments is not recommended. Instead, gen
 | Name | Type |
 |------|------|
 | [ibm_is_ssh_key.ssh_key](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/is_ssh_key) | resource |
-| [tls_private_key.tls_key](https://registry.terraform.io/providers/hashicorp/tls/4.0.1/docs/resources/private_key) | resource |
+| [tls_private_key.tls_key](https://registry.terraform.io/providers/hashicorp/tls/4.0.2/docs/resources/private_key) | resource |
 
 ## Inputs
 
