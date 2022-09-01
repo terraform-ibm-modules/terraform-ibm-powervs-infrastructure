@@ -250,7 +250,7 @@
     "ibm": {
       "source": "IBM-Cloud/ibm",
       "version_constraints": [
-        "\u003e= 1.21.0"
+        "\u003e= 1.44.3"
       ]
     }
   },
