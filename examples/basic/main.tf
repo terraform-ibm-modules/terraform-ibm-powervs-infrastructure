@@ -74,13 +74,13 @@ locals {
 
 module "existing_resource_group" {
   count                        = var.existing_resource_group_name == null ? 0 : 1
-  source                       = "git::https://github.com/terraform-ibm-modules/terraform-ibm-resource-group.git?ref=v1.0.0"
+  source                       = "git::https://github.com/terraform-ibm-modules/terraform-ibm-resource-group.git?ref=v1.0.1"
   existing_resource_group_name = var.existing_resource_group_name
 }
 
 module "resource_group" {
   count               = var.existing_resource_group_name == null ? 1 : 0
-  source              = "git::https://github.com/terraform-ibm-modules/terraform-ibm-resource-group.git?ref=v1.0.0"
+  source              = "git::https://github.com/terraform-ibm-modules/terraform-ibm-resource-group.git?ref=v1.0.1"
   resource_group_name = "${var.prefix}-rg"
 }
 
