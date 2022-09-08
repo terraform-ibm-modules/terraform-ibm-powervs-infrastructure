@@ -24,9 +24,9 @@ Use of this resource for production deployments is not recommended. Instead, gen
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_existing_resource_group"></a> [existing\_resource\_group](#module\_existing\_resource\_group) | git::https://github.com/terraform-ibm-modules/terraform-ibm-resource-group.git | v1.0.0 |
+| <a name="module_existing_resource_group"></a> [existing\_resource\_group](#module\_existing\_resource\_group) | git::https://github.com/terraform-ibm-modules/terraform-ibm-resource-group.git | v1.0.1 |
 | <a name="module_powervs_infra"></a> [powervs\_infra](#module\_powervs\_infra) | ../../ | n/a |
-| <a name="module_resource_group"></a> [resource\_group](#module\_resource\_group) | git::https://github.com/terraform-ibm-modules/terraform-ibm-resource-group.git | v1.0.0 |
+| <a name="module_resource_group"></a> [resource\_group](#module\_resource\_group) | git::https://github.com/terraform-ibm-modules/terraform-ibm-resource-group.git | v1.0.1 |
 
 ## Resources
 
