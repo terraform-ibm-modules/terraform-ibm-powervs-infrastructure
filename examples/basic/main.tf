@@ -68,20 +68,11 @@ resource "ibm_is_ssh_key" "ssh_key" {
 # Account Resource Group
 ########################################################################################################################
 
-locals {
-  resource_group_name = var.existing_resource_group_name == null ? module.resource_group[0].resource_group_name : module.existing_resource_group[0].resource_group_name
-}
-
-module "existing_resource_group" {
-  count                        = var.existing_resource_group_name == null ? 0 : 1
-  source                       = "git::https://github.com/terraform-ibm-modules/terraform-ibm-resource-group.git?ref=v1.0.1"
-  existing_resource_group_name = var.existing_resource_group_name
-}
-
 module "resource_group" {
-  count               = var.existing_resource_group_name == null ? 1 : 0
-  source              = "git::https://github.com/terraform-ibm-modules/terraform-ibm-resource-group.git?ref=v1.0.1"
-  resource_group_name = "${var.prefix}-rg"
+  source = "git::https://github.com/terraform-ibm-modules/terraform-ibm-resource-group.git?ref=v1.0.1"
+  # if an existing resource group is not set (null) create a new one using prefix
+  resource_group_name          = var.resource_group == null ? "${var.prefix}-resource-group" : null
+  existing_resource_group_name = var.resource_group
 }
 
 ########################################################################################################################
@@ -91,7 +82,7 @@ module "resource_group" {
 module "powervs_infra" {
   # Explicit dependency needed here - likely due to different provider alias used in this example
   depends_on = [
-    local.resource_group_name
+    module.resource_group
   ]
 
   providers = {
@@ -101,7 +92,7 @@ module "powervs_infra" {
   source = "../../"
 
   pvs_zone                   = var.pvs_zone
-  pvs_resource_group_name    = local.resource_group_name
+  pvs_resource_group_name    = module.resource_group.resource_group_name
   pvs_service_name           = "${var.prefix}-${var.pvs_service_name}"
   tags                       = var.resource_tags
   pvs_image_names            = var.pvs_image_names
