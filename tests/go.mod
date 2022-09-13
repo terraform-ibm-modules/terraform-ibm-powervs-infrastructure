@@ -1,4 +1,8 @@
 module github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure
+<<<<<<< HEAD
+=======
+module github.com/terraform-ibm-modules/terraform-ibm-module-template
+>>>>>>> b6ca8e02e98c417805786071c649fd3bb0dfa7b8
 
 go 1.19
 
