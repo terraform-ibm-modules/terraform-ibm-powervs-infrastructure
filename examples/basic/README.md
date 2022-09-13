@@ -63,7 +63,20 @@ Use of this resource for production deployments is not recommended. Instead, gen
 
 ## Outputs
 
-No outputs.
+| Name | Description |
+|------|-------------|
+| <a name="output_access_host_or_ip"></a> [access\_host\_or\_ip](#output\_access\_host\_or\_ip) | Access host for created PowerVS infrastructure. |
+| <a name="output_cloud_connection_count"></a> [cloud\_connection\_count](#output\_cloud\_connection\_count) | Number of cloud connections configured in created PowerVS infrastructure. |
+| <a name="output_dns_host_or_ip"></a> [dns\_host\_or\_ip](#output\_dns\_host\_or\_ip) | DNS forwarder host for created PowerVS infrastructure. |
+| <a name="output_nfs_path"></a> [nfs\_path](#output\_nfs\_path) | NFS host for created PowerVS infrastructure. |
+| <a name="output_ntp_host_or_ip"></a> [ntp\_host\_or\_ip](#output\_ntp\_host\_or\_ip) | NTP host for created PowerVS infrastructure. |
+| <a name="output_pvs_backup_network_name"></a> [pvs\_backup\_network\_name](#output\_pvs\_backup\_network\_name) | Name of backup network in created PowerVS infrastructure. |
+| <a name="output_pvs_management_network_name"></a> [pvs\_management\_network\_name](#output\_pvs\_management\_network\_name) | Name of management network in created PowerVS infrastructure. |
+| <a name="output_pvs_resource_group_name"></a> [pvs\_resource\_group\_name](#output\_pvs\_resource\_group\_name) | IBM Cloud resource group where PowerVS infrastructure is created. |
+| <a name="output_pvs_service_name"></a> [pvs\_service\_name](#output\_pvs\_service\_name) | PowerVS infrastructure name. |
+| <a name="output_pvs_sshkey_name"></a> [pvs\_sshkey\_name](#output\_pvs\_sshkey\_name) | SSH public key name in created PowerVS infrastructure. |
+| <a name="output_pvs_zone"></a> [pvs\_zone](#output\_pvs\_zone) | Zone where PowerVS infrastructure is created. |
+| <a name="output_squid_host_or_ip"></a> [squid\_host\_or\_ip](#output\_squid\_host\_or\_ip) | Proxy host for created PowerVS infrastructure. |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 ## Note
