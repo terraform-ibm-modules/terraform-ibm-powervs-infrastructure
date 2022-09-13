@@ -2,11 +2,7 @@
 package test
 
 import (
-	"fmt"
-	"strings"
 	"testing"
-
-	"github.com/gruntwork-io/terratest/modules/random"
 
 	"github.com/stretchr/testify/assert"
 	"github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper/testhelper"
@@ -16,23 +12,26 @@ import (
 const resourceGroup = "geretain-test-resources"
 const defaultExampleTerraformDir = "examples/basic"
 
-var prefix = fmt.Sprintf("pvs-%s", strings.ToLower(random.UniqueId()))
+func setupOptions(t *testing.T, prefix string) *testhelper.TestOptions {
+	options := testhelper.TestOptionsDefault(&testhelper.TestOptions{
+		Testing:       t,
+		TerraformDir:  defaultExampleTerraformDir,
+		Prefix:        prefix,
+		ResourceGroup: resourceGroup,
+	})
 
-var terraformVars = map[string]interface{}{
-	"existing_resource_group_name": resourceGroup,
-	"prefix":                       prefix,
+	options.TerraformVars = map[string]interface{}{
+		"prefix":         options.Prefix,
+		"resource_group": options.ResourceGroup,
+	}
+
+	return options
 }
 
 func TestRunDefaultExample(t *testing.T) {
 	t.Parallel()
 
-	options := testhelper.TestOptionsDefault(&testhelper.TestOptions{
-		Testing:       t,
-		TerraformDir:  defaultExampleTerraformDir,
-		ResourceGroup: resourceGroup,
-		Prefix:        prefix,
-		TerraformVars: terraformVars,
-	})
+	options := setupOptions(t, "power-infra")
 
 	output, err := options.RunTestConsistency()
 	assert.Nil(t, err, "This should not have errored")
@@ -45,14 +44,7 @@ func TestRunUpgradeExample(t *testing.T) {
 	// TODO: Remove this line after the first merge to master branch is complete to enable upgrade test
 	t.Skip("Skipping upgrade test until initial code is in master branch")
 
-	options := testhelper.TestOptionsDefaultWithVars(&testhelper.TestOptions{
-		Testing:       t,
-		TerraformDir:  defaultExampleTerraformDir,
-		Prefix:        prefix,
-		ResourceGroup: resourceGroup,
-
-		TerraformVars: terraformVars,
-	})
+	options := setupOptions(t, "power-infra-upg")
 
 	output, err := options.RunTestUpgrade()
 	if !options.UpgradeTestSkipped {

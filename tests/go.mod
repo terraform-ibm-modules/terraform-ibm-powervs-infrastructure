@@ -1,11 +1,11 @@
-module github.com/terraform-ibm-modules/terraform-ibm-module-template
+module github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure
 
 go 1.19
 
 require (
-	github.com/gruntwork-io/terratest v0.40.21
+	github.com/gruntwork-io/terratest v0.40.22
 	github.com/stretchr/testify v1.8.0
-	github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper v1.0.16
+	github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper v1.0.18
 )
 
 require (
