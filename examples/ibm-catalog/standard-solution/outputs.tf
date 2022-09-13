@@ -1,26 +1,59 @@
-output "powervs_infra" {
-  description = "Standard-catalog PowerVS Infrastructure outputs for next solution consumption"
-  value = {
+output "pvs_service_name" {
+  description = "PowerVS infrastructure name."
+  value       = module.powervs_infra.pvs_service_name
+}
 
-    prefix                     = local.slz_output[0].prefix.value
-    pvs_zone                   = var.pvs_zone
-    pvs_resource_group_name    = var.pvs_resource_group_name
-    pvs_service_name           = "${local.slz_output[0].prefix.value}-power-service"
-    tags                       = var.tags
-    pvs_sshkey_name            = "${local.slz_output[0].prefix.value}-ssh-pvs-key"
-    ssh_public_key             = local.slz_output[0].ssh_public_key.value
-    infrastructure_networks    = [var.pvs_management_network.name, var.pvs_backup_network.name]
-    transit_gateway_name       = local.slz_output[0].transit_gateway_name.value
-    reuse_cloud_connections    = var.reuse_cloud_connections
-    cloud_connection_count     = var.cloud_connection_count
-    cloud_connection_speed     = var.cloud_connection_speed
-    cloud_connection_gr        = var.cloud_connection_gr
-    cloud_connection_metered   = var.cloud_connection_metered
-    access_host_or_ip          = local.slz_output[0].fip_vsi.value[0].floating_ip
-    squid_config               = local.squid_config
-    dns_forwarder_config       = local.dns_config
-    ntp_forwarder_config       = local.ntp_config
-    nfs_config                 = local.nfs_config
-    perform_proxy_client_setup = local.perform_proxy_client_setup
-  }
+output "pvs_sshkey_name" {
+  description = "SSH public key name in created PowerVS infrastructure."
+  value       = module.powervs_infra.pvs_sshkey_name
+}
+
+output "pvs_zone" {
+  description = "Zone where PowerVS infrastructure is created."
+  value       = module.powervs_infra.pvs_zone
+}
+
+output "pvs_resource_group_name" {
+  description = "IBM Cloud resource group where PowerVS infrastructure is created."
+  value       = module.powervs_infra.pvs_resource_group_name
+}
+
+output "cloud_connection_count" {
+  description = "Number of cloud connections configured in created PowerVS infrastructure."
+  value       = module.powervs_infra.cloud_connection_count
+}
+
+output "pvs_management_network_name" {
+  description = "Name of management network in created PowerVS infrastructure."
+  value       = module.powervs_infra.pvs_management_network_name
+}
+
+output "pvs_backup_network_name" {
+  description = "Name of backup network in created PowerVS infrastructure."
+  value       = module.powervs_infra.pvs_backup_network_name
+}
+
+output "access_host_or_ip" {
+  description = "Access host for created PowerVS infrastructure."
+  value       = module.powervs_infra.access_host_or_ip
+}
+
+output "squid_host_or_ip" {
+  description = "Proxy host for created PowerVS infrastructure."
+  value       = module.powervs_infra.squid_host_or_ip
+}
+
+output "dns_host_or_ip" {
+  description = "DNS forwarder host for created PowerVS infrastructure."
+  value       = module.powervs_infra.dns_host_or_ip
+}
+
+output "ntp_host_or_ip" {
+  description = "NTP host for created PowerVS infrastructure."
+  value       = module.powervs_infra.ntp_host_or_ip
+}
+
+output "nfs_path" {
+  description = "NFS host for created PowerVS infrastructure."
+  value       = module.powervs_infra.nfs_path
 }

@@ -242,7 +242,104 @@
       }
     }
   },
-  "outputs": {},
+  "outputs": {
+    "access_host_or_ip": {
+      "name": "access_host_or_ip",
+      "description": "Access host for created PowerVS infrastructure.",
+      "pos": {
+        "filename": "outputs.tf",
+        "line": 36
+      }
+    },
+    "cloud_connection_count": {
+      "name": "cloud_connection_count",
+      "description": "Number of cloud connections configured in created PowerVS infrastructure.",
+      "pos": {
+        "filename": "outputs.tf",
+        "line": 21
+      }
+    },
+    "dns_host_or_ip": {
+      "name": "dns_host_or_ip",
+      "description": "DNS forwarder host for created PowerVS infrastructure.",
+      "pos": {
+        "filename": "outputs.tf",
+        "line": 46
+      }
+    },
+    "nfs_path": {
+      "name": "nfs_path",
+      "description": "NFS host for created PowerVS infrastructure.",
+      "pos": {
+        "filename": "outputs.tf",
+        "line": 56
+      }
+    },
+    "ntp_host_or_ip": {
+      "name": "ntp_host_or_ip",
+      "description": "NTP host for created PowerVS infrastructure.",
+      "pos": {
+        "filename": "outputs.tf",
+        "line": 51
+      }
+    },
+    "pvs_backup_network_name": {
+      "name": "pvs_backup_network_name",
+      "description": "Name of backup network in created PowerVS infrastructure.",
+      "pos": {
+        "filename": "outputs.tf",
+        "line": 31
+      }
+    },
+    "pvs_management_network_name": {
+      "name": "pvs_management_network_name",
+      "description": "Name of management network in created PowerVS infrastructure.",
+      "pos": {
+        "filename": "outputs.tf",
+        "line": 26
+      }
+    },
+    "pvs_resource_group_name": {
+      "name": "pvs_resource_group_name",
+      "description": "IBM Cloud resource group where PowerVS infrastructure is created.",
+      "pos": {
+        "filename": "outputs.tf",
+        "line": 16
+      }
+    },
+    "pvs_service_name": {
+      "name": "pvs_service_name",
+      "description": "PowerVS infrastructure name.",
+      "pos": {
+        "filename": "outputs.tf",
+        "line": 1
+      }
+    },
+    "pvs_sshkey_name": {
+      "name": "pvs_sshkey_name",
+      "description": "SSH public key name in created PowerVS infrastructure.",
+      "pos": {
+        "filename": "outputs.tf",
+        "line": 6
+      }
+    },
+    "pvs_zone": {
+      "name": "pvs_zone",
+      "description": "Zone where PowerVS infrastructure is created.",
+      "pos": {
+        "filename": "outputs.tf",
+        "line": 11
+      }
+    },
+    "squid_host_or_ip": {
+      "name": "squid_host_or_ip",
+      "description": "Proxy host for created PowerVS infrastructure.",
+      "pos": {
+        "filename": "outputs.tf",
+        "line": 41
+      }
+    }
+  },
   "required_core": [
     "\u003e= 1.1.0"
   ],
