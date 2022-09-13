@@ -97,7 +97,7 @@
                     ],
                     "id": "a87ed9a5-d130-47a3-980b-5ceb1d4f9280-global",
                     "name": "slz-vpc-with-vsis",
-                    "version": "^=1.5.0"
+                    "version": "^1.6.0"
                 }
             ],
             "architecture": {
