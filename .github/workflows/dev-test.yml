@@ -26,7 +26,7 @@ jobs:
       - name: Initialize Terraform
         run: |
           cd ./examples/standard
-          terraform init -input=false          
+          terraform init -input=false
 
       - name: Plan Terraform
         id: plan
@@ -39,7 +39,7 @@ jobs:
              -var ssh_public_key=$SSH_PUBLIC_KEY \
              -var ssh_private_key=$SSH_PRIVATE_KEY \
              -var ibmcloud_api_key=$IBM_CLOUD_API_KEY \
-             && terraform show -no-color tfplan          
+             && terraform show -no-color tfplan
 
 #      - name: Apply Terraform
 #        if: steps.plan.outcome == 'success'
@@ -49,8 +49,8 @@ jobs:
 #          cd ./examples/standard
 #          terraform apply \
 #             -input=false -no-color \
-#             tfplan 
-#         
+#             tfplan
+#
 #      - name: Destroy Terraform
 #        if: steps.plan.outcome == 'success'
 #        id: destroy
