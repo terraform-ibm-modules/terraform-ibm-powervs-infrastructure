@@ -4,7 +4,7 @@ variable "pvs_zone" {
   default     = "syd04"
 }
 
-variable "existing_resource_group_name" {
+variable "resource_group" {
   type        = string
   description = "Existing resource group name to use for this example. If null, a new resource group will be created."
   default     = null
