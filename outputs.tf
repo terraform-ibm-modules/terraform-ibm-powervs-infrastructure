@@ -1,21 +1,21 @@
 output "pvs_service_name" {
   description = "PowerVS infrastructure name."
-  value       = var.pvs_service_name
+  value       = var.powervs_service_name
 }
 
 output "pvs_sshkey_name" {
   description = "SSH public key name in created PowerVS infrastructure."
-  value       = var.pvs_sshkey_name
+  value       = var.powervs_sshkey_name
 }
 
 output "pvs_zone" {
   description = "Zone where PowerVS infrastructure is created."
-  value       = var.pvs_zone
+  value       = var.powervs_zone
 }
 
 output "pvs_resource_group_name" {
   description = "IBM Cloud resource group where PowerVS infrastructure is created."
-  value       = var.pvs_resource_group_name
+  value       = var.powervs_resource_group_name
 }
 
 output "cloud_connection_count" {
@@ -25,12 +25,12 @@ output "cloud_connection_count" {
 
 output "pvs_management_network_name" {
   description = "Name of management network in created PowerVS infrastructure."
-  value       = var.pvs_management_network["name"]
+  value       = var.powervs_management_network["name"]
 }
 
 output "pvs_backup_network_name" {
   description = "Name of backup network in created PowerVS infrastructure."
-  value       = var.pvs_backup_network["name"]
+  value       = var.powervs_backup_network["name"]
 }
 
 output "access_host_or_ip" {

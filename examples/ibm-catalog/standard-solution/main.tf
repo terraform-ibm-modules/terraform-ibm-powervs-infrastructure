@@ -1,5 +1,5 @@
 locals {
-  ibm_pvs_zone_region_map = {
+  ibm_powervs_zone_region_map = {
     "syd04"    = "syd"
     "syd05"    = "syd"
     "eu-de-1"  = "eu-de"
@@ -21,8 +21,8 @@ locals {
 }
 
 provider "ibm" {
-  region           = lookup(local.ibm_pvs_zone_region_map, var.pvs_zone, null)
-  zone             = var.pvs_zone
+  region           = lookup(local.ibm_powervs_zone_region_map, var.powervs_zone, null)
+  zone             = var.powervs_zone
   ibmcloud_api_key = var.ibmcloud_api_key != null ? var.ibmcloud_api_key : null
 }
 
@@ -76,26 +76,26 @@ locals {
 module "powervs_infra" {
   source = "../../.."
 
-  pvs_zone                   = var.pvs_zone
-  pvs_resource_group_name    = var.pvs_resource_group_name
-  pvs_service_name           = "${local.slz_output[0].prefix.value}-${var.pvs_zone}-power-service"
-  tags                       = var.tags
-  pvs_image_names            = var.pvs_image_names
-  pvs_sshkey_name            = "${local.slz_output[0].prefix.value}-${var.pvs_zone}-ssh-pvs-key"
-  ssh_public_key             = local.slz_output[0].ssh_public_key.value
-  ssh_private_key            = var.ssh_private_key
-  pvs_management_network     = var.pvs_management_network
-  pvs_backup_network         = var.pvs_backup_network
-  transit_gateway_name       = local.slz_output[0].transit_gateway_name.value
-  reuse_cloud_connections    = var.reuse_cloud_connections
-  cloud_connection_count     = var.cloud_connection_count
-  cloud_connection_speed     = var.cloud_connection_speed
-  cloud_connection_gr        = var.cloud_connection_gr
-  cloud_connection_metered   = var.cloud_connection_metered
-  access_host_or_ip          = local.slz_output[0].fip_vsi.value[0].floating_ip
-  squid_config               = local.squid_config
-  dns_forwarder_config       = local.dns_config
-  ntp_forwarder_config       = local.ntp_config
-  nfs_config                 = local.nfs_config
-  perform_proxy_client_setup = local.perform_proxy_client_setup
+  powervs_zone                = var.powervs_zone
+  powervs_resource_group_name = var.powervs_resource_group_name
+  powervs_service_name        = "${local.slz_output[0].prefix.value}-${var.powervs_zone}-power-service"
+  tags                        = var.tags
+  powervs_image_names         = var.powervs_image_names
+  powervs_sshkey_name         = "${local.slz_output[0].prefix.value}-${var.powervs_zone}-ssh-pvs-key"
+  ssh_public_key              = local.slz_output[0].ssh_public_key.value
+  ssh_private_key             = var.ssh_private_key
+  powervs_management_network  = var.powervs_management_network
+  powervs_backup_network      = var.powervs_backup_network
+  transit_gateway_name        = local.slz_output[0].transit_gateway_name.value
+  reuse_cloud_connections     = var.reuse_cloud_connections
+  cloud_connection_count      = var.cloud_connection_count
+  cloud_connection_speed      = var.cloud_connection_speed
+  cloud_connection_gr         = var.cloud_connection_gr
+  cloud_connection_metered    = var.cloud_connection_metered
+  access_host_or_ip           = local.slz_output[0].fip_vsi.value[0].floating_ip
+  squid_config                = local.squid_config
+  dns_forwarder_config        = local.dns_config
+  ntp_forwarder_config        = local.ntp_config
+  nfs_config                  = local.nfs_config
+  perform_proxy_client_setup  = local.perform_proxy_client_setup
 }

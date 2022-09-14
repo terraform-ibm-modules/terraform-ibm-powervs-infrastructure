@@ -1,31 +1,27 @@
-variable "pvs_zone" {
-  description = "IBM Cloud PowerVS zone"
-  type        = string
-  validation {
-    condition     = contains(["syd04", "syd05", "eu-de-1", "eu-de-2", "lon04", "lon06", "wdc04", "us-east", "us-south", "dal12", "dal13", "tor01", "tok04", "osa21", "sao01", "mon01"], var.pvs_zone)
-    error_message = "Valid values: syd04,syd05,eu-de-1,eu-de-2,lon04,lon06,wdc04,us-east,us-south,dal12,dal13,tor01,tok04,osa21,sao01,mon01"
-  }
-}
-
-variable "pvs_resource_group_name" {
-  description = "Existing resource group name"
+variable "powervs_zone" {
+  description = "IBM Cloud PowerVS zone."
   type        = string
 }
 
-variable "pvs_service_name" {
-  description = "Name of the PowerVS service to create"
+variable "powervs_resource_group_name" {
+  description = "Existing IBM Cloud resource group nam."
+  type        = string
+}
+
+variable "powervs_service_name" {
+  description = "Name of the PowerVS service to create."
   type        = string
   default     = "power-service"
 }
 
-variable "pvs_sshkey_name" {
-  description = "Name of the PowerVS SSH key to create"
+variable "powervs_sshkey_name" {
+  description = "Name of the PowerVS SSH key to create."
   type        = string
   default     = "ssh-key-pvs"
 }
 
 variable "ssh_public_key" {
-  description = "Public SSH Key for the PowerVM to create"
+  description = "Public SSH Key for the PowerVM to create."
   type        = string
 }
 
@@ -35,8 +31,8 @@ variable "ssh_private_key" {
   sensitive   = true
 }
 
-variable "pvs_management_network" {
-  description = "Name of the IBM Cloud PowerVS management subnet and CIDR to create"
+variable "powervs_management_network" {
+  description = "Name of the IBM Cloud PowerVS management subnet and CIDR to create."
   type = object({
     name = string
     cidr = string
@@ -47,8 +43,8 @@ variable "pvs_management_network" {
   }
 }
 
-variable "pvs_backup_network" {
-  description = "Name of the IBM Cloud PowerVS backup network and CIDR to create"
+variable "powervs_backup_network" {
+  description = "Name of the IBM Cloud PowerVS backup network and CIDR to create."
   type = object({
     name = string
     cidr = string
@@ -88,13 +84,13 @@ variable "cloud_connection_speed" {
 #####################################################
 
 variable "tags" {
-  description = "List of tag names for the IBM Cloud PowerVS service"
+  description = "List of tag names for the IBM Cloud PowerVS service."
   type        = list(string)
   default     = null
 }
 
-variable "pvs_image_names" {
-  description = "List of Images to be imported into cloud account from catalog images"
+variable "powervs_image_names" {
+  description = "List of Images to be imported into cloud account from catalog images."
   type        = list(string)
   default     = ["SLES15-SP3-SAP", "SLES15-SP3-SAP-NETWEAVER", "RHEL8-SP4-SAP", "RHEL8-SP4-SAP-NETWEAVER"]
 }
@@ -112,13 +108,13 @@ variable "cloud_connection_metered" {
 }
 
 variable "access_host_or_ip" {
-  description = "The public IP address for the jump or Bastion server. The address is used to reach the target or server_host IP address and to configure the DNS, NTP, NFS, and Squid proxy services."
+  description = "The public IP address or hostname for the access host. The address is used to reach the target or server_host IP address and to configure the DNS, NTP, NFS, and Squid proxy services."
   type        = string
   default     = null
 }
 
 variable "squid_config" {
-  description = "Configuration for the Squid proxy Setup"
+  description = "Configuration for the Squid proxy setup."
   type = object({
     squid_enable      = bool
     server_host_or_ip = string
@@ -130,7 +126,7 @@ variable "squid_config" {
 }
 
 variable "dns_forwarder_config" {
-  description = "Configuration for the DNS forwarder to a DNS service that is not reachable directly from PowerVS"
+  description = "Configuration for the DNS forwarder to a DNS service that is not reachable directly from PowerVS."
   type = object({
     dns_enable        = bool
     server_host_or_ip = string
@@ -144,7 +140,7 @@ variable "dns_forwarder_config" {
 }
 
 variable "ntp_forwarder_config" {
-  description = "Configuration for the NTP forwarder to an NTP service that is not reachable directly from PowerVS"
+  description = "Configuration for the NTP forwarder to an NTP service that is not reachable directly from PowerVS."
   type = object({
     ntp_enable        = bool
     server_host_or_ip = string
