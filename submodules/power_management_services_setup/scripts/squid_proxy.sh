@@ -40,7 +40,7 @@ do
 
 	i)
 		install_packages=true;;
-		
+
 	:)
 	    	# If expected argument omitted:
 		echo "Error: -${OPTARG} requires an argument."
