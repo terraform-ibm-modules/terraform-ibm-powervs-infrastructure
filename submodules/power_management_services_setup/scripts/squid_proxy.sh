@@ -32,25 +32,25 @@ fi
 while getopts :h?:p:in: flag
 do
     case "${flag}" in
-	    p)
-	      proxy_ip_and_port=${OPTARG};;
+	p)
+		proxy_ip_and_port=${OPTARG};;
 
-	    n)
-		    no_proxy_ip=${OPTARG};;
+	n)
+		no_proxy_ip=${OPTARG};;
 
-      i)
-        install_packages=true;;
-
-	    :)
-        # If expected argument omitted:
-         echo "Error: -${OPTARG} requires an argument."
-         exit_abnormal                       # Exit abnormally.
-         ;;
-      \? | h | *) # Prints help.
-         grep " .)\ #" "$0"
-         # If unknown (any other) option:
-         exit_abnormal                       # Exit abnormally.
-         ;;
+	i)
+		install_packages=true;;
+		
+	:)
+	    	# If expected argument omitted:
+		echo "Error: -${OPTARG} requires an argument."
+		exit_abnormal                       # Exit abnormally.
+		;;
+	\? | h | *) # Prints help.
+		grep " .)\ #" "$0"
+		# If unknown (any other) option:
+		exit_abnormal                       # Exit abnormally.
+		;;
   esac
 done
 
