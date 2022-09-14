@@ -4,10 +4,10 @@
     "access_host_or_ip": {
       "name": "access_host_or_ip",
       "type": "string",
-      "description": "The public IP address for the jump or Bastion server. The address is used to reach the target or server_host IP address and to configure the DNS, NTP, NFS, and Squid proxy services.",
+      "description": "The public IP address or hostname for the access host. The address is used to reach the target or server_host IP address and to configure the DNS, NTP, NFS, and Squid proxy services.",
       "pos": {
         "filename": "variables.tf",
-        "line": 114
+        "line": 110
       }
     },
     "cloud_connection_count": {
@@ -17,7 +17,7 @@
       "default": 2,
       "pos": {
         "filename": "variables.tf",
-        "line": 74
+        "line": 70
       }
     },
     "cloud_connection_gr": {
@@ -26,7 +26,7 @@
       "description": "Whether to enable global routing for this IBM Cloud connection. You can specify thia value when you create a connection.",
       "pos": {
         "filename": "variables.tf",
-        "line": 102
+        "line": 98
       }
     },
     "cloud_connection_metered": {
@@ -35,7 +35,7 @@
       "description": "Whether to enable metering for this IBM Cloud connection. You can specify thia value when you create a connection.",
       "pos": {
         "filename": "variables.tf",
-        "line": 108
+        "line": 104
       }
     },
     "cloud_connection_speed": {
@@ -45,13 +45,13 @@
       "default": 5000,
       "pos": {
         "filename": "variables.tf",
-        "line": 80
+        "line": 76
       }
     },
     "dns_forwarder_config": {
       "name": "dns_forwarder_config",
       "type": "object({\n    dns_enable        = bool\n    server_host_or_ip = string\n    dns_servers       = string\n  })",
-      "description": "Configuration for the DNS forwarder to a DNS service that is not reachable directly from PowerVS",
+      "description": "Configuration for the DNS forwarder to a DNS service that is not reachable directly from PowerVS.",
       "default": {
         "dns_enable": "false",
         "dns_servers": "161.26.0.7; 161.26.0.8; 9.9.9.9;",
@@ -59,7 +59,7 @@
       },
       "pos": {
         "filename": "variables.tf",
-        "line": 132
+        "line": 128
       }
     },
     "nfs_config": {
@@ -73,20 +73,20 @@
       },
       "pos": {
         "filename": "variables.tf",
-        "line": 158
+        "line": 154
       }
     },
     "ntp_forwarder_config": {
       "name": "ntp_forwarder_config",
       "type": "object({\n    ntp_enable        = bool\n    server_host_or_ip = string\n  })",
-      "description": "Configuration for the NTP forwarder to an NTP service that is not reachable directly from PowerVS",
+      "description": "Configuration for the NTP forwarder to an NTP service that is not reachable directly from PowerVS.",
       "default": {
         "ntp_enable": "false",
         "server_host_or_ip": ""
       },
       "pos": {
         "filename": "variables.tf",
-        "line": 146
+        "line": 142
       }
     },
     "perform_proxy_client_setup": {
@@ -95,26 +95,26 @@
       "description": "Proxy configuration to allow internet access for a VM or LPAR.",
       "pos": {
         "filename": "variables.tf",
-        "line": 172
+        "line": 168
       }
     },
-    "pvs_backup_network": {
-      "name": "pvs_backup_network",
+    "powervs_backup_network": {
+      "name": "powervs_backup_network",
       "type": "object({\n    name = string\n    cidr = string\n  })",
-      "description": "Name of the IBM Cloud PowerVS backup network and CIDR to create",
+      "description": "Name of the IBM Cloud PowerVS backup network and CIDR to create.",
       "default": {
         "cidr": "10.52.0.0/24",
         "name": "bkp_net"
       },
       "pos": {
         "filename": "variables.tf",
-        "line": 50
+        "line": 46
       }
     },
-    "pvs_image_names": {
-      "name": "pvs_image_names",
+    "powervs_image_names": {
+      "name": "powervs_image_names",
       "type": "list(string)",
-      "description": "List of Images to be imported into cloud account from catalog images",
+      "description": "List of Images to be imported into cloud account from catalog images.",
       "default": [
         "SLES15-SP3-SAP",
         "SLES15-SP3-SAP-NETWEAVER",
@@ -123,56 +123,56 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 96
+        "line": 92
       }
     },
-    "pvs_management_network": {
-      "name": "pvs_management_network",
+    "powervs_management_network": {
+      "name": "powervs_management_network",
       "type": "object({\n    name = string\n    cidr = string\n  })",
-      "description": "Name of the IBM Cloud PowerVS management subnet and CIDR to create",
+      "description": "Name of the IBM Cloud PowerVS management subnet and CIDR to create.",
       "default": {
         "cidr": "10.51.0.0/24",
         "name": "mgmt_net"
       },
       "pos": {
         "filename": "variables.tf",
-        "line": 38
+        "line": 34
       }
     },
-    "pvs_resource_group_name": {
-      "name": "pvs_resource_group_name",
+    "powervs_resource_group_name": {
+      "name": "powervs_resource_group_name",
       "type": "string",
-      "description": "Existing resource group name",
+      "description": "Existing IBM Cloud resource group nam.",
       "required": true,
       "pos": {
         "filename": "variables.tf",
-        "line": 10
+        "line": 6
       }
     },
-    "pvs_service_name": {
-      "name": "pvs_service_name",
+    "powervs_service_name": {
+      "name": "powervs_service_name",
       "type": "string",
-      "description": "Name of the PowerVS service to create",
+      "description": "Name of the PowerVS service to create.",
       "default": "power-service",
       "pos": {
         "filename": "variables.tf",
-        "line": 15
+        "line": 11
       }
     },
-    "pvs_sshkey_name": {
-      "name": "pvs_sshkey_name",
+    "powervs_sshkey_name": {
+      "name": "powervs_sshkey_name",
       "type": "string",
-      "description": "Name of the PowerVS SSH key to create",
+      "description": "Name of the PowerVS SSH key to create.",
       "default": "ssh-key-pvs",
       "pos": {
         "filename": "variables.tf",
-        "line": 21
+        "line": 17
       }
     },
-    "pvs_zone": {
-      "name": "pvs_zone",
+    "powervs_zone": {
+      "name": "powervs_zone",
       "type": "string",
-      "description": "IBM Cloud PowerVS zone",
+      "description": "IBM Cloud PowerVS zone.",
       "required": true,
       "pos": {
         "filename": "variables.tf",
@@ -186,20 +186,20 @@
       "default": false,
       "pos": {
         "filename": "variables.tf",
-        "line": 68
+        "line": 64
       }
     },
     "squid_config": {
       "name": "squid_config",
       "type": "object({\n    squid_enable      = bool\n    server_host_or_ip = string\n  })",
-      "description": "Configuration for the Squid proxy Setup",
+      "description": "Configuration for the Squid proxy setup.",
       "default": {
         "server_host_or_ip": "",
         "squid_enable": "false"
       },
       "pos": {
         "filename": "variables.tf",
-        "line": 120
+        "line": 116
       }
     },
     "ssh_private_key": {
@@ -210,26 +210,26 @@
       "sensitive": true,
       "pos": {
         "filename": "variables.tf",
-        "line": 32
+        "line": 28
       }
     },
     "ssh_public_key": {
       "name": "ssh_public_key",
       "type": "string",
-      "description": "Public SSH Key for the PowerVM to create",
+      "description": "Public SSH Key for the PowerVM to create.",
       "required": true,
       "pos": {
         "filename": "variables.tf",
-        "line": 27
+        "line": 23
       }
     },
     "tags": {
       "name": "tags",
       "type": "list(string)",
-      "description": "List of tag names for the IBM Cloud PowerVS service",
+      "description": "List of tag names for the IBM Cloud PowerVS service.",
       "pos": {
         "filename": "variables.tf",
-        "line": 90
+        "line": 86
       }
     },
     "transit_gateway_name": {
@@ -238,7 +238,7 @@
       "description": "Name of the existing transit gateway. Required when you create new IBM Cloud connections.",
       "pos": {
         "filename": "variables.tf",
-        "line": 62
+        "line": 58
       }
     }
   },
@@ -359,10 +359,10 @@
       "source": "./submodules/power_cloudconnection_attach",
       "attributes": {
         "cloud_connection_count": "cloud_connection_count",
-        "pvs_resource_group_name": "pvs_resource_group_name",
-        "pvs_service_name": "pvs_service_name",
-        "pvs_subnet_names": "pvs_management_network",
-        "pvs_zone": "pvs_zone"
+        "pvs_resource_group_name": "powervs_resource_group_name",
+        "pvs_service_name": "powervs_service_name",
+        "pvs_subnet_names": "powervs_management_network",
+        "pvs_zone": "powervs_zone"
       },
       "pos": {
         "filename": "main.tf",
@@ -378,9 +378,9 @@
         "cloud_connection_metered": "cloud_connection_metered",
         "cloud_connection_speed": "cloud_connection_speed",
         "count": "reuse_cloud_connections",
-        "pvs_resource_group_name": "pvs_resource_group_name",
-        "pvs_service_name": "pvs_service_name",
-        "pvs_zone": "pvs_zone",
+        "pvs_resource_group_name": "powervs_resource_group_name",
+        "pvs_service_name": "powervs_service_name",
+        "pvs_zone": "powervs_zone",
         "transit_gateway_name": "transit_gateway_name"
       },
       "pos": {
@@ -467,13 +467,13 @@
       "name": "power_service",
       "source": "./submodules/power_service",
       "attributes": {
-        "pvs_backup_network": "pvs_backup_network",
-        "pvs_image_names": "pvs_image_names",
-        "pvs_management_network": "pvs_management_network",
-        "pvs_resource_group_name": "pvs_resource_group_name",
-        "pvs_service_name": "pvs_service_name",
-        "pvs_sshkey_name": "pvs_sshkey_name",
-        "pvs_zone": "pvs_zone",
+        "pvs_backup_network": "powervs_backup_network",
+        "pvs_image_names": "powervs_image_names",
+        "pvs_management_network": "powervs_management_network",
+        "pvs_resource_group_name": "powervs_resource_group_name",
+        "pvs_service_name": "powervs_service_name",
+        "pvs_sshkey_name": "powervs_sshkey_name",
+        "pvs_zone": "powervs_zone",
         "ssh_public_key": "ssh_public_key",
         "tags": "tags"
       },

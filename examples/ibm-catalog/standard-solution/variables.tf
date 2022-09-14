@@ -1,26 +1,30 @@
 variable "slz_workspace_id" {
-  description = "IBM Cloud Schematics workspace ID of an existing Secure infrastructure on VPC for regulated industries with VSIs deployment.If you do not yet have an existing deployment, click [here](https://cloud.ibm.com/catalog/content/slz-vpc-with-vsis-a87ed9a5-d130-47a3-980b-5ceb1d4f9280-global#create) to create one. Please note: a specific  configuration is needed for the deployment. You may find it [here](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/tree/main/examples/ibm-catalog/standard-solution/slz_json_configs_for_powervs/vpc_landscape_config.json). Copy and paste that configuration into the `override_json_string` deployment value."
+  description = "IBM Cloud Schematics workspace ID of an existing Secure infrastructure on VPC for regulated industries with VSIs deployment. If you do not yet have an existing deployment, click [here](https://cloud.ibm.com/catalog/content/slz-vpc-with-vsis-a87ed9a5-d130-47a3-980b-5ceb1d4f9280-global#create) to create one. Please note: a specific  configuration is needed for the deployment. You may find it [here](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/tree/main/examples/ibm-catalog/standard-solution/slz_json_configs_for_powervs/vpc_landscape_config.json). Copy and paste that configuration into the `override_json_string` deployment value."
   type        = string
 }
 
-variable "pvs_zone" {
-  description = "IBM Cloud PVS Zone. Valid values: syd04,syd05,eu-de-1,eu-de-2,lon04,lon06,wdc04,us-east,us-south,dal12,dal13,tor01,tok04,osa21,sao01,mon01"
+variable "powervs_zone" {
+  description = "IBM Cloud data center location where IBM PowerVS infrastructure will be created. Following locations are currently supported: syd04, syd05, eu-de-1, eu-de-2, lon04, lon06, wdc04, us-east, us-south, dal12, dal13, tor01, tok04, osa21, sao01, mon01"
   type        = string
+  validation {
+    condition     = contains(["syd04", "syd05", "eu-de-1", "eu-de-2", "lon04", "lon06", "wdc04", "us-east", "us-south", "dal12", "dal13", "tor01", "tok04", "osa21", "sao01", "mon01"], var.powervs_zone)
+    error_message = "Supported values for powervs_zone are: syd04, syd05, eu-de-1, eu-de-2, lon04, lon06, wdc04, us-east, us-south, dal12, dal13, tor01, tok04, osa21, sao01, mon01."
+  }
 }
 
-variable "pvs_resource_group_name" {
-  description = "Existing resource group name"
+variable "powervs_resource_group_name" {
+  description = "Existing IBM Cloud resource group name."
   type        = string
 }
 
 variable "ssh_private_key" {
-  description = "Private SSH key used to login to IBM PowerVS instances. Should match to uploaded public SSH key referenced by 'ssh_public_key'. Entered data must be in heredoc strings format (https://www.terraform.io/language/expressions/strings#heredoc-strings). The key is not uploaded or stored."
+  description = "Private SSH key used to login to IBM PowerVS instances. Should match to uploaded public SSH key referenced by 'ssh_public_key'. Entered data must be in [heredoc strings format] (https://www.terraform.io/language/expressions/strings#heredoc-strings). The key is not uploaded or stored. Read [here] more about SSH keys in IBM Cloud (https://cloud.ibm.com/docs/vpc?topic=vpc-ssh-keys)."
   type        = string
   sensitive   = true
 }
 
-variable "pvs_management_network" {
-  description = "Name of the IBM Cloud PowerVS management subnet and CIDR to create"
+variable "powervs_management_network" {
+  description = "Name of the IBM Cloud PowerVS management subnet and CIDR to create."
   type = object({
     name = string
     cidr = string
@@ -31,8 +35,8 @@ variable "pvs_management_network" {
   }
 }
 
-variable "pvs_backup_network" {
-  description = "Name of the IBM Cloud PowerVS backup network and CIDR to create"
+variable "powervs_backup_network" {
+  description = "Name of the IBM Cloud PowerVS backup network and CIDR to create."
   type = object({
     name = string
     cidr = string
@@ -50,25 +54,25 @@ variable "reuse_cloud_connections" {
 }
 
 variable "configure_proxy" {
-  description = "Specify if SQUID proxy will be configured. Proxy is mandatory for the landscape, so set this to 'false' only if proxy already exists."
+  description = "Specify if proxy will be configured. Proxy is mandatory for the landscape, so set this to 'false' only if proxy already exists. Proxy will allow to communcate from IBM PowerVS instances with IBM Cloud network and with public internet."
   type        = bool
   default     = true
 }
 
 variable "configure_dns_forwarder" {
-  description = "Specify if DNS forwarder will be configured. If yes, ensure 'dns_forwarder_config' optional variable is set properly."
+  description = "Specify if DNS forwarder will be configured. This will allow you to use central DNS servers (e.g. IBM Cloud DNS servers) sitting outside of the created IBM PowerVS infrastructure. If yes, ensure 'dns_forwarder_config' optional variable is set properly."
   type        = bool
   default     = true
 }
 
 variable "configure_ntp_forwarder" {
-  description = "Specify if NTP forwarder will be configured. If yes, ensure 'ntp_forwarder_config' optional variable is set properly."
+  description = "Specify if NTP forwarder will be configured. This will allow you to synchronize time between IBM PowerVS instances. If yes, ensure 'ntp_forwarder_config' optional variable is set properly."
   type        = bool
   default     = true
 }
 
 variable "configure_nfs_server" {
-  description = "Specify if NFS will be configured. If yes, ensure 'nfs_config' optional variable is set properly."
+  description = "Specify if NFS server will be configured. This will allow you easily to share files between PowerVS instances (e.g., SAP installation files). If yes, ensure 'nfs_config' optional variable is set properly."
   type        = bool
   default     = true
 }
@@ -151,7 +155,7 @@ variable "nfs_config" {
   }
 }
 
-variable "pvs_image_names" {
+variable "powervs_image_names" {
   description = "List of Images to be imported into cloud account from catalog images"
   type        = list(string)
   default     = ["SLES15-SP3-SAP", "SLES15-SP3-SAP-NETWEAVER", "RHEL8-SP4-SAP", "RHEL8-SP4-SAP-NETWEAVER"]
