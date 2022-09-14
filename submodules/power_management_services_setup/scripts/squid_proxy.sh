@@ -32,16 +32,16 @@ fi
 while getopts :h?:p:in: flag
 do
     case "${flag}" in
-	  p)
-	    proxy_ip_and_port=${OPTARG};;
+	    p)
+	      proxy_ip_and_port=${OPTARG};;
 
-	  n)
-		no_proxy_ip=${OPTARG};;
+	    n)
+		    no_proxy_ip=${OPTARG};;
 
       i)
         install_packages=true;;
 
-	  :)
+	    :)
         # If expected argument omitted:
          echo "Error: -${OPTARG} requires an argument."
          exit_abnormal                       # Exit abnormally.
@@ -50,7 +50,7 @@ do
          grep " .)\ #" "$0"
          # If unknown (any other) option:
          exit_abnormal                       # Exit abnormally.
-      ;;
+         ;;
   esac
 done
 
@@ -181,8 +181,6 @@ if [ "$OS_DETECTED" == "RHEL" ]; then
      grep -qx "export HTTP_proxy=http://$proxy_ip_and_port" "$FILE"  || echo "export HTTP_proxy=http://$proxy_ip_and_port"  >> "$FILE"
      grep -qx "export HTTPS_proxy=http://$proxy_ip_and_port" "$FILE" || echo "export HTTPS_proxy=http://$proxy_ip_and_port" >> "$FILE"
      grep -qx "export no_proxy=$no_proxy_ip" "$FILE"                 || echo "export no_proxy=$no_proxy_ip"                 >> "$FILE"
-     ## this line is incorrect
-     #grep -qx "proxy=http://$proxy_ip_and_port" "$FILE"              || echo "proxy=http://$proxy_ip_and_port"              >> /etc/dnf/dnf.conf
      grep -qx "proxy=http://$proxy_ip_and_port"  /etc/dnf/dnf.conf   || echo "proxy=http://$proxy_ip_and_port"              >> /etc/dnf/dnf.conf
       ###### Restart Network #######
 
