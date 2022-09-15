@@ -104,8 +104,22 @@ if [ "$OS_DETECTED" == "SLES" ]; then
      if [ "$OS_Activated" -ge 1 ] ; then
         echo "OS is Registered"
      else
-      ##### check if the system is a HANA or Netweaver VM, should be a ppc64le VM
         ARCH=$(uname -p)
+      ##### check if the system is a x86_64 processor VM
+        if [[ "$ARCH" == "x86_64" ]]; then
+      #### Wait for registration to complete
+ 	     count=0
+             while [[ $count -le 15 ]]; do
+                sleep 60
+                OS_Activated="$(SUSEConnect --status | grep  -ci "\"status\":\"Registered\"")"
+                if  [[ "$OS_Activated" -ge 1 ]] ; then
+        	   echo "OS is Registered"
+    		   break;
+	        fi
+	        count=$(( count +1 ))
+	     done
+        fi
+      ##### check if the system is a HANA or Netweaver VM, should be a ppc64le VM
      	if [[ "$ARCH" == "ppc64le" ]]; then
 		    SUSEConnect --de-register
             SUSEConnect --cleanup
@@ -125,19 +139,16 @@ if [ "$OS_DETECTED" == "SLES" ]; then
                 fi
 		        sleep 60
             done
-	    if [[ $count -gt 15 ]]; then
+	 fi
+	 if [[ $count -gt 15 ]]; then
 	        echo "Timeout: SLES registration process failed, or still ongoing"
 	        exit 1
-	    fi
-            Activation_status="$(SUSEConnect --status | grep -ci "error")"
-            if [ "$Activation_status" != 0 ] ; then
-               	echo "OS activation Failed"
+	 fi
+         Activation_status="$(SUSEConnect --status | grep -ci "error")"
+         if [ "$Activation_status" != 0 ] ; then
+              	echo "OS activation Failed"
                	exit 1
-            fi
-        else
-            echo "System is not registered. Please register the system first and rerun the script"
-            exit 1
-        fi
+         fi
       fi
     fi
     if [[ $no_proxy_ip =~ ^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+:[0-9]+$ ]] ; then
