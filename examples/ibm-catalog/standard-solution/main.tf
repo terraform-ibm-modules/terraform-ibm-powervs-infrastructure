@@ -27,16 +27,16 @@ provider "ibm" {
 }
 
 locals {
-  location = regex("us-south|us-east|eu-de|eu-gb", var.slz_workspace_id)
+  location = regex("us-south|us-east|eu-de|eu-gb", var.prerequisite_workspace_id)
 }
 
 data "ibm_schematics_workspace" "schematics_workspace" {
-  workspace_id = var.slz_workspace_id
+  workspace_id = var.prerequisite_workspace_id
   location     = local.location
 }
 
 data "ibm_schematics_output" "schematics_output" {
-  workspace_id = var.slz_workspace_id
+  workspace_id = var.prerequisite_workspace_id
   location     = local.location
   template_id  = data.ibm_schematics_workspace.schematics_workspace.runtime_data[0].id
 }
