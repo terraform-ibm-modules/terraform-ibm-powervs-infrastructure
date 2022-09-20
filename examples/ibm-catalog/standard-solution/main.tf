@@ -27,7 +27,7 @@ provider "ibm" {
 }
 
 locals {
-  location = regex("us-south|us-east|eu-de|eu-gb", var.prerequisite_workspace_id)
+  location = regex("^[a-z/-]+", var.prerequisite_workspace_id)
 }
 
 data "ibm_schematics_workspace" "schematics_workspace" {
