@@ -30,6 +30,9 @@ locals {
     "osa21"    = "jp-osa"
     "sao01"    = "br-sao"
   }
+
+  # Condition to determine if example needs to provision a transit gateway
+  provision_transit_gateway = ((var.transit_gateway_name == null) && (!var.reuse_cloud_connections))
 }
 
 # There are discrepancies between the region inputs on the powervs terraform resource, and the vpc ("is") resources
@@ -76,13 +79,28 @@ module "resource_group" {
 }
 
 ########################################################################################################################
+# Create Transit Gateway if needed
+# IF transit_gateway_name = null AND reuse_cloud_connections = false
+# THEN provision new transit gateway in region of powervs zone
+########################################################################################################################
+resource "ibm_tg_gateway" "powervs_gateway" {
+  count          = local.provision_transit_gateway ? 1 : 0
+  provider       = ibm.ibm-is
+  name           = "${var.prefix}-${var.powervs_service_name}-tgw"
+  location       = lookup(local.ibm_powervs_zone_cloud_region_map, var.powervs_zone, null)
+  global         = true
+  resource_group = module.resource_group.resource_group_id
+}
+
+########################################################################################################################
 # Instantiate PowerVS infrastructure
 ########################################################################################################################
 
 module "powervs_infra" {
   # Explicit dependency needed here - likely due to different provider alias used in this example
   depends_on = [
-    module.resource_group
+    module.resource_group,
+    ibm_tg_gateway.powervs_gateway
   ]
 
   providers = {
@@ -102,7 +120,7 @@ module "powervs_infra" {
   access_host_or_ip           = var.access_host_or_ip
   powervs_management_network  = var.powervs_management_network
   powervs_backup_network      = var.powervs_backup_network
-  transit_gateway_name        = var.transit_gateway_name
+  transit_gateway_name        = local.provision_transit_gateway ? ibm_tg_gateway.powervs_gateway[0].name : var.transit_gateway_name
   reuse_cloud_connections     = var.reuse_cloud_connections
   cloud_connection_count      = var.cloud_connection_count
   cloud_connection_speed      = var.cloud_connection_speed
