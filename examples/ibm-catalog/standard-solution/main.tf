@@ -26,12 +26,18 @@ provider "ibm" {
   ibmcloud_api_key = var.ibmcloud_api_key != null ? var.ibmcloud_api_key : null
 }
 
+locals {
+  location = regex("^[a-z/-]+", var.prerequisite_workspace_id)
+}
+
 data "ibm_schematics_workspace" "schematics_workspace" {
-  workspace_id = var.slz_workspace_id
+  workspace_id = var.prerequisite_workspace_id
+  location     = local.location
 }
 
 data "ibm_schematics_output" "schematics_output" {
-  workspace_id = var.slz_workspace_id
+  workspace_id = var.prerequisite_workspace_id
+  location     = local.location
   template_id  = data.ibm_schematics_workspace.schematics_workspace.runtime_data[0].id
 }
 

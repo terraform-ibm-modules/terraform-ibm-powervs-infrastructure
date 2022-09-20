@@ -6,16 +6,16 @@
 Example 1 usage with new cloud connection:
 
 ibmcloud_api_key              = "<ibmcloud-api-key>"
-pvs_zone                      = "dal12"
-pvs_resource_group_name       = "Automation" # existing resource group name
+powervs_zone                  = "dal12"
+powervs_resource_group_name   = "Automation" # existing resource group name
 prefix                        = "test"
 tags                          = ["sap"]
 
-pvs_management_network = {
+powervs_management_network = {
   name = "mgmt_net"
   cidr = "10.71.0.0/24"
 }
-pvs_backup_network = {
+powervs_backup_network = {
   name = "bkp_net"
   cidr = "10.72.0.0/24"
 }
@@ -45,16 +45,16 @@ EOF
 Example 2 usage with reusing cloud connection:
 
 ibmcloud_api_key              = "<ibmcloud-api-key>"
-pvs_zone                      = "dal12"
-pvs_resource_group_name       = "Automation" # existing resource group name
+powervs_zone                  = "dal12"
+powervs_resource_group_name   = "Automation" # existing resource group name
 prefix                        = "test"
 
-pvs_management_network = {
+powervs_management_network = {
   name = "mgmt_net"
   cidr = "10.71.0.0/24"
 }
 
-pvs_backup_network = {
+powervs_backup_network = {
   name = "bkp_net"
   cidr = "10.72.0.0/24"
 }
