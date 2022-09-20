@@ -4,7 +4,7 @@ variable "powervs_zone" {
 }
 
 variable "powervs_resource_group_name" {
-  description = "Existing IBM Cloud resource group nam."
+  description = "Existing IBM Cloud resource group name."
   type        = string
 }
 
@@ -26,7 +26,7 @@ variable "ssh_public_key" {
 }
 
 variable "ssh_private_key" {
-  description = "Private SSH key used to login to IBM PowerVS instances. Should match to uploaded public SSH key referenced by 'ssh_public_key'. Entered data must be in heredoc strings format (https://www.terraform.io/language/expressions/strings#heredoc-strings). The key is not uploaded or stored."
+  description = "Private SSH key used to log in to IBM PowerVS instances. Should match the uploaded public SSH key referenced by 'ssh_public_key'. Entered data must be in heredoc string format (https://www.terraform.io/language/expressions/strings#heredoc-strings). The key is not uploaded or stored. For more information, see SSH keys in the IBM Cloud docs at https://cloud.ibm.com/docs/vpc?topic=vpc-ssh-keys."
   type        = string
   sensitive   = true
 }
@@ -68,7 +68,7 @@ variable "reuse_cloud_connections" {
 }
 
 variable "cloud_connection_count" {
-  description = "Required number of Cloud connections to create or reuse. The maximum number of connections is two per location."
+  description = "Required number of IBM Cloud connections to create or reuse. The maximum number of connections is two per location."
   type        = number
   default     = 2
 }
@@ -90,7 +90,7 @@ variable "tags" {
 }
 
 variable "powervs_image_names" {
-  description = "List of Images to be imported into cloud account from catalog images."
+  description = "List of images to be imported into cloud account from catalog images."
   type        = list(string)
   default     = ["SLES15-SP3-SAP", "SLES15-SP3-SAP-NETWEAVER", "RHEL8-SP4-SAP", "RHEL8-SP4-SAP-NETWEAVER"]
 }
@@ -102,7 +102,7 @@ variable "cloud_connection_gr" {
 }
 
 variable "cloud_connection_metered" {
-  description = "Whether to enable metering for this IBM Cloud connection. You can specify thia value when you create a connection."
+  description = "Whether to enable metering for this IBM Cloud connection. You can specify this value when you create a connection."
   type        = bool
   default     = null
 }

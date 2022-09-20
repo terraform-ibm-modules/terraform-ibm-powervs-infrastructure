@@ -10,12 +10,12 @@ variable "powervs_zone" {
 
 variable "resource_group" {
   type        = string
-  description = "Existing IBM Cloud resource group name. If null, a new resource group will be created."
+  description = "Existing IBM Cloud resource group name. If null, a new resource group is created."
   default     = null
 }
 
 variable "prefix" {
-  description = "Prefix for resources which will be created."
+  description = "Prefix for resources that are created."
   type        = string
   default     = "pvs"
 }
@@ -63,7 +63,7 @@ variable "transit_gateway_name" {
 }
 
 variable "reuse_cloud_connections" {
-  description = "When true, IBM Cloud connections are reused (if attached to the transit gateway)."
+  description = "When set to true, IBM Cloud connections are reused (if attached to the transit gateway)."
   type        = bool
   default     = true
 }
@@ -81,7 +81,7 @@ variable "cloud_connection_speed" {
 }
 
 variable "ibmcloud_api_key" {
-  description = "IBM Cloud Api Key"
+  description = "IBM Cloud API key"
   sensitive   = true
   type        = string
 }
@@ -92,12 +92,12 @@ variable "ibmcloud_api_key" {
 
 variable "resource_tags" {
   type        = list(string)
-  description = "Optional List of tag names for the IBM Cloud PowerVS service"
+  description = "List of tag names for the IBM Cloud PowerVS service"
   default     = []
 }
 
 variable "powervs_image_names" {
-  description = "List of Images to be imported into cloud account from catalog images"
+  description = "List of images to import into the IBM Cloud account from catalog images"
   type        = list(string)
   default     = ["SLES15-SP3-SAP", "SLES15-SP3-SAP-NETWEAVER", "RHEL8-SP4-SAP", "RHEL8-SP4-SAP-NETWEAVER"]
 }

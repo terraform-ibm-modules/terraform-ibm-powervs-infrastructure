@@ -1,10 +1,10 @@
 variable "prerequisite_workspace_id" {
-  description = "IBM Cloud Schematics workspace ID of an existing Secure infrastructure on VPC for regulated industries with VSIs deployment. If you do not yet have an existing deployment, click [here](https://cloud.ibm.com/catalog/content/slz-vpc-with-vsis-a87ed9a5-d130-47a3-980b-5ceb1d4f9280-global#create) to create one. Please note: a specific  configuration is needed for the deployment. You may find it [here](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/tree/main/examples/ibm-catalog/standard-solution/slz_json_configs_for_powervs/vpc_landscape_config.json). Copy and paste that configuration into the `override_json_string` deployment value."
+  description = "IBM Cloud Schematics workspace ID of an existing deployment of secure infrastructure on VPC for regulated industries with VSIs. If you do not have an existing deployment, click [here](https://cloud.ibm.com/catalog/content/slz-vpc-with-vsis-a87ed9a5-d130-47a3-980b-5ceb1d4f9280-global#create) to create one. Note that a specific  configuration is needed for the deployment. You might find it [here](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/tree/main/examples/ibm-catalog/standard-solution/slz_json_configs_for_powervs/vpc_landscape_config.json). Copy that configuration into the `override_json_string` deployment value."
   type        = string
 }
 
 variable "powervs_zone" {
-  description = "IBM Cloud data center location where IBM PowerVS infrastructure will be created. Following locations are currently supported: syd04, syd05, eu-de-1, eu-de-2, lon04, lon06, wdc04, us-east, us-south, dal12, dal13, tor01, tok04, osa21, sao01, mon01"
+  description = "IBM Cloud data center location where IBM PowerVS infrastructure will be created. The following locations are currently supported: syd04, syd05, eu-de-1, eu-de-2, lon04, lon06, wdc04, us-east, us-south, dal12, dal13, tor01, tok04, osa21, sao01, mon01"
   type        = string
   validation {
     condition     = contains(["syd04", "syd05", "eu-de-1", "eu-de-2", "lon04", "lon06", "wdc04", "us-east", "us-south", "dal12", "dal13", "tor01", "tok04", "osa21", "sao01", "mon01"], var.powervs_zone)
@@ -18,7 +18,7 @@ variable "powervs_resource_group_name" {
 }
 
 variable "ssh_private_key" {
-  description = "Private SSH key used to login to IBM PowerVS instances. Should match to uploaded public SSH key referenced by 'ssh_public_key'. Entered data must be in [heredoc strings format] (https://www.terraform.io/language/expressions/strings#heredoc-strings). The key is not uploaded or stored. Read [here] more about SSH keys in IBM Cloud (https://cloud.ibm.com/docs/vpc?topic=vpc-ssh-keys)."
+  description = "Private SSH key used to log in to IBM PowerVS instances. Should match the uploaded public SSH key referenced by 'ssh_public_key'. Entered data must be in heredoc string format (https://www.terraform.io/language/expressions/strings#heredoc-strings). The key is not uploaded or stored. For more information, see SSH keys in the IBM Cloud docs at https://cloud.ibm.com/docs/vpc?topic=vpc-ssh-keys."
   type        = string
   sensitive   = true
 }
@@ -48,37 +48,37 @@ variable "powervs_backup_network" {
 }
 
 variable "reuse_cloud_connections" {
-  description = "When true, IBM Cloud connections are reused (if attached to the transit gateway)."
+  description = "Whether IBM Cloud connections are reused (if attached to the transit gateway)."
   type        = bool
   default     = false
 }
 
 variable "configure_proxy" {
-  description = "Specify if proxy will be configured. Proxy is mandatory for the landscape, so set this to 'false' only if proxy already exists. Proxy will allow to communcate from IBM PowerVS instances with IBM Cloud network and with public internet."
+  description = "Whether the proxy will be configured. A proxy is mandatory for the landscape, so set this to 'false' only if a proxy already exists. The Proxy allows communication from IBM PowerVS instances in the IBM Cloud network with the public internet."
   type        = bool
   default     = true
 }
 
 variable "configure_dns_forwarder" {
-  description = "Specify if DNS forwarder will be configured. This will allow you to use central DNS servers (e.g. IBM Cloud DNS servers) sitting outside of the created IBM PowerVS infrastructure. If yes, ensure 'dns_forwarder_config' optional variable is set properly."
+  description = "Whether the DNS forwarder will be configured so that you can use central DNS servers (for example, IBM Cloud DNS servers) outside the created IBM PowerVS infrastructure. If set to true, make sure that  'dns_forwarder_config' optional variable is set properly."
   type        = bool
   default     = true
 }
 
 variable "configure_ntp_forwarder" {
-  description = "Specify if NTP forwarder will be configured. This will allow you to synchronize time between IBM PowerVS instances. If yes, ensure 'ntp_forwarder_config' optional variable is set properly."
+  description = "Whether the NTP forwarder will be configured so that you can synchronize time between IBM PowerVS instances. If set to true, make sure that the 'ntp_forwarder_config' optional variable is set properly."
   type        = bool
   default     = true
 }
 
 variable "configure_nfs_server" {
-  description = "Specify if NFS server will be configured. This will allow you easily to share files between PowerVS instances (e.g., SAP installation files). If yes, ensure 'nfs_config' optional variable is set properly."
+  description = "Whether the NFS server will be configured so that you can share files between PowerVS instances (for example, SAP installation files). If set to true, make sure that the 'nfs_config' optional variable is set properly."
   type        = bool
   default     = true
 }
 
 variable "cloud_connection_count" {
-  description = "Required number of Cloud connections to create or reuse. The maximum number of connections is two per location."
+  description = "Required number of IBM Cloud connections to create or reuse. The maximum number of connections is two per location."
   type        = number
   default     = 2
 }
@@ -156,13 +156,13 @@ variable "nfs_config" {
 }
 
 variable "powervs_image_names" {
-  description = "List of Images to be imported into cloud account from catalog images"
+  description = "List of images to be imported into cloud account from catalog images"
   type        = list(string)
   default     = ["SLES15-SP3-SAP", "SLES15-SP3-SAP-NETWEAVER", "RHEL8-SP4-SAP", "RHEL8-SP4-SAP-NETWEAVER"]
 }
 
 variable "ibmcloud_api_key" {
-  description = "IBM Cloud Api Key"
+  description = "IBM Cloud API key"
   type        = string
   default     = null
   sensitive   = true

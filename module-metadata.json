@@ -13,7 +13,7 @@
     "cloud_connection_count": {
       "name": "cloud_connection_count",
       "type": "number",
-      "description": "Required number of Cloud connections to create or reuse. The maximum number of connections is two per location.",
+      "description": "Required number of IBM Cloud connections to create or reuse. The maximum number of connections is two per location.",
       "default": 2,
       "pos": {
         "filename": "variables.tf",
@@ -32,7 +32,7 @@
     "cloud_connection_metered": {
       "name": "cloud_connection_metered",
       "type": "bool",
-      "description": "Whether to enable metering for this IBM Cloud connection. You can specify thia value when you create a connection.",
+      "description": "Whether to enable metering for this IBM Cloud connection. You can specify this value when you create a connection.",
       "pos": {
         "filename": "variables.tf",
         "line": 104
@@ -114,7 +114,7 @@
     "powervs_image_names": {
       "name": "powervs_image_names",
       "type": "list(string)",
-      "description": "List of Images to be imported into cloud account from catalog images.",
+      "description": "List of images to be imported into cloud account from catalog images.",
       "default": [
         "SLES15-SP3-SAP",
         "SLES15-SP3-SAP-NETWEAVER",
@@ -142,7 +142,7 @@
     "powervs_resource_group_name": {
       "name": "powervs_resource_group_name",
       "type": "string",
-      "description": "Existing IBM Cloud resource group nam.",
+      "description": "Existing IBM Cloud resource group name.",
       "required": true,
       "pos": {
         "filename": "variables.tf",
@@ -205,7 +205,7 @@
     "ssh_private_key": {
       "name": "ssh_private_key",
       "type": "string",
-      "description": "Private SSH key used to login to IBM PowerVS instances. Should match to uploaded public SSH key referenced by 'ssh_public_key'. Entered data must be in heredoc strings format (https://www.terraform.io/language/expressions/strings#heredoc-strings). The key is not uploaded or stored.",
+      "description": "Private SSH key used to log in to IBM PowerVS instances. Should match the uploaded public SSH key referenced by 'ssh_public_key'. Entered data must be in heredoc string format (https://www.terraform.io/language/expressions/strings#heredoc-strings). The key is not uploaded or stored. For more information, see SSH keys in the IBM Cloud docs at https://cloud.ibm.com/docs/vpc?topic=vpc-ssh-keys.",
       "required": true,
       "sensitive": true,
       "pos": {

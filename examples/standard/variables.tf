@@ -6,7 +6,7 @@ variable "ibmcloud_api_key" {
 }
 
 variable "powervs_zone" {
-  description = "IBM Cloud data center location where IBM PowerVS infrastructure will be created. Following locations are currently supported: syd04, syd05, eu-de-1, eu-de-2, lon04, lon06, wdc04, us-east, us-south, dal12, dal13, tor01, tok04, osa21, sao01, mon01"
+  description = "IBM Cloud data center location where IBM PowerVS infrastructure is created. The following locations are supported: syd04, syd05, eu-de-1, eu-de-2, lon04, lon06, wdc04, us-east, us-south, dal12, dal13, tor01, tok04, osa21, sao01, mon01"
   type        = string
   validation {
     condition     = contains(["syd04", "syd05", "eu-de-1", "eu-de-2", "lon04", "lon06", "wdc04", "us-east", "us-south", "dal12", "dal13", "tor01", "tok04", "osa21", "sao01", "mon01"], var.powervs_zone)
@@ -20,18 +20,18 @@ variable "powervs_resource_group_name" {
 }
 
 variable "prefix" {
-  description = "Unique prefix for resources to be created."
+  description = "Unique prefix for resources to create."
   type        = string
 }
 
 variable "ssh_private_key" {
-  description = "Private SSH key used to login to IBM PowerVS instances. Should match to uploaded public SSH key referenced by 'ssh_public_key'. Entered data must be in [heredoc strings format] (https://www.terraform.io/language/expressions/strings#heredoc-strings). The key is not uploaded or stored. Read [here] more about SSH keys in IBM Cloud (https://cloud.ibm.com/docs/vpc?topic=vpc-ssh-keys)."
+  description = "Private SSH key used to log in to IBM PowerVS instances. Should match the uploaded public SSH key referenced by 'ssh_public_key'. Entered data must be in heredoc string format (https://www.terraform.io/language/expressions/strings#heredoc-strings). The key is not uploaded or stored."
   type        = string
   sensitive   = true
 }
 
 variable "ssh_public_key" {
-  description = "Public SSH Key that should be used in IBM PowerVS infrastructure."
+  description = "Public SSH Key that use in IBM PowerVS infrastructure."
   type        = string
 }
 
@@ -47,37 +47,37 @@ variable "access_host_or_ip" {
 }
 
 variable "internet_services_host_or_ip" {
-  description = "Host name or IP address of the virtual server instance where proxy server to public internet and to IBM Cloud services will be configured."
+  description = "Host name or IP address of the virtual server instance where the proxy server to public internet and to IBM Cloud services will be configured."
   type        = string
   default     = null
 }
 
 variable "private_services_host_or_ip" {
-  description = "Default private host name or IP address of the virtual server instance where private services should be configured (DNS forwarder, NTP forwarder, NFS server). Might be empty when no services will be installed. Might be overwritten in the optional service specific configurations (in order to install services on different hosts)."
+  description = "Default private host name or IP address of the virtual server instance where private services should be configured (DNS forwarder, NTP forwarder, NFS server). Might be empty if no services will be installed. Might be overwritten in the optional service-specific configurations (in order to install services on different hosts)."
   type        = string
   default     = null
 }
 
 variable "configure_proxy" {
-  description = "Specify if proxy will be configured. Proxy is mandatory for the landscape, so set this to 'false' only if proxy already exists. Proxy will allow to communcate from IBM PowerVS instances with IBM Cloud network and with public internet."
+  description = "Whether the proxy will be configured. A proxy is mandatory for the landscape, so set this to 'false' only if a proxy already exists. The Proxy allows communication from IBM PowerVS instances in the IBM Cloud network with the public internet."
   type        = bool
   default     = true
 }
 
 variable "configure_dns_forwarder" {
-  description = "Specify if DNS forwarder will be configured. This will allow you to use central DNS servers (e.g. IBM Cloud DNS servers) sitting outside of the created IBM PowerVS infrastructure. If yes, ensure 'dns_forwarder_config' optional variable is set properly."
+  description = "Whether the DNS forwarder will be configured so that you can use central DNS servers (for example, IBM Cloud DNS servers) outside the created IBM PowerVS infrastructure. If set to true, make sure that  'dns_forwarder_config' optional variable is set properly."
   type        = bool
   default     = true
 }
 
 variable "configure_ntp_forwarder" {
-  description = "Specify if NTP forwarder will be configured. This will allow you to synchronize time between IBM PowerVS instances. If yes, ensure 'ntp_forwarder_config' optional variable is set properly."
+  description = "Whether the NTP forwarder will be configured so that you can synchronize time between IBM PowerVS instances. If set to true, make sure that the 'ntp_forwarder_config' optional variable is set properly."
   type        = bool
   default     = true
 }
 
 variable "configure_nfs_server" {
-  description = "Specify if NFS server will be configured. This will allow you easily to share files between PowerVS instances (e.g., SAP installation files). If yes, ensure 'nfs_config' optional variable is set properly."
+  description = "Whether the NFS server will be configured so that you can share files between PowerVS instances (for example, SAP installation files). If set to true, make sure that the 'nfs_config' optional variable is set properly."
   type        = bool
   default     = true
 }
