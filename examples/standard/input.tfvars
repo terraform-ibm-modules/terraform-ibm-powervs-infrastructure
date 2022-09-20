@@ -6,8 +6,8 @@
 Example 1 usage with new cloud connection:
 
 ibmcloud_api_key              = "<ibmcloud-api-key>"
-powervs_zone                      = "dal12"
-powervs_resource_group_name       = "Automation" # existing resource group name
+powervs_zone                  = "dal12"
+powervs_resource_group_name   = "Automation" # existing resource group name
 prefix                        = "test"
 tags                          = ["sap"]
 
