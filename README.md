@@ -11,8 +11,8 @@ The PowerVS infrastructure module automates the following tasks:
 ## Usage
 ```hcl
 provider "ibm" {
-  region           = var.pvs_region
-  zone             = var.pvs_zone
+  region           = var.powervs_region
+  zone             = var.powervs_zone
   ibmcloud_api_key = var.ibmcloud_api_key != null ? var.ibmcloud_api_key : null
 }
 
@@ -20,16 +20,16 @@ module "power-infrastructure" {
   # Replace "main" with a GIT release version to lock into a specific release
   source = "git::https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure.git?ref=main"
 
-  pvs_zone                    = var.pvs_zone
-  pvs_resource_group_name     = var.pvs_resource_group_name
-  pvs_service_name            = var.pvs_service_name
+  powervs_zone                = var.powervs_zone
+  powervs_resource_group_name = var.powervs_resource_group_name
+  powervs_service_name        = var.powervs_service_name
   tags                        = var.tags
-  pvs_image_names             = var.pvs_image_names
-  pvs_sshkey_name             = var.pvs_sshkey_name
+  powervs_image_names         = var.powervs_image_names
+  powervs_sshkey_name         = var.powervs_sshkey_name
   ssh_public_key              = var.ssh_public_key
   ssh_private_key             = var.ssh_private_key
-  pvs_management_network      = var.pvs_management_network
-  pvs_backup_network          = var.pvs_backup_network
+  powervs_management_network  = var.powervs_management_network
+  powervs_backup_network      = var.powervs_backup_network
   transit_gateway_name        = var.transit_gateway_name
   reuse_cloud_connections     = var.reuse_cloud_connections
   cloud_connection_count      = var.cloud_connection_count
@@ -113,12 +113,12 @@ No resources.
 | <a name="output_dns_host_or_ip"></a> [dns\_host\_or\_ip](#output\_dns\_host\_or\_ip) | DNS forwarder host for created PowerVS infrastructure. |
 | <a name="output_nfs_path"></a> [nfs\_path](#output\_nfs\_path) | NFS host for created PowerVS infrastructure. |
 | <a name="output_ntp_host_or_ip"></a> [ntp\_host\_or\_ip](#output\_ntp\_host\_or\_ip) | NTP host for created PowerVS infrastructure. |
-| <a name="output_pvs_backup_network_name"></a> [pvs\_backup\_network\_name](#output\_pvs\_backup\_network\_name) | Name of backup network in created PowerVS infrastructure. |
-| <a name="output_pvs_management_network_name"></a> [pvs\_management\_network\_name](#output\_pvs\_management\_network\_name) | Name of management network in created PowerVS infrastructure. |
-| <a name="output_pvs_resource_group_name"></a> [pvs\_resource\_group\_name](#output\_pvs\_resource\_group\_name) | IBM Cloud resource group where PowerVS infrastructure is created. |
-| <a name="output_pvs_service_name"></a> [pvs\_service\_name](#output\_pvs\_service\_name) | PowerVS infrastructure name. |
-| <a name="output_pvs_sshkey_name"></a> [pvs\_sshkey\_name](#output\_pvs\_sshkey\_name) | SSH public key name in created PowerVS infrastructure. |
-| <a name="output_pvs_zone"></a> [pvs\_zone](#output\_pvs\_zone) | Zone where PowerVS infrastructure is created. |
+| <a name="output_powervs_backup_network_name"></a> [powervs\_backup\_network\_name](#output\_powervs\_backup\_network\_name) | Name of backup network in created PowerVS infrastructure. |
+| <a name="output_powervs_management_network_name"></a> [powervs\_management\_network\_name](#output\_powervs\_management\_network\_name) | Name of management network in created PowerVS infrastructure. |
+| <a name="output_powervs_resource_group_name"></a> [powervs\_resource\_group\_name](#output\_powervs\_resource\_group\_name) | IBM Cloud resource group where PowerVS infrastructure is created. |
+| <a name="output_powervs_service_name"></a> [powervs\_service\_name](#output\_powervs\_service\_name) | PowerVS infrastructure name. |
+| <a name="output_powervs_sshkey_name"></a> [powervs\_sshkey\_name](#output\_powervs\_sshkey\_name) | SSH public key name in created PowerVS infrastructure. |
+| <a name="output_powervs_zone"></a> [powervs\_zone](#output\_powervs\_zone) | Zone where PowerVS infrastructure is created. |
 | <a name="output_squid_host_or_ip"></a> [squid\_host\_or\_ip](#output\_squid\_host\_or\_ip) | Proxy host for created PowerVS infrastructure. |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
