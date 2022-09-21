@@ -1,4 +1,4 @@
-module github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure
+module github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure.git
 
 go 1.19
 
