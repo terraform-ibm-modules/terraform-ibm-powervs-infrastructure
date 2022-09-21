@@ -20,16 +20,16 @@ module "power-infrastructure" {
   # Replace "main" with a GIT release version to lock into a specific release
   source = "git::https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure.git?ref=main"
 
-  powervs_zone                    = var.powervs_zone
-  powervs_resource_group_name     = var.powervs_resource_group_name
-  powervs_service_name            = var.powervs_service_name
+  powervs_zone                = var.powervs_zone
+  powervs_resource_group_name = var.powervs_resource_group_name
+  powervs_service_name        = var.powervs_service_name
   tags                        = var.tags
-  powervs_image_names             = var.powervs_image_names
-  powervs_sshkey_name             = var.powervs_sshkey_name
+  powervs_image_names         = var.powervs_image_names
+  powervs_sshkey_name         = var.powervs_sshkey_name
   ssh_public_key              = var.ssh_public_key
   ssh_private_key             = var.ssh_private_key
-  powervs_management_network      = var.powervs_management_network
-  powervs_backup_network          = var.powervs_backup_network
+  powervs_management_network  = var.powervs_management_network
+  powervs_backup_network      = var.powervs_backup_network
   transit_gateway_name        = var.transit_gateway_name
   reuse_cloud_connections     = var.reuse_cloud_connections
   cloud_connection_count      = var.cloud_connection_count
