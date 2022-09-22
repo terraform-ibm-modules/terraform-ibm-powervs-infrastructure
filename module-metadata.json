@@ -142,7 +142,7 @@
     "powervs_resource_group_name": {
       "name": "powervs_resource_group_name",
       "type": "string",
-      "description": "Existing IBM Cloud resource group nam.",
+      "description": "Existing IBM Cloud resource group name.",
       "required": true,
       "pos": {
         "filename": "variables.tf",
