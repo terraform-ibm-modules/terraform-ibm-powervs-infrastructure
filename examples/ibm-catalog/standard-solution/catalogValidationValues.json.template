@@ -1,0 +1,1 @@
+{"ibmcloud_api_key": $VALIDATION_APIKEY, "prerequisite_workspace_id": "us-south.workspace.globalcatalog-collection.39a2224a", "powervs_zone": "tbc", "powervs_resource_group_name": "tbc", "ssh_private_key": "$tbc"}
