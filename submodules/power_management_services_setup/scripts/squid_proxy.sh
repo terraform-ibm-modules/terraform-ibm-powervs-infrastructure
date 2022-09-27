@@ -153,7 +153,7 @@ if [ "$OS_DETECTED" == "SLES" ]; then
          fi
       fi
     fi
- ##### if -i flag  is passed as argument, install ansible, awscli packages
+    ##### if -i flag  is passed as argument, install ansible, awscli packages
     if [ "$install_packages" == true ] ; then
     ##### Install Ansible and awscli ####
     ##### Activating SuSE packages
@@ -227,7 +227,7 @@ if [ "$OS_DETECTED" == "RHEL" ]; then
  		              echo "RHEL registration has failed, exiting"
 		              exit 1
 	            	fi
-      ##### Check if registration was successful
+                ##### Check if registration was successful
                 #get the subscription server name from /var/log/powervs-fls.log
                 subscription_server=$(grep sap_hana /usr/share/powervs-fls/powervs-fls-readme.md | awk -F"-u" '{ print $NF }' | awk '{ print $1 }')
 		            if subscription-manager config | grep "$subscription_server"; then
@@ -248,7 +248,7 @@ if [ "$OS_DETECTED" == "RHEL" ]; then
          fi
       fi
     fi
- ##### if -i flag  is passed as argument, install ansible, awscli packages
+    ##### if -i flag  is passed as argument, install ansible, awscli packages
     if [ "$install_packages" == true ] ; then
     ##### Install Ansible and awscli ####
         yum install -y ansible
