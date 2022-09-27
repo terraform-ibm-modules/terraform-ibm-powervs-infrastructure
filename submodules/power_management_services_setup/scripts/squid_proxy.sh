@@ -179,20 +179,89 @@ fi
 # RHEL Setup                              #
 ###########################################
 if [ "$OS_DETECTED" == "RHEL" ]; then
-
+   FILE="/etc/bashrc"
+   if [[ -n $no_proxy_ip ]] ; then
+        grep -qx "export no_proxy=$no_proxy_ip" "$FILE"                 || echo "export no_proxy=$no_proxy_ip"              >> "$FILE"
+        source /etc/bashrc
+   fi
    if [[ $proxy_ip_and_port =~ ^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+:[0-9]+$ ]] ; then
 
      echo "Setting exports in /etc/bashrc and /etc/dnf file On RHEL"
-     FILE="/etc/bashrc"
      grep -qx "export http_proxy=http://$proxy_ip_and_port" "$FILE"  || echo "export http_proxy=http://$proxy_ip_and_port"  >> "$FILE"
      grep -qx "export https_proxy=http://$proxy_ip_and_port" "$FILE" || echo "export https_proxy=http://$proxy_ip_and_port" >> "$FILE"
      grep -qx "export HTTP_PROXY=http://$proxy_ip_and_port" "$FILE"  || echo "export HTTP_PROXY=http://$proxy_ip_and_port"  >> "$FILE"
      grep -qx "export HTTPS_PROXY=http://$proxy_ip_and_port" "$FILE" || echo "export HTTPS_PROXY=http://$proxy_ip_and_port" >> "$FILE"
-     grep -qx "export no_proxy=$no_proxy_ip" "$FILE"                 || echo "export no_proxy=$no_proxy_ip"                 >> "$FILE"
      grep -qx "proxy=http://$proxy_ip_and_port"  /etc/dnf/dnf.conf   || echo "proxy=http://$proxy_ip_and_port"              >> /etc/dnf/dnf.conf
-      ###### Restart Network #######
+     source /etc/bashrc
+     OS_Activated="$(subscription-manager status | grep -ic "Overall Status: Current")"
+     if [ "$OS_Activated" -ge 1 ] ; then
+        echo "OS is Registered"
+     else
+        ARCH=$(uname -p)
+      ##### check if the system is a x86_64 processor VM
+        if [[ "$ARCH" == "x86_64" ]]; then
+      #### Wait for registration to complete
+ 	     count=0
+             while [[ $count -le 15 ]]; do
+                sleep 60
+                OS_Activated="$(subscription-manager status | grep -c "Overall Status: Current")"
+                if  [[ "$OS_Activated" -ge 1 ]] ; then
+        	        echo "OS is Registered"
+    		          break;
+	              fi
+	              count=$(( count + 1 ))
+	            done
+        fi
+      ##### check if the system is a HANA or Netweaver VM, should be a ppc64le VM
+     	if [[ "$ARCH" == "ppc64le" ]]; then
+            #subscription-manager --de-register
+            #subscription-manager --cleanup
+            mv /var/log/powervs-fls.log /var/log/powervs-fls.log.old
+            cmd=$(grep /usr/local/bin/rhel-cloud-init.sh < /usr/share/powervs-fls/powervs-fls-readme.md | grep Private.proxy.IP.address | sed "s/Private.proxy.IP.address:3128/$proxy_ip_and_port/g"); $cmd
+            count=1
+	         while [[ $count -le 15 ]]
+            do
+                sleep 60
+                count=$(( count + 1 ))
+                if grep -i failed  /var/log/powervs-fls.log; then
+ 		              echo "RHEL registration has failed, exiting"
+		              exit 1
+	            	fi
+      ##### Check if registration was successful
+                #get the subscription server name from /var/log/powervs-fls.log
+                subscription_server=$(grep sap_hana /usr/share/powervs-fls/powervs-fls-readme.md | awk -F"-u" '{ print $NF }' | awk '{ print $1 }')
+		            if subscription-manager config | grep "$subscription_server"; then
+                   echo "Successfully completed RHEL subscription registration process. Done"
+                   break
+                fi
 
-      /usr/bin/systemctl restart NetworkManager
-
+            done
+	 fi
+	 if [[ $count -gt 15 ]]; then
+	        echo "Timeout: RHEL registration process failed, or still ongoing"
+	        exit 1
+	 fi
+         Activation_status="$(subscription-manager status |  grep -c "Overall Status: Current")"
+         if [ "$Activation_status" == 0 ] ; then
+              	echo "OS activation Failed"
+               	exit 1
+         fi
+      fi
+    fi
+ ##### if -i flag  is passed as argument, install ansible, awscli packages
+    if [ "$install_packages" == true ] ; then
+    ##### Install Ansible and awscli ####
+        yum install -y ansible
+        yum install -y awscli
+    ##### Verify if each of above packages got installed successfully
+    # check if ansible is installed or not
+        if ! which ansible >/dev/null; then
+            echo "ansible installation failed, exiting"
+            exit 1
+        fi
+        if ! which aws >/dev/null; then
+            echo "aws installation failed, exiting"
+            exit 1
+        fi
     fi
 fi
