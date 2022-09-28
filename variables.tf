@@ -4,7 +4,7 @@ variable "powervs_zone" {
 }
 
 variable "powervs_resource_group_name" {
-  description = "Existing IBM Cloud resource group nam."
+  description = "Existing IBM Cloud resource group name."
   type        = string
 }
 
