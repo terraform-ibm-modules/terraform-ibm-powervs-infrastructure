@@ -364,6 +364,8 @@
         "powervs_subnet_names": "powervs_management_network",
         "powervs_zone": "powervs_zone"
       },
+      "managed_resources": null,
+      "data_resources": null,
       "pos": {
         "filename": "main.tf",
         "line": 42
@@ -383,6 +385,8 @@
         "powervs_zone": "powervs_zone",
         "transit_gateway_name": "transit_gateway_name"
       },
+      "managed_resources": null,
+      "data_resources": null,
       "pos": {
         "filename": "main.tf",
         "line": 27
@@ -394,6 +398,8 @@
       "attributes": {
         "cloud_connection_validate": "reuse_cloud_connections"
       },
+      "managed_resources": null,
+      "data_resources": null,
       "pos": {
         "filename": "main.tf",
         "line": 5
@@ -410,6 +416,8 @@
         "ssh_private_key": "ssh_private_key",
         "target_server_ip": "dns_forwarder_config"
       },
+      "managed_resources": null,
+      "data_resources": null,
       "pos": {
         "filename": "main.tf",
         "line": 65
@@ -426,6 +434,8 @@
         "ssh_private_key": "ssh_private_key",
         "target_server_ip": "nfs_config"
       },
+      "managed_resources": null,
+      "data_resources": null,
       "pos": {
         "filename": "main.tf",
         "line": 91
@@ -442,6 +452,8 @@
         "ssh_private_key": "ssh_private_key",
         "target_server_ip": "ntp_forwarder_config"
       },
+      "managed_resources": null,
+      "data_resources": null,
       "pos": {
         "filename": "main.tf",
         "line": 78
@@ -458,6 +470,8 @@
         "ssh_private_key": "ssh_private_key",
         "target_server_ip": "squid_config"
       },
+      "managed_resources": null,
+      "data_resources": null,
       "pos": {
         "filename": "main.tf",
         "line": 52
@@ -477,6 +491,8 @@
         "ssh_public_key": "ssh_public_key",
         "tags": "tags"
       },
+      "managed_resources": null,
+      "data_resources": null,
       "pos": {
         "filename": "main.tf",
         "line": 13
