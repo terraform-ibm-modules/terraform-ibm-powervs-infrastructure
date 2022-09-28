@@ -153,7 +153,7 @@ if [ "$OS_DETECTED" == "SLES" ]; then
          fi
       fi
     fi
-    ##### if -i flag  is passed as argument, install ansible, awscli packages
+    ##### if -i flag  is passed as argument, install ansible, awscli packages.
     if [ "$install_packages" == true ] ; then
     ##### Install Ansible and awscli ####
     ##### Activating SuSE packages
