@@ -161,6 +161,7 @@ if [ "$OS_DETECTED" == "SLES" ]; then
         ARCH=$(uname -p)
         SUSEConnect -p PackageHub/"${VERSION_ID}"/"${ARCH}"
         SUSEConnect -p sle-module-public-cloud/"${VERSION_ID}"/"${ARCH}"
+        zypper --gpg-auto-import-keys ref
         zypper install -y ansible
         zypper install -y aws-cli
     ##### Verify if each of above packages got installed successfully
