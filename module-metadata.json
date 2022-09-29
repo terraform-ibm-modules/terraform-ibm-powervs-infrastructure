@@ -349,9 +349,28 @@
       "version_constraints": [
         "\u003e= 1.44.3"
       ]
+    },
+    "time": {
+      "source": "hashicorp/time",
+      "version_constraints": [
+        "0.8.0"
+      ]
     }
   },
-  "managed_resources": {},
+  "managed_resources": {
+    "time_sleep.wait_for_squid_setup_to_complete": {
+      "mode": "managed",
+      "type": "time_sleep",
+      "name": "wait_for_squid_setup_to_complete",
+      "provider": {
+        "name": "time"
+      },
+      "pos": {
+        "filename": "main.tf",
+        "line": 65
+      }
+    }
+  },
   "data_resources": {},
   "module_calls": {
     "cloud_connection_attach": {
@@ -420,7 +439,7 @@
       "data_resources": null,
       "pos": {
         "filename": "main.tf",
-        "line": 65
+        "line": 70
       }
     },
     "power_management_service_nfs": {
@@ -438,7 +457,7 @@
       "data_resources": null,
       "pos": {
         "filename": "main.tf",
-        "line": 91
+        "line": 96
       }
     },
     "power_management_service_ntp": {
@@ -456,7 +475,7 @@
       "data_resources": null,
       "pos": {
         "filename": "main.tf",
-        "line": 78
+        "line": 83
       }
     },
     "power_management_service_squid": {
