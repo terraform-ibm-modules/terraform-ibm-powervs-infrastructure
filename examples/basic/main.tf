@@ -13,6 +13,8 @@ locals {
     "tor01"    = "tor"
     "osa21"    = "osa"
     "sao01"    = "sao"
+    "mon01"    = "mon"
+    "wdc06"    = "us-east"
   }
 
   ibm_powervs_zone_cloud_region_map = {
@@ -29,6 +31,8 @@ locals {
     "tor01"    = "ca-tor"
     "osa21"    = "jp-osa"
     "sao01"    = "br-sao"
+    "mon01"    = "ca-tor"
+    "wdc06"    = "us-east"
   }
 
   # Condition to determine if example needs to provision a transit gateway
