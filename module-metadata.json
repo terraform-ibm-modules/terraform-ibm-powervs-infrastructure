@@ -353,7 +353,7 @@
     "time": {
       "source": "hashicorp/time",
       "version_constraints": [
-        "0.8.0"
+        "\u003e= 0.8.0"
       ]
     }
   },
