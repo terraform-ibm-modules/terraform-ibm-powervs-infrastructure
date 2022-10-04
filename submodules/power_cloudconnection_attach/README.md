@@ -12,11 +12,11 @@ ibmcloud_api_key = "your api key" != null ? "your api key" : null
 
 module "cloud_connection_attach" {
 source                  = "./submodules/power_cloudconnection_attach"
-pvs_zone                = var.pvs_zone
-pvs_resource_group_name = var.pvs_resource_group_name
-pvs_service_name        = var.pvs_service_name
+powervs_zone                = var.powervs_zone
+powervs_resource_group_name = var.powervs_resource_group_name
+powervs_service_name        = var.powervs_service_name
 cloud_connection_count  = var.cloud_connection_count
-pvs_subnet_names        = var.pvs_subnet_names
+powervs_subnet_names        = var.powervs_subnet_names
 }
 ```
 
@@ -36,24 +36,24 @@ No modules.
 
 | Name | Type |
 |------|------|
-| [ibm_pi_cloud_connection_network_attach.pvs_subnet_bkp_nw_attach](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/pi_cloud_connection_network_attach) | resource |
-| [ibm_pi_cloud_connection_network_attach.pvs_subnet_bkp_nw_attach_backup](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/pi_cloud_connection_network_attach) | resource |
-| [ibm_pi_cloud_connection_network_attach.pvs_subnet_mgmt_nw_attach](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/pi_cloud_connection_network_attach) | resource |
-| [ibm_pi_cloud_connection_network_attach.pvs_subnet_mgmt_nw_attach_backup](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/pi_cloud_connection_network_attach) | resource |
+| [ibm_pi_cloud_connection_network_attach.powervs_subnet_bkp_nw_attach](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/pi_cloud_connection_network_attach) | resource |
+| [ibm_pi_cloud_connection_network_attach.powervs_subnet_bkp_nw_attach_backup](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/pi_cloud_connection_network_attach) | resource |
+| [ibm_pi_cloud_connection_network_attach.powervs_subnet_mgmt_nw_attach](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/pi_cloud_connection_network_attach) | resource |
+| [ibm_pi_cloud_connection_network_attach.powervs_subnet_mgmt_nw_attach_backup](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/pi_cloud_connection_network_attach) | resource |
 | [ibm_pi_cloud_connections.cloud_connection_ds](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/data-sources/pi_cloud_connections) | data source |
-| [ibm_pi_network.pvs_subnets_ds](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/data-sources/pi_network) | data source |
+| [ibm_pi_network.powervs_subnets_ds](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/data-sources/pi_network) | data source |
 | [ibm_resource_group.resource_group_ds](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/data-sources/resource_group) | data source |
-| [ibm_resource_instance.pvs_service_ds](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/data-sources/resource_instance) | data source |
+| [ibm_resource_instance.powervs_service_ds](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/data-sources/resource_instance) | data source |
 
 ## Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_cloud_connection_count"></a> [cloud\_connection\_count](#input\_cloud\_connection\_count) | Number of cloud connections where private networks should be attached to. Default is to use redundant cloud connection pair. | `number` | `2` | no |
-| <a name="input_pvs_resource_group_name"></a> [pvs\_resource\_group\_name](#input\_pvs\_resource\_group\_name) | Existing Resource Group Name | `string` | n/a | yes |
-| <a name="input_pvs_service_name"></a> [pvs\_service\_name](#input\_pvs\_service\_name) | Existing IBM Cloud PowerVS Service Name | `string` | n/a | yes |
-| <a name="input_pvs_subnet_names"></a> [pvs\_subnet\_names](#input\_pvs\_subnet\_names) | List of IBM Cloud PowerVS subnet names to be attached to Cloud connection | `list(any)` | n/a | yes |
-| <a name="input_pvs_zone"></a> [pvs\_zone](#input\_pvs\_zone) | IBM Cloud PowerVS Zone | `string` | n/a | yes |
+| <a name="input_powervs_resource_group_name"></a> [powervs\_resource\_group\_name](#input\_powervs\_resource\_group\_name) | Existing Resource Group Name | `string` | n/a | yes |
+| <a name="input_powervs_service_name"></a> [powervs\_service\_name](#input\_powervs\_service\_name) | Existing IBM Cloud PowerVS Service Name | `string` | n/a | yes |
+| <a name="input_powervs_subnet_names"></a> [powervs\_subnet\_names](#input\_powervs\_subnet\_names) | List of IBM Cloud PowerVS subnet names to be attached to Cloud connection | `list(any)` | n/a | yes |
+| <a name="input_powervs_zone"></a> [powervs\_zone](#input\_powervs\_zone) | IBM Cloud PowerVS Zone | `string` | n/a | yes |
 
 ## Outputs
 

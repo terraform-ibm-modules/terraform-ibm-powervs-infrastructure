@@ -142,7 +142,7 @@
     "powervs_resource_group_name": {
       "name": "powervs_resource_group_name",
       "type": "string",
-      "description": "Existing IBM Cloud resource group nam.",
+      "description": "Existing IBM Cloud resource group name.",
       "required": true,
       "pos": {
         "filename": "variables.tf",
@@ -283,48 +283,48 @@
         "line": 51
       }
     },
-    "pvs_backup_network_name": {
-      "name": "pvs_backup_network_name",
+    "powervs_backup_network_name": {
+      "name": "powervs_backup_network_name",
       "description": "Name of backup network in created PowerVS infrastructure.",
       "pos": {
         "filename": "outputs.tf",
         "line": 31
       }
     },
-    "pvs_management_network_name": {
-      "name": "pvs_management_network_name",
+    "powervs_management_network_name": {
+      "name": "powervs_management_network_name",
       "description": "Name of management network in created PowerVS infrastructure.",
       "pos": {
         "filename": "outputs.tf",
         "line": 26
       }
     },
-    "pvs_resource_group_name": {
-      "name": "pvs_resource_group_name",
+    "powervs_resource_group_name": {
+      "name": "powervs_resource_group_name",
       "description": "IBM Cloud resource group where PowerVS infrastructure is created.",
       "pos": {
         "filename": "outputs.tf",
         "line": 16
       }
     },
-    "pvs_service_name": {
-      "name": "pvs_service_name",
+    "powervs_service_name": {
+      "name": "powervs_service_name",
       "description": "PowerVS infrastructure name.",
       "pos": {
         "filename": "outputs.tf",
         "line": 1
       }
     },
-    "pvs_sshkey_name": {
-      "name": "pvs_sshkey_name",
+    "powervs_sshkey_name": {
+      "name": "powervs_sshkey_name",
       "description": "SSH public key name in created PowerVS infrastructure.",
       "pos": {
         "filename": "outputs.tf",
         "line": 6
       }
     },
-    "pvs_zone": {
-      "name": "pvs_zone",
+    "powervs_zone": {
+      "name": "powervs_zone",
       "description": "Zone where PowerVS infrastructure is created.",
       "pos": {
         "filename": "outputs.tf",
@@ -349,9 +349,28 @@
       "version_constraints": [
         "\u003e= 1.44.3"
       ]
+    },
+    "time": {
+      "source": "hashicorp/time",
+      "version_constraints": [
+        "0.8.0"
+      ]
     }
   },
-  "managed_resources": {},
+  "managed_resources": {
+    "time_sleep.wait_for_squid_setup_to_complete": {
+      "mode": "managed",
+      "type": "time_sleep",
+      "name": "wait_for_squid_setup_to_complete",
+      "provider": {
+        "name": "time"
+      },
+      "pos": {
+        "filename": "main.tf",
+        "line": 65
+      }
+    }
+  },
   "data_resources": {},
   "module_calls": {
     "cloud_connection_attach": {
@@ -359,11 +378,13 @@
       "source": "./submodules/power_cloudconnection_attach",
       "attributes": {
         "cloud_connection_count": "cloud_connection_count",
-        "pvs_resource_group_name": "powervs_resource_group_name",
-        "pvs_service_name": "powervs_service_name",
-        "pvs_subnet_names": "powervs_management_network",
-        "pvs_zone": "powervs_zone"
+        "powervs_resource_group_name": "powervs_resource_group_name",
+        "powervs_service_name": "powervs_service_name",
+        "powervs_subnet_names": "powervs_management_network",
+        "powervs_zone": "powervs_zone"
       },
+      "managed_resources": null,
+      "data_resources": null,
       "pos": {
         "filename": "main.tf",
         "line": 42
@@ -378,11 +399,13 @@
         "cloud_connection_metered": "cloud_connection_metered",
         "cloud_connection_speed": "cloud_connection_speed",
         "count": "reuse_cloud_connections",
-        "pvs_resource_group_name": "powervs_resource_group_name",
-        "pvs_service_name": "powervs_service_name",
-        "pvs_zone": "powervs_zone",
+        "powervs_resource_group_name": "powervs_resource_group_name",
+        "powervs_service_name": "powervs_service_name",
+        "powervs_zone": "powervs_zone",
         "transit_gateway_name": "transit_gateway_name"
       },
+      "managed_resources": null,
+      "data_resources": null,
       "pos": {
         "filename": "main.tf",
         "line": 27
@@ -394,6 +417,8 @@
       "attributes": {
         "cloud_connection_validate": "reuse_cloud_connections"
       },
+      "managed_resources": null,
+      "data_resources": null,
       "pos": {
         "filename": "main.tf",
         "line": 5
@@ -410,9 +435,11 @@
         "ssh_private_key": "ssh_private_key",
         "target_server_ip": "dns_forwarder_config"
       },
+      "managed_resources": null,
+      "data_resources": null,
       "pos": {
         "filename": "main.tf",
-        "line": 65
+        "line": 70
       }
     },
     "power_management_service_nfs": {
@@ -426,9 +453,11 @@
         "ssh_private_key": "ssh_private_key",
         "target_server_ip": "nfs_config"
       },
+      "managed_resources": null,
+      "data_resources": null,
       "pos": {
         "filename": "main.tf",
-        "line": 91
+        "line": 96
       }
     },
     "power_management_service_ntp": {
@@ -442,9 +471,11 @@
         "ssh_private_key": "ssh_private_key",
         "target_server_ip": "ntp_forwarder_config"
       },
+      "managed_resources": null,
+      "data_resources": null,
       "pos": {
         "filename": "main.tf",
-        "line": 78
+        "line": 83
       }
     },
     "power_management_service_squid": {
@@ -458,6 +489,8 @@
         "ssh_private_key": "ssh_private_key",
         "target_server_ip": "squid_config"
       },
+      "managed_resources": null,
+      "data_resources": null,
       "pos": {
         "filename": "main.tf",
         "line": 52
@@ -467,16 +500,18 @@
       "name": "power_service",
       "source": "./submodules/power_service",
       "attributes": {
-        "pvs_backup_network": "powervs_backup_network",
-        "pvs_image_names": "powervs_image_names",
-        "pvs_management_network": "powervs_management_network",
-        "pvs_resource_group_name": "powervs_resource_group_name",
-        "pvs_service_name": "powervs_service_name",
-        "pvs_sshkey_name": "powervs_sshkey_name",
-        "pvs_zone": "powervs_zone",
+        "powervs_backup_network": "powervs_backup_network",
+        "powervs_image_names": "powervs_image_names",
+        "powervs_management_network": "powervs_management_network",
+        "powervs_resource_group_name": "powervs_resource_group_name",
+        "powervs_service_name": "powervs_service_name",
+        "powervs_sshkey_name": "powervs_sshkey_name",
+        "powervs_zone": "powervs_zone",
         "ssh_public_key": "ssh_public_key",
         "tags": "tags"
       },
+      "managed_resources": null,
+      "data_resources": null,
       "pos": {
         "filename": "main.tf",
         "line": 13
