@@ -49,7 +49,7 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_cloud_connection_count"></a> [cloud\_connection\_count](#input\_cloud\_connection\_count) | Number of cloud connections where private networks should be attached to. Default is to use redundant cloud connection pair. | `number` | `2` | no |
+| <a name="input_cloud_connection_count"></a> [cloud\_connection\_count](#input\_cloud\_connection\_count) | Number of cloud connections where private networks should be attached to. Default is to use redundant cloud connection pair. | `number` | n/a | yes |
 | <a name="input_powervs_resource_group_name"></a> [powervs\_resource\_group\_name](#input\_powervs\_resource\_group\_name) | Existing Resource Group Name | `string` | n/a | yes |
 | <a name="input_powervs_service_name"></a> [powervs\_service\_name](#input\_powervs\_service\_name) | Existing IBM Cloud PowerVS Service Name | `string` | n/a | yes |
 | <a name="input_powervs_subnet_names"></a> [powervs\_subnet\_names](#input\_powervs\_subnet\_names) | List of IBM Cloud PowerVS subnet names to be attached to Cloud connection | `list(any)` | n/a | yes |

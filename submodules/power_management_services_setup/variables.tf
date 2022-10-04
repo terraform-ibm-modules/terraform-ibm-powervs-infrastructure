@@ -11,11 +11,11 @@ variable "target_server_ip" {
 variable "ssh_private_key" {
   description = "Private SSH key used to login to IBM PowerVS instances.Entered data must be in heredoc strings format (https://www.terraform.io/language/expressions/strings#heredoc-strings). The key is not uploaded or stored."
   type        = string
-  sensitive   = false
+  sensitive   = true
 }
 
 variable "service_config" {
-  description = "Name of the existing transit gateway. Required when creating new cloud connections"
+  description = "An object which contains configuration for NFS, NTP, DNS, Squid Services"
   type        = map(any)
   default     = {}
 }
@@ -29,5 +29,4 @@ variable "perform_proxy_client_setup" {
       no_proxy_env     = string
     }
   )
-  default = null
 }
