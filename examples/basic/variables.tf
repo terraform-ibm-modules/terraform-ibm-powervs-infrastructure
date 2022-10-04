@@ -125,10 +125,12 @@ variable "squid_config" {
   type = object({
     squid_enable      = bool
     server_host_or_ip = string
+    squid_port        = string
   })
   default = {
     "squid_enable"      = "false"
     "server_host_or_ip" = ""
+    "squid_port"        = "3128"
   }
 }
 
@@ -179,6 +181,7 @@ variable "perform_proxy_client_setup" {
       squid_client_ips = list(string)
       squid_server_ip  = string
       no_proxy_env     = string
+      squid_port       = string
     }
   )
   default = null

@@ -46,12 +46,14 @@ locals {
 
   inet_svs_ip    = [for vsi in local.slz_output[0].vsi_list.value : vsi.ipv4_address if vsi.name == "${local.slz_output[0].prefix.value}-inet-svs-1"][0]
   private_svs_ip = [for vsi in local.slz_output[0].vsi_list.value : vsi.ipv4_address if vsi.name == "${local.slz_output[0].prefix.value}-private-svs-1"][0]
+  squid_port     = "3128"
 }
 
 locals {
   squid_config = {
     "squid_enable"      = var.configure_proxy
     "server_host_or_ip" = var.squid_config["server_host_or_ip"] != null && var.squid_config["server_host_or_ip"] != "" ? var.squid_config["server_host_or_ip"] : local.inet_svs_ip
+    "squid_port"        = var.squid_config["squid_port"] != null && var.squid_config["squid_port"] != "" ? var.squid_config["squid_port"] : local.squid_port
   }
 
   dns_config = merge(var.dns_forwarder_config, {
@@ -75,6 +77,7 @@ locals {
   perform_proxy_client_setup = {
     squid_client_ips = local.squid_client_ips
     squid_server_ip  = local.squid_config["server_host_or_ip"]
+    squid_port       = local.squid_config["squid_port"]
     no_proxy_env     = "161.0.0.0/8"
   }
 }
@@ -84,7 +87,7 @@ module "powervs_infra" {
 
   powervs_zone                = var.powervs_zone
   powervs_resource_group_name = var.powervs_resource_group_name
-  powervs_service_name        = "${local.slz_output[0].prefix.value}-${var.powervs_zone}-power-service"
+  powervs_service_name        = "${local.slz_output[0].prefix.value}-${var.powervs_zone}-power-workspace"
   tags                        = var.tags
   powervs_image_names         = var.powervs_image_names
   powervs_sshkey_name         = "${local.slz_output[0].prefix.value}-${var.powervs_zone}-ssh-pvs-key"
