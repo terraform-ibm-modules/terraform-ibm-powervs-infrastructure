@@ -65,7 +65,7 @@ module "power-infrastructure" {
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.1.0 |
 | <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | >= 1.44.3 |
-| <a name="requirement_time"></a> [time](#requirement\_time) | 0.8.0 |
+| <a name="requirement_time"></a> [time](#requirement\_time) | >= 0.8.0 |
 
 ## Modules
 
@@ -84,7 +84,7 @@ module "power-infrastructure" {
 
 | Name | Type |
 |------|------|
-| [time_sleep.wait_for_squid_setup_to_complete](https://registry.terraform.io/providers/hashicorp/time/0.8.0/docs/resources/sleep) | resource |
+| [time_sleep.wait_for_squid_setup_to_complete](https://registry.terraform.io/providers/hashicorp/time/latest/docs/resources/sleep) | resource |
 
 ## Inputs
 
