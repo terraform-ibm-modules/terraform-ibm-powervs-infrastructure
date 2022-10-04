@@ -27,9 +27,14 @@ provider "ibm" {
 }
 
 locals {
+  squid_port = "3128"
+}
+
+locals {
   squid_config = {
     "squid_enable"      = var.configure_proxy
     "server_host_or_ip" = var.squid_config["server_host_or_ip"] != null && var.squid_config["server_host_or_ip"] != "" ? var.squid_config["server_host_or_ip"] : var.internet_services_host_or_ip
+    "squid_port"        = var.squid_config["squid_port"] != null && var.squid_config["squid_port"] != "" ? var.squid_config["squid_port"] : local.squid_port
   }
 
   dns_config = merge(var.dns_forwarder_config, {
@@ -53,6 +58,7 @@ locals {
   perform_proxy_client_setup = {
     squid_client_ips = local.squid_client_ips
     squid_server_ip  = local.squid_config["server_host_or_ip"]
+    squid_port       = local.squid_config["squid_port"]
     no_proxy_env     = "161.0.0.0/8"
   }
 }
@@ -62,7 +68,7 @@ module "powervs_infra" {
 
   powervs_zone                = var.powervs_zone
   powervs_resource_group_name = var.powervs_resource_group_name
-  powervs_service_name        = "${var.prefix}-${var.powervs_zone}-power-service"
+  powervs_service_name        = "${var.prefix}-${var.powervs_zone}-power-workspace"
   tags                        = var.tags
   powervs_image_names         = var.powervs_image_names
   powervs_sshkey_name         = "${var.prefix}-${var.powervs_zone}-ssh-pvs-key"

@@ -1,17 +1,12 @@
 variable "ibmcloud_api_key" {
   description = "IBM Cloud api key."
   type        = string
-  default     = null
   sensitive   = true
 }
 
 variable "powervs_zone" {
-  description = "IBM Cloud data center location where IBM PowerVS infrastructure will be created. Following locations are currently supported: syd04, syd05, eu-de-1, eu-de-2, lon04, lon06, wdc04, us-east, us-south, dal12, dal13, tor01, tok04, osa21, sao01, mon01"
+  description = "IBM Cloud data center location where IBM PowerVS infrastructure will be created. Following locations are currently supported: syd04, syd05, eu-de-1, eu-de-2, tok04, osa21, sao01"
   type        = string
-  validation {
-    condition     = contains(["syd04", "syd05", "eu-de-1", "eu-de-2", "lon04", "lon06", "wdc04", "us-east", "us-south", "dal12", "dal13", "tor01", "tok04", "osa21", "sao01", "mon01"], var.powervs_zone)
-    error_message = "Supported values for powervs_zone are: syd04, syd05, eu-de-1, eu-de-2, lon04, lon06, wdc04, us-east, us-south, dal12, dal13, tor01, tok04, osa21, sao01, mon01."
-  }
 }
 
 variable "powervs_resource_group_name" {
@@ -24,15 +19,15 @@ variable "prefix" {
   type        = string
 }
 
-variable "ssh_private_key" {
-  description = "Private SSH key used to login to IBM PowerVS instances. Should match to uploaded public SSH key referenced by 'ssh_public_key'. Entered data must be in [heredoc strings format] (https://www.terraform.io/language/expressions/strings#heredoc-strings). The key is not uploaded or stored. Read [here] more about SSH keys in IBM Cloud (https://cloud.ibm.com/docs/vpc?topic=vpc-ssh-keys)."
-  type        = string
-  sensitive   = true
-}
-
 variable "ssh_public_key" {
   description = "Public SSH Key that should be used in IBM PowerVS infrastructure."
   type        = string
+}
+
+variable "ssh_private_key" {
+  description = "Private SSH key (RSA format) used to login to IBM PowerVS instances. Should match to uploaded public SSH key referenced by 'ssh_public_key'. Entered data must be in [heredoc strings format] (https://www.terraform.io/language/expressions/strings#heredoc-strings). The key is not uploaded or stored. Read [here] more about SSH keys in IBM Cloud (https://cloud.ibm.com/docs/vpc?topic=vpc-ssh-keys)."
+  type        = string
+  sensitive   = true
 }
 
 variable "reuse_cloud_connections" {
@@ -41,45 +36,44 @@ variable "reuse_cloud_connections" {
   default     = false
 }
 
+variable "transit_gateway_name" {
+  description = "Name of the existing transit gateway. Required when you create new IBM Cloud connections. Set it to null if reusing cloud connections"
+  type        = string
+}
+
 variable "access_host_or_ip" {
-  description = "The public IP address or hostname for the access host. The address is used to reach the target or server_host IP address and to configure the DNS, NTP, NFS, and Squid proxy services."
+  description = "The public IP address or hostname for the access host. The address is used to reach the target or server_host IP address and to configure the DNS, NTP, NFS, and Squid proxy services. Set it to null if you do not want to configure any services."
   type        = string
 }
 
 variable "internet_services_host_or_ip" {
-  description = "Host name or IP address of the virtual server instance where proxy server to public internet and to IBM Cloud services will be configured."
+  description = "Host name or IP address of the virtual server instance where proxy server to public internet and to IBM Cloud services will be configured. Set it to null if you do not want to configure any services."
   type        = string
-  default     = null
 }
 
 variable "private_services_host_or_ip" {
-  description = "Default private host name or IP address of the virtual server instance where private services should be configured (DNS forwarder, NTP forwarder, NFS server). Might be empty when no services will be installed. Might be overwritten in the optional service specific configurations (in order to install services on different hosts)."
+  description = "Default private host name or IP address of the virtual server instance where private services should be configured (DNS forwarder, NTP forwarder, NFS server). Might be empty when no services will be installed. Might be overwritten in the optional service specific configurations (in order to install services on different hosts). Set it to null if you do not want to configure any services."
   type        = string
-  default     = null
 }
 
 variable "configure_proxy" {
   description = "Specify if proxy will be configured. Proxy is mandatory for the landscape, so set this to 'false' only if proxy already exists. Proxy will allow to communcate from IBM PowerVS instances with IBM Cloud network and with public internet."
   type        = bool
-  default     = true
 }
 
 variable "configure_dns_forwarder" {
   description = "Specify if DNS forwarder will be configured. This will allow you to use central DNS servers (e.g. IBM Cloud DNS servers) sitting outside of the created IBM PowerVS infrastructure. If yes, ensure 'dns_forwarder_config' optional variable is set properly."
   type        = bool
-  default     = true
 }
 
 variable "configure_ntp_forwarder" {
   description = "Specify if NTP forwarder will be configured. This will allow you to synchronize time between IBM PowerVS instances. If yes, ensure 'ntp_forwarder_config' optional variable is set properly."
   type        = bool
-  default     = true
 }
 
 variable "configure_nfs_server" {
   description = "Specify if NFS server will be configured. This will allow you easily to share files between PowerVS instances (e.g., SAP installation files). If yes, ensure 'nfs_config' optional variable is set properly."
   type        = bool
-  default     = true
 }
 
 #####################################################
@@ -108,12 +102,6 @@ variable "powervs_backup_network" {
     name = "bkp_net"
     cidr = "10.52.0.0/24"
   }
-}
-
-variable "transit_gateway_name" {
-  description = "Name of the existing transit gateway. Required when creating new cloud connections"
-  type        = string
-  default     = null
 }
 
 variable "tags" {
@@ -150,9 +138,11 @@ variable "squid_config" {
   description = "Configuration for the Squid proxy setup"
   type = object({
     server_host_or_ip = string
+    squid_port        = string
   })
   default = {
     "server_host_or_ip" = ""
+    "squid_port"        = "3128"
   }
 }
 

@@ -4,10 +4,10 @@
     "access_host_or_ip": {
       "name": "access_host_or_ip",
       "type": "string",
-      "description": "The public IP address or hostname for the access host. The address is used to reach the target or server_host IP address and to configure the DNS, NTP, NFS, and Squid proxy services.",
+      "description": "The public IP address or hostname for the access host. The address is used to reach the target or server_host IP address and to configure the DNS, NTP, NFS, and Squid proxy services. Set it to null if you do not want to configure any services.",
       "pos": {
         "filename": "variables.tf",
-        "line": 110
+        "line": 113
       }
     },
     "cloud_connection_count": {
@@ -17,7 +17,7 @@
       "default": 2,
       "pos": {
         "filename": "variables.tf",
-        "line": 70
+        "line": 73
       }
     },
     "cloud_connection_gr": {
@@ -26,7 +26,7 @@
       "description": "Whether to enable global routing for this IBM Cloud connection. You can specify thia value when you create a connection.",
       "pos": {
         "filename": "variables.tf",
-        "line": 98
+        "line": 101
       }
     },
     "cloud_connection_metered": {
@@ -35,7 +35,7 @@
       "description": "Whether to enable metering for this IBM Cloud connection. You can specify thia value when you create a connection.",
       "pos": {
         "filename": "variables.tf",
-        "line": 104
+        "line": 107
       }
     },
     "cloud_connection_speed": {
@@ -45,7 +45,7 @@
       "default": 5000,
       "pos": {
         "filename": "variables.tf",
-        "line": 76
+        "line": 79
       }
     },
     "dns_forwarder_config": {
@@ -59,7 +59,7 @@
       },
       "pos": {
         "filename": "variables.tf",
-        "line": 128
+        "line": 133
       }
     },
     "nfs_config": {
@@ -73,7 +73,7 @@
       },
       "pos": {
         "filename": "variables.tf",
-        "line": 154
+        "line": 159
       }
     },
     "ntp_forwarder_config": {
@@ -86,16 +86,16 @@
       },
       "pos": {
         "filename": "variables.tf",
-        "line": 142
+        "line": 147
       }
     },
     "perform_proxy_client_setup": {
       "name": "perform_proxy_client_setup",
-      "type": "object(\n    {\n      squid_client_ips = list(string)\n      squid_server_ip  = string\n      no_proxy_env     = string\n    }\n  )",
+      "type": "object(\n    {\n      squid_client_ips = list(string)\n      squid_server_ip  = string\n      squid_port       = string\n      no_proxy_env     = string\n    }\n  )",
       "description": "Proxy configuration to allow internet access for a VM or LPAR.",
       "pos": {
         "filename": "variables.tf",
-        "line": 168
+        "line": 173
       }
     },
     "powervs_backup_network": {
@@ -108,7 +108,7 @@
       },
       "pos": {
         "filename": "variables.tf",
-        "line": 46
+        "line": 50
       }
     },
     "powervs_image_names": {
@@ -123,7 +123,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 92
+        "line": 95
       }
     },
     "powervs_management_network": {
@@ -136,7 +136,7 @@
       },
       "pos": {
         "filename": "variables.tf",
-        "line": 34
+        "line": 38
       }
     },
     "powervs_resource_group_name": {
@@ -146,7 +146,7 @@
       "required": true,
       "pos": {
         "filename": "variables.tf",
-        "line": 6
+        "line": 10
       }
     },
     "powervs_service_name": {
@@ -156,7 +156,7 @@
       "default": "power-service",
       "pos": {
         "filename": "variables.tf",
-        "line": 11
+        "line": 15
       }
     },
     "powervs_sshkey_name": {
@@ -166,7 +166,7 @@
       "default": "ssh-key-pvs",
       "pos": {
         "filename": "variables.tf",
-        "line": 17
+        "line": 21
       }
     },
     "powervs_zone": {
@@ -186,31 +186,32 @@
       "default": false,
       "pos": {
         "filename": "variables.tf",
-        "line": 64
+        "line": 67
       }
     },
     "squid_config": {
       "name": "squid_config",
-      "type": "object({\n    squid_enable      = bool\n    server_host_or_ip = string\n  })",
+      "type": "object({\n    squid_enable      = bool\n    server_host_or_ip = string\n    squid_port        = string\n  })",
       "description": "Configuration for the Squid proxy setup.",
       "default": {
         "server_host_or_ip": "",
-        "squid_enable": "false"
+        "squid_enable": "false",
+        "squid_port": "3128"
       },
       "pos": {
         "filename": "variables.tf",
-        "line": 116
+        "line": 119
       }
     },
     "ssh_private_key": {
       "name": "ssh_private_key",
       "type": "string",
-      "description": "Private SSH key used to login to IBM PowerVS instances. Should match to uploaded public SSH key referenced by 'ssh_public_key'. Entered data must be in heredoc strings format (https://www.terraform.io/language/expressions/strings#heredoc-strings). The key is not uploaded or stored.",
+      "description": "Private SSH key (RSA format) used to login to IBM PowerVS instances. Should match to uploaded public SSH key referenced by 'ssh_public_key'. Entered data must be in heredoc strings format (https://www.terraform.io/language/expressions/strings#heredoc-strings). The key is not uploaded or stored.",
       "required": true,
       "sensitive": true,
       "pos": {
         "filename": "variables.tf",
-        "line": 28
+        "line": 32
       }
     },
     "ssh_public_key": {
@@ -220,7 +221,7 @@
       "required": true,
       "pos": {
         "filename": "variables.tf",
-        "line": 23
+        "line": 27
       }
     },
     "tags": {
@@ -229,16 +230,17 @@
       "description": "List of tag names for the IBM Cloud PowerVS service.",
       "pos": {
         "filename": "variables.tf",
-        "line": 86
+        "line": 89
       }
     },
     "transit_gateway_name": {
       "name": "transit_gateway_name",
       "type": "string",
-      "description": "Name of the existing transit gateway. Required when you create new IBM Cloud connections.",
+      "description": "Name of the existing transit gateway. Required when you create new IBM Cloud connections. Set it to null if reusing cloud connections",
+      "required": true,
       "pos": {
         "filename": "variables.tf",
-        "line": 58
+        "line": 62
       }
     }
   },
@@ -331,8 +333,8 @@
         "line": 11
       }
     },
-    "squid_host_or_ip": {
-      "name": "squid_host_or_ip",
+    "proxy_host_or_ip_port": {
+      "name": "proxy_host_or_ip_port",
       "description": "Proxy host for created PowerVS infrastructure.",
       "pos": {
         "filename": "outputs.tf",

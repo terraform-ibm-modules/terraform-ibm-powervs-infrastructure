@@ -38,9 +38,9 @@ output "access_host_or_ip" {
   value       = module.powervs_infra.access_host_or_ip
 }
 
-output "squid_host_or_ip" {
+output "proxy_host_or_ip_port" {
   description = "Proxy host for created PowerVS infrastructure."
-  value       = module.powervs_infra.squid_host_or_ip
+  value       = module.powervs_infra.proxy_host_or_ip_port
 }
 
 output "dns_host_or_ip" {
