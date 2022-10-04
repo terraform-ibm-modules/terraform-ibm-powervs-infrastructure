@@ -227,6 +227,20 @@
               "direction": "outbound",
               "name": "allow-all-network-outbound",
               "source": "10.0.0.0/8"
+            },
+            {
+              "action": "deny",
+              "destination": "0.0.0.0/0",
+              "direction": "inbound",
+              "name": "default-deny-inbound",
+              "source": "0.0.0.0/0"
+            },
+            {
+              "action": "deny",
+              "destination": "0.0.0.0/0",
+              "direction": "outbound",
+              "name": "default-deny-outbound",
+              "source": "0.0.0.0/0"
             }
           ]
         }
@@ -324,6 +338,20 @@
               "direction": "outbound",
               "name": "allow-all-network-outbound",
               "source": "10.0.0.0/8"
+            },
+            {
+              "action": "deny",
+              "destination": "0.0.0.0/0",
+              "direction": "inbound",
+              "name": "default-deny-inbound",
+              "source": "0.0.0.0/0"
+            },
+            {
+              "action": "deny",
+              "destination": "0.0.0.0/0",
+              "direction": "outbound",
+              "name": "default-deny-outbound",
+              "source": "0.0.0.0/0"
             }
           ]
         }
@@ -481,6 +509,20 @@
                 "port_max": 80,
                 "port_min": 80
               }
+            },
+            {
+              "action": "deny",
+              "destination": "0.0.0.0/0",
+              "direction": "inbound",
+              "name": "default-deny-inbound",
+              "source": "0.0.0.0/0"
+            },
+            {
+              "action": "deny",
+              "destination": "0.0.0.0/0",
+              "direction": "outbound",
+              "name": "default-deny-outbound",
+              "source": "0.0.0.0/0"
             }
           ]
         }
@@ -646,7 +688,7 @@
             "direction": "inbound",
             "name": "allow-ibm-tcp-8443-inbound",
             "source": "0.0.0.0/0",
-            "udp": {
+            "tcp": {
               "port_max": 8443,
               "port_min": 8443
             }
