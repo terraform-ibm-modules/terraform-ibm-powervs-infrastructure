@@ -21,5 +21,4 @@ variable "powervs_subnet_names" {
 variable "cloud_connection_count" {
   description = "Number of cloud connections where private networks should be attached to. Default is to use redundant cloud connection pair."
   type        = number
-  default     = 2
 }

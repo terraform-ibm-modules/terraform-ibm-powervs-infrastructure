@@ -25,12 +25,18 @@ variable "ssh_public_key" {
 
 variable "powervs_management_network" {
   description = "IBM Cloud PowerVS Management Subnet name and cidr which will be created."
-  type        = map(any)
+  type = object({
+    name = string
+    cidr = string
+  })
 }
 
 variable "powervs_backup_network" {
   description = "IBM Cloud PowerVS Backup Network name and cidr which will be created."
-  type        = map(any)
+  type = object({
+    name = string
+    cidr = string
+  })
 }
 
 #####################################################
@@ -40,11 +46,9 @@ variable "powervs_backup_network" {
 variable "tags" {
   description = "List of Tag names for IBM Cloud PowerVS service"
   type        = list(string)
-  default     = null
 }
 
 variable "powervs_image_names" {
   description = "List of Images to be imported into cloud account from catalog images"
   type        = list(string)
-  default     = ["SLES15-SP3-SAP", "SLES15-SP3-SAP-NETWEAVER", "RHEL8-SP4-SAP", "RHEL8-SP4-SAP-NETWEAVER"]
 }

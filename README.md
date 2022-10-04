@@ -9,10 +9,10 @@ The PowerVS infrastructure module automates the following tasks:
 - Attaches the private networks to the IBM Cloud connections
 
 Following limitations currently apply:
-- The only number of IBM Cloud connections we support is two.
+- The only number of IBM Cloud connections we support is **two**.
 - Reuse of IBM Cloud connections is not supported.
 - Private networks in IBM PowerVS service must be in 10.0.0.0/8 range
-- Only SLES15 SP3 as operating system is supported
+- **Only SLES15 SP3 as operating system is supported**
 
 ## Usage
 ```hcl
