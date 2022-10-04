@@ -32,6 +32,7 @@ Use of this resource for production deployments is not recommended. Instead, gen
 | Name | Type |
 |------|------|
 | [ibm_is_ssh_key.ssh_key](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.45.1/docs/resources/is_ssh_key) | resource |
+| [ibm_tg_gateway.powervs_gateway](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.45.1/docs/resources/tg_gateway) | resource |
 | [tls_private_key.tls_key](https://registry.terraform.io/providers/hashicorp/tls/4.0.2/docs/resources/private_key) | resource |
 
 ## Inputs
