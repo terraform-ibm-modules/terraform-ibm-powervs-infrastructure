@@ -82,6 +82,7 @@ fi
 ###########################################
 if [ "$OS_DETECTED" == "SLES" ]; then
 
+  ARCH=$(uname -p)
   FILE="/etc/bash.bashrc"
 
   if [[ -n $no_proxy_ip ]]; then
@@ -104,7 +105,6 @@ if [ "$OS_DETECTED" == "SLES" ]; then
     if [ "$OS_Activated" -ge 1 ]; then
       echo "OS is Registered"
     else
-      ARCH=$(uname -p)
       ##### check if the system is a x86_64 processor VM
       if [[ "$ARCH" == "x86_64" ]]; then
         #### Wait for registration to complete
@@ -183,7 +183,7 @@ fi
 # RHEL Setup                              #
 ###########################################
 if [ "$OS_DETECTED" == "RHEL" ]; then
-
+  ARCH=$(uname -p)
   FILE="/etc/bashrc"
 
   if [[ -n $no_proxy_ip ]]; then
@@ -206,7 +206,6 @@ if [ "$OS_DETECTED" == "RHEL" ]; then
     if [ "$OS_Activated" -ge 1 ]; then
       echo "OS is Registered"
     else
-      ARCH=$(uname -p)
       ##### check if the system is a x86_64 processor VM
       if [[ "$ARCH" == "x86_64" ]]; then
         #### Wait for registration to complete
@@ -263,9 +262,19 @@ if [ "$OS_DETECTED" == "RHEL" ]; then
 
   ##### if -i flag  is passed as argument, install ansible, awscli packages
   if [ "$install_packages" == true ]; then
-    ##### Install Ansible and awscli ####
+    ##### Install Ansible, unbuffer(expect) and awscli ####
     yum install -y ansible
-    yum install -y awscli
+    yum install -y expect
+
+    if [[ "$ARCH" == "x86_64" ]]; then
+      yum install -y python3-pip
+      pip3 install awscli
+    fi
+
+    if [[ "$ARCH" == "ppc64le" ]]; then
+      yum install -y awscli
+    fi
+
     ##### Verify if each of above packages got installed successfully
     # check if ansible is installed or not
     if ! which ansible >/dev/null; then
