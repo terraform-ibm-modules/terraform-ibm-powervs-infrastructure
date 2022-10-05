@@ -12,7 +12,7 @@ Following limitations currently apply:
 - The only number of IBM Cloud connections we support is **two**.
 - Reuse of IBM Cloud connections is not supported.
 - Private networks in IBM PowerVS service must be in 10.0.0.0/8 range
-- **Only SLES15 SP3 as operating system is supported**
+- **Only SLES15 SP3 and RHEL 8.4 as operating system is supported**
 
 ## Usage
 ```hcl
