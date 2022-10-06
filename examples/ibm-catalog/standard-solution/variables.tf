@@ -96,7 +96,7 @@ variable "ibmcloud_api_key" {
 #####################################################
 
 variable "tags" {
-  description = "List of tag names for the IBM Cloud PowerVS service"
+  description = "List of tag names for the IBM Cloud PowerVS workspace"
   type        = list(string)
   default     = ["sap"]
 }

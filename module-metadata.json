@@ -149,16 +149,6 @@
         "line": 10
       }
     },
-    "powervs_service_name": {
-      "name": "powervs_service_name",
-      "type": "string",
-      "description": "Name of the PowerVS service to create.",
-      "default": "power-service",
-      "pos": {
-        "filename": "variables.tf",
-        "line": 15
-      }
-    },
     "powervs_sshkey_name": {
       "name": "powervs_sshkey_name",
       "type": "string",
@@ -167,6 +157,16 @@
       "pos": {
         "filename": "variables.tf",
         "line": 21
+      }
+    },
+    "powervs_workspace_name": {
+      "name": "powervs_workspace_name",
+      "type": "string",
+      "description": "Name of the PowerVS workspace to create.",
+      "default": "power-workspace",
+      "pos": {
+        "filename": "variables.tf",
+        "line": 15
       }
     },
     "powervs_zone": {
@@ -227,7 +227,7 @@
     "tags": {
       "name": "tags",
       "type": "list(string)",
-      "description": "List of tag names for the IBM Cloud PowerVS service.",
+      "description": "List of tag names for the IBM Cloud PowerVS Workspace.",
       "pos": {
         "filename": "variables.tf",
         "line": 89
@@ -309,20 +309,20 @@
         "line": 16
       }
     },
-    "powervs_service_name": {
-      "name": "powervs_service_name",
-      "description": "PowerVS infrastructure name.",
-      "pos": {
-        "filename": "outputs.tf",
-        "line": 1
-      }
-    },
     "powervs_sshkey_name": {
       "name": "powervs_sshkey_name",
       "description": "SSH public key name in created PowerVS infrastructure.",
       "pos": {
         "filename": "outputs.tf",
         "line": 6
+      }
+    },
+    "powervs_workspace_name": {
+      "name": "powervs_workspace_name",
+      "description": "PowerVS infrastructure workspace name.",
+      "pos": {
+        "filename": "outputs.tf",
+        "line": 1
       }
     },
     "powervs_zone": {
@@ -381,8 +381,8 @@
       "attributes": {
         "cloud_connection_count": "cloud_connection_count",
         "powervs_resource_group_name": "powervs_resource_group_name",
-        "powervs_service_name": "powervs_service_name",
         "powervs_subnet_names": "powervs_management_network",
+        "powervs_workspace_name": "powervs_workspace_name",
         "powervs_zone": "powervs_zone"
       },
       "managed_resources": null,
@@ -402,7 +402,7 @@
         "cloud_connection_speed": "cloud_connection_speed",
         "count": "reuse_cloud_connections",
         "powervs_resource_group_name": "powervs_resource_group_name",
-        "powervs_service_name": "powervs_service_name",
+        "powervs_workspace_name": "powervs_workspace_name",
         "powervs_zone": "powervs_zone",
         "transit_gateway_name": "transit_gateway_name"
       },
@@ -498,16 +498,16 @@
         "line": 52
       }
     },
-    "power_service": {
-      "name": "power_service",
-      "source": "./submodules/power_service",
+    "power_workspace": {
+      "name": "power_workspace",
+      "source": "./submodules/power_workspace",
       "attributes": {
         "powervs_backup_network": "powervs_backup_network",
         "powervs_image_names": "powervs_image_names",
         "powervs_management_network": "powervs_management_network",
         "powervs_resource_group_name": "powervs_resource_group_name",
-        "powervs_service_name": "powervs_service_name",
         "powervs_sshkey_name": "powervs_sshkey_name",
+        "powervs_workspace_name": "powervs_workspace_name",
         "powervs_zone": "powervs_zone",
         "ssh_public_key": "ssh_public_key",
         "tags": "tags"

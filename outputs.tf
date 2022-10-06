@@ -1,6 +1,6 @@
-output "powervs_service_name" {
-  description = "PowerVS infrastructure name."
-  value       = var.powervs_service_name
+output "powervs_workspace_name" {
+  description = "PowerVS infrastructure workspace name."
+  value       = var.powervs_workspace_name
 }
 
 output "powervs_sshkey_name" {

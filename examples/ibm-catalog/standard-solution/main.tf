@@ -87,7 +87,7 @@ module "powervs_infra" {
 
   powervs_zone                = var.powervs_zone
   powervs_resource_group_name = var.powervs_resource_group_name
-  powervs_service_name        = "${local.slz_output[0].prefix.value}-${var.powervs_zone}-power-workspace"
+  powervs_workspace_name      = "${local.slz_output[0].prefix.value}-${var.powervs_zone}-power-workspace"
   tags                        = var.tags
   powervs_image_names         = var.powervs_image_names
   powervs_sshkey_name         = "${local.slz_output[0].prefix.value}-${var.powervs_zone}-ssh-pvs-key"

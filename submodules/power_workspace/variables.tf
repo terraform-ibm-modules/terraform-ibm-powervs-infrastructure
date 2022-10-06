@@ -8,8 +8,8 @@ variable "powervs_resource_group_name" {
   type        = string
 }
 
-variable "powervs_service_name" {
-  description = "Name of IBM Cloud PowerVS service which will be created"
+variable "powervs_workspace_name" {
+  description = "Name of IBM Cloud PowerVS workspace which will be created"
   type        = string
 }
 
@@ -44,7 +44,7 @@ variable "powervs_backup_network" {
 #####################################################
 
 variable "tags" {
-  description = "List of Tag names for IBM Cloud PowerVS service"
+  description = "List of Tag names for IBM Cloud PowerVS workspace"
   type        = list(string)
 }
 

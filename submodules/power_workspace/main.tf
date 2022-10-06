@@ -11,8 +11,8 @@ data "ibm_resource_group" "resource_group_ds" {
   name = var.powervs_resource_group_name
 }
 
-resource "ibm_resource_instance" "powervs_service" {
-  name              = var.powervs_service_name
+resource "ibm_resource_instance" "powervs_workspace" {
+  name              = var.powervs_workspace_name
   service           = local.service_type
   plan              = local.plan
   location          = var.powervs_zone
@@ -31,7 +31,7 @@ resource "ibm_resource_instance" "powervs_service" {
 #####################################################
 
 resource "ibm_pi_key" "ssh_key" {
-  pi_cloud_instance_id = ibm_resource_instance.powervs_service.guid
+  pi_cloud_instance_id = ibm_resource_instance.powervs_workspace.guid
   pi_key_name          = var.powervs_sshkey_name
   pi_ssh_key           = var.ssh_public_key
 }
@@ -41,7 +41,7 @@ resource "ibm_pi_key" "ssh_key" {
 #####################################################
 
 resource "ibm_pi_network" "management_network" {
-  pi_cloud_instance_id = ibm_resource_instance.powervs_service.guid
+  pi_cloud_instance_id = ibm_resource_instance.powervs_workspace.guid
   pi_network_name      = var.powervs_management_network["name"]
   pi_cidr              = var.powervs_management_network["cidr"]
   pi_dns               = ["127.0.0.1"]
@@ -51,7 +51,7 @@ resource "ibm_pi_network" "management_network" {
 
 resource "ibm_pi_network" "backup_network" {
   depends_on           = [ibm_pi_network.management_network]
-  pi_cloud_instance_id = ibm_resource_instance.powervs_service.guid
+  pi_cloud_instance_id = ibm_resource_instance.powervs_workspace.guid
   pi_network_name      = var.powervs_backup_network["name"]
   pi_cidr              = var.powervs_backup_network["cidr"]
   pi_dns               = ["127.0.0.1"]
@@ -65,7 +65,7 @@ resource "ibm_pi_network" "backup_network" {
 
 data "ibm_pi_catalog_images" "catalog_images_ds" {
   sap                  = true
-  pi_cloud_instance_id = ibm_resource_instance.powervs_service.guid
+  pi_cloud_instance_id = ibm_resource_instance.powervs_workspace.guid
 }
 
 locals {
@@ -74,7 +74,7 @@ locals {
 
 resource "ibm_pi_image" "import_images" {
   count                = length(var.powervs_image_names)
-  pi_cloud_instance_id = ibm_resource_instance.powervs_service.guid
+  pi_cloud_instance_id = ibm_resource_instance.powervs_workspace.guid
   pi_image_id          = local.catalog_images_to_import[count.index].image_id
   pi_image_name        = var.powervs_image_names[count.index]
 }

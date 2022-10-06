@@ -12,10 +12,10 @@ variable "powervs_resource_group_name" {
   type        = string
 }
 
-variable "powervs_service_name" {
-  description = "Name of the PowerVS service to create."
+variable "powervs_workspace_name" {
+  description = "Name of the PowerVS workspace to create."
   type        = string
-  default     = "power-service"
+  default     = "power-workspace"
 }
 
 variable "powervs_sshkey_name" {
@@ -87,7 +87,7 @@ variable "cloud_connection_speed" {
 #####################################################
 
 variable "tags" {
-  description = "List of tag names for the IBM Cloud PowerVS service."
+  description = "List of tag names for the IBM Cloud PowerVS Workspace."
   type        = list(string)
   default     = null
 }

@@ -10,8 +10,8 @@ data "ibm_resource_group" "resource_group_ds" {
   name = var.powervs_resource_group_name
 }
 
-data "ibm_resource_instance" "powervs_service_ds" {
-  name              = var.powervs_service_name
+data "ibm_resource_instance" "powervs_workspace_ds" {
+  name              = var.powervs_workspace_name
   service           = local.service_type
   location          = var.powervs_zone
   resource_group_id = data.ibm_resource_group.resource_group_ds.id
@@ -23,7 +23,7 @@ data "ibm_resource_instance" "powervs_service_ds" {
 #####################################################
 
 resource "ibm_pi_cloud_connection" "cloud_connection" {
-  pi_cloud_instance_id                = data.ibm_resource_instance.powervs_service_ds.guid
+  pi_cloud_instance_id                = data.ibm_resource_instance.powervs_workspace_ds.guid
   pi_cloud_connection_name            = "${var.powervs_zone}-conn-1"
   pi_cloud_connection_speed           = var.cloud_connection_speed
   pi_cloud_connection_global_routing  = var.cloud_connection_gr
@@ -34,7 +34,7 @@ resource "ibm_pi_cloud_connection" "cloud_connection" {
 resource "ibm_pi_cloud_connection" "cloud_connection_backup" {
   depends_on                          = [ibm_pi_cloud_connection.cloud_connection]
   count                               = var.cloud_connection_count > 1 ? 1 : 0
-  pi_cloud_instance_id                = data.ibm_resource_instance.powervs_service_ds.guid
+  pi_cloud_instance_id                = data.ibm_resource_instance.powervs_workspace_ds.guid
   pi_cloud_connection_name            = "${var.powervs_zone}-conn-2"
   pi_cloud_connection_speed           = var.cloud_connection_speed
   pi_cloud_connection_global_routing  = var.cloud_connection_gr

@@ -105,7 +105,7 @@ variable "powervs_backup_network" {
 }
 
 variable "tags" {
-  description = "List of Tag names for PowerVS service"
+  description = "List of Tag names for PowerVS workspace"
   type        = list(string)
   default     = null
 }

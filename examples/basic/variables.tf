@@ -16,10 +16,10 @@ variable "prefix" {
   default     = "pvs"
 }
 
-variable "powervs_service_name" {
-  description = "Name of the PowerVS service to create"
+variable "powervs_workspace_name" {
+  description = "Name of the PowerVS workspace to create"
   type        = string
-  default     = "power-service"
+  default     = "power-workspace"
 }
 
 variable "powervs_sshkey_name" {
@@ -88,7 +88,7 @@ variable "ibmcloud_api_key" {
 
 variable "resource_tags" {
   type        = list(string)
-  description = "Optional List of tag names for the IBM Cloud PowerVS service"
+  description = "Optional List of tag names for the IBM Cloud PowerVS Workspace"
   default     = []
 }
 

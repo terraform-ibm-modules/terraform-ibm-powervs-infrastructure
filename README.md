@@ -1,7 +1,7 @@
 # PowerVS Infrastructure Module
 
 The PowerVS infrastructure module automates the following tasks:
-- Creates the PowerVS service
+- Creates the PowerVS Workspace
 - Creates an ssh key
 - Creates two private networks: a management network and a backup network
 - Creates two IBM Cloud connections with an option to reuse cloud connections
@@ -11,7 +11,7 @@ The PowerVS infrastructure module automates the following tasks:
 Following limitations currently apply:
 - The only number of IBM Cloud connections we support is **two**.
 - Reuse of IBM Cloud connections is not supported.
-- Private networks in IBM PowerVS service must be in 10.0.0.0/8 range
+- Private networks in IBM PowerVS Workspace must be in 10.0.0.0/8 range
 - **Only SLES15 SP3 and RHEL 8.4 as operating system is supported**
 
 ## Usage
@@ -28,7 +28,7 @@ module "power-infrastructure" {
 
   powervs_zone                = var.powervs_zone
   powervs_resource_group_name = var.powervs_resource_group_name
-  powervs_service_name        = var.powervs_service_name
+  powervs_workspace_name      = var.powervs_workspace_name
   tags                        = var.tags
   powervs_image_names         = var.powervs_image_names
   powervs_sshkey_name         = var.powervs_sshkey_name
@@ -78,7 +78,7 @@ module "power-infrastructure" {
 | <a name="module_power_management_service_nfs"></a> [power\_management\_service\_nfs](#module\_power\_management\_service\_nfs) | ./submodules/power_management_services_setup | n/a |
 | <a name="module_power_management_service_ntp"></a> [power\_management\_service\_ntp](#module\_power\_management\_service\_ntp) | ./submodules/power_management_services_setup | n/a |
 | <a name="module_power_management_service_squid"></a> [power\_management\_service\_squid](#module\_power\_management\_service\_squid) | ./submodules/power_management_services_setup | n/a |
-| <a name="module_power_service"></a> [power\_service](#module\_power\_service) | ./submodules/power_service | n/a |
+| <a name="module_power_workspace"></a> [power\_workspace](#module\_power\_workspace) | ./submodules/power_workspace | n/a |
 
 ## Resources
 
@@ -103,14 +103,14 @@ module "power-infrastructure" {
 | <a name="input_powervs_image_names"></a> [powervs\_image\_names](#input\_powervs\_image\_names) | List of Images to be imported into cloud account from catalog images. | `list(string)` | <pre>[<br>  "SLES15-SP3-SAP",<br>  "SLES15-SP3-SAP-NETWEAVER",<br>  "RHEL8-SP4-SAP",<br>  "RHEL8-SP4-SAP-NETWEAVER"<br>]</pre> | no |
 | <a name="input_powervs_management_network"></a> [powervs\_management\_network](#input\_powervs\_management\_network) | Name of the IBM Cloud PowerVS management subnet and CIDR to create. | <pre>object({<br>    name = string<br>    cidr = string<br>  })</pre> | <pre>{<br>  "cidr": "10.51.0.0/24",<br>  "name": "mgmt_net"<br>}</pre> | no |
 | <a name="input_powervs_resource_group_name"></a> [powervs\_resource\_group\_name](#input\_powervs\_resource\_group\_name) | Existing IBM Cloud resource group name. | `string` | n/a | yes |
-| <a name="input_powervs_service_name"></a> [powervs\_service\_name](#input\_powervs\_service\_name) | Name of the PowerVS service to create. | `string` | `"power-service"` | no |
 | <a name="input_powervs_sshkey_name"></a> [powervs\_sshkey\_name](#input\_powervs\_sshkey\_name) | Name of the PowerVS SSH key to create. | `string` | `"ssh-key-pvs"` | no |
+| <a name="input_powervs_workspace_name"></a> [powervs\_workspace\_name](#input\_powervs\_workspace\_name) | Name of the PowerVS workspace to create. | `string` | `"power-workspace"` | no |
 | <a name="input_powervs_zone"></a> [powervs\_zone](#input\_powervs\_zone) | IBM Cloud PowerVS zone. | `string` | n/a | yes |
 | <a name="input_reuse_cloud_connections"></a> [reuse\_cloud\_connections](#input\_reuse\_cloud\_connections) | When true, IBM Cloud connections are reused (if attached to the transit gateway). | `bool` | `false` | no |
 | <a name="input_squid_config"></a> [squid\_config](#input\_squid\_config) | Configuration for the Squid proxy setup. | <pre>object({<br>    squid_enable      = bool<br>    server_host_or_ip = string<br>    squid_port        = string<br>  })</pre> | <pre>{<br>  "server_host_or_ip": "",<br>  "squid_enable": "false",<br>  "squid_port": "3128"<br>}</pre> | no |
 | <a name="input_ssh_private_key"></a> [ssh\_private\_key](#input\_ssh\_private\_key) | Private SSH key (RSA format) used to login to IBM PowerVS instances. Should match to uploaded public SSH key referenced by 'ssh\_public\_key'. Entered data must be in heredoc strings format (https://www.terraform.io/language/expressions/strings#heredoc-strings). The key is not uploaded or stored. | `string` | n/a | yes |
 | <a name="input_ssh_public_key"></a> [ssh\_public\_key](#input\_ssh\_public\_key) | Public SSH Key for the PowerVM to create. | `string` | n/a | yes |
-| <a name="input_tags"></a> [tags](#input\_tags) | List of tag names for the IBM Cloud PowerVS service. | `list(string)` | `null` | no |
+| <a name="input_tags"></a> [tags](#input\_tags) | List of tag names for the IBM Cloud PowerVS Workspace. | `list(string)` | `null` | no |
 | <a name="input_transit_gateway_name"></a> [transit\_gateway\_name](#input\_transit\_gateway\_name) | Name of the existing transit gateway. Required when you create new IBM Cloud connections. Set it to null if reusing cloud connections | `string` | n/a | yes |
 
 ## Outputs
@@ -125,8 +125,8 @@ module "power-infrastructure" {
 | <a name="output_powervs_backup_network_name"></a> [powervs\_backup\_network\_name](#output\_powervs\_backup\_network\_name) | Name of backup network in created PowerVS infrastructure. |
 | <a name="output_powervs_management_network_name"></a> [powervs\_management\_network\_name](#output\_powervs\_management\_network\_name) | Name of management network in created PowerVS infrastructure. |
 | <a name="output_powervs_resource_group_name"></a> [powervs\_resource\_group\_name](#output\_powervs\_resource\_group\_name) | IBM Cloud resource group where PowerVS infrastructure is created. |
-| <a name="output_powervs_service_name"></a> [powervs\_service\_name](#output\_powervs\_service\_name) | PowerVS infrastructure name. |
 | <a name="output_powervs_sshkey_name"></a> [powervs\_sshkey\_name](#output\_powervs\_sshkey\_name) | SSH public key name in created PowerVS infrastructure. |
+| <a name="output_powervs_workspace_name"></a> [powervs\_workspace\_name](#output\_powervs\_workspace\_name) | PowerVS infrastructure workspace name. |
 | <a name="output_powervs_zone"></a> [powervs\_zone](#output\_powervs\_zone) | Zone where PowerVS infrastructure is created. |
 | <a name="output_proxy_host_or_ip_port"></a> [proxy\_host\_or\_ip\_port](#output\_proxy\_host\_or\_ip\_port) | Proxy host for created PowerVS infrastructure. |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

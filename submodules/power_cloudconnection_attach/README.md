@@ -11,11 +11,11 @@ ibmcloud_api_key = "your api key" != null ? "your api key" : null
 }
 
 module "cloud_connection_attach" {
-source                  = "./submodules/power_cloudconnection_attach"
+source                      = "./submodules/power_cloudconnection_attach"
 powervs_zone                = var.powervs_zone
 powervs_resource_group_name = var.powervs_resource_group_name
-powervs_service_name        = var.powervs_service_name
-cloud_connection_count  = var.cloud_connection_count
+powervs_workspace_name      = var.powervs_workspace_name
+cloud_connection_count      = var.cloud_connection_count
 powervs_subnet_names        = var.powervs_subnet_names
 }
 ```
@@ -43,7 +43,7 @@ No modules.
 | [ibm_pi_cloud_connections.cloud_connection_ds](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/data-sources/pi_cloud_connections) | data source |
 | [ibm_pi_network.powervs_subnets_ds](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/data-sources/pi_network) | data source |
 | [ibm_resource_group.resource_group_ds](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/data-sources/resource_group) | data source |
-| [ibm_resource_instance.powervs_service_ds](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/data-sources/resource_instance) | data source |
+| [ibm_resource_instance.powervs_workspace_ds](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/data-sources/resource_instance) | data source |
 
 ## Inputs
 
@@ -51,8 +51,8 @@ No modules.
 |------|-------------|------|---------|:--------:|
 | <a name="input_cloud_connection_count"></a> [cloud\_connection\_count](#input\_cloud\_connection\_count) | Number of cloud connections where private networks should be attached to. Default is to use redundant cloud connection pair. | `number` | n/a | yes |
 | <a name="input_powervs_resource_group_name"></a> [powervs\_resource\_group\_name](#input\_powervs\_resource\_group\_name) | Existing Resource Group Name | `string` | n/a | yes |
-| <a name="input_powervs_service_name"></a> [powervs\_service\_name](#input\_powervs\_service\_name) | Existing IBM Cloud PowerVS Service Name | `string` | n/a | yes |
 | <a name="input_powervs_subnet_names"></a> [powervs\_subnet\_names](#input\_powervs\_subnet\_names) | List of IBM Cloud PowerVS subnet names to be attached to Cloud connection | `list(any)` | n/a | yes |
+| <a name="input_powervs_workspace_name"></a> [powervs\_workspace\_name](#input\_powervs\_workspace\_name) | Existing IBM Cloud PowerVS Workspace Name | `string` | n/a | yes |
 | <a name="input_powervs_zone"></a> [powervs\_zone](#input\_powervs\_zone) | IBM Cloud PowerVS Zone | `string` | n/a | yes |
 
 ## Outputs

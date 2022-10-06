@@ -8,8 +8,8 @@ variable "powervs_resource_group_name" {
   type        = string
 }
 
-variable "powervs_service_name" {
-  description = "Existing IBM Cloud PowerVS Service Name"
+variable "powervs_workspace_name" {
+  description = "Existing IBM Cloud PowerVS Workspace Name"
   type        = string
 }
 
