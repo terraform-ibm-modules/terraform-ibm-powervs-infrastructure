@@ -61,20 +61,20 @@ done
 
 if [ -f /etc/SuSE-release ]; then
   OS_DETECTED=SLES
-  echo "Executing command: cat /etc/SuSE-release"
-  echo -e "Detected OS: $OS_DETECTED \n" "$(cat /etc/SuSE-release)"
+  #  echo "Executing command: cat /etc/SuSE-release"
+  echo -e "Detected OS: $OS_DETECTED \n" # "$(cat /etc/SuSE-release)"
 fi
 
 if grep --quiet "SUSE Linux Enterprise Server" /etc/os-release; then
   OS_DETECTED=SLES
-  echo "Executing command: cat /etc/os-release"
-  echo -e "Detected OS: $OS_DETECTED \n" "$(cat /etc/os-release)"
+  #  echo "Executing command: cat /etc/os-release"
+  echo -e "Detected OS: $OS_DETECTED \n" # "$(cat /etc/os-release)"
 fi
 
 if [ -f /etc/redhat-release ]; then
   OS_DETECTED=RHEL
-  echo "Executing command: cat /etc/redhat-release"
-  echo -e "Detected OS: $OS_DETECTED \n" "$(cat /etc/redhat-release)"
+  #  echo "Executing command: cat /etc/redhat-release"
+  echo -e "Detected OS: $OS_DETECTED \n" #"$(cat /etc/redhat-release)"
 fi
 
 ###########################################
@@ -122,13 +122,14 @@ if [ "$OS_DETECTED" == "SLES" ]; then
 
       ##### check if the system is a HANA or Netweaver VM, should be a ppc64le VM
       if [[ "$ARCH" == "ppc64le" ]]; then
-        SUSEConnect --de-register
-        SUSEConnect --cleanup
+        SUSEConnect --de-register >/dev/null
+        SUSEConnect --cleanup >/dev/null
         mv /var/log/powervs-fls.log /var/log/powervs-fls.log.old
         cmd=$(grep /usr/local/bin/sles-cloud-init.sh </usr/share/powervs-fls/powervs-fls-readme.md | grep -v RMT_Server_address)
         $cmd "${proxy_ip_and_port}"
         count=1
         while [[ $count -le 15 ]]; do
+          sleep 60
           count=$((count + 1))
           if grep -i failed /var/log/powervs-fls.log; then
             echo "SLES registration has failed, exiting"
@@ -138,7 +139,6 @@ if [ "$OS_DETECTED" == "SLES" ]; then
             echo "Successfully completed SLES subscription registration process. Done"
             break
           fi
-          sleep 60
         done
       fi
 
@@ -161,19 +161,21 @@ if [ "$OS_DETECTED" == "SLES" ]; then
     ##### Activating SuSE packages
     VERSION_ID=$(grep VERSION_ID /etc/os-release | awk -F= '{ print $NF }' | sed 's/\"//g')
     ARCH=$(uname -p)
-    SUSEConnect -p PackageHub/"${VERSION_ID}"/"${ARCH}"
-    SUSEConnect -p sle-module-public-cloud/"${VERSION_ID}"/"${ARCH}"
-    zypper --gpg-auto-import-keys ref
-    zypper install -y ansible
-    zypper install -y aws-cli
+    SUSEConnect -p PackageHub/"${VERSION_ID}"/"${ARCH}" >/dev/null
+    SUSEConnect -p sle-module-public-cloud/"${VERSION_ID}"/"${ARCH}" >/dev/null
+    zypper --gpg-auto-import-keys ref >/dev/null
+    zypper install -y ansible >/dev/null
+    if [[ "$ARCH" == "x86_64" ]]; then
+      zypper install -y aws-cli >/dev/null
+      if ! which aws >/dev/null; then
+        echo "aws installation failed, exiting"
+        exit 1
+      fi
+    fi
     ##### Verify if each of above packages got installed successfully
     # check if ansible is installed or not
     if ! which ansible >/dev/null; then
       echo "ansible installation failed, exiting"
-      exit 1
-    fi
-    if ! which aws >/dev/null; then
-      echo "aws installation failed, exiting"
       exit 1
     fi
   fi
@@ -243,7 +245,6 @@ if [ "$OS_DETECTED" == "RHEL" ]; then
             echo "Successfully completed RHEL subscription registration process. Done"
             break
           fi
-
         done
       fi
 
@@ -263,16 +264,21 @@ if [ "$OS_DETECTED" == "RHEL" ]; then
   ##### if -i flag  is passed as argument, install ansible, awscli packages
   if [ "$install_packages" == true ]; then
     ##### Install Ansible, unbuffer(expect) and awscli ####
-    yum install -y ansible
-    yum install -y expect
+    yum install -y ansible >/dev/null
+    yum install -y expect >/dev/null
 
     if [[ "$ARCH" == "x86_64" ]]; then
-      yum install -y python3-pip
-      pip3 install awscli
-    fi
-
-    if [[ "$ARCH" == "ppc64le" ]]; then
-      yum install -y awscli
+      if ! subscription-manager repos --enable=rhel-8-for-x86_64-highavailability-rpms >/dev/null 2>/dev/null; then
+        yum install -y python3-pip >/dev/null 2>/dev/null
+        pip3 install awscli >/dev/null 2>/dev/null
+      else
+        yum install -y awscli >/dev/null 2>/dev/null
+      fi
+      # check if awscli is installed or not
+      if ! which aws >/dev/null; then
+        echo "aws installation failed, exiting"
+        exit 1
+      fi
     fi
 
     ##### Verify if each of above packages got installed successfully
@@ -281,9 +287,11 @@ if [ "$OS_DETECTED" == "RHEL" ]; then
       echo "ansible installation failed, exiting"
       exit 1
     fi
-    if ! which aws >/dev/null; then
-      echo "aws installation failed, exiting"
+    # check if expect is installed or not
+    if ! which unbuffer >/dev/null; then
+      echo "expect installation failed, exiting"
       exit 1
     fi
+    echo "All packages are installed successfully"
   fi
 fi
