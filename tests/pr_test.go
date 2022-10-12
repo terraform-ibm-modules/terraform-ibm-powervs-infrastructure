@@ -58,9 +58,6 @@ func TestRunUpgradeExample(t *testing.T) {
 	// DO NOT RUN MULTIPLE TESTS IN PARALLEL
 	// Parallel has been turned off on puropse due to the way we are choosing best region to run tests
 
-	// TODO: Remove this line after the first merge to master branch is complete to enable upgrade test
-	t.Skip("Skipping upgrade test until initial code is in master branch")
-
 	options := setupOptions(t, "power-infra-upg")
 
 	output, err := options.RunTestUpgrade()
