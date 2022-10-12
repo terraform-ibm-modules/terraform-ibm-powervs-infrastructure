@@ -164,6 +164,7 @@ if [ "$OS_DETECTED" == "SLES" ]; then
     SUSEConnect -p PackageHub/"${VERSION_ID}"/"${ARCH}" >/dev/null
     SUSEConnect -p sle-module-public-cloud/"${VERSION_ID}"/"${ARCH}" >/dev/null
     zypper --gpg-auto-import-keys ref >/dev/null
+    echo "Installing ansible package via zypper"
     zypper install -y ansible >/dev/null
     if [[ "$ARCH" == "x86_64" ]]; then
       zypper install -y aws-cli >/dev/null
@@ -264,14 +265,19 @@ if [ "$OS_DETECTED" == "RHEL" ]; then
   ##### if -i flag  is passed as argument, install ansible, awscli packages
   if [ "$install_packages" == true ]; then
     ##### Install Ansible, unbuffer(expect) and awscli ####
-    yum install -y ansible >/dev/null
-    yum install -y expect >/dev/null
+    echo "Installing python3-pip package via yum"
+    yum install -y python3-pip  >/dev/null 2>/dev/null
+    echo "Installing expect package via yum"
+    yum install -y expect >/dev/null 2>/dev/null
+    echo "Installing ansible using pip3 package"
+    pip3 install ansible >/dev/null 2>/dev/null
 
     if [[ "$ARCH" == "x86_64" ]]; then
       if ! subscription-manager repos --enable=rhel-8-for-x86_64-highavailability-rpms >/dev/null 2>/dev/null; then
-        yum install -y python3-pip >/dev/null 2>/dev/null
+        echo "Installing awscli package using pip"
         pip3 install awscli >/dev/null 2>/dev/null
       else
+        echo "Installing awscli package using yum"
         yum install -y awscli >/dev/null 2>/dev/null
       fi
       # check if awscli is installed or not
