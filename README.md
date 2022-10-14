@@ -7,6 +7,7 @@ The PowerVS infrastructure module automates the following tasks:
 - Creates two IBM Cloud connections with an option to reuse cloud connections
 - Attaches the IBM Cloud connections to a transit gateway
 - Attaches the private networks to the IBM Cloud connections
+- Installs and configures the Squid Proxy, DNS Forwarder, NTP Forwarder and NFS on specified host and sets the host as server for these services
 
 Following limitations currently apply:
 - The only number of IBM Cloud connections we support is **two**.
