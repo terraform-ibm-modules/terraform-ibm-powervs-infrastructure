@@ -3,7 +3,10 @@
 This example illustrates how to use the `power-infrastructure` module.
 It provisions the following infrastructure:
 - Creates a [PowerVS workspace instance](https://cloud.ibm.com/docs/power-iaas?topic=power-iaas-getting-started) with 2 private networks (management network and backup network) <br/>
-- Creates a ssh key
+- Creates a ssh key.
+- Creates a transit gateway.
+- Creates a Cloud connection and attaches it to transit gateway.
+- Attaches the private networks to cloud connection.
 
 :warning: For experimentation purposes only.
 For ease of use, this quick start example generates a private/public ssh key pair. The private key generated in this example will be stored unencrypted in your Terraform state file.
@@ -40,7 +43,7 @@ Use of this resource for production deployments is not recommended. Instead, gen
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_access_host_or_ip"></a> [access\_host\_or\_ip](#input\_access\_host\_or\_ip) | The public IP address for the jump or Bastion server. The address is used to reach the target or server\_host IP address and to configure the DNS, NTP, NFS, and Squid proxy services. | `string` | `null` | no |
-| <a name="input_cloud_connection_count"></a> [cloud\_connection\_count](#input\_cloud\_connection\_count) | Required number of Cloud connections to create or reuse. The maximum number of connections is two per location. | `number` | `0` | no |
+| <a name="input_cloud_connection_count"></a> [cloud\_connection\_count](#input\_cloud\_connection\_count) | Required number of Cloud connections to create or reuse. The maximum number of connections is two per location. | `number` | `1` | no |
 | <a name="input_cloud_connection_gr"></a> [cloud\_connection\_gr](#input\_cloud\_connection\_gr) | Whether to enable global routing for this IBM Cloud connection. You can specify thia value when you create a connection. | `bool` | `true` | no |
 | <a name="input_cloud_connection_metered"></a> [cloud\_connection\_metered](#input\_cloud\_connection\_metered) | Whether to enable metering for this IBM Cloud connection. You can specify thia value when you create a connection. | `bool` | `false` | no |
 | <a name="input_cloud_connection_speed"></a> [cloud\_connection\_speed](#input\_cloud\_connection\_speed) | Speed in megabits per second. Supported values are 50, 100, 200, 500, 1000, 2000, 5000, 10000. Required when you create a connection. | `number` | `5000` | no |

@@ -67,7 +67,7 @@ variable "reuse_cloud_connections" {
 variable "cloud_connection_count" {
   description = "Required number of Cloud connections to create or reuse. The maximum number of connections is two per location."
   type        = number
-  default     = 0
+  default     = 1
 }
 
 variable "cloud_connection_speed" {
