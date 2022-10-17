@@ -6,7 +6,7 @@ It provisions the following infrastructure:
 - Creates a ssh key.
 - Creates a transit gateway.
 - Creates a Cloud connection and attaches it to transit gateway.
-- Attaches the private networks to cloud connection.
+- Attaches the PowerVS workspace instance private networks to the IBM Cloud connection.
 
 :warning: For experimentation purposes only.
 For ease of use, this quick start example generates a private/public ssh key pair. The private key generated in this example will be stored unencrypted in your Terraform state file.

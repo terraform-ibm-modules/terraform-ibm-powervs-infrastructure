@@ -9,7 +9,7 @@ If reusing cloud connections make sure cloud connection is already attached to t
 (3) Attaches the IBM Cloud connections to a [transit gateway](https://cloud.ibm.com/docs/transit-gateway?topic=transit-gateway-getting-started) <br/>
 (4) Attaches the PowerVS workspace instance private networks to the IBM Cloud connections <br/>
 (5) Creates a ssh key
-(6) Option to Install and configures the Squid Proxy, DNS Forwarder, NTP Forwarder, NFS on specified host and sets the host as server for these services
+(6) Option to Install and configure the Squid Proxy, DNS Forwarder, NTP Forwarder, NFS on specified host and sets the host as server for these services
 
 **Note**: Edit the sample **input.tfvars** file and deploy `terraform apply -var-file=input.tfvars`
 
