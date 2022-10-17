@@ -35,7 +35,7 @@ func setupOptions(t *testing.T, prefix string) *testhelper.TestOptions {
 		"prefix":                  options.Prefix,
 		"resource_group":          options.ResourceGroup,
 		"reuse_cloud_connections": false,
-		"cloud_connection_count":  1,
+		"cloud_connection_count":  0,
 		"cloud_connection_speed":  50,
 		"powervs_zone":            options.Region,
 	}
