@@ -1,5 +1,5 @@
 #####################################################
-# IBM Cloud PowerVS service Module
+# IBM Cloud PowerVS Workspace Module
 #####################################################
 
 terraform {
@@ -13,7 +13,7 @@ terraform {
     }
     time = {
       source  = "hashicorp/time"
-      version = "0.8.0"
+      version = ">= 0.8.0"
     }
   }
 }

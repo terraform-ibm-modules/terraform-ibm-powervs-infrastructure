@@ -10,12 +10,12 @@ module "initial_validation" {
   }
 }
 
-module "power_service" {
-  source = "./submodules/power_service"
+module "power_workspace" {
+  source = "./submodules/power_workspace"
 
   powervs_zone                = var.powervs_zone
   powervs_resource_group_name = var.powervs_resource_group_name
-  powervs_service_name        = var.powervs_service_name
+  powervs_workspace_name      = var.powervs_workspace_name
   tags                        = var.tags
   powervs_image_names         = var.powervs_image_names
   powervs_sshkey_name         = var.powervs_sshkey_name
@@ -26,11 +26,11 @@ module "power_service" {
 
 module "cloud_connection_create" {
   source                      = "./submodules/power_cloudconnection_create"
-  depends_on                  = [module.power_service]
+  depends_on                  = [module.power_workspace]
   count                       = var.reuse_cloud_connections ? 0 : 1
   powervs_zone                = var.powervs_zone
   powervs_resource_group_name = var.powervs_resource_group_name
-  powervs_service_name        = var.powervs_service_name
+  powervs_workspace_name      = var.powervs_workspace_name
   transit_gateway_name        = var.transit_gateway_name
   cloud_connection_count      = var.cloud_connection_count
   cloud_connection_speed      = var.cloud_connection_speed
@@ -41,10 +41,10 @@ module "cloud_connection_create" {
 
 module "cloud_connection_attach" {
   source                      = "./submodules/power_cloudconnection_attach"
-  depends_on                  = [module.power_service, module.cloud_connection_create]
+  depends_on                  = [module.power_workspace, module.cloud_connection_create]
   powervs_zone                = var.powervs_zone
   powervs_resource_group_name = var.powervs_resource_group_name
-  powervs_service_name        = var.powervs_service_name
+  powervs_workspace_name      = var.powervs_workspace_name
   cloud_connection_count      = var.cloud_connection_count
   powervs_subnet_names        = [var.powervs_management_network.name, var.powervs_backup_network.name]
 }

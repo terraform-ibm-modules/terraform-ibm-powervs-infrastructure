@@ -6,8 +6,8 @@ data "ibm_resource_group" "resource_group_ds" {
   name = var.powervs_resource_group_name
 }
 
-data "ibm_resource_instance" "powervs_service_ds" {
-  name              = var.powervs_service_name
+data "ibm_resource_instance" "powervs_workspace_ds" {
+  name              = var.powervs_workspace_name
   service           = local.service_type
   location          = var.powervs_zone
   resource_group_id = data.ibm_resource_group.resource_group_ds.id
@@ -20,7 +20,7 @@ data "ibm_resource_instance" "powervs_service_ds" {
 
 data "ibm_pi_network" "powervs_subnets_ds" {
   count                = length(var.powervs_subnet_names)
-  pi_cloud_instance_id = data.ibm_resource_instance.powervs_service_ds.guid
+  pi_cloud_instance_id = data.ibm_resource_instance.powervs_workspace_ds.guid
   pi_network_name      = var.powervs_subnet_names[count.index]
 }
 
@@ -29,7 +29,7 @@ data "ibm_pi_network" "powervs_subnets_ds" {
 #####################################################
 
 data "ibm_pi_cloud_connections" "cloud_connection_ds" {
-  pi_cloud_instance_id = data.ibm_resource_instance.powervs_service_ds.guid
+  pi_cloud_instance_id = data.ibm_resource_instance.powervs_workspace_ds.guid
 }
 
 #########################################################################
@@ -39,7 +39,7 @@ data "ibm_pi_cloud_connections" "cloud_connection_ds" {
 resource "ibm_pi_cloud_connection_network_attach" "powervs_subnet_mgmt_nw_attach" {
   depends_on             = [data.ibm_pi_network.powervs_subnets_ds[0]]
   count                  = var.cloud_connection_count > 0 ? 1 : 0
-  pi_cloud_instance_id   = data.ibm_resource_instance.powervs_service_ds.guid
+  pi_cloud_instance_id   = data.ibm_resource_instance.powervs_workspace_ds.guid
   pi_cloud_connection_id = data.ibm_pi_cloud_connections.cloud_connection_ds.connections[0].cloud_connection_id
   pi_network_id          = data.ibm_pi_network.powervs_subnets_ds[0].id
 }
@@ -47,7 +47,7 @@ resource "ibm_pi_cloud_connection_network_attach" "powervs_subnet_mgmt_nw_attach
 resource "ibm_pi_cloud_connection_network_attach" "powervs_subnet_bkp_nw_attach" {
   depends_on             = [ibm_pi_cloud_connection_network_attach.powervs_subnet_mgmt_nw_attach, data.ibm_pi_network.powervs_subnets_ds[1]]
   count                  = var.cloud_connection_count > 0 ? 1 : 0
-  pi_cloud_instance_id   = data.ibm_resource_instance.powervs_service_ds.guid
+  pi_cloud_instance_id   = data.ibm_resource_instance.powervs_workspace_ds.guid
   pi_cloud_connection_id = data.ibm_pi_cloud_connections.cloud_connection_ds.connections[0].cloud_connection_id
   pi_network_id          = data.ibm_pi_network.powervs_subnets_ds[1].id
 }
@@ -55,7 +55,7 @@ resource "ibm_pi_cloud_connection_network_attach" "powervs_subnet_bkp_nw_attach"
 resource "ibm_pi_cloud_connection_network_attach" "powervs_subnet_mgmt_nw_attach_backup" {
   depends_on             = [ibm_pi_cloud_connection_network_attach.powervs_subnet_bkp_nw_attach]
   count                  = var.cloud_connection_count > 1 ? 1 : 0
-  pi_cloud_instance_id   = data.ibm_resource_instance.powervs_service_ds.guid
+  pi_cloud_instance_id   = data.ibm_resource_instance.powervs_workspace_ds.guid
   pi_cloud_connection_id = data.ibm_pi_cloud_connections.cloud_connection_ds.connections[1].cloud_connection_id
   pi_network_id          = data.ibm_pi_network.powervs_subnets_ds[0].id
 }
@@ -63,7 +63,7 @@ resource "ibm_pi_cloud_connection_network_attach" "powervs_subnet_mgmt_nw_attach
 resource "ibm_pi_cloud_connection_network_attach" "powervs_subnet_bkp_nw_attach_backup" {
   count                  = var.cloud_connection_count > 1 ? 1 : 0
   depends_on             = [ibm_pi_cloud_connection_network_attach.powervs_subnet_mgmt_nw_attach_backup]
-  pi_cloud_instance_id   = data.ibm_resource_instance.powervs_service_ds.guid
+  pi_cloud_instance_id   = data.ibm_resource_instance.powervs_workspace_ds.guid
   pi_cloud_connection_id = data.ibm_pi_cloud_connections.cloud_connection_ds.connections[1].cloud_connection_id
   pi_network_id          = data.ibm_pi_network.powervs_subnets_ds[1].id
 }

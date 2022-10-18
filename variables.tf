@@ -1,6 +1,10 @@
 variable "powervs_zone" {
   description = "IBM Cloud PowerVS zone."
   type        = string
+  validation {
+    condition     = contains(["sao01", "syd04", "syd05", "osa21", "tok04", "eu-de-1", "eu-de-2"], var.powervs_zone)
+    error_message = "Only Following DCs are tested and verified : sao01, syd04, syd05, osa21, tok04, eu-de-1, eu-de-2."
+  }
 }
 
 variable "powervs_resource_group_name" {
@@ -8,10 +12,10 @@ variable "powervs_resource_group_name" {
   type        = string
 }
 
-variable "powervs_service_name" {
-  description = "Name of the PowerVS service to create."
+variable "powervs_workspace_name" {
+  description = "Name of the PowerVS workspace to create."
   type        = string
-  default     = "power-service"
+  default     = "power-workspace"
 }
 
 variable "powervs_sshkey_name" {
@@ -26,7 +30,7 @@ variable "ssh_public_key" {
 }
 
 variable "ssh_private_key" {
-  description = "Private SSH key used to login to IBM PowerVS instances. Should match to uploaded public SSH key referenced by 'ssh_public_key'. Entered data must be in heredoc strings format (https://www.terraform.io/language/expressions/strings#heredoc-strings). The key is not uploaded or stored."
+  description = "Private SSH key (RSA format) used to login to IBM PowerVS instances. Should match to uploaded public SSH key referenced by 'ssh_public_key'. Entered data must be in heredoc strings format (https://www.terraform.io/language/expressions/strings#heredoc-strings). The key is not uploaded or stored."
   type        = string
   sensitive   = true
 }
@@ -56,9 +60,8 @@ variable "powervs_backup_network" {
 }
 
 variable "transit_gateway_name" {
-  description = "Name of the existing transit gateway. Required when you create new IBM Cloud connections."
+  description = "Name of the existing transit gateway. Required when you create new IBM Cloud connections. Set it to null if reusing cloud connections"
   type        = string
-  default     = null
 }
 
 variable "reuse_cloud_connections" {
@@ -84,7 +87,7 @@ variable "cloud_connection_speed" {
 #####################################################
 
 variable "tags" {
-  description = "List of tag names for the IBM Cloud PowerVS service."
+  description = "List of tag names for the IBM Cloud PowerVS Workspace."
   type        = list(string)
   default     = null
 }
@@ -108,7 +111,7 @@ variable "cloud_connection_metered" {
 }
 
 variable "access_host_or_ip" {
-  description = "The public IP address or hostname for the access host. The address is used to reach the target or server_host IP address and to configure the DNS, NTP, NFS, and Squid proxy services."
+  description = "The public IP address or hostname for the access host. The address is used to reach the target or server_host IP address and to configure the DNS, NTP, NFS, and Squid proxy services. Set it to null if you do not want to configure any services."
   type        = string
   default     = null
 }
@@ -118,10 +121,12 @@ variable "squid_config" {
   type = object({
     squid_enable      = bool
     server_host_or_ip = string
+    squid_port        = string
   })
   default = {
     "squid_enable"      = "false"
     "server_host_or_ip" = ""
+    "squid_port"        = "3128"
   }
 }
 
@@ -171,6 +176,7 @@ variable "perform_proxy_client_setup" {
     {
       squid_client_ips = list(string)
       squid_server_ip  = string
+      squid_port       = string
       no_proxy_env     = string
     }
   )

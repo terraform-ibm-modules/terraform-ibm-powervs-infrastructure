@@ -8,8 +8,8 @@ variable "powervs_resource_group_name" {
   type        = string
 }
 
-variable "powervs_service_name" {
-  description = "Existing IBM Cloud PowerVS Service Name"
+variable "powervs_workspace_name" {
+  description = "Existing IBM Cloud PowerVS Workspace Name"
   type        = string
 }
 
@@ -21,5 +21,4 @@ variable "powervs_subnet_names" {
 variable "cloud_connection_count" {
   description = "Number of cloud connections where private networks should be attached to. Default is to use redundant cloud connection pair."
   type        = number
-  default     = 2
 }
