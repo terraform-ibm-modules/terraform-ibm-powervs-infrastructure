@@ -4,7 +4,7 @@
 
 locals {
   scripts_location     = "${path.module}/scripts"
-  squidscript_location = "${local.scripts_location}/squid_proxy.sh"
+  squidscript_location = "${local.scripts_location}/services_init.sh"
 }
 
 resource "null_resource" "perform_proxy_client_setup" {
@@ -23,14 +23,14 @@ resource "null_resource" "perform_proxy_client_setup" {
 
   provisioner "file" {
     source      = local.squidscript_location
-    destination = "/root/squid_proxy.sh"
+    destination = "/root/services_init.sh"
   }
 
   provisioner "remote-exec" {
     inline = [
       #######  SQUID Forward PROXY CLIENT SETUP ############
-      "chmod +x /root/squid_proxy.sh",
-      "/root/squid_proxy.sh -p ${var.perform_proxy_client_setup["squid_server_ip"]}:3128 -n ${var.perform_proxy_client_setup["no_proxy_env"]}",
+      "chmod +x /root/services_init.sh",
+      "/root/services_init.sh -p ${var.perform_proxy_client_setup["squid_server_ip"]}:${var.perform_proxy_client_setup["squid_port"]} -n ${var.perform_proxy_client_setup["no_proxy_env"]}",
     ]
   }
 
@@ -55,14 +55,14 @@ resource "null_resource" "install_packages" {
 
   provisioner "file" {
     source      = local.squidscript_location
-    destination = "/root/squid_proxy.sh"
+    destination = "/root/services_init.sh"
   }
 
   provisioner "remote-exec" {
     inline = [
       #######  Install packages ############
-      "chmod +x /root/squid_proxy.sh",
-      "/root/squid_proxy.sh -i",
+      "chmod +x /root/services_init.sh",
+      "/root/services_init.sh -i",
     ]
   }
 }

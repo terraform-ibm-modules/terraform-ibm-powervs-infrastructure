@@ -1,6 +1,6 @@
-output "powervs_service_name" {
-  description = "PowerVS infrastructure name."
-  value       = module.powervs_infra.powervs_service_name
+output "powervs_workspace_name" {
+  description = "PowerVS infrastructure workspace name."
+  value       = module.powervs_infra.powervs_workspace_name
 }
 
 output "powervs_sshkey_name" {
@@ -38,9 +38,9 @@ output "access_host_or_ip" {
   value       = module.powervs_infra.access_host_or_ip
 }
 
-output "squid_host_or_ip" {
-  description = "Proxy host for created PowerVS infrastructure."
-  value       = module.powervs_infra.squid_host_or_ip
+output "proxy_host_or_ip_port" {
+  description = "Proxy host:port for created PowerVS infrastructure."
+  value       = module.powervs_infra.proxy_host_or_ip_port
 }
 
 output "dns_host_or_ip" {

@@ -90,7 +90,7 @@ module "resource_group" {
 resource "ibm_tg_gateway" "powervs_gateway" {
   count          = local.provision_transit_gateway ? 1 : 0
   provider       = ibm.ibm-is
-  name           = "${var.prefix}-${var.powervs_service_name}-tgw"
+  name           = "${var.prefix}-${var.powervs_workspace_name}-tgw"
   location       = lookup(local.ibm_powervs_zone_cloud_region_map, var.powervs_zone, null)
   global         = true
   resource_group = module.resource_group.resource_group_id
@@ -115,7 +115,7 @@ module "powervs_infra" {
 
   powervs_zone                = var.powervs_zone
   powervs_resource_group_name = module.resource_group.resource_group_name
-  powervs_service_name        = "${var.prefix}-${var.powervs_zone}-${var.powervs_service_name}"
+  powervs_workspace_name      = "${var.prefix}-${var.powervs_zone}-${var.powervs_workspace_name}"
   tags                        = var.resource_tags
   powervs_image_names         = var.powervs_image_names
   powervs_sshkey_name         = "${var.prefix}-${var.powervs_zone}-${var.powervs_sshkey_name}"

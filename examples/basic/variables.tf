@@ -1,11 +1,7 @@
 variable "powervs_zone" {
-  description = "IBM Cloud data center location where IBM PowerVS infrastructure will be created. Following locations are currently supported: syd04, syd05, eu-de-1, eu-de-2, lon04, lon06, wdc04, us-east, us-south, dal12, dal13, tor01, tok04, osa21, sao01, mon01"
+  description = "IBM Cloud data center location where IBM PowerVS infrastructure will be created. Following locations are currently supported: syd04, syd05, eu-de-1, eu-de-2, tok04, osa21, sao01"
   type        = string
   default     = "syd04"
-  validation {
-    condition     = contains(["syd04", "syd05", "eu-de-1", "eu-de-2", "lon04", "lon06", "wdc04", "us-east", "us-south", "dal12", "dal13", "tor01", "tok04", "osa21", "sao01", "mon01"], var.powervs_zone)
-    error_message = "Supported values for powervs_zone are: syd04, syd05, eu-de-1, eu-de-2, lon04, lon06, wdc04, us-east, us-south, dal12, dal13, tor01, tok04, osa21, sao01, mon01."
-  }
 }
 
 variable "resource_group" {
@@ -20,10 +16,10 @@ variable "prefix" {
   default     = "pvs"
 }
 
-variable "powervs_service_name" {
-  description = "Name of the PowerVS service to create"
+variable "powervs_workspace_name" {
+  description = "Name of the PowerVS workspace to create"
   type        = string
-  default     = "power-service"
+  default     = "power-workspace"
 }
 
 variable "powervs_sshkey_name" {
@@ -65,13 +61,13 @@ variable "transit_gateway_name" {
 variable "reuse_cloud_connections" {
   description = "When true, IBM Cloud connections are reused (if attached to the transit gateway)."
   type        = bool
-  default     = true
+  default     = false
 }
 
 variable "cloud_connection_count" {
   description = "Required number of Cloud connections to create or reuse. The maximum number of connections is two per location."
   type        = number
-  default     = 0
+  default     = 1
 }
 
 variable "cloud_connection_speed" {
@@ -92,7 +88,7 @@ variable "ibmcloud_api_key" {
 
 variable "resource_tags" {
   type        = list(string)
-  description = "Optional List of tag names for the IBM Cloud PowerVS service"
+  description = "Optional List of tag names for the IBM Cloud PowerVS Workspace"
   default     = []
 }
 
@@ -125,10 +121,12 @@ variable "squid_config" {
   type = object({
     squid_enable      = bool
     server_host_or_ip = string
+    squid_port        = string
   })
   default = {
     "squid_enable"      = "false"
     "server_host_or_ip" = ""
+    "squid_port"        = "3128"
   }
 }
 
@@ -179,6 +177,7 @@ variable "perform_proxy_client_setup" {
       squid_client_ips = list(string)
       squid_server_ip  = string
       no_proxy_env     = string
+      squid_port       = string
     }
   )
   default = null

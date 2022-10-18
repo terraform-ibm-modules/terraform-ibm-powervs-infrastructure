@@ -1,6 +1,6 @@
-output "powervs_service_name" {
-  description = "PowerVS infrastructure name."
-  value       = var.powervs_service_name
+output "powervs_workspace_name" {
+  description = "PowerVS infrastructure workspace name."
+  value       = var.powervs_workspace_name
 }
 
 output "powervs_sshkey_name" {
@@ -38,9 +38,9 @@ output "access_host_or_ip" {
   value       = var.access_host_or_ip
 }
 
-output "squid_host_or_ip" {
+output "proxy_host_or_ip_port" {
   description = "Proxy host for created PowerVS infrastructure."
-  value       = var.squid_config["server_host_or_ip"]
+  value       = var.perform_proxy_client_setup != null ? "${var.perform_proxy_client_setup["squid_server_ip"]}:${var.perform_proxy_client_setup["squid_port"]}" : null
 }
 
 output "dns_host_or_ip" {

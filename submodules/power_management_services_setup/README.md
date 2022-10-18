@@ -47,8 +47,8 @@ No modules.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_access_host_or_ip"></a> [access\_host\_or\_ip](#input\_access\_host\_or\_ip) | Jump/Bastion server Public IP to reach the target/server\_host ip to configure the DNS,NTP,NFS,SQUID services | `string` | n/a | yes |
-| <a name="input_perform_proxy_client_setup"></a> [perform\_proxy\_client\_setup](#input\_perform\_proxy\_client\_setup) | Configures a Vm/Lpar to have internet access by setting proxy on it. | <pre>object(<br>    {<br>      squid_client_ips = list(string)<br>      squid_server_ip  = string<br>      no_proxy_env     = string<br>    }<br>  )</pre> | `null` | no |
-| <a name="input_service_config"></a> [service\_config](#input\_service\_config) | Name of the existing transit gateway. Required when creating new cloud connections | `map(any)` | `{}` | no |
+| <a name="input_perform_proxy_client_setup"></a> [perform\_proxy\_client\_setup](#input\_perform\_proxy\_client\_setup) | Configures a Vm/Lpar to have internet access by setting proxy on it. | <pre>object(<br>    {<br>      squid_client_ips = list(string)<br>      squid_server_ip  = string<br>      squid_port       = string<br>      no_proxy_env     = string<br>    }<br>  )</pre> | n/a | yes |
+| <a name="input_service_config"></a> [service\_config](#input\_service\_config) | An object which contains configuration for NFS, NTP, DNS, Squid Services | `map(any)` | `{}` | no |
 | <a name="input_ssh_private_key"></a> [ssh\_private\_key](#input\_ssh\_private\_key) | Private SSH key used to login to IBM PowerVS instances.Entered data must be in heredoc strings format (https://www.terraform.io/language/expressions/strings#heredoc-strings). The key is not uploaded or stored. | `string` | n/a | yes |
 | <a name="input_target_server_ip"></a> [target\_server\_ip](#input\_target\_server\_ip) | Target/server\_host ip on which the DNS,NTP,NFS,SQUID services will be configured. | `string` | n/a | yes |
 
