@@ -1,18 +1,14 @@
-# Basic PowerVS Infrastructure Module Example
+# Basic example for Power infrastructure for regulated industries
 
-This example illustrates how to use the `power-infrastructure` module.
-It provisions the following infrastructure:
-- Creates a [PowerVS workspace instance](https://cloud.ibm.com/docs/power-iaas?topic=power-iaas-getting-started) with 2 private networks (management network and backup network) <br/>
-- Creates a ssh key.
+This example illustrates a simple way to use the `power-infrastructure` module. It provisions the following infrastructure:
+
+- Creates a PowerVS workspace instance with two private networks (a management network and a backup network)
+- Creates an SSH key
 - Creates a transit gateway.
-- Creates a Cloud connection and attaches it to transit gateway.
-- Attaches the PowerVS workspace instance private networks to the IBM Cloud connection.
+- Creates an IBM Cloud connection and attaches it to transit gateway
+- Attaches the PowerVS workspace instance private networks to the IBM Cloud connection
 
-:warning: For experimentation purposes only.
-For ease of use, this quick start example generates a private/public ssh key pair. The private key generated in this example will be stored unencrypted in your Terraform state file.
-Use of this resource for production deployments is not recommended. Instead, generate a ssh key pair outside of Terraform and pass the public key via the [ssh_public_key input](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/tree/v0.1#input_ssh_public_key)
-
-
+:exclamation: **Important:** Use this example code for experimentation purposes only. For ease of use, this example generates a public-private SSH key pair. The private key that is generated in this example is stored unencrypted in your Terraform state file. Do not use this example in production. Instead, generate an SSH key pair outside the Terraform logic and pass the public key through the `ssh_public_key` input variable.
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
@@ -82,7 +78,3 @@ Use of this resource for production deployments is not recommended. Instead, gen
 | <a name="output_powervs_zone"></a> [powervs\_zone](#output\_powervs\_zone) | Zone where PowerVS infrastructure is created. |
 | <a name="output_proxy_host_or_ip_port"></a> [proxy\_host\_or\_ip\_port](#output\_proxy\_host\_or\_ip\_port) | Proxy host for created PowerVS infrastructure. |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
-
-## Note
-
-For all optional fields, default values (Eg: `null`) are given in variable.tf file. User can configure the same by overwriting with appropriate values.

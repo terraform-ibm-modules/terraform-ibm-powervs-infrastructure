@@ -14,7 +14,7 @@ The Power infrastructure for regulated industries module automates the following
 - Creates an IBM® Power Systems™ Virtual Server (PowerVS) workspace
 - Creates an SSH key
 - Creates two private networks: a management network and a backup network
-- Creates two IBM Cloud connections with an option to reuse cloud connections
+- Creates two [IBM Cloud connections](https://cloud.ibm.com/docs/power-iaas?topic=power-iaas-cloud-connections) with an option to reuse the connections
 - Attaches the IBM Cloud connections to a transit gateway
 - Attaches the private networks to the IBM Cloud connections
 - Installs and configures the Squid Proxy, DNS Forwarder, NTP Forwarder and NFS on specified host, and sets the host as server for these services
@@ -27,6 +27,8 @@ The following limitations apply to the module:
 - Only the following operating systems are supported:
     - SUSE Linux Enterprise Server (SLES) version 15 SP3
     - Red Hat Enterprise Linux (RHEL) version 8.4
+
+For more information about IBM Power Systems Virtual Server see the [getting started](https://cloud.ibm.com/docs/power-iaas?topic=power-iaas-getting-started) IBM Cloud docs.
 
 ## Usage
 ```hcl
@@ -98,9 +100,9 @@ statement instead the previous block.
 <!-- BEGIN EXAMPLES HOOK -->
 ## Examples
 
-- [ Basic PowerVS Infrastructure Module Example](examples/basic)
-- [ Catalog PowerVS Infrastructure Module Example](examples/ibm-catalog/standard-solution)
-- [ Standard PowerVS Infrastructure Module Example](examples/standard)
+- [ Basic example for Power infrastructure for regulated industries](examples/basic)
+- [ Catalog example for Power infrastructure for regulated industries](examples/ibm-catalog/standard-solution)
+- [ Standard example for Power infrastructure for regulated industries](examples/standard)
 <!-- END EXAMPLES HOOK -->
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

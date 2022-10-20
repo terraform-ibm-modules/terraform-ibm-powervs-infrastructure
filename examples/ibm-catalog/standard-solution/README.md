@@ -1,18 +1,18 @@
-# Catalog PowerVS Infrastructure Module Example
+# Catalog example for Power infrastructure for regulated industries
 
-This example illustrates how to use the `power-infrastructure` module.
-It provisions the following infrastructure
-- Creates a [PowerVS workspace instance](https://cloud.ibm.com/docs/power-iaas?topic=power-iaas-getting-started) with the following network topology <br/>
-(1) 2 private networks, management network and backup network <br/>
-(2) 1 or 2 [IBM Cloud connection](https://cloud.ibm.com/docs/power-iaas?topic=power-iaas-cloud-connections), with the option to reuse existing IBM Cloud connections <br/>
-(3) The IBM Cloud connections are attached to a [transit gateway](https://cloud.ibm.com/docs/transit-gateway?topic=transit-gateway-getting-started) <br/>
-(4) Attaches the PowerVS workspace instance private networks to the IBM Cloud connections <br/>
-(5) Creates a ssh key <br/>
-(6) Installs and configures the Squid Proxy, DNS Forwarder, NTP Forwarder, NFS on specified host and sets the host as server for these services.
+This example illustrates how to use the `power-infrastructure` module in the IBM catalog. It provisions the following infrastructure:
 
+- A PowerVS workspace instance with the following network topology:
+    - Creates two private networks: a management network and a backup network
+    - Creates one or two IBM Cloud connections with an option to reuse the connections
+    - Attaches the IBM Cloud connections to a transit gateway
+    - Attaches the private networks to the IBM Cloud connections
+    - Creates an SSH key
+    - Installs and configures the Squid Proxy, DNS Forwarder, NTP Forwarder and NFS on specified host, and sets the host as server for these services
 
-## Prerequisites
-Make sure you installed the Power flavor of version 0.0.19 or higher of Secure Landing Zone VPC with VSIs.
+## Before you begin
+
+Install a current version of the [IBM Secure Landing Zone VSI](https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone-vsi) module.
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
@@ -79,7 +79,3 @@ Make sure you installed the Power flavor of version 0.0.19 or higher of Secure L
 | <a name="output_powervs_zone"></a> [powervs\_zone](#output\_powervs\_zone) | Zone where PowerVS infrastructure is created. |
 | <a name="output_proxy_host_or_ip_port"></a> [proxy\_host\_or\_ip\_port](#output\_proxy\_host\_or\_ip\_port) | Proxy host:port for created PowerVS infrastructure. |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
-
-## Note
-
-For all optional fields, default values (Eg: `null`) are given in variable.tf file. User can configure the same by overwriting with appropriate values.
