@@ -248,6 +248,7 @@
     "access_host_or_ip": {
       "name": "access_host_or_ip",
       "description": "Access host for created PowerVS infrastructure.",
+      "value": "var.access_host_or_ip",
       "pos": {
         "filename": "outputs.tf",
         "line": 36
@@ -256,6 +257,7 @@
     "cloud_connection_count": {
       "name": "cloud_connection_count",
       "description": "Number of cloud connections configured in created PowerVS infrastructure.",
+      "value": "var.cloud_connection_count",
       "pos": {
         "filename": "outputs.tf",
         "line": 21
@@ -264,6 +266,7 @@
     "dns_host_or_ip": {
       "name": "dns_host_or_ip",
       "description": "DNS forwarder host for created PowerVS infrastructure.",
+      "value": "var.dns_forwarder_config",
       "pos": {
         "filename": "outputs.tf",
         "line": 46
@@ -280,6 +283,7 @@
     "ntp_host_or_ip": {
       "name": "ntp_host_or_ip",
       "description": "NTP host for created PowerVS infrastructure.",
+      "value": "var.ntp_forwarder_config",
       "pos": {
         "filename": "outputs.tf",
         "line": 51
@@ -288,6 +292,7 @@
     "powervs_backup_network_name": {
       "name": "powervs_backup_network_name",
       "description": "Name of backup network in created PowerVS infrastructure.",
+      "value": "var.powervs_backup_network",
       "pos": {
         "filename": "outputs.tf",
         "line": 31
@@ -296,6 +301,7 @@
     "powervs_management_network_name": {
       "name": "powervs_management_network_name",
       "description": "Name of management network in created PowerVS infrastructure.",
+      "value": "var.powervs_management_network",
       "pos": {
         "filename": "outputs.tf",
         "line": 26
@@ -304,6 +310,7 @@
     "powervs_resource_group_name": {
       "name": "powervs_resource_group_name",
       "description": "IBM Cloud resource group where PowerVS infrastructure is created.",
+      "value": "var.powervs_resource_group_name",
       "pos": {
         "filename": "outputs.tf",
         "line": 16
@@ -312,6 +319,7 @@
     "powervs_sshkey_name": {
       "name": "powervs_sshkey_name",
       "description": "SSH public key name in created PowerVS infrastructure.",
+      "value": "var.powervs_sshkey_name",
       "pos": {
         "filename": "outputs.tf",
         "line": 6
@@ -320,6 +328,7 @@
     "powervs_workspace_name": {
       "name": "powervs_workspace_name",
       "description": "PowerVS infrastructure workspace name.",
+      "value": "var.powervs_workspace_name",
       "pos": {
         "filename": "outputs.tf",
         "line": 1
@@ -328,6 +337,7 @@
     "powervs_zone": {
       "name": "powervs_zone",
       "description": "Zone where PowerVS infrastructure is created.",
+      "value": "var.powervs_zone",
       "pos": {
         "filename": "outputs.tf",
         "line": 11
