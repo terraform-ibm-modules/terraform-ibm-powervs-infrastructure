@@ -1,19 +1,32 @@
-# PowerVS Infrastructure Module
+<!-- BEGIN MODULE HOOK -->
 
-The PowerVS infrastructure module automates the following tasks:
-- Creates the PowerVS Workspace
-- Creates an ssh key
+# IBM Power infrastructure for regulated industries module
+
+<!-- UPDATE BADGE: Update the link for the badge below-->
+[![Graduated (Supported)](https://img.shields.io/badge/status-Graduated%20(Supported)-brightgreen?style=plastic)](https://terraform-ibm-modules.github.io/documentation/#/badge-status)
+[![build status](https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone/actions/workflows/ci.yml/badge.svg)](https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone/actions/workflows/ci.yml)
+[![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
+[![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)
+[![latest release](https://img.shields.io/github/v/release/terraform-ibm-modules/terraform-ibm-powervs-infrastructure?logo=GitHub&sort=semver)](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/releases/latest)
+
+The Power infrastructure for regulated industries module automates the following tasks:
+
+- Creates an IBM® Power Systems™ Virtual Server (PowerVS) workspace
+- Creates an SSH key
 - Creates two private networks: a management network and a backup network
 - Creates two IBM Cloud connections with an option to reuse cloud connections
 - Attaches the IBM Cloud connections to a transit gateway
 - Attaches the private networks to the IBM Cloud connections
-- Installs and configures the Squid Proxy, DNS Forwarder, NTP Forwarder and NFS on specified host and sets the host as server for these services
+- Installs and configures the Squid Proxy, DNS Forwarder, NTP Forwarder and NFS on specified host, and sets the host as server for these services
 
-Following limitations currently apply:
-- The only number of IBM Cloud connections we support is **two**.
-- Reuse of IBM Cloud connections is not supported.
-- Private networks in IBM PowerVS Workspace must be in 10.0.0.0/8 range
-- **Only SLES15 SP3 and RHEL 8.4 as operating system are supported**
+The following limitations apply to the module:
+
+- Only two IBM Cloud connections are supported
+- You cannot reuse IBM Cloud connections
+- Private networks in a PowerVS workspace must be in 10.0.0.0/8 range
+- Only the following operating systems are supported:
+    - SUSE Linux Enterprise Server (SLES) version 15 SP3
+    - Red Hat Enterprise Linux (RHEL) version 8.4
 
 ## Usage
 ```hcl
@@ -51,6 +64,37 @@ module "power-infrastructure" {
   perform_proxy_client_setup  = var.perform_proxy_client_setup
 }
 ```
+
+<!-- PERMISSIONS REQUIRED TO RUN MODULE
+## Required IAM access policies
+
+If this module requires permissions, uncomment the following block and update
+the sample permissions, following the format.
+Replace the sample Account and IBM Cloud service names and roles with the
+information in the console at
+Manage > Access (IAM) > Access groups > Access policies.
+-->
+
+<!--
+You need the following permissions to run this module.
+
+- Account Management
+    - **Sample Account Service** service
+        - `Editor` platform access
+        - `Manager` service access
+    - IAM Services
+        - **Sample Cloud Service** service
+            - `Administrator` platform access
+-->
+
+<!-- NO PERMISSIONS FOR MODULE
+If no permissions are required for the module, uncomment the following
+statement instead the previous block.
+-->
+
+<!-- No permissions are needed to run this module.-->
+<!-- END MODULE HOOK -->
+
 <!-- BEGIN EXAMPLES HOOK -->
 ## Examples
 
@@ -132,8 +176,10 @@ module "power-infrastructure" {
 | <a name="output_proxy_host_or_ip_port"></a> [proxy\_host\_or\_ip\_port](#output\_proxy\_host\_or\_ip\_port) | Proxy host for created PowerVS infrastructure. |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
+<!-- BEGIN CONTRIBUTING HOOK -->
 ## Contributing
 
-You can report issues and request features for this module in the [terraform-ibm-issue-tracker](https://github.com/terraform-ibm-modules/terraform-ibm-issue-tracker/issues) repo. See [Report an issue or request a feature](https://github.com/terraform-ibm-modules/.github/blob/main/.github/SUPPORT.md).
+You can report issues and request features for this module in GitHub issues in the module repo. See [Report an issue or request a feature](https://github.com/terraform-ibm-modules/.github/blob/main/.github/SUPPORT.md).
 
 To set up your local development environment, see [Local development setup](https://terraform-ibm-modules.github.io/documentation/#/local-dev-setup) in the project documentation.
+<!-- END CONTRIBUTING HOOK -->
