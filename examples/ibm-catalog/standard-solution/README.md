@@ -1,4 +1,4 @@
-# Catalog example for Power infrastructure for regulated industries
+# IBM Cloud catalog example for Power infrastructure for regulated industries
 
 This example illustrates how to use the `power-infrastructure` module in the IBM catalog. It provisions the following infrastructure:
 

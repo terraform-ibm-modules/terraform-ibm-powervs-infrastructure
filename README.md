@@ -101,7 +101,7 @@ statement instead the previous block.
 ## Examples
 
 - [ Basic example for Power infrastructure for regulated industries](examples/basic)
-- [ Catalog example for Power infrastructure for regulated industries](examples/ibm-catalog/standard-solution)
+- [ IBM Cloud catalog example for Power infrastructure for regulated industries](examples/ibm-catalog/standard-solution)
 - [ Standard example for Power infrastructure for regulated industries](examples/standard)
 <!-- END EXAMPLES HOOK -->
 
