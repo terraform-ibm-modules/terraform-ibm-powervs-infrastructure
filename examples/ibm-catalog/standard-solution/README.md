@@ -12,7 +12,7 @@ This example illustrates how to use the `power-infrastructure` module in the IBM
 
 ## Before you begin
 
-Install a current version of the [IBM Secure Landing Zone VSI](https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone-vsi) module.
+Install a current version of the [IBM Secure Landing Zone](https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone) module.
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
