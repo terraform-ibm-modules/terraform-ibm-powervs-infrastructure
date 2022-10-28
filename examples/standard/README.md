@@ -1,18 +1,16 @@
-# Standard PowerVS Infrastructure Module Example
+# Standard example for Power infrastructure for regulated industries
 
-This example illustrates how to use the `power-infrastructure` module.
-It provisions the following infrastructure
-- Creates a [PowerVS workspace instance](https://cloud.ibm.com/docs/power-iaas?topic=power-iaas-getting-started) with the following network topology <br/>
-(1) 2 private networks, management network and backup network <br/>
-(2) 1 or 2 [IBM Cloud connection](https://cloud.ibm.com/docs/power-iaas?topic=power-iaas-cloud-connections), with the option to reuse existing IBM Cloud connections.
-If reusing cloud connections make sure cloud connection is already attached to transit gateway <br/>
-(3) Attaches the IBM Cloud connections to a [transit gateway](https://cloud.ibm.com/docs/transit-gateway?topic=transit-gateway-getting-started) <br/>
-(4) Attaches the PowerVS workspace instance private networks to the IBM Cloud connections <br/>
-(5) Creates a ssh key
-(6) Option to Install and configure the Squid Proxy, DNS Forwarder, NTP Forwarder, NFS on specified host and sets the host as server for these services
+This example illustrates how to use the `power-infrastructure` module in the IBM catalog. It provisions the following infrastructure:
 
-**Note**: Edit the sample **input.tfvars** file and deploy `terraform apply -var-file=input.tfvars`
+- A PowerVS workspace instance with the following network topology:
+    - Creates two private networks: a management network and a backup network
+    - Creates one or two IBM Cloud connections with an option to reuse the connections. If you are reusing connections, make sure that the connection is already attached to transit gateway.
+    - Attaches the IBM Cloud connections to a transit gateway.
+    - Attaches the private networks to the IBM Cloud connections
+    - Creates an SSH key
+    - Installs and configures the Squid Proxy, DNS Forwarder, NTP Forwarder and NFS on specified host, and sets the host as server for these services
 
+:information_source: **Tip:** Edit the sample `input.tfvars` file and deploy with the `terraform apply -var-file=input.tfvars` command.
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
