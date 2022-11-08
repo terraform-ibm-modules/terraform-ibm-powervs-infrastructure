@@ -37,7 +37,8 @@ func setupOptions(t *testing.T, prefix string) *testhelper.TestOptions {
 		"reuse_cloud_connections": false,
 		"cloud_connection_count":  1,
 		"cloud_connection_speed":  50,
-		"powervs_zone":            options.Region,
+		// locking into tok04 until issue #3139 is resolved
+		"powervs_zone":            "tok04",
 	}
 
 	return options
