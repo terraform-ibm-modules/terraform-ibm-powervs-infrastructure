@@ -1,7 +1,7 @@
 variable "powervs_zone" {
   description = "IBM Cloud data center location where IBM PowerVS infrastructure will be created. Following locations are currently supported: syd04, syd05, eu-de-1, eu-de-2, tok04, osa21, sao01"
   type        = string
-  default     = "tok04"
+  default     = "syd04"
 }
 
 variable "resource_group" {
