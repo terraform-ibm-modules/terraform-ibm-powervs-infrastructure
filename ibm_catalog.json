@@ -8,7 +8,7 @@
                     "label": "Standard",
                     "name": "standard",
                     "working_directory": "examples/ibm-catalog/standard-solution",
-                    "usage": "module \"power-infrastructure\" {\n   source = \"https://cm.globalcatalog.cloud.ibm.com/api/v1-beta/offering/source?archive=tgz&kind=terraform&name=terraform-ibm-powervs-catalog-powervs-sap-infrastructure&version=2.0.9\"\n  }",
+                    "usage": "module \"power-infrastructure\" {\n   source = \"https://cm.globalcatalog.cloud.ibm.com/api/v1-beta/offering/source//examples/ibm-catalog/standard-solution?archive=tgz&catalogID=37627572-1032-482b-8ed3-183b20c17baf&flavor=standard&kind=terraform&name=terraform-ibm-powervs-catalog-powervs-sap-infrastructure&version=2.0.9\"\n  }",
                     "compliance": {
                         "controls": [
                             {
@@ -127,7 +127,7 @@
                                 "diagram": {
                                     "caption": "Power infrastructure for regulated industries",
                                     "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/main/examples/ibm-catalog/standard-solution/layer_deployment_target_target.svg",
-                                    "metadata": []
+                                    "type": "image/svg+xml"
                                 },
                                 "description": "Building upon the management VPC and workload VPC that were previously created when you deployed Secure infrastructure on VPC for regulated industries, Power Infrastructure for regulated industries creates a Power Virtual Server instance. In the instance, Direct Link Connections provide consistent connectivity and access between the IBM Cloud Management VPC and Power Virtual Service networking zones.  \n\nAfter the creation of the Power Virtual Server instance, the management VPC provides a secure virtual machine to access the Power Virtual Servers. The workload VPC provides virtual machines that run critical services such as Domain Name System, Lightweight Directory Access Protocol, and Network File System that are accessible to the Power Virtual Server service and LPARs."
                             }
