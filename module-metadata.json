@@ -219,11 +219,7 @@
         "filename": "variables.tf",
         "line": 10
       },
-      "cloud_data_type": "resource_group",
-      "computed": true,
-      "cloud_data_range": [
-        "resolved_to:name"
-      ]
+      "computed": true
     },
     "powervs_sshkey_name": {
       "name": "powervs_sshkey_name",
@@ -275,7 +271,7 @@
         "filename": "variables.tf",
         "line": 1
       },
-      "cloud_data_type": "region",
+      "cloud_data_type": "Region",
       "immutable": true,
       "min_length": 1,
       "max_length": 63,
@@ -382,33 +378,30 @@
   "outputs": {
     "access_host_or_ip": {
       "name": "access_host_or_ip",
-      "description": "The public IP address or hostname for the access host. The address is used to reach the target or server_host IP address and to configure the DNS, NTP, NFS, and Squid proxy services. Set it to null if you do not want to configure any services.",
+      "description": "Access host for created PowerVS infrastructure.",
       "value": "var.access_host_or_ip",
       "pos": {
         "filename": "outputs.tf",
         "line": 36
-      },
-      "type": "string"
+      }
     },
     "cloud_connection_count": {
       "name": "cloud_connection_count",
-      "description": "Required number of Cloud connections to create or reuse. The maximum number of connections is two per location.",
+      "description": "Number of cloud connections configured in created PowerVS infrastructure.",
       "value": "var.cloud_connection_count",
       "pos": {
         "filename": "outputs.tf",
         "line": 21
-      },
-      "type": "number"
+      }
     },
     "dns_host_or_ip": {
-      "name": "dns_forwarder_config",
-      "description": "Configuration for the DNS forwarder to a DNS service that is not reachable directly from PowerVS.",
+      "name": "dns_host_or_ip",
+      "description": "DNS forwarder host for created PowerVS infrastructure.",
       "value": "var.dns_forwarder_config",
       "pos": {
         "filename": "outputs.tf",
         "line": 46
-      },
-      "type": "object({\n    dns_enable        = bool\n    server_host_or_ip = string\n    dns_servers       = string\n  })"
+      }
     },
     "nfs_path": {
       "name": "nfs_path",
@@ -419,79 +412,67 @@
       }
     },
     "ntp_host_or_ip": {
-      "name": "ntp_forwarder_config",
-      "description": "Configuration for the NTP forwarder to an NTP service that is not reachable directly from PowerVS.",
+      "name": "ntp_host_or_ip",
+      "description": "NTP host for created PowerVS infrastructure.",
       "value": "var.ntp_forwarder_config",
       "pos": {
         "filename": "outputs.tf",
         "line": 51
-      },
-      "type": "object({\n    ntp_enable        = bool\n    server_host_or_ip = string\n  })"
+      }
     },
     "powervs_backup_network_name": {
-      "name": "powervs_backup_network",
-      "description": "Name of the IBM Cloud PowerVS backup network and CIDR to create.",
+      "name": "powervs_backup_network_name",
+      "description": "Name of backup network in created PowerVS infrastructure.",
       "value": "var.powervs_backup_network",
       "pos": {
         "filename": "outputs.tf",
         "line": 31
-      },
-      "type": "object({\n    name = string\n    cidr = string\n  })"
+      }
     },
     "powervs_management_network_name": {
-      "name": "powervs_management_network",
-      "description": "Name of the IBM Cloud PowerVS management subnet and CIDR to create.",
+      "name": "powervs_management_network_name",
+      "description": "Name of management network in created PowerVS infrastructure.",
       "value": "var.powervs_management_network",
       "pos": {
         "filename": "outputs.tf",
         "line": 26
-      },
-      "type": "object({\n    name = string\n    cidr = string\n  })"
+      }
     },
     "powervs_resource_group_name": {
       "name": "powervs_resource_group_name",
-      "description": "Existing IBM Cloud resource group name.",
+      "description": "IBM Cloud resource group where PowerVS infrastructure is created.",
       "value": "var.powervs_resource_group_name",
       "pos": {
         "filename": "outputs.tf",
         "line": 16
-      },
-      "type": "string",
-      "cloud_data_type": "resource_group",
-      "cloud_data_range": [
-        "resolved_to:name"
-      ]
+      }
     },
     "powervs_sshkey_name": {
       "name": "powervs_sshkey_name",
-      "description": "Name of the PowerVS SSH key to create.",
+      "description": "SSH public key name in created PowerVS infrastructure.",
       "value": "var.powervs_sshkey_name",
       "pos": {
         "filename": "outputs.tf",
         "line": 6
-      },
-      "type": "string"
+      }
     },
     "powervs_workspace_name": {
       "name": "powervs_workspace_name",
-      "description": "Name of the PowerVS workspace to create.",
+      "description": "PowerVS infrastructure workspace name.",
       "value": "var.powervs_workspace_name",
       "pos": {
         "filename": "outputs.tf",
         "line": 1
-      },
-      "type": "string"
+      }
     },
     "powervs_zone": {
       "name": "powervs_zone",
-      "description": "IBM Cloud PowerVS zone.",
+      "description": "Zone where PowerVS infrastructure is created.",
       "value": "var.powervs_zone",
       "pos": {
         "filename": "outputs.tf",
         "line": 11
-      },
-      "type": "string",
-      "cloud_data_type": "region"
+      }
     },
     "proxy_host_or_ip_port": {
       "name": "proxy_host_or_ip_port",

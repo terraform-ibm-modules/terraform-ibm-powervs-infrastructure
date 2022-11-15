@@ -162,11 +162,13 @@ if [ "$OS_DETECTED" == "SLES" ]; then
     VERSION_ID=$(grep VERSION_ID /etc/os-release | awk -F= '{ print $NF }' | sed 's/\"//g')
     ARCH=$(uname -p)
     SUSEConnect -p PackageHub/"${VERSION_ID}"/"${ARCH}" >/dev/null
+    SUSEConnect -p sle-module-server-applications/"${VERSION_ID}"/"${ARCH}" >/dev/null
     SUSEConnect -p sle-module-public-cloud/"${VERSION_ID}"/"${ARCH}" >/dev/null
     zypper --gpg-auto-import-keys ref >/dev/null
     echo "Installing ansible package via zypper"
     zypper install -y ansible >/dev/null
     if [[ "$ARCH" == "x86_64" ]]; then
+      echo "Installing awscli package via zypper"
       zypper install -y aws-cli >/dev/null
       if ! which aws >/dev/null; then
         echo "aws installation failed, exiting"
@@ -266,7 +268,7 @@ if [ "$OS_DETECTED" == "RHEL" ]; then
   if [ "$install_packages" == true ]; then
     ##### Install Ansible, unbuffer(expect) and awscli ####
     echo "Installing python3-pip package via yum"
-    yum install -y python3-pip  >/dev/null 2>/dev/null
+    yum install -y python3-pip >/dev/null 2>/dev/null
     echo "Installing expect package via yum"
     yum install -y expect >/dev/null 2>/dev/null
     echo "Installing ansible using pip3 package"
