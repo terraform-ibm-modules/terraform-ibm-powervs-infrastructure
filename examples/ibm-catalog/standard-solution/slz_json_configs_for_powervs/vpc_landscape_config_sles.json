@@ -364,7 +364,7 @@
             "acl_name": "workload-acl",
             "cidr": "10.20.10.0/24",
             "name": "vsi-zone-1",
-            "public_gateway": true
+            "public_gateway": false
           },
           {
             "acl_name": "workload-acl",
@@ -645,7 +645,15 @@
         "vsi-zone-1"
       ],
       "vpc_name": "workload",
-      "vsi_per_subnet": 1
+      "vsi_per_subnet": 1,
+      "block_storage_volumes": [
+      {
+        "name"           : "data",
+        "profile"        : "5iops-tier",
+        "capacity"       : 1000,
+        "encryption_key" : "slz-vsi-volume-key"
+      }
+    ]
     },
     {
       "boot_volume_encryption_key_name": "slz-vsi-volume-key",

@@ -101,7 +101,9 @@ resource "ibm_tg_gateway" "powervs_gateway" {
 ########################################################################################################################
 
 module "powervs_infra" {
-  # Explicit dependency needed here - likely due to different provider alias used in this example
+  # Some explicit depends_on required here:
+  # module.resource_group required due to https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/issues/143
+  # ibm_tg_gateway.powervs_gateway required likely due to different provider alias used in this example
   depends_on = [
     module.resource_group,
     ibm_tg_gateway.powervs_gateway
