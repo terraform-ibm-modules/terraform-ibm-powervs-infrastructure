@@ -24,7 +24,7 @@ This example illustrates a simple way to use the `power-infrastructure` module. 
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_powervs_infra"></a> [powervs\_infra](#module\_powervs\_infra) | ../../ | n/a |
-| <a name="module_resource_group"></a> [resource\_group](#module\_resource\_group) | git::https://github.com/terraform-ibm-modules/terraform-ibm-resource-group.git | v1.0.2 |
+| <a name="module_resource_group"></a> [resource\_group](#module\_resource\_group) | git::https://github.com/terraform-ibm-modules/terraform-ibm-resource-group.git | v1.0.3 |
 
 ## Resources
 
