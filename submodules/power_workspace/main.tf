@@ -77,4 +77,8 @@ resource "ibm_pi_image" "import_images" {
   pi_cloud_instance_id = ibm_resource_instance.powervs_workspace.guid
   pi_image_id          = local.catalog_images_to_import[count.index].image_id
   pi_image_name        = var.powervs_image_names[count.index]
+
+  timeouts {
+    create = "9m"
+  }
 }
