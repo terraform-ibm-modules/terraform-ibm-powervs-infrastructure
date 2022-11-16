@@ -71,7 +71,7 @@ data "ibm_pi_catalog_images" "catalog_images_ds" {
 locals {
   catalog_images_to_import = flatten([for stock_image in data.ibm_pi_catalog_images.catalog_images_ds.images : [for image_name in var.powervs_image_names : stock_image if stock_image.name == image_name]])
   split_images_1           = slice(var.powervs_image_names, 0, 2)
-  split_images_2           = slice(var.powervs_image_names, 2, 3)
+  split_images_2           = slice(var.powervs_image_names, 2, 4)
 }
 
 resource "ibm_pi_image" "import_images_1" {
