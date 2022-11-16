@@ -70,13 +70,27 @@ data "ibm_pi_catalog_images" "catalog_images_ds" {
 
 locals {
   catalog_images_to_import = flatten([for stock_image in data.ibm_pi_catalog_images.catalog_images_ds.images : [for image_name in var.powervs_image_names : stock_image if stock_image.name == image_name]])
+  split_images_1           = slice(var.powervs_image_names, 0, 2)
+  split_images_2           = slice(var.powervs_image_names, 2, 3)
 }
 
-resource "ibm_pi_image" "import_images" {
-  count                = length(var.powervs_image_names)
+resource "ibm_pi_image" "import_images_1" {
+  count                = length(local.split_images_1)
   pi_cloud_instance_id = ibm_resource_instance.powervs_workspace.guid
   pi_image_id          = local.catalog_images_to_import[count.index].image_id
-  pi_image_name        = var.powervs_image_names[count.index]
+  pi_image_name        = local.split_images_1[count.index]
+
+  timeouts {
+    create = "9m"
+  }
+}
+
+resource "ibm_pi_image" "import_images_2" {
+  depends_on           = [ibm_pi_image.import_images_1]
+  count                = length(local.split_images_2)
+  pi_cloud_instance_id = ibm_resource_instance.powervs_workspace.guid
+  pi_image_id          = local.catalog_images_to_import[count.index].image_id
+  pi_image_name        = local.split_images_2[count.index]
 
   timeouts {
     create = "9m"

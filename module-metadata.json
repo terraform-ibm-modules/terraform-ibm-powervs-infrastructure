@@ -177,16 +177,13 @@
         "RHEL8-SP4-SAP",
         "RHEL8-SP4-SAP-NETWEAVER"
       ],
-      "required": true,
       "source": [
-        "module.power_workspace.ibm_pi_image.import_images.count",
-        "module.power_workspace.ibm_pi_image.import_images.pi_image_name"
+        "module.power_workspace"
       ],
       "pos": {
         "filename": "variables.tf",
         "line": 95
-      },
-      "immutable": true
+      }
     },
     "powervs_management_network": {
       "name": "powervs_management_network",
@@ -1128,20 +1125,28 @@
         "tags": "tags"
       },
       "managed_resources": {
-        "ibm_pi_image.import_images": {
+        "ibm_pi_image.import_images_1": {
           "mode": "managed",
           "type": "ibm_pi_image",
-          "name": "import_images",
-          "attributes": {
-            "count": "powervs_image_names",
-            "pi_image_name": "powervs_image_names"
-          },
+          "name": "import_images_1",
           "provider": {
             "name": "ibm"
           },
           "pos": {
             "filename": "submodules/power_workspace/main.tf",
-            "line": 75
+            "line": 77
+          }
+        },
+        "ibm_pi_image.import_images_2": {
+          "mode": "managed",
+          "type": "ibm_pi_image",
+          "name": "import_images_2",
+          "provider": {
+            "name": "ibm"
+          },
+          "pos": {
+            "filename": "submodules/power_workspace/main.tf",
+            "line": 88
           }
         },
         "ibm_pi_key.ssh_key": {
