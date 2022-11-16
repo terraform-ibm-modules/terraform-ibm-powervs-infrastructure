@@ -79,7 +79,7 @@ resource "ibm_pi_image" "import_images_1" {
   count                = length(local.split_images_1)
   pi_cloud_instance_id = ibm_resource_instance.powervs_workspace.guid
   pi_image_id          = local.catalog_images_to_import_1[count.index].image_id
-  pi_image_name        = local.catalog_images_to_import_1[count.index]
+  pi_image_name        = local.catalog_images_to_import_1[count.index].name
 
   timeouts {
     create = "9m"
@@ -91,7 +91,7 @@ resource "ibm_pi_image" "import_images_2" {
   count                = length(local.split_images_2)
   pi_cloud_instance_id = ibm_resource_instance.powervs_workspace.guid
   pi_image_id          = local.catalog_images_to_import_2[count.index].image_id
-  pi_image_name        = local.catalog_images_to_import_2[count.index]
+  pi_image_name        = local.catalog_images_to_import_2[count.index].name
 
   timeouts {
     create = "9m"
