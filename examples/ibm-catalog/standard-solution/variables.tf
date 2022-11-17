@@ -164,3 +164,15 @@ variable "powervs_image_names" {
   type        = list(string)
   default     = ["SLES15-SP3-SAP", "SLES15-SP3-SAP-NETWEAVER", "RHEL8-SP4-SAP", "RHEL8-SP4-SAP-NETWEAVER"]
 }
+
+
+##############################################################################
+# Schematics Output
+##############################################################################
+
+# tflint-ignore: terraform_naming_convention
+variable "IC_SCHEMATICS_WORKSPACE_ID" {
+  default     = ""
+  type        = string
+  description = "leave blank if running locally. This variable will be automatically populated if running from an IBM Cloud Schematics workspace"
+}
