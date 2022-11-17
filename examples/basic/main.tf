@@ -76,7 +76,7 @@ resource "ibm_is_ssh_key" "ssh_key" {
 ########################################################################################################################
 
 module "resource_group" {
-  source = "git::https://github.com/terraform-ibm-modules/terraform-ibm-resource-group.git?ref=v1.0.2"
+  source = "git::https://github.com/terraform-ibm-modules/terraform-ibm-resource-group.git?ref=v1.0.3"
   # if an existing resource group is not set (null) create a new one using prefix
   resource_group_name          = var.resource_group == null ? "${var.prefix}-resource-group" : null
   existing_resource_group_name = var.resource_group
@@ -101,7 +101,9 @@ resource "ibm_tg_gateway" "powervs_gateway" {
 ########################################################################################################################
 
 module "powervs_infra" {
-  # Explicit dependency needed here - likely due to different provider alias used in this example
+  # Some explicit depends_on required here:
+  # module.resource_group required due to https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/issues/143
+  # ibm_tg_gateway.powervs_gateway required likely due to different provider alias used in this example
   depends_on = [
     module.resource_group,
     ibm_tg_gateway.powervs_gateway
