@@ -57,3 +57,8 @@ output "nfs_path" {
   description = "NFS host for created PowerVS infrastructure."
   value       = module.powervs_infra.nfs_path
 }
+
+output "schematics_workspace_id" {
+  description = "ID of the IBM Cloud Schematics workspace. Returns null if not ran in Schematics"
+  value       = var.IC_SCHEMATICS_WORKSPACE_ID
+}
