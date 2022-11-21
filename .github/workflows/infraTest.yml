@@ -40,9 +40,7 @@ jobs:
         run: |
           echo $TEST_LOCATION
           echo $PVS_ZONE
-          echo $API_KEY
           echo $OS_CASE
-          echo $SSH_PRIVATE_KEY
           echo ${{ inputs.test-branch }}
 
       - name: Download Terraform code
