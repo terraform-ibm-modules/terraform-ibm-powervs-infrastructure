@@ -8,7 +8,7 @@ on:
 jobs:
   rhel-deployments:
     name: RHEL-Tests
-    uses: terraform-ibm-modules/terraform-ibm-powervs-infrastructure/.github/workflows/reusable.yml@tests
+    uses: terraform-ibm-modules/terraform-ibm-powervs-infrastructure/.github/workflows/infraTest.yml@tests
     strategy:
       fail-fast: false
       matrix:
