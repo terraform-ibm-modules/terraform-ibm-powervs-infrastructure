@@ -16,7 +16,7 @@ on:
       api-key:
         required: true
       ssh-private-key:
-        required: true      
+        required: true
       pat:
         required: true
 
@@ -62,4 +62,4 @@ jobs:
           chmod -R +rwx test-assets/scripts
           chmod -R +rwx test-assets/infra-inputs
           echo "ssh_private_key               = ${{ secrets.ssh-private-key }}" >> tool-set/infra-inputs/input.tfvars
-          bash tool-set/scripts/deploy.sh
+          bash test-assets/scripts/deploy.sh
