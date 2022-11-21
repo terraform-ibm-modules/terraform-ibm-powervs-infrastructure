@@ -1,0 +1,6 @@
+{
+  "name": "CLI-test-slz",
+  "prefix": "at-syd05",
+  "ssh_public_key": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDNXIO7Tbabxkyg7ej9N2B+2tirH6S7kmAYuev4TOsuy+wv5rT/d2lPVdHageZ9ngTpkTSkq4B1+mFCbRYogd3+OomVvAes8LVU3Kk40Dd3cD1yg4+RlsQTB/7X5RcgAUpVmYsBBfrW8ZvS4ERqR0urc8Hq15GOvvfiZe/Lmy3Xxtr/BbEmzGLhSAQPBwoN8AdyXtuJbfznLmOV0TiVpo9nyPHz1lDV+FDi/jZRsKNgEYIx6637/9vWFtpj3Trs+TGjO5RhyuuEdMpMHWDRBTJmdPOyDuRoHeXytJr6sAZpFBSjhOM4JXFLgDywUG++SXa5JNQV6mtE9TIB9H872Y+7bDnUjPpkEderpWynWXgBCO78qa5go0Haifm0SWn/XNAt0a3geTjWzba1pmvfEBYRcs12Gulqw8KvqKTEH1qnH7/YvPs9Wf7+s7FZnh2x4njGyRe1ezNUFPZPt50Vdm98aUAEbC8ctbUEfP1gIkC2Bbnp14OyNV8c/LTILEBBRkM= stafaniasaju@stafanias-mbp.boeblingen.de.ibm.com",
+  "region": "au-syd"
+}

@@ -1,0 +1,67 @@
+name: Reusable-Deploy
+
+on:
+  workflow_call:
+    inputs:
+      pvs-zone:
+        required: true
+        type: string
+      os-case:
+        required: true
+        type: string
+      test-branch:
+        required: true
+        type: string
+    secrets:
+      api-key:
+        required: true
+      ssh-private-key:
+        required: true      
+      pat:
+        required: true
+
+jobs:
+  infra-integration:
+    runs-on: ubuntu-latest
+    container:
+      image: icr.io/goldeneye_images/goldeneye-ci-image:stable
+      env:
+        NO_CONTAINER: "false"
+        API_KEY: ${{ secrets.api-key }}
+        SSH_PRIVATE_KEY: ${{ secrets.ssh-private-key }}
+        TEST_LOCATION: ${{ inputs.test-location }}
+        PVS_ZONE: ${{ inputs.pvs-zone }}
+        OS_CASE: ${{ inputs.os-case }}
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Environment Check
+        run: |
+          echo $TEST_LOCATION
+          echo $PVS_ZONE
+          echo $API_KEY
+          echo $OS_CASE
+          echo $SSH_PRIVATE_KEY
+          echo ${{ inputs.test-branch }}
+
+      - name: Download Terraform code
+        uses: actions/checkout@v3
+        with:
+          repository: 'terraform-ibm-modules/terraform-ibm-powervs-infrastructure'
+          ref: '${{ inputs.test-branch }}'
+          token: ${{ secrets.pat }}
+          submodules: true
+
+      - name: Dependencies and download check Download Check
+        run: |
+          ls
+          ls tool-set
+          pwd
+          ibmcloud plugin install catalogs-management
+          ibmcloud plugin install schematics
+          chmod -R +rwx test-assets/documents
+          chmod -R +rwx test-assets/scripts
+          chmod -R +rwx test-assets/infra-inputs
+          echo "ssh_private_key               = ${{ secrets.ssh-private-key }}" >> tool-set/infra-inputs/input.tfvars
+          bash tool-set/scripts/deploy.sh

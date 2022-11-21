@@ -1,0 +1,21 @@
+name: All-DCs-Tests
+
+on: workflow_dispatch
+
+jobs:
+  rhel-deployments:
+    name: RHEL-Tests
+    uses: stafaniasaju/test-repo/.github/workflows/reusable.yml@main
+    strategy:
+      fail-fast: false
+      matrix:
+        pvs-zones: ["tok04","osa21"]
+        os: ["RHEL"]
+    with:
+      pvs-zone: ${{ matrix.pvs-zones }}
+      os-case: ${{ matrix.os }}
+      test-branch: ${{ github.event.client_payload.test_branch }}
+    secrets:
+      api-key: ${{ secrets.API_KEY }}
+      ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+      pat: ${{ secrets.PAT }}
