@@ -5,7 +5,7 @@ on: workflow_dispatch
 jobs:
   rhel-deployments:
     name: RHEL-Tests
-    uses: stafaniasaju/test-repo/.github/workflows/reusable.yml@main
+    uses: terraform-ibm-modules/terraform-ibm-powervs-infrastructure/.github/workflows/reusable.yml@main
     strategy:
       fail-fast: false
       matrix:
