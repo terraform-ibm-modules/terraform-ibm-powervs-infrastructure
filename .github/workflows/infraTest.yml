@@ -54,12 +54,12 @@ jobs:
       - name: Dependencies and download check Download Check
         run: |
           ls
-          ls tool-set
+          ls test-assets
           pwd
           ibmcloud plugin install catalogs-management
           ibmcloud plugin install schematics
           chmod -R +rwx test-assets/documents
           chmod -R +rwx test-assets/scripts
           chmod -R +rwx test-assets/infra-inputs
-          echo "ssh_private_key               = ${{ secrets.ssh-private-key }}" >> tool-set/infra-inputs/input.tfvars
+          echo "ssh_private_key               = ${{ secrets.ssh-private-key }}" >> test-assets/infra-inputs/input.tfvars
           bash test-assets/scripts/deploy.sh
