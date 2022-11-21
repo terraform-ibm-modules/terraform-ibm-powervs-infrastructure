@@ -1,6 +1,9 @@
 name: All-DCs-Tests
 
-on: workflow_dispatch
+on:
+  push:
+    branches: [ tests ]
+  workflow_dispatch: {}
 
 jobs:
   rhel-deployments:
