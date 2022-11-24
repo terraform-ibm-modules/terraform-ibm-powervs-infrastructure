@@ -77,10 +77,11 @@ echo "STEP 8: PVS Infra deployment"
 cd examples/ibm-catalog/standard-solution || exit
 terraform init
 
-RETVAL=$?
-[ ${RETVAL} -eq 0 ] && terraform apply --var-file "$input_loc" -auto-approve || RETVAL=1
-return ${RETVAL}
-
+if terraform apply --var-file "$input_loc" -auto-approve; then
+   printf " \n \n \n \nPower infrastructure deployment Successful\n"
+else
+   exit 1
+fi
 terraform destroy --var-file "$input_loc" -auto-approve
 
 # 9. SLZ Cleanup
