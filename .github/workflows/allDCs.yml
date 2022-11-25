@@ -22,3 +22,20 @@ jobs:
       api-key: ${{ secrets.API_KEY }}
       ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
       pat: ${{ secrets.PAT }}
+
+  sles-deployments:
+    name: RHEL-Tests
+    uses: terraform-ibm-modules/terraform-ibm-powervs-infrastructure/.github/workflows/infraTest.yml@tests
+    strategy:
+      fail-fast: false
+      matrix:
+        pvs-zones: ["tok04","osa21"]
+        os: ["SLES"]
+    with:
+      pvs-zone: ${{ matrix.pvs-zones }}
+      os-case: ${{ matrix.os }}
+      test-branch: ${{ github.event.client_payload.test_branch }}
+    secrets:
+      api-key: ${{ secrets.API_KEY }}
+      ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+      pat: ${{ secrets.PAT }}

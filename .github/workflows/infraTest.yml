@@ -27,6 +27,7 @@ jobs:
       image: icr.io/goldeneye_images/goldeneye-ci-image:stable
       env:
         NO_CONTAINER: "false"
+        TF_LOG: ”DEBUG”
         API_KEY: ${{ secrets.api-key }}
         SSH_PRIVATE_KEY: ${{ secrets.ssh-private-key }}
         TEST_LOCATION: ${{ inputs.test-location }}
@@ -56,6 +57,7 @@ jobs:
           ls
           ls test-assets
           pwd
+          export TF_LOG_PATH=$(pwd)/tf_logs/terraform-debug.log
           ibmcloud plugin install catalogs-management
           ibmcloud plugin install schematics
           ibmcloud plugin install dl-cli
