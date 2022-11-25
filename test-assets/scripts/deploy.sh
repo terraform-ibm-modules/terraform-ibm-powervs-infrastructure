@@ -52,7 +52,7 @@ if ibmcloud schematics workspace list | grep "auto-test-$TEST_LOCATION"; then
     exit 1
 fi
 
-if ibmcloud resource service-instances -g Automation | grep "at-$PREFIX-$PVS_ZONE"; then
+if ibmcloud resource service-instances -g Automation | grep "at-$PVS_ZONE-$PVS_ZONE"; then
     echo "Test aborting: Power Worspace already existing for zone $PVS_ZONE"
     exit 1
 fi

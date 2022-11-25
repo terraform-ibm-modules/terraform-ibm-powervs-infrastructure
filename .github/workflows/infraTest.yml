@@ -58,6 +58,7 @@ jobs:
           pwd
           ibmcloud plugin install catalogs-management
           ibmcloud plugin install schematics
+          ibmcloud plugin install dl-cli
           chmod -R +rwx test-assets/documents
           chmod -R +rwx test-assets/scripts
           chmod -R +rwx test-assets/infra-inputs
