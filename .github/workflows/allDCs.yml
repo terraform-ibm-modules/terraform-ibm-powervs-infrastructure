@@ -27,7 +27,7 @@ jobs:
   sles-deployments-1:
     name: SLES-Tests-1
     if: ${{ always() }}
-    needs: rhel-deployments
+    needs: rhel-deployments-1
     uses: terraform-ibm-modules/terraform-ibm-powervs-infrastructure/.github/workflows/infraTest.yml@tests
     strategy:
       fail-fast: false
