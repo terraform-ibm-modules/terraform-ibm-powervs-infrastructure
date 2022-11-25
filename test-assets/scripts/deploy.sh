@@ -8,8 +8,22 @@ export PREFIX="at-$PVS_ZONE"
 echo "$PREFIX"
 
 tmp=$(mktemp)
-jq --arg a "${TEST_LOCATION}" '.region = $a' test-assets/documents/rhelconfig.json > "$tmp" && mv "$tmp" test-assets/documents/rhelconfig.json
-jq --arg b "${PREFIX}" '.prefix = $b' test-assets/documents/rhelconfig.json > "$tmp" && mv "$tmp" test-assets/documents/rhelconfig.json
+if [ "$OS_CASE" == "RHEL" ]
+then
+    echo "RHEL"
+    jq --arg a "${TEST_LOCATION}" '.region = $a' test-assets/documents/rhelconfig.json > "$tmp" && mv "$tmp" test-assets/documents/rhelconfig.json
+    jq --arg b "${PREFIX}" '.prefix = $b' test-assets/documents/rhelconfig.json > "$tmp" && mv "$tmp" test-assets/documents/rhelconfig.json
+    slz_input_location="test-assets/documents/rhelconfig.json"
+    echo "slz_input_location=$slz_input_location"
+elif [ "$OS_CASE" == "SLES" ]
+then
+    echo "SLES"
+    jq --arg a "${TEST_LOCATION}" '.region = $a' test-assets/documents/slesconfig.json > "$tmp" && mv "$tmp" test-assets/documents/slesconfig.json
+    jq --arg b "${PREFIX}" '.prefix = $b' test-assets/documents/slesconfig.json > "$tmp" && mv "$tmp" test-assets/documents/slesconfig.json
+    slz_input_location="test-assets/documents/slesconfig.json"
+    echo "slz_input_location=$slz_input_location"
+fi
+
 
 # local testing
 #jq --arg a "${TEST_LOCATION}" '.region = $a' documents/rhelconfig.json > "$tmp" && mv "$tmp" documents/rhelconfig.json
@@ -29,16 +43,33 @@ echo "STEP 1: Define SLZ name"
 echo "$slzName"
 
 # 2. IBM Login
-echo "STEP 2: IBMCloud Login"
+echo "STEP 2: IBMCloud Login & Pre-Checks"
 yes N | ibmcloud login --apikey "$API_KEY" -r "us-south"
 
+# if test location has pre-existing resources
+if ibmcloud schematics workspace list | grep "auto-test-$TEST_LOCATION"; then
+    echo "Test aborting: SLZ already existing for $TEST_LOCATION"
+    exit 1
+fi
+
+if ibmcloud resource service-instances -g Automation | grep "at-$PREFIX-$PVS_ZONE"; then
+    echo "Test aborting: Power Worspace already existing for zone $PVS_ZONE"
+    exit 1
+fi
+
+if ibmcloud dl gws | grep "$PVS_ZONE"; then
+    echo "Test aborting: Direct Link Connect/Cloud Connections already existing in location $PVS_ZONE"
+    exit 1
+fi
+
+exit 0
 # 3. Selection of resource group
 echo "STEP 3: Selection of resource group"
 ibmcloud target -g Default
 
 # 4. SLZ deplyoment from catalog
 echo "STEP 4: SLZ Deployment"
-ibmcloud catalog install --vl 1082e7d2-5e2f-0a11-a3bc-f88a8e1931fc.1cb52f62-4272-4876-bd9e-e3c02fa684e8-global --override-values test-assets/documents/rhelconfig.json --workspace-name "$slzName"
+ibmcloud catalog install --vl 1082e7d2-5e2f-0a11-a3bc-f88a8e1931fc.1cb52f62-4272-4876-bd9e-e3c02fa684e8-global --override-values $slz_input_location --workspace-name "$slzName"
 sleep 600
 
 # 5. Extract the workspace-id of the deployed SLZ
