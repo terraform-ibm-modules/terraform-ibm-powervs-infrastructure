@@ -3,16 +3,17 @@ name: All-DCs-Tests
 on:
   push:
     branches: [ tests ]
-  workflow_dispatch: {}
+
+  workflow_dispatch:
 
 jobs:
-  rhel-deployments:
-    name: RHEL-Tests
+  rhel-deployments-1:
+    name: RHEL-Tests-1
     uses: terraform-ibm-modules/terraform-ibm-powervs-infrastructure/.github/workflows/infraTest.yml@tests
     strategy:
       fail-fast: false
       matrix:
-        pvs-zones: ["tok04","osa21"]
+        pvs-zones: ["tok04","osa21","sao01","tor01"]
         os: ["RHEL"]
     with:
       pvs-zone: ${{ matrix.pvs-zones }}
@@ -23,15 +24,15 @@ jobs:
       ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
       pat: ${{ secrets.PAT }}
 
-  sles-deployments:
-    name: SLES-Tests
+  sles-deployments-1:
+    name: SLES-Tests-1
     if: ${{ always() }}
     needs: rhel-deployments
     uses: terraform-ibm-modules/terraform-ibm-powervs-infrastructure/.github/workflows/infraTest.yml@tests
     strategy:
       fail-fast: false
       matrix:
-        pvs-zones: ["tok04","osa21"]
+        pvs-zones: ["tok04","osa21","sao01","tor01"]
         os: ["SLES"]
     with:
       pvs-zone: ${{ matrix.pvs-zones }}
