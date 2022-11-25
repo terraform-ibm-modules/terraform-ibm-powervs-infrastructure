@@ -62,7 +62,6 @@ if ibmcloud dl gws | grep "$PVS_ZONE"; then
     exit 1
 fi
 
-exit 0
 # 3. Selection of resource group
 echo "STEP 3: Selection of resource group"
 ibmcloud target -g Default

@@ -25,6 +25,7 @@ jobs:
 
   sles-deployments:
     name: RHEL-Tests
+    needs: rhel-deployments
     uses: terraform-ibm-modules/terraform-ibm-powervs-infrastructure/.github/workflows/infraTest.yml@tests
     strategy:
       fail-fast: false
