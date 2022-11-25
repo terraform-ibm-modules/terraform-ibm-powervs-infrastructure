@@ -24,7 +24,8 @@ jobs:
       pat: ${{ secrets.PAT }}
 
   sles-deployments:
-    name: RHEL-Tests
+    name: SLES-Tests
+    if: ${{ always() }}
     needs: rhel-deployments
     uses: terraform-ibm-modules/terraform-ibm-powervs-infrastructure/.github/workflows/infraTest.yml@tests
     strategy:

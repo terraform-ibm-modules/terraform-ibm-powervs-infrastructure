@@ -52,7 +52,7 @@ jobs:
           token: ${{ secrets.pat }}
           submodules: true
 
-      - name: Dependencies and download check Download Check
+      - name: SLZ and Infra Deployments
         run: |
           ls
           ls test-assets
