@@ -216,11 +216,7 @@
         "filename": "variables.tf",
         "line": 10
       },
-      "cloud_data_type": "resource_group",
-      "computed": true,
-      "cloud_data_range": [
-        "resolved_to:name"
-      ]
+      "computed": true
     },
     "powervs_sshkey_name": {
       "name": "powervs_sshkey_name",
@@ -272,7 +268,7 @@
         "filename": "variables.tf",
         "line": 1
       },
-      "cloud_data_type": "region",
+      "cloud_data_type": "Region",
       "immutable": true,
       "min_length": 1,
       "max_length": 63,
@@ -453,11 +449,7 @@
         "filename": "outputs.tf",
         "line": 16
       },
-      "type": "string",
-      "cloud_data_type": "resource_group",
-      "cloud_data_range": [
-        "resolved_to:name"
-      ]
+      "type": "string"
     },
     "powervs_sshkey_name": {
       "name": "powervs_sshkey_name",
@@ -488,7 +480,7 @@
         "line": 11
       },
       "type": "string",
-      "cloud_data_type": "region"
+      "cloud_data_type": "Region"
     },
     "proxy_host_or_ip_port": {
       "name": "proxy_host_or_ip_port",
@@ -1134,7 +1126,7 @@
           },
           "pos": {
             "filename": "submodules/power_workspace/main.tf",
-            "line": 78
+            "line": 80
           }
         },
         "ibm_pi_image.import_images_2": {
@@ -1146,7 +1138,7 @@
           },
           "pos": {
             "filename": "submodules/power_workspace/main.tf",
-            "line": 89
+            "line": 91
           }
         },
         "ibm_pi_key.ssh_key": {
