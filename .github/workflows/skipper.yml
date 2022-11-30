@@ -18,11 +18,17 @@ jobs:
       run:
         shell: bash
     steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          path: ${{ github.head_ref }}
       - name: Script Run
         run: |
+          echo ${{ github.head_ref }}
           chmod -R +rwx test-assets
           bash test-assets/scripts/deploy.sh
           echo $TESTABLE_LOCATIONS
+
 
   #example_matrix:
   #  runs-on: ubuntu-latest
