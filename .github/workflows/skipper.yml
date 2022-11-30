@@ -1,0 +1,35 @@
+name: All-DCs-Tests
+
+on:
+  push:
+    branches: [ tests ]
+  workflow_dispatch:
+
+jobs:
+  skipper:
+    name: Test Location Selection
+    runs-on: ubuntu-latest
+    container:
+      image: icr.io/goldeneye_images/goldeneye-ci-image:stable
+      env:
+        NO_CONTAINER: "false"
+        API_KEY: ${{ secrets.api-key }}
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Script Run
+        run: |
+          chmod -R +rwx test-assets
+          bash test-assets/scripts/deploy.sh
+          echo $TESTABLE_LOCATIONS
+
+  #example_matrix:
+  #  runs-on: ubuntu-latest
+  #  strategy:
+  #    matrix:
+  #      version: ${{ github.event.client_payload.versions }}
+  #  steps:
+  #    - uses: actions/setup-node@v3
+  #      with:
+  #        node-version: ${{ matrix.version }}

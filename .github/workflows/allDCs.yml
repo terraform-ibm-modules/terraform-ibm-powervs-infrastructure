@@ -1,9 +1,10 @@
 name: All-DCs-Tests
 
-on:
-  push:
-    branches: [ tests ]
+#on:
+#  push:
+#    branches: [ tests ]
 
+on:
   workflow_dispatch:
 
 jobs:
