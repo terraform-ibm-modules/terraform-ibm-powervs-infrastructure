@@ -32,5 +32,5 @@ done
 #testable_locs_string="\"${testable_locs_string//,/\",\"}\""
 echo "$testable_locs_string"
 #export TESTABLE_LOCATIONS=$testable_locs_string
-echo "TESTABLE_LOCATIONS=${TESTABLE_LOCATIONS}" >> testlocations.env
+echo "TESTABLE_LOCATIONS=${TESTABLE_LOCATIONS}" >> "$GITHUB_OUTPUT"
 ibmcloud logout
