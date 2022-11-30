@@ -30,6 +30,8 @@ jobs:
           echo ${{ github.head_ref }}
           chmod -R +rwx test-assets
           bash test-assets/scripts/find_testable_locations.sh
+          source testlocations.env
+          TESTABLE_LOCATIONS="\"${TESTABLE_LOCATIONS//,/\",\"}\""
           echo $TESTABLE_LOCATIONS
 
 
