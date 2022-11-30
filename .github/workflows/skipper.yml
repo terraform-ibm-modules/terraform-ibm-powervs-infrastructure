@@ -13,7 +13,7 @@ jobs:
       image: icr.io/goldeneye_images/goldeneye-ci-image:stable
       env:
         NO_CONTAINER: "false"
-        API_KEY: ${{ secrets.api-key }}
+        API_KEY: ${{ secrets.API_KEY }}
     defaults:
       run:
         shell: bash
@@ -24,6 +24,9 @@ jobs:
           path: ${{ github.head_ref }}
       - name: Script Run
         run: |
+          ibmcloud plugin install catalogs-management
+          ibmcloud plugin install schematics
+          ibmcloud plugin install dl-cli
           echo ${{ github.head_ref }}
           chmod -R +rwx test-assets
           bash test-assets/scripts/find_testable_locations.sh
