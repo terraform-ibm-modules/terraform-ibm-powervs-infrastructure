@@ -26,7 +26,7 @@ jobs:
         run: |
           echo ${{ github.head_ref }}
           chmod -R +rwx test-assets
-          bash test-assets/scripts/deploy.sh
+          bash test-assets/scripts/find_testable_locations.sh
           echo $TESTABLE_LOCATIONS
 
 
