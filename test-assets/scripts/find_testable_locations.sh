@@ -1,7 +1,10 @@
 #!/bin/bash
 
+test_locations=$1
+
 yes N | ibmcloud login --apikey "$API_KEY" -r "us-south"
-locations=("$test_locations")
+#locations=($test_locations)
+IFS=" " read -r -a locations <<< "$test_locations"
 testable_locs_string=""
 for i in "${!locations[@]}"; do
     pvs_zone=${locations[$i]}
