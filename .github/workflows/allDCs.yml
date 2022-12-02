@@ -35,7 +35,7 @@ jobs:
   sles-pre-checks:
     uses: terraform-ibm-modules/terraform-ibm-powervs-infrastructure/.github/workflows/pre-checks.yml@tests2
     needs: [rhel-deployments]
-    if: ${{ always() }}
+    if: success() || failure()
     with:
       locations: "osa21 sao01"
     secrets:
