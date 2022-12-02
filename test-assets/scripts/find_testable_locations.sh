@@ -1,13 +1,13 @@
 #!/bin/bash
 
-test_locations=$1
+#test_locations=$@
 
 yes N | ibmcloud login --apikey "$API_KEY" -r "us-south"
 #locations=($test_locations)
-IFS=" " read -r -a locations <<< "$test_locations"
+#IFS=" " read -r -a locations <<< "$test_locations"
 testable_locs_string=""
-for i in "${!locations[@]}"; do
-    pvs_zone=${locations[$i]}
+for i in "$@"; do
+    pvs_zone="$i"
     slz_region=$(awk -v key="$pvs_zone" -F',' '{ if ($1 == key) { print $2 } }' test-assets/documents/slz_locations.csv)
 
     if ibmcloud schematics workspace list | grep "auto-test-$slz_region"; then
