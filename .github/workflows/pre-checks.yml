@@ -1,0 +1,65 @@
+name: pre-checks
+
+on:
+  workflow_call:
+    inputs:
+      locations:
+        required: true
+        type: string
+    secrets:
+      api-token:
+        required: true
+      pat:
+        required: true
+    outputs:
+      test_locations:
+        description: "testable locations after pre-checks"
+        value: ${{ jobs.pre_checks.outputs.test_locations }}
+      skip_tests:
+        description: "testable locations after pre-checks"
+        value: ${{ jobs.pre_checks.outputs.skip_tests }}
+
+jobs:
+  pre_checks:
+    name: Test Location Selection
+    runs-on: ubuntu-latest
+    container:
+      image: icr.io/goldeneye_images/goldeneye-ci-image:stable
+      env:
+        NO_CONTAINER: "false"
+        API_KEY: ${{ secrets.api-token }}
+    outputs:
+        test_locations: ${{ steps.finder.outputs.test_locations }}
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Checkout
+        id: step1
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.head_ref }}
+      - name: Script Run
+        id: finder
+        run: |
+          ibmcloud plugin install catalogs-management
+          ibmcloud plugin install schematics
+          ibmcloud plugin install dl-cli
+          echo ${{ github.head_ref }}
+          chmod -R +rwx test-assets
+          export test_locations="${{ inputs.locations }}"
+          echo "Test Locations Passed: ${{ inputs.locations }}"
+          bash ./test-assets/scripts/find_testable_locations.sh >> script_logs.txt
+          ls
+          cat script_logs.txt
+          TESTABLE=[$(tail -1 script_logs.txt)]
+          echo "Testable locations: $TESTABLE"
+          echo "::set-output name=test_locations::$TESTABLE"
+          if [[ "[\"\"]" == "$TESTABLE" ]];then
+            SKIP_TEST="true"
+          else
+            SKIP_TEST="false"
+          fi
+          echo "skip tests? $SKIP_TEST"
+          echo "skip_tests=$SKIP_TEST" >> $GITHUB_OUTPUT
+          ibmcloud logout

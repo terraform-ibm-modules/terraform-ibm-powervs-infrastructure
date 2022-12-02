@@ -1,20 +1,28 @@
 name: All-DCs-Tests
 
-#on:
-#  push:
-#    branches: [ tests ]
-
 on:
+  push:
+    branches: [ tests2 ]
   workflow_dispatch:
 
 jobs:
-  rhel-deployments-1:
+  rhel-pre-checks:
+    uses: terraform-ibm-modules/terraform-ibm-powervs-infrastructure/.github/workflows/pre-checks.yml@tests2
+    with:
+      locations: "osa21 sao01"
+    secrets:
+      api-token: ${{ secrets.API_KEY }}
+      pat: ${{ secrets.PAT }}
+
+  rhel-deployments:
     name: RHEL-Tests-1
-    uses: terraform-ibm-modules/terraform-ibm-powervs-infrastructure/.github/workflows/infraTest.yml@tests
+    uses: terraform-ibm-modules/terraform-ibm-powervs-infrastructure/.github/workflows/infraTest.yml@tests2
+    if: ${{ always() }}
+    needs: rhel-pre-checks
     strategy:
       fail-fast: false
       matrix:
-        pvs-zones: ["tok04","osa21","sao01","tor01"]
+        pvs-zones: ${{fromJson(needs.rhel-pre-checks.outputs.test_locations)}}
         os: ["RHEL"]
     with:
       pvs-zone: ${{ matrix.pvs-zones }}
@@ -25,15 +33,25 @@ jobs:
       ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
       pat: ${{ secrets.PAT }}
 
-  sles-deployments-1:
+  sles-pre-checks:
+    uses: terraform-ibm-modules/terraform-ibm-powervs-infrastructure/.github/workflows/pre-checks.yml@tests2
+    needs: [rhel-deployments]
+    if: ${{ always() }}
+    with:
+      locations: "osa21 sao01"
+    secrets:
+      api-token: ${{ secrets.API_KEY }}
+      pat: ${{ secrets.PAT }}
+
+  sles-deployments:
     name: SLES-Tests-1
     if: ${{ always() }}
-    needs: rhel-deployments-1
-    uses: terraform-ibm-modules/terraform-ibm-powervs-infrastructure/.github/workflows/infraTest.yml@tests
+    needs: sles-pre-checks
+    uses: terraform-ibm-modules/terraform-ibm-powervs-infrastructure/.github/workflows/infraTest.yml@tests2
     strategy:
       fail-fast: false
       matrix:
-        pvs-zones: ["tok04","osa21","sao01","tor01"]
+        pvs-zones: ${{fromJson(needs.sles-pre-checks.outputs.test_locations)}}
         os: ["SLES"]
     with:
       pvs-zone: ${{ matrix.pvs-zones }}

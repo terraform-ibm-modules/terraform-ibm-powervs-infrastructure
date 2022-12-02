@@ -1,7 +1,7 @@
 #!/bin/bash
 
 yes N | ibmcloud login --apikey "$API_KEY" -r "us-south"
-locations=("tok04" "osa21" "sao01" "tor01")
+locations=("$test_locations")
 testable_locs_string=""
 for i in "${!locations[@]}"; do
     pvs_zone=${locations[$i]}
@@ -29,8 +29,6 @@ for i in "${!locations[@]}"; do
     fi
 done
 
-#testable_locs_string="\"${testable_locs_string//,/\",\"}\""
+testable_locs_string="\"${testable_locs_string//,/\",\"}\""
 echo "$testable_locs_string"
-#export TESTABLE_LOCATIONS=$testable_locs_string
-echo "TESTABLE_LOCATIONS=${TESTABLE_LOCATIONS}" >> "$GITHUB_OUTPUT"
-ibmcloud logout
+#echo "TESTABLE_LOCATIONS=${TESTABLE_LOCATIONS}" >> testlocations.env
