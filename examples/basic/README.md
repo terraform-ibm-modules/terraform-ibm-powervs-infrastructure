@@ -16,8 +16,8 @@ This example illustrates a simple way to use the `power-infrastructure` module. 
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >=1.1 |
-| <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | = 1.45.1 |
-| <a name="requirement_tls"></a> [tls](#requirement\_tls) | 4.0.2 |
+| <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | =1.48.0 |
+| <a name="requirement_tls"></a> [tls](#requirement\_tls) | 4.0.4 |
 
 ## Modules
 
@@ -30,9 +30,9 @@ This example illustrates a simple way to use the `power-infrastructure` module. 
 
 | Name | Type |
 |------|------|
-| [ibm_is_ssh_key.ssh_key](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.45.1/docs/resources/is_ssh_key) | resource |
-| [ibm_tg_gateway.powervs_gateway](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.45.1/docs/resources/tg_gateway) | resource |
-| [tls_private_key.tls_key](https://registry.terraform.io/providers/hashicorp/tls/4.0.2/docs/resources/private_key) | resource |
+| [ibm_is_ssh_key.ssh_key](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.48.0/docs/resources/is_ssh_key) | resource |
+| [ibm_tg_gateway.powervs_gateway](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.48.0/docs/resources/tg_gateway) | resource |
+| [tls_private_key.tls_key](https://registry.terraform.io/providers/hashicorp/tls/4.0.4/docs/resources/private_key) | resource |
 
 ## Inputs
 
