@@ -45,6 +45,7 @@ jobs:
   sles-deployments:
     name: SLES-Tests-1
     needs: sles-pre-checks
+    if: always() && needs.sles-pre-checks.result == 'success'
     uses: terraform-ibm-modules/terraform-ibm-powervs-infrastructure/.github/workflows/infraTest.yml@tests2
     strategy:
       fail-fast: false
