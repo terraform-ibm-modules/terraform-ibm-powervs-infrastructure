@@ -49,7 +49,7 @@ jobs:
           chmod -R +rwx test-assets
           export test_locations="${{ inputs.locations }}"
           echo "Test Locations Passed: ${{ inputs.locations }}"
-          bash ./test-assets/scripts/find_testable_locations.sh ${{ inputs.locations }}" >> script_logs.txt
+          bash ./test-assets/scripts/find_testable_locations.sh ${{ inputs.locations }} >> script_logs.txt
           cat script_logs.txt
           TESTABLE=[$(tail -1 script_logs.txt)]
           echo "Testable locations: $TESTABLE"
