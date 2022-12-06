@@ -216,7 +216,11 @@
         "filename": "variables.tf",
         "line": 10
       },
-      "computed": true
+      "cloud_data_type": "resource_group",
+      "computed": true,
+      "cloud_data_range": [
+        "resolved_to:name"
+      ]
     },
     "powervs_sshkey_name": {
       "name": "powervs_sshkey_name",
@@ -268,7 +272,7 @@
         "filename": "variables.tf",
         "line": 1
       },
-      "cloud_data_type": "Region",
+      "cloud_data_type": "region",
       "immutable": true,
       "min_length": 1,
       "max_length": 63,
@@ -449,7 +453,11 @@
         "filename": "outputs.tf",
         "line": 16
       },
-      "type": "string"
+      "type": "string",
+      "cloud_data_type": "resource_group",
+      "cloud_data_range": [
+        "resolved_to:name"
+      ]
     },
     "powervs_sshkey_name": {
       "name": "powervs_sshkey_name",
@@ -480,7 +488,7 @@
         "line": 11
       },
       "type": "string",
-      "cloud_data_type": "Region"
+      "cloud_data_type": "region"
     },
     "proxy_host_or_ip_port": {
       "name": "proxy_host_or_ip_port",
