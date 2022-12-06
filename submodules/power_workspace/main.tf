@@ -80,8 +80,8 @@ locals {
 resource "ibm_pi_image" "import_images_1" {
   for_each             = toset(local.split_images_1)
   pi_cloud_instance_id = ibm_resource_instance.powervs_workspace.guid
-  pi_image_id          = local.catalog_images_to_import_1[each.key].image_id
-  pi_image_name        = local.catalog_images_to_import_1[each.key].name
+  pi_image_id          = local.catalog_images_to_import_1[each.value].image_id
+  pi_image_name        = local.catalog_images_to_import_1[each.value].name
 
   timeouts {
     create = "9m"
@@ -92,8 +92,8 @@ resource "ibm_pi_image" "import_images_2" {
   depends_on           = [ibm_pi_image.import_images_1]
   for_each             = toset(local.split_images_2)
   pi_cloud_instance_id = ibm_resource_instance.powervs_workspace.guid
-  pi_image_id          = local.catalog_images_to_import_2[each.key].image_id
-  pi_image_name        = local.catalog_images_to_import_2[each.key].name
+  pi_image_id          = local.catalog_images_to_import_2[each.value].image_id
+  pi_image_name        = local.catalog_images_to_import_2[each.value].name
 
   timeouts {
     create = "9m"
