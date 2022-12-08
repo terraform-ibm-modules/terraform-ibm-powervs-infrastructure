@@ -7,6 +7,7 @@ on:
 
 jobs:
   rhel-pre-checks:
+    if: "contains(github.event.head_commit.message, 'trigger:')"
     uses: terraform-ibm-modules/terraform-ibm-powervs-infrastructure/.github/workflows/pre-checks.yml@tests2
     with:
       locations: "osa21 syd05 mon01 tok04"
@@ -35,7 +36,7 @@ jobs:
   sles-pre-checks:
     uses: terraform-ibm-modules/terraform-ibm-powervs-infrastructure/.github/workflows/pre-checks.yml@tests2
     needs: [rhel-deployments]
-    if: success() || failure()
+    if: (success() || failure()) && contains(github.event.head_commit.message, 'trigger:')
     with:
       locations: "osa21 sao01 syd05 tor01"
     secrets:

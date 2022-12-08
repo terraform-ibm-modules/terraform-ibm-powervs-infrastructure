@@ -25,3 +25,8 @@ cloud_connection_speed   = 5000  ### mandatory
 cloud_connection_gr      = true  # optional
 cloud_connection_metered = false # optional
 reuse_cloud_connections  = false
+
+configure_proxy         = false
+configure_ntp_forwarder = false
+configure_nfs_server    = false
+configure_dns_forwarder = false

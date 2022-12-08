@@ -105,30 +105,30 @@ echo "input file $input_loc"
 # 8. Terraform deploy of powervs infra
 echo "STEP 8: PVS Infra deployment"
 cd examples/ibm-catalog/standard-solution || exit
-terraform init
+#terraform init
 
-if terraform apply --var-file "$input_loc" -auto-approve; then
-   printf " \n \n \n \nPower infrastructure deployment Successful\n"
-else
-   exit 1
-fi
+#if terraform apply --var-file "$input_loc" -auto-approve; then
+#   printf " \n \n \n \nPower infrastructure deployment Successful\n"
+#else
+#   exit 1
+#fi
 #terraform destroy --var-file "$input_loc" -auto-approve
 
 # 9. SLZ Cleanup
-#echo "Destroying SLZ"
-#yes y | ibmcloud schematics destroy --id "${ws_id}"
-#sleep 600
+echo "Destroying SLZ"
+yes y | ibmcloud schematics destroy --id "${ws_id}"
+sleep 600
 
-#count=0
-#while [[ $count -le 6 ]]; do
-#    sleep 60
-#    if [[ $(ibmcloud schematics workspace get --id "${ws_id}" --output JSON | grep -w \"status\") =~ "INACTIVE" ]]; then
-#        echo "SLZ is INACTIVE"
-#        yes y | ibmcloud schematics workspace delete --id "${ws_id}"
-#        break
-#    fi
-#    count=$((count + 1))
-#done
+count=0
+while [[ $count -le 6 ]]; do
+    sleep 60
+    if [[ $(ibmcloud schematics workspace get --id "${ws_id}" --output JSON | grep -w \"status\") =~ "INACTIVE" ]]; then
+        echo "SLZ is INACTIVE"
+        yes y | ibmcloud schematics workspace delete --id "${ws_id}"
+        break
+    fi
+    count=$((count + 1))
+done
 
 # IBMCloud logout
 echo "FINAL STEP: IBMCloud Logout"
