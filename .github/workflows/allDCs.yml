@@ -9,7 +9,7 @@ jobs:
   rhel-pre-checks:
     uses: terraform-ibm-modules/terraform-ibm-powervs-infrastructure/.github/workflows/pre-checks.yml@tests2
     with:
-      locations: "osa21 sao01 syd05 tor01 tok04"
+      locations: "osa21 syd05 mon01 tok04"
     secrets:
       api-token: ${{ secrets.API_KEY }}
       pat: ${{ secrets.PAT }}
