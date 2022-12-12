@@ -88,6 +88,24 @@
                     "iam_permissions": [
                         {
                             "role_crns": [
+                                "crn:v1:bluemix:public:iam::::role:Editor"
+                            ],
+                            "service_name": "is.vpc"
+                        },
+                        {
+                            "role_crns": [
+                                "crn:v1:bluemix:public:iam::::role:Editor"
+                            ],
+                            "service_name": "transit.gateway"
+                        },
+                        {
+                            "role_crns": [
+                                "crn:v1:bluemix:public:iam::::role:Editor"
+                            ],
+                            "service_name": "directlink.connect"
+                        },
+                        {
+                            "role_crns": [
                                 "crn:v1:bluemix:public:iam::::serviceRole:Manager"
                             ],
                             "service_name": "power-iaas"
@@ -96,6 +114,7 @@
                     "dependencies": [
                         {
                             "flavors": [
+                                "quickstart",
                                 "standard"
                             ],
                             "id": "a87ed9a5-d130-47a3-980b-5ceb1d4f9280-global",
