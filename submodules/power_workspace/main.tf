@@ -69,10 +69,12 @@ data "ibm_pi_catalog_images" "catalog_images_ds" {
 }
 
 locals {
-  catalog_images_to_import_1 = flatten([for stock_image in data.ibm_pi_catalog_images.catalog_images_ds.images : [for image_name in slice(var.powervs_image_names, 0, 2) : stock_image if stock_image.name == image_name]])
-  catalog_images_to_import_2 = flatten([for stock_image in data.ibm_pi_catalog_images.catalog_images_ds.images : [for image_name in slice(var.powervs_image_names, 2, 4) : stock_image if stock_image.name == image_name]])
-  split_images_1             = slice(var.powervs_image_names, 0, 2)
-  split_images_2             = slice(var.powervs_image_names, 2, 4)
+  images_length              = length(var.powervs_image_names)
+  split_images_index         = ceil(local.images_length / 2)
+  catalog_images_to_import_1 = flatten([for stock_image in data.ibm_pi_catalog_images.catalog_images_ds.images : [for image_name in slice(var.powervs_image_names, 0, local.split_images_index) : stock_image if stock_image.name == image_name]])
+  catalog_images_to_import_2 = flatten([for stock_image in data.ibm_pi_catalog_images.catalog_images_ds.images : [for image_name in slice(var.powervs_image_names, local.split_images_index, local.images_length) : stock_image if stock_image.name == image_name]])
+  split_images_1             = slice(var.powervs_image_names, 0, local.split_images_index)
+  split_images_2             = slice(var.powervs_image_names, local.split_images_index, local.images_length)
 }
 
 resource "ibm_pi_image" "import_images_1" {

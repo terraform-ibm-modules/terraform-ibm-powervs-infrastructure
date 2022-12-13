@@ -38,7 +38,7 @@ func setupOptions(t *testing.T, prefix string) *testhelper.TestOptions {
 		"cloud_connection_count":  1,
 		"cloud_connection_speed":  50,
 		// locking into syd05 due to other data center issues
-		"powervs_zone": "syd05",
+		//"powervs_zone": "syd05",
 	}
 
 	return options

@@ -109,7 +109,7 @@ EOF
 
       ####  Execute ansible roles: powervs_install_services  ####
 
-      "ansible-galaxy collection install ibm.power_linux_sap",
+      "ansible-galaxy collection install ibm.power_linux_sap:1.0.8",
       "unbuffer ansible-playbook --connection=local -i 'localhost,' ~/.ansible/collections/ansible_collections/ibm/power_linux_sap/playbooks/powervs-services.yml --extra-vars '@/root/terraform_${local.server_config_name}_config.yml' 2>&1 | tee ansible_execution.log ",
     ]
   }
