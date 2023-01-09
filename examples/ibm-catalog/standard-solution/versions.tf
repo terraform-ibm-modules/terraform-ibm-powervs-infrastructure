@@ -5,7 +5,7 @@
 /***************************************************
 NOTE: To source a particular version of IBM terraform provider, configure the parameter `version` as follows
 terraform {
-  required_version = ">=1.2"
+  required_version = ">= 1.1.0"
   required_providers {
     ibm = {
       source = "IBM-Cloud/ibm"
@@ -17,7 +17,7 @@ If we dont configure the version parameter, it fetches the latest provider versi
 ****************************************************/
 
 terraform {
-  required_version = ">=1.2"
+  required_version = ">= 1.1.0"
   required_providers {
     ibm = {
       source  = "IBM-Cloud/ibm"
