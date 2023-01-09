@@ -20,7 +20,7 @@ Install a current version of the [IBM Secure Landing Zone](https://github.com/te
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >=1.2 |
-| <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | =1.48.0 |
+| <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | =1.49.0 |
 
 ## Modules
 
@@ -32,8 +32,8 @@ Install a current version of the [IBM Secure Landing Zone](https://github.com/te
 
 | Name | Type |
 |------|------|
-| [ibm_schematics_output.schematics_output](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.48.0/docs/data-sources/schematics_output) | data source |
-| [ibm_schematics_workspace.schematics_workspace](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.48.0/docs/data-sources/schematics_workspace) | data source |
+| [ibm_schematics_output.schematics_output](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.49.0/docs/data-sources/schematics_output) | data source |
+| [ibm_schematics_workspace.schematics_workspace](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.49.0/docs/data-sources/schematics_workspace) | data source |
 
 ## Inputs
 
