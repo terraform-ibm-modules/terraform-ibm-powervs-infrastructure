@@ -157,16 +157,20 @@ variable "ntp_forwarder_config" {
 }
 
 variable "nfs_config" {
-  description = "Configuration for the shared NFS file system (for example, for the installation media)."
+  description = "Configuration for the shared NFS file system (for example, for the installation media). Creates a filesystem of disk size specified, mounts and NFS exports it."
   type = object({
     nfs_enable        = bool
     server_host_or_ip = string
-    nfs_directory     = string
+    nfs_file_system = list(object({
+      name       = string
+      mount_path = string
+      size       = number
+    }))
   })
   default = {
     "nfs_enable"        = "false"
     "server_host_or_ip" = ""
-    "nfs_directory"     = "/nfs"
+    "nfs_file_system"   = [{ name : "nfs", mount_path : "/nfs", size : 1000 }]
   }
 }
 
