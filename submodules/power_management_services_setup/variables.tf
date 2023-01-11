@@ -16,7 +16,7 @@ variable "ssh_private_key" {
 
 variable "service_config" {
   description = "An object which contains configuration for NFS, NTP, DNS, Squid Services"
-  type        = map(any)
+  type        = any
   default     = {}
 }
 

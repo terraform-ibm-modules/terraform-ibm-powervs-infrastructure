@@ -27,9 +27,13 @@
         "module.cloud_connection_attach.ibm_pi_cloud_connection_network_attach.powervs_subnet_bkp_nw_attach_backup.count",
         "module.cloud_connection_attach.ibm_pi_cloud_connection_network_attach.powervs_subnet_mgmt_nw_attach.count",
         "module.cloud_connection_attach.ibm_pi_cloud_connection_network_attach.powervs_subnet_mgmt_nw_attach_backup.count",
+        "module.cloud_connection_create.data.ibm_dl_gateway.gateway_ds_1.count",
         "module.cloud_connection_create.data.ibm_dl_gateway.gateway_ds_2.count",
+        "module.cloud_connection_create.ibm_pi_cloud_connection.cloud_connection.count",
         "module.cloud_connection_create.ibm_pi_cloud_connection.cloud_connection_backup.count",
+        "module.cloud_connection_create.ibm_tg_connection.ibm_tg_connection_1.count",
         "module.cloud_connection_create.ibm_tg_connection.ibm_tg_connection_2.count",
+        "module.cloud_connection_create.time_sleep.dl_1_resource_propagation.count",
         "module.cloud_connection_create.time_sleep.dl_2_resource_propagation.count"
       ],
       "pos": {
@@ -101,11 +105,17 @@
     },
     "nfs_config": {
       "name": "nfs_config",
-      "type": "object({\n    nfs_enable        = bool\n    server_host_or_ip = string\n    nfs_directory     = string\n  })",
-      "description": "Configuration for the shared NFS file system (for example, for the installation media).",
+      "type": "object({\n    nfs_enable        = bool\n    server_host_or_ip = string\n    nfs_file_system = list(object({\n      name       = string\n      mount_path = string\n      size       = number\n    }))\n  })",
+      "description": "Configuration for the shared NFS file system (for example, for the installation media). Creates a filesystem of disk size specified, mounts and NFS exports it.",
       "default": {
-        "nfs_directory": "/nfs",
         "nfs_enable": "false",
+        "nfs_file_system": [
+          {
+            "mount_path": "/nfs",
+            "name": "nfs",
+            "size": 1000
+          }
+        ],
         "server_host_or_ip": ""
       },
       "source": [
@@ -148,7 +158,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 173
+        "line": 177
       }
     },
     "powervs_backup_network": {
@@ -690,6 +700,7 @@
           "type": "ibm_pi_cloud_connection",
           "name": "cloud_connection",
           "attributes": {
+            "count": "cloud_connection_count",
             "pi_cloud_connection_global_routing": "cloud_connection_gr",
             "pi_cloud_connection_metered": "cloud_connection_metered",
             "pi_cloud_connection_name": "powervs_zone",
@@ -719,7 +730,7 @@
           },
           "pos": {
             "filename": "submodules/power_cloudconnection_create/main.tf",
-            "line": 34
+            "line": 35
           }
         },
         "ibm_tg_connection.ibm_tg_connection_1": {
@@ -727,6 +738,7 @@
           "type": "ibm_tg_connection",
           "name": "ibm_tg_connection_1",
           "attributes": {
+            "count": "cloud_connection_count",
             "name": "powervs_zone"
           },
           "provider": {
@@ -734,7 +746,7 @@
           },
           "pos": {
             "filename": "submodules/power_cloudconnection_create/main.tf",
-            "line": 89
+            "line": 92
           }
         },
         "ibm_tg_connection.ibm_tg_connection_2": {
@@ -750,19 +762,22 @@
           },
           "pos": {
             "filename": "submodules/power_cloudconnection_create/main.tf",
-            "line": 97
+            "line": 101
           }
         },
         "time_sleep.dl_1_resource_propagation": {
           "mode": "managed",
           "type": "time_sleep",
           "name": "dl_1_resource_propagation",
+          "attributes": {
+            "count": "cloud_connection_count"
+          },
           "provider": {
             "name": "time"
           },
           "pos": {
             "filename": "submodules/power_cloudconnection_create/main.tf",
-            "line": 68
+            "line": 70
           }
         },
         "time_sleep.dl_2_resource_propagation": {
@@ -777,7 +792,7 @@
           },
           "pos": {
             "filename": "submodules/power_cloudconnection_create/main.tf",
-            "line": 76
+            "line": 79
           }
         }
       },
@@ -787,6 +802,7 @@
           "type": "ibm_dl_gateway",
           "name": "gateway_ds_1",
           "attributes": {
+            "count": "cloud_connection_count",
             "name": "powervs_zone"
           },
           "provider": {
@@ -794,7 +810,7 @@
           },
           "pos": {
             "filename": "submodules/power_cloudconnection_create/main.tf",
-            "line": 57
+            "line": 58
           }
         },
         "data.ibm_dl_gateway.gateway_ds_2": {
@@ -810,7 +826,7 @@
           },
           "pos": {
             "filename": "submodules/power_cloudconnection_create/main.tf",
-            "line": 62
+            "line": 64
           }
         },
         "data.ibm_resource_group.resource_group_ds": {
@@ -856,7 +872,7 @@
           },
           "pos": {
             "filename": "submodules/power_cloudconnection_create/main.tf",
-            "line": 49
+            "line": 50
           }
         }
       },
