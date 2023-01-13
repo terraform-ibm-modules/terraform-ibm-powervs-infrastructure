@@ -75,13 +75,20 @@
       "description": "Optional prefix for cloud connection name. If null default cloud connection name will be \u003czone\u003e-conn-1. Else it \u003cprefix\u003e-\u003czone\u003e-conn-1",
       "required": true,
       "source": [
+        "module.cloud_connection_create.data.ibm_dl_gateway.gateway_ds_1.name",
+        "module.cloud_connection_create.data.ibm_dl_gateway.gateway_ds_2.name",
         "module.cloud_connection_create.ibm_pi_cloud_connection.cloud_connection.pi_cloud_connection_name",
-        "module.cloud_connection_create.ibm_pi_cloud_connection.cloud_connection_backup.pi_cloud_connection_name"
+        "module.cloud_connection_create.ibm_pi_cloud_connection.cloud_connection_backup.pi_cloud_connection_name",
+        "module.cloud_connection_create.ibm_tg_connection.ibm_tg_connection_1.name",
+        "module.cloud_connection_create.ibm_tg_connection.ibm_tg_connection_2.name"
       ],
       "pos": {
         "filename": "variables.tf",
         "line": 73
-      }
+      },
+      "min_length": 1,
+      "max_length": 63,
+      "matches": "^([a-zA-Z]|[a-zA-Z][-_a-zA-Z0-9]*[a-zA-Z0-9])$"
     },
     "cloud_connection_speed": {
       "name": "cloud_connection_speed",
@@ -283,11 +290,7 @@
       "required": true,
       "source": [
         "module.cloud_connection_attach.data.ibm_resource_instance.powervs_workspace_ds.location",
-        "module.cloud_connection_create.data.ibm_dl_gateway.gateway_ds_1.name",
-        "module.cloud_connection_create.data.ibm_dl_gateway.gateway_ds_2.name",
         "module.cloud_connection_create.data.ibm_resource_instance.powervs_workspace_ds.location",
-        "module.cloud_connection_create.ibm_tg_connection.ibm_tg_connection_1.name",
-        "module.cloud_connection_create.ibm_tg_connection.ibm_tg_connection_2.name",
         "module.power_workspace.ibm_resource_instance.powervs_workspace.location"
       ],
       "pos": {
@@ -296,9 +299,6 @@
       },
       "cloud_data_type": "region",
       "immutable": true,
-      "min_length": 1,
-      "max_length": 63,
-      "matches": "^([a-zA-Z]|[a-zA-Z][-_a-zA-Z0-9]*[a-zA-Z0-9])$",
       "computed": true
     },
     "reuse_cloud_connections": {
@@ -752,7 +752,7 @@
           "name": "ibm_tg_connection_1",
           "attributes": {
             "count": "cloud_connection_count",
-            "name": "powervs_zone"
+            "name": "cloud_connection_name_prefix"
           },
           "provider": {
             "name": "ibm"
@@ -768,7 +768,7 @@
           "name": "ibm_tg_connection_2",
           "attributes": {
             "count": "cloud_connection_count",
-            "name": "powervs_zone"
+            "name": "cloud_connection_name_prefix"
           },
           "provider": {
             "name": "ibm"
@@ -816,7 +816,7 @@
           "name": "gateway_ds_1",
           "attributes": {
             "count": "cloud_connection_count",
-            "name": "powervs_zone"
+            "name": "cloud_connection_name_prefix"
           },
           "provider": {
             "name": "ibm"
@@ -832,7 +832,7 @@
           "name": "gateway_ds_2",
           "attributes": {
             "count": "cloud_connection_count",
-            "name": "powervs_zone"
+            "name": "cloud_connection_name_prefix"
           },
           "provider": {
             "name": "ibm"

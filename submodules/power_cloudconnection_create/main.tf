@@ -58,13 +58,13 @@ data "ibm_tg_gateway" "tg_gateway_ds" {
 data "ibm_dl_gateway" "gateway_ds_1" {
   depends_on = [ibm_pi_cloud_connection.cloud_connection]
   count      = var.cloud_connection_count > 0 ? 1 : 0
-  name       = "${var.powervs_zone}-conn-1"
+  name       = var.cloud_connection_name_prefix != null && var.cloud_connection_name_prefix != "" ? "${var.cloud_connection_name_prefix}-${var.powervs_zone}-conn-1" : "${var.powervs_zone}-conn-1"
 }
 
 data "ibm_dl_gateway" "gateway_ds_2" {
   count      = var.cloud_connection_count > 1 ? 1 : 0
   depends_on = [ibm_pi_cloud_connection.cloud_connection_backup]
-  name       = "${var.powervs_zone}-conn-2"
+  name       = var.cloud_connection_name_prefix != null && var.cloud_connection_name_prefix != "" ? "${var.cloud_connection_name_prefix}-${var.powervs_zone}-conn-2" : "${var.powervs_zone}-conn-2"
 }
 
 resource "time_sleep" "dl_1_resource_propagation" {
@@ -94,7 +94,7 @@ resource "ibm_tg_connection" "ibm_tg_connection_1" {
   count        = var.cloud_connection_count > 0 ? 1 : 0
   gateway      = data.ibm_tg_gateway.tg_gateway_ds.id
   network_type = "directlink"
-  name         = "${var.powervs_zone}-conn-1"
+  name         = var.cloud_connection_name_prefix != null && var.cloud_connection_name_prefix != "" ? "${var.cloud_connection_name_prefix}-${var.powervs_zone}-conn-1" : "${var.powervs_zone}-conn-1"
   network_id   = time_sleep.dl_1_resource_propagation[0].triggers["dl_crn"]
 }
 
@@ -103,6 +103,6 @@ resource "ibm_tg_connection" "ibm_tg_connection_2" {
   count        = var.cloud_connection_count > 1 ? 1 : 0
   gateway      = data.ibm_tg_gateway.tg_gateway_ds.id
   network_type = "directlink"
-  name         = "${var.powervs_zone}-conn-2"
+  name         = var.cloud_connection_name_prefix != null && var.cloud_connection_name_prefix != "" ? "${var.cloud_connection_name_prefix}-${var.powervs_zone}-conn-2" : "${var.powervs_zone}-conn-2"
   network_id   = time_sleep.dl_2_resource_propagation[0].triggers["dl_crn"]
 }
