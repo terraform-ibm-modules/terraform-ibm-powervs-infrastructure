@@ -71,7 +71,7 @@ variable "reuse_cloud_connections" {
 }
 
 variable "cloud_connection_name_prefix" {
-  description = "Optional prefix for cloud connection name. If null default cloud connection name will be <zone>-conn-1. Else it <prefix>-<zone>-conn-1"
+  description = "If null default cloud connection name will be <zone>-conn-1 -> If null or empty string, default cloud connection name will be <zone>-conn-1."
   type        = string
   default     = null
 }
