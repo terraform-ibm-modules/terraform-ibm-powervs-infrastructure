@@ -41,28 +41,29 @@ module "power-infrastructure" {
   # Replace "main" with a GIT release version to lock into a specific release
   source = "git::https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure.git?ref=main"
 
-  powervs_zone                = var.powervs_zone
-  powervs_resource_group_name = var.powervs_resource_group_name
-  powervs_workspace_name      = var.powervs_workspace_name
-  tags                        = var.tags
-  powervs_image_names         = var.powervs_image_names
-  powervs_sshkey_name         = var.powervs_sshkey_name
-  ssh_public_key              = var.ssh_public_key
-  ssh_private_key             = var.ssh_private_key
-  powervs_management_network  = var.powervs_management_network
-  powervs_backup_network      = var.powervs_backup_network
-  transit_gateway_name        = var.transit_gateway_name
-  reuse_cloud_connections     = var.reuse_cloud_connections
-  cloud_connection_count      = var.cloud_connection_count
-  cloud_connection_speed      = var.cloud_connection_speed
-  cloud_connection_gr         = var.cloud_connection_gr
-  cloud_connection_metered    = var.cloud_connection_metered
-  access_host_or_ip           = var.access_host_or_ip
-  squid_config                = var.squid_config
-  dns_forwarder_config        = var.dns_forwarder_config
-  ntp_forwarder_config        = var.ntp_forwarder_config
-  nfs_config                  = var.nfs_config
-  perform_proxy_client_setup  = var.perform_proxy_client_setup
+  powervs_zone                 = var.powervs_zone
+  powervs_resource_group_name  = var.powervs_resource_group_name
+  powervs_workspace_name       = var.powervs_workspace_name
+  tags                         = var.tags
+  powervs_image_names          = var.powervs_image_names
+  powervs_sshkey_name          = var.powervs_sshkey_name
+  ssh_public_key               = var.ssh_public_key
+  ssh_private_key              = var.ssh_private_key
+  powervs_management_network   = var.powervs_management_network
+  powervs_backup_network       = var.powervs_backup_network
+  transit_gateway_name         = var.transit_gateway_name
+  reuse_cloud_connections      = var.reuse_cloud_connections
+  cloud_connection_name_prefix = var.cloud_connection_name_prefix
+  cloud_connection_count       = var.cloud_connection_count
+  cloud_connection_speed       = var.cloud_connection_speed
+  cloud_connection_gr          = var.cloud_connection_gr
+  cloud_connection_metered     = var.cloud_connection_metered
+  access_host_or_ip            = var.access_host_or_ip
+  squid_config                 = var.squid_config
+  dns_forwarder_config         = var.dns_forwarder_config
+  ntp_forwarder_config         = var.ntp_forwarder_config
+  nfs_config                   = var.nfs_config
+  perform_proxy_client_setup   = var.perform_proxy_client_setup
 }
 ```
 
@@ -140,6 +141,7 @@ statement instead the previous block.
 | <a name="input_cloud_connection_count"></a> [cloud\_connection\_count](#input\_cloud\_connection\_count) | Required number of Cloud connections to create or reuse. The maximum number of connections is two per location. | `number` | `2` | no |
 | <a name="input_cloud_connection_gr"></a> [cloud\_connection\_gr](#input\_cloud\_connection\_gr) | Whether to enable global routing for this IBM Cloud connection. You can specify thia value when you create a connection. | `bool` | `null` | no |
 | <a name="input_cloud_connection_metered"></a> [cloud\_connection\_metered](#input\_cloud\_connection\_metered) | Whether to enable metering for this IBM Cloud connection. You can specify thia value when you create a connection. | `bool` | `null` | no |
+| <a name="input_cloud_connection_name_prefix"></a> [cloud\_connection\_name\_prefix](#input\_cloud\_connection\_name\_prefix) | Optional prefix for cloud connection name. If null default cloud connection name will be <zone>-conn-1. Else it <prefix>-<zone>-conn-1 | `string` | `null` | no |
 | <a name="input_cloud_connection_speed"></a> [cloud\_connection\_speed](#input\_cloud\_connection\_speed) | Speed in megabits per second. Supported values are 50, 100, 200, 500, 1000, 2000, 5000, 10000. Required when you create a connection. | `number` | `5000` | no |
 | <a name="input_dns_forwarder_config"></a> [dns\_forwarder\_config](#input\_dns\_forwarder\_config) | Configuration for the DNS forwarder to a DNS service that is not reachable directly from PowerVS. | <pre>object({<br>    dns_enable        = bool<br>    server_host_or_ip = string<br>    dns_servers       = string<br>  })</pre> | <pre>{<br>  "dns_enable": "false",<br>  "dns_servers": "161.26.0.7; 161.26.0.8; 9.9.9.9;",<br>  "server_host_or_ip": ""<br>}</pre> | no |
 | <a name="input_nfs_config"></a> [nfs\_config](#input\_nfs\_config) | Configuration for the shared NFS file system (for example, for the installation media). Creates a filesystem of disk size specified, mounts and NFS exports it. | <pre>object({<br>    nfs_enable        = bool<br>    server_host_or_ip = string<br>    nfs_file_system = list(object({<br>      name       = string<br>      mount_path = string<br>      size       = number<br>    }))<br>  })</pre> | <pre>{<br>  "nfs_enable": "false",<br>  "nfs_file_system": [<br>    {<br>      "mount_path": "/nfs",<br>      "name": "nfs",<br>      "size": 1000<br>    }<br>  ],<br>  "server_host_or_ip": ""<br>}</pre> | no |

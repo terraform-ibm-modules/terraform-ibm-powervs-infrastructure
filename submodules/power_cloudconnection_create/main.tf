@@ -25,7 +25,7 @@ data "ibm_resource_instance" "powervs_workspace_ds" {
 resource "ibm_pi_cloud_connection" "cloud_connection" {
   count                               = var.cloud_connection_count > 0 ? 1 : 0
   pi_cloud_instance_id                = data.ibm_resource_instance.powervs_workspace_ds.guid
-  pi_cloud_connection_name            = "${var.powervs_zone}-conn-1"
+  pi_cloud_connection_name            = var.cloud_connection_name_prefix != null && var.cloud_connection_name_prefix != "" ? "${var.cloud_connection_name_prefix}-${var.powervs_zone}-conn-1" : "${var.powervs_zone}-conn-1"
   pi_cloud_connection_speed           = var.cloud_connection_speed
   pi_cloud_connection_global_routing  = var.cloud_connection_gr
   pi_cloud_connection_metered         = var.cloud_connection_metered
@@ -36,7 +36,7 @@ resource "ibm_pi_cloud_connection" "cloud_connection_backup" {
   depends_on                          = [ibm_pi_cloud_connection.cloud_connection]
   count                               = var.cloud_connection_count > 1 ? 1 : 0
   pi_cloud_instance_id                = data.ibm_resource_instance.powervs_workspace_ds.guid
-  pi_cloud_connection_name            = "${var.powervs_zone}-conn-2"
+  pi_cloud_connection_name            = var.cloud_connection_name_prefix != null && var.cloud_connection_name_prefix != "" ? "${var.cloud_connection_name_prefix}-${var.powervs_zone}-conn-2" : "${var.powervs_zone}-conn-2"
   pi_cloud_connection_speed           = var.cloud_connection_speed
   pi_cloud_connection_global_routing  = var.cloud_connection_gr
   pi_cloud_connection_metered         = var.cloud_connection_metered

@@ -70,6 +70,12 @@ variable "reuse_cloud_connections" {
   default     = false
 }
 
+variable "cloud_connection_name_prefix" {
+  description = "Optional prefix for cloud connection name. If null default cloud connection name will be <zone>-conn-1. Else it <prefix>-<zone>-conn-1"
+  type        = string
+  default     = null
+}
+
 variable "cloud_connection_count" {
   description = "Required number of Cloud connections to create or reuse. The maximum number of connections is two per location."
   type        = number
