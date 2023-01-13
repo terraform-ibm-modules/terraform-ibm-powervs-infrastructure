@@ -13,7 +13,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 113
+        "line": 119
       }
     },
     "cloud_connection_count": {
@@ -38,7 +38,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 73
+        "line": 79
       }
     },
     "cloud_connection_gr": {
@@ -52,7 +52,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 101
+        "line": 107
       }
     },
     "cloud_connection_metered": {
@@ -66,7 +66,19 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 107
+        "line": 113
+      }
+    },
+    "cloud_connection_name_prefix": {
+      "name": "cloud_connection_name_prefix",
+      "type": "string",
+      "description": "If null or empty string, default cloud connection name will be \u003czone\u003e-conn-1.",
+      "source": [
+        "module.cloud_connection_create"
+      ],
+      "pos": {
+        "filename": "variables.tf",
+        "line": 73
       }
     },
     "cloud_connection_speed": {
@@ -81,7 +93,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 79
+        "line": 85
       }
     },
     "dns_forwarder_config": {
@@ -100,7 +112,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 133
+        "line": 139
       }
     },
     "nfs_config": {
@@ -125,7 +137,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 159
+        "line": 165
       }
     },
     "ntp_forwarder_config": {
@@ -143,7 +155,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 147
+        "line": 153
       }
     },
     "perform_proxy_client_setup": {
@@ -158,7 +170,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 177
+        "line": 183
       }
     },
     "powervs_backup_network": {
@@ -192,7 +204,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 95
+        "line": 101
       }
     },
     "powervs_management_network": {
@@ -269,13 +281,7 @@
       "required": true,
       "source": [
         "module.cloud_connection_attach.data.ibm_resource_instance.powervs_workspace_ds.location",
-        "module.cloud_connection_create.data.ibm_dl_gateway.gateway_ds_1.name",
-        "module.cloud_connection_create.data.ibm_dl_gateway.gateway_ds_2.name",
         "module.cloud_connection_create.data.ibm_resource_instance.powervs_workspace_ds.location",
-        "module.cloud_connection_create.ibm_pi_cloud_connection.cloud_connection.pi_cloud_connection_name",
-        "module.cloud_connection_create.ibm_pi_cloud_connection.cloud_connection_backup.pi_cloud_connection_name",
-        "module.cloud_connection_create.ibm_tg_connection.ibm_tg_connection_1.name",
-        "module.cloud_connection_create.ibm_tg_connection.ibm_tg_connection_2.name",
         "module.power_workspace.ibm_resource_instance.powervs_workspace.location"
       ],
       "pos": {
@@ -284,9 +290,6 @@
       },
       "cloud_data_type": "region",
       "immutable": true,
-      "min_length": 1,
-      "max_length": 63,
-      "matches": "^([a-zA-Z]|[a-zA-Z][-_a-zA-Z0-9]*[a-zA-Z0-9])$",
       "computed": true
     },
     "reuse_cloud_connections": {
@@ -319,7 +322,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 119
+        "line": 125
       }
     },
     "ssh_private_key": {
@@ -362,7 +365,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 89
+        "line": 95
       },
       "min_length": 1,
       "max_length": 128,
@@ -536,7 +539,7 @@
       },
       "pos": {
         "filename": "main.tf",
-        "line": 65
+        "line": 66
       }
     }
   },
@@ -677,7 +680,7 @@
       },
       "pos": {
         "filename": "main.tf",
-        "line": 42
+        "line": 43
       }
     },
     "cloud_connection_create": {
@@ -687,6 +690,7 @@
         "cloud_connection_count": "cloud_connection_count",
         "cloud_connection_gr": "cloud_connection_gr",
         "cloud_connection_metered": "cloud_connection_metered",
+        "cloud_connection_name_prefix": "cloud_connection_name_prefix",
         "cloud_connection_speed": "cloud_connection_speed",
         "count": "reuse_cloud_connections",
         "powervs_resource_group_name": "powervs_resource_group_name",
@@ -703,7 +707,6 @@
             "count": "cloud_connection_count",
             "pi_cloud_connection_global_routing": "cloud_connection_gr",
             "pi_cloud_connection_metered": "cloud_connection_metered",
-            "pi_cloud_connection_name": "powervs_zone",
             "pi_cloud_connection_speed": "cloud_connection_speed"
           },
           "provider": {
@@ -711,7 +714,7 @@
           },
           "pos": {
             "filename": "submodules/power_cloudconnection_create/main.tf",
-            "line": 25
+            "line": 29
           }
         },
         "ibm_pi_cloud_connection.cloud_connection_backup": {
@@ -722,7 +725,6 @@
             "count": "cloud_connection_count",
             "pi_cloud_connection_global_routing": "cloud_connection_gr",
             "pi_cloud_connection_metered": "cloud_connection_metered",
-            "pi_cloud_connection_name": "powervs_zone",
             "pi_cloud_connection_speed": "cloud_connection_speed"
           },
           "provider": {
@@ -730,7 +732,7 @@
           },
           "pos": {
             "filename": "submodules/power_cloudconnection_create/main.tf",
-            "line": 35
+            "line": 39
           }
         },
         "ibm_tg_connection.ibm_tg_connection_1": {
@@ -738,15 +740,14 @@
           "type": "ibm_tg_connection",
           "name": "ibm_tg_connection_1",
           "attributes": {
-            "count": "cloud_connection_count",
-            "name": "powervs_zone"
+            "count": "cloud_connection_count"
           },
           "provider": {
             "name": "ibm"
           },
           "pos": {
             "filename": "submodules/power_cloudconnection_create/main.tf",
-            "line": 92
+            "line": 96
           }
         },
         "ibm_tg_connection.ibm_tg_connection_2": {
@@ -754,15 +755,14 @@
           "type": "ibm_tg_connection",
           "name": "ibm_tg_connection_2",
           "attributes": {
-            "count": "cloud_connection_count",
-            "name": "powervs_zone"
+            "count": "cloud_connection_count"
           },
           "provider": {
             "name": "ibm"
           },
           "pos": {
             "filename": "submodules/power_cloudconnection_create/main.tf",
-            "line": 101
+            "line": 105
           }
         },
         "time_sleep.dl_1_resource_propagation": {
@@ -777,7 +777,7 @@
           },
           "pos": {
             "filename": "submodules/power_cloudconnection_create/main.tf",
-            "line": 70
+            "line": 74
           }
         },
         "time_sleep.dl_2_resource_propagation": {
@@ -792,7 +792,7 @@
           },
           "pos": {
             "filename": "submodules/power_cloudconnection_create/main.tf",
-            "line": 79
+            "line": 83
           }
         }
       },
@@ -802,15 +802,14 @@
           "type": "ibm_dl_gateway",
           "name": "gateway_ds_1",
           "attributes": {
-            "count": "cloud_connection_count",
-            "name": "powervs_zone"
+            "count": "cloud_connection_count"
           },
           "provider": {
             "name": "ibm"
           },
           "pos": {
             "filename": "submodules/power_cloudconnection_create/main.tf",
-            "line": 58
+            "line": 62
           }
         },
         "data.ibm_dl_gateway.gateway_ds_2": {
@@ -818,15 +817,14 @@
           "type": "ibm_dl_gateway",
           "name": "gateway_ds_2",
           "attributes": {
-            "count": "cloud_connection_count",
-            "name": "powervs_zone"
+            "count": "cloud_connection_count"
           },
           "provider": {
             "name": "ibm"
           },
           "pos": {
             "filename": "submodules/power_cloudconnection_create/main.tf",
-            "line": 64
+            "line": 68
           }
         },
         "data.ibm_resource_group.resource_group_ds": {
@@ -872,7 +870,7 @@
           },
           "pos": {
             "filename": "submodules/power_cloudconnection_create/main.tf",
-            "line": 50
+            "line": 54
           }
         }
       },
@@ -949,7 +947,7 @@
       "data_resources": {},
       "pos": {
         "filename": "main.tf",
-        "line": 70
+        "line": 71
       }
     },
     "power_management_service_nfs": {
@@ -1007,7 +1005,7 @@
       "data_resources": {},
       "pos": {
         "filename": "main.tf",
-        "line": 96
+        "line": 97
       }
     },
     "power_management_service_ntp": {
@@ -1065,7 +1063,7 @@
       "data_resources": {},
       "pos": {
         "filename": "main.tf",
-        "line": 83
+        "line": 84
       }
     },
     "power_management_service_squid": {
@@ -1123,7 +1121,7 @@
       "data_resources": {},
       "pos": {
         "filename": "main.tf",
-        "line": 52
+        "line": 53
       }
     },
     "power_workspace": {

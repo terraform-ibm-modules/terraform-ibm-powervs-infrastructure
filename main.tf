@@ -25,17 +25,18 @@ module "power_workspace" {
 }
 
 module "cloud_connection_create" {
-  source                      = "./submodules/power_cloudconnection_create"
-  depends_on                  = [module.power_workspace]
-  count                       = var.reuse_cloud_connections ? 0 : 1
-  powervs_zone                = var.powervs_zone
-  powervs_resource_group_name = var.powervs_resource_group_name
-  powervs_workspace_name      = var.powervs_workspace_name
-  transit_gateway_name        = var.transit_gateway_name
-  cloud_connection_count      = var.cloud_connection_count
-  cloud_connection_speed      = var.cloud_connection_speed
-  cloud_connection_gr         = var.cloud_connection_gr
-  cloud_connection_metered    = var.cloud_connection_metered
+  source                       = "./submodules/power_cloudconnection_create"
+  depends_on                   = [module.power_workspace]
+  count                        = var.reuse_cloud_connections ? 0 : 1
+  powervs_zone                 = var.powervs_zone
+  powervs_resource_group_name  = var.powervs_resource_group_name
+  powervs_workspace_name       = var.powervs_workspace_name
+  transit_gateway_name         = var.transit_gateway_name
+  cloud_connection_name_prefix = var.cloud_connection_name_prefix
+  cloud_connection_count       = var.cloud_connection_count
+  cloud_connection_speed       = var.cloud_connection_speed
+  cloud_connection_gr          = var.cloud_connection_gr
+  cloud_connection_metered     = var.cloud_connection_metered
 
 }
 
