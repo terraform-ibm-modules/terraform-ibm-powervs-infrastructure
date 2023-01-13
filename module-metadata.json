@@ -72,7 +72,7 @@
     "cloud_connection_name_prefix": {
       "name": "cloud_connection_name_prefix",
       "type": "string",
-      "description": "If null default cloud connection name will be \u003czone\u003e-conn-1 -\u003e If null or empty string, default cloud connection name will be \u003czone\u003e-conn-1.",
+      "description": "If null or empty string, default cloud connection name will be \u003czone\u003e-conn-1.",
       "source": [
         "module.cloud_connection_create"
       ],
