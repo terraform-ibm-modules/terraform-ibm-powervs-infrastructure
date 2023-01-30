@@ -29,8 +29,8 @@ powervs_backup_network      = var.powervs_backup_network
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >=1.1 |
-| <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | >= 1.49.0 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.3.0 |
+| <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | =1.50.0-beta0 |
 
 ## Modules
 
@@ -40,14 +40,14 @@ No modules.
 
 | Name | Type |
 |------|------|
-| [ibm_pi_image.import_images_1](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/pi_image) | resource |
-| [ibm_pi_image.import_images_2](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/pi_image) | resource |
-| [ibm_pi_key.ssh_key](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/pi_key) | resource |
-| [ibm_pi_network.backup_network](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/pi_network) | resource |
-| [ibm_pi_network.management_network](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/pi_network) | resource |
-| [ibm_resource_instance.powervs_workspace](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/resource_instance) | resource |
-| [ibm_pi_catalog_images.catalog_images_ds](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/data-sources/pi_catalog_images) | data source |
-| [ibm_resource_group.resource_group_ds](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/data-sources/resource_group) | data source |
+| [ibm_pi_image.import_images_1](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.50.0-beta0/docs/resources/pi_image) | resource |
+| [ibm_pi_image.import_images_2](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.50.0-beta0/docs/resources/pi_image) | resource |
+| [ibm_pi_key.ssh_key](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.50.0-beta0/docs/resources/pi_key) | resource |
+| [ibm_pi_network.backup_network](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.50.0-beta0/docs/resources/pi_network) | resource |
+| [ibm_pi_network.management_network](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.50.0-beta0/docs/resources/pi_network) | resource |
+| [ibm_resource_instance.powervs_workspace](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.50.0-beta0/docs/resources/resource_instance) | resource |
+| [ibm_pi_catalog_images.catalog_images_ds](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.50.0-beta0/docs/data-sources/pi_catalog_images) | data source |
+| [ibm_resource_group.resource_group_ds](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.50.0-beta0/docs/data-sources/resource_group) | data source |
 
 ## Inputs
 
