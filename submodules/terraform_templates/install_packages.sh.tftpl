@@ -1,0 +1,109 @@
+#!/bin/bash
+############################################################
+# Installs necessary packages
+# Change values of the variables and execute               #
+############################################################
+install_packages=${install_packages}
+
+############################################################
+# Main Program                                             #
+############################################################
+
+if [ -f /etc/SuSE-release ]; then
+  OS_DETECTED=SLES
+  #  echo "Executing command: cat /etc/SuSE-release"
+  echo -e "Detected OS: $OS_DETECTED \n" # "$(cat /etc/SuSE-release)"
+fi
+
+if grep --quiet "SUSE Linux Enterprise Server" /etc/os-release; then
+  OS_DETECTED=SLES
+  #  echo "Executing command: cat /etc/os-release"
+  echo -e "Detected OS: $OS_DETECTED \n" # "$(cat /etc/os-release)"
+fi
+
+if [ -f /etc/redhat-release ]; then
+  OS_DETECTED=RHEL
+  #  echo "Executing command: cat /etc/redhat-release"
+  echo -e "Detected OS: $OS_DETECTED \n" #"$(cat /etc/redhat-release)"
+fi
+
+###########################################
+# SLES Setup                              #
+###########################################
+if [ "$OS_DETECTED" == "SLES" ]; then
+  ##### if -i flag  is passed as argument, install ansible, awscli packages.
+  if [ "$install_packages" == true ]; then
+    ##### Install Ansible and awscli ####
+    ##### Activating SuSE packages
+    VERSION_ID=$(grep VERSION_ID /etc/os-release | awk -F= '{ print $NF }' | sed 's/\"//g')
+    ARCH=$(uname -p)
+    zypper --gpg-auto-import-keys ref >/dev/null
+    SUSEConnect -p PackageHub/"$${VERSION_ID}"/"$${ARCH}" >/dev/null
+    zypper --gpg-auto-import-keys ref >/dev/null
+    SUSEConnect -p sle-module-server-applications/"$${VERSION_ID}"/"$${ARCH}" >/dev/null
+    zypper --gpg-auto-import-keys ref >/dev/null
+    SUSEConnect -p sle-module-public-cloud/"$${VERSION_ID}"/"$${ARCH}" >/dev/null
+    zypper --gpg-auto-import-keys ref >/dev/null
+    echo "Installing ansible package via zypper"
+    zypper install -y ansible >/dev/null
+    if [[ "$$ARCH" == "x86_64" ]]; then
+      echo "Installing awscli package via zypper"
+      zypper install -y aws-cli >/dev/null
+      if ! which aws >/dev/null; then
+        echo "aws installation failed, exiting"
+        exit 1
+      fi
+    fi
+    ##### Verify if each of above packages got installed successfully
+    # check if ansible is installed or not
+    if ! which ansible >/dev/null; then
+      echo "ansible installation failed, exiting"
+      exit 1
+    fi
+  fi
+fi
+
+###########################################
+# RHEL Setup                              #
+###########################################
+if [ "$OS_DETECTED" == "RHEL" ]; then
+  ARCH=$(uname -p)
+  ##### if -i flag  is passed as argument, install ansible, awscli packages
+  if [ "$install_packages" == true ]; then
+    ##### Install Ansible, unbuffer(expect) and awscli ####
+    echo "Installing python3-pip package via yum"
+    yum install -y python3-pip >/dev/null 2>/dev/null
+    echo "Installing expect package via yum"
+    yum install -y expect >/dev/null 2>/dev/null
+    echo "Installing ansible using pip3 package"
+    pip3 install ansible >/dev/null 2>/dev/null
+
+    if [[ "$ARCH" == "x86_64" ]]; then
+      if ! subscription-manager repos --enable=rhel-8-for-x86_64-highavailability-rpms >/dev/null 2>/dev/null; then
+        echo "Installing awscli package using pip"
+        pip3 install awscli >/dev/null 2>/dev/null
+      else
+        echo "Installing awscli package using yum"
+        yum install -y awscli >/dev/null 2>/dev/null
+      fi
+      # check if awscli is installed or not
+      if ! which aws >/dev/null; then
+        echo "aws installation failed, exiting"
+        exit 1
+      fi
+    fi
+
+    ##### Verify if each of above packages got installed successfully
+    # check if ansible is installed or not
+    if ! which ansible >/dev/null; then
+      echo "ansible installation failed, exiting"
+      exit 1
+    fi
+    # check if expect is installed or not
+    if ! which unbuffer >/dev/null; then
+      echo "expect installation failed, exiting"
+      exit 1
+    fi
+    echo "All packages are installed successfully"
+  fi
+fi
