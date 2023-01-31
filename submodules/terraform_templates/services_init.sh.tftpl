@@ -1,59 +1,11 @@
 #!/bin/bash
 ############################################################
-# Help                                                     #
+# Configures squid client proxy and Registers the OS.      #
+# Change values of the variables and execute               #
 ############################################################
 
-Help() {
-  # Display Help
-  echo "Configures squid proxy on client, Registers OS, Installs (ansible, awscli) "
-  echo
-  echo "Syntax: scriptTemplate [ -p | -n | -h | -i]"
-  echo "options:"
-  echo "-p: Proxy Server IP:Port"
-  echo "-n: No proxy Ip"
-  echo "-i: Install packages"
-  echo "-h: Print this Help."
-}
-
-exit_abnormal() { # Function: Exit with error.
-  Help
-  exit 1
-}
-
-############################################################
-# Process the input options. Add options as needed.        #
-############################################################
-if [[ $# -eq 0 ]]; then
-  Help
-  exit 1
-fi
-
-while getopts :h?:p:in: flag; do
-  case "${flag}" in
-  p)
-    proxy_ip_and_port=${OPTARG}
-    ;;
-
-  n)
-    no_proxy_ip=${OPTARG}
-    ;;
-
-  i)
-    install_packages=true
-    ;;
-
-  :)
-    # If expected argument omitted:
-    echo "Error: -${OPTARG} requires an argument."
-    exit_abnormal # Exit abnormally.
-    ;;
-  \? | h | *) # Prints help.
-    grep " .)\ #" "$0"
-    # If unknown (any other) option:
-    exit_abnormal # Exit abnormally.
-    ;;
-  esac
-done
+proxy_ip_and_port=${proxy_ip_and_port}
+no_proxy_ip=${no_proxy_ip}
 
 ############################################################
 # Main Program                                             #
@@ -154,37 +106,6 @@ if [ "$OS_DETECTED" == "SLES" ]; then
       fi
     fi
   fi
-
-  ##### if -i flag  is passed as argument, install ansible, awscli packages.
-  if [ "$install_packages" == true ]; then
-    ##### Install Ansible and awscli ####
-    ##### Activating SuSE packages
-    VERSION_ID=$(grep VERSION_ID /etc/os-release | awk -F= '{ print $NF }' | sed 's/\"//g')
-    ARCH=$(uname -p)
-    zypper --gpg-auto-import-keys ref >/dev/null
-    SUSEConnect -p PackageHub/"${VERSION_ID}"/"${ARCH}" >/dev/null
-    zypper --gpg-auto-import-keys ref >/dev/null
-    SUSEConnect -p sle-module-server-applications/"${VERSION_ID}"/"${ARCH}" >/dev/null
-    zypper --gpg-auto-import-keys ref >/dev/null
-    SUSEConnect -p sle-module-public-cloud/"${VERSION_ID}"/"${ARCH}" >/dev/null
-    zypper --gpg-auto-import-keys ref >/dev/null
-    echo "Installing ansible package via zypper"
-    zypper install -y ansible >/dev/null
-    if [[ "$ARCH" == "x86_64" ]]; then
-      echo "Installing awscli package via zypper"
-      zypper install -y aws-cli >/dev/null
-      if ! which aws >/dev/null; then
-        echo "aws installation failed, exiting"
-        exit 1
-      fi
-    fi
-    ##### Verify if each of above packages got installed successfully
-    # check if ansible is installed or not
-    if ! which ansible >/dev/null; then
-      echo "ansible installation failed, exiting"
-      exit 1
-    fi
-  fi
 fi
 
 ###########################################
@@ -265,44 +186,5 @@ if [ "$OS_DETECTED" == "RHEL" ]; then
         exit 1
       fi
     fi
-  fi
-
-  ##### if -i flag  is passed as argument, install ansible, awscli packages
-  if [ "$install_packages" == true ]; then
-    ##### Install Ansible, unbuffer(expect) and awscli ####
-    echo "Installing python3-pip package via yum"
-    yum install -y python3-pip >/dev/null 2>/dev/null
-    echo "Installing expect package via yum"
-    yum install -y expect >/dev/null 2>/dev/null
-    echo "Installing ansible using pip3 package"
-    pip3 install ansible >/dev/null 2>/dev/null
-
-    if [[ "$ARCH" == "x86_64" ]]; then
-      if ! subscription-manager repos --enable=rhel-8-for-x86_64-highavailability-rpms >/dev/null 2>/dev/null; then
-        echo "Installing awscli package using pip"
-        pip3 install awscli >/dev/null 2>/dev/null
-      else
-        echo "Installing awscli package using yum"
-        yum install -y awscli >/dev/null 2>/dev/null
-      fi
-      # check if awscli is installed or not
-      if ! which aws >/dev/null; then
-        echo "aws installation failed, exiting"
-        exit 1
-      fi
-    fi
-
-    ##### Verify if each of above packages got installed successfully
-    # check if ansible is installed or not
-    if ! which ansible >/dev/null; then
-      echo "ansible installation failed, exiting"
-      exit 1
-    fi
-    # check if expect is installed or not
-    if ! which unbuffer >/dev/null; then
-      echo "expect installation failed, exiting"
-      exit 1
-    fi
-    echo "All packages are installed successfully"
   fi
 fi

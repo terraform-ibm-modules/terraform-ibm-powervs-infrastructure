@@ -67,34 +67,24 @@ module "power-infrastructure" {
 }
 ```
 
-<!-- PERMISSIONS REQUIRED TO RUN MODULE
 ## Required IAM access policies
 
-If this module requires permissions, uncomment the following block and update
-the sample permissions, following the format.
-Replace the sample Account and IBM Cloud service names and roles with the
-information in the console at
-Manage > Access (IAM) > Access groups > Access policies.
--->
-
-<!--
 You need the following permissions to run this module.
 
 - Account Management
-    - **Sample Account Service** service
-        - `Editor` platform access
-        - `Manager` service access
+    - **Resource Group** service
+        - `Viewer` platform access
     - IAM Services
-        - **Sample Cloud Service** service
-            - `Administrator` platform access
--->
+        - **Workspace for Power Systems Virtual Server** service
+        - **Power Systems Virtual Server** service
+            - `Editor` platform access
+        - **VPC Infrastructure Services** service
+            - `Editor` platform access
+        - **Transit Gateway** service
+            - `Editor` platform access
+        - **Direct Link** service
+            - `Editor` platform access
 
-<!-- NO PERMISSIONS FOR MODULE
-If no permissions are required for the module, uncomment the following
-statement instead the previous block.
--->
-
-<!-- No permissions are needed to run this module.-->
 <!-- END MODULE HOOK -->
 
 <!-- BEGIN EXAMPLES HOOK -->
@@ -110,8 +100,8 @@ statement instead the previous block.
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.1.0 |
-| <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | >= 1.49.0 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.3.0 |
+| <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | =1.50.0 |
 | <a name="requirement_time"></a> [time](#requirement\_time) | >= 0.9.1 |
 
 ## Modules
@@ -146,7 +136,7 @@ statement instead the previous block.
 | <a name="input_dns_forwarder_config"></a> [dns\_forwarder\_config](#input\_dns\_forwarder\_config) | Configuration for the DNS forwarder to a DNS service that is not reachable directly from PowerVS. | <pre>object({<br>    dns_enable        = bool<br>    server_host_or_ip = string<br>    dns_servers       = string<br>  })</pre> | <pre>{<br>  "dns_enable": "false",<br>  "dns_servers": "161.26.0.7; 161.26.0.8; 9.9.9.9;",<br>  "server_host_or_ip": ""<br>}</pre> | no |
 | <a name="input_nfs_config"></a> [nfs\_config](#input\_nfs\_config) | Configuration for the shared NFS file system (for example, for the installation media). Creates a filesystem of disk size specified, mounts and NFS exports it. | <pre>object({<br>    nfs_enable        = bool<br>    server_host_or_ip = string<br>    nfs_file_system = list(object({<br>      name       = string<br>      mount_path = string<br>      size       = number<br>    }))<br>  })</pre> | <pre>{<br>  "nfs_enable": "false",<br>  "nfs_file_system": [<br>    {<br>      "mount_path": "/nfs",<br>      "name": "nfs",<br>      "size": 1000<br>    }<br>  ],<br>  "server_host_or_ip": ""<br>}</pre> | no |
 | <a name="input_ntp_forwarder_config"></a> [ntp\_forwarder\_config](#input\_ntp\_forwarder\_config) | Configuration for the NTP forwarder to an NTP service that is not reachable directly from PowerVS. | <pre>object({<br>    ntp_enable        = bool<br>    server_host_or_ip = string<br>  })</pre> | <pre>{<br>  "ntp_enable": "false",<br>  "server_host_or_ip": ""<br>}</pre> | no |
-| <a name="input_perform_proxy_client_setup"></a> [perform\_proxy\_client\_setup](#input\_perform\_proxy\_client\_setup) | Proxy configuration to allow internet access for a VM or LPAR. | <pre>object(<br>    {<br>      squid_client_ips = list(string)<br>      squid_server_ip  = string<br>      squid_port       = string<br>      no_proxy_env     = string<br>    }<br>  )</pre> | `null` | no |
+| <a name="input_perform_proxy_client_setup"></a> [perform\_proxy\_client\_setup](#input\_perform\_proxy\_client\_setup) | Proxy configuration to allow internet access for a VM or LPAR. | <pre>object(<br>    {<br>      squid_client_ips = list(string)<br>      squid_server_ip  = string<br>      squid_port       = string<br>      no_proxy_hosts   = string<br>    }<br>  )</pre> | `null` | no |
 | <a name="input_powervs_backup_network"></a> [powervs\_backup\_network](#input\_powervs\_backup\_network) | Name of the IBM Cloud PowerVS backup network and CIDR to create. | <pre>object({<br>    name = string<br>    cidr = string<br>  })</pre> | <pre>{<br>  "cidr": "10.52.0.0/24",<br>  "name": "bkp_net"<br>}</pre> | no |
 | <a name="input_powervs_image_names"></a> [powervs\_image\_names](#input\_powervs\_image\_names) | List of Images to be imported into cloud account from catalog images. | `list(string)` | <pre>[<br>  "SLES15-SP3-SAP",<br>  "SLES15-SP3-SAP-NETWEAVER",<br>  "RHEL8-SP4-SAP",<br>  "RHEL8-SP4-SAP-NETWEAVER"<br>]</pre> | no |
 | <a name="input_powervs_management_network"></a> [powervs\_management\_network](#input\_powervs\_management\_network) | Name of the IBM Cloud PowerVS management subnet and CIDR to create. | <pre>object({<br>    name = string<br>    cidr = string<br>  })</pre> | <pre>{<br>  "cidr": "10.51.0.0/24",<br>  "name": "mgmt_net"<br>}</pre> | no |

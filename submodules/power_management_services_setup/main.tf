@@ -3,8 +3,17 @@
 #####################################################
 
 locals {
-  scripts_location     = "${path.module}/scripts"
-  squidscript_location = "${local.scripts_location}/services_init.sh"
+  scr_scripts_dir = "${path.module}/../terraform_templates"
+  dst_scripts_dir = "/root/terraform_scripts"
+
+  src_squid_setup_tpl_path      = "${local.scr_scripts_dir}/services_init.sh.tftpl"
+  dst_squid_setup_path          = "${local.dst_scripts_dir}/services_init.sh"
+  src_install_packages_tpl_path = "${local.scr_scripts_dir}/install_packages.sh.tftpl"
+  dst_install_packages_path     = "${local.dst_scripts_dir}/install_packages.sh"
+
+  ansible_config_mgmt_svs_playbook_name = "powervs-services.yml"
+  src_ansible_exec_tpl_path             = "${local.scr_scripts_dir}/ansible_exec.sh.tftpl"
+  dst_ansible_exec_path                 = "${local.dst_scripts_dir}/config_mgmt_services.sh"
 }
 
 resource "null_resource" "perform_proxy_client_setup" {
@@ -21,19 +30,33 @@ resource "null_resource" "perform_proxy_client_setup" {
     timeout      = "15m"
   }
 
+  provisioner "remote-exec" {
+    inline = [
+      ####### Create Terraform scripts directory ############
+      "mkdir -p ${local.dst_scripts_dir}",
+      "chmod 777 ${local.dst_scripts_dir}",
+    ]
+  }
+
   provisioner "file" {
-    source      = local.squidscript_location
-    destination = "/root/services_init.sh"
+    destination = local.dst_squid_setup_path
+    content = templatefile(
+      local.src_squid_setup_tpl_path,
+      {
+        "proxy_ip_and_port" : "${var.perform_proxy_client_setup["squid_server_ip"]}:${var.perform_proxy_client_setup["squid_port"]}"
+        "no_proxy_ip" : var.perform_proxy_client_setup["no_proxy_hosts"]
+      }
+    )
   }
 
   provisioner "remote-exec" {
     inline = [
-      #######  SQUID Forward PROXY CLIENT SETUP ############
-      "chmod +x /root/services_init.sh",
-      "/root/services_init.sh -p ${var.perform_proxy_client_setup["squid_server_ip"]}:${var.perform_proxy_client_setup["squid_port"]} -n ${var.perform_proxy_client_setup["no_proxy_env"]}",
+      #######  Execute script: SQUID Forward PROXY CLIENT SETUP and OS Registration ############
+      "chmod +x ${local.dst_squid_setup_path}",
+      local.dst_squid_setup_path
+
     ]
   }
-
 }
 
 #####################################################
@@ -53,16 +76,30 @@ resource "null_resource" "install_packages" {
     timeout      = "15m"
   }
 
+  provisioner "remote-exec" {
+    inline = [
+      ####### Create Terraform scripts directory ############
+      "mkdir -p ${local.dst_scripts_dir}",
+      "chmod 777 ${local.dst_scripts_dir}",
+    ]
+  }
+
   provisioner "file" {
-    source      = local.squidscript_location
-    destination = "/root/services_init.sh"
+    destination = local.dst_install_packages_path
+    content = templatefile(
+      local.src_install_packages_tpl_path,
+      {
+        "install_packages" : true
+      }
+    )
   }
 
   provisioner "remote-exec" {
     inline = [
-      #######  Install packages ############
-      "chmod +x /root/services_init.sh",
-      "/root/services_init.sh -i",
+      #######  Execute script: Install packages ############
+      "chmod +x ${local.dst_install_packages_path}",
+      local.dst_install_packages_path
+
     ]
   }
 }
@@ -94,22 +131,32 @@ resource "null_resource" "execute_ansible_role" {
   provisioner "file" {
 
     #### Write service config file under  /root/terraform_services_vars.yml  ####
-
-    content = <<EOF
+    destination = "terraform_${local.server_config_name}_config.yml"
+    content     = <<EOF
 server_config: {
 ${local.server_config_name}: ${jsonencode(local.server_config_options)},
 }
 EOF
 
-    destination = "terraform_${local.server_config_name}_config.yml"
+  }
+
+  provisioner "file" {
+    destination = local.dst_ansible_exec_path
+    content = templatefile(
+      local.src_ansible_exec_tpl_path,
+      {
+        "ansible_playbook_name" : local.ansible_config_mgmt_svs_playbook_name
+        "ansible_extra_vars_path" : "${local.dst_scripts_dir}/tf_${local.server_config_name}_config.yml"
+      }
+    )
   }
 
   provisioner "remote-exec" {
     inline = [
+      ####  Execute ansible collection to COnfigure management services  ####
 
-      ####  Execute ansible roles: powervs_install_services  ####
-      "ansible-galaxy collection install ibm.power_linux_sap:1.0.9",
-      "unbuffer ansible-playbook --connection=local -i 'localhost,' ~/.ansible/collections/ansible_collections/ibm/power_linux_sap/playbooks/powervs-services.yml --extra-vars '@/root/terraform_${local.server_config_name}_config.yml' 2>&1 | tee ansible_execution.log ",
+      "chmod +x ${local.dst_ansible_exec_path}",
+      local.dst_ansible_exec_path
     ]
   }
 }

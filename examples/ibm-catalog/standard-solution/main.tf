@@ -78,7 +78,7 @@ locals {
     squid_client_ips = local.squid_client_ips
     squid_server_ip  = local.squid_config["server_host_or_ip"]
     squid_port       = local.squid_config["squid_port"]
-    no_proxy_env     = "161.0.0.0/8"
+    no_proxy_hosts   = "161.0.0.0/8"
   }
 }
 

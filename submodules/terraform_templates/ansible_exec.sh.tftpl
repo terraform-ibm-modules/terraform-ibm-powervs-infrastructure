@@ -1,0 +1,26 @@
+#!/bin/bash
+playbook_name=${ansible_playbook_name}
+power_linux_sap_arr=("powervs-sles.yml" "powervs-rhel.yml" "powervs-services.yml")
+community_sap_install_arr=("sample-sap-hana-install.yml" "sample-sap-swpm.yml")
+
+### Download and install collections from ansible-galaxy
+ansible-galaxy collection install ibm.power_linux_sap:1.0.10
+ansible-galaxy collection install community.sap_install:1.1.0
+ansible-galaxy collection install community.general:6.2.0
+### Bug in ansible community role. Deleting IBMinvscout package
+sed -i '278,278{s/^/#/}' /usr/share/ansible/roles/sap_hana_preconfigure/vars/RedHat_8.yml
+
+## Execute ansible playbook
+echo -e "[defaults]\nlog_path=$${playbook_name}.$(date "+%Y.%m.%d-%H.%M.%S").log" >ansible.cfg
+
+if [[ " $${power_linux_sap_arr[@]} " =~ " $${playbook_name} " ]]; then
+    unbuffer ansible-playbook --connection=local -i 'localhost,' ~/.ansible/collections/ansible_collections/ibm/power_linux_sap/playbooks/$${playbook_name} --extra-vars "@${ansible_extra_vars_path}"
+    status=$?
+    [ $status -eq 0 ] && echo \"Playbook command successful\" || exit 1
+fi
+
+if [[ " $${community_sap_install_arr[@]} " =~ " $${playbook_name} " ]]; then
+    unbuffer ansible-playbook --connection=local -i 'localhost,' ~/.ansible/collections/ansible_collections/community/sap_install/playbooks/$${playbook_name} --extra-vars "@${ansible_extra_vars_path}"
+    status=$?
+    [ $status -eq 0 ] && echo \"Playbook command successful\" || exit 1
+fi

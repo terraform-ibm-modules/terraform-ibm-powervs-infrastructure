@@ -25,8 +25,8 @@ powervs_subnet_names        = var.powervs_subnet_names
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >=1.1 |
-| <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | >= 1.49.0 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.3.0 |
+| <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | =1.50.0 |
 
 ## Modules
 
@@ -36,14 +36,14 @@ No modules.
 
 | Name | Type |
 |------|------|
-| [ibm_pi_cloud_connection_network_attach.powervs_subnet_bkp_nw_attach](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/pi_cloud_connection_network_attach) | resource |
-| [ibm_pi_cloud_connection_network_attach.powervs_subnet_bkp_nw_attach_backup](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/pi_cloud_connection_network_attach) | resource |
-| [ibm_pi_cloud_connection_network_attach.powervs_subnet_mgmt_nw_attach](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/pi_cloud_connection_network_attach) | resource |
-| [ibm_pi_cloud_connection_network_attach.powervs_subnet_mgmt_nw_attach_backup](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/pi_cloud_connection_network_attach) | resource |
-| [ibm_pi_cloud_connections.cloud_connection_ds](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/data-sources/pi_cloud_connections) | data source |
-| [ibm_pi_network.powervs_subnets_ds](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/data-sources/pi_network) | data source |
-| [ibm_resource_group.resource_group_ds](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/data-sources/resource_group) | data source |
-| [ibm_resource_instance.powervs_workspace_ds](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/data-sources/resource_instance) | data source |
+| [ibm_pi_cloud_connection_network_attach.powervs_subnet_bkp_nw_attach](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.50.0/docs/resources/pi_cloud_connection_network_attach) | resource |
+| [ibm_pi_cloud_connection_network_attach.powervs_subnet_bkp_nw_attach_backup](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.50.0/docs/resources/pi_cloud_connection_network_attach) | resource |
+| [ibm_pi_cloud_connection_network_attach.powervs_subnet_mgmt_nw_attach](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.50.0/docs/resources/pi_cloud_connection_network_attach) | resource |
+| [ibm_pi_cloud_connection_network_attach.powervs_subnet_mgmt_nw_attach_backup](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.50.0/docs/resources/pi_cloud_connection_network_attach) | resource |
+| [ibm_pi_cloud_connections.cloud_connection_ds](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.50.0/docs/data-sources/pi_cloud_connections) | data source |
+| [ibm_pi_network.powervs_subnets_ds](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.50.0/docs/data-sources/pi_network) | data source |
+| [ibm_resource_group.resource_group_ds](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.50.0/docs/data-sources/resource_group) | data source |
+| [ibm_resource_instance.powervs_workspace_ds](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.50.0/docs/data-sources/resource_instance) | data source |
 
 ## Inputs
 

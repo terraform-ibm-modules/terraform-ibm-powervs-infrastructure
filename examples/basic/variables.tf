@@ -180,7 +180,7 @@ variable "perform_proxy_client_setup" {
     {
       squid_client_ips = list(string)
       squid_server_ip  = string
-      no_proxy_env     = string
+      no_proxy_hosts   = string
       squid_port       = string
     }
   )
