@@ -11,9 +11,14 @@ locals {
   src_install_packages_tpl_path = "${local.scr_scripts_dir}/install_packages.sh.tftpl"
   dst_install_packages_path     = "${local.dst_scripts_dir}/install_packages.sh"
 
+  server_config_option_tmp = merge(var.service_config, { "enable" = true })
+  server_config_options    = { for key, value in local.server_config_option_tmp : key => local.server_config_option_tmp[key] }
+  server_config_name       = split("_", one([for item in keys(var.service_config) : item if can(regex("enable", item))]))[0]
+
   ansible_config_mgmt_svs_playbook_name = "powervs-services.yml"
   src_ansible_exec_tpl_path             = "${local.scr_scripts_dir}/ansible_exec.sh.tftpl"
   dst_ansible_exec_path                 = "${local.dst_scripts_dir}/config_mgmt_services.sh"
+  dst_ansible_vars_path                 = "${local.dst_scripts_dir}/terraform_${local.server_config_name}_config.yml"
 }
 
 resource "null_resource" "perform_proxy_client_setup" {
@@ -109,12 +114,6 @@ resource "null_resource" "install_packages" {
 # for SAP installation
 #####################################################
 
-locals {
-  server_config_option_tmp = merge(var.service_config, { "enable" = true })
-  server_config_options    = { for key, value in local.server_config_option_tmp : key => local.server_config_option_tmp[key] }
-  server_config_name       = split("_", one([for item in keys(var.service_config) : item if can(regex("enable", item))]))[0]
-}
-
 resource "null_resource" "execute_ansible_role" {
   depends_on = [null_resource.install_packages, null_resource.perform_proxy_client_setup]
 
@@ -130,8 +129,8 @@ resource "null_resource" "execute_ansible_role" {
 
   provisioner "file" {
 
-    #### Write service config file under  /root/terraform_services_vars.yml  ####
-    destination = "terraform_${local.server_config_name}_config.yml"
+    #### Write service config file under  /root/terraform_scripts/terraform_services_vars.yml  ####
+    destination = local.dst_ansible_vars_path
     content     = <<EOF
 server_config: {
 ${local.server_config_name}: ${jsonencode(local.server_config_options)},
@@ -140,13 +139,14 @@ EOF
 
   }
 
+  #### Write service config file under  /root/terraform_services_vars.yml  ####
   provisioner "file" {
     destination = local.dst_ansible_exec_path
     content = templatefile(
       local.src_ansible_exec_tpl_path,
       {
         "ansible_playbook_name" : local.ansible_config_mgmt_svs_playbook_name
-        "ansible_extra_vars_path" : "${local.dst_scripts_dir}/tf_${local.server_config_name}_config.yml"
+        "ansible_extra_vars_path" : local.dst_ansible_vars_path
       }
     )
   }
