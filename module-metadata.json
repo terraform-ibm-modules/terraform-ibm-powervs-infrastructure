@@ -913,7 +913,7 @@
           },
           "pos": {
             "filename": "submodules/power_management_services_setup/main.tf",
-            "line": 118
+            "line": 117
           }
         },
         "null_resource.install_packages": {
@@ -925,7 +925,7 @@
           },
           "pos": {
             "filename": "submodules/power_management_services_setup/main.tf",
-            "line": 66
+            "line": 71
           }
         },
         "null_resource.perform_proxy_client_setup": {
@@ -940,7 +940,7 @@
           },
           "pos": {
             "filename": "submodules/power_management_services_setup/main.tf",
-            "line": 19
+            "line": 24
           }
         }
       },
@@ -971,7 +971,7 @@
           },
           "pos": {
             "filename": "submodules/power_management_services_setup/main.tf",
-            "line": 118
+            "line": 117
           }
         },
         "null_resource.install_packages": {
@@ -983,7 +983,7 @@
           },
           "pos": {
             "filename": "submodules/power_management_services_setup/main.tf",
-            "line": 66
+            "line": 71
           }
         },
         "null_resource.perform_proxy_client_setup": {
@@ -998,7 +998,7 @@
           },
           "pos": {
             "filename": "submodules/power_management_services_setup/main.tf",
-            "line": 19
+            "line": 24
           }
         }
       },
@@ -1029,7 +1029,7 @@
           },
           "pos": {
             "filename": "submodules/power_management_services_setup/main.tf",
-            "line": 118
+            "line": 117
           }
         },
         "null_resource.install_packages": {
@@ -1041,7 +1041,7 @@
           },
           "pos": {
             "filename": "submodules/power_management_services_setup/main.tf",
-            "line": 66
+            "line": 71
           }
         },
         "null_resource.perform_proxy_client_setup": {
@@ -1056,7 +1056,7 @@
           },
           "pos": {
             "filename": "submodules/power_management_services_setup/main.tf",
-            "line": 19
+            "line": 24
           }
         }
       },
@@ -1087,7 +1087,7 @@
           },
           "pos": {
             "filename": "submodules/power_management_services_setup/main.tf",
-            "line": 118
+            "line": 117
           }
         },
         "null_resource.install_packages": {
@@ -1099,7 +1099,7 @@
           },
           "pos": {
             "filename": "submodules/power_management_services_setup/main.tf",
-            "line": 66
+            "line": 71
           }
         },
         "null_resource.perform_proxy_client_setup": {
@@ -1114,7 +1114,7 @@
           },
           "pos": {
             "filename": "submodules/power_management_services_setup/main.tf",
-            "line": 19
+            "line": 24
           }
         }
       },
