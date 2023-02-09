@@ -58,7 +58,6 @@ func TestRunDefaultExample(t *testing.T) {
 func TestRunUpgradeExample(t *testing.T) {
 	// DO NOT RUN MULTIPLE TESTS IN PARALLEL
 	// Parallel has been turned off on puropse due to the way we are choosing best region to run tests
-
 	options := setupOptions(t, "power-infra-upg")
 
 	output, err := options.RunTestUpgrade()
