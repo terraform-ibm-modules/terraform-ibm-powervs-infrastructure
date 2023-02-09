@@ -2,9 +2,11 @@
 package test
 
 import (
+	"os"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
+	"github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper/cloudinfo"
 	"github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper/testhelper"
 )
 
@@ -12,12 +14,23 @@ import (
 const resourceGroup = "geretain-test-resources"
 const defaultExampleTerraformDir = "examples/basic"
 
+var sharedInfoSvc *cloudinfo.CloudInfoService
+
+// TestMain will be run before any parallel tests, used to set up a shared InfoService object to track region usage
+// for multiple tests
+func TestMain(m *testing.M) {
+	sharedInfoSvc, _ = cloudinfo.NewCloudInfoServiceFromEnv("TF_VAR_ibmcloud_api_key", cloudinfo.CloudInfoServiceOptions{})
+
+	os.Exit(m.Run())
+}
+
 func setupOptions(t *testing.T, prefix string) *testhelper.TestOptions {
 	options := testhelper.TestOptionsDefault(&testhelper.TestOptions{
 		Testing:            t,
 		TerraformDir:       defaultExampleTerraformDir,
 		Prefix:             prefix,
 		ResourceGroup:      resourceGroup,
+		CloudInfoService:   sharedInfoSvc,
 		Region:             "us-south", // specify default region to skip best choice query
 		DefaultRegion:      "us-south",
 		BestRegionYAMLPath: "../common-dev-assets/common-go-assets/cloudinfo-region-power-prefs.yaml", // specific to powervs zones
@@ -45,8 +58,7 @@ func setupOptions(t *testing.T, prefix string) *testhelper.TestOptions {
 }
 
 func TestRunDefaultExample(t *testing.T) {
-	// DO NOT RUN MULTIPLE TESTS IN PARALLEL
-	// Parallel has been turned off on puropse due to the way we are choosing best region to run tests
+	t.Parallel()
 
 	options := setupOptions(t, "power-infra")
 
@@ -56,8 +68,7 @@ func TestRunDefaultExample(t *testing.T) {
 }
 
 func TestRunUpgradeExample(t *testing.T) {
-	// DO NOT RUN MULTIPLE TESTS IN PARALLEL
-	// Parallel has been turned off on puropse due to the way we are choosing best region to run tests
+	t.Parallel()
 	options := setupOptions(t, "power-infra-upg")
 
 	output, err := options.RunTestUpgrade()
