@@ -38,7 +38,7 @@ func setupOptions(t *testing.T, prefix string) *testhelper.TestOptions {
 	// query for best zone to deploy powervs example, based on current connection count
 	// NOTE: this is why we do not want to run multiple tests in parallel
 	options.Region, _ = testhelper.GetBestPowerSystemsRegionO(options.RequiredEnvironmentVars["TF_VAR_ibmcloud_api_key"], options.BestRegionYAMLPath, options.DefaultRegion,
-		testhelper.TesthelperTerraformOptions{CloudInfoService: sharedInfoSvc, ExcludeActivityTrackerRegions: true})
+		testhelper.TesthelperTerraformOptions{CloudInfoService: sharedInfoSvc})
 	// if for any reason the region is empty at this point, such as error, use default
 	if len(options.Region) == 0 {
 		options.Region = options.DefaultRegion
