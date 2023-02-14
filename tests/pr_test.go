@@ -30,7 +30,6 @@ func setupOptions(t *testing.T, prefix string) *testhelper.TestOptions {
 		TerraformDir:       defaultExampleTerraformDir,
 		Prefix:             prefix,
 		ResourceGroup:      resourceGroup,
-		CloudInfoService:   sharedInfoSvc,
 		Region:             "us-south", // specify default region to skip best choice query
 		DefaultRegion:      "us-south",
 		BestRegionYAMLPath: "../common-dev-assets/common-go-assets/cloudinfo-region-power-prefs.yaml", // specific to powervs zones
@@ -38,7 +37,8 @@ func setupOptions(t *testing.T, prefix string) *testhelper.TestOptions {
 
 	// query for best zone to deploy powervs example, based on current connection count
 	// NOTE: this is why we do not want to run multiple tests in parallel
-	options.Region, _ = testhelper.GetBestPowerSystemsRegion(options.RequiredEnvironmentVars["TF_VAR_ibmcloud_api_key"], options.BestRegionYAMLPath, options.DefaultRegion)
+	options.Region, _ = testhelper.GetBestPowerSystemsRegionO(options.RequiredEnvironmentVars["TF_VAR_ibmcloud_api_key"], options.BestRegionYAMLPath, options.DefaultRegion,
+		testhelper.TesthelperTerraformOptions{CloudInfoService: sharedInfoSvc, ExcludeActivityTrackerRegions: true})
 	// if for any reason the region is empty at this point, such as error, use default
 	if len(options.Region) == 0 {
 		options.Region = options.DefaultRegion
