@@ -26,13 +26,15 @@ func TestMain(m *testing.M) {
 
 func setupOptions(t *testing.T, prefix string) *testhelper.TestOptions {
 	options := testhelper.TestOptionsDefault(&testhelper.TestOptions{
-		Testing:            t,
-		TerraformDir:       defaultExampleTerraformDir,
-		Prefix:             prefix,
-		ResourceGroup:      resourceGroup,
-		Region:             "us-south", // specify default region to skip best choice query
-		DefaultRegion:      "us-south",
-		BestRegionYAMLPath: "../common-dev-assets/common-go-assets/cloudinfo-region-power-prefs.yaml", // specific to powervs zones
+		Testing:                       t,
+		TerraformDir:                  defaultExampleTerraformDir,
+		Prefix:                        prefix,
+		ResourceGroup:                 resourceGroup,
+		CloudInfoService:              sharedInfoSvc,
+		ExcludeActivityTrackerRegions: true,
+		Region:                        "us-south", // specify default region to skip best choice query
+		DefaultRegion:                 "us-south",
+		BestRegionYAMLPath:            "../common-dev-assets/common-go-assets/cloudinfo-region-power-prefs.yaml", // specific to powervs zones
 	})
 
 	// query for best zone to deploy powervs example, based on current connection count
