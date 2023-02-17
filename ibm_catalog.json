@@ -1,7 +1,7 @@
 {
     "products": [
         {
-            "name": "terraform-ibm-powervs-catalog-powervs-sap-infrastructure",
+            "name": "deploy-arch-ibm-pvs-inf",
             "label": "Power infrastructure for regulated industries",
             "flavors": [
                 {
