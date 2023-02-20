@@ -2,15 +2,27 @@
 package test
 
 import (
+	"os"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
+	"github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper/cloudinfo"
 	"github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper/testhelper"
 )
 
 // Use existing resource group
 const resourceGroup = "geretain-test-resources"
 const defaultExampleTerraformDir = "examples/basic"
+
+var sharedInfoSvc *cloudinfo.CloudInfoService
+
+// TestMain will be run before any parallel tests, used to set up a shared InfoService object to track region usage
+// for multiple tests
+func TestMain(m *testing.M) {
+	sharedInfoSvc, _ = cloudinfo.NewCloudInfoServiceFromEnv("TF_VAR_ibmcloud_api_key", cloudinfo.CloudInfoServiceOptions{})
+
+	os.Exit(m.Run())
+}
 
 func setupOptions(t *testing.T, prefix string) *testhelper.TestOptions {
 	options := testhelper.TestOptionsDefault(&testhelper.TestOptions{
@@ -25,7 +37,8 @@ func setupOptions(t *testing.T, prefix string) *testhelper.TestOptions {
 
 	// query for best zone to deploy powervs example, based on current connection count
 	// NOTE: this is why we do not want to run multiple tests in parallel
-	options.Region, _ = testhelper.GetBestPowerSystemsRegion(options.RequiredEnvironmentVars["TF_VAR_ibmcloud_api_key"], options.BestRegionYAMLPath, options.DefaultRegion)
+	options.Region, _ = testhelper.GetBestPowerSystemsRegionO(options.RequiredEnvironmentVars["TF_VAR_ibmcloud_api_key"], options.BestRegionYAMLPath, options.DefaultRegion,
+		testhelper.TesthelperTerraformOptions{CloudInfoService: sharedInfoSvc})
 	// if for any reason the region is empty at this point, such as error, use default
 	if len(options.Region) == 0 {
 		options.Region = options.DefaultRegion
@@ -39,14 +52,14 @@ func setupOptions(t *testing.T, prefix string) *testhelper.TestOptions {
 		"cloud_connection_speed":  50,
 		// locking into syd05 due to other data center issues
 		//"powervs_zone": "syd05",
+		"powervs_zone": options.Region,
 	}
 
 	return options
 }
 
 func TestRunDefaultExample(t *testing.T) {
-	// DO NOT RUN MULTIPLE TESTS IN PARALLEL
-	// Parallel has been turned off on puropse due to the way we are choosing best region to run tests
+	t.Parallel()
 
 	options := setupOptions(t, "power-infra")
 
@@ -56,9 +69,7 @@ func TestRunDefaultExample(t *testing.T) {
 }
 
 func TestRunUpgradeExample(t *testing.T) {
-	// DO NOT RUN MULTIPLE TESTS IN PARALLEL
-	// Parallel has been turned off on puropse due to the way we are choosing best region to run tests
-
+	t.Parallel()
 	options := setupOptions(t, "power-infra-upg")
 
 	output, err := options.RunTestUpgrade()
