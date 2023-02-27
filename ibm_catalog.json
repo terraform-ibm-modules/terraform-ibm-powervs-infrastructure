@@ -141,7 +141,7 @@
                             {
                                 "diagram": {
                                     "caption": "Power infrastructure for deployable architectures",
-                                    "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/main/doc/reference-architectures/standard/deploy-arch-ibm-pvs-inf-standard.svg",
+                                    "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/main/reference-architectures/standard/deploy-arch-ibm-pvs-inf-standard.svg",
                                     "type": "image/svg+xml"
                                 },
                                 "description": "Building upon the VPC service that were previously created when you deployed Secure infrastructure on VPC for regulated industries, Power Infrastructure for deployable architectures creates a Power Virtual Server workspace and connects it with VPC services. Proxy service for public internet access from PowerVS workspace is configured. \n\nAdditional management components (NFS server, NTP forwarder, and DNS forwarder) may be installed on VPC optionally."
