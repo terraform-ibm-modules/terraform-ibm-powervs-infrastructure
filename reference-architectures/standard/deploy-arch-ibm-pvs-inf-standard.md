@@ -98,25 +98,80 @@ IBM Cloud® Power Virtual Servers (PowerVS) is a public cloud offering that lets
 
 | Requirement | Component | Choice | Alternative choice |
 |-------------|-----------|--------------------|--------------------|
-|* ensure public internet connectivity|Edge VPC service|Create a separate VPC service where public internet connectivity is allowed to be configured|                    |
-|* most of virtual instances must be isolated and not be reachable directly from public internet | | | |
-|-------------|-----------|--------------------|--------------------|
-|* provide infrastructure administration access|Management VPC service|Create a separate VPC service where SSH connectivity from outside is allowed|                    |
-|* number of infrastructure administration entry points should be limited in order to ensure security audit| | | |
-|-------------|-----------|--------------------|--------------------|
-|* provide infrastructure for service management componets like backup, monitoring, IT service management, shared storage|Workload VPC service|Create a separate VPC service as an isolated environment, without direct public internet connectivity and without direct SSH access.| |
-|* ensure you can reach all IBM Cloud and on-premise services| | | |
-|-------------|-----------|--------------------|--------------------|
-|* create virtual server instance that may act as internet proxy server|Proxy server VPC instance|Create Linux VPC instance that may act as proxy server. Preconfigure ACL and security group rules to allow public internet traffic over proxy using default proxy ports (3828).|Configure application loadbalancer to act as proxy server manually.|
-|-------------|-----------|--------------------|--------------------|
-|* create virtual server instance as only management access point to the landscape|Bastion host VPC instance|Create Linux VPC instance that acts as bastion host. Preconfigure ACL and security group rules to allow SSH connectivity (port 22). Add public IP address to the VPC instance. Allow connectivity from a restricted and limited number of public IP addresses. Allow connectivity from IP addresses of the Schematics engine nodes|                    |
-|-------------|-----------|--------------------|--------------------|
-|* create virtual server instance to host basic management services like DNS, NTP, NFS|Management services VPC instance|CreateLinux VPC instance that may host management components. Preconfigure ACL and security group rules to allow communication for basic management componets (NFS - ports XXX, NTP - ports XXX, DNS - ports XXX)| Modify number of virtual server instances and allowed ports in preset or perform the modifications manually|
-|-------------|-----------|--------------------|--------------------|
-|* ensure financial services compliancy for VPC services|Secure landing zone components|Create a minimum set of required components for a secure landing zone|Create a modified set of required components for a secure landing zone in preset|
-|* perform network setup of all created services | | | |
-|* perform network isolation of all created services | | | |
-|* ensure all created services are inteconnected with each other | | | |
+|
+* ensure public internet connectivity
+* most of virtual instances must be isolated and not be reachable directly from public internet
+
+|
+Edge VPC service
+|
+Create a separate VPC service where public internet connectivity is allowed to be configured
+||
+
+|
+* provide infrastructure administration access
+* number of infrastructure administration entry points should be limited in order to ensure security audit
+
+|
+Management VPC service
+|
+Create a separate VPC service where SSH connectivity from outside is allowed
+||
+
+|
+* provide infrastructure for service management componets like backup, monitoring, IT service management, shared storage
+* ensure you can reach all IBM Cloud and on-premise services
+
+|
+Workload VPC service
+|
+Create a separate VPC service as an isolated environment, without direct public internet connectivity and without direct SSH access
+||
+
+|
+* create virtual server instance that may act as internet proxy server
+
+|
+Proxy server VPC instance
+|
+Create Linux VPC instance that may act as proxy server. Preconfigure ACL and security group rules to allow public internet traffic over proxy using default proxy ports (3828).
+|
+Configure application loadbalancer to act as proxy server manually.
+|
+
+|
+* create virtual server instance as only management access point to the landscape
+
+|
+Bastion host VPC instance
+|
+Create Linux VPC instance that acts as bastion host. Preconfigure ACL and security group rules to allow SSH connectivity (port 22). Add public IP address to the VPC instance. Allow connectivity from a restricted and limited number of public IP addresses. Allow connectivity from IP addresses of the Schematics engine nodes
+||
+
+|
+* create virtual server instance to host basic management services like DNS, NTP, NFS
+
+|
+Management services VPC instance
+|
+CreateLinux VPC instance that may host management components. Preconfigure ACL and security group rules to allow communication for basic management componets (NFS - ports XXX, NTP - ports XXX, DNS - ports XXX)
+|
+Modify number of virtual server instances and allowed ports in preset or perform the modifications manually
+|
+
+|
+* ensure financial services compliancy for VPC services
+* perform network setup of all created services
+* perform network isolation of all created services
+* ensure all created services are inteconnected with each other
+
+|
+Secure landing zone components
+|
+Create a minimum set of required components for a secure landing zone
+|
+Create a modified set of required components for a secure landing zone in preset
+|
 {: caption="Table 1. VPC architecture decisions" caption-side="bottom"}
 
 ### PowerVS workspace architecture decisions
