@@ -1,8 +1,4 @@
 ---
-
-# The YAML header is required. For more information about the YAML header, see
-# https://test.cloud.ibm.com/docs/writing?topic=writing-reference-architectures
-
 copyright:
   years: 2023
 lastupdated: "2023-02-21"
@@ -14,12 +10,8 @@ subcollection: deployable-reference-architectures
 authors:
   - name: Arnold Beilmann
 
-# The release that the reference architecture describes
 version: v7.0.0
 
-# Use if the reference architecture has deployable code.
-# Value is the URL to land the user in the IBM Cloud catalog details page for the deployable architecture.
-# See https://test.cloud.ibm.com/docs/get-coding?topic=get-coding-deploy-button
 deployment-url: url #TODO
 
 docs: https://cloud.ibm.com/docs/solution-guide #TODO
@@ -34,45 +26,24 @@ related_links:
     url: 'https://url' #TODO
     description: 'Reference architecture for "Secure infrastructure on VPC for regulated industries"'
 
-# use-case from 'code' column in
-# https://github.ibm.com/digital/taxonomy/blob/main/subsets/use_cases/use_cases_flat_list.csv
 use-case: ITServiceManagement
 
-# industry from 'code' column in
-# https://github.ibm.com/digital/taxonomy/blob/main/industries/industry_sectors%20-%20flat%20list.csv
 industry: Technology
 
-# compliance from 'code' column in
-# https://github.ibm.com/digital/taxonomy/blob/main/compliance_entities/compliance_entities_flat_list.csv
 compliance: SAPCertified
 
 content-type: reference-architecture
 
 ---
 
-<!--
-The following line inserts all the attribute definitions. Don't delete.
--->
 {{site.data.keyword.attribute-definition-list}}
-
-<!--
-Don't include "reference architecture" in the following title.
-Specify a title based on a use case. If the architecture has a module
-or tile in the IBM Cloud catalog, match the title to the catalog. See
-https://test.cloud.ibm.com/docs/solution-as-code?topic=solution-as-code-naming-guidance.
--->
 
 # Power infrastructure for deployable architectures - variation 'PowerVS workspace'
 {: #deploy-arch-ibm-pvs-inf-standard}
-{: toc-content-type="reference-architecture"}
-{: toc-industry="value"}
+{: toc-content-type="Power infrastructure for deployable architectures - variation 'PowerVS workspace'"}
+{: toc-industry="Technology"}
 {: toc-use-case="ITServiceManagement"}
 {: toc-compliance="SAPCertified"}
-
-<!--
-The IDs, such as {: #title-id} are required for publishing this reference architecture in IBM Cloud Docs. Set unique IDs for each heading. Also include
-the toc attributes on the H1, repeating the values from the YAML header.
- -->
 
 Building upon the VPC service that were previously created when you deployed Secure infrastructure on VPC for regulated industries, Power Infrastructure for deployable architectures creates a Power Virtual Server workspace and connects it with VPC services. Proxy service for public internet access from PowerVS workspace is configured.
 
@@ -98,13 +69,13 @@ IBM Cloud® Power Virtual Servers (PowerVS) is a public cloud offering that lets
 
 | Requirement | Component | Choice | Alternative choice |
 |-------------|-----------|--------------------|--------------------|
-|* ensure public internet connectivity <br />* most of virtual instances must be isolated and not be reachable directly from public internet|Edge VPC service|Create a separate VPC service where public internet connectivity is allowed to be configured||
-|* provide infrastructure administration access <br />* number of infrastructure administration entry points should be limited in order to ensure security audit|Management VPC service|Create a separate VPC service where SSH connectivity from outside is allowed||
-|* provide infrastructure for service management componets like backup, monitoring, IT service management, shared storage <br />* ensure you can reach all IBM Cloud and on-premise services|Workload VPC service|Create a separate VPC service as an isolated environment, without direct public internet connectivity and without direct SSH access||
+|* ensure public internet connectivity  \n * most of virtual instances must be isolated and not be reachable directly from public internet|Edge VPC service|Create a separate VPC service where public internet connectivity is allowed to be configured| |
+|* provide infrastructure administration access  \n * number of infrastructure administration entry points should be limited in order to ensure security audit|Management VPC service|Create a separate VPC service where SSH connectivity from outside is allowed| |
+|* provide infrastructure for service management componets like backup, monitoring, IT service management, shared storage  \n * ensure you can reach all IBM Cloud and on-premise services|Workload VPC service|Create a separate VPC service as an isolated environment, without direct public internet connectivity and without direct SSH access| |
 |* create virtual server instance that may act as internet proxy server|Proxy server VPC instance|Create Linux VPC instance that may act as proxy server. Preconfigure ACL and security group rules to allow public internet traffic over proxy using default proxy ports (3828).|Configure application loadbalancer to act as proxy server manually.|
 |* create virtual server instance as only management access point to the landscape|Bastion host VPC instance|Create Linux VPC instance that acts as bastion host. Preconfigure ACL and security group rules to allow SSH connectivity (port 22). Add public IP address to the VPC instance. Allow connectivity from a restricted and limited number of public IP addresses. Allow connectivity from IP addresses of the Schematics engine nodes||
 |* create virtual server instance to host basic management services like DNS, NTP, NFS|Management services VPC instance|CreateLinux VPC instance that may host management components. Preconfigure ACL and security group rules to allow communication for basic management componets (NFS - ports XXX, NTP - ports XXX, DNS - ports XXX)|Modify number of virtual server instances and allowed ports in preset or perform the modifications manually|
-|* ensure financial services compliancy for VPC services <br />* perform network setup of all created services <br />* perform network isolation of all created services <br />* ensure all created services are inteconnected with each other|Secure landing zone components|Create a minimum set of required components for a secure landing zone|Create a modified set of required components for a secure landing zone in preset|
+|* ensure financial services compliancy for VPC services  \n * perform network setup of all created services  \n * perform network isolation of all created services  \n * ensure all created services are inteconnected with each other|Secure landing zone components|Create a minimum set of required components for a secure landing zone|Create a modified set of required components for a secure landing zone in preset|
 {: caption="Table 1. VPC architecture decisions" caption-side="bottom"}
 
 ### PowerVS workspace architecture decisions
@@ -113,7 +84,7 @@ IBM Cloud® Power Virtual Servers (PowerVS) is a public cloud offering that lets
 | Requirement | Component | Choice | Alternative choice |
 |-------------|-----------|--------------------|--------------------|
 |* connect PowerVS workspace with VPC services|Cloud connections|Setup two redundant cloud connections|                    |
-|* configure network for management of all the instances <br />* troughput and latency are not relevant|Management network|Configure private network with default configurations and attch it to both cloud connections|                    |
+|* configure network for management of all the instances  \n * troughput and latency are not relevant|Management network|Configure private network with default configurations and attch it to both cloud connections|                    |
 |* configure separate network for backup purposes with higher data throughput|Backup network|Configure separate private network with default configurations and attch it to both cloud connections. Networks characteristics might be adapted by the users manually (e.g., to improve throughput)|                    |
 |* preload OS images relevant for customer workload|Pre-loaded OS images|Preload Linux OS images for SAP workload. Keep the number of preloaded images at minimum to save corsts.|Modify the input parameter that specify the list of preloaded OS images.|
 |* preload public SSH key that will be injected into every OS deployment|Pre-loaded SSH public key|Preload customer specified SSH public key|                    |
@@ -135,9 +106,9 @@ IBM Cloud® Power Virtual Servers (PowerVS) is a public cloud offering that lets
 
 | Requirement | Component | Choice | Alternative choice |
 |-------------|-----------|--------------------|--------------------|
-|* isolate edge VPC and allow only a limited number of network connections <br />* all other connections from/to edge VPC are forbidden|ACL and security group rules in edge VPC|Open following ports by default:|Additional ports might be opened in preset or added manually after deployment|
-|* isolate management VPC and allow only a limited number of network connections <br />* all other connections from/to edge VPC are forbidden|ACL and security group rules in management VPC|Open following ports by default:|Additional ports might be opened in preset or added manually after deployment|
-|* isolate workload VPC and allow only a limited number of network connections <br />* all other connections from/to workload VPC are forbidden|ACL and security group rules in workload VPC|Open following ports by default:|Additional ports might be opened in preset or added manually after deployment|
+|* isolate edge VPC and allow only a limited number of network connections  \n * all other connections from/to edge VPC are forbidden|ACL and security group rules in edge VPC|Open following ports by default:|Additional ports might be opened in preset or added manually after deployment|
+|* isolate management VPC and allow only a limited number of network connections  \n * all other connections from/to edge VPC are forbidden|ACL and security group rules in management VPC|Open following ports by default:|Additional ports might be opened in preset or added manually after deployment|
+|* isolate workload VPC and allow only a limited number of network connections  \n * all other connections from/to workload VPC are forbidden|ACL and security group rules in workload VPC|Open following ports by default:|Additional ports might be opened in preset or added manually after deployment|
 |* enable floating IP on bastion host to execute deployment|Floating IPs on bastion host in management VPC|Use floating IP on bastion host from IBM Schematics to complete deployment|                    |
 |* preload VPN configuration to simplify VPN setup|VPNs|VPN configuration is the responsibility of the customer|                    |
 {: caption="Table 4. Network security architecture decisions" caption-side="bottom"}
@@ -147,7 +118,7 @@ IBM Cloud® Power Virtual Servers (PowerVS) is a public cloud offering that lets
 
 | Requirement | Component | Choice | Alternative choice |
 |-------------|-----------|--------------------|--------------------|
-|* use public/private SSH key to access virtual server instances via SSH <br />* use SSH proxy to login on all virtual server instances via the bastion host <br />* do not store private ssh key on any virtual instances, also not on the bastion host <br />* do not keep any SSH login posibilities other than specified private/public SSH key pair|public SSH key - provided by customer. private SSH key - provided by customer.|As customer to specify the keys. Accept the input as secure parameter or as reference in IBM Cloud Secure Storage Manager. Do not print SSH keys in any log files. Do not persist private SSH key.|                    |
+|* use public/private SSH key to access virtual server instances via SSH  \n * use SSH proxy to login on all virtual server instances via the bastion host  \n * do not store private ssh key on any virtual instances, also not on the bastion host  \n * do not keep any SSH login posibilities other than specified private/public SSH key pair|public SSH key - provided by customer. private SSH key - provided by customer.|As customer to specify the keys. Accept the input as secure parameter or as reference in IBM Cloud Secure Storage Manager. Do not print SSH keys in any log files. Do not persist private SSH key.|                    |
 {: caption="Table 4. Key and passwords management architecture decisions" caption-side="bottom"}
 
 ## Compliance
