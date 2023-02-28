@@ -52,7 +52,7 @@ You can optionally install more management components (such as NFS server, NTP f
 ## Architecture diagram
 {: #architecture-diagram}
 
-![Architecture diagram for 'Power infrastructure for deployable architectures' - variation 'PowerVS workspace'.](deploy-arch-ibm-pvs-inf-standard.svg "Architecture diagram"){: caption="Figure 1. Single-zone PowerVS workspace accessable over secure landing zone" caption-side="bottom"}
+![Architecture diagram for 'Power infrastructure for deployable architectures' - variation 'PowerVS workspace'.](deploy-arch-ibm-pvs-inf-standard.svg "Architecture diagram"){: caption="Figure 1. Single-zone PowerVS workspace accessible over secure landing zone" caption-side="bottom"}
 
 ## Design requirements
 {: #design-requirements}
@@ -96,10 +96,10 @@ IBM Cloud® Power Virtual Servers (PowerVS) is a public cloud offering that an e
 
 | Requirement | Component | Choice | Alternative choice |
 |-------------|-----------|--------------------|--------------------|
-|* ensure public internet connectivity from all the instances to be deployed in PowerVS workspace|SQUID proxy|Setup SQUID proxy software on Linux virtual server instance runnning in edge VPC|                    |
-|* provide shared NFS storage that might be directly attached to all the instances to be deployed in PowerVS workspace|NFS server|Export NFS disk attached to Linux virtual server instance runnning in workload VPC. Disk size is specified by the user.|Shared NFS storage on VPC is optional.|
-|* provide time synchronisation to all instances to be deployed in PowerVS workspace|NTP forwarder|Sinchronize time using public NTP servers. Setup time sinchronisation on Linux virtual server instance runnning in workload VPC.|By using time sinchronisation servers directly reachable from PowerVS workspace, NTP forwarder is not required.|
-|* provide a DNS forwarder to a DNS server not directly reachable from PowerVS workspace (e.g., running on-premise or in other isolated environment)|DNS forwarder|Configure DNS forwarder on Linux virtual server instance runnning in workload VPC| By using native IBM Cloud DNS service, DNS forwarder is not needed. Direct domain name resolution is possible.|
+|* Ensure public internet connectivity from all the instances to be deployed in PowerVS workspace|SQUID proxy|Setup SQUID proxy software on Linux virtual server instance running in edge VPC|                    |
+|* Provide shared NFS storage that might be directly attached to all the instances to be deployed in PowerVS workspace|NFS server|Export NFS disk attached to Linux virtual server instance running in workload VPC. Disk size is specified by the user.|Shared NFS storage on VPC is optional.|
+|* Provide time synchronization to all instances to be deployed in PowerVS workspace|NTP forwarder|Synchronize time using public NTP servers. Setup time synchronization on Linux virtual server instance running in workload VPC.|By using time synchronization servers directly reachable from PowerVS workspace, NTP forwarder is not required.|
+|* Provide a DNS forwarder to a DNS server not directly reachable from PowerVS workspace (e.g., running on-premise or in other isolated environment)|DNS forwarder|Configure DNS forwarder on Linux virtual server instance running in workload VPC| By using native IBM Cloud DNS service, DNS forwarder is not needed. Direct domain name resolution is possible.|
 {: caption="Table 3. PowerVS management services architecture decisions" caption-side="bottom"}
 
 ### Network security architecture decisions
@@ -107,11 +107,11 @@ IBM Cloud® Power Virtual Servers (PowerVS) is a public cloud offering that an e
 
 | Requirement | Component | Choice | Alternative choice |
 |-------------|-----------|--------------------|--------------------|
-|* isolate edge VPC and allow only a limited number of network connections  \n * all other connections from/to edge VPC are forbidden|ACL and security group rules in edge VPC|Open following ports by default:|Additional ports might be opened in preset or added manually after deployment|
-|* isolate management VPC and allow only a limited number of network connections  \n * all other connections from/to edge VPC are forbidden|ACL and security group rules in management VPC|Open following ports by default:|Additional ports might be opened in preset or added manually after deployment|
-|* isolate workload VPC and allow only a limited number of network connections  \n * all other connections from/to workload VPC are forbidden|ACL and security group rules in workload VPC|Open following ports by default:|Additional ports might be opened in preset or added manually after deployment|
-|* enable floating IP on bastion host to execute deployment|Floating IPs on bastion host in management VPC|Use floating IP on bastion host from IBM Schematics to complete deployment|                    |
-|* preload VPN configuration to simplify VPN setup|VPNs|VPN configuration is the responsibility of the customer|                    |
+|* Isolate edge VPC and allow only a limited number of network connections  \n * All other connections from/to edge VPC are forbidden|ACL and security group rules in edge VPC|Open following ports by default:|Additional ports might be opened in preset or added manually after deployment|
+|* Isolate management VPC and allow only a limited number of network connections  \n * All other connections from/to edge VPC are forbidden|ACL and security group rules in management VPC|Open following ports by default:|Additional ports might be opened in preset or added manually after deployment|
+|* Isolate workload VPC and allow only a limited number of network connections  \n * All other connections from/to workload VPC are forbidden|ACL and security group rules in workload VPC|Open following ports by default:|Additional ports might be opened in preset or added manually after deployment|
+|* Enable floating IP on bastion host to execute deployment|Floating IPs on bastion host in management VPC|Use floating IP on bastion host from IBM Schematics to complete deployment|                    |
+|* Pre-load VPN configuration to simplify VPN setup|VPNs|VPN configuration is the responsibility of the customer|                    |
 {: caption="Table 4. Network security architecture decisions" caption-side="bottom"}
 
 ### Key and password management architecture decisions
@@ -119,7 +119,7 @@ IBM Cloud® Power Virtual Servers (PowerVS) is a public cloud offering that an e
 
 | Requirement | Component | Choice | Alternative choice |
 |-------------|-----------|--------------------|--------------------|
-|* use public/private SSH key to access virtual server instances via SSH  \n * use SSH proxy to login on all virtual server instances via the bastion host  \n * do not store private ssh key on any virtual instances, also not on the bastion host  \n * do not keep any SSH login posibilities other than specified private/public SSH key pair|public SSH key - provided by customer. private SSH key - provided by customer.|As customer to specify the keys. Accept the input as secure parameter or as reference in IBM Cloud Secure Storage Manager. Do not print SSH keys in any log files. Do not persist private SSH key.|                    |
+|* Use public/private SSH key to access virtual server instances via SSH  \n * Use SSH proxy to login on all virtual server instances via the bastion host  \n * Do not store private ssh key on any virtual instances, also not on the bastion host  \n * Do not allow any other SSH login methods except the one with specified private/public SSH key pair|Public SSH key - provided by customer. Private SSH key - provided by customer.|Ask customer to specify the keys. Accept the input as secure parameter or as reference to the key stored in IBM Cloud Secure Storage Manager. Do not print SSH keys in any log files. Do not persist private SSH key.|                    |
 {: caption="Table 4. Key and passwords management architecture decisions" caption-side="bottom"}
 
 ## Compliance
