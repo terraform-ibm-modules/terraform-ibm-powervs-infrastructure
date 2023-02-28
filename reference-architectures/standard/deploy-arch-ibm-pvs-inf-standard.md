@@ -47,7 +47,7 @@ content-type: reference-architecture
 
 Building upon the VPC service that were previously created when you deployed Secure infrastructure on VPC for regulated industries, Power Infrastructure for deployable architectures creates a Power Virtual Server workspace and connects it with VPC services. Proxy service for public internet access from PowerVS workspace is configured.
 
-Additional management components (NFS server, NTP forwarder, and DNS forwarder) may be installed on VPC optionally.
+You can optionally install more management components (such as NFS server, NTP forwarder, and DNS forwarder) on VPC.
 
 ## Architecture diagram
 {: #architecture-diagram}
