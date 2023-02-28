@@ -28,9 +28,6 @@ provider "ibm" {
 
 locals {
   squid_port = "3128"
-}
-
-locals {
   squid_config = {
     "squid_enable"      = var.configure_proxy
     "server_host_or_ip" = var.squid_config["server_host_or_ip"] != null && var.squid_config["server_host_or_ip"] != "" ? var.squid_config["server_host_or_ip"] : var.internet_services_host_or_ip
@@ -64,7 +61,7 @@ locals {
 }
 
 module "powervs_infra" {
-  source = "../../"
+  source = "../../../"
 
   powervs_zone                = var.powervs_zone
   powervs_resource_group_name = var.powervs_resource_group_name

@@ -128,8 +128,6 @@ resource "null_resource" "execute_ansible_role" {
   }
 
   provisioner "file" {
-
-    #### Write service config file under  /root/terraform_scripts/terraform_services_vars.yml  ####
     destination = local.dst_ansible_vars_path
     content     = <<EOF
 server_config: {
@@ -139,7 +137,6 @@ EOF
 
   }
 
-  #### Write service config file under  /root/terraform_services_vars.yml  ####
   provisioner "file" {
     destination = local.dst_ansible_exec_path
     content = templatefile(
@@ -153,8 +150,7 @@ EOF
 
   provisioner "remote-exec" {
     inline = [
-      ####  Execute ansible collection to COnfigure management services  ####
-
+      ####  Execute ansible collection to Configure management services  ####
       "chmod +x ${local.dst_ansible_exec_path}",
       local.dst_ansible_exec_path
     ]

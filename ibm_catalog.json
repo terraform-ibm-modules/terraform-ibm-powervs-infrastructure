@@ -7,7 +7,7 @@
                 {
                     "label": "PowerVS workspace",
                     "name": "standard",
-                    "working_directory": "examples/ibm-catalog/standard-solution",
+                    "working_directory": "examples/ibm-catalog/deployable-architectures/standard",
                     "usage": "module \"power-infrastructure\" {\n  source = \"https://cm.globalcatalog.cloud.ibm.com/api/v1-beta/offering/source//examples/ibm-catalog/standard-solution?archive=tgz&kind=terraform&name=terraform-ibm-powervs-catalog-powervs-sap-infrastructure&version=2.0.9\"\n  prerequisite_workspace_id   = var.prerequisite_workspace_id\n  powervs_zone                = var.powervs_zone\n  powervs_resource_group_name = var.powervs_resource_group_name\n  ssh_private_key             = var.ssh_private_key\n  ibmcloud_api_key            = var.ibmcloud_api_key\n}",
                     "compliance": {
                         "controls": [
@@ -114,12 +114,11 @@
                     "dependencies": [
                         {
                             "flavors": [
-                                "quickstart",
                                 "standard"
                             ],
                             "id": "a87ed9a5-d130-47a3-980b-5ceb1d4f9280-global",
                             "name": "slz-vpc-with-vsis",
-                            "version": "^1.6.0"
+                            "version": ">=2.0.0"
                         }
                     ],
                     "architecture": {

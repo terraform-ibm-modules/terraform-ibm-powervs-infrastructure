@@ -42,14 +42,11 @@ data "ibm_schematics_output" "schematics_output" {
 }
 
 locals {
-  slz_output = jsondecode(data.ibm_schematics_output.schematics_output.output_json)
-
+  slz_output     = jsondecode(data.ibm_schematics_output.schematics_output.output_json)
   inet_svs_ip    = [for vsi in local.slz_output[0].vsi_list.value : vsi.ipv4_address if vsi.name == "${local.slz_output[0].prefix.value}-inet-svs-1"][0]
   private_svs_ip = [for vsi in local.slz_output[0].vsi_list.value : vsi.ipv4_address if vsi.name == "${local.slz_output[0].prefix.value}-private-svs-1"][0]
   squid_port     = "3128"
-}
 
-locals {
   squid_config = {
     "squid_enable"      = var.configure_proxy
     "server_host_or_ip" = var.squid_config["server_host_or_ip"] != null && var.squid_config["server_host_or_ip"] != "" ? var.squid_config["server_host_or_ip"] : local.inet_svs_ip
@@ -83,7 +80,7 @@ locals {
 }
 
 module "powervs_infra" {
-  source = "../../.."
+  source = "../../../../"
 
   powervs_zone                = var.powervs_zone
   powervs_resource_group_name = var.powervs_resource_group_name
@@ -96,7 +93,7 @@ module "powervs_infra" {
   powervs_management_network  = var.powervs_management_network
   powervs_backup_network      = var.powervs_backup_network
   transit_gateway_name        = local.slz_output[0].transit_gateway_name.value
-  reuse_cloud_connections     = var.reuse_cloud_connections
+  reuse_cloud_connections     = false
   cloud_connection_count      = var.cloud_connection_count
   cloud_connection_speed      = var.cloud_connection_speed
   cloud_connection_gr         = var.cloud_connection_gr
