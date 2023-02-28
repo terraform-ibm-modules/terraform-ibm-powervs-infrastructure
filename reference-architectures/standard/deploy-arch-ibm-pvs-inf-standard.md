@@ -40,7 +40,7 @@ content-type: reference-architecture
 
 # Power infrastructure for deployable architectures - variation 'PowerVS workspace'
 {: #deploy-arch-ibm-pvs-inf-standard}
-{: toc-content-type="Power infrastructure for deployable architectures - variation 'PowerVS workspace'"}
+{: toc-content-type="reference-architecture"}
 {: toc-industry="Technology"}
 {: toc-use-case="ITServiceManagement"}
 {: toc-compliance="SAPCertified"}
