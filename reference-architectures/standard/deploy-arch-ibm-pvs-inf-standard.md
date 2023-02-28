@@ -59,7 +59,7 @@ You can optionally install more management components (such as NFS server, NTP f
 
 ![Design requirements for 'Power infrastructure for deployable architectures' - variation 'PowerVS workspace'.](heatmap.svg "Design requirements"){: caption="Figure 1. Scope of the solution requirements" caption-side="bottom"}
 
-IBM Cloud® Power Virtual Servers (PowerVS) is a public cloud offering that lets an enterprise establish its own private IBM Power computing environment on shared public cloud infrastructure. PowerVS is logically isolated from all other public cloud tenants and infrastrucutre components, creating a private, secure place on the public cloud. The reference architecture for 'Power infrastructure for deployable architectures' - variation 'PowerVS workspace' is designed to provide a framework for building a PowerVS offering according to the best practices and requirements using IBM Cloud® deployable architectures framework.
+IBM Cloud® Power Virtual Servers (PowerVS) is a public cloud offering that an enterprise can use to establish its own private IBM Power computing environment on shared public cloud infrastructure. PowerVS is logically isolated from all other public cloud tenants and infrastructure components, creating a private, secure place on the public cloud. This reference architecture provides a framework to build a PowerVS offering according to the best practices and requirements from the IBM Cloud® deployable architectures framework.
 
 ## Components
 {: #components}
