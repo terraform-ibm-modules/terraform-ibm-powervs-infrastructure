@@ -29,7 +29,7 @@ The following limitations apply to the module:
 
 For more information about IBM Power Systems Virtual Server see the [getting started](https://cloud.ibm.com/docs/power-iaas?topic=power-iaas-getting-started) IBM Cloud docs.
 
-![powevs-infra-module](./reference-architectures/deploy-arch-ibm-pvs-inf-standard.svg)
+![powevs-infra-module](./reference-architectures/standard/deploy-arch-ibm-pvs-inf-standard.svg)
 
 ## Usage
 ```hcl
