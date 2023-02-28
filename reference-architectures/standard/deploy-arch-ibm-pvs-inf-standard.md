@@ -130,4 +130,4 @@ This reference architecture is certified for SAP deployments.
 ## Next steps
 {: #next-steps}
 
-As next step, you install deployable architecture 'SAP on Power' on top of that infrastructure.
+Install the SAP on Power deployable architecture on this infrastructure.
