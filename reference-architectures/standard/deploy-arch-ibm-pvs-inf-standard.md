@@ -84,11 +84,11 @@ IBM Cloud® Power Virtual Servers (PowerVS) is a public cloud offering that an e
 
 | Requirement | Component | Choice | Alternative choice |
 |-------------|-----------|--------------------|--------------------|
-|* connect PowerVS workspace with VPC services|Cloud connections|Setup two redundant cloud connections|                    |
-|* configure network for management of all the instances  \n * troughput and latency are not relevant|Management network|Configure private network with default configurations and attch it to both cloud connections|                    |
-|* configure separate network for backup purposes with higher data throughput|Backup network|Configure separate private network with default configurations and attch it to both cloud connections. Networks characteristics might be adapted by the users manually (e.g., to improve throughput)|                    |
-|* preload OS images relevant for customer workload|Pre-loaded OS images|Preload Linux OS images for SAP workload. Keep the number of preloaded images at minimum to save corsts.|Modify the input parameter that specify the list of preloaded OS images.|
-|* preload public SSH key that will be injected into every OS deployment|Pre-loaded SSH public key|Preload customer specified SSH public key|                    |
+|* Connect PowerVS workspace with VPC services|Cloud connections|Set up two redundant cloud connections| |
+|* Configure the network for management of all instances  \n * Throughput and latency are not relevant|Management network|Configure private network with default configurations and attach it to both cloud connections| |
+|* Configure separate network for backup purposes with higher data throughput|Backup network|Configure separate private network with default configurations and attach it to both cloud connections. Networks characteristics might be adapted by the users manually (for example to improve throughput)| |
+|* Pre-load OS images relevant for customer workload|Pre-loaded OS images|Pre-load Linux OS images for SAP workload. Keep the number of pre-loaded images at minimum to save costs.|Modify the input parameter that specifies the list of pre-loaded OS images.|
+|* Pre-load a public SSH key that will be injected into every OS deployment|Pre-loaded SSH public key|Pre-load customer specified SSH public key| |
 {: caption="Table 2. PowerVS workspace architecture decisions" caption-side="bottom"}
 
 ### PowerVS management services architecture decisions
