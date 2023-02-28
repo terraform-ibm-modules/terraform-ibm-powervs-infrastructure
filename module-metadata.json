@@ -44,7 +44,7 @@
     "cloud_connection_gr": {
       "name": "cloud_connection_gr",
       "type": "bool",
-      "description": "Whether to enable global routing for this IBM Cloud connection. You can specify thia value when you create a connection.",
+      "description": "Whether to enable global routing for this IBM Cloud connection. You can specify this value when you create a connection.",
       "required": true,
       "source": [
         "module.cloud_connection_create.ibm_pi_cloud_connection.cloud_connection.pi_cloud_connection_global_routing",
@@ -58,7 +58,7 @@
     "cloud_connection_metered": {
       "name": "cloud_connection_metered",
       "type": "bool",
-      "description": "Whether to enable metering for this IBM Cloud connection. You can specify thia value when you create a connection.",
+      "description": "Whether to enable metering for this IBM Cloud connection. You can specify this value when you create a connection.",
       "required": true,
       "source": [
         "module.cloud_connection_create.ibm_pi_cloud_connection.cloud_connection.pi_cloud_connection_metered",

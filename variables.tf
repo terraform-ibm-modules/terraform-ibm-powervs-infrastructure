@@ -105,13 +105,13 @@ variable "powervs_image_names" {
 }
 
 variable "cloud_connection_gr" {
-  description = "Whether to enable global routing for this IBM Cloud connection. You can specify thia value when you create a connection."
+  description = "Whether to enable global routing for this IBM Cloud connection. You can specify this value when you create a connection."
   type        = bool
   default     = null
 }
 
 variable "cloud_connection_metered" {
-  description = "Whether to enable metering for this IBM Cloud connection. You can specify thia value when you create a connection."
+  description = "Whether to enable metering for this IBM Cloud connection. You can specify this value when you create a connection."
   type        = bool
   default     = null
 }
