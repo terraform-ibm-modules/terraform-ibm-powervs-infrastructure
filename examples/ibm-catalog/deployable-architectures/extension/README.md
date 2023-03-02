@@ -14,10 +14,6 @@ This example illustrates how to use the `power-infrastructure` module in the IBM
 
 Install a current version of the [IBM Secure Landing Zone](https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone) module.
 
-## Reference architectures
-![pvs-module](../../../../reference-architectures/standard/deploy-arch-ibm-pvs-inf-standard.svg)
-
-
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
