@@ -12,6 +12,9 @@ This example illustrates how to use the `power-infrastructure` module in the IBM
 
 :information_source: **Tip:** Edit the sample `input.tfvars` file and deploy with the `terraform apply -var-file=input.tfvars` command.
 
+## Reference architectures
+![pvs-module](../../../../reference-architectures/standard/deploy-arch-ibm-pvs-inf-standard.svg)
+
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
