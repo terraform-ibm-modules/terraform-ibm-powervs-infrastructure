@@ -2,8 +2,8 @@ variable "powervs_zone" {
   description = "IBM Cloud PowerVS zone."
   type        = string
   validation {
-    condition     = contains(["sao01", "syd04", "syd05", "osa21", "tok04", "eu-de-1", "eu-de-2", "lon04", "lon06"], var.powervs_zone)
-    error_message = "Only Following DCs are tested and verified : sao01, syd04, syd05, osa21, tok04, eu-de-1, eu-de-2, lon04, lon06."
+    condition     = contains(["syd04", "syd05", "eu-de-1", "eu-de-2", "lon04", "lon06", "wdc04", "us-east", "us-south", "dal12", "dal13", "tor01", "tok04", "osa21", "sao01", "mon01"], var.powervs_zone)
+    error_message = "Only Following DC values are supported :  syd04, syd05, eu-de-1, eu-de-2, lon04, lon06, wdc04, us-east, us-south, dal12, dal13, tor01, tok04, osa21, sao01, mon01"
   }
 }
 
