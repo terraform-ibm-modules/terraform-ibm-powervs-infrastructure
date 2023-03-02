@@ -29,6 +29,10 @@ The following limitations apply to the module:
 
 For more information about IBM Power Systems Virtual Server see the [getting started](https://cloud.ibm.com/docs/power-iaas?topic=power-iaas-getting-started) IBM Cloud docs.
 
+## Reference architectures
+
+- Power infrastructure for deployable architectures - [PowerVS workspace variation](reference-architectures/standard/deploy-arch-ibm-pvs-inf-standard.md)
+
 ## Usage
 ```hcl
 provider "ibm" {
