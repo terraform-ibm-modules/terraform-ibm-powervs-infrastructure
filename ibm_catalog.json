@@ -8,7 +8,7 @@
                     "label": "PowerVS workspace",
                     "name": "standard",
                     "working_directory": "examples/ibm-catalog/standard-solution",
-                    "usage": "module \"power-infrastructure\" {\n  source = \"https://cm.globalcatalog.cloud.ibm.com/api/v1-beta/offering/source//examples/ibm-catalog/standard-solution?archive=tgz&kind=terraform&name=terraform-ibm-powervs-catalog-powervs-sap-infrastructure&version=2.0.9\"\n  prerequisite_workspace_id   = var.prerequisite_workspace_id\n  powervs_zone                = var.powervs_zone\n  powervs_resource_group_name = var.powervs_resource_group_name\n  ssh_private_key             = var.ssh_private_key\n  ibmcloud_api_key            = var.ibmcloud_api_key\n}",
+                    "usage_template": "module \"power-infrastructure\" {\n  source =                     \"https://cm.globalcatalog.cloud.ibm.com/api/v1-beta/offering/source//${{workingDirectory}}?archive=tgz&flavor=${{flavor}}&kind=${{kind}}&name=${{name}}&version=${{version}}\"\n  prerequisite_workspace_id   = var.prerequisite_workspace_id\n  powervs_zone                = var.powervs_zone\n  powervs_resource_group_name = var.powervs_resource_group_name\n  ssh_private_key             = var.ssh_private_key\n  ibmcloud_api_key            = var.ibmcloud_api_key\n}",
                     "compliance": {
                         "controls": [
                             {
