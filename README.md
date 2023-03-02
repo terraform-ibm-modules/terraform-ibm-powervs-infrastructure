@@ -95,7 +95,8 @@ You need the following permissions to run this module.
 ## Examples
 
 - [ Basic example for Power infrastructure for regulated industries](examples/basic)
-- [ IBM Cloud catalog example for Power infrastructure for regulated industries](examples/ibm-catalog/deployable-architectures/standard)
+- [ IBM Cloud catalog example for Power infrastructure for regulated industries](examples/ibm-catalog/deployable-architectures/extension)
+- [ IBM Cloud catalog example for Power infrastructure for regulated industries](examples/ibm-catalog/deployable-architectures/full-stack)
 - [ Standard example for Power infrastructure for regulated industries](examples/terraform-registry/standard)
 <!-- END EXAMPLES HOOK -->
 
