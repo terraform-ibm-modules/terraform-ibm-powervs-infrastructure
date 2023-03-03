@@ -6,8 +6,199 @@
             "flavors": [
                 {
                     "label": "PowerVS workspace",
-                    "name": "standard",
-                    "working_directory": "examples/ibm-catalog/standard-solution",
+                    "name": "full-stack",
+                    "working_directory": "examples/ibm-catalog/deployable-architectures/full-stack",
+                    "usage_template": "module \"power-infrastructure\" {\n  source =                     \"https://cm.globalcatalog.cloud.ibm.com/api/v1-beta/offering/source//${{workingDirectory}}?archive=tgz&flavor=${{flavor}}&kind=${{kind}}&name=${{name}}&version=${{version}}\"\n   powervs_zone                = var.powervs_zone\n  powervs_resource_group_name = var.powervs_resource_group_name\n prefix = var.prefix\n  override_json_string = var.override_json_string\n  ibmcloud_api_key            = var.ibmcloud_api_key\n  ssh_private_key             = var.ssh_private_key\n  ssh_public_key              = var.ssh_public_key\n  }",
+                    "compliance": {
+                        "controls": [
+                            {
+                                "profile_name": "SAP on IBM Power compliance v0.1.2",
+                                "control_id": "AC-2(1)"
+                            },
+                            {
+                                "profile_name": "SAP on IBM Power compliance v0.1.2",
+                                "control_id": "AC-2(a)"
+                            },
+                            {
+                                "profile_name": "SAP on IBM Power compliance v0.1.2",
+                                "control_id": "AC-2(c)"
+                            },
+                            {
+                                "profile_name": "SAP on IBM Power compliance v0.1.2",
+                                "control_id": "AC-2(i)"
+                            },
+                            {
+                                "profile_name": "SAP on IBM Power compliance v0.1.2",
+                                "control_id": "AC-2(j)"
+                            },
+                            {
+                                "profile_name": "SAP on IBM Power compliance v0.1.2",
+                                "control_id": "AC-3"
+                            },
+                            {
+                                "profile_name": "SAP on IBM Power compliance v0.1.2",
+                                "control_id": "AC-4"
+                            },
+                            {
+                                "profile_name": "SAP on IBM Power compliance v0.1.2",
+                                "control_id": "AC-6-0"
+                            },
+                            {
+                                "profile_name": "SAP on IBM Power compliance v0.1.2",
+                                "control_id": "AU-2(a)"
+                            },
+                            {
+                                "profile_name": "SAP on IBM Power compliance v0.1.2",
+                                "control_id": "CA-7(a)"
+                            },
+                            {
+                                "profile_name": "SAP on IBM Power compliance v0.1.2",
+                                "control_id": "CM-2"
+                            },
+                            {
+                                "profile_name": "SAP on IBM Power compliance v0.1.2",
+                                "control_id": "CM-8(4)"
+                            },
+                            {
+                                "profile_name": "SAP on IBM Power compliance v0.1.2",
+                                "control_id": "IA-4"
+                            },
+                            {
+                                "profile_name": "SAP on IBM Power compliance v0.1.2",
+                                "control_id": "SC-8-0"
+                            },
+                            {
+                                "profile_name": "SAP on IBM Power compliance v0.1.2",
+                                "control_id": "RA-5(a)"
+                            },
+                            {
+                                "profile_name": "SAP on IBM Power compliance v0.1.2",
+                                "control_id": "SC-12"
+                            },
+                            {
+                                "profile_name": "SAP on IBM Power compliance v0.1.2",
+                                "control_id": "SC-13"
+                            },
+                            {
+                                "profile_name": "SAP on IBM Power compliance v0.1.2",
+                                "control_id": "SC-36"
+                            }
+                        ]
+                    },
+                    "iam_permissions": [
+                        {
+                            "role_crns": [
+                                "crn:v1:bluemix:public:iam::::serviceRole:Manager"
+                            ],
+                            "service_name": "appid"
+                        },
+                        {
+                            "role_crns": [
+                                "crn:v1:bluemix:public:iam::::serviceRole:Manager"
+                            ],
+                            "service_name": "cloud-object-storage"
+                        },
+                        {
+                            "role_crns": [
+                                "crn:v1:bluemix:public:iam::::serviceRole:Manager"
+                            ],
+                            "service_name": "hs-crypto"
+                        },
+                        {
+                            "role_crns": [
+                                "crn:v1:bluemix:public:iam::::role:Administrator"
+                            ],
+                            "service_name": "iam-identity"
+                        },
+                        {
+                            "role_crns": [
+                                "crn:v1:bluemix:public:iam::::serviceRole:Manager"
+                            ],
+                            "service_name": "kms"
+                        },
+                        {
+                            "role_crns": [
+                                "crn:v1:bluemix:public:iam::::serviceRole:Manager",
+                                "crn:v1:bluemix:public:iam::::role:Administrator"
+                            ],
+                            "service_name": "is.vpc"
+                        },
+                        {
+                            "role_crns": [
+                                "crn:v1:bluemix:public:iam::::role:Editor"
+                            ],
+                            "service_name": "is.vpc"
+                        },
+                        {
+                            "role_crns": [
+                                "crn:v1:bluemix:public:iam::::role:Editor"
+                            ],
+                            "service_name": "transit.gateway"
+                        },
+                        {
+                            "role_crns": [
+                                "crn:v1:bluemix:public:iam::::role:Editor"
+                            ],
+                            "service_name": "directlink.connect"
+                        },
+                        {
+                            "role_crns": [
+                                "crn:v1:bluemix:public:iam::::serviceRole:Manager"
+                            ],
+                            "service_name": "power-iaas"
+                        }
+                    ],
+                    "architecture": {
+                        "features": [
+                            {
+                                "title": "Separate VPC for management",
+                                "description": "Yes"
+                            },
+                            {
+                                "title": "Separate VPC for Internet Services",
+                                "description": "Yes"
+                            },
+                            {
+                                "title": "Separate VPC for Private Services",
+                                "description": "Yes"
+                            },
+                            {
+                                "title": "1 Virtual Server Instances for every VPC",
+                                "description": "Yes"
+                            },
+                            {
+                                "title": "Increases security with Key Management",
+                                "description": "Yes"
+                            },
+                            {
+                                "description": "PowerVS service with all required components",
+                                "title": "Power Virtual Server workspace"
+                            },
+                            {
+                                "description": "Proxy service to reach public internet from PowerVS workspace",
+                                "title": "Internet proxy on VPC"
+                            },
+                            {
+                                "description": "NFS server, NTP forwarder, and DNS forwarder reachable from PowerVS workspace",
+                                "title": "Additional management configurations on VPC"
+                            }
+                        ],
+                        "diagrams": [
+                            {
+                                "diagram": {
+                                    "caption": "Power infrastructure for deployable architectures",
+                                    "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/main/reference-architectures/standard/deploy-arch-ibm-pvs-inf-standard.svg",
+                                    "type": "image/svg+xml"
+                                },
+                                "description": "Full stack solution which deploys Secure infrastructure on VPC for regulated industries amd deploys  Power Virtual Server workspace and connects it with VPC services. Proxy service for public internet access from PowerVS workspace is configured. \n\nAdditional management components (NFS server, NTP forwarder, and DNS forwarder) may be installed on VPC optionally."
+                            }
+                        ]
+                    }
+                },
+                {
+                    "label": "PowerVS workspace",
+                    "name": "extension",
+                    "working_directory": "examples/ibm-catalog/deployable-architectures/extension",
                     "usage_template": "module \"power-infrastructure\" {\n  source =                     \"https://cm.globalcatalog.cloud.ibm.com/api/v1-beta/offering/source//${{workingDirectory}}?archive=tgz&flavor=${{flavor}}&kind=${{kind}}&name=${{name}}&version=${{version}}\"\n  prerequisite_workspace_id   = var.prerequisite_workspace_id\n  powervs_zone                = var.powervs_zone\n  powervs_resource_group_name = var.powervs_resource_group_name\n  ssh_private_key             = var.ssh_private_key\n  ibmcloud_api_key            = var.ibmcloud_api_key\n}",
                     "compliance": {
                         "controls": [
