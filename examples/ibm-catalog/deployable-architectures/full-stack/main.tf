@@ -44,6 +44,10 @@ provider "ibm" {
   ibmcloud_api_key = var.ibmcloud_api_key != null ? var.ibmcloud_api_key : null
 }
 
+#####################################################
+# VPC landing zone module
+#####################################################
+
 module "landing_zone" {
   source               = "git::https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone.git//patterns//vsi?ref=v2.0.0"
   ibmcloud_api_key     = var.ibmcloud_api_key
@@ -61,35 +65,45 @@ locals {
   inet_svs_ip          = [for vsi in module.landing_zone.vsi_list : vsi.ipv4_address if vsi.name == "${var.prefix}-inet-svs-1"][0]
   squid_port           = "3128"
 
+  ### Squid Proxy will be installed on "${var.prefix}-inet-svs-1" vsi
   squid_config = {
     "squid_enable"      = var.configure_proxy
     "server_host_or_ip" = local.inet_svs_ip
     "squid_port"        = local.squid_port
   }
 
-  dns_config = merge(var.dns_forwarder_config, {
-    "dns_enable"        = var.configure_dns_forwarder
-    "server_host_or_ip" = local.private_svs_ip
-  })
-
-  ntp_config = {
-    "ntp_enable"        = var.configure_ntp_forwarder
-    "server_host_or_ip" = local.private_svs_ip
-  }
-
-  nfs_config = {
-    "nfs_enable"        = var.configure_nfs_server
-    "server_host_or_ip" = local.private_svs_ip
-    "nfs_file_system"   = [{ name = "nfs", mount_path : "/nfs", size : 1000 }]
-  }
-
+  ### Proxy client will be configured on "${var.prefix}-private-svs-1" vsi
   perform_proxy_client_setup = {
     squid_client_ips = [local.private_svs_ip]
     squid_server_ip  = local.squid_config["server_host_or_ip"]
     squid_port       = local.squid_config["squid_port"]
     no_proxy_hosts   = "161.0.0.0/8"
   }
+
+  ### DNS Forwarder will be configured on "${var.prefix}-private-svs-1" vsi
+  dns_config = merge(var.dns_forwarder_config, {
+    "dns_enable"        = var.configure_dns_forwarder
+    "server_host_or_ip" = local.private_svs_ip
+  })
+
+  ### NTP Forwarder will be configured on "${var.prefix}-private-svs-1" vsi
+  ntp_config = {
+    "ntp_enable"        = var.configure_ntp_forwarder
+    "server_host_or_ip" = local.private_svs_ip
+  }
+
+  ### NFS server will be configured on "${var.prefix}-private-svs-1" vsi
+  nfs_config = {
+    "nfs_enable"        = var.configure_nfs_server
+    "server_host_or_ip" = local.private_svs_ip
+    "nfs_file_system"   = [{ name = "nfs", mount_path : "/nfs", size : 1000 }]
+  }
+
 }
+
+#####################################################
+# PowerVS Infrastructure module
+#####################################################
 
 
 module "powervs_infra" {
