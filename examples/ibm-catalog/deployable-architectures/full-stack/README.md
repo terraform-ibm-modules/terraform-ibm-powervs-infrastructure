@@ -1,7 +1,7 @@
 # IBM Cloud catalog example for Power infrastructure for regulated industries
 
 This example provisions the following infrastructure:
-- A VPC Infrastructure with 3 VPCs, 1 VSI in each in VPC
+- A VPC Infrastructure with 3 VPCs, 1 VSI in each VPC
 
 - A PowerVS workspace instance with the following network topology:
     - Creates two private networks: a management network and a backup network
