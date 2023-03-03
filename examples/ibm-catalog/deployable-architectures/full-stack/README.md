@@ -10,7 +10,7 @@ This example provisions the following infrastructure:
     - Creates one or two IBM Cloud connections with an option to reuse the connections.
     - Attaches the IBM Cloud connections to a transit gateway.
     - Attaches the private networks to the IBM Cloud connections.
-    - Creates a SSH key
+    - Creates a SSH key.
 
 ## Reference architectures
 ![pvs-module](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/blob/main/reference-architectures/full-stack/deploy-arch-ibm-pvs-inf-standard.svg)
