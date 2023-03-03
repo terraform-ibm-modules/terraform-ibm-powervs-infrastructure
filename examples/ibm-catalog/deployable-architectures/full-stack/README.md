@@ -16,7 +16,7 @@ This example provisions the following infrastructure:
 Install a current version of the [IBM Secure Landing Zone](https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone) module.
 
 ## Reference architectures
-![pvs-module](../../../../reference-architectures/standard/deploy-arch-ibm-pvs-inf-standard.svg)
+![pvs-module](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/blob/main/reference-architectures/standard/deploy-arch-ibm-pvs-inf-standard.svg)
 
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
