@@ -1,6 +1,6 @@
 # Standard example for Power infrastructure for regulated industries
 
-This example illustrates how to use the `power-infrastructure` module in the IBM catalog. It provisions the following infrastructure:
+This example illustrates how to use the `power-infrastructure` module. It provisions the following infrastructure:
 
 - A PowerVS workspace instance with the following network topology:
     - Creates two private networks: a management network and a backup network
@@ -11,9 +11,6 @@ This example illustrates how to use the `power-infrastructure` module in the IBM
     - Installs and configures the Squid Proxy, DNS Forwarder, NTP Forwarder and NFS on specified host, and sets the host as server for these services
 
 :information_source: **Tip:** Edit the sample `input.tfvars` file and deploy with the `terraform apply -var-file=input.tfvars` command.
-
-## Reference architectures
-![pvs-module](../../../reference-architectures/standard/deploy-arch-ibm-pvs-inf-standard.svg)
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements

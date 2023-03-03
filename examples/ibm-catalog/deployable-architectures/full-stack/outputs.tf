@@ -4,17 +4,17 @@ output "prefix" {
 }
 
 output "vpc_names" {
-  description = "A list of the names of the VPC"
+  description = "A list of the names of the VPC."
   value       = module.landing_zone.vpc_names
 }
 
 output "vsi_names" {
-  description = "A list of the vsis names provisioned within the VPCs"
+  description = "A list of the vsis names provisioned within the VPCs."
   value       = module.landing_zone.vsi_names
 }
 
 output "transit_gateway_name" {
-  description = "The name of the transit gateway"
+  description = "The name of the transit gateway."
   value       = module.landing_zone.transit_gateway_name
 }
 

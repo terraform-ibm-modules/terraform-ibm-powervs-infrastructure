@@ -1,22 +1,19 @@
 # IBM Cloud catalog example for Power infrastructure for regulated industries
 
 This example provisions the following infrastructure:
-- A VPC Infrastructure with 3 VPCs, 1 VSI in each VPC
+- A VPC Infrastructure with following components
+    -  3 VPCs with 1 VSI in each VPC( 1 Management(jump/bastion) vsi, 1 inet-svs vsi configured as squid proxy server, 1 private-svs vsi configured as NFS, NTP, DNS server)
+    - Installs and configures the Squid Proxy, DNS Forwarder, NTP Forwarder and NFS on hosts, and sets the host as server for these services NTP, NFS, DNS using ansible roles.
 
 - A PowerVS workspace instance with the following network topology:
     - Creates two private networks: a management network and a backup network
     - Creates one or two IBM Cloud connections with an option to reuse the connections
     - Attaches the IBM Cloud connections to a transit gateway
     - Attaches the private networks to the IBM Cloud connections
-    - Creates an SSH key
-    - Installs and configures the Squid Proxy, DNS Forwarder, NTP Forwarder and NFS on specified host, and sets the host as server for these services
-
-## Before you begin
-
-Install a current version of the [IBM Secure Landing Zone](https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone) module.
+    - Creates a SSH key
 
 ## Reference architectures
-![pvs-module](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/blob/main/reference-architectures/standard/deploy-arch-ibm-pvs-inf-standard.svg)
+![pvs-module](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/blob/main/reference-architectures/full-stack/deploy-arch-ibm-pvs-inf-standard.svg)
 
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
@@ -82,8 +79,8 @@ No resources.
 | <a name="output_prefix"></a> [prefix](#output\_prefix) | The prefix that is associated with all resources |
 | <a name="output_proxy_host_or_ip_port"></a> [proxy\_host\_or\_ip\_port](#output\_proxy\_host\_or\_ip\_port) | Proxy host:port for created PowerVS infrastructure. |
 | <a name="output_schematics_workspace_id"></a> [schematics\_workspace\_id](#output\_schematics\_workspace\_id) | ID of the IBM Cloud Schematics workspace. Returns null if not ran in Schematics |
-| <a name="output_transit_gateway_name"></a> [transit\_gateway\_name](#output\_transit\_gateway\_name) | The name of the transit gateway |
-| <a name="output_vpc_names"></a> [vpc\_names](#output\_vpc\_names) | A list of the names of the VPC |
+| <a name="output_transit_gateway_name"></a> [transit\_gateway\_name](#output\_transit\_gateway\_name) | The name of the transit gateway. |
+| <a name="output_vpc_names"></a> [vpc\_names](#output\_vpc\_names) | A list of the names of the VPC. |
 | <a name="output_vsi_list"></a> [vsi\_list](#output\_vsi\_list) | A list of VSI with name, id, zone, and primary ipv4 address, VPC Name, and floating IP. |
-| <a name="output_vsi_names"></a> [vsi\_names](#output\_vsi\_names) | A list of the vsis names provisioned within the VPCs |
+| <a name="output_vsi_names"></a> [vsi\_names](#output\_vsi\_names) | A list of the vsis names provisioned within the VPCs. |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
