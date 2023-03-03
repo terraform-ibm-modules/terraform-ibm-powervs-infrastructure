@@ -6,10 +6,10 @@ This example provisions the following infrastructure:
     - Installs and configures the Squid Proxy, DNS Forwarder, NTP Forwarder and NFS on hosts, and sets the host as server for these services NTP, NFS, DNS using ansible roles.
 
 - A PowerVS workspace instance with the following network topology:
-    - Creates two private networks: a management network and a backup network
-    - Creates one or two IBM Cloud connections with an option to reuse the connections
-    - Attaches the IBM Cloud connections to a transit gateway
-    - Attaches the private networks to the IBM Cloud connections
+    - Creates two private networks: a management network and a backup network.
+    - Creates one or two IBM Cloud connections with an option to reuse the connections.
+    - Attaches the IBM Cloud connections to a transit gateway.
+    - Attaches the private networks to the IBM Cloud connections.
     - Creates a SSH key
 
 ## Reference architectures
