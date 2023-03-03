@@ -52,7 +52,7 @@ You can optionally install more management components (such as NFS server, NTP f
 ## Architecture diagram
 {: #architecture-diagram}
 
-![Architecture diagram for 'Power infrastructure for deployable architectures' - variation 'PowerVS workspace'.](deploy-arch-ibm-pvs-inf-standard.svg "Architecture diagram"){: caption="Figure 1. Single-zone PowerVS workspace accessible over secure landing zone" caption-side="bottom"}
+![Architecture diagram for 'Power infrastructure for deployable architectures' - variation 'PowerVS workspace FullStack'.](deploy-arch-ibm-pvs-inf-standard.svg "Architecture diagram"){: caption="Figure 1. Single-zone PowerVS workspace accessible over secure landing zone" caption-side="bottom"}
 
 ## Design requirements
 {: #design-requirements}
