@@ -1,9 +1,9 @@
 # IBM Cloud catalog example for Power infrastructure for regulated industries
 
-This example provisions the following infrastructure:
-- A VPC Infrastructure with following components
-    -  3 VPCs with 1 VSI in each VPC( 1 Management(jump/bastion) vsi, 1 inet-svs vsi configured as squid proxy server, 1 private-svs vsi configured as NFS, NTP, DNS server)
-    - Installs and configures the Squid Proxy, DNS Forwarder, NTP Forwarder and NFS on hosts, and sets the host as server for these services NTP, NFS, DNS using ansible roles.
+This example sets up the following infrastructure:
+- A VPC Infrastructure with the following components:
+    -  Provisions three VPCs with one VSI in each VPC (one management(jump/bastion) VSI, one inet-svs VSI configured as squid proxy server, one private-svs VSI configured as NFS, NTP, DNS server).
+    - Installs and configures the Squid Proxy, DNS Forwarder, NTP forwarder and NFS on hosts, and sets the host as the server for the NTP, NFS, and DNS services by using Ansible roles.
 
 - A PowerVS workspace instance with the following network topology:
     - Creates two private networks: a management network and a backup network.
