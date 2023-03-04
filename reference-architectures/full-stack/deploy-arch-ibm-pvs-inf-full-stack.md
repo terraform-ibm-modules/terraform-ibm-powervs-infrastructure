@@ -16,7 +16,7 @@ deployment-url: url #TODO
 
 docs: https://cloud.ibm.com/docs/solution-guide #TODO
 
-image_source: https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/reference-architectures/standard/deploy-arch-ibm-pvs-inf-standard.svg
+image_source: https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/reference-architectures/sfull-stack/deploy-arch-ibm-pvs-inf-full-stack.svg
 
 related_links:
   - title: 'SAP in IBM Cloud documentation'
@@ -39,7 +39,7 @@ content-type: reference-architecture
 {{site.data.keyword.attribute-definition-list}}
 
 # Power infrastructure for deployable architectures - variation 'PowerVS workspace'
-{: #deploy-arch-ibm-pvs-inf-standard}
+{: #deploy-arch-ibm-pvs-inf-full-stack}
 {: toc-content-type="reference-architecture"}
 {: toc-industry="Technology"}
 {: toc-use-case="ITServiceManagement"}
@@ -52,12 +52,12 @@ You can optionally install more management components (such as NFS server, NTP f
 ## Architecture diagram
 {: #architecture-diagram}
 
-![Architecture diagram for 'Power infrastructure for deployable architectures' - variation 'PowerVS workspace FullStack'.](deploy-arch-ibm-pvs-inf-standard.svg "Architecture diagram"){: caption="Figure 1. Single-zone PowerVS workspace accessible over secure landing zone" caption-side="bottom"}
+![Architecture diagram for 'Power infrastructure for deployable architectures' - variation 'PowerVS workspace'.](deploy-arch-ibm-pvs-inf-full-stack.svg "Architecture diagram"){: caption="Figure 1. Single-zone PowerVS workspace accessible over secure landing zone" caption-side="bottom"}
 
 ## Design requirements
 {: #design-requirements}
 
-![Design requirements for 'Power infrastructure for deployable architectures' - variation 'PowerVS workspace FullStack'.](heat-map-deploy-arch-ibm-pvs-inf-standard.svg "Design requirements"){: caption="Figure 2. Scope of the solution requirements" caption-side="bottom"}
+![Design requirements for 'Power infrastructure for deployable architectures' - variation 'PowerVS workspace'.](heat-map-deploy-arch-ibm-pvs-inf-full-stack.svg "Design requirements"){: caption="Figure 2. Scope of the solution requirements" caption-side="bottom"}
 
 IBM Cloud® Power Virtual Servers (PowerVS) is a public cloud offering that an enterprise can use to establish its own private IBM Power computing environment on shared public cloud infrastructure. PowerVS is logically isolated from all other public cloud tenants and infrastructure components, creating a private, secure place on the public cloud. This reference architecture provides a framework to build a PowerVS offering according to the best practices and requirements from the IBM Cloud® deployable architectures framework.
 
