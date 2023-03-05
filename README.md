@@ -16,7 +16,7 @@ The Power infrastructure for regulated industries module automates the following
 - Creates two [IBM Cloud connections](https://cloud.ibm.com/docs/power-iaas?topic=power-iaas-cloud-connections) with an option to reuse the connections
 - Attaches the IBM Cloud connections to a transit gateway
 - Attaches the private networks to the IBM Cloud connections
-- Installs and configures the Squid Proxy, DNS Forwarder, NTP Forwarder and NFS on specified host, and sets the host as server for these services
+- Installs and configures the Squid Proxy, DNS Forwarder, NTP Forwarder and NFS on specified host, and sets the host as server for these services using ansible roles.
 
 The following limitations apply to the module:
 
@@ -31,7 +31,7 @@ For more information about IBM Power Systems Virtual Server see the [getting sta
 
 ## Reference architectures
 
-- Power infrastructure for deployable architectures - [PowerVS workspace variation](reference-architectures/full-stack/deploy-arch-ibm-pvs-inf-full-stack.md)
+- Power infrastructure for deployable architectures - [PowerVS workspace variation](reference-architectures/extension/deploy-arch-ibm-pvs-inf-standard.md)
 
 ## Usage
 ```hcl
