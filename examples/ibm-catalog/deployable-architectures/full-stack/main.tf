@@ -125,10 +125,10 @@ module "powervs_infra" {
   powervs_backup_network      = var.powervs_backup_network
   transit_gateway_name        = local.transit_gateway_name
   reuse_cloud_connections     = false
-  cloud_connection_count      = var.cloud_connection_count
-  cloud_connection_speed      = var.cloud_connection_speed
-  cloud_connection_gr         = var.cloud_connection_gr
-  cloud_connection_metered    = var.cloud_connection_metered
+  cloud_connection_count      = var.cloud_connection["count"]
+  cloud_connection_speed      = var.cloud_connection["speed"]
+  cloud_connection_gr         = var.cloud_connection["global_routing"]
+  cloud_connection_metered    = var.cloud_connection["metered"]
   access_host_or_ip           = local.access_host_or_ip
   squid_config                = local.squid_config
   dns_forwarder_config        = local.dns_config

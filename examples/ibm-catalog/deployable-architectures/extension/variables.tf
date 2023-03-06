@@ -13,12 +13,6 @@ variable "powervs_resource_group_name" {
   type        = string
 }
 
-variable "ibmcloud_api_key" {
-  description = "The IBM Cloud platform API key needed to deploy IAM enabled resources."
-  type        = string
-  sensitive   = true
-}
-
 #####################################################
 # Optional Parameters
 #####################################################
@@ -47,28 +41,21 @@ variable "powervs_backup_network" {
   }
 }
 
-variable "cloud_connection_count" {
-  description = "Required number of Cloud connections to create or reuse. The maximum number of connections is two per location."
-  type        = number
-  default     = 2
-}
+variable "cloud_connection" {
+  description = "Cloud connection configuration: speed (50, 100, 200, 500, 1000, 2000, 5000, 10000 Mb/s), count (1 or 2 connections), global_routing (true or false), metered (true or false)"
+  type = object({
+    count          = number
+    speed          = number
+    global_routing = bool
+    metered        = bool
+  })
 
-variable "cloud_connection_speed" {
-  description = "Speed in megabits per second. Supported values are 50, 100, 200, 500, 1000, 2000, 5000, 10000. Required when you create a connection."
-  type        = number
-  default     = 5000
-}
-
-variable "cloud_connection_gr" {
-  description = "Whether to enable global routing for this IBM Cloud connection. You can specify this value when you create a connection."
-  type        = bool
-  default     = true
-}
-
-variable "cloud_connection_metered" {
-  description = "Whether to enable metering for this IBM Cloud connection. You can specify this value when you create a connection."
-  type        = bool
-  default     = false
+  default = {
+    count          = 2
+    speed          = 5000
+    global_routing = true
+    metered        = true
+  }
 }
 
 variable "powervs_image_names" {
@@ -91,37 +78,44 @@ variable "ssh_private_key" {
 }
 
 variable "configure_proxy" {
-  description = "Specify if proxy will be configured. Proxy is mandatory for the landscape, so set this to 'false' only if proxy already exists. Proxy will allow to communicate from IBM PowerVS instances with IBM Cloud network and with public internet."
+  description = "Specify if proxy will be configured. Proxy is mandatory for the landscape, so set this to 'false' only if proxy already exists. Proxy will allow to communicate from IBM PowerVS instances with IBM Cloud network and with public internet. SSH private key must be provided."
   type        = bool
   default     = false
 }
 
 variable "configure_dns_forwarder" {
-  description = "Specify if DNS forwarder will be configured. This will allow you to use central DNS servers (e.g. IBM Cloud DNS servers) sitting outside of the created IBM PowerVS infrastructure. If yes, ensure 'dns_forwarder_config' optional variable is set properly. DNS forwarder will be installed on the private-svs vsi."
+  description = "Specify if DNS forwarder will be configured. This will allow you to use central DNS servers (e.g. IBM Cloud DNS servers) sitting outside of the created IBM PowerVS infrastructure. If yes, ensure 'dns_forwarder_config' optional variable is set properly. DNS forwarder will be installed on the private-svs vsi. SSH private key must be provided."
   type        = bool
   default     = false
 }
 
 variable "configure_ntp_forwarder" {
-  description = "Specify if NTP forwarder will be configured. This will allow you to synchronize time between IBM PowerVS instances. NTP forwarder will be installed on the private-svs vsi."
+  description = "Specify if NTP forwarder will be configured. This will allow you to synchronize time between IBM PowerVS instances. NTP forwarder will be installed on the private-svs vsi. SSH private key must be provided."
   type        = bool
   default     = false
 }
 
 variable "configure_nfs_server" {
-  description = "Specify if NFS server will be configured. This will allow you easily to share files between PowerVS instances (e.g., SAP installation files). NFS server will be installed on the private-svs vsi. If disk size is changed in json config,"
+  description = "Specify if NFS server will be configured. This will allow you easily to share files between PowerVS instances (e.g., SAP installation files). NFS server will be installed on the private-svs vsi. SSH private key must be provided."
   type        = bool
   default     = false
 }
 
 variable "dns_forwarder_config" {
-  description = "Configuration for the DNS forwarder to a DNS service that is not reachable directly from PowerVS"
+  description = "Configuration for the DNS forwarder to a DNS service that is not reachable directly from PowerVS."
   type = object({
     dns_servers = string
   })
   default = {
     "dns_servers" = "161.26.0.7; 161.26.0.8; 9.9.9.9;"
   }
+}
+
+variable "ibmcloud_api_key" {
+  description = "The IBM Cloud platform API key needed to deploy IAM enabled resources."
+  type        = string
+  sensitive   = true
+  default     = null
 }
 
 #############################################################################

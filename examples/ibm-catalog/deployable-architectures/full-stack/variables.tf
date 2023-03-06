@@ -18,12 +18,6 @@ variable "override_json_string" {
   type        = string
 }
 
-variable "ibmcloud_api_key" {
-  description = "The IBM Cloud platform API key needed to deploy IAM enabled resources."
-  type        = string
-  sensitive   = true
-}
-
 variable "ssh_public_key" {
   description = "Public SSH Key for VSI creation. Must be an RSA key with a key size of either 2048 bits or 4096 bits (recommended). Must be a valid SSH key that does not already exist in the deployment region."
   type        = string
@@ -81,28 +75,21 @@ variable "powervs_backup_network" {
   }
 }
 
-variable "cloud_connection_count" {
-  description = "Required number of Cloud connections to create or reuse. The maximum number of connections is two per location."
-  type        = number
-  default     = 2
-}
+variable "cloud_connection" {
+  description = "Cloud connection configuration: speed (50, 100, 200, 500, 1000, 2000, 5000, 10000 Mb/s), count (1 or 2 connections), global_routing (true or false), metered (true or false)"
+  type = object({
+    count          = number
+    speed          = number
+    global_routing = bool
+    metered        = bool
+  })
 
-variable "cloud_connection_speed" {
-  description = "Speed in megabits per second. Supported values are 50, 100, 200, 500, 1000, 2000, 5000, 10000. Required when you create a connection."
-  type        = number
-  default     = 5000
-}
-
-variable "cloud_connection_gr" {
-  description = "Whether to enable global routing for this IBM Cloud connection. You can specify this value when you create a connection."
-  type        = bool
-  default     = true
-}
-
-variable "cloud_connection_metered" {
-  description = "Whether to enable metering for this IBM Cloud connection. You can specify this value when you create a connection."
-  type        = bool
-  default     = false
+  default = {
+    count          = 2
+    speed          = 5000
+    global_routing = true
+    metered        = true
+  }
 }
 
 variable "powervs_image_names" {
@@ -131,6 +118,13 @@ variable "dns_forwarder_config" {
   default = {
     "dns_servers" = "161.26.0.7; 161.26.0.8; 9.9.9.9;"
   }
+}
+
+variable "ibmcloud_api_key" {
+  description = "The IBM Cloud platform API key needed to deploy IAM enabled resources."
+  type        = string
+  sensitive   = true
+  default     = null
 }
 
 #############################################################################
