@@ -16,7 +16,7 @@ deployment-url: url #TODO
 
 docs: https://cloud.ibm.com/docs/solution-guide #TODO
 
-image_source: https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/reference-architectures/standard/deploy-arch-ibm-pvs-inf-standard.svg
+image_source: https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/reference-architectures/standard/deploy-arch-ibm-pvs-inf-extenstion.svg
 
 related_links:
   - title: 'SAP in IBM Cloud documentation'

@@ -46,25 +46,37 @@ locals {
   prefix         = local.slz_output[0].prefix.value
   ssh_public_key = local.slz_output[0].ssh_public_key.value
 
-  landing_zone_config  = jsondecode(local.slz_output[0].config.value)
-  nfs_disk_size        = local.landing_zone_config.vsi[1].block_storage_volumes[0].capacity
+  landing_zone_config = jsondecode(local.slz_output[0].config.value)
+  nfs_disk_exists     = [for vsi in local.landing_zone_config.vsi : vsi.block_storage_volumes[0].capacity if contains(keys(vsi), "block_storage_volumes")]
+  nfs_disk_size       = length(local.nfs_disk_exists) >= 1 ? local.nfs_disk_exists[0] : ""
+
   transit_gateway_name = local.slz_output[0].transit_gateway_name.value
-  access_host_or_ip    = local.slz_output[0].fip_vsi.value[0].floating_ip
-  private_svs_ip       = [for vsi in local.slz_output[0].vsi_list.value : vsi.ipv4_address if vsi.name == "${local.slz_output[0].prefix.value}-private-svs-1"][0]
-  inet_svs_ip          = [for vsi in local.slz_output[0].vsi_list.value : vsi.ipv4_address if vsi.name == "${local.slz_output[0].prefix.value}-inet-svs-1"][0]
-  squid_port           = "3128"
+
+  access_host_or_ip_exists = contains(keys(local.slz_output[0].fip_vsi.value[0]), "floating_ip") ? true : false
+  access_host_or_ip        = local.access_host_or_ip_exists ? local.slz_output[0].fip_vsi.value[0].floating_ip : ""
+  private_svs_vsi_exists   = contains(local.slz_output[0].vsi_names.value, "${local.slz_output[0].prefix.value}-private-svs-1") ? true : false
+  private_svs_ip           = local.private_svs_vsi_exists ? [for vsi in local.slz_output[0].vsi_list.value : vsi.ipv4_address if vsi.name == "${local.slz_output[0].prefix.value}-private-svs-1"][0] : ""
+  inet_svs_vsi_exists      = contains(local.slz_output[0].vsi_names.value, "${local.slz_output[0].prefix.value}-inet-svs-1") ? true : false
+  inet_svs_ip              = local.inet_svs_vsi_exists ? [for vsi in local.slz_output[0].vsi_list.value : vsi.ipv4_address if vsi.name == "${local.slz_output[0].prefix.value}-inet-svs-1"][0] : ""
+
+  correct_json_used = local.access_host_or_ip != "" && local.inet_svs_ip != "" && local.private_svs_ip != "" ? true : false
+  squid_enable      = local.correct_json_used && var.configure_proxy ? true : false
+  dns_enable        = local.correct_json_used && var.configure_dns_forwarder ? true : false
+  ntp_enable        = local.correct_json_used && var.configure_ntp_forwarder ? true : false
+  nfs_enable        = local.correct_json_used && var.configure_nfs_server && local.nfs_disk_size != "" ? true : false
+  squid_port        = "3128"
 }
 
 locals {
 
-  ### Squid Proxy will be installed on "${var.prefix}-inet-svs-1" vsi
+  ### Squid Proxy will be installed on "${local.prefix}-inet-svs-1" vsi
   squid_config = {
-    "squid_enable"      = var.configure_proxy
+    "squid_enable"      = local.squid_enable
     "server_host_or_ip" = local.inet_svs_ip
     "squid_port"        = local.squid_port
   }
 
-  ### Proxy client will be configured on "${var.prefix}-private-svs-1" vsi
+  ### Proxy client will be configured on "${local.prefix}-private-svs-1" vsi
   perform_proxy_client_setup = {
     squid_client_ips = [local.private_svs_ip]
     squid_server_ip  = local.squid_config["server_host_or_ip"]
@@ -72,21 +84,21 @@ locals {
     no_proxy_hosts   = "161.0.0.0/8"
   }
 
-  ### DNS Forwarder will be configured on "${var.prefix}-private-svs-1" vsi
+  ### DNS Forwarder will be configured on "${local.prefix}-private-svs-1" vsi
   dns_config = merge(var.dns_forwarder_config, {
-    "dns_enable"        = var.configure_dns_forwarder
+    "dns_enable"        = local.dns_enable
     "server_host_or_ip" = local.private_svs_ip
   })
 
-  ### NTP Forwarder will be configured on "${var.prefix}-private-svs-1" vsi
+  ### NTP Forwarder will be configured on "${local.prefix}-private-svs-1" vsi
   ntp_config = {
-    "ntp_enable"        = var.configure_ntp_forwarder
+    "ntp_enable"        = local.ntp_enable
     "server_host_or_ip" = local.private_svs_ip
   }
 
-  ### NFS server will be configured on "${var.prefix}-private-svs-1" vsi
+  ### NFS server will be configured on "${local.prefix}-private-svs-1" vsi
   nfs_config = {
-    "nfs_enable"        = var.configure_nfs_server
+    "nfs_enable"        = local.nfs_enable
     "server_host_or_ip" = local.private_svs_ip
     "nfs_file_system"   = [{ name = "nfs", mount_path : "/nfs", size : local.nfs_disk_size }]
   }
