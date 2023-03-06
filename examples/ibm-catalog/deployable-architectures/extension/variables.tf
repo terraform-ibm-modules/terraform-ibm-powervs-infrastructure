@@ -116,12 +116,10 @@ variable "configure_proxy" {
 variable "dns_forwarder_config" {
   description = "Configuration for the DNS forwarder to a DNS service that is not reachable directly from PowerVS"
   type = object({
-    server_host_or_ip = string
-    dns_servers       = string
+    dns_servers = string
   })
   default = {
-    "server_host_or_ip" = ""
-    "dns_servers"       = "161.26.0.7; 161.26.0.8; 9.9.9.9;"
+    "dns_servers" = "161.26.0.7; 161.26.0.8; 9.9.9.9;"
   }
 }
 
