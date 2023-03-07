@@ -45,9 +45,9 @@ content-type: reference-architecture
 {: toc-use-case="ITServiceManagement"}
 {: toc-compliance="SAPCertified"}
 
-'Power Infrastructure for deployable architecture' in variation 'full-stack' creates in one single deployment Power Virtual Server workspace and connects it with VPC services. Proxy service for public internet access from PowerVS workspace is configured.
+The "full stack" variation of the Power Infrastructure for deployable architectures creates a Power Virtual Server workspace and connects it with VPC services.
 
-You can optionally install more management components (such as NFS server, NTP forwarder, and DNS forwarder) on VPC.
+A proxy service for public internet access from the PowerVS workspace is configured. You can optionally configure some management components on VPC (such as an NFS server, NTP forwarder, and DNS forwarder).
 
 ## Architecture diagram
 {: #full-architecture-diagram}
