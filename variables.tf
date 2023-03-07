@@ -192,3 +192,14 @@ variable "perform_proxy_client_setup" {
   )
   default = null
 }
+
+variable "example_valid" {
+  description = "To check if the example is valid."
+  type = object(
+    {
+      valid         = string
+      error_message = string
+    }
+  )
+  default = null
+}

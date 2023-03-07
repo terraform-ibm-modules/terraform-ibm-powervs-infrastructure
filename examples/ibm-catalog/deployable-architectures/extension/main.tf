@@ -41,6 +41,7 @@ data "ibm_schematics_output" "schematics_output" {
   template_id  = data.ibm_schematics_workspace.schematics_workspace.runtime_data[0].id
 }
 
+
 locals {
   slz_output     = jsondecode(data.ibm_schematics_output.schematics_output.output_json)
   prefix         = local.slz_output[0].prefix.value
@@ -58,20 +59,20 @@ locals {
   private_svs_ip           = local.private_svs_vsi_exists ? [for vsi in local.slz_output[0].vsi_list.value : vsi.ipv4_address if vsi.name == "${local.slz_output[0].prefix.value}-private-svs-1"][0] : ""
   inet_svs_vsi_exists      = contains(local.slz_output[0].vsi_names.value, "${local.slz_output[0].prefix.value}-inet-svs-1") ? true : false
   inet_svs_ip              = local.inet_svs_vsi_exists ? [for vsi in local.slz_output[0].vsi_list.value : vsi.ipv4_address if vsi.name == "${local.slz_output[0].prefix.value}-inet-svs-1"][0] : ""
+  squid_port               = "3128"
 
-  correct_json_used = local.access_host_or_ip != "" && local.inet_svs_ip != "" && local.private_svs_ip != "" ? true : false
-  squid_enable      = local.correct_json_used && var.configure_proxy ? true : false
-  dns_enable        = local.correct_json_used && var.configure_dns_forwarder ? true : false
-  ntp_enable        = local.correct_json_used && var.configure_ntp_forwarder ? true : false
-  nfs_enable        = local.correct_json_used && var.configure_nfs_server && local.nfs_disk_size != "" ? true : false
-  squid_port        = "3128"
+  correct_json_used = local.access_host_or_ip_exists && local.private_svs_vsi_exists && local.inet_svs_vsi_exists ? true : false
+  example_valid = {
+    valid         = local.correct_json_used
+    error_message = "Existing prerequisite id has not been deployed using valid JSON preset supported for power."
+  }
 }
 
 locals {
 
   ### Squid Proxy will be installed on "${local.prefix}-inet-svs-1" vsi
   squid_config = {
-    "squid_enable"      = local.squid_enable
+    "squid_enable"      = var.configure_proxy
     "server_host_or_ip" = local.inet_svs_ip
     "squid_port"        = local.squid_port
   }
@@ -86,19 +87,19 @@ locals {
 
   ### DNS Forwarder will be configured on "${local.prefix}-private-svs-1" vsi
   dns_config = merge(var.dns_forwarder_config, {
-    "dns_enable"        = local.dns_enable
+    "dns_enable"        = var.configure_dns_forwarder
     "server_host_or_ip" = local.private_svs_ip
   })
 
   ### NTP Forwarder will be configured on "${local.prefix}-private-svs-1" vsi
   ntp_config = {
-    "ntp_enable"        = local.ntp_enable
+    "ntp_enable"        = var.configure_ntp_forwarder
     "server_host_or_ip" = local.private_svs_ip
   }
 
   ### NFS server will be configured on "${local.prefix}-private-svs-1" vsi
   nfs_config = {
-    "nfs_enable"        = local.nfs_enable
+    "nfs_enable"        = local.nfs_disk_size != "" ? var.configure_nfs_server : false
     "server_host_or_ip" = local.private_svs_ip
     "nfs_file_system"   = [{ name = "nfs", mount_path : "/nfs", size : local.nfs_disk_size }]
   }
@@ -108,6 +109,7 @@ locals {
 module "powervs_infra" {
   source = "../../../../"
 
+  example_valid               = local.example_valid
   powervs_zone                = var.powervs_zone
   powervs_resource_group_name = var.powervs_resource_group_name
   powervs_workspace_name      = "${local.prefix}-${var.powervs_zone}-power-workspace"

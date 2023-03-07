@@ -104,12 +104,6 @@ variable "tags" {
   default     = ["sap"]
 }
 
-variable "configure_proxy" {
-  description = "Specify if proxy will be configured. Proxy is mandatory for the landscape, so set this to 'false' only if proxy already exists. Proxy will allow to communicate from IBM PowerVS instances with IBM Cloud network and with public internet."
-  type        = bool
-  default     = true
-}
-
 variable "dns_forwarder_config" {
   description = "Configuration for the DNS forwarder to a DNS service that is not reachable directly from PowerVS."
   type = object({

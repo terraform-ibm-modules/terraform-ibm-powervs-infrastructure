@@ -59,17 +59,32 @@ module "landing_zone" {
 }
 
 locals {
-  landing_zone_config  = jsondecode(module.landing_zone.config)
-  nfs_disk_size        = local.landing_zone_config.vsi[1].block_storage_volumes[0].capacity
+  landing_zone_config = jsondecode(module.landing_zone.config)
+  nfs_disk_exists     = [for vsi in local.landing_zone_config.vsi : vsi.block_storage_volumes[0].capacity if contains(keys(vsi), "block_storage_volumes")]
+  nfs_disk_size       = length(local.nfs_disk_exists) >= 1 ? local.nfs_disk_exists[0] : ""
+
   transit_gateway_name = module.landing_zone.transit_gateway_name
-  access_host_or_ip    = module.landing_zone.fip_vsi[0].floating_ip
-  private_svs_ip       = [for vsi in module.landing_zone.vsi_list : vsi.ipv4_address if vsi.name == "${var.prefix}-private-svs-1"][0]
-  inet_svs_ip          = [for vsi in module.landing_zone.vsi_list : vsi.ipv4_address if vsi.name == "${var.prefix}-inet-svs-1"][0]
-  squid_port           = "3128"
+
+  access_host_or_ip_exists = contains(keys(module.landing_zone.fip_vsi[0]), "floating_ip") ? true : false
+  access_host_or_ip        = local.access_host_or_ip_exists ? module.landing_zone.fip_vsi[0].floating_ip : ""
+  private_svs_vsi_exists   = contains(module.landing_zone.vsi_names, "${var.prefix}-private-svs-1") ? true : false
+  private_svs_ip           = local.private_svs_vsi_exists ? [for vsi in module.landing_zone.vsi_list : vsi.ipv4_address if vsi.name == "${var.prefix}-private-svs-1"][0] : ""
+  inet_svs_vsi_exists      = contains(module.landing_zone.vsi_names, "${var.prefix}-inet-svs-1") ? true : false
+  inet_svs_ip              = local.inet_svs_vsi_exists ? [for vsi in module.landing_zone.vsi_list : vsi.ipv4_address if vsi.name == "${var.prefix}-inet-svs-1"][0] : ""
+  squid_port               = "3128"
+
+  correct_json_used = local.access_host_or_ip_exists && local.private_svs_vsi_exists && local.inet_svs_vsi_exists ? true : false
+  example_valid = {
+    valid         = local.correct_json_used
+    error_message = "Wrong JSON preset used. Please use one of the JSON preset supported for Power."
+  }
+}
+
+locals {
 
   ### Squid Proxy will be installed on "${var.prefix}-inet-svs-1" vsi
   squid_config = {
-    "squid_enable"      = var.configure_proxy
+    "squid_enable"      = true
     "server_host_or_ip" = local.inet_svs_ip
     "squid_port"        = local.squid_port
   }
@@ -96,7 +111,7 @@ locals {
 
   ### NFS server will be configured on "${var.prefix}-private-svs-1" vsi
   nfs_config = {
-    "nfs_enable"        = var.configure_nfs_server
+    "nfs_enable"        = local.nfs_disk_size != "" ? var.configure_nfs_server : false
     "server_host_or_ip" = local.private_svs_ip
     "nfs_file_system"   = [{ name = "nfs", mount_path : "/nfs", size : local.nfs_disk_size }]
   }
@@ -113,6 +128,7 @@ module "powervs_infra" {
   providers  = { ibm = ibm.ibm-pvs }
   depends_on = [module.landing_zone]
 
+  example_valid               = local.example_valid
   powervs_zone                = var.powervs_zone
   powervs_resource_group_name = var.powervs_resource_group_name
   powervs_workspace_name      = "${var.prefix}-${var.powervs_zone}-power-workspace"
