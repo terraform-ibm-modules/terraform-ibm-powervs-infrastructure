@@ -31,7 +31,7 @@ For more information about IBM Power Systems Virtual Server see the [getting sta
 
 ## Reference architectures
 
-- Power infrastructure for deployable architectures - [PowerVS workspace Full stack variation](reference-architectures/full-stack/deploy-arch-ibm-pvs-inf-full-stack.md)
+- Power infrastructure for deployable architectures - [PowerVS workspace full-stack variation](reference-architectures/full-stack/deploy-arch-ibm-pvs-inf-full-stack.md)
 - Power infrastructure for deployable architectures - [PowerVS workspace extension variation](reference-architectures/extension/deploy-arch-ibm-pvs-inf-extension.md)
 
 ## Usage
