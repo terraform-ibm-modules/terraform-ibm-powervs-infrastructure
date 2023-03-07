@@ -64,7 +64,7 @@ locals {
   correct_json_used = local.access_host_or_ip_exists && local.private_svs_vsi_exists && local.inet_svs_vsi_exists ? true : false
   example_valid = {
     valid         = local.correct_json_used
-    error_message = "Existing prerequisite id has not been deployed using valid JSON preset supported for power."
+    error_message = "Existing prerequisite id has not been deployed using valid JSON preset supported for Power."
   }
 }
 
