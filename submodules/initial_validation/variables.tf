@@ -21,7 +21,7 @@ variable "example_valid" {
   )
 
   validation {
-    condition     = var.example_valid.valid
-    error_message = var.example_valid.error_message
+    condition     = var.example_valid != null ? var.example_valid.valid : true
+    error_message = var.example_valid != null ? var.example_valid.error_message : "Pass"
   }
 }
