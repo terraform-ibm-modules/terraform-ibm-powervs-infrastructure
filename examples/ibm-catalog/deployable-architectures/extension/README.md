@@ -9,7 +9,7 @@ It provisions the following infrastructure on top of deployed Full Stack solutio
     - Attaches the IBM Cloud connections to a transit gateway
     - Attaches the private networks to the IBM Cloud connections
     - Creates an SSH key
-    - Optionally (re)configures the public internet proxy (Squid), DNS forwarder, NTP forwarder and NFS on specified host, and sets the host as server for these services using ansible roles.
+    - Optionally configures the public internet proxy (Squid), DNS forwarder, NTP forwarder and NFS on a specified host and sets the host as server for these services by using Ansible roles.
 
 ## Before you begin
 
