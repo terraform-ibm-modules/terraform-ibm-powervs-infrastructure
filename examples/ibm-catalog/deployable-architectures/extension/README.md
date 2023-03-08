@@ -5,7 +5,7 @@ It provisions the following infrastructure on top of deployed Full Stack solutio
 
 - A PowerVS workspace instance with the following network topology:
     - Creates two private networks: a management network and a backup network
-    - Creates one or two IBM Cloud connections.
+    - Creates one or two IBM Cloud connections
     - Attaches the IBM Cloud connections to a transit gateway
     - Attaches the private networks to the IBM Cloud connections
     - Creates an SSH key
