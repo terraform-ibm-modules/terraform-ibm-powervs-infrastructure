@@ -1,4 +1,4 @@
-# IBM Cloud catalog example for Power infrastructure for deployable architectures
+# IBM Cloud catalog example for Power infrastructure for deployable architectures Full-Stack Variation
 
 This example sets up the following infrastructure:
 - A VPC Infrastructure with the following components:
@@ -13,7 +13,7 @@ This example sets up the following infrastructure:
     - Creates an SSH key.
 
 ## Architecture diagram
-![pvs-module](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/blob/main/reference-architectures/full-stack/deploy-arch-ibm-pvs-inf-full-stack.svg)
+![full-stack-variation](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/blob/main/reference-architectures/full-stack/deploy-arch-ibm-pvs-inf-full-stack.svg)
 
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

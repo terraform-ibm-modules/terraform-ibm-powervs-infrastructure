@@ -1,4 +1,4 @@
-# IBM Cloud catalog example for Power infrastructure for deployable architectures
+# IBM Cloud catalog example for Power infrastructure for deployable architectures Extension Variation
 
 This example extends an existing PowerVS infrastructure for deployable architectures deployed as full-stack with an additional PowerVS workspace.
 It provisions the following infrastructure on top of deployed Full Stack solution :
@@ -18,7 +18,7 @@ If you do not have a PowerVS infrastructure that is the full stack solution for 
 Alternative: Deploy Secure infrastructure on VPC for regulated industries. Click [here](https://cloud.ibm.com/catalog/content/slz-vpc-with-vsis-a87ed9a5-d130-47a3-980b-5ceb1d4f9280-global#create) to create one and choose the standard flavor. When you deploy this module, use one of supported [configurations](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/tree/main/examples/ibm-catalog/standard-solution/slz_json_configs_for_powervs). Copy the configuration from the link into the `override_json_string` deployment value and set `override` to True.
 
 ## Architecture diagram
-![pvs-module](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/blob/main/reference-architectures/extension/deploy-arch-ibm-pvs-inf-extension.svg)
+![extension-variation](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/blob/main/reference-architectures/extension/deploy-arch-ibm-pvs-inf-extension.svg)
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements

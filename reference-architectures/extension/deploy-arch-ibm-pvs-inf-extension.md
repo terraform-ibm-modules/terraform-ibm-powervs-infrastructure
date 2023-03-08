@@ -38,8 +38,8 @@ content-type: reference-architecture
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Power infrastructure for deployable architectures - variation 'PowerVS workspace'
-{: #ext-deploy-arch-ibm-pvs-inf-standard}
+# Power infrastructure for deployable architectures - variation 'Extension'
+{: #ext-deploy-arch-ibm-pvs-inf-extension}
 {: toc-content-type="reference-architecture"}
 {: toc-industry="Technology"}
 {: toc-use-case="ITServiceManagement"}
