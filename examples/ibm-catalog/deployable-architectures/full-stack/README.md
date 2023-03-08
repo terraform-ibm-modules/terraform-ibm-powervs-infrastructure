@@ -12,7 +12,7 @@ This example sets up the following infrastructure:
     - Attaches the private networks to the IBM Cloud connections.
     - Creates an SSH key.
 
-## Architecture Diagram
+## Architecture diagram
 ![pvs-module](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/blob/main/reference-architectures/full-stack/deploy-arch-ibm-pvs-inf-full-stack.svg)
 
 
