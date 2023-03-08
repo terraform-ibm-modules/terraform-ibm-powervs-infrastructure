@@ -1,5 +1,5 @@
 variable "access_host_or_ip" {
-  description = "Jump/Bastion server Public IP to reach the target/server_host ip to configure the DNS,NTP,NFS,SQUID services."
+  description = "Jump/Bastion server public IP address to reach the target/server_host ip to configure the DNS,NTP,NFS,SQUID services."
   type        = string
 }
 

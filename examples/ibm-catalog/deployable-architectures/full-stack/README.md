@@ -1,4 +1,4 @@
-# IBM Cloud catalog example for Power infrastructure for regulated industries
+# IBM Cloud catalog example for Power infrastructure for deployable architectures
 
 This example sets up the following infrastructure:
 - A VPC Infrastructure with the following components:

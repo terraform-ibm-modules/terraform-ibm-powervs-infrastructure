@@ -1,6 +1,6 @@
 <!-- BEGIN MODULE HOOK -->
 
-# IBM Power infrastructure for regulated industries module
+# IBM Power infrastructure for deployable architectures module
 
 [![Graduated (Supported)](https://img.shields.io/badge/status-Graduated%20(Supported)-brightgreen?style=plastic)](https://terraform-ibm-modules.github.io/documentation/#/badge-status)
 [![build status](https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone/actions/workflows/ci.yml/badge.svg)](https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone/actions/workflows/ci.yml)
@@ -8,7 +8,7 @@
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)
 [![latest release](https://img.shields.io/github/v/release/terraform-ibm-modules/terraform-ibm-powervs-infrastructure?logo=GitHub&sort=semver)](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/releases/latest)
 
-The Power infrastructure for regulated industries module automates the following tasks:
+The Power infrastructure for deployable architectures module automates the following tasks:
 
 - Creates an IBM® Power Systems™ Virtual Server (PowerVS) workspace.
 - Creates an SSH key.
@@ -95,10 +95,10 @@ You need the following permissions to run this module.
 <!-- BEGIN EXAMPLES HOOK -->
 ## Examples
 
-- [ Basic example for Power infrastructure for regulated industries](examples/basic)
-- [ IBM Cloud catalog example for Power infrastructure for regulated industries](examples/ibm-catalog/deployable-architectures/extension)
-- [ IBM Cloud catalog example for Power infrastructure for regulated industries](examples/ibm-catalog/deployable-architectures/full-stack)
-- [ Standard example for Power infrastructure for regulated industries](examples/terraform-registry/extension)
+- [ Basic example for Power infrastructure for deployable architectures](examples/basic)
+- [ IBM Cloud catalog example for Power infrastructure for deployable architectures](examples/ibm-catalog/deployable-architectures/extension)
+- [ IBM Cloud catalog example for Power infrastructure for deployable architectures](examples/ibm-catalog/deployable-architectures/full-stack)
+- [ Standard example for Power infrastructure for deployable architectures](examples/terraform-registry/extension)
 <!-- END EXAMPLES HOOK -->
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

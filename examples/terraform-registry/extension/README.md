@@ -1,6 +1,6 @@
-# Standard example for Power infrastructure for regulated industries
+# Standard example for Power infrastructure for deployable architectures
 
-This example illustrates how to use the `power-infrastructure` module. It provisions the following infrastructure:
+This example illustrates how to use the `terraform-ibm-powervs-infrastructure` module. It provisions the following infrastructure:
 
 - A PowerVS workspace instance with the following network topology:
     - Creates two private networks: a management network and a backup network

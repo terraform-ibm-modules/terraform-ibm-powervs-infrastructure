@@ -1,4 +1,4 @@
-# Basic example for Power infrastructure for regulated industries
+# Basic example for Power infrastructure for deployable architectures
 
 This example illustrates a simple way to use the `power-infrastructure` module. It provisions the following infrastructure:
 

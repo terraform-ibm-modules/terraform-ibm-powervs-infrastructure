@@ -1,6 +1,6 @@
-# IBM Cloud catalog example for Power infrastructure for regulated industries
+# IBM Cloud catalog example for Power infrastructure for deployable architectures
 
-This example extends PowerVS infrastructure for deployable architectures in variation PowerVS Workspace incl. Secure Landing Zone (Full Stack solution) with an additional PowerVS Workspace.
+This example extends an existing PowerVS infrastructure for deployable architectures deployed as full-stack with an additional PowerVS workspace.
 It provisions the following infrastructure on top of deployed Full Stack solution :
 
 - A PowerVS workspace instance with the following network topology:
