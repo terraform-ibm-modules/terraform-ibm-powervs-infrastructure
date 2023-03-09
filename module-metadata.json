@@ -115,18 +115,6 @@
         "line": 139
       }
     },
-    "example_valid": {
-      "name": "example_valid",
-      "type": "object(\n    {\n      valid         = string\n      error_message = string\n    }\n  )",
-      "description": "To check if the example is valid.",
-      "source": [
-        "module.initial_validation"
-      ],
-      "pos": {
-        "filename": "variables.tf",
-        "line": 196
-      }
-    },
     "nfs_config": {
       "name": "nfs_config",
       "type": "object({\n    nfs_enable        = bool\n    server_host_or_ip = string\n    nfs_file_system = list(object({\n      name       = string\n      mount_path = string\n      size       = number\n    }))\n  })",
@@ -551,7 +539,7 @@
       },
       "pos": {
         "filename": "main.tf",
-        "line": 67
+        "line": 66
       }
     }
   },
@@ -692,7 +680,7 @@
       },
       "pos": {
         "filename": "main.tf",
-        "line": 44
+        "line": 43
       }
     },
     "cloud_connection_create": {
@@ -888,15 +876,14 @@
       },
       "pos": {
         "filename": "main.tf",
-        "line": 28
+        "line": 27
       }
     },
     "initial_validation": {
       "name": "initial_validation",
       "source": "./submodules/initial_validation",
       "attributes": {
-        "cloud_connection_validate": "reuse_cloud_connections",
-        "example_valid": "example_valid"
+        "cloud_connection_validate": "reuse_cloud_connections"
       },
       "managed_resources": {},
       "data_resources": {},
@@ -960,7 +947,7 @@
       "data_resources": {},
       "pos": {
         "filename": "main.tf",
-        "line": 72
+        "line": 71
       }
     },
     "power_management_service_nfs": {
@@ -1018,7 +1005,7 @@
       "data_resources": {},
       "pos": {
         "filename": "main.tf",
-        "line": 98
+        "line": 97
       }
     },
     "power_management_service_ntp": {
@@ -1076,7 +1063,7 @@
       "data_resources": {},
       "pos": {
         "filename": "main.tf",
-        "line": 85
+        "line": 84
       }
     },
     "power_management_service_squid": {
@@ -1134,7 +1121,7 @@
       "data_resources": {},
       "pos": {
         "filename": "main.tf",
-        "line": 54
+        "line": 53
       }
     },
     "power_workspace": {
@@ -1273,7 +1260,7 @@
       },
       "pos": {
         "filename": "main.tf",
-        "line": 14
+        "line": 13
       }
     }
   }

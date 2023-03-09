@@ -61,11 +61,10 @@ locals {
   inet_svs_ip              = local.inet_svs_vsi_exists ? [for vsi in local.slz_output[0].vsi_list.value : vsi.ipv4_address if vsi.name == "${local.slz_output[0].prefix.value}-inet-svs-1"][0] : ""
   squid_port               = "3128"
 
-  correct_json_used = local.access_host_or_ip_exists && local.private_svs_vsi_exists && local.inet_svs_vsi_exists ? true : false
-  example_valid = {
-    valid         = local.correct_json_used
-    error_message = "Existing prerequisite id has not been deployed using valid JSON preset supported for Power."
-  }
+  valid_json_used   = local.access_host_or_ip_exists && local.private_svs_vsi_exists && local.inet_svs_vsi_exists ? true : false
+  validate_json_msg = "Existing prerequisite id has not been deployed using valid JSON preset supported for Power."
+  # tflint-ignore: terraform_unused_declarations
+  validate_json_chk = regex("^${local.validate_json_msg}$", (local.valid_json_used ? local.validate_json_msg : ""))
 }
 
 locals {
@@ -109,7 +108,6 @@ locals {
 module "powervs_infra" {
   source = "../../../../"
 
-  example_valid               = local.example_valid
   powervs_zone                = var.powervs_zone
   powervs_resource_group_name = var.powervs_resource_group_name
   powervs_workspace_name      = "${local.prefix}-${var.powervs_zone}-power-workspace"

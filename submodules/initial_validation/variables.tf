@@ -10,18 +10,3 @@ variable "cloud_connection_validate" {
     error_message = "If reusing cloud connections, Transit gateway name must be provided."
   }
 }
-
-variable "example_valid" {
-  description = "To check if the example is valid."
-  type = object(
-    {
-      valid         = string
-      error_message = string
-    }
-  )
-
-  validation {
-    condition     = var.example_valid != null ? var.example_valid.valid : true
-    error_message = var.example_valid != null ? var.example_valid.error_message : "Pass"
-  }
-}

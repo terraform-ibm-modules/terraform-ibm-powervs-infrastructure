@@ -73,11 +73,10 @@ locals {
   inet_svs_ip              = local.inet_svs_vsi_exists ? [for vsi in module.landing_zone.vsi_list : vsi.ipv4_address if vsi.name == "${var.prefix}-inet-svs-1"][0] : ""
   squid_port               = "3128"
 
-  correct_json_used = local.access_host_or_ip_exists && local.private_svs_vsi_exists && local.inet_svs_vsi_exists ? true : false
-  example_valid = {
-    valid         = local.correct_json_used
-    error_message = "Wrong JSON preset used. Please use one of the JSON preset supported for Power."
-  }
+  valid_json_used   = local.access_host_or_ip_exists && local.private_svs_vsi_exists && local.inet_svs_vsi_exists ? true : false
+  validate_json_msg = "Wrong JSON preset used. Please use one of the JSON preset supported for Power."
+  # tflint-ignore: terraform_unused_declarations
+  validate_json_chk = regex("^${local.validate_json_msg}$", (local.valid_json_used ? local.validate_json_msg : ""))
 }
 
 locals {
@@ -128,7 +127,6 @@ module "powervs_infra" {
   providers  = { ibm = ibm.ibm-pvs }
   depends_on = [module.landing_zone]
 
-  example_valid               = local.example_valid
   powervs_zone                = var.powervs_zone
   powervs_resource_group_name = var.powervs_resource_group_name
   powervs_workspace_name      = "${var.prefix}-${var.powervs_zone}-power-workspace"
