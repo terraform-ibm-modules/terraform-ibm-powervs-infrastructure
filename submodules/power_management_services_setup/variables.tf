@@ -1,5 +1,5 @@
 variable "access_host_or_ip" {
-  description = "Jump/Bastion server Public IP to reach the target/server_host ip to configure the DNS,NTP,NFS,SQUID services"
+  description = "Jump/Bastion server public IP address to reach the target/server_host ip to configure the DNS,NTP,NFS,SQUID services."
   type        = string
 }
 
@@ -15,7 +15,7 @@ variable "ssh_private_key" {
 }
 
 variable "service_config" {
-  description = "An object which contains configuration for NFS, NTP, DNS, Squid Services"
+  description = "An object which contains configuration for NFS, NTP, DNS, Squid Services."
   type        = any
   default     = {}
 }

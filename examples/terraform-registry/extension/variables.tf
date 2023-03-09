@@ -30,12 +30,6 @@ variable "ssh_private_key" {
   sensitive   = true
 }
 
-variable "reuse_cloud_connections" {
-  description = "When true, IBM Cloud connections are reused (if attached to the transit gateway)."
-  type        = bool
-  default     = false
-}
-
 variable "transit_gateway_name" {
   description = "Name of the existing transit gateway. Required when you create new IBM Cloud connections. Set it to null if reusing cloud connections"
   type        = string
@@ -57,7 +51,7 @@ variable "private_services_host_or_ip" {
 }
 
 variable "configure_proxy" {
-  description = "Specify if proxy will be configured. Proxy is mandatory for the landscape, so set this to 'false' only if proxy already exists. Proxy will allow to communcate from IBM PowerVS instances with IBM Cloud network and with public internet."
+  description = "Specify if proxy will be configured. Proxy is mandatory for the landscape, so set this to 'false' only if proxy already exists. Proxy will allow to communicate from IBM PowerVS instances with IBM Cloud network and with public internet."
   type        = bool
 }
 
@@ -110,6 +104,18 @@ variable "tags" {
   default     = null
 }
 
+variable "powervs_image_names" {
+  description = "List of Images to be imported into cloud account from catalog images."
+  type        = list(string)
+  default     = ["SLES15-SP3-SAP", "SLES15-SP3-SAP-NETWEAVER", "RHEL8-SP4-SAP", "RHEL8-SP4-SAP-NETWEAVER"]
+}
+
+variable "reuse_cloud_connections" {
+  description = "When true, IBM Cloud connections are reused (if attached to the transit gateway)."
+  type        = bool
+  default     = false
+}
+
 variable "cloud_connection_speed" {
   description = "Speed in megabits per second. Supported values are 50, 100, 200, 500, 1000, 2000, 5000, 10000. Required when you create a connection."
   type        = number
@@ -123,13 +129,13 @@ variable "cloud_connection_count" {
 }
 
 variable "cloud_connection_gr" {
-  description = "Whether to enable global routing for this IBM Cloud connection. You can specify thia value when you create a connection."
+  description = "Whether to enable global routing for this IBM Cloud connection. You can specify this value when you create a connection."
   type        = bool
   default     = true
 }
 
 variable "cloud_connection_metered" {
-  description = "Whether to enable metering for this IBM Cloud connection. You can specify thia value when you create a connection."
+  description = "Whether to enable metering for this IBM Cloud connection. You can specify this value when you create a connection."
   type        = bool
   default     = false
 }
@@ -147,7 +153,7 @@ variable "squid_config" {
 }
 
 variable "dns_forwarder_config" {
-  description = "Configuration for the DNS forwarder to a DNS service that is not reachable directly from PowerVS"
+  description = "Configuration for the DNS forwarder to a DNS service that is not reachable directly from PowerVS."
   type = object({
     server_host_or_ip = string
     dns_servers       = string
@@ -159,7 +165,7 @@ variable "dns_forwarder_config" {
 }
 
 variable "ntp_forwarder_config" {
-  description = "Configuration for the NTP forwarder to an NTP service that is not reachable directly from PowerVS"
+  description = "Configuration for the NTP forwarder to an NTP service that is not reachable directly from PowerVS."
   type = object({
     server_host_or_ip = string
   })
@@ -182,10 +188,4 @@ variable "nfs_config" {
     "server_host_or_ip" = ""
     "nfs_file_system"   = [{ name = "nfs", mount_path : "/nfs", size : 1000 }]
   }
-}
-
-variable "powervs_image_names" {
-  description = "List of Images to be imported into cloud account from catalog images"
-  type        = list(string)
-  default     = ["SLES15-SP3-SAP", "SLES15-SP3-SAP-NETWEAVER", "RHEL8-SP4-SAP", "RHEL8-SP4-SAP-NETWEAVER"]
 }

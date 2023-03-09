@@ -1,5 +1,5 @@
 #####################################################
-# IBM Cloud PowerVS cloud connection Attach Module
+# powervs service Module
 #####################################################
 
 terraform {

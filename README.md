@@ -1,6 +1,6 @@
 <!-- BEGIN MODULE HOOK -->
 
-# IBM Power infrastructure for regulated industries module
+# IBM Power infrastructure for deployable architectures module
 
 [![Graduated (Supported)](https://img.shields.io/badge/status-Graduated%20(Supported)-brightgreen?style=plastic)](https://terraform-ibm-modules.github.io/documentation/#/badge-status)
 [![build status](https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone/actions/workflows/ci.yml/badge.svg)](https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone/actions/workflows/ci.yml)
@@ -8,15 +8,15 @@
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)
 [![latest release](https://img.shields.io/github/v/release/terraform-ibm-modules/terraform-ibm-powervs-infrastructure?logo=GitHub&sort=semver)](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/releases/latest)
 
-The Power infrastructure for regulated industries module automates the following tasks:
+The Power infrastructure for deployable architectures module automates the following tasks:
 
-- Creates an IBM® Power Systems™ Virtual Server (PowerVS) workspace
-- Creates an SSH key
+- Creates an IBM® Power Systems™ Virtual Server (PowerVS) workspace.
+- Creates an SSH key.
 - Creates two private networks: a management network and a backup network
-- Creates two [IBM Cloud connections](https://cloud.ibm.com/docs/power-iaas?topic=power-iaas-cloud-connections) with an option to reuse the connections
-- Attaches the IBM Cloud connections to a transit gateway
-- Attaches the private networks to the IBM Cloud connections
-- Installs and configures the Squid Proxy, DNS Forwarder, NTP Forwarder and NFS on specified host, and sets the host as server for these services
+- Creates two [IBM Cloud connections](https://cloud.ibm.com/docs/power-iaas?topic=power-iaas-cloud-connections) with an option to reuse the connections.
+- Attaches the IBM Cloud connections to a transit gateway.
+- Attaches the private networks to the IBM Cloud connections.
+- Installs and configures the Squid Proxy, DNS Forwarder, NTP Forwarder and NFS on specified host, and sets the host as server for these services by using Ansible roles.
 
 The following limitations apply to the module:
 
@@ -31,7 +31,8 @@ For more information about IBM Power Systems Virtual Server see the [getting sta
 
 ## Reference architectures
 
-- Power infrastructure for deployable architectures - [PowerVS workspace variation](reference-architectures/standard/deploy-arch-ibm-pvs-inf-standard.md)
+- Power infrastructure for deployable architectures - [PowerVS workspace full-stack variation](reference-architectures/full-stack/deploy-arch-ibm-pvs-inf-full-stack.md)
+- Power infrastructure for deployable architectures - [PowerVS workspace extension variation](reference-architectures/extension/deploy-arch-ibm-pvs-inf-extension.md)
 
 ## Usage
 ```hcl
@@ -94,9 +95,10 @@ You need the following permissions to run this module.
 <!-- BEGIN EXAMPLES HOOK -->
 ## Examples
 
-- [ Basic example for Power infrastructure for regulated industries](examples/basic)
-- [ IBM Cloud catalog example for Power infrastructure for regulated industries](examples/ibm-catalog/standard-solution)
-- [ Standard example for Power infrastructure for regulated industries](examples/standard)
+- [ Basic example for Power infrastructure for deployable architectures](examples/basic)
+- [ IBM Cloud catalog example for Power infrastructure for deployable architectures Extension Variation](examples/ibm-catalog/deployable-architectures/extension)
+- [ IBM Cloud catalog example for Power infrastructure for deployable architectures Full-Stack Variation](examples/ibm-catalog/deployable-architectures/full-stack)
+- [ Standard example for Power infrastructure for deployable architectures](examples/terraform-registry/extension)
 <!-- END EXAMPLES HOOK -->
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
@@ -105,7 +107,7 @@ You need the following permissions to run this module.
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.3.0 |
-| <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | =1.50.0 |
+| <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | >=1.49.0 |
 | <a name="requirement_time"></a> [time](#requirement\_time) | >= 0.9.1 |
 
 ## Modules
@@ -133,8 +135,8 @@ You need the following permissions to run this module.
 |------|-------------|------|---------|:--------:|
 | <a name="input_access_host_or_ip"></a> [access\_host\_or\_ip](#input\_access\_host\_or\_ip) | The public IP address or hostname for the access host. The address is used to reach the target or server\_host IP address and to configure the DNS, NTP, NFS, and Squid proxy services. Set it to null if you do not want to configure any services. | `string` | `null` | no |
 | <a name="input_cloud_connection_count"></a> [cloud\_connection\_count](#input\_cloud\_connection\_count) | Required number of Cloud connections to create or reuse. The maximum number of connections is two per location. | `number` | `2` | no |
-| <a name="input_cloud_connection_gr"></a> [cloud\_connection\_gr](#input\_cloud\_connection\_gr) | Whether to enable global routing for this IBM Cloud connection. You can specify thia value when you create a connection. | `bool` | `null` | no |
-| <a name="input_cloud_connection_metered"></a> [cloud\_connection\_metered](#input\_cloud\_connection\_metered) | Whether to enable metering for this IBM Cloud connection. You can specify thia value when you create a connection. | `bool` | `null` | no |
+| <a name="input_cloud_connection_gr"></a> [cloud\_connection\_gr](#input\_cloud\_connection\_gr) | Whether to enable global routing for this IBM Cloud connection. You can specify this value when you create a connection. | `bool` | `null` | no |
+| <a name="input_cloud_connection_metered"></a> [cloud\_connection\_metered](#input\_cloud\_connection\_metered) | Whether to enable metering for this IBM Cloud connection. You can specify this value when you create a connection. | `bool` | `null` | no |
 | <a name="input_cloud_connection_name_prefix"></a> [cloud\_connection\_name\_prefix](#input\_cloud\_connection\_name\_prefix) | If null or empty string, default cloud connection name will be <zone>-conn-1. | `string` | `null` | no |
 | <a name="input_cloud_connection_speed"></a> [cloud\_connection\_speed](#input\_cloud\_connection\_speed) | Speed in megabits per second. Supported values are 50, 100, 200, 500, 1000, 2000, 5000, 10000. Required when you create a connection. | `number` | `5000` | no |
 | <a name="input_dns_forwarder_config"></a> [dns\_forwarder\_config](#input\_dns\_forwarder\_config) | Configuration for the DNS forwarder to a DNS service that is not reachable directly from PowerVS. | <pre>object({<br>    dns_enable        = bool<br>    server_host_or_ip = string<br>    dns_servers       = string<br>  })</pre> | <pre>{<br>  "dns_enable": "false",<br>  "dns_servers": "161.26.0.7; 161.26.0.8; 9.9.9.9;",<br>  "server_host_or_ip": ""<br>}</pre> | no |
