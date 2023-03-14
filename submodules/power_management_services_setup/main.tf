@@ -35,14 +35,15 @@ resource "null_resource" "perform_proxy_client_setup" {
     timeout      = "15m"
   }
 
+  ####### Create Terraform scripts directory ############
   provisioner "remote-exec" {
     inline = [
-      ####### Create Terraform scripts directory ############
       "mkdir -p ${local.dst_scripts_dir}",
       "chmod 777 ${local.dst_scripts_dir}",
     ]
   }
 
+  ####### Copy Template file to target host ############
   provisioner "file" {
     destination = local.dst_squid_setup_path
     content = templatefile(
@@ -54,12 +55,11 @@ resource "null_resource" "perform_proxy_client_setup" {
     )
   }
 
+  #######  Execute script: SQUID Forward PROXY CLIENT SETUP and OS Registration ############
   provisioner "remote-exec" {
     inline = [
-      #######  Execute script: SQUID Forward PROXY CLIENT SETUP and OS Registration ############
       "chmod +x ${local.dst_squid_setup_path}",
       local.dst_squid_setup_path
-
     ]
   }
 }
@@ -81,14 +81,15 @@ resource "null_resource" "install_packages" {
     timeout      = "15m"
   }
 
+  ####### Create Terraform scripts directory ############
   provisioner "remote-exec" {
     inline = [
-      ####### Create Terraform scripts directory ############
       "mkdir -p ${local.dst_scripts_dir}",
       "chmod 777 ${local.dst_scripts_dir}",
     ]
   }
 
+  ####### Copy Template file to target host ############
   provisioner "file" {
     destination = local.dst_install_packages_path
     content = templatefile(
@@ -99,12 +100,11 @@ resource "null_resource" "install_packages" {
     )
   }
 
+  #######  Execute script: Install packages ############
   provisioner "remote-exec" {
     inline = [
-      #######  Execute script: Install packages ############
       "chmod +x ${local.dst_install_packages_path}",
       local.dst_install_packages_path
-
     ]
   }
 }
@@ -127,6 +127,7 @@ resource "null_resource" "execute_ansible_role" {
     timeout      = "15m"
   }
 
+  ####### Create variable file for ansible playbook execution ############
   provisioner "file" {
     destination = local.dst_ansible_vars_path
     content     = <<EOF
@@ -137,6 +138,7 @@ EOF
 
   }
 
+  ####### Copy Template file to target host ############
   provisioner "file" {
     destination = local.dst_ansible_exec_path
     content = templatefile(
@@ -148,9 +150,9 @@ EOF
     )
   }
 
+  ####  Execute ansible collection to Configure management services  ####
   provisioner "remote-exec" {
     inline = [
-      ####  Execute ansible collection to Configure management services  ####
       "chmod +x ${local.dst_ansible_exec_path}",
       local.dst_ansible_exec_path
     ]
