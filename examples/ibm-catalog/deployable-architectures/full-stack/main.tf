@@ -55,7 +55,7 @@ module "landing_zone" {
   region               = lookup(local.ibm_powervs_zone_cloud_region_map, var.powervs_zone, null)
   prefix               = var.prefix
   override             = true
-  override_json_string = var.override_json_string
+  override_json_string = var.preset
 }
 
 locals {
