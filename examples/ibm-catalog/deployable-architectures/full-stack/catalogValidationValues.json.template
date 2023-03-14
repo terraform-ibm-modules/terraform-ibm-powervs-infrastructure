@@ -1,4 +1,4 @@
-{"ibmcloud_api_key": $VALIDATION_APIKEY, "powervs_zone": "tok04", "powervs_resource_group_name": "Automation", "prefix": "val", "ssh_public_key": "$ssh_public_key", "ssh_private_key": "$ssh_private_key", "override_json_string" : <<EOF
+{"ibmcloud_api_key": $VALIDATION_APIKEY, "powervs_zone": "tok04", "powervs_resource_group_name": "Automation", "prefix": "val", "ssh_public_key": "$ssh_public_key", "ssh_private_key": "$ssh_private_key", "preset" : <<EOF
 {
   "access_groups": [],
   "appid": {

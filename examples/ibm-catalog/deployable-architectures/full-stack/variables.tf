@@ -13,8 +13,8 @@ variable "prefix" {
   type        = string
 }
 
-variable "override_json_string" {
-  description = "Use one of supported [configurations](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/tree/main/examples/ibm-catalog/presets/slz_json_configs_for_powervs). Copy the configuration from the link into the `override_json_string` deployment value."
+variable "preset" {
+  description = "Use one of supported [configurations](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/tree/main/examples/ibm-catalog/presets/slz_json_configs_for_powervs). Copy the configuration from the link into the `preset` deployment value."
   type        = string
 }
 
