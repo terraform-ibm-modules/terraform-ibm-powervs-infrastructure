@@ -37,10 +37,6 @@
                             },
                             {
                                 "profile_name": "SAP on IBM Power compliance v0.1.2",
-                                "control_id": "AC-4"
-                            },
-                            {
-                                "profile_name": "SAP on IBM Power compliance v0.1.2",
                                 "control_id": "AC-6-0"
                             },
                             {
