@@ -16,6 +16,11 @@ variable "prefix" {
 variable "preset" {
   description = "Use one of supported [configurations](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/tree/main/examples/ibm-catalog/presets/slz_json_configs_for_powervs). Copy the configuration from the link into the `preset` deployment value."
   type        = string
+
+  validation {
+    condition     = (var.preset != null && var.preset != "")
+    error_message = "Please enter the required preset json."
+  }
 }
 
 variable "ssh_public_key" {
