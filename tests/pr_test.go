@@ -12,7 +12,7 @@ import (
 
 // Use existing resource group
 const resourceGroup = "geretain-test-resources"
-const defaultExampleTerraformDir = "examples/basic"
+const defaultExampleTerraformDir = "examples/ibm-catalog/deployable-architectures/full-stack"
 
 var sharedInfoSvc *cloudinfo.CloudInfoService
 
@@ -45,11 +45,11 @@ func setupOptions(t *testing.T, prefix string) *testhelper.TestOptions {
 	}
 
 	options.TerraformVars = map[string]interface{}{
-		"prefix":                  options.Prefix,
-		"resource_group":          options.ResourceGroup,
-		"reuse_cloud_connections": false,
-		"cloud_connection_count":  1,
-		"cloud_connection_speed":  50,
+		"prefix":          options.Prefix,
+		"resource_group":  options.ResourceGroup,
+		"ssh_public_key":  "to be updated",
+		"ssh_private_key": "to be updated",
+		"preset":          "to be updated",
 		// locking into syd05 due to other data center issues
 		//"powervs_zone": "syd05",
 		"powervs_zone": options.Region,
