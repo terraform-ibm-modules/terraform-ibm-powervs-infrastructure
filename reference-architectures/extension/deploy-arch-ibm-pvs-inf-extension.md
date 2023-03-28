@@ -14,7 +14,7 @@ version: v7.0.0
 
 deployment-url:
 
-docs: https://test.cloud.ibm.com/docs/powervs-vpc
+docs: https://cloud.ibm.com/docs/powervs-vpc
 
 image_source: https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/reference-architectures/extension/deploy-arch-ibm-pvs-inf-extension.svg
 
@@ -23,7 +23,7 @@ related_links:
     url: 'https://cloud.ibm.com/docs/sap'
     description: 'SAP in IBM Cloud documentation.'
   - title: 'Reference architecture for "Secure infrastructure on VPC for regulated industries" as standard variation'
-    url: 'https://test.cloud.ibm.com/docs/deployable-reference-architectures?topic=deployable-reference-architectures-vsi-ra'
+    url: 'https://cloud.ibm.com/docs/deployable-reference-architectures?topic=deployable-reference-architectures-vsi-ra'
     description: 'Reference architecture for "Secure infrastructure on VPC for regulated industries" as standard variation'
 
 use-case: ITServiceManagement
