@@ -44,6 +44,7 @@ func setupOptions(t *testing.T, prefix string) *testhelper.TestOptions {
 
 	// creating ssh keys
 	sshPublicKey, sshPrivateKey := sshKeys(t)
+	sshPublicKey = strings.TrimSuffix(sshPublicKey, "\n") // removing trailing new lines
 
 	options := testhelper.TestOptionsDefault(&testhelper.TestOptions{
 		Testing:            t,
@@ -67,7 +68,7 @@ func setupOptions(t *testing.T, prefix string) *testhelper.TestOptions {
 	options.TerraformVars = map[string]interface{}{
 		"prefix":                      options.Prefix,
 		"powervs_resource_group_name": options.ResourceGroup,
-		"ssh_public_key":              strings.TrimSuffix(sshPublicKey, "\n"),
+		"ssh_public_key":              sshPublicKey,
 		"ssh_private_key":             sshPrivateKey,
 		"preset":                      dst.String(),
 		// locking into syd05 due to other data center issues

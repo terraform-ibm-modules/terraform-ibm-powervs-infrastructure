@@ -5,6 +5,6 @@ output "ssh_public_key" {
 
 output "ssh_private_key" {
   value       = resource.tls_private_key.tls_key.private_key_pem
-  description = "SSH Public Key"
+  description = "SSH Private Key"
   sensitive   = true
 }
