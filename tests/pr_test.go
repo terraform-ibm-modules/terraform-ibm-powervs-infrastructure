@@ -4,16 +4,12 @@ package test
 import (
 	"bytes"
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
 	"os"
 	"strings"
 	"testing"
 
-	"github.com/gruntwork-io/terratest/modules/files"
-	"github.com/gruntwork-io/terratest/modules/logger"
-	"github.com/gruntwork-io/terratest/modules/random"
-	"github.com/gruntwork-io/terratest/modules/terraform"
+	"github.com/gruntwork-io/terratest/modules/ssh"
 	"github.com/stretchr/testify/assert"
 	"github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper/cloudinfo"
 	"github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper/testhelper"
@@ -36,15 +32,17 @@ func TestMain(m *testing.M) {
 func setupOptions(t *testing.T, prefix string) *testhelper.TestOptions {
 
 	// Reading preset file
-	presetFile, _ := ioutil.ReadFile("../examples/ibm-catalog/presets/slz-for-powervs/rhel-vpc-pvs.preset.json")
+	presetFile, _ := ioutil.ReadFile("./preset/preset.json")
 	dst := &bytes.Buffer{}
 	if err := json.Compact(dst, presetFile); err != nil {
 		panic(err)
 	}
 
 	// creating ssh keys
-	sshPublicKey, sshPrivateKey := sshKeys(t)
-	sshPublicKey = strings.TrimSuffix(sshPublicKey, "\n") // removing trailing new lines
+	rsaKeyPair, _ := ssh.GenerateRSAKeyPairE(t, 4096)
+	sshPublicKey := strings.TrimSuffix(rsaKeyPair.PublicKey, "\n") // removing trailing new lines
+	sshPrivateKey := "<<EOF\n" + rsaKeyPair.PrivateKey + "EOF"
+	t.Setenv("TF_VAR_ssh_private_key", sshPrivateKey)
 
 	options := testhelper.TestOptionsDefault(&testhelper.TestOptions{
 		Testing:            t,
@@ -69,7 +67,6 @@ func setupOptions(t *testing.T, prefix string) *testhelper.TestOptions {
 		"prefix":                      options.Prefix,
 		"powervs_resource_group_name": options.ResourceGroup,
 		"ssh_public_key":              sshPublicKey,
-		"ssh_private_key":             sshPrivateKey,
 		"preset":                      dst.String(),
 		// locking into syd05 due to other data center issues
 		//"powervs_zone": "syd05",
@@ -80,7 +77,7 @@ func setupOptions(t *testing.T, prefix string) *testhelper.TestOptions {
 }
 
 func TestRunDefaultExample(t *testing.T) {
-	t.Parallel()
+	//t.Parallel()
 
 	options := setupOptions(t, "pvs-inf")
 
@@ -90,7 +87,7 @@ func TestRunDefaultExample(t *testing.T) {
 }
 
 func TestRunUpgradeExample(t *testing.T) {
-	t.Parallel()
+	//t.Parallel()
 	options := setupOptions(t, "pvs-i-up")
 
 	output, err := options.RunTestUpgrade()
@@ -98,26 +95,4 @@ func TestRunUpgradeExample(t *testing.T) {
 		assert.Nil(t, err, "This should not have errored")
 		assert.NotNil(t, output, "Expected some output")
 	}
-}
-
-func sshKeys(t *testing.T) (string, string) {
-	prefix := fmt.Sprintf("pvs-inf-%s", strings.ToLower(random.UniqueId()))
-	actualTerraformDir := "./resources"
-	tempTerraformDir, _ := files.CopyTerraformFolderToTemp(actualTerraformDir, prefix)
-	logger.Log(t, "Tempdir: ", tempTerraformDir)
-
-	terraformOptions := terraform.WithDefaultRetryableErrors(t, &terraform.Options{
-		TerraformDir: tempTerraformDir,
-		// Set Upgrade to true to ensure latest version of providers and modules are used by terratest.
-		// This is the same as setting the -upgrade=true flag with terraform.
-		Upgrade: true,
-	})
-
-	terraform.WorkspaceSelectOrNew(t, terraformOptions, prefix)
-	_, existErr := terraform.InitAndApplyE(t, terraformOptions)
-	if existErr != nil {
-		assert.True(t, existErr == nil, "Init and Apply of temp existing resource failed")
-	}
-
-	return terraform.Output(t, terraformOptions, "ssh_public_key"), terraform.Output(t, terraformOptions, "ssh_private_key")
 }
