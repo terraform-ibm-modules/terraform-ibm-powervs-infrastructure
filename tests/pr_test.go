@@ -76,7 +76,7 @@ func setupOptions(t *testing.T, prefix string) *testhelper.TestOptions {
 }
 
 func TestRunDefaultExample(t *testing.T) {
-	//t.Parallel()
+	t.Parallel()
 
 	options := setupOptions(t, "pvs-inf")
 
@@ -86,7 +86,7 @@ func TestRunDefaultExample(t *testing.T) {
 }
 
 func TestRunUpgradeExample(t *testing.T) {
-	//t.Parallel()
+	t.Parallel()
 	options := setupOptions(t, "pvs-i-up")
 
 	output, err := options.RunTestUpgrade()
