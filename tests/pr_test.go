@@ -25,12 +25,6 @@ var sharedInfoSvc *cloudinfo.CloudInfoService
 // for multiple tests
 func TestMain(m *testing.M) {
 	sharedInfoSvc, _ = cloudinfo.NewCloudInfoServiceFromEnv("TF_VAR_ibmcloud_api_key", cloudinfo.CloudInfoServiceOptions{})
-	// creating ssh keys
-	rsaKeyPair, _ := ssh.GenerateRSAKeyPairE(t, 4096)
-	sshPublicKey := strings.TrimSuffix(rsaKeyPair.PublicKey, "\n") // removing trailing new lines
-	sshPrivateKey := "<<EOF\n" + rsaKeyPair.PrivateKey + "EOF"
-	os.Setenv("TF_VAR_ssh_public_key", sshPublicKey)
-	os.Setenv("TF_VAR_ssh_private_key", sshPrivateKey)
 
 	os.Exit(m.Run())
 }
@@ -43,6 +37,12 @@ func setupOptions(t *testing.T, prefix string) *testhelper.TestOptions {
 	if err := json.Compact(dst, presetFile); err != nil {
 		panic(err)
 	}
+
+	// creating ssh keys
+	rsaKeyPair, _ := ssh.GenerateRSAKeyPairE(t, 4096)
+	sshPublicKey := strings.TrimSuffix(rsaKeyPair.PublicKey, "\n") // removing trailing new lines
+	sshPrivateKey := "<<EOF\n" + rsaKeyPair.PrivateKey + "EOF"
+	t.Setenv("TF_VAR_ssh_private_key", sshPrivateKey)
 
 	options := testhelper.TestOptionsDefault(&testhelper.TestOptions{
 		Testing:            t,
@@ -66,6 +66,7 @@ func setupOptions(t *testing.T, prefix string) *testhelper.TestOptions {
 	options.TerraformVars = map[string]interface{}{
 		"prefix":                      options.Prefix,
 		"powervs_resource_group_name": options.ResourceGroup,
+		"ssh_public_key":              sshPublicKey,
 		"preset":                      dst.String(),
 		// locking into syd05 due to other data center issues
 		//"powervs_zone": "syd05",
@@ -76,7 +77,7 @@ func setupOptions(t *testing.T, prefix string) *testhelper.TestOptions {
 }
 
 func TestRunDefaultExample(t *testing.T) {
-	t.Parallel()
+	//t.Parallel()
 
 	options := setupOptions(t, "pvs-inf")
 
@@ -86,7 +87,7 @@ func TestRunDefaultExample(t *testing.T) {
 }
 
 func TestRunUpgradeExample(t *testing.T) {
-	t.Parallel()
+	//t.Parallel()
 	options := setupOptions(t, "pvs-i-up")
 
 	output, err := options.RunTestUpgrade()
