@@ -196,8 +196,8 @@
               "action": "allow",
               "destination": "10.10.10.0/24",
               "direction": "inbound",
-              "name": "allow-ssh-inbound",
-              "source": "0.0.0.0/0",
+              "name": "allow-ssh-inbound1",
+              "source": "169.45.235.176/28",
               "tcp": {
                 "port_max": 22,
                 "port_min": 22
@@ -205,9 +205,537 @@
             },
             {
               "action": "allow",
-              "destination": "0.0.0.0/0",
+              "destination": "169.45.235.176/28",
               "direction": "outbound",
-              "name": "allow-ssh-outbound",
+              "name": "allow-ssh-outbound1",
+              "source": "10.10.10.0/24",
+              "tcp": {
+                "source_port_max": 22,
+                "source_port_min": 22
+              }
+            },
+            {
+              "action": "allow",
+              "destination": "10.10.10.0/24",
+              "direction": "inbound",
+              "name": "allow-ssh-inbound2",
+              "source": "169.55.82.128/27",
+              "tcp": {
+                "port_max": 22,
+                "port_min": 22
+              }
+            },
+            {
+              "action": "allow",
+              "destination": "169.55.82.128/27",
+              "direction": "outbound",
+              "name": "allow-ssh-outbound2",
+              "source": "10.10.10.0/24",
+              "tcp": {
+                "source_port_max": 22,
+                "source_port_min": 22
+              }
+            },
+            {
+              "action": "allow",
+              "destination": "10.10.10.0/24",
+              "direction": "inbound",
+              "name": "allow-ssh-inbound3",
+              "source": "169.60.115.32/27",
+              "tcp": {
+                "port_max": 22,
+                "port_min": 22
+              }
+            },
+            {
+              "action": "allow",
+              "destination": "169.60.115.32/27",
+              "direction": "outbound",
+              "name": "allow-ssh-outbound3",
+              "source": "10.10.10.0/24",
+              "tcp": {
+                "source_port_max": 22,
+                "source_port_min": 22
+              }
+            },
+            {
+              "action": "allow",
+              "destination": "10.10.10.0/24",
+              "direction": "inbound",
+              "name": "allow-ssh-inbound4",
+              "source": "169.63.150.144/28",
+              "tcp": {
+                "port_max": 22,
+                "port_min": 22
+              }
+            },
+            {
+              "action": "allow",
+              "destination": "169.63.150.144/28",
+              "direction": "outbound",
+              "name": "allow-ssh-outbound4",
+              "source": "10.10.10.0/24",
+              "tcp": {
+                "source_port_max": 22,
+                "source_port_min": 22
+              }
+            },
+            {
+              "action": "allow",
+              "destination": "10.10.10.0/24",
+              "direction": "inbound",
+              "name": "allow-ssh-inbound5",
+              "source": "169.62.1.224/28",
+              "tcp": {
+                "port_max": 22,
+                "port_min": 22
+              }
+            },
+            {
+              "action": "allow",
+              "destination": "169.62.1.224/28",
+              "direction": "outbound",
+              "name": "allow-ssh-outbound5",
+              "source": "10.10.10.0/24",
+              "tcp": {
+                "source_port_max": 22,
+                "source_port_min": 22
+              }
+            },
+            {
+              "action": "allow",
+              "destination": "10.10.10.0/24",
+              "direction": "inbound",
+              "name": "allow-ssh-inbound6",
+              "source": "169.62.53.64/27",
+              "tcp": {
+                "port_max": 22,
+                "port_min": 22
+              }
+            },
+            {
+              "action": "allow",
+              "destination": "169.62.53.64/27",
+              "direction": "outbound",
+              "name": "allow-ssh-outbound6",
+              "source": "10.10.10.0/24",
+              "tcp": {
+                "source_port_max": 22,
+                "source_port_min": 22
+              }
+            },
+            {
+              "action": "allow",
+              "destination": "10.10.10.0/24",
+              "direction": "inbound",
+              "name": "allow-ssh-inbound7",
+              "source": "150.238.230.128/27",
+              "tcp": {
+                "port_max": 22,
+                "port_min": 22
+              }
+            },
+            {
+              "action": "allow",
+              "destination": "150.238.230.128/27",
+              "direction": "outbound",
+              "name": "allow-ssh-outbound7",
+              "source": "10.10.10.0/24",
+              "tcp": {
+                "source_port_max": 22,
+                "source_port_min": 22
+              }
+            },
+            {
+              "action": "allow",
+              "destination": "10.10.10.0/24",
+              "direction": "inbound",
+              "name": "allow-ssh-inbound8",
+              "source": "169.63.254.64/28",
+              "tcp": {
+                "port_max": 22,
+                "port_min": 22
+              }
+            },
+            {
+              "action": "allow",
+              "destination": "169.63.254.64/28",
+              "direction": "outbound",
+              "name": "allow-ssh-outbound8",
+              "source": "10.10.10.0/24",
+              "tcp": {
+                "source_port_max": 22,
+                "source_port_min": 22
+              }
+            },
+            {
+              "action": "allow",
+              "destination": "10.10.10.0/24",
+              "direction": "inbound",
+              "name": "allow-ssh-inbound9",
+              "source": "169.47.104.160/28",
+              "tcp": {
+                "port_max": 22,
+                "port_min": 22
+              }
+            },
+            {
+              "action": "allow",
+              "destination": "169.47.104.160/28",
+              "direction": "outbound",
+              "name": "allow-ssh-outbound9",
+              "source": "10.10.10.0/24",
+              "tcp": {
+                "source_port_max": 22,
+                "source_port_min": 22
+              }
+            },
+            {
+              "action": "allow",
+              "destination": "10.10.10.0/24",
+              "direction": "inbound",
+              "name": "allow-ssh-inbound10",
+              "source": "169.61.191.64/27",
+              "tcp": {
+                "port_max": 22,
+                "port_min": 22
+              }
+            },
+            {
+              "action": "allow",
+              "destination": "169.61.191.64/27",
+              "direction": "outbound",
+              "name": "allow-ssh-outbound10",
+              "source": "10.10.10.0/24",
+              "tcp": {
+                "source_port_max": 22,
+                "source_port_min": 22
+              }
+            },
+            {
+              "action": "allow",
+              "destination": "10.10.10.0/24",
+              "direction": "inbound",
+              "name": "allow-ssh-inbound11",
+              "source": "169.60.172.144/28",
+              "tcp": {
+                "port_max": 22,
+                "port_min": 22
+              }
+            },
+            {
+              "action": "allow",
+              "destination": "169.60.172.144/28",
+              "direction": "outbound",
+              "name": "allow-ssh-outbound11",
+              "source": "10.10.10.0/24",
+              "tcp": {
+                "source_port_max": 22,
+                "source_port_min": 22
+              }
+            },
+            {
+              "action": "allow",
+              "destination": "10.10.10.0/24",
+              "direction": "inbound",
+              "name": "allow-ssh-inbound12",
+              "source": "169.62.204.32/27",
+              "tcp": {
+                "port_max": 22,
+                "port_min": 22
+              }
+            },
+            {
+              "action": "allow",
+              "destination": "169.62.204.32/27",
+              "direction": "outbound",
+              "name": "allow-ssh-outbound12",
+              "source": "10.10.10.0/24",
+              "tcp": {
+                "source_port_max": 22,
+                "source_port_min": 22
+              }
+            },
+            {
+              "action": "allow",
+              "destination": "10.10.10.0/24",
+              "direction": "inbound",
+              "name": "allow-ssh-inbound13",
+              "source": "158.175.106.64/27",
+              "tcp": {
+                "port_max": 22,
+                "port_min": 22
+              }
+            },
+            {
+              "action": "allow",
+              "destination": "158.175.106.64/27",
+              "direction": "outbound",
+              "name": "allow-ssh-outbound13",
+              "source": "10.10.10.0/24",
+              "tcp": {
+                "source_port_max": 22,
+                "source_port_min": 22
+              }
+            },
+            {
+              "action": "allow",
+              "destination": "10.10.10.0/24",
+              "direction": "inbound",
+              "name": "allow-ssh-inbound14",
+              "source": "158.175.138.176/28",
+              "tcp": {
+                "port_max": 22,
+                "port_min": 22
+              }
+            },
+            {
+              "action": "allow",
+              "destination": "158.175.138.176/28",
+              "direction": "outbound",
+              "name": "allow-ssh-outbound14",
+              "source": "10.10.10.0/24",
+              "tcp": {
+                "source_port_max": 22,
+                "source_port_min": 22
+              }
+            },
+            {
+              "action": "allow",
+              "destination": "10.10.10.0/24",
+              "direction": "inbound",
+              "name": "allow-ssh-inbound15",
+              "source": "141.125.79.160/28",
+              "tcp": {
+                "port_max": 22,
+                "port_min": 22
+              }
+            },
+            {
+              "action": "allow",
+              "destination": "141.125.79.160/28",
+              "direction": "outbound",
+              "name": "allow-ssh-outbound15",
+              "source": "10.10.10.0/24",
+              "tcp": {
+                "source_port_max": 22,
+                "source_port_min": 22
+              }
+            },
+            {
+              "action": "allow",
+              "destination": "10.10.10.0/24",
+              "direction": "inbound",
+              "name": "allow-ssh-inbound16",
+              "source": "141.125.142.96/27",
+              "tcp": {
+                "port_max": 22,
+                "port_min": 22
+              }
+            },
+            {
+              "action": "allow",
+              "destination": "141.125.142.96/27",
+              "direction": "outbound",
+              "name": "allow-ssh-outbound16",
+              "source": "10.10.10.0/24",
+              "tcp": {
+                "source_port_max": 22,
+                "source_port_min": 22
+              }
+            },
+            {
+              "action": "allow",
+              "destination": "10.10.10.0/24",
+              "direction": "inbound",
+              "name": "allow-ssh-inbound17",
+              "source": "158.176.111.64/27",
+              "tcp": {
+                "port_max": 22,
+                "port_min": 22
+              }
+            },
+            {
+              "action": "allow",
+              "destination": "158.176.111.64/27",
+              "direction": "outbound",
+              "name": "allow-ssh-outbound17",
+              "source": "10.10.10.0/24",
+              "tcp": {
+                "source_port_max": 22,
+                "source_port_min": 22
+              }
+            },
+            {
+              "action": "allow",
+              "destination": "10.10.10.0/24",
+              "direction": "inbound",
+              "name": "allow-ssh-inbound18",
+              "source": "158.176.134.80/28",
+              "tcp": {
+                "port_max": 22,
+                "port_min": 22
+              }
+            },
+            {
+              "action": "allow",
+              "destination": "158.176.134.80/28",
+              "direction": "outbound",
+              "name": "allow-ssh-outbound18",
+              "source": "10.10.10.0/24",
+              "tcp": {
+                "source_port_max": 22,
+                "source_port_min": 22
+              }
+            },
+            {
+              "action": "allow",
+              "destination": "10.10.10.0/24",
+              "direction": "inbound",
+              "name": "allow-ssh-inbound19",
+              "source": "149.81.123.64/27",
+              "tcp": {
+                "port_max": 22,
+                "port_min": 22
+              }
+            },
+            {
+              "action": "allow",
+              "destination": "149.81.123.64/27",
+              "direction": "outbound",
+              "name": "allow-ssh-outbound19",
+              "source": "10.10.10.0/24",
+              "tcp": {
+                "source_port_max": 22,
+                "source_port_min": 22
+              }
+            },
+            {
+              "action": "allow",
+              "destination": "10.10.10.0/24",
+              "direction": "inbound",
+              "name": "allow-ssh-inbound20",
+              "source": "149.81.135.64/28",
+              "tcp": {
+                "port_max": 22,
+                "port_min": 22
+              }
+            },
+            {
+              "action": "allow",
+              "destination": "149.81.135.64/28",
+              "direction": "outbound",
+              "name": "allow-ssh-outbound20",
+              "source": "10.10.10.0/24",
+              "tcp": {
+                "source_port_max": 22,
+                "source_port_min": 22
+              }
+            },
+            {
+              "action": "allow",
+              "destination": "10.10.10.0/24",
+              "direction": "inbound",
+              "name": "allow-ssh-inbound21",
+              "source": "158.177.210.176/28",
+              "tcp": {
+                "port_max": 22,
+                "port_min": 22
+              }
+            },
+            {
+              "action": "allow",
+              "destination": "158.177.210.176/28",
+              "direction": "outbound",
+              "name": "allow-ssh-outbound21",
+              "source": "10.10.10.0/24",
+              "tcp": {
+                "source_port_max": 22,
+                "source_port_min": 22
+              }
+            },
+            {
+              "action": "allow",
+              "destination": "10.10.10.0/24",
+              "direction": "inbound",
+              "name": "allow-ssh-inbound22",
+              "source": "158.177.216.144/28",
+              "tcp": {
+                "port_max": 22,
+                "port_min": 22
+              }
+            },
+            {
+              "action": "allow",
+              "destination": "158.177.216.144/28",
+              "direction": "outbound",
+              "name": "allow-ssh-outbound22",
+              "source": "10.10.10.0/24",
+              "tcp": {
+                "source_port_max": 22,
+                "source_port_min": 22
+              }
+            },
+            {
+              "action": "allow",
+              "destination": "10.10.10.0/24",
+              "direction": "inbound",
+              "name": "allow-ssh-inbound23",
+              "source": "161.156.138.80/28",
+              "tcp": {
+                "port_max": 22,
+                "port_min": 22
+              }
+            },
+            {
+              "action": "allow",
+              "destination": "161.156.138.80/28",
+              "direction": "outbound",
+              "name": "allow-ssh-outbound23",
+              "source": "10.10.10.0/24",
+              "tcp": {
+                "source_port_max": 22,
+                "source_port_min": 22
+              }
+            },
+            {
+              "action": "allow",
+              "destination": "10.10.10.0/24",
+              "direction": "inbound",
+              "name": "allow-ssh-inbound24",
+              "source": "159.122.111.224/27",
+              "tcp": {
+                "port_max": 22,
+                "port_min": 22
+              }
+            },
+            {
+              "action": "allow",
+              "destination": "159.122.111.224/27",
+              "direction": "outbound",
+              "name": "allow-ssh-outbound24",
+              "source": "10.10.10.0/24",
+              "tcp": {
+                "source_port_max": 22,
+                "source_port_min": 22
+              }
+            },
+            {
+              "action": "allow",
+              "destination": "10.10.10.0/24",
+              "direction": "inbound",
+              "name": "allow-ssh-inbound25",
+              "source": "161.156.37.160/27",
+              "tcp": {
+                "port_max": 22,
+                "port_min": 22
+              }
+            },
+            {
+              "action": "allow",
+              "destination": "161.156.37.160/27",
+              "direction": "outbound",
+              "name": "allow-ssh-outbound25",
               "source": "10.10.10.0/24",
               "tcp": {
                 "source_port_max": 22,
@@ -647,13 +1175,13 @@
       "vpc_name": "workload",
       "vsi_per_subnet": 1,
       "block_storage_volumes": [
-      {
-        "name"           : "data",
-        "profile"        : "5iops-tier",
-        "capacity"       : 1000,
-        "encryption_key" : "slz-vsi-volume-key"
-      }
-    ]
+        {
+          "name": "data",
+          "profile": "5iops-tier",
+          "capacity": 1000,
+          "encryption_key": "slz-vsi-volume-key"
+        }
+      ]
     },
     {
       "boot_volume_encryption_key_name": "slz-vsi-volume-key",

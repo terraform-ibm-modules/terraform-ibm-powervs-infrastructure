@@ -95,7 +95,6 @@ You need the following permissions to run this module.
 <!-- BEGIN EXAMPLES HOOK -->
 ## Examples
 
-- [ Basic example for Power infrastructure for deployable architectures](examples/basic)
 - [ IBM Cloud catalog example for Power infrastructure for deployable architectures Extension Variation](examples/ibm-catalog/deployable-architectures/extension)
 - [ IBM Cloud catalog example for Power infrastructure for deployable architectures Full-Stack Variation](examples/ibm-catalog/deployable-architectures/full-stack)
 - [ Standard example for Power infrastructure for deployable architectures](examples/terraform-registry/extension)
