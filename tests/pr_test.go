@@ -2,9 +2,14 @@
 package test
 
 import (
+	"bytes"
+	"encoding/json"
+	"io/ioutil"
 	"os"
+	"strings"
 	"testing"
 
+	"github.com/gruntwork-io/terratest/modules/ssh"
 	"github.com/stretchr/testify/assert"
 	"github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper/cloudinfo"
 	"github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper/testhelper"
@@ -12,7 +17,7 @@ import (
 
 // Use existing resource group
 const resourceGroup = "geretain-test-resources"
-const defaultExampleTerraformDir = "examples/basic"
+const defaultExampleTerraformDir = "examples/ibm-catalog/deployable-architectures/full-stack"
 
 var sharedInfoSvc *cloudinfo.CloudInfoService
 
@@ -25,6 +30,20 @@ func TestMain(m *testing.M) {
 }
 
 func setupOptions(t *testing.T, prefix string) *testhelper.TestOptions {
+
+	// Reading preset file
+	presetFile, _ := ioutil.ReadFile("./preset/preset.json")
+	dst := &bytes.Buffer{}
+	if err := json.Compact(dst, presetFile); err != nil {
+		panic(err)
+	}
+
+	// creating ssh keys
+	rsaKeyPair, _ := ssh.GenerateRSAKeyPairE(t, 4096)
+	sshPublicKey := strings.TrimSuffix(rsaKeyPair.PublicKey, "\n") // removing trailing new lines
+	sshPrivateKey := "<<EOF\n" + rsaKeyPair.PrivateKey + "EOF"
+	t.Setenv("TF_VAR_ssh_private_key", sshPrivateKey)
+
 	options := testhelper.TestOptionsDefault(&testhelper.TestOptions{
 		Testing:            t,
 		TerraformDir:       defaultExampleTerraformDir,
@@ -45,11 +64,10 @@ func setupOptions(t *testing.T, prefix string) *testhelper.TestOptions {
 	}
 
 	options.TerraformVars = map[string]interface{}{
-		"prefix":                  options.Prefix,
-		"resource_group":          options.ResourceGroup,
-		"reuse_cloud_connections": false,
-		"cloud_connection_count":  1,
-		"cloud_connection_speed":  50,
+		"prefix":                      options.Prefix,
+		"powervs_resource_group_name": options.ResourceGroup,
+		"ssh_public_key":              sshPublicKey,
+		"preset":                      dst.String(),
 		// locking into syd05 due to other data center issues
 		//"powervs_zone": "syd05",
 		"powervs_zone": options.Region,
@@ -59,9 +77,9 @@ func setupOptions(t *testing.T, prefix string) *testhelper.TestOptions {
 }
 
 func TestRunDefaultExample(t *testing.T) {
-	t.Parallel()
+	//t.Parallel()
 
-	options := setupOptions(t, "power-infra")
+	options := setupOptions(t, "pvs-inf")
 
 	output, err := options.RunTestConsistency()
 	assert.Nil(t, err, "This should not have errored")
@@ -69,8 +87,8 @@ func TestRunDefaultExample(t *testing.T) {
 }
 
 func TestRunUpgradeExample(t *testing.T) {
-	t.Parallel()
-	options := setupOptions(t, "power-infra-upg")
+	//t.Parallel()
+	options := setupOptions(t, "pvs-i-up")
 
 	output, err := options.RunTestUpgrade()
 	if !options.UpgradeTestSkipped {
