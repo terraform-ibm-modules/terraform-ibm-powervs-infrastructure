@@ -1,6 +1,6 @@
 <!-- BEGIN MODULE HOOK -->
 
-# IBM Power infrastructure for deployable architectures module
+# IBM Power Systems Virtual Server with VPC landing zone module
 
 [![Graduated (Supported)](https://img.shields.io/badge/status-Graduated%20(Supported)-brightgreen?style=plastic)](https://terraform-ibm-modules.github.io/documentation/#/badge-status)
 [![build status](https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone/actions/workflows/ci.yml/badge.svg)](https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone/actions/workflows/ci.yml)
@@ -8,7 +8,7 @@
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)
 [![latest release](https://img.shields.io/github/v/release/terraform-ibm-modules/terraform-ibm-powervs-infrastructure?logo=GitHub&sort=semver)](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/releases/latest)
 
-The Power infrastructure for deployable architectures module automates the following tasks:
+The Power Systems Virtual Server with VPC landing zone module automates the following tasks:
 
 - Creates an IBM® Power Systems™ Virtual Server (PowerVS) workspace.
 - Creates an SSH key.
@@ -31,8 +31,8 @@ For more information about IBM Power Systems Virtual Server see the [getting sta
 
 ## Reference architectures
 
-- Power infrastructure for deployable architectures - [PowerVS workspace full-stack variation](reference-architectures/full-stack/deploy-arch-ibm-pvs-inf-full-stack.md)
-- Power infrastructure for deployable architectures - [PowerVS workspace extension variation](reference-architectures/extension/deploy-arch-ibm-pvs-inf-extension.md)
+- Power Systems Virtual Server with VPC landing zone - [PowerVS workspace full-stack variation](reference-architectures/full-stack/deploy-arch-ibm-pvs-inf-full-stack.md)
+- Power Systems Virtual Server with VPC landing zone - [PowerVS workspace extension variation](reference-architectures/extension/deploy-arch-ibm-pvs-inf-extension.md)
 
 ## Usage
 ```hcl
@@ -95,9 +95,9 @@ You need the following permissions to run this module.
 <!-- BEGIN EXAMPLES HOOK -->
 ## Examples
 
-- [ IBM Cloud catalog example for Power infrastructure for deployable architectures Extension Variation](examples/ibm-catalog/deployable-architectures/extension)
-- [ IBM Cloud catalog example for Power infrastructure for deployable architectures Full-Stack Variation](examples/ibm-catalog/deployable-architectures/full-stack)
-- [ Standard example for Power infrastructure for deployable architectures](examples/terraform-registry/extension)
+- [ IBM Cloud catalog example for Power Systems Virtual Server with VPC landing zone Extension Variation](examples/ibm-catalog/deployable-architectures/extension)
+- [ IBM Cloud catalog example for Power Systems Virtual Server with VPC landing zone Full-Stack Variation](examples/ibm-catalog/deployable-architectures/full-stack)
+- [ Standard example for Power Systems Virtual Server with VPC landing zone](examples/terraform-registry/extension)
 <!-- END EXAMPLES HOOK -->
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

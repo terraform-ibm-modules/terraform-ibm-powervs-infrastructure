@@ -1,4 +1,4 @@
-# Standard example for Power infrastructure for deployable architectures
+# Standard example for Power Systems Virtual Server with VPC landing zone
 
 This example illustrates how to use the `terraform-ibm-powervs-infrastructure` module. It provisions the following infrastructure:
 

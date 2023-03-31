@@ -91,6 +91,14 @@ resource "null_resource" "update_os" {
     timeout      = "5m"
   }
 
+  ####### Create Terraform scripts directory , Update OS and Reboot ############
+  provisioner "remote-exec" {
+    inline = [
+      "mkdir -p ${local.dst_scripts_dir}",
+      "chmod 777 ${local.dst_scripts_dir}",
+    ]
+  }
+
   ####### Copy update_os.sh script ############
   provisioner "file" {
     source      = local.src_update_os_path
