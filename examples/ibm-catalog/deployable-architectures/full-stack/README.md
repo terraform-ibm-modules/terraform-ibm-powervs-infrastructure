@@ -1,4 +1,4 @@
-# IBM Cloud catalog example for Power infrastructure for deployable architectures Full-Stack Variation
+# IBM Cloud catalog example for Power Systems Virtual Server with VPC landing zone Full-Stack Variation
 
 This example sets up the following infrastructure:
 - A VPC Infrastructure with the following components:
@@ -21,8 +21,8 @@ This example sets up the following infrastructure:
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.3.0 |
-| <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | >=1.49.0 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.3, < 1.5 |
+| <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | =1.49.0 |
 
 ## Modules
 

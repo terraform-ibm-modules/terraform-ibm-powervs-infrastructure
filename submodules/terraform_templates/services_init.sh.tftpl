@@ -8,7 +8,7 @@ proxy_ip_and_port=${proxy_ip_and_port}
 no_proxy_ip=${no_proxy_ip}
 
 ############################################################
-# Main Program                                             #
+# Check OS Distribution                                    #
 ############################################################
 
 if [ -f /etc/SuSE-release ]; then
@@ -30,7 +30,7 @@ if [ -f /etc/redhat-release ]; then
 fi
 
 ###########################################
-# SLES Setup                              #
+# SLES : Proxy and OS Registration        #
 ###########################################
 if [ "$OS_DETECTED" == "SLES" ]; then
 
@@ -57,7 +57,7 @@ if [ "$OS_DETECTED" == "SLES" ]; then
     if [ "$OS_Activated" -ge 1 ]; then
       echo "OS is Registered"
     else
-      ##### check if the system is a x86_64 processor VM
+      ##### check if the system is a x86_64 processor
       if [[ "$ARCH" == "x86_64" ]]; then
         #### Wait for registration to complete
         count=0
@@ -72,7 +72,7 @@ if [ "$OS_DETECTED" == "SLES" ]; then
         done
       fi
 
-      ##### check if the system is a HANA or Netweaver VM, should be a ppc64le VM
+      ##### check if the system is a ppc64le processor
       if [[ "$ARCH" == "ppc64le" ]]; then
         SUSEConnect --de-register >/dev/null
         SUSEConnect --cleanup >/dev/null
@@ -109,7 +109,7 @@ if [ "$OS_DETECTED" == "SLES" ]; then
 fi
 
 ###########################################
-# RHEL Setup                              #
+# RHEL : Proxy and OS Registration        #
 ###########################################
 if [ "$OS_DETECTED" == "RHEL" ]; then
   ARCH=$(uname -p)
@@ -135,7 +135,7 @@ if [ "$OS_DETECTED" == "RHEL" ]; then
     if [ "$OS_Activated" -ge 1 ]; then
       echo "OS is Registered"
     else
-      ##### check if the system is a x86_64 processor VM
+      ##### check if the system is a x86_64 processor
       if [[ "$ARCH" == "x86_64" ]]; then
         #### Wait for registration to complete
         count=0
@@ -150,10 +150,8 @@ if [ "$OS_DETECTED" == "RHEL" ]; then
         done
       fi
 
-      ##### check if the system is a HANA or Netweaver VM, should be a ppc64le VM
+      ##### check if the system is a ppc64le processor
       if [[ "$ARCH" == "ppc64le" ]]; then
-        #subscription-manager --de-register
-        #subscription-manager --cleanup
         mv /var/log/powervs-fls.log /var/log/powervs-fls.log.old
         cmd=$(grep /usr/local/bin/rhel-cloud-init.sh </usr/share/powervs-fls/powervs-fls-readme.md | grep Private.proxy.IP.address | sed "s/Private.proxy.IP.address:3128/$proxy_ip_and_port/g")
         $cmd

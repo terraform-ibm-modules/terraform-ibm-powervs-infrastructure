@@ -54,7 +54,6 @@ module "landing_zone" {
   ssh_public_key       = var.ssh_public_key
   region               = lookup(local.ibm_powervs_zone_cloud_region_map, var.powervs_zone, null)
   prefix               = var.prefix
-  override             = true
   override_json_string = var.preset
 }
 

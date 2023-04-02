@@ -1,5 +1,9 @@
 #####################################################
-# Configure Squid client
+# 1. Configure Squid client
+# 2. Update OS and Reboot
+# 3. Install Necessary Packages
+# 4. Execute Ansible galaxy role to install Management
+# services for SAP installation
 #####################################################
 
 locals {
@@ -10,6 +14,8 @@ locals {
   dst_squid_setup_path          = "${local.dst_scripts_dir}/services_init.sh"
   src_install_packages_tpl_path = "${local.scr_scripts_dir}/install_packages.sh.tftpl"
   dst_install_packages_path     = "${local.dst_scripts_dir}/install_packages.sh"
+  src_update_os_path            = "${local.scr_scripts_dir}/update_os.sh"
+  dst_update_os_path            = "${local.dst_scripts_dir}/update_os.sh"
 
   server_config_option_tmp = merge(var.service_config, { "enable" = true })
   server_config_options    = { for key, value in local.server_config_option_tmp : key => local.server_config_option_tmp[key] }
@@ -20,6 +26,10 @@ locals {
   dst_ansible_exec_path                 = "${local.dst_scripts_dir}/config_mgmt_services.sh"
   dst_ansible_vars_path                 = "${local.dst_scripts_dir}/terraform_${local.server_config_name}_config.yml"
 }
+
+#####################################################
+# 1. Configure Squid client
+#####################################################
 
 resource "null_resource" "perform_proxy_client_setup" {
 
@@ -32,7 +42,7 @@ resource "null_resource" "perform_proxy_client_setup" {
     host         = var.perform_proxy_client_setup["squid_client_ips"][count.index]
     private_key  = var.ssh_private_key
     agent        = false
-    timeout      = "15m"
+    timeout      = "5m"
   }
 
   ####### Create Terraform scripts directory ############
@@ -65,10 +75,10 @@ resource "null_resource" "perform_proxy_client_setup" {
 }
 
 #####################################################
-# Install Necessary Packages
+# 2. Update OS and Reboot
 #####################################################
 
-resource "null_resource" "install_packages" {
+resource "null_resource" "update_os" {
   depends_on = [null_resource.perform_proxy_client_setup]
 
   connection {
@@ -78,10 +88,55 @@ resource "null_resource" "install_packages" {
     host         = var.target_server_ip
     private_key  = var.ssh_private_key
     agent        = false
-    timeout      = "15m"
+    timeout      = "5m"
   }
 
-  ####### Create Terraform scripts directory ############
+  ####### Create Terraform scripts directory , Update OS and Reboot ############
+  provisioner "remote-exec" {
+    inline = [
+      "mkdir -p ${local.dst_scripts_dir}",
+      "chmod 777 ${local.dst_scripts_dir}",
+    ]
+  }
+
+  ####### Copy update_os.sh script ############
+  provisioner "file" {
+    source      = local.src_update_os_path
+    destination = local.dst_update_os_path
+  }
+
+  ####### Update OS and Reboot ############
+  provisioner "remote-exec" {
+    inline = [
+      "chmod +x ${local.dst_update_os_path}",
+      local.dst_update_os_path
+    ]
+  }
+}
+
+resource "time_sleep" "wait_for_reboot" {
+  depends_on      = [null_resource.update_os]
+  create_duration = "30s"
+}
+
+#####################################################
+# 3. Install Necessary Packages
+#####################################################
+
+resource "null_resource" "install_packages" {
+  depends_on = [time_sleep.wait_for_reboot]
+
+  connection {
+    type         = "ssh"
+    user         = "root"
+    bastion_host = var.access_host_or_ip
+    host         = var.target_server_ip
+    private_key  = var.ssh_private_key
+    agent        = false
+    timeout      = "10m"
+  }
+
+  ####### Create Terraform scripts directory , Update OS and Reboot ############
   provisioner "remote-exec" {
     inline = [
       "mkdir -p ${local.dst_scripts_dir}",
@@ -110,7 +165,7 @@ resource "null_resource" "install_packages" {
 }
 
 #####################################################
-# Execute Ansible galaxy role to install service
+# 4. Execute Ansible galaxy role to install service
 # for SAP installation
 #####################################################
 
@@ -124,7 +179,7 @@ resource "null_resource" "execute_ansible_role" {
     host         = var.target_server_ip
     private_key  = var.ssh_private_key
     agent        = false
-    timeout      = "15m"
+    timeout      = "5m"
   }
 
   ####### Create variable file for ansible playbook execution ############
