@@ -44,6 +44,7 @@ content-type: reference-architecture
 {: toc-industry="Technology"}
 {: toc-use-case="ITServiceManagement"}
 {: toc-compliance="SAPCertified"}
+{: toc-version="1.0.0"}
 
 The "full stack" variation of the Power Systems Virtual Server with VPC landing zone creates a Power Virtual Server workspace and connects it with VPC services.
 
