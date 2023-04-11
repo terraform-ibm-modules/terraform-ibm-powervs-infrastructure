@@ -64,11 +64,13 @@ locals {
 
   transit_gateway_name = module.landing_zone.transit_gateway_name
 
-  access_host_or_ip_exists = contains(keys(module.landing_zone.fip_vsi[0]), "floating_ip") ? true : false
+  fip_vsi_exists           = contains(keys(module.landing_zone), "fip_vsi") ? true : false
+  access_host_or_ip_exists = local.fip_vsi_exists ? contains(keys(module.landing_zone.fip_vsi[0]), "floating_ip") ? true : false : false
   access_host_or_ip        = local.access_host_or_ip_exists ? module.landing_zone.fip_vsi[0].floating_ip : ""
-  private_svs_vsi_exists   = contains(module.landing_zone.vsi_names, "${var.prefix}-private-svs-1") ? true : false
+  vsi_list_exists          = contains(keys(module.landing_zone), "vsi_list") ? true : false
+  private_svs_vsi_exists   = local.vsi_list_exists ? contains(module.landing_zone.vsi_names, "${var.prefix}-private-svs-1") ? true : false : false
   private_svs_ip           = local.private_svs_vsi_exists ? [for vsi in module.landing_zone.vsi_list : vsi.ipv4_address if vsi.name == "${var.prefix}-private-svs-1"][0] : ""
-  inet_svs_vsi_exists      = contains(module.landing_zone.vsi_names, "${var.prefix}-inet-svs-1") ? true : false
+  inet_svs_vsi_exists      = local.vsi_list_exists ? contains(module.landing_zone.vsi_names, "${var.prefix}-inet-svs-1") ? true : false : false
   inet_svs_ip              = local.inet_svs_vsi_exists ? [for vsi in module.landing_zone.vsi_list : vsi.ipv4_address if vsi.name == "${var.prefix}-inet-svs-1"][0] : ""
   squid_port               = "3128"
 
