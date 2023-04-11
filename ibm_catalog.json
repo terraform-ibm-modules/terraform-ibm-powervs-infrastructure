@@ -144,13 +144,8 @@
                                 "original_grouping": "deployment",
                                 "type": "region"
                             },
-                            "default_value": "",
-                            "description": "IBM Cloud data center location where IBM PowerVS infrastructure will be created.",
-                            "display_name": "Region",
-                            "hidden": false,
                             "key": "powervs_zone",
-                            "required": true,
-                            "type": "string"
+                            "required": true
                         },
                         {
                             "custom_config": {
@@ -161,22 +156,12 @@
                                 "original_grouping": "deployment",
                                 "type": "resource_group"
                             },
-                            "default_value": "",
-                            "description": "Existing IBM Cloud resource group name.",
-                            "display_name": "Resource group",
-                            "hidden": false,
                             "key": "powervs_resource_group_name",
-                            "required": true,
-                            "type": "string"
+                            "required": true
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "",
-                            "description": "A unique identifier for resources. Must begin with a lowercase letter and end with a lowercase letter or number. This prefix will be prepended to any resources provisioned by this template. Prefixes must be 16 or fewer characters.",
-                            "hidden": false,
                             "key": "prefix",
-                            "required": true,
-                            "type": "string"
+                            "required": true
                         },
                         {
                             "custom_config": {
@@ -184,13 +169,8 @@
                                 "original_grouping": "deployment",
                                 "type": "json_editor"
                             },
-                            "default_value": "",
-                            "description": "Use one of supported [configurations](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/tree/main/examples/ibm-catalog/presets/slz-for-powervs). Copy the configuration from the link into the `preset` deployment value.",
-                            "display_name": "JSON",
-                            "hidden": false,
                             "key": "preset",
-                            "required": true,
-                            "type": "string"
+                            "required": true
                         },
                         {
                             "custom_config": {
@@ -198,10 +178,6 @@
                                 "original_grouping": "deployment",
                                 "type": "multiline_secure_value"
                             },
-                            "default_value": "",
-                            "description": "Public SSH Key for VSI creation. Must be an RSA key with a key size of either 2048 bits or 4096 bits (recommended). Must be a valid SSH key that does not already exist in the deployment region.",
-                            "display_name": "Multiline secure value",
-                            "hidden": false,
                             "key": "ssh_public_key",
                             "required": true,
                             "type": "password"
@@ -212,94 +188,36 @@
                                 "original_grouping": "deployment",
                                 "type": "multiline_secure_value"
                             },
-                            "default_value": "\u003c\u003c-EOF\n-----BEGIN RSA PRIVATE KEY-----\n-----END RSA PRIVATE KEY-----\nEOF\n",
-                            "description": "Private SSH key (RSA format) used to login to IBM PowerVS instances. Should match to public SSH key referenced by 'ssh_public_key'. Entered data must be in [heredoc strings format](https://www.terraform.io/language/expressions/strings#heredoc-strings). The key is not uploaded or stored. For more information about SSH keys, see [SSH keys](https://cloud.ibm.com/docs/vpc?topic=vpc-ssh-keys).",
-                            "display_name": "Multiline secure value",
-                            "hidden": false,
                             "key": "ssh_private_key",
                             "required": true,
                             "type": "password"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": true,
-                            "description": "Specify if DNS forwarder will be configured. This will allow you to use central DNS servers (e.g. IBM Cloud DNS servers) sitting outside of the created IBM PowerVS infrastructure. If yes, ensure 'dns_forwarder_config' optional variable is set properly. DNS forwarder will be installed on the private-svs vsi.",
-                            "hidden": false,
-                            "key": "configure_dns_forwarder",
-                            "required": true,
-                            "type": "boolean"
+                            "key": "configure_dns_forwarder"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": true,
-                            "description": "Specify if NFS server will be configured. This will allow you easily to share files between PowerVS instances (e.g., SAP installation files). NFS server will be installed on the private-svs vsi.",
-                            "hidden": false,
-                            "key": "configure_nfs_server",
-                            "required": true,
-                            "type": "boolean"
+                            "key": "configure_nfs_server"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": true,
-                            "description": "Specify if NTP forwarder will be configured. This will allow you to synchronize time between IBM PowerVS instances. NTP forwarder will be installed on the private-svs vsi.",
-                            "hidden": false,
-                            "key": "configure_ntp_forwarder",
-                            "required": true,
-                            "type": "boolean"
+                            "key": "configure_ntp_forwarder"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "{\n    name = \"mgmt_net\"\n    cidr = \"10.51.0.0/24\"\n  }",
-                            "description": "Name of the IBM Cloud PowerVS management subnet and CIDR to create.",
-                            "hidden": false,
-                            "key": "powervs_management_network",
-                            "required": false,
-                            "type": "object"
+                            "key": "powervs_management_network"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "{\n    name = \"bkp_net\"\n    cidr = \"10.52.0.0/24\"\n  }",
-                            "description": "Name of the IBM Cloud PowerVS backup network and CIDR to create.",
-                            "hidden": false,
-                            "key": "powervs_backup_network",
-                            "required": false,
-                            "type": "object"
+                            "key": "powervs_backup_network"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "[\"SLES15-SP3-SAP\", \"SLES15-SP3-SAP-NETWEAVER\", \"RHEL8-SP4-SAP\", \"RHEL8-SP4-SAP-NETWEAVER\"]",
-                            "description": "List of Images to be imported into cloud account from catalog images",
-                            "hidden": false,
-                            "key": "powervs_image_names",
-                            "required": false,
-                            "type": "array"
+                            "key": "powervs_image_names"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "{\n    count          = 2\n    speed          = 5000\n    global_routing = true\n    metered        = true\n  }",
-                            "description": "Cloud connection configuration: speed (50, 100, 200, 500, 1000, 2000, 5000, 10000 Mb/s), count (1 or 2 connections), global_routing (true or false), metered (true or false)",
-                            "hidden": false,
-                            "key": "cloud_connection",
-                            "required": false,
-                            "type": "object"
+                            "key": "cloud_connection"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "{\n    \"dns_servers\" = \"161.26.0.7; 161.26.0.8; 9.9.9.9;\"\n  }",
-                            "description": "Configuration for the DNS forwarder to a DNS service that is not reachable directly from PowerVS.",
-                            "hidden": false,
-                            "key": "dns_forwarder_config",
-                            "required": false,
-                            "type": "object"
+                            "key": "dns_forwarder_config"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "[\"sap\"]",
-                            "description": "List of tag names for the IBM Cloud PowerVS workspace",
-                            "hidden": false,
-                            "key": "tags",
-                            "required": false,
-                            "type": "array"
+                            "key": "tags"
                         }
                     ],
                     "outputs": [
@@ -577,13 +495,7 @@
                                 "original_grouping": "deployment",
                                 "type": "schematics_workspace"
                             },
-                            "default_value": "",
-                            "description": "IBM Cloud Schematics workspace ID of an existing Secure infrastructure on VPC for regulated industries with VSIs deployment. If you do not yet have an existing deployment, click [here](https://cloud.ibm.com/catalog/content/slz-vpc-with-vsis-a87ed9a5-d130-47a3-980b-5ceb1d4f9280-global#create) to create one. When you deploy this module, use one of supported [configurations](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/tree/main/examples/ibm-catalog/presets/slz-for-powervs). Copy the configuration from the link into the `override_json_string` deployment value.",
-                            "display_name": "Schematics workspace",
-                            "hidden": false,
-                            "key": "prerequisite_workspace_id",
-                            "required": true,
-                            "type": "string"
+                            "key": "prerequisite_workspace_id"
                         },
                         {
                             "custom_config": {
@@ -602,13 +514,7 @@
                                 "original_grouping": "deployment",
                                 "type": "region"
                             },
-                            "default_value": "",
-                            "description": "IBM Cloud data center location where IBM PowerVS infrastructure will be created.",
-                            "display_name": "Region",
-                            "hidden": false,
-                            "key": "powervs_zone",
-                            "required": true,
-                            "type": "string"
+                            "key": "powervs_zone"
                         },
                         {
                             "custom_config": {
@@ -619,58 +525,22 @@
                                 "original_grouping": "deployment",
                                 "type": "resource_group"
                             },
-                            "default_value": "",
-                            "description": "Existing IBM Cloud resource group name.",
-                            "display_name": "Resource group",
-                            "hidden": false,
-                            "key": "powervs_resource_group_name",
-                            "required": true,
-                            "type": "string"
+                            "key": "powervs_resource_group_name"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "{\n    name = \"mgmt_net\"\n    cidr = \"10.51.0.0/24\"\n  }",
-                            "description": "Name of the IBM Cloud PowerVS management subnet and CIDR to create.",
-                            "hidden": false,
-                            "key": "powervs_management_network",
-                            "required": false,
-                            "type": "object"
+                            "key": "powervs_management_network"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "{\n    name = \"bkp_net\"\n    cidr = \"10.52.0.0/24\"\n  }",
-                            "description": "Name of the IBM Cloud PowerVS backup network and CIDR to create.",
-                            "hidden": false,
-                            "key": "powervs_backup_network",
-                            "required": false,
-                            "type": "object"
+                            "key": "powervs_backup_network"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "{\n    count          = 2\n    speed          = 5000\n    global_routing = true\n    metered        = true\n  }",
-                            "description": "Cloud connection configuration: speed (50, 100, 200, 500, 1000, 2000, 5000, 10000 Mb/s), count (1 or 2 connections), global_routing (true or false), metered (true or false)",
-                            "hidden": false,
-                            "key": "cloud_connection",
-                            "required": false,
-                            "type": "object"
+                            "key": "cloud_connection"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "[\"SLES15-SP3-SAP\", \"SLES15-SP3-SAP-NETWEAVER\", \"RHEL8-SP4-SAP\", \"RHEL8-SP4-SAP-NETWEAVER\"]",
-                            "description": "List of Images to be imported into cloud account from catalog images",
-                            "hidden": false,
-                            "key": "powervs_image_names",
-                            "required": false,
-                            "type": "array"
+                            "key": "powervs_image_names"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "[\"sap\"]",
-                            "description": "List of tag names for the IBM Cloud PowerVS workspace",
-                            "hidden": false,
-                            "key": "tags",
-                            "required": false,
-                            "type": "array"
+                            "key": "tags"
                         },
                         {
                             "custom_config": {
@@ -678,66 +548,27 @@
                                 "original_grouping": "deployment",
                                 "type": "multiline_secure_value"
                             },
-                            "default_value": "__NULL__",
-                            "description": "Private SSH key (RSA format) used to login to IBM PowerVS instances. Should match to uploaded public SSH key referenced by 'ssh_public_key'. Entered data must be in [heredoc strings format](https://www.terraform.io/language/expressions/strings#heredoc-strings). The key is not uploaded or stored. For more information about SSH keys, see [SSH keys](https://cloud.ibm.com/docs/vpc?topic=vpc-ssh-keys).",
-                            "display_name": "Multiline secure value",
-                            "hidden": false,
                             "key": "ssh_private_key",
                             "required": false,
                             "type": "password"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": false,
-                            "description": "Specify if proxy will be configured. Proxy is mandatory for the landscape, so set this to 'false' only if proxy already exists. Proxy will allow to communicate from IBM PowerVS instances with IBM Cloud network and with public internet. SSH private key must be provided.",
-                            "hidden": false,
-                            "key": "configure_proxy",
-                            "required": false,
-                            "type": "boolean"
+                            "key": "configure_proxy"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": false,
-                            "description": "Specify if DNS forwarder will be configured. This will allow you to use central DNS servers (e.g. IBM Cloud DNS servers) sitting outside of the created IBM PowerVS infrastructure. If yes, ensure 'dns_forwarder_config' optional variable is set properly. DNS forwarder will be installed on the private-svs vsi. SSH private key must be provided.",
-                            "hidden": false,
-                            "key": "configure_dns_forwarder",
-                            "required": false,
-                            "type": "boolean"
+                            "key": "configure_dns_forwarder"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": false,
-                            "description": "Specify if NFS server will be configured. This will allow you easily to share files between PowerVS instances (e.g., SAP installation files). NFS server will be installed on the private-svs vsi. SSH private key must be provided.",
-                            "hidden": false,
-                            "key": "configure_nfs_server",
-                            "required": false,
-                            "type": "boolean"
+                            "key": "configure_nfs_server"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": false,
-                            "description": "Specify if NTP forwarder will be configured. This will allow you to synchronize time between IBM PowerVS instances. NTP forwarder will be installed on the private-svs vsi. SSH private key must be provided.",
-                            "hidden": false,
-                            "key": "configure_ntp_forwarder",
-                            "required": false,
-                            "type": "boolean"
+                            "key": "configure_ntp_forwarder"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "{\n    \"dns_servers\" = \"161.26.0.7; 161.26.0.8; 9.9.9.9;\"\n  }",
-                            "description": "Configuration for the DNS forwarder to a DNS service that is not reachable directly from PowerVS.",
-                            "hidden": false,
-                            "key": "dns_forwarder_config",
-                            "required": false,
-                            "type": "object"
+                            "key": "dns_forwarder_config"
                         },
                         {
-                            "custom_config": {},
-                            "default_value": "__NULL__",
-                            "description": "The IBM Cloud platform API key needed to deploy IAM enabled resources.",
-                            "hidden": true,
                             "key": "ibmcloud_api_key",
-                            "required": false,
                             "type": "password"
                         }
                     ],
