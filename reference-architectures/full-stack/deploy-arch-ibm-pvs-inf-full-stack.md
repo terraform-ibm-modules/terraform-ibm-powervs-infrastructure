@@ -38,14 +38,14 @@ content-type: reference-architecture
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Power Virtual Server with VPC landing zone - variation 'Full-Stack'
-{: #full-deploy-arch-ibm-pvs-inf-full-stack}
+# Power Virtual Server with VPC landing zone - as new deployment
+{: #deploy-arch-ibm-pvs-inf-full-stack}
 {: toc-content-type="reference-architecture"}
 {: toc-industry="Technology"}
 {: toc-use-case="ITServiceManagement"}
 {: toc-compliance="SAPCertified"}
 
-The "full stack" variation of the Power Virtual Server with VPC landing zone creates a Power Virtual Server workspace and connects it with VPC services.
+New deployment of the Power Virtual Server with VPC landing zone creates a Power Virtual Server workspace and connects it with VPC services.
 
 A proxy service for public internet access from the PowerVS workspace is configured. You can optionally configure some management components on VPC (such as an NFS server, NTP forwarder, and DNS forwarder).
 
@@ -59,7 +59,7 @@ A proxy service for public internet access from the PowerVS workspace is configu
 
 ![Design requirements for 'Power Virtual Server with VPC landing zone' - variation 'PowerVS workspace'.](heat-map-deploy-arch-ibm-pvs-inf-full-stack.svg "Design requirements"){: caption="Figure 2. Scope of the solution requirements" caption-side="bottom"}
 
-IBM Cloud® Power Virtual Servers (PowerVS) is a public cloud offering that an enterprise can use to establish its own private IBM Power computing environment on shared public cloud infrastructure. PowerVS is logically isolated from all other public cloud tenants and infrastructure components, creating a private, secure place on the public cloud. This reference architecture provides a framework to build a PowerVS offering according to the best practices and requirements from the IBM Cloud® deployable architectures framework.
+IBM Cloud® Power Virtual Servers (PowerVS) is a public cloud offering that an enterprise can use to establish its own private IBM Power computing environment on shared public cloud infrastructure. PowerVS is logically isolated from all other public cloud tenants and infrastructure components, creating a private, secure place on the public cloud. This deployable architecture provides a framework to build a PowerVS offering according to the best practices and requirements from the IBM Cloud.
 
 ## Components
 {: #full-components}
