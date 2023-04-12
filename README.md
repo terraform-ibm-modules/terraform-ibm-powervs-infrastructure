@@ -1,6 +1,6 @@
 <!-- BEGIN MODULE HOOK -->
 
-# IBM Power Systems Virtual Server with VPC landing zone module
+# IBM Power Virtual Server with VPC landing zone module
 
 [![Graduated (Supported)](https://img.shields.io/badge/status-Graduated%20(Supported)-brightgreen?style=plastic)](https://terraform-ibm-modules.github.io/documentation/#/badge-status)
 [![build status](https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone/actions/workflows/ci.yml/badge.svg)](https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone/actions/workflows/ci.yml)
@@ -8,9 +8,9 @@
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)
 [![latest release](https://img.shields.io/github/v/release/terraform-ibm-modules/terraform-ibm-powervs-infrastructure?logo=GitHub&sort=semver)](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/releases/latest)
 
-The Power Systems Virtual Server with VPC landing zone module automates the following tasks:
+The Power Virtual Server with VPC landing zone module automates the following tasks:
 
-- Creates an IBM® Power Systems™ Virtual Server (PowerVS) workspace.
+- Creates an IBM® Power Virtual Server (PowerVS) workspace.
 - Creates an SSH key.
 - Creates two private networks: a management network and a backup network
 - Creates two [IBM Cloud connections](https://cloud.ibm.com/docs/power-iaas?topic=power-iaas-cloud-connections) with an option to reuse the connections.
@@ -27,12 +27,12 @@ The following limitations apply to the module:
     - SUSE Linux Enterprise Server (SLES) version 15 SP3
     - Red Hat Enterprise Linux (RHEL) version 8.4
 
-For more information about IBM Power Systems Virtual Server see the [getting started](https://cloud.ibm.com/docs/power-iaas?topic=power-iaas-getting-started) IBM Cloud docs.
+For more information about IBM Power Virtual Server see the [getting started](https://cloud.ibm.com/docs/power-iaas?topic=power-iaas-getting-started) IBM Cloud docs.
 
 ## Reference architectures
 
-- Power Systems Virtual Server with VPC landing zone - [PowerVS workspace full-stack variation](reference-architectures/full-stack/deploy-arch-ibm-pvs-inf-full-stack.md)
-- Power Systems Virtual Server with VPC landing zone - [PowerVS workspace extension variation](reference-architectures/extension/deploy-arch-ibm-pvs-inf-extension.md)
+- Power Virtual Server with VPC landing zone - [PowerVS workspace full-stack variation](reference-architectures/full-stack/deploy-arch-ibm-pvs-inf-full-stack.md)
+- Power Virtual Server with VPC landing zone - [PowerVS workspace extension variation](reference-architectures/extension/deploy-arch-ibm-pvs-inf-extension.md)
 
 ## Usage
 ```hcl
@@ -80,8 +80,8 @@ You need the following permissions to run this module.
     - **Resource Group** service
         - `Viewer` platform access
     - IAM Services
-        - **Workspace for Power Systems Virtual Server** service
-        - **Power Systems Virtual Server** service
+        - **Workspace for Power Virtual Server** service
+        - **Power Virtual Server** service
             - `Editor` platform access
         - **VPC Infrastructure Services** service
             - `Editor` platform access
@@ -95,9 +95,9 @@ You need the following permissions to run this module.
 <!-- BEGIN EXAMPLES HOOK -->
 ## Examples
 
-- [ IBM Cloud catalog example for Power Systems Virtual Server with VPC landing zone Extension Variation](examples/ibm-catalog/deployable-architectures/extension)
-- [ IBM Cloud catalog example for Power Systems Virtual Server with VPC landing zone Full-Stack Variation](examples/ibm-catalog/deployable-architectures/full-stack)
-- [ Standard example for Power Systems Virtual Server with VPC landing zone](examples/terraform-registry/extension)
+- [ IBM Cloud catalog example for Power Virtual Server with VPC landing zone Extension Variation](examples/ibm-catalog/deployable-architectures/extension)
+- [ IBM Cloud catalog example for Power Virtual Server with VPC landing zone Full-Stack Variation](examples/ibm-catalog/deployable-architectures/full-stack)
+- [ Standard example for Power Virtual Server with VPC landing zone](examples/terraform-registry/extension)
 <!-- END EXAMPLES HOOK -->
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
