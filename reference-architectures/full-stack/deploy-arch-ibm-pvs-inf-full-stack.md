@@ -1,7 +1,7 @@
 ---
 copyright:
   years: 2023
-lastupdated: "2023-02-21"
+lastupdated: "2023-04-13"
 
 keywords:
 
@@ -12,7 +12,7 @@ authors:
 
 version: v1.0.0
 
-deployment-url:
+deployment-url: https://cloud.ibm.com/catalog/architecture/deploy-arch-ibm-pvs-inf-2dd486c7-b317-4aaa-907b-42671485ad96-global
 
 docs: https://cloud.ibm.com/docs/powervs-vpc
 
@@ -44,6 +44,7 @@ content-type: reference-architecture
 {: toc-industry="Technology"}
 {: toc-use-case="ITServiceManagement"}
 {: toc-compliance="SAPCertified"}
+{: toc-version="1.0.0"}
 
 New deployment of the Power Virtual Server with VPC landing zone creates a Power Virtual Server workspace and connects it with VPC services.
 
@@ -52,7 +53,7 @@ A proxy service for public internet access from the PowerVS workspace is configu
 ## Architecture diagram
 {: #full-architecture-diagram}
 
-![Architecture diagram for 'Power Virtual Server with VPC landing zone' - variation 'PowerVS workspace'.](deploy-arch-ibm-pvs-inf-full-stack.svg "Architecture diagram"){: caption="Figure 1. Single-zone PowerVS workspace accessible over secure landing zone" caption-side="bottom"}
+![Architecture diagram for 'Power Virtual Server with VPC landing zone' - variation 'PowerVS workspace'.](deploy-arch-ibm-pvs-inf-full-stack.svg "Architecture diagram"){: caption="Figure 1. Single-zone PowerVS workspace accessible over secure landing zone" caption-side="bottom"}{: external download="deploy-arch-ibm-pvs-inf-full-stack.svg"}
 
 ## Design requirements
 {: #full-design-requirements}
