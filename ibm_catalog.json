@@ -495,7 +495,8 @@
                                 "original_grouping": "deployment",
                                 "type": "schematics_workspace"
                             },
-                            "key": "prerequisite_workspace_id"
+                            "key": "prerequisite_workspace_id",
+                            "required": true
                         },
                         {
                             "custom_config": {
@@ -514,7 +515,8 @@
                                 "original_grouping": "deployment",
                                 "type": "region"
                             },
-                            "key": "powervs_zone"
+                            "key": "powervs_zone",
+                            "required": true
                         },
                         {
                             "custom_config": {
@@ -525,7 +527,8 @@
                                 "original_grouping": "deployment",
                                 "type": "resource_group"
                             },
-                            "key": "powervs_resource_group_name"
+                            "key": "powervs_resource_group_name",
+                            "required": true
                         },
                         {
                             "key": "powervs_management_network"
