@@ -44,6 +44,7 @@ content-type: reference-architecture
 {: toc-industry="Technology"}
 {: toc-use-case="ITServiceManagement"}
 {: toc-compliance="SAPCertified"}
+{: toc-version="7.0.0"}
 
 The Power Virtual Server with VPC landing zone as extension of VPC landing zone creates a Power Virtual Server workspace and connects it with VPC services. It builds on the VPC service that you created when you deployed VPC landing zone or Power Virtual Server with VPC landing zone.
 
