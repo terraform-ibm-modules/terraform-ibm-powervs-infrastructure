@@ -1,7 +1,9 @@
 #!/bin/bash
 ############################################################
-# Configures squid client proxy and Registers the OS.      #
+# Configures squid client proxy, Registers and updates OS  #
 # Change values of the variables and execute               #
+# to run the function, pass as argument:                   #
+# setup_proxy or register_os update_os                     #
 ############################################################
 
 proxy_ip_and_port=${proxy_ip_and_port}
@@ -29,29 +31,47 @@ if [ -f /etc/redhat-release ]; then
   echo -e "Detected OS: $OS_DETECTED \n" #"$(cat /etc/redhat-release)"
 fi
 
-###########################################
-# SLES : Proxy and OS Registration        #
-###########################################
-if [ "$OS_DETECTED" == "SLES" ]; then
-
-  ARCH=$(uname -p)
-  FILE="/etc/bash.bashrc"
-
+##########################################
+#  Proxy setup                           #
+##########################################
+setup_proxy() {
+  if [ "$OS_DETECTED" == "SLES" ]; then
+    FILE="/etc/bash.bashrc"
+  else
+    FILE="/etc/bashrc"
+  fi
   if [[ -n $no_proxy_ip ]]; then
     grep -qx "export no_proxy=$no_proxy_ip" "$FILE" || echo "export no_proxy=$no_proxy_ip" >>"$FILE"
-    source /etc/bash.bashrc
+    source "$FILE"
   fi
 
   if [[ $proxy_ip_and_port =~ ^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+:[0-9]+$ ]]; then
     #######  SQUID Forward PROXY CLIENT SETUP ############
     echo "Proxy Server IP:  $proxy_ip_and_port"
-    echo "Setting exports in /etc/bash.bashrc file On SLES"
+    echo "Setting exports in $FILE file On $OS_DETECTED"
     grep -qx "export http_proxy=http://$proxy_ip_and_port" "$FILE" || echo "export http_proxy=http://$proxy_ip_and_port" >>"$FILE"
     grep -qx "export https_proxy=http://$proxy_ip_and_port" "$FILE" || echo "export https_proxy=http://$proxy_ip_and_port" >>"$FILE"
     grep -qx "export HTTP_PROXY=http://$proxy_ip_and_port" "$FILE" || echo "export HTTP_PROXY=http://$proxy_ip_and_port" >>"$FILE"
     grep -qx "export HTTPS_PROXY=http://$proxy_ip_and_port" "$FILE" || echo "export HTTPS_PROXY=http://$proxy_ip_and_port" >>"$FILE"
-    source /etc/bash.bashrc
+    if [ "$OS_DETECTED" == "RHEL" ]; then
+      grep -qx "proxy=http://$proxy_ip_and_port" /etc/dnf/dnf.conf || echo "proxy=http://$proxy_ip_and_port" >>/etc/dnf/dnf.conf
+    fi
+    source "$FILE"
+  fi
 
+}
+
+###########################################
+# OS Registration                         #
+###########################################
+
+register_os() {
+  ARCH=$(uname -p)
+
+  ###########################################
+  # SLES Registration                       #
+  ###########################################
+  if [ "$OS_DETECTED" == "SLES" ]; then
     ###### Checking if system is registered. Subscription is done when not registered.
     OS_Activated="$(SUSEConnect --status | grep -ci "\"status\":\"Registered\"")"
     if [ "$OS_Activated" -ge 1 ]; then
@@ -106,29 +126,11 @@ if [ "$OS_DETECTED" == "SLES" ]; then
       fi
     fi
   fi
-fi
 
-###########################################
-# RHEL : Proxy and OS Registration        #
-###########################################
-if [ "$OS_DETECTED" == "RHEL" ]; then
-  ARCH=$(uname -p)
-  FILE="/etc/bashrc"
-
-  if [[ -n $no_proxy_ip ]]; then
-    grep -qx "export no_proxy=$no_proxy_ip" "$FILE" || echo "export no_proxy=$no_proxy_ip" >>"$FILE"
-    source /etc/bashrc
-  fi
-
-  if [[ $proxy_ip_and_port =~ ^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+:[0-9]+$ ]]; then
-    #######  SQUID Forward PROXY CLIENT SETUP ############
-    echo "Setting exports in /etc/bashrc and /etc/dnf file On RHEL"
-    grep -qx "export http_proxy=http://$proxy_ip_and_port" "$FILE" || echo "export http_proxy=http://$proxy_ip_and_port" >>"$FILE"
-    grep -qx "export https_proxy=http://$proxy_ip_and_port" "$FILE" || echo "export https_proxy=http://$proxy_ip_and_port" >>"$FILE"
-    grep -qx "export HTTP_PROXY=http://$proxy_ip_and_port" "$FILE" || echo "export HTTP_PROXY=http://$proxy_ip_and_port" >>"$FILE"
-    grep -qx "export HTTPS_PROXY=http://$proxy_ip_and_port" "$FILE" || echo "export HTTPS_PROXY=http://$proxy_ip_and_port" >>"$FILE"
-    grep -qx "proxy=http://$proxy_ip_and_port" /etc/dnf/dnf.conf || echo "proxy=http://$proxy_ip_and_port" >>/etc/dnf/dnf.conf
-    source /etc/bashrc
+  ###########################################
+  # RHEL Registration                       #
+  ###########################################
+  if [ "$OS_DETECTED" == "RHEL" ]; then
 
     ###### Checking if system is registered. Subscription is done when not registered.
     OS_Activated="$(subscription-manager status | grep -ic "Overall Status: Current")"
@@ -171,6 +173,10 @@ if [ "$OS_DETECTED" == "RHEL" ]; then
             break
           fi
         done
+
+        ### Update linux system roles
+        yum update rhel-system-roles-sap -y
+
       fi
 
       if [[ $count -gt 15 ]]; then
@@ -185,4 +191,45 @@ if [ "$OS_DETECTED" == "RHEL" ]; then
       fi
     fi
   fi
-fi
+}
+
+##########################################
+#  Update OS and Reboot                  #
+##########################################
+update_os() {
+
+  # check if the server is a proxy client, as updating os overwrites proxy settings in file"
+  if [ "$OS_DETECTED" == "SLES" ]; then
+    FILE="/etc/bash.bashrc"
+  else
+    FILE="/etc/bashrc"
+  fi
+
+  # set client=1 indicating that proxy client setup exists and reconfigure after OS update
+  if grep -qx "export http_proxy=http://$proxy_ip_and_port" $FILE; then client=1; fi
+
+  # update os
+  echo "Updating OS"
+
+  if [ "$OS_DETECTED" == "SLES" ]; then
+    zypper update -y >>os_update.log
+  fi
+
+  if [ "$OS_DETECTED" == "RHEL" ]; then
+    yum update -y >>os_update.log
+  fi
+
+  echo "Updating OS Completed"
+
+  # Reconfigure proxy client config after updating os
+  if [[ $client ]]; then
+    setup_proxy
+  fi
+
+  # Reboot VM
+  echo "Rebooting VM"
+  shutdown -r +1
+}
+
+### to run the function, pass them as argument: setup_proxy , register_os , update_os
+$1
