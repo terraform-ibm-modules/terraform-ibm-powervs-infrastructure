@@ -660,9 +660,9 @@
                             "flavors": [
                                 "standard"
                             ],
-                            "id": "a87ed9a5-d130-47a3-980b-5ceb1d4f9280-global",
-                            "name": "slz-vpc-with-vsis",
-                            "version": ">=1.7.0"
+                            "id": "ef663980-4c71-4fac-af4f-4a510a9bcf68-global",
+                            "name": "deploy-arch-ibm-slz-vsi",
+                            "version": ">=3.0.0"
                         }
                     ],
                     "architecture": {
