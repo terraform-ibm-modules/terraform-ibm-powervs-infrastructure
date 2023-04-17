@@ -28,7 +28,7 @@ This example sets up the following infrastructure:
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_landing_zone"></a> [landing\_zone](#module\_landing\_zone) | git::https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone.git//patterns//vsi | v3.0.3 |
+| <a name="module_landing_zone"></a> [landing\_zone](#module\_landing\_zone) | git::https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone.git//patterns//vsi | v3.5.1 |
 | <a name="module_powervs_infra"></a> [powervs\_infra](#module\_powervs\_infra) | ../../../../ | n/a |
 
 ## Resources

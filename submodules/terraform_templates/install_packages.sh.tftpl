@@ -48,7 +48,7 @@ if [ "$OS_DETECTED" == "SLES" ]; then
     zypper --gpg-auto-import-keys ref >/dev/null
 
     ##### Zypper Install Ansible #####
-    echo "Installing ansible package via zypper"
+    echo "Installing ansible package using zypper"
     zypper install -y ansible >/dev/null
     if ! which ansible >/dev/null; then
       echo "ansible installation failed, exiting"
@@ -57,7 +57,7 @@ if [ "$OS_DETECTED" == "SLES" ]; then
 
     ##### Zypper Install AWSCLI on x86 only #####
     if [[ "$$ARCH" == "x86_64" ]]; then
-      echo "Installing awscli package via zypper"
+      echo "Installing awscli package using zypper"
       zypper install -y aws-cli >/dev/null
       if ! which aws >/dev/null; then
         echo "awscli installation failed, exiting"
@@ -81,7 +81,7 @@ if [ "$OS_DETECTED" == "RHEL" ]; then
     ##### pip Install Ansible ####
     if [[ "$ARCH" == "x86_64" ]]; then
       if ! subscription-manager repos --enable=ansible-2-for-rhel-8-x86_64-rpms >/dev/null 2>/dev/null; then
-        echo "Installing python3-pip package via yum"
+        echo "Installing python3-pip package using yum"
         yum install -y python3-pip >/dev/null 2>/dev/null
         echo "Installing ansible using pip3 package"
         pip3 install ansible >/dev/null 2>/dev/null
@@ -92,7 +92,7 @@ if [ "$OS_DETECTED" == "RHEL" ]; then
     fi
     if [[ "$ARCH" == "ppc64le" ]]; then
       if ! subscription-manager repos --enable=ansible-2-for-rhel-8-ppc64le-rpms >/dev/null 2>/dev/null; then
-        echo "Installing python3-pip package via yum"
+        echo "Installing python3-pip package using yum"
         yum install -y python3-pip >/dev/null 2>/dev/null
         echo "Installing ansible using pip3 package"
         pip3 install ansible >/dev/null 2>/dev/null
@@ -107,7 +107,7 @@ if [ "$OS_DETECTED" == "RHEL" ]; then
     fi
 
     ##### yum Install expect ####
-    echo "Installing expect package via yum"
+    echo "Installing expect package using yum"
     yum install -y expect >/dev/null 2>/dev/null
     if ! which unbuffer >/dev/null; then
       echo "expect installation failed, exiting"
