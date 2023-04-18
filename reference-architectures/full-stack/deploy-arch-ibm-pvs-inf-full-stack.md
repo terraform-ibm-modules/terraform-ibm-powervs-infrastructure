@@ -12,6 +12,10 @@ authors:
 
 version: v1.0.0
 
+# Whether the reference architecture is published to Cloud Docs production.
+# When set to false, the file is available only in staging. Default is false.
+production: false
+
 deployment-url: https://cloud.ibm.com/catalog/architecture/deploy-arch-ibm-pvs-inf-2dd486c7-b317-4aaa-907b-42671485ad96-global
 
 docs: https://cloud.ibm.com/docs/powervs-vpc
