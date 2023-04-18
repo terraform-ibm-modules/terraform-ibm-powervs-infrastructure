@@ -206,6 +206,7 @@ EOF
       {
         "ansible_playbook_name" : local.ansible_config_mgmt_svs_playbook_name
         "ansible_extra_vars_path" : local.dst_ansible_vars_path
+        "ansible_log_path" : local.dst_scripts_dir
       }
     )
   }

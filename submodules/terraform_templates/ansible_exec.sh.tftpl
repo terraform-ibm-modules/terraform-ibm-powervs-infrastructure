@@ -1,15 +1,20 @@
 #!/bin/bash
+
+### Using input variables from terraform
 playbook_name=${ansible_playbook_name}
+ansible_vars_location=${ansible_extra_vars_path}
+ansible_log_path=${ansible_log_path}
+
 power_linux_sap_arr=("powervs-services.yml")
 
 ### Download and install collections from ansible-galaxy
 ansible-galaxy collection install ibm.power_linux_sap:1.0.10
 
 ## Execute ansible playbook
-echo -e "[defaults]\nlog_path=$${playbook_name}.$(date "+%Y.%m.%d-%H.%M.%S").log" >ansible.cfg
+echo -e "[defaults]\nlog_path=$${ansible_log_path}/$${playbook_name}.$(date "+%Y.%m.%d-%H.%M.%S").log" >ansible.cfg
 
 if [[ " $${power_linux_sap_arr[@]} " =~ " $${playbook_name} " ]]; then
-    unbuffer ansible-playbook --connection=local -i 'localhost,' ~/.ansible/collections/ansible_collections/ibm/power_linux_sap/playbooks/$${playbook_name} --extra-vars "@${ansible_extra_vars_path}"
+    unbuffer ansible-playbook --connection=local -i 'localhost,' ~/.ansible/collections/ansible_collections/ibm/power_linux_sap/playbooks/$${playbook_name} --extra-vars "@$${ansible_vars_location}"
     status=$?
     [ $status -eq 0 ] && echo \"Playbook command successful\" || exit 1
 fi
