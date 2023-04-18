@@ -53,7 +53,7 @@
                     "name": "powervs-workspace",
                     "install_type": "fullstack",
                     "working_directory": "examples/ibm-catalog/deployable-architectures/full-stack",
-                    "usage_template": "module \"power-infrastructure\" {\n  source =                     \"https://cm.globalcatalog.cloud.ibm.com/api/v1-beta/offering/source//${{workingDirectory}}?archive=tgz&flavor=${{flavor}}&kind=${{kind}}&name=${{name}}&version=${{version}}\"\n  powervs_zone                = var.powervs_zone\n  powervs_resource_group_name  = var.powervs_resource_group_name\n  prefix                  = var.prefix\n  preset = var.preset\n  ssh_private_key             = var.ssh_private_key\n  ssh_public_key              = var.ssh_public_key\n  }",
+                    "usage_template": "module \"power-infrastructure\" {\n  source =                     \"https://cm.globalcatalog.cloud.ibm.com/api/v1-beta/offering/source//${{workingDirectory}}?archive=tgz&flavor=${{flavor}}&kind=${{kind}}&name=${{name}}&version=${{version}}\"\n  powervs_zone                = var.powervs_zone\n  powervs_resource_group_name  = var.powervs_resource_group_name\n  prefix                      = var.prefix\n  preset                    = var.preset\n  ssh_private_key             = var.ssh_private_key\n  ssh_public_key              = var.ssh_public_key\n  }",
                     "compliance": {
                         "controls": [
                             {
