@@ -222,75 +222,57 @@
                     ],
                     "outputs": [
                         {
-                            "description": "Name of management network in created PowerVS infrastructure.",
                             "key": "powervs_management_network_name"
                         },
                         {
-                            "description": "DNS forwarder host for created PowerVS infrastructure.",
                             "key": "dns_host_or_ip"
                         },
                         {
-                            "description": "SSH public key name in created PowerVS infrastructure.",
                             "key": "powervs_sshkey_name"
                         },
                         {
-                            "description": "A list of the names of the VPC.",
                             "key": "vpc_names"
                         },
                         {
-                            "description": "Zone where PowerVS infrastructure is created.",
                             "key": "powervs_zone"
                         },
                         {
-                            "description": "Proxy host:port for created PowerVS infrastructure.",
                             "key": "proxy_host_or_ip_port"
                         },
                         {
-                            "description": "A list of VSI with name, id, zone, and primary ipv4 address, VPC Name, and floating IP.",
                             "key": "vsi_list"
                         },
                         {
-                            "description": "Name of backup network in created PowerVS infrastructure.",
                             "key": "powervs_backup_network_name"
                         },
                         {
-                            "description": "NTP host for created PowerVS infrastructure.",
                             "key": "ntp_host_or_ip"
                         },
                         {
-                            "description": "NFS host for created PowerVS infrastructure.",
                             "key": "nfs_host_or_ip_path"
                         },
                         {
-                            "description": "IBM Cloud resource group where PowerVS infrastructure is created.",
                             "key": "powervs_resource_group_name"
                         },
                         {
-                            "description": "Number of cloud connections configured in created PowerVS infrastructure.",
                             "key": "cloud_connection_count"
                         },
                         {
-                            "description": "The prefix that is associated with all resources",
                             "key": "prefix"
                         },
                         {
-                            "description": "PowerVS infrastructure workspace name.",
                             "key": "powervs_workspace_name"
                         },
                         {
-                            "description": "The name of the transit gateway.",
                             "key": "transit_gateway_name"
                         },
                         {
-                            "description": "Access host(jump/bastion) for created PowerVS infrastructure.",
                             "key": "access_host_or_ip"
                         },
                         {
-                            "description": "ID of the IBM Cloud Schematics workspace. Returns null if not ran in Schematics",
                             "key": "schematics_workspace_id"
                         },
                         {
-                            "description": "A list of the vsis names provisioned within the VPCs.",
                             "key": "vsi_names"
                         }
                     ],
@@ -577,55 +559,42 @@
                     ],
                     "outputs": [
                         {
-                            "description": "PowerVS infrastructure workspace name.",
                             "key": "powervs_workspace_name"
                         },
                         {
-                            "description": "SSH public key name in created PowerVS infrastructure.",
                             "key": "powervs_sshkey_name"
                         },
                         {
-                            "description": "Name of backup network in created PowerVS infrastructure.",
                             "key": "powervs_backup_network_name"
                         },
                         {
-                            "description": "Proxy host:port for created PowerVS infrastructure.",
                             "key": "proxy_host_or_ip_port"
                         },
                         {
-                            "description": "Zone where PowerVS infrastructure is created.",
                             "key": "powervs_zone"
                         },
                         {
-                            "description": "NTP host for created PowerVS infrastructure.",
                             "key": "ntp_host_or_ip"
                         },
                         {
-                            "description": "Access host for created PowerVS infrastructure.",
                             "key": "access_host_or_ip"
                         },
                         {
-                            "description": "Number of cloud connections configured in created PowerVS infrastructure.",
                             "key": "cloud_connection_count"
                         },
                         {
-                            "description": "ID of the IBM Cloud Schematics workspace. Returns null if not ran in Schematics",
                             "key": "schematics_workspace_id"
                         },
                         {
-                            "description": "Name of management network in created PowerVS infrastructure.",
                             "key": "powervs_management_network_name"
                         },
                         {
-                            "description": "DNS forwarder host for created PowerVS infrastructure.",
                             "key": "dns_host_or_ip"
                         },
                         {
-                            "description": "NFS host for created PowerVS infrastructure.",
                             "key": "nfs_host_or_ip_path"
                         },
                         {
-                            "description": "IBM Cloud resource group where PowerVS infrastructure is created.",
                             "key": "powervs_resource_group_name"
                         }
                     ],
