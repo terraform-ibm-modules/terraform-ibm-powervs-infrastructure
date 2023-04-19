@@ -12,7 +12,7 @@ The Power Virtual Server with VPC landing zone module automates the following ta
 
 - Creates an IBM® Power Virtual Server (PowerVS) workspace.
 - Creates an SSH key.
-- Creates two private networks: a management network and a backup network
+- Creates two private networks: a management network and a backup network.
 - Creates two [IBM Cloud connections](https://cloud.ibm.com/docs/power-iaas?topic=power-iaas-cloud-connections) with an option to reuse the connections.
 - Attaches the IBM Cloud connections to a transit gateway.
 - Attaches the private networks to the IBM Cloud connections.
