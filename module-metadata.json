@@ -420,8 +420,8 @@
       },
       "type": "object({\n    dns_enable        = bool\n    server_host_or_ip = string\n    dns_servers       = string\n  })"
     },
-    "nfs_path": {
-      "name": "nfs_path",
+    "nfs_host_or_ip_path": {
+      "name": "nfs_host_or_ip_path",
       "description": "NFS host for created PowerVS infrastructure.",
       "pos": {
         "filename": "outputs.tf",
@@ -913,7 +913,7 @@
           },
           "pos": {
             "filename": "submodules/power_management_services_setup/main.tf",
-            "line": 172
+            "line": 177
           }
         },
         "null_resource.install_packages": {
@@ -925,7 +925,7 @@
           },
           "pos": {
             "filename": "submodules/power_management_services_setup/main.tf",
-            "line": 126
+            "line": 131
           }
         },
         "null_resource.perform_proxy_client_setup": {
@@ -940,7 +940,7 @@
           },
           "pos": {
             "filename": "submodules/power_management_services_setup/main.tf",
-            "line": 34
+            "line": 32
           }
         },
         "null_resource.update_os": {
@@ -952,7 +952,7 @@
           },
           "pos": {
             "filename": "submodules/power_management_services_setup/main.tf",
-            "line": 81
+            "line": 80
           }
         },
         "time_sleep.wait_for_reboot": {
@@ -964,7 +964,7 @@
           },
           "pos": {
             "filename": "submodules/power_management_services_setup/main.tf",
-            "line": 117
+            "line": 122
           }
         }
       },
@@ -995,7 +995,7 @@
           },
           "pos": {
             "filename": "submodules/power_management_services_setup/main.tf",
-            "line": 172
+            "line": 177
           }
         },
         "null_resource.install_packages": {
@@ -1007,7 +1007,7 @@
           },
           "pos": {
             "filename": "submodules/power_management_services_setup/main.tf",
-            "line": 126
+            "line": 131
           }
         },
         "null_resource.perform_proxy_client_setup": {
@@ -1022,7 +1022,7 @@
           },
           "pos": {
             "filename": "submodules/power_management_services_setup/main.tf",
-            "line": 34
+            "line": 32
           }
         },
         "null_resource.update_os": {
@@ -1034,7 +1034,7 @@
           },
           "pos": {
             "filename": "submodules/power_management_services_setup/main.tf",
-            "line": 81
+            "line": 80
           }
         },
         "time_sleep.wait_for_reboot": {
@@ -1046,7 +1046,7 @@
           },
           "pos": {
             "filename": "submodules/power_management_services_setup/main.tf",
-            "line": 117
+            "line": 122
           }
         }
       },
@@ -1077,7 +1077,7 @@
           },
           "pos": {
             "filename": "submodules/power_management_services_setup/main.tf",
-            "line": 172
+            "line": 177
           }
         },
         "null_resource.install_packages": {
@@ -1089,7 +1089,7 @@
           },
           "pos": {
             "filename": "submodules/power_management_services_setup/main.tf",
-            "line": 126
+            "line": 131
           }
         },
         "null_resource.perform_proxy_client_setup": {
@@ -1104,7 +1104,7 @@
           },
           "pos": {
             "filename": "submodules/power_management_services_setup/main.tf",
-            "line": 34
+            "line": 32
           }
         },
         "null_resource.update_os": {
@@ -1116,7 +1116,7 @@
           },
           "pos": {
             "filename": "submodules/power_management_services_setup/main.tf",
-            "line": 81
+            "line": 80
           }
         },
         "time_sleep.wait_for_reboot": {
@@ -1128,7 +1128,7 @@
           },
           "pos": {
             "filename": "submodules/power_management_services_setup/main.tf",
-            "line": 117
+            "line": 122
           }
         }
       },
@@ -1159,7 +1159,7 @@
           },
           "pos": {
             "filename": "submodules/power_management_services_setup/main.tf",
-            "line": 172
+            "line": 177
           }
         },
         "null_resource.install_packages": {
@@ -1171,7 +1171,7 @@
           },
           "pos": {
             "filename": "submodules/power_management_services_setup/main.tf",
-            "line": 126
+            "line": 131
           }
         },
         "null_resource.perform_proxy_client_setup": {
@@ -1186,7 +1186,7 @@
           },
           "pos": {
             "filename": "submodules/power_management_services_setup/main.tf",
-            "line": 34
+            "line": 32
           }
         },
         "null_resource.update_os": {
@@ -1198,7 +1198,7 @@
           },
           "pos": {
             "filename": "submodules/power_management_services_setup/main.tf",
-            "line": 81
+            "line": 80
           }
         },
         "time_sleep.wait_for_reboot": {
@@ -1210,7 +1210,7 @@
           },
           "pos": {
             "filename": "submodules/power_management_services_setup/main.tf",
-            "line": 117
+            "line": 122
           }
         }
       },

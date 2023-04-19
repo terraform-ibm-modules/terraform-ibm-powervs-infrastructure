@@ -53,7 +53,7 @@ output "ntp_host_or_ip" {
   value       = var.ntp_forwarder_config["server_host_or_ip"]
 }
 
-output "nfs_path" {
+output "nfs_host_or_ip_path" {
   description = "NFS host for created PowerVS infrastructure."
   value       = "${var.nfs_config["server_host_or_ip"]}:${var.nfs_config["nfs_file_system"][0]["mount_path"]}"
 }

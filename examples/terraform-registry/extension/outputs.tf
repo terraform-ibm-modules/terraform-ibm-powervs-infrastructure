@@ -53,7 +53,7 @@ output "ntp_host_or_ip" {
   value       = module.powervs_infra.ntp_host_or_ip
 }
 
-output "nfs_path" {
+output "nfs_host_or_ip_path" {
   description = "NFS host for created PowerVS infrastructure."
-  value       = module.powervs_infra.nfs_path
+  value       = module.powervs_infra.nfs_host_or_ip_path
 }
