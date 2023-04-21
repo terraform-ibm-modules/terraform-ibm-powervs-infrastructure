@@ -50,7 +50,7 @@ provider "ibm" {
 
 module "landing_zone" {
   # source               = "git::https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone.git//patterns//vsi?ref=v3.5.0"
-  source = "git::https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone.git//patterns//vsi?ref=testing123"
+  source               = "git::https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone.git//patterns//vsi?ref=testing123"
   ibmcloud_api_key     = var.ibmcloud_api_key
   ssh_public_key       = var.ssh_public_key
   region               = lookup(local.ibm_powervs_zone_cloud_region_map, var.powervs_zone, null)
