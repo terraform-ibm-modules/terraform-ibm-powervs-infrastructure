@@ -73,15 +73,15 @@ locals {
   split_images_index         = ceil(local.images_length / 2)
   catalog_images_to_import_1 = flatten([for stock_image in data.ibm_pi_catalog_images.catalog_images_ds.images : [for image_name in slice(var.powervs_image_names, 0, local.split_images_index) : stock_image if stock_image.name == image_name]])
   catalog_images_to_import_2 = flatten([for stock_image in data.ibm_pi_catalog_images.catalog_images_ds.images : [for image_name in slice(var.powervs_image_names, local.split_images_index, local.images_length) : stock_image if stock_image.name == image_name]])
-  split_images_1             = slice(var.powervs_image_names, 0, local.split_images_index)
-  split_images_2             = slice(var.powervs_image_names, local.split_images_index, local.images_length)
 }
 
 resource "ibm_pi_image" "import_images_1" {
-  count                = length(local.split_images_1)
+  for_each = { for idx, val in local.catalog_images_to_import_1 :
+    val.name => val
+  }
   pi_cloud_instance_id = ibm_resource_instance.powervs_workspace.guid
-  pi_image_id          = local.catalog_images_to_import_1[count.index].image_id
-  pi_image_name        = local.catalog_images_to_import_1[count.index].name
+  pi_image_id          = each.value.image_id
+  pi_image_name        = each.value.name
 
   timeouts {
     create = "9m"
@@ -90,10 +90,10 @@ resource "ibm_pi_image" "import_images_1" {
 
 resource "ibm_pi_image" "import_images_2" {
   depends_on           = [ibm_pi_image.import_images_1]
-  count                = length(local.split_images_2)
+  for_each             = { for idx, val in local.catalog_images_to_import_2 : val.name => val }
   pi_cloud_instance_id = ibm_resource_instance.powervs_workspace.guid
-  pi_image_id          = local.catalog_images_to_import_2[count.index].image_id
-  pi_image_name        = local.catalog_images_to_import_2[count.index].name
+  pi_image_id          = each.value.image_id
+  pi_image_name        = each.value.name
 
   timeouts {
     create = "9m"

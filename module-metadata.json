@@ -1244,7 +1244,7 @@
           },
           "pos": {
             "filename": "submodules/power_workspace/main.tf",
-            "line": 80
+            "line": 78
           }
         },
         "ibm_pi_image.import_images_2": {
