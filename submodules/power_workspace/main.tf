@@ -80,17 +80,14 @@ locals {
   split_images_3 = (length(local.split_images_2) > 0 && (local.count_img - 2) > 0 ? toset(element(local.split_images_list, (local.count_img - length(local.split_images_list)) + 2)) : [])
 
   catalog_images_to_import_1 = flatten([for stock_image in data.ibm_pi_catalog_images.catalog_images_ds.images : [for image_name in local.split_images_1 : stock_image if stock_image.name == image_name]])
-
   catalog_images_to_import_2 = flatten([for stock_image in data.ibm_pi_catalog_images.catalog_images_ds.images : [for image_name in local.split_images_2 : stock_image if stock_image.name == image_name]])
-
   catalog_images_to_import_3 = flatten([for stock_image in data.ibm_pi_catalog_images.catalog_images_ds.images : [for image_name in local.split_images_3 : stock_image if stock_image.name == image_name]])
 
 }
 
 resource "ibm_pi_image" "import_images_1" {
 
-  for_each = toset(local.split_images_1)
-
+  for_each             = toset(local.split_images_1)
   pi_cloud_instance_id = ibm_resource_instance.powervs_workspace.guid
   pi_image_id          = local.catalog_images_to_import_1[index(tolist(local.split_images_1), each.key)].image_id
   pi_image_name        = each.key
@@ -101,10 +98,8 @@ resource "ibm_pi_image" "import_images_1" {
 }
 
 resource "ibm_pi_image" "import_images_2" {
-  depends_on = [ibm_pi_image.import_images_1]
-
-  for_each = toset(local.split_images_2)
-
+  depends_on           = [ibm_pi_image.import_images_1]
+  for_each             = toset(local.split_images_2)
   pi_cloud_instance_id = ibm_resource_instance.powervs_workspace.guid
   pi_image_id          = local.catalog_images_to_import_2[index(tolist(local.split_images_2), each.key)].image_id
   pi_image_name        = each.key
@@ -115,10 +110,8 @@ resource "ibm_pi_image" "import_images_2" {
 }
 
 resource "ibm_pi_image" "import_images_3" {
-  depends_on = [ibm_pi_image.import_images_2]
-
-  for_each = toset(local.split_images_3)
-
+  depends_on           = [ibm_pi_image.import_images_2]
+  for_each             = toset(local.split_images_3)
   pi_cloud_instance_id = ibm_resource_instance.powervs_workspace.guid
   pi_image_id          = local.catalog_images_to_import_3[index(tolist(local.split_images_3), each.key)].image_id
   pi_image_name        = each.key
