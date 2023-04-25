@@ -71,9 +71,13 @@ data "ibm_pi_catalog_images" "catalog_images_ds" {
 locals {
 
   split_images_list = chunklist(var.powervs_image_names, 2)
-  split_images_1    = toset(element(local.split_images_list, 0))
-  split_images_2    = toset(element(local.split_images_list, 1))
-  split_images_3    = toset(element(local.split_images_list, 2))
+  count_img         = length(local.split_images_list)
+
+  split_images_1 = (local.count_img > 0 ? toset(element(local.split_images_list, local.count_img - length(local.split_images_list))) : [])
+
+  split_images_2 = (length(local.split_images_1) > 0 && (local.count_img - 1) > 0 ? toset(element(local.split_images_list, (local.count_img - length(local.split_images_list)) + 1)) : [])
+
+  split_images_3 = (length(local.split_images_2) > 0 && (local.count_img - 2) > 0 ? toset(element(local.split_images_list, (local.count_img - length(local.split_images_list)) + 2)) : [])
 
   catalog_images_to_import_1 = flatten([for stock_image in data.ibm_pi_catalog_images.catalog_images_ds.images : [for image_name in local.split_images_1 : stock_image if stock_image.name == image_name]])
 
