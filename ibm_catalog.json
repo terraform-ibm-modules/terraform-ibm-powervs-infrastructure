@@ -55,74 +55,44 @@
                     "working_directory": "examples/ibm-catalog/deployable-architectures/full-stack",
                     "usage_template": "module \"power-infrastructure\" {\n  source =                     \"https://cm.globalcatalog.cloud.ibm.com/api/v1-beta/offering/source//${{workingDirectory}}?archive=tgz&flavor=${{flavor}}&kind=${{kind}}&name=${{name}}&version=${{version}}\"\n  powervs_zone                = var.powervs_zone\n  powervs_resource_group_name  = var.powervs_resource_group_name\n  prefix                      = var.prefix\n  preset                    = var.preset\n  ssh_private_key             = var.ssh_private_key\n  ssh_public_key              = var.ssh_public_key\n  }",
                     "compliance": {
+                        "authority": "scc-v3",
                         "controls": [
                             {
-                                "profile_name": "SAP on IBM Power compliance v0.1.2",
-                                "control_id": "AC-2(1)"
-                            },
-                            {
-                                "profile_name": "SAP on IBM Power compliance v0.1.2",
-                                "control_id": "AC-2(a)"
-                            },
-                            {
-                                "profile_name": "SAP on IBM Power compliance v0.1.2",
-                                "control_id": "AC-2(c)"
-                            },
-                            {
-                                "profile_name": "SAP on IBM Power compliance v0.1.2",
-                                "control_id": "AC-2(i)"
-                            },
-                            {
-                                "profile_name": "SAP on IBM Power compliance v0.1.2",
-                                "control_id": "AC-2(j)"
-                            },
-                            {
-                                "profile_name": "SAP on IBM Power compliance v0.1.2",
-                                "control_id": "AC-3"
-                            },
-                            {
-                                "profile_name": "SAP on IBM Power compliance v0.1.2",
-                                "control_id": "AC-6-0"
-                            },
-                            {
-                                "profile_name": "SAP on IBM Power compliance v0.1.2",
-                                "control_id": "AU-2(a)"
-                            },
-                            {
-                                "profile_name": "SAP on IBM Power compliance v0.1.2",
-                                "control_id": "CA-7(a)"
-                            },
-                            {
-                                "profile_name": "SAP on IBM Power compliance v0.1.2",
-                                "control_id": "CM-2"
-                            },
-                            {
-                                "profile_name": "SAP on IBM Power compliance v0.1.2",
-                                "control_id": "CM-8(4)"
-                            },
-                            {
-                                "profile_name": "SAP on IBM Power compliance v0.1.2",
-                                "control_id": "IA-4"
-                            },
-                            {
-                                "profile_name": "SAP on IBM Power compliance v0.1.2",
-                                "control_id": "SC-8-0"
-                            },
-                            {
-                                "profile_name": "SAP on IBM Power compliance v0.1.2",
-                                "control_id": "RA-5(a)"
-                            },
-                            {
-                                "profile_name": "SAP on IBM Power compliance v0.1.2",
-                                "control_id": "SC-12"
-                            },
-                            {
-                                "profile_name": "SAP on IBM Power compliance v0.1.2",
-                                "control_id": "SC-13"
-                            },
-                            {
-                                "profile_name": "SAP on IBM Power compliance v0.1.2",
-                                "control_id": "SC-36"
+                                "profile": {
+                                    "name": "IBM Cloud for Financial Services",
+                                    "version": "1.2.0"
+                                },
+                                "names": [
+                                    "AC-2(4)(0)",
+                                    "AC-2(7)(b)",
+                                    "AC-2(g)",
+                                    "AC-6(9)(0)",
+                                    "AU-2(a)",
+                                    "AU-2(d)",
+                                    "AU-3(0)",
+                                    "AU-4(0)",
+                                    "AU-8(1)(a)",
+                                    "AU-8(1)(b)",
+                                    "AU-8(a)",
+                                    "AU-8(b)",
+                                    "AU-11(0)",
+                                    "AU-12(a)",
+                                    "AU-12(b)",
+                                    "AU-12(c)",
+                                    "CA-7(d)",
+                                    "IA-3(0)",
+                                    "SC-2(0)",
+                                    "SC-3(0)",
+                                    "SC-7(4)(c)",
+                                    "SC-8(0)",
+                                    "SC-8(1)(0)",
+                                    "SC-11(0)",
+                                    "SC-23(0)",
+                                    "SI-4(a)",
+                                    "SI-4(b)",
+                                    "SI-4(c)",
+                                    "SI-12(0)"
+                                ]
                             }
                         ]
                     },
@@ -393,74 +363,44 @@
                     "working_directory": "examples/ibm-catalog/deployable-architectures/extension",
                     "usage_template": "module \"power-infrastructure\" {\n  source =                     \"https://cm.globalcatalog.cloud.ibm.com/api/v1-beta/offering/source//${{workingDirectory}}?archive=tgz&flavor=${{flavor}}&kind=${{kind}}&name=${{name}}&version=${{version}}\"\n  powervs_zone                = var.powervs_zone\n  powervs_resource_group_name  = var.powervs_resource_group_name\n  prerequisite_workspace_id              = var.prerequisite_workspace_id\n  }",
                     "compliance": {
+                        "authority": "scc-v3",
                         "controls": [
                             {
-                                "profile_name": "SAP on IBM Power compliance v0.1.2",
-                                "control_id": "AC-2(1)"
-                            },
-                            {
-                                "profile_name": "SAP on IBM Power compliance v0.1.2",
-                                "control_id": "AC-2(a)"
-                            },
-                            {
-                                "profile_name": "SAP on IBM Power compliance v0.1.2",
-                                "control_id": "AC-2(c)"
-                            },
-                            {
-                                "profile_name": "SAP on IBM Power compliance v0.1.2",
-                                "control_id": "AC-2(i)"
-                            },
-                            {
-                                "profile_name": "SAP on IBM Power compliance v0.1.2",
-                                "control_id": "AC-2(j)"
-                            },
-                            {
-                                "profile_name": "SAP on IBM Power compliance v0.1.2",
-                                "control_id": "AC-3"
-                            },
-                            {
-                                "profile_name": "SAP on IBM Power compliance v0.1.2",
-                                "control_id": "AC-6-0"
-                            },
-                            {
-                                "profile_name": "SAP on IBM Power compliance v0.1.2",
-                                "control_id": "AU-2(a)"
-                            },
-                            {
-                                "profile_name": "SAP on IBM Power compliance v0.1.2",
-                                "control_id": "CA-7(a)"
-                            },
-                            {
-                                "profile_name": "SAP on IBM Power compliance v0.1.2",
-                                "control_id": "CM-2"
-                            },
-                            {
-                                "profile_name": "SAP on IBM Power compliance v0.1.2",
-                                "control_id": "CM-8(4)"
-                            },
-                            {
-                                "profile_name": "SAP on IBM Power compliance v0.1.2",
-                                "control_id": "IA-4"
-                            },
-                            {
-                                "profile_name": "SAP on IBM Power compliance v0.1.2",
-                                "control_id": "SC-8-0"
-                            },
-                            {
-                                "profile_name": "SAP on IBM Power compliance v0.1.2",
-                                "control_id": "RA-5(a)"
-                            },
-                            {
-                                "profile_name": "SAP on IBM Power compliance v0.1.2",
-                                "control_id": "SC-12"
-                            },
-                            {
-                                "profile_name": "SAP on IBM Power compliance v0.1.2",
-                                "control_id": "SC-13"
-                            },
-                            {
-                                "profile_name": "SAP on IBM Power compliance v0.1.2",
-                                "control_id": "SC-36"
+                                "profile": {
+                                    "name": "IBM Cloud for Financial Services",
+                                    "version": "1.2.0"
+                                },
+                                "names": [
+                                    "AC-2(4)(0)",
+                                    "AC-2(7)(b)",
+                                    "AC-2(g)",
+                                    "AC-6(9)(0)",
+                                    "AU-2(a)",
+                                    "AU-2(d)",
+                                    "AU-3(0)",
+                                    "AU-4(0)",
+                                    "AU-8(1)(a)",
+                                    "AU-8(1)(b)",
+                                    "AU-8(a)",
+                                    "AU-8(b)",
+                                    "AU-11(0)",
+                                    "AU-12(a)",
+                                    "AU-12(b)",
+                                    "AU-12(c)",
+                                    "CA-7(d)",
+                                    "IA-3(0)",
+                                    "SC-2(0)",
+                                    "SC-3(0)",
+                                    "SC-7(4)(c)",
+                                    "SC-8(0)",
+                                    "SC-8(1)(0)",
+                                    "SC-11(0)",
+                                    "SC-23(0)",
+                                    "SI-4(a)",
+                                    "SI-4(b)",
+                                    "SI-4(c)",
+                                    "SI-12(0)"
+                                ]
                             }
                         ]
                     },
