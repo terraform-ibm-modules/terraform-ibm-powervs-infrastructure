@@ -3,6 +3,11 @@ output "powervs_workspace_name" {
   value       = module.powervs_infra.powervs_workspace_name
 }
 
+output "powervs_workspace_crn" {
+  description = "PowerVS infrastructure workspace CRN."
+  value       = module.powervs_infra.powervs_workspace_crn
+}
+
 output "powervs_sshkey_name" {
   description = "SSH public key name in created PowerVS infrastructure."
   value       = module.powervs_infra.powervs_sshkey_name

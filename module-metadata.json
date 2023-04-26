@@ -396,7 +396,7 @@
       "value": "var.access_host_or_ip",
       "pos": {
         "filename": "outputs.tf",
-        "line": 36
+        "line": 41
       },
       "type": "string"
     },
@@ -406,7 +406,7 @@
       "value": "var.cloud_connection_count",
       "pos": {
         "filename": "outputs.tf",
-        "line": 21
+        "line": 26
       },
       "type": "number"
     },
@@ -416,7 +416,7 @@
       "value": "var.dns_forwarder_config",
       "pos": {
         "filename": "outputs.tf",
-        "line": 46
+        "line": 51
       },
       "type": "object({\n    dns_enable        = bool\n    server_host_or_ip = string\n    dns_servers       = string\n  })"
     },
@@ -425,7 +425,7 @@
       "description": "NFS host for created PowerVS infrastructure.",
       "pos": {
         "filename": "outputs.tf",
-        "line": 56
+        "line": 61
       }
     },
     "ntp_host_or_ip": {
@@ -434,7 +434,7 @@
       "value": "var.ntp_forwarder_config",
       "pos": {
         "filename": "outputs.tf",
-        "line": 51
+        "line": 56
       },
       "type": "object({\n    ntp_enable        = bool\n    server_host_or_ip = string\n  })"
     },
@@ -444,7 +444,7 @@
       "value": "var.powervs_backup_network",
       "pos": {
         "filename": "outputs.tf",
-        "line": 31
+        "line": 36
       },
       "type": "object({\n    name = string\n    cidr = string\n  })"
     },
@@ -454,7 +454,7 @@
       "value": "var.powervs_management_network",
       "pos": {
         "filename": "outputs.tf",
-        "line": 26
+        "line": 31
       },
       "type": "object({\n    name = string\n    cidr = string\n  })"
     },
@@ -464,7 +464,7 @@
       "value": "var.powervs_resource_group_name",
       "pos": {
         "filename": "outputs.tf",
-        "line": 16
+        "line": 21
       },
       "type": "string",
       "cloud_data_type": "resource_group",
@@ -478,9 +478,19 @@
       "value": "var.powervs_sshkey_name",
       "pos": {
         "filename": "outputs.tf",
-        "line": 6
+        "line": 11
       },
       "type": "string"
+    },
+    "powervs_workspace_crn": {
+      "name": "powervs_workspace_crn",
+      "description": "PowerVS infrastructure workspace CRN.",
+      "value": "module.power_workspace.powervs_workspace_crn",
+      "pos": {
+        "filename": "outputs.tf",
+        "line": 6
+      },
+      "type": "TypeString"
     },
     "powervs_workspace_name": {
       "name": "powervs_workspace_name",
@@ -498,7 +508,7 @@
       "value": "var.powervs_zone",
       "pos": {
         "filename": "outputs.tf",
-        "line": 11
+        "line": 16
       },
       "type": "string",
       "cloud_data_type": "region"
@@ -508,7 +518,7 @@
       "description": "Proxy host for created PowerVS infrastructure.",
       "pos": {
         "filename": "outputs.tf",
-        "line": 41
+        "line": 46
       }
     }
   },
@@ -1352,6 +1362,18 @@
             "filename": "submodules/power_workspace/main.tf",
             "line": 10
           }
+        }
+      },
+      "outputs": {
+        "powervs_workspace_crn": {
+          "name": "powervs_workspace_crn",
+          "description": "PowerVS infrastructure workspace CRN.",
+          "value": "ibm_resource_instance.powervs_workspace.target_crn",
+          "pos": {
+            "filename": "submodules/power_workspace/outputs.tf",
+            "line": 1
+          },
+          "type": "TypeString"
         }
       },
       "pos": {
