@@ -1254,7 +1254,7 @@
           },
           "pos": {
             "filename": "submodules/power_workspace/main.tf",
-            "line": 80
+            "line": 86
           }
         },
         "ibm_pi_image.import_images_2": {
@@ -1266,7 +1266,19 @@
           },
           "pos": {
             "filename": "submodules/power_workspace/main.tf",
-            "line": 91
+            "line": 98
+          }
+        },
+        "ibm_pi_image.import_images_3": {
+          "mode": "managed",
+          "type": "ibm_pi_image",
+          "name": "import_images_3",
+          "provider": {
+            "name": "ibm"
+          },
+          "pos": {
+            "filename": "submodules/power_workspace/main.tf",
+            "line": 110
           }
         },
         "ibm_pi_key.ssh_key": {
