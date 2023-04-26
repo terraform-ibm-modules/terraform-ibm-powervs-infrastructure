@@ -188,6 +188,10 @@
                         },
                         {
                             "key": "tags"
+                        },
+                        {
+                            "key": "ibmcloud_api_key",
+                            "type": "multiline_secure_value"
                         }
                     ],
                     "outputs": [
@@ -494,8 +498,7 @@
                         },
                         {
                             "key": "ibmcloud_api_key",
-                            "type": "password",
-                            "hidden": true
+                            "type": "multiline_secure_value"
                         }
                     ],
                     "outputs": [
