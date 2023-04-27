@@ -150,7 +150,7 @@
                             },
                             "key": "ssh_public_key",
                             "required": true,
-                            "type": "password"
+                            "type": "multiline_secure_value"
                         },
                         {
                             "custom_config": {
@@ -160,7 +160,7 @@
                             },
                             "key": "ssh_private_key",
                             "required": true,
-                            "type": "password"
+                            "type": "multiline_secure_value"
                         },
                         {
                             "key": "configure_dns_forwarder"
