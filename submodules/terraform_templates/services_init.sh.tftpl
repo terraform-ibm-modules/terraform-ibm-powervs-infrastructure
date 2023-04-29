@@ -3,7 +3,7 @@
 # Configures squid client proxy, Registers and updates OS  #
 # Change values of the variables and execute               #
 # to run the function, pass as argument:                   #
-# setup_proxy or register_os update_os                     #
+# setup_proxy ,register_os or update_os                    #
 ############################################################
 
 proxy_ip_and_port=${proxy_ip_and_port}
@@ -17,29 +17,29 @@ if [ -f /etc/SuSE-release ]; then
   OS_DETECTED=SLES
   #  echo "Executing command: cat /etc/SuSE-release"
   echo -e "Detected OS: $OS_DETECTED \n" # "$(cat /etc/SuSE-release)"
+  FILE="/etc/bash.bashrc"
 fi
 
 if grep --quiet "SUSE Linux Enterprise Server" /etc/os-release; then
   OS_DETECTED=SLES
   #  echo "Executing command: cat /etc/os-release"
   echo -e "Detected OS: $OS_DETECTED \n" # "$(cat /etc/os-release)"
+  FILE="/etc/bash.bashrc"
 fi
 
 if [ -f /etc/redhat-release ]; then
   OS_DETECTED=RHEL
   #  echo "Executing command: cat /etc/redhat-release"
   echo -e "Detected OS: $OS_DETECTED \n" #"$(cat /etc/redhat-release)"
+  FILE="/etc/bashrc"
 fi
+
+source $FILE
 
 ##########################################
 #  Proxy setup                           #
 ##########################################
 setup_proxy() {
-  if [ "$OS_DETECTED" == "SLES" ]; then
-    FILE="/etc/bash.bashrc"
-  else
-    FILE="/etc/bashrc"
-  fi
   if [[ -n $no_proxy_ip ]]; then
     grep -qx "export no_proxy=$no_proxy_ip" "$FILE" || echo "export no_proxy=$no_proxy_ip" >>"$FILE"
     source "$FILE"
@@ -59,6 +59,26 @@ setup_proxy() {
     source "$FILE"
   fi
 
+}
+
+###########################################
+# zypper process check                    #
+###########################################
+
+zypper_check() {
+  ##### If zypper command is running, wait for it to exit as this causes a blocker for SUSEConnect command
+  ##### Timeout 5 mins
+  count=1
+  while [ $count -le 30 ]; do
+    zypper_check=$(ps -eaf | grep -v grep | grep -ci zypper)
+    if [ "$zypper_check" -eq 0 ]; then
+      return
+    fi
+    sleep 10
+    count=$((count + 1))
+  done
+  echo "zypper command is still running, please kill it to continue"
+  exit 1
 }
 
 ###########################################
@@ -118,6 +138,9 @@ register_os() {
         echo "Timeout: SLES registration process failed, or still ongoing"
         exit 1
       fi
+
+      ##### If zypper command is running, wait for it to exit as this causes a blocker for SUSEConnect command
+      zypper_check
 
       Activation_status="$(SUSEConnect --status | grep -ci "error")"
       if [ "$Activation_status" != 0 ]; then
@@ -197,13 +220,6 @@ register_os() {
 #  Update OS and Reboot                  #
 ##########################################
 update_os() {
-
-  # check if the server is a proxy client, as updating os overwrites proxy settings in file"
-  if [ "$OS_DETECTED" == "SLES" ]; then
-    FILE="/etc/bash.bashrc"
-  else
-    FILE="/etc/bashrc"
-  fi
 
   # set client=1 indicating that proxy client setup exists and reconfigure after OS update
   if grep -qx "export http_proxy=http://$proxy_ip_and_port" $FILE; then client=1; fi
