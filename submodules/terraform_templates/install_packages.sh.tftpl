@@ -56,7 +56,7 @@ if [ "$OS_DETECTED" == "SLES" ]; then
     fi
 
     ##### Zypper Install AWSCLI on x86 only #####
-    if [[ "$$ARCH" == "x86_64" ]]; then
+    if [[ "$ARCH" == "x86_64" ]]; then
       echo "Installing awscli package using zypper"
       zypper install -y aws-cli >/dev/null
       if ! which aws >/dev/null; then
