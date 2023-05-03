@@ -16,6 +16,7 @@ jobs:
     uses: terraform-ibm-modules/common-pipeline-assets/.github/workflows/common-terraform-module-ci.yml@v1.8.1
     secrets: inherit
     with:
-      craTarget: "examples/ibm-catalog/deployable-architectures/fullstack"
+      craSCCv2: true
+      craTarget: "examples/ibm-catalog/deployable-architectures/full-stack"
       #craGoalIgnoreFile: "cra-tf-validate-ignore-goals.json"
       craEnvironmentVariables: "TF_VAR_prefix=full-infra,TF_VAR_powervs_zone=tok04"
