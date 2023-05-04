@@ -64,7 +64,9 @@ module "power_management_service_squid" {
 }
 
 resource "time_sleep" "wait_for_squid_setup_to_complete" {
-  depends_on      = [module.power_management_service_squid]
+  depends_on = [module.power_management_service_squid]
+  count      = var.squid_config["squid_enable"] ? 1 : 0
+
   create_duration = "60s"
 }
 
