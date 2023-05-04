@@ -582,11 +582,11 @@
                     "dependencies": [
                         {
                             "flavors": [
-                                "standard"
+                                "powervs-workspace"
                             ],
-                            "id": "ef663980-4c71-4fac-af4f-4a510a9bcf68-global",
-                            "name": "deploy-arch-ibm-slz-vsi",
-                            "version": ">=3.0.0"
+                            "id": "2dd486c7-b317-4aaa-907b-42671485ad96",
+                            "name": "deploy-arch-ibm-pvs-inf",
+                            "version": ">=8.0.0"
                         }
                     ],
                     "architecture": {
