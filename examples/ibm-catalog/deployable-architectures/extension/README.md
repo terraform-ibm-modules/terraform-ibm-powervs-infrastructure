@@ -9,8 +9,9 @@ It provisions the following infrastructure on top of deployed Full Stack solutio
     - Attaches the IBM Cloud connections to a transit gateway
     - Attaches the private networks to the IBM Cloud connections
     - Creates an SSH key
-    - Optionally configures the public internet proxy (Squid), DNS forwarder, NTP forwarder and NFS on a specified host and sets the host as server for these services by using Ansible roles.
 
+
+Note: Kindly make sure that you are choosing a PowerVS zone different from that of the pre-requisite infrastructure.
 ## Before you begin
 
 If you do not have a PowerVS infrastructure that is the full stack solution for a PowerVS Workspace that includes the full stack solution for Secure Landing Zone, create it first.
