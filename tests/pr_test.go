@@ -69,8 +69,8 @@ func setupOptions(t *testing.T, prefix string) *testhelper.TestOptions {
 		"powervs_resource_group_name": options.ResourceGroup,
 		"preset":                      dst.String(),
 		// locking into syd05 due to other data center issues
-		//"powervs_zone": "syd05",
-		"powervs_zone": options.Region,
+		"powervs_zone": "lon04",
+		//"powervs_zone": options.Region,
 	}
 
 	return options
