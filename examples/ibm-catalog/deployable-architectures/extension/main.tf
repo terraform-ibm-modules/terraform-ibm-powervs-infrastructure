@@ -43,64 +43,70 @@ data "ibm_schematics_output" "schematics_output" {
 
 
 locals {
-  slz_output     = jsondecode(data.ibm_schematics_output.schematics_output.output_json)
-  prefix         = local.slz_output[0].prefix.value
-  ssh_public_key = local.slz_output[0].ssh_public_key.value
 
-  landing_zone_config = jsondecode(local.slz_output[0].config.value)
-  nfs_disk_exists     = [for vsi in local.landing_zone_config.vsi : vsi.block_storage_volumes[0].capacity if contains(keys(vsi), "block_storage_volumes")]
-  nfs_disk_size       = length(local.nfs_disk_exists) >= 1 ? local.nfs_disk_exists[0] : ""
+  fullstack_output     = jsondecode(data.ibm_schematics_output.schematics_output.output_json)
+  prefix               = local.fullstack_output[0].prefix.value
+  ssh_public_key       = local.fullstack_output[0].ssh_public_key.value
+  transit_gateway_name = local.fullstack_output[0].transit_gateway_name.value
 
-  transit_gateway_name = local.slz_output[0].transit_gateway_name.value
+  access_host_or_ip_exists   = contains(keys(local.fullstack_output[0]), "access_host_or_ip") ? true : false
+  access_host_or_ip          = local.access_host_or_ip_exists ? local.fullstack_output[0].access_host_or_ip.value : ""
+  proxy_host_or_ip_exists    = contains(keys(local.fullstack_output[0]), "proxy_host_or_ip_port") && local.access_host_or_ip != "" ? true : false
+  proxy_host_or_ip           = local.proxy_host_or_ip_exists ? split(":", local.fullstack_output[0].proxy_host_or_ip_port.value)[0] : ""
+  squid_port                 = local.proxy_host_or_ip_exists ? split(":", local.fullstack_output[0].proxy_host_or_ip_port.value)[1] : ""
+  dns_host_or_ip_exists      = contains(keys(local.fullstack_output[0]), "dns_host_or_ip") && local.access_host_or_ip != "" ? true : false
+  dns_host_or_ip             = local.dns_host_or_ip_exists ? local.fullstack_output[0].dns_host_or_ip.value : ""
+  nfs_host_or_ip_path_exists = contains(keys(local.fullstack_output[0]), "nfs_host_or_ip_path") && local.access_host_or_ip != "" ? true : false
+  nfs_host_or_ip             = local.nfs_host_or_ip_path_exists ? split(":", local.fullstack_output[0].nfs_host_or_ip_path.value)[0] : ""
+  nfs_path                   = local.nfs_host_or_ip_path_exists ? split(":", local.fullstack_output[0].nfs_host_or_ip_path.value)[1] : ""
+  ntp_host_or_ip_exists      = contains(keys(local.fullstack_output[0]), "ntp_host_or_ip") && local.access_host_or_ip != "" ? true : false
+  ntp_host_or_ip             = local.ntp_host_or_ip_exists ? local.fullstack_output[0].ntp_host_or_ip.value : ""
 
-  access_host_or_ip_exists = contains(keys(local.slz_output[0].fip_vsi.value[0]), "floating_ip") ? true : false
-  access_host_or_ip        = local.access_host_or_ip_exists ? local.slz_output[0].fip_vsi.value[0].floating_ip : ""
-  private_svs_vsi_exists   = contains(local.slz_output[0].vsi_names.value, "${local.slz_output[0].prefix.value}-private-svs-1") ? true : false
-  private_svs_ip           = local.private_svs_vsi_exists ? [for vsi in local.slz_output[0].vsi_list.value : vsi.ipv4_address if vsi.name == "${local.slz_output[0].prefix.value}-private-svs-1"][0] : ""
-  inet_svs_vsi_exists      = contains(local.slz_output[0].vsi_names.value, "${local.slz_output[0].prefix.value}-inet-svs-1") ? true : false
-  inet_svs_ip              = local.inet_svs_vsi_exists ? [for vsi in local.slz_output[0].vsi_list.value : vsi.ipv4_address if vsi.name == "${local.slz_output[0].prefix.value}-inet-svs-1"][0] : ""
-  squid_port               = "3128"
-
-  valid_json_used   = local.access_host_or_ip_exists && local.private_svs_vsi_exists && local.inet_svs_vsi_exists ? true : false
-  validate_json_msg = "Existing prerequisite id has not been deployed using valid JSON preset supported for Power."
+  valid_powervs_zone_used   = local.fullstack_output[0].powervs_zone != var.powervs_zone ? true : false
+  validate_powervs_zone_msg = "A Power workspace already exists in the provided PowerVS zone. Please use a different zone."
   # tflint-ignore: terraform_unused_declarations
-  validate_json_chk = regex("^${local.validate_json_msg}$", (local.valid_json_used ? local.validate_json_msg : ""))
+  validate_json_chk = regex("^${local.validate_powervs_zone_msg}$", (local.valid_powervs_zone_used ? local.validate_powervs_zone_msg : ""))
+
+  fullstack_mgt_net       = local.fullstack_output[0].powervs_management_network_subnet.value
+  fullstack_bkp_net       = local.fullstack_output[0].powervs_backup_network_subnet.value
+  valid_mgt_subnet_used   = local.fullstack_mgt_net != var.powervs_management_network["cidr"] ? true : false
+  validate_mgt_subnet_msg = "This management subnet CIDR already exists in the infrastructure. Please use another CIDR block."
+  # tflint-ignore: terraform_unused_declarations
+  validate_mgt_subnet_chk = regex("^${local.validate_mgt_subnet_msg}$", (local.valid_mgt_subnet_used ? local.validate_mgt_subnet_msg : ""))
+
+  valid_bkp_subnet_used   = local.fullstack_bkp_net != var.powervs_backup_network["cidr"] ? true : false
+  validate_bkp_subnet_msg = "This backup subnet CIDR already exists in the infrastructure. Please use another CIDR block."
+  # tflint-ignore: terraform_unused_declarations
+  validate_bkp_subnet_chk = regex("^${local.validate_bkp_subnet_msg}$", (local.valid_bkp_subnet_used ? local.validate_bkp_subnet_msg : ""))
 }
 
 locals {
-
-  ### Squid Proxy will be installed on "${local.prefix}-inet-svs-1" vsi
   squid_config = {
-    "squid_enable"      = var.configure_proxy
-    "server_host_or_ip" = local.inet_svs_ip
+    "squid_enable"      = false
+    "server_host_or_ip" = local.proxy_host_or_ip
     "squid_port"        = local.squid_port
   }
-
-  ### Proxy client will be configured on "${local.prefix}-private-svs-1" vsi
   perform_proxy_client_setup = {
-    squid_client_ips = [local.private_svs_ip]
+    squid_client_ips = distinct([local.ntp_host_or_ip, local.nfs_host_or_ip, local.dns_host_or_ip])
     squid_server_ip  = local.squid_config["server_host_or_ip"]
     squid_port       = local.squid_config["squid_port"]
     no_proxy_hosts   = "161.0.0.0/8"
   }
 
-  ### DNS Forwarder will be configured on "${local.prefix}-private-svs-1" vsi
-  dns_config = merge(var.dns_forwarder_config, {
-    "dns_enable"        = var.configure_dns_forwarder
-    "server_host_or_ip" = local.private_svs_ip
-  })
-
-  ### NTP Forwarder will be configured on "${local.prefix}-private-svs-1" vsi
+  dns_config = {
+    "dns_enable"        = false
+    "server_host_or_ip" = local.dns_host_or_ip
+    "dns_servers"       = "161.26.0.7; 161.26.0.8; 9.9.9.9;"
+  }
   ntp_config = {
-    "ntp_enable"        = var.configure_ntp_forwarder
-    "server_host_or_ip" = local.private_svs_ip
+    "ntp_enable"        = false
+    "server_host_or_ip" = local.ntp_host_or_ip
   }
 
-  ### NFS server will be configured on "${local.prefix}-private-svs-1" vsi
   nfs_config = {
-    "nfs_enable"        = local.nfs_disk_size != "" ? var.configure_nfs_server : false
-    "server_host_or_ip" = local.private_svs_ip
-    "nfs_file_system"   = [{ name = "nfs", mount_path : "/nfs", size : local.nfs_disk_size }]
+    "nfs_enable"        = false
+    "server_host_or_ip" = local.nfs_host_or_ip
+    "nfs_file_system"   = [{ name = "nfs", mount_path : local.nfs_path, size : null }]
   }
 
 }

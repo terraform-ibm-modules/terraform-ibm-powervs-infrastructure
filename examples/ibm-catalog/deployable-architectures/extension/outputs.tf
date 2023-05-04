@@ -1,3 +1,32 @@
+output "prefix" {
+  description = "The prefix that is associated with all resources"
+  value       = local.prefix
+}
+
+output "vpc_names" {
+  description = "A list of the names of the VPC."
+  value       = local.fullstack_output[0].vpc_names.value
+}
+
+output "vsi_names" {
+  description = "A list of the vsis names provisioned within the VPCs."
+  value       = local.fullstack_output[0].vsi_names.value
+}
+
+#output "ssh_public_key" {
+#  description = "The string value of the ssh public key used when deploying VPC"
+#  value = local.fullstack_output[0].ssh_public_key.value
+#}
+
+output "transit_gateway_name" {
+  description = "The name of the transit gateway."
+  value       = local.transit_gateway_name
+}
+
+output "vsi_list" {
+  description = "A list of VSI with name, id, zone, and primary ipv4 address, VPC Name, and floating IP."
+  value       = local.fullstack_output[0].vsi_list.value
+}
 output "powervs_workspace_name" {
   description = "PowerVS infrastructure workspace name."
   value       = module.powervs_infra.powervs_workspace_name
@@ -33,9 +62,19 @@ output "powervs_management_network_name" {
   value       = module.powervs_infra.powervs_management_network_name
 }
 
+output "powervs_management_network_subnet" {
+  description = "Subnet CIDR  of management network in created PowerVS infrastructure."
+  value       = var.powervs_management_network["cidr"]
+}
+
 output "powervs_backup_network_name" {
   description = "Name of backup network in created PowerVS infrastructure."
   value       = module.powervs_infra.powervs_backup_network_name
+}
+
+output "powervs_backup_network_subnet" {
+  description = "Subnet CIDR of backup network in created PowerVS infrastructure."
+  value       = var.powervs_backup_network["cidr"]
 }
 
 output "access_host_or_ip" {
