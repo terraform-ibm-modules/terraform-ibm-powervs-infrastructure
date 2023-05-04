@@ -10,7 +10,6 @@ on:
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
-    secrets: CRA_PRESET_EOF,CRA_SSH_PRIVATE_KEY
 
 jobs:
   call-terraform-ci-pipeline:
@@ -20,4 +19,4 @@ jobs:
       craSCCv2: true
       craTarget: "examples/ibm-catalog/deployable-architectures/full-stack"
       #craGoalIgnoreFile: "cra-tf-validate-ignore-goals.json"
-      craEnvironmentVariables: "TF_VAR_prefix=full-infra,TF_VAR_powervs_zone=tok04,TF_VAR_powervs_resource_group_name=Default,TF_VAR_ssh_private_key=${{ secrets.CRA_SSH_PRIVATE_KEY }},TF_VAR_preset=${{ secrets.CRA_PRESET_EOF }},TF_VAR_ssh_public_key=ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCfSut1CTApdgiT9iC/fd7UOf66cqvLyZLIlhf58CRD6VbXkqKPZMeRmLysLV/A28w7gYhfnVTBgf9ACgWRSdijLhmVZsfUkwSoe+oNOLSxSzNVXxsnV3NqKDLBjU2Z6znePtVjpQbgcuvzhxPvVN0HgdtW8CUHLLZc31/fPHUbu7oCcNDb8Oqx/iNGzIdpPVt7Y2eWqvGCWRVyYuREr3emCGAN+0Uqj59DLXjh1IEAZTvKrTNm/u1ueiGRcWTblleDvYNYku1it1M/5KR93BLkwflt3CaDGpse+KW9fa+sz4aLdMyX5TkKyjFFtUG4m0GwfQP97WCXV3c7x3/RePpQN/lMnhjet6IdvCSkW11bcxhi7KhxSjrXp3I/6KoYus/KW0cUwaXjVO1Il19YOrpxnqpfpQCl4upxKVZuCddsAy9/3DzQDS9XczAY9tumwb25GBX/BqdMO1D7Z74U5HESs2WjLfUvnldlDO6YPrSwwdjEDMZb9NrfuKc0tHrDKzKOZPQq/zx+BuPF7RimB5b/bue03xd2JKuVdiTuDGO1s0wvbeWo2EVhGPw90at2YidJWM8Ax2reQ16+9WwZmkDbPKSZ61fwqoeOcGgvEY6n3tcWvmgrA0IF3Q7DG8iIgJvgQwiUrzs2w4MibJqO8JMBK0vtEsnKp373P7CAAa7bKQ"
+      craEnvironmentVariables: "TF_VAR_prefix=full-infra,TF_VAR_powervs_zone=tok04,TF_VAR_powervs_resource_group_name=Default,TF_VAR_ssh_private_key=${{ secrets.CRA_SSH_PRIVATE_KEY }},TF_VAR_preset=${{ secrets.CRA_PRESET_EOF }},TF_VAR_ssh_public_key=${{ secrets.CRA_SSH_PUBLIC_KEY }}"
