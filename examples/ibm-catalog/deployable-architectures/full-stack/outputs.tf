@@ -13,6 +13,11 @@ output "vsi_names" {
   value       = module.landing_zone.vsi_names
 }
 
+output "ssh_public_key" {
+  description = "The string value of the ssh public key used when deploying VPC"
+  value       = var.ssh_public_key
+}
+
 output "transit_gateway_name" {
   description = "The name of the transit gateway."
   value       = module.landing_zone.transit_gateway_name
@@ -55,12 +60,22 @@ output "cloud_connection_count" {
 
 output "powervs_management_network_name" {
   description = "Name of management network in created PowerVS infrastructure."
-  value       = module.powervs_infra.powervs_management_network_name
+  value       = var.powervs_management_network["name"]
+}
+
+output "powervs_management_network_subnet" {
+  description = "Subnet CIDR  of management network in created PowerVS infrastructure."
+  value       = var.powervs_management_network["cidr"]
 }
 
 output "powervs_backup_network_name" {
   description = "Name of backup network in created PowerVS infrastructure."
-  value       = module.powervs_infra.powervs_backup_network_name
+  value       = var.powervs_backup_network["name"]
+}
+
+output "powervs_backup_network_subnet" {
+  description = "Subnet CIDR of backup network in created PowerVS infrastructure."
+  value       = var.powervs_backup_network["cidr"]
 }
 
 output "access_host_or_ip" {
