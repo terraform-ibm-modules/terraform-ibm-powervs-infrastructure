@@ -19,4 +19,4 @@ jobs:
       craSCCv2: true
       craTarget: "examples/ibm-catalog/deployable-architectures/full-stack"
       #craGoalIgnoreFile: "cra-tf-validate-ignore-goals.json"
-      craEnvironmentVariables: "TF_VAR_prefix=full-infra,TF_VAR_powervs_zone=tok04,TF_VAR_powervs_resource_group_name=Default,TF_VAR_ssh_private_key=${{ secrets.CRA_SSH_PRIVATE_KEY }},TF_VAR_preset=${{ secrets.CRA_PRESET_EOF }},TF_VAR_ssh_public_key=${{ secrets.CRA_SSH_PUBLIC_KEY }}"
+      craEnvironmentVariables: "TF_VAR_prefix=full-infra,TF_VAR_powervs_zone=tok04,TF_VAR_powervs_resource_group_name=Default,TF_VAR_ssh_private_key=${{ vars.CRA_SSH_PRIVATE_KEY }},TF_VAR_preset=${{ vars.CRA_PRESET_EOF }},TF_VAR_ssh_public_key=${{ vars.CRA_SSH_PUBLIC_KEY }}"
