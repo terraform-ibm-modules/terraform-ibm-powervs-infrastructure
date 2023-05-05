@@ -13,11 +13,6 @@ output "vsi_names" {
   value       = local.fullstack_output[0].vsi_names.value
 }
 
-#output "ssh_public_key" {
-#  description = "The string value of the ssh public key used when deploying VPC"
-#  value = local.fullstack_output[0].ssh_public_key.value
-#}
-
 output "transit_gateway_name" {
   description = "The name of the transit gateway."
   value       = local.transit_gateway_name
