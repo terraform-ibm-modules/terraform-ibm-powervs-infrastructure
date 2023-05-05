@@ -121,7 +121,7 @@ module "powervs_infra" {
   powervs_image_names         = var.powervs_image_names
   powervs_sshkey_name         = "${local.prefix}-${var.powervs_zone}-ssh-pvs-key"
   ssh_public_key              = local.ssh_public_key
-  ssh_private_key             = var.ssh_private_key
+  ssh_private_key             = null
   powervs_management_network  = var.powervs_management_network
   powervs_backup_network      = var.powervs_backup_network
   transit_gateway_name        = local.transit_gateway_name
