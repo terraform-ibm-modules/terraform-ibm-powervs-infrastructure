@@ -457,10 +457,12 @@
                             "required": true
                         },
                         {
-                            "key": "powervs_management_network"
+                            "key": "powervs_management_network",
+                            "required": true
                         },
                         {
-                            "key": "powervs_backup_network"
+                            "key": "powervs_backup_network",
+                            "required": true
                         },
                         {
                             "key": "cloud_connection"
@@ -482,34 +484,40 @@
                             "type": "password"
                         },
                         {
-                            "key": "configure_proxy"
-                        },
-                        {
-                            "key": "configure_dns_forwarder"
-                        },
-                        {
-                            "key": "configure_nfs_server"
-                        },
-                        {
-                            "key": "configure_ntp_forwarder"
-                        },
-                        {
-                            "key": "dns_forwarder_config"
-                        },
-                        {
                             "key": "ibmcloud_api_key",
                             "type": "multiline_secure_value"
                         }
                     ],
                     "outputs": [
                         {
+                            "key": "prefix"
+                        },
+                        {
+                            "key": "vpc_names"
+                        },
+                        {
+                            "key": "vsi_names"
+                        },
+                        {
+                            "key": "transit_gateway_name"
+                        },
+                        {
+                            "key": "vsi_list"
+                        },
+                        {
                             "key": "powervs_workspace_name"
+                        },
+                        {
+                            "key": "powervs_workspace_crn"
                         },
                         {
                             "key": "powervs_sshkey_name"
                         },
                         {
                             "key": "powervs_backup_network_name"
+                        },
+                        {
+                            "key": "powervs_backup_network_subnet"
                         },
                         {
                             "key": "proxy_host_or_ip_port"
@@ -531,6 +539,9 @@
                         },
                         {
                             "key": "powervs_management_network_name"
+                        },
+                        {
+                            "key": "powervs_management_network_subnet"
                         },
                         {
                             "key": "dns_host_or_ip"
@@ -571,11 +582,11 @@
                     "dependencies": [
                         {
                             "flavors": [
-                                "standard"
+                                "powervs-workspace"
                             ],
-                            "id": "ef663980-4c71-4fac-af4f-4a510a9bcf68-global",
-                            "name": "deploy-arch-ibm-slz-vsi",
-                            "version": ">=3.0.0"
+                            "id": "2dd486c7-b317-4aaa-907b-42671485ad96",
+                            "name": "deploy-arch-ibm-pvs-inf",
+                            "version": ">=8.0.0"
                         }
                     ],
                     "architecture": {

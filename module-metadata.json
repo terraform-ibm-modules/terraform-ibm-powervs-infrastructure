@@ -318,7 +318,8 @@
       "source": [
         "module.power_management_service_squid",
         "module.power_management_service_squid",
-        "module.power_management_service_squid"
+        "module.power_management_service_squid",
+        "time_sleep.wait_for_squid_setup_to_complete.count"
       ],
       "pos": {
         "filename": "variables.tf",
@@ -544,6 +545,9 @@
       "mode": "managed",
       "type": "time_sleep",
       "name": "wait_for_squid_setup_to_complete",
+      "attributes": {
+        "count": "squid_config"
+      },
       "provider": {
         "name": "time"
       },
@@ -981,7 +985,7 @@
       "data_resources": {},
       "pos": {
         "filename": "main.tf",
-        "line": 71
+        "line": 73
       }
     },
     "power_management_service_nfs": {
@@ -1063,7 +1067,7 @@
       "data_resources": {},
       "pos": {
         "filename": "main.tf",
-        "line": 97
+        "line": 99
       }
     },
     "power_management_service_ntp": {
@@ -1145,7 +1149,7 @@
       "data_resources": {},
       "pos": {
         "filename": "main.tf",
-        "line": 84
+        "line": 86
       }
     },
     "power_management_service_squid": {
