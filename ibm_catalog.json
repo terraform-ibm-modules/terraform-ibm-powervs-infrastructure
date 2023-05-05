@@ -44,11 +44,11 @@
                 },
                 {
                     "description": "Power Virtual Server workspaces",
-                    "title": "A Power Virtual Server workspace is deployed using variation 'Create a new architecture'. Additional Power Virtual Server workspaces may be deployed optionally using variation 'Extend Power Virtual Server with VPC landing zone'."
+                    "title": "A PVS workspace is deployed using variation 'Create a new architecture'. Additional PVS workspaces may be deployed using variation 'Extend'."
                 },
                 {
                     "description": "Network management services",
-                    "title": "Bastion/Access/Jump host (in management VPC service), internet proxy based on SQUID (in edge VPC service), NFS server (in workload VPC service), NTP forwarder (in workload VPC service), and DNS forwarder (in workload VPC service)."
+                    "title": "Bastion host (in management VPC), internet proxy based on SQUID (in edge VPC), NTP forwarder, DNS forwarder & NFS server (in workload VPC)."
                 }
             ],
             "flavors": [
