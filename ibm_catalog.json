@@ -44,7 +44,7 @@
                 },
                 {
                     "description": "Power Virtual Server workspaces",
-                    "title": "A PVS workspace is deployed using variation 'Create a new architecture'. Additional PVS workspaces may be deployed using variation 'Extend'."
+                    "title": "One PowerVS workspace is created by initial deployment. Additional PowerVS workspaces may be deployed as extension."
                 },
                 {
                     "description": "Network management services",
