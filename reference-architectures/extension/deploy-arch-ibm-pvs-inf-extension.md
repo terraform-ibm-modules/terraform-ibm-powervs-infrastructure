@@ -46,9 +46,7 @@ content-type: reference-architecture
 {: toc-compliance="SAPCertified"}
 {: toc-version="7.0.0"}
 
-The Power Virtual Server with VPC landing zone as extension of VPC landing zone creates a Power Virtual Server workspace and connects it with VPC services. It builds on the VPC service that you created when you deployed VPC landing zone or Power Virtual Server with VPC landing zone.
-
-A proxy service for public internet access from the PowerVS workspace is configured. You can optionally configure some management components on VPC (such as an NFS server, NTP forwarder, and DNS forwarder).
+The Power Virtual Server with VPC landing zone as variation 'Extend Power Virtual Server with VPC landing zone' creates an additional Power Virtual Server workspace and connects it with already created Power Virtual Server with VPC landing zone. It builds on existing Power Virtual Server with VPC landing zone deployed as a variation 'Create a new architecture'.
 
 ## Architecture diagram
 {: #ext-architecture-diagram}
