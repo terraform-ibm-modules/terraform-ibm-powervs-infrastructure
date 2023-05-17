@@ -180,6 +180,28 @@
           "rules": [
             {
               "action": "allow",
+              "destination": "10.10.10.0/24",
+              "direction": "inbound",
+              "name": "allow-ssh-inbound99",
+              "source": "${external_access_ip}/32",
+              "tcp": {
+                "port_max": 22,
+                "port_min": 22
+              }
+            },
+            {
+              "action": "allow",
+              "destination": "${external_access_ip}/32",
+              "direction": "outbound",
+              "name": "allow-ssh-outbound99",
+              "source": "10.10.10.0/24",
+              "tcp": {
+                "source_port_max": 22,
+                "source_port_min": 22
+              }
+            },
+            {
+              "action": "allow",
               "destination": "10.0.0.0/8",
               "direction": "inbound",
               "name": "allow-ibm-inbound",

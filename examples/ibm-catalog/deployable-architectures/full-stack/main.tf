@@ -44,6 +44,13 @@ provider "ibm" {
   ibmcloud_api_key = var.ibmcloud_api_key != null ? var.ibmcloud_api_key : null
 }
 
+locals {
+  path_rhel_preset = "./../../presets/slz-for-powervs/rhel-vpc-pvs.preset.json.tftpl"
+  path_sles_preset = "./../../presets/slz-for-powervs/sles-vpc-pvs.preset.json.tftpl"
+  new_preset       = upper(var.landing_zone_configuration) == "RHEL" ? templatefile(local.path_rhel_preset, var.external_access_ip) : templatefile(local.path_sles_preset, { external_access_ip = var.external_access_ip })
+
+}
+
 #####################################################
 # VPC landing zone module
 #####################################################
@@ -54,7 +61,7 @@ module "landing_zone" {
   ssh_public_key       = var.ssh_public_key
   region               = lookup(local.ibm_powervs_zone_cloud_region_map, var.powervs_zone, null)
   prefix               = var.prefix
-  override_json_string = var.preset
+  override_json_string = local.new_preset
 }
 
 locals {
