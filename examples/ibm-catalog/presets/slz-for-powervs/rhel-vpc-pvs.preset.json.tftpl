@@ -178,12 +178,13 @@
         {
           "name": "management-acl",
           "rules": [
+            %{ if "${external_access_ip}" != "" && "${external_access_ip}" != null }
             {
               "action": "allow",
               "destination": "10.10.10.0/24",
               "direction": "inbound",
-              "name": "allow-ssh-inbound99",
-              "source": "${external_access_ip}/32",
+              "name": "allow-ssh-inbound00",
+              "source": "${external_access_ip}",
               "tcp": {
                 "port_max": 22,
                 "port_min": 22
@@ -191,15 +192,16 @@
             },
             {
               "action": "allow",
-              "destination": "${external_access_ip}/32",
+              "destination": "${external_access_ip}",
               "direction": "outbound",
-              "name": "allow-ssh-outbound99",
+              "name": "allow-ssh-outbound00",
               "source": "10.10.10.0/24",
               "tcp": {
                 "source_port_max": 22,
                 "source_port_min": 22
               }
             },
+            %{ endif }
             {
               "action": "allow",
               "destination": "10.0.0.0/8",

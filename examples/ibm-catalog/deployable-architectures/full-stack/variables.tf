@@ -14,12 +14,12 @@ variable "prefix" {
 }
 
 variable "landing_zone_configuration" {
-  description = "Use one of supported [configurations](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/tree/main/examples/ibm-catalog/presets/slz-for-powervs) for RHEL or SLES"
+  description = "OS image distro for VPC landing zone. Supported values are 'RHEL' or 'SLES' only."
   type        = string
 
   validation {
-    condition     = (var.landing_zone_configuration != null && var.landing_zone_configuration != "")
-    error_message = "Please enter the RHEL or SLES configuration."
+    condition     = (upper(var.landing_zone_configuration) == "RHEL" || upper(var.landing_zone_configuration) == "SLES")
+    error_message = "Supported values are 'RHEL' or 'SLES' only."
   }
 }
 
@@ -35,7 +35,7 @@ variable "ssh_private_key" {
 }
 
 variable "external_access_ip" {
-  description = "Specify the IP address to login through SSH to the environment after deployment. Access to this environment will be allowed only from this IP address."
+  description = "Specify the IP address or CIDR to login through SSH to the environment after deployment. Access to this environment will be allowed only from this IP address."
   type        = string
   default     = ""
 }

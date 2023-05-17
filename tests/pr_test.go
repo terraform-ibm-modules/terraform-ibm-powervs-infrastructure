@@ -2,9 +2,6 @@
 package test
 
 import (
-	"bytes"
-	"encoding/json"
-	"io/ioutil"
 	"os"
 	"strings"
 	"testing"
@@ -38,13 +35,6 @@ func TestMain(m *testing.M) {
 
 func setupOptions(t *testing.T, prefix string) *testhelper.TestOptions {
 
-	// Reading preset file
-	presetFile, _ := ioutil.ReadFile("./preset/preset.json")
-	dst := &bytes.Buffer{}
-	if err := json.Compact(dst, presetFile); err != nil {
-		panic(err)
-	}
-
 	options := testhelper.TestOptionsDefault(&testhelper.TestOptions{
 		Testing:            t,
 		TerraformDir:       defaultExampleTerraformDir,
@@ -67,7 +57,8 @@ func setupOptions(t *testing.T, prefix string) *testhelper.TestOptions {
 	options.TerraformVars = map[string]interface{}{
 		"prefix":                      options.Prefix,
 		"powervs_resource_group_name": options.ResourceGroup,
-		"preset":                      dst.String(),
+		"landing_zone_configuration":  "RHEL",
+		"external_access_ip":          "0.0.0.0/0",
 		// locking into syd05 due to other data center issues
 		"powervs_zone": "lon06",
 		//"powervs_zone": options.Region,
