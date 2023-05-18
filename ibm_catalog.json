@@ -108,20 +108,20 @@
                             "required": true,
                             "options": [
                                 {
-                                    "displayname": "Frankfurt (eu-de-1)",
-                                    "value": "eu-de-1"
-                                },
-                                {
-                                    "displayname": "Frankfurt (eu-de-2)",
-                                    "value": "eu-de-2"
-                                },
-                                {
                                     "displayname": "London (lon04)",
                                     "value": "lon04"
                                 },
                                 {
                                     "displayname": "London (lon06)",
                                     "value": "lon06"
+                                },
+                                {
+                                    "displayname": "Frankfurt (eu-de-1)",
+                                    "value": "eu-de-1"
+                                },
+                                {
+                                    "displayname": "Frankfurt (eu-de-2)",
+                                    "value": "eu-de-2"
                                 },
                                 {
                                     "displayname": "Toronto (tor01)",
@@ -134,6 +134,10 @@
                                 {
                                     "displayname": "Dallas (dal12)",
                                     "value": "dal12"
+                                },
+                                {
+                                    "displayname": "Dallas (dal13)",
+                                    "value": "dal13"
                                 },
                                 {
                                     "displayname": "Osaka (osa21)",
@@ -150,6 +154,26 @@
                                 {
                                     "displayname": "Sydney (syd05)",
                                     "value": "syd05"
+                                },
+                                {
+                                    "displayname": "US-east (us-east)",
+                                    "value": "us-east"
+                                },
+                                {
+                                    "displayname": "US-south (us-south)",
+                                    "value": "us-south"
+                                },
+                                {
+                                    "displayname": "Sao Paulo (sao01)",
+                                    "value": "sao01"
+                                },
+                                {
+                                    "displayname": "Washington DC (wdc04)",
+                                    "value": "wdc04"
+                                },
+                                {
+                                    "displayname": "Washington DC (wdc06)",
+                                    "value": "wdc06"
                                 }
                             ],
                             "hidden": false,
@@ -481,20 +505,20 @@
                             "required": true,
                             "options": [
                                 {
-                                    "displayname": "Frankfurt (eu-de-1)",
-                                    "value": "eu-de-1"
-                                },
-                                {
-                                    "displayname": "Frankfurt (eu-de-2)",
-                                    "value": "eu-de-2"
-                                },
-                                {
                                     "displayname": "London (lon04)",
                                     "value": "lon04"
                                 },
                                 {
                                     "displayname": "London (lon06)",
                                     "value": "lon06"
+                                },
+                                {
+                                    "displayname": "Frankfurt (eu-de-1)",
+                                    "value": "eu-de-1"
+                                },
+                                {
+                                    "displayname": "Frankfurt (eu-de-2)",
+                                    "value": "eu-de-2"
                                 },
                                 {
                                     "displayname": "Toronto (tor01)",
@@ -507,6 +531,10 @@
                                 {
                                     "displayname": "Dallas (dal12)",
                                     "value": "dal12"
+                                },
+                                {
+                                    "displayname": "Dallas (dal13)",
+                                    "value": "dal13"
                                 },
                                 {
                                     "displayname": "Osaka (osa21)",
@@ -523,6 +551,26 @@
                                 {
                                     "displayname": "Sydney (syd05)",
                                     "value": "syd05"
+                                },
+                                {
+                                    "displayname": "US-east (us-east)",
+                                    "value": "us-east"
+                                },
+                                {
+                                    "displayname": "US-south (us-south)",
+                                    "value": "us-south"
+                                },
+                                {
+                                    "displayname": "Sao Paulo (sao01)",
+                                    "value": "sao01"
+                                },
+                                {
+                                    "displayname": "Washington DC (wdc04)",
+                                    "value": "wdc04"
+                                },
+                                {
+                                    "displayname": "Washington DC (wdc06)",
+                                    "value": "wdc06"
                                 }
                             ],
                             "hidden": false,

@@ -97,7 +97,7 @@ You need the following permissions to run this module.
 
 - [ IBM Cloud catalog example for Power Virtual Server with VPC landing zone Extension Variation](examples/ibm-catalog/deployable-architectures/extension)
 - [ IBM Cloud catalog example for Power Virtual Server with VPC landing zone Full-Stack Variation](examples/ibm-catalog/deployable-architectures/full-stack)
-- [ Standard example for Power Virtual Server with VPC landing zone](examples/terraform-registry/extension)
+- [ Standard example for Power Virtual Server with VPC landing zone](examples/terraform-registry/powervs_infrastructure)
 <!-- END EXAMPLES HOOK -->
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
