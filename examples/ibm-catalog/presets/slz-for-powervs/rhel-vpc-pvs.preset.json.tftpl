@@ -178,6 +178,30 @@
         {
           "name": "management-acl",
           "rules": [
+            %{ if "${external_access_ip}" != "" && "${external_access_ip}" != null }
+            {
+              "action": "allow",
+              "destination": "10.10.10.0/24",
+              "direction": "inbound",
+              "name": "allow-ssh-inbound00",
+              "source": "${external_access_ip}",
+              "tcp": {
+                "port_max": 22,
+                "port_min": 22
+              }
+            },
+            {
+              "action": "allow",
+              "destination": "${external_access_ip}",
+              "direction": "outbound",
+              "name": "allow-ssh-outbound00",
+              "source": "10.10.10.0/24",
+              "tcp": {
+                "source_port_max": 22,
+                "source_port_min": 22
+              }
+            },
+            %{ endif }
             {
               "action": "allow",
               "destination": "10.0.0.0/8",
@@ -1085,7 +1109,7 @@
   "vsi": [
     {
       "boot_volume_encryption_key_name": "slz-vsi-volume-key",
-      "image_name": "ibm-sles-15-3-amd64-sap-applications-3",
+      "image_name": "ibm-redhat-8-4-amd64-sap-applications-4",
       "machine_type": "cx2-2x4",
       "name": "jump-box",
       "resource_group": "slz-management-rg",
@@ -1131,7 +1155,7 @@
     },
     {
       "boot_volume_encryption_key_name": "slz-vsi-volume-key",
-      "image_name": "ibm-sles-15-3-amd64-sap-applications-3",
+      "image_name": "ibm-redhat-8-4-amd64-sap-applications-4",
       "machine_type": "cx2-2x4",
       "name": "private-svs",
       "resource_group": "slz-workload-rg",
@@ -1185,7 +1209,7 @@
     },
     {
       "boot_volume_encryption_key_name": "slz-vsi-volume-key",
-      "image_name": "ibm-sles-15-3-amd64-sap-applications-3",
+      "image_name": "ibm-redhat-8-4-amd64-sap-applications-4",
       "machine_type": "cx2-2x4",
       "name": "inet-svs",
       "resource_group": "slz-edge-rg",

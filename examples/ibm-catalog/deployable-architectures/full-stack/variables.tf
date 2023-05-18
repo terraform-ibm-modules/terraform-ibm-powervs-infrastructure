@@ -13,13 +13,13 @@ variable "prefix" {
   type        = string
 }
 
-variable "preset" {
-  description = "Use one of supported [configurations](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/tree/main/examples/ibm-catalog/presets/slz-for-powervs). Copy the configuration from the link into the `preset` deployment value."
+variable "landing_zone_configuration" {
+  description = "OS image distro for VPC landing zone. Supported values are 'RHEL' or 'SLES' only."
   type        = string
 
   validation {
-    condition     = (var.preset != null && var.preset != "")
-    error_message = "Please enter the required preset json."
+    condition     = (upper(var.landing_zone_configuration) == "RHEL" || upper(var.landing_zone_configuration) == "SLES")
+    error_message = "Supported values are 'RHEL' or 'SLES' only."
   }
 }
 
@@ -32,6 +32,12 @@ variable "ssh_private_key" {
   description = "Private SSH key (RSA format) used to login to IBM PowerVS instances. Should match to public SSH key referenced by 'ssh_public_key'. Entered data must be in [heredoc strings format](https://www.terraform.io/language/expressions/strings#heredoc-strings). The key is not uploaded or stored. For more information about SSH keys, see [SSH keys](https://cloud.ibm.com/docs/vpc?topic=vpc-ssh-keys)."
   type        = string
   sensitive   = true
+}
+
+variable "external_access_ip" {
+  description = "Specify the IP address or CIDR to login through SSH to the environment after deployment. Access to this environment will be allowed only from this IP address."
+  type        = string
+  default     = ""
 }
 
 variable "configure_dns_forwarder" {

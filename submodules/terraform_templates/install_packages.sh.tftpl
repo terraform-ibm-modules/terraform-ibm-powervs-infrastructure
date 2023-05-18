@@ -55,15 +55,6 @@ if [ "$OS_DETECTED" == "SLES" ]; then
       exit 1
     fi
 
-    ##### Zypper Install AWSCLI on x86 only #####
-    if [[ "$ARCH" == "x86_64" ]]; then
-      echo "Installing awscli package using zypper"
-      zypper install -y aws-cli >/dev/null
-      if ! which aws >/dev/null; then
-        echo "awscli installation failed, exiting"
-        exit 1
-      fi
-    fi
     echo "All packages are installed successfully"
   fi
 fi
@@ -112,21 +103,6 @@ if [ "$OS_DETECTED" == "RHEL" ]; then
     if ! which unbuffer >/dev/null; then
       echo "expect installation failed, exiting"
       exit 1
-    fi
-
-    ##### yum or pip Install AWSCLI on x86 only #####
-    if [[ "$ARCH" == "x86_64" ]]; then
-      if ! subscription-manager repos --enable=rhel-8-for-x86_64-highavailability-rpms >/dev/null 2>/dev/null; then
-        echo "Installing awscli package using pip"
-        pip3 install awscli >/dev/null 2>/dev/null
-      else
-        echo "Installing awscli package using yum"
-        yum install -y awscli >/dev/null 2>/dev/null
-      fi
-      if ! which aws >/dev/null; then
-        echo "aws installation failed, exiting"
-        exit 1
-      fi
     fi
 
     echo "All packages are installed successfully"

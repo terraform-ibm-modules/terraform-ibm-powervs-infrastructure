@@ -172,13 +172,22 @@
                             "required": true
                         },
                         {
-                            "custom_config": {
-                                "grouping": "deployment",
-                                "original_grouping": "deployment",
-                                "type": "json_editor"
-                            },
-                            "key": "preset",
-                            "required": true
+                            "key": "landing_zone_configuration",
+                            "type": "string",
+                            "default_value": "",
+                            "required": true,
+                            "options": [
+                                {
+                                    "displayname": "RHEL OS Distro",
+                                    "value": "RHEL"
+                                },
+                                {
+                                    "displayname": "SLES OS Distro",
+                                    "value": "SLES"
+                                }
+                            ],
+                            "hidden": false,
+                            "custom_config": {}
                         },
                         {
                             "custom_config": {
@@ -199,6 +208,9 @@
                             "key": "ssh_private_key",
                             "required": true,
                             "type": "multiline_secure_value"
+                        },
+                        {
+                            "key": "external_access_ip"
                         },
                         {
                             "key": "configure_dns_forwarder"

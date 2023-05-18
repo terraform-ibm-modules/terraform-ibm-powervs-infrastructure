@@ -10,11 +10,16 @@ locals {
     "us-east"  = "us-east"
     "us-south" = "us-south"
     "dal12"    = "us-south"
+    "dal13"    = "us-south"
     "tor01"    = "tor"
     "osa21"    = "osa"
     "sao01"    = "sao"
+    "sao04"    = "sao"
     "mon01"    = "mon"
+    "wdc04"    = "us-east"
     "wdc06"    = "us-east"
+    "wdc07"    = "us-east"
+
   }
 
   ibm_powervs_zone_cloud_region_map = {
@@ -28,11 +33,15 @@ locals {
     "us-east"  = "us-east"
     "us-south" = "us-south"
     "dal12"    = "us-south"
+    "dal13"    = "us-south"
     "tor01"    = "ca-tor"
     "osa21"    = "jp-osa"
     "sao01"    = "br-sao"
+    "sao04"    = "br-sao"
     "mon01"    = "ca-tor"
+    "wdc04"    = "us-east"
     "wdc06"    = "us-east"
+    "wdc07"    = "us-east"
   }
 }
 
@@ -42,6 +51,14 @@ provider "ibm" {
   region           = lookup(local.ibm_powervs_zone_region_map, var.powervs_zone, null)
   zone             = var.powervs_zone
   ibmcloud_api_key = var.ibmcloud_api_key != null ? var.ibmcloud_api_key : null
+}
+
+locals {
+  path_rhel_preset   = "./../../presets/slz-for-powervs/rhel-vpc-pvs.preset.json.tftpl"
+  path_sles_preset   = "./../../presets/slz-for-powervs/sles-vpc-pvs.preset.json.tftpl"
+  external_access_ip = var.external_access_ip != null && var.external_access_ip != "" ? length(regexall("/", var.external_access_ip)) > 0 ? var.external_access_ip : "${var.external_access_ip}/32" : ""
+  new_preset         = upper(var.landing_zone_configuration) == "RHEL" ? templatefile(local.path_rhel_preset, { external_access_ip = local.external_access_ip }) : templatefile(local.path_sles_preset, { external_access_ip = local.external_access_ip })
+
 }
 
 #####################################################
@@ -54,7 +71,7 @@ module "landing_zone" {
   ssh_public_key       = var.ssh_public_key
   region               = lookup(local.ibm_powervs_zone_cloud_region_map, var.powervs_zone, null)
   prefix               = var.prefix
-  override_json_string = var.preset
+  override_json_string = local.new_preset
 }
 
 locals {
