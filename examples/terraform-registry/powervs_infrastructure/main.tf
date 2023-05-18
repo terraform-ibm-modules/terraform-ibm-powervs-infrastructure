@@ -1,22 +1,24 @@
 locals {
   ibm_powervs_zone_region_map = {
-    "syd04"    = "syd"
-    "syd05"    = "syd"
-    "eu-de-1"  = "eu-de"
-    "eu-de-2"  = "eu-de"
     "lon04"    = "lon"
     "lon06"    = "lon"
-    "wdc04"    = "us-east"
-    "us-east"  = "us-east"
-    "us-south" = "us-south"
+    "eu-de-1"  = "eu-de"
+    "eu-de-2"  = "eu-de"
+    "tor01"    = "tor"
+    "mon01"    = "mon"
     "dal12"    = "us-south"
     "dal13"    = "us-south"
-    "tor01"    = "tor"
-    "tok04"    = "tok"
     "osa21"    = "osa"
+    "tok04"    = "tok"
+    "syd04"    = "syd"
+    "syd05"    = "syd"
+    "us-east"  = "us-east"
+    "us-south" = "us-south"
     "sao01"    = "sao"
-    "mon01"    = "mon"
-
+    "sao04"    = "sao"
+    "wdc04"    = "us-east"
+    "wdc06"    = "us-east"
+    "wdc07"    = "us-east"
   }
 }
 
