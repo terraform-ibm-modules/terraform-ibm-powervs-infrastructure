@@ -73,6 +73,8 @@ module "landing_zone" {
   override_json_string = local.new_preset
 }
 
+
+
 locals {
   landing_zone_config = jsondecode(module.landing_zone.config)
   nfs_disk_exists     = [for vsi in local.landing_zone_config.vsi : vsi.block_storage_volumes[0].capacity if contains(keys(vsi), "block_storage_volumes")]
@@ -84,13 +86,13 @@ locals {
   access_host_or_ip_exists = local.fip_vsi_exists ? contains(keys(module.landing_zone.fip_vsi[0]), "floating_ip") ? true : false : false
   access_host_or_ip        = local.access_host_or_ip_exists ? module.landing_zone.fip_vsi[0].floating_ip : ""
   vsi_list_exists          = contains(keys(module.landing_zone), "vsi_list") ? true : false
-  private_svs_vsi_exists   = local.vsi_list_exists ? contains(module.landing_zone.vsi_names, "${var.prefix}-private-svs-1") ? true : false : false
-  private_svs_ip           = local.private_svs_vsi_exists ? [for vsi in module.landing_zone.vsi_list : vsi.ipv4_address if vsi.name == "${var.prefix}-private-svs-1"][0] : ""
-  inet_svs_vsi_exists      = local.vsi_list_exists ? contains(module.landing_zone.vsi_names, "${var.prefix}-inet-svs-1") ? true : false : false
-  inet_svs_ip              = local.inet_svs_vsi_exists ? [for vsi in module.landing_zone.vsi_list : vsi.ipv4_address if vsi.name == "${var.prefix}-inet-svs-1"][0] : ""
-  squid_port               = "3128"
+  #private_svs_vsi_exists   = local.vsi_list_exists ? contains(module.landing_zone.vsi_names, "${var.prefix}-private-svs-1") ? true : false : false
+  #private_svs_ip           = local.private_svs_vsi_exists ? [for vsi in module.landing_zone.vsi_list : vsi.ipv4_address if vsi.name == "${var.prefix}-private-svs-1"][0] : ""
+  inet_svs_vsi_exists = local.vsi_list_exists ? contains(module.landing_zone.vsi_names, "${var.prefix}-inet-svs-1") ? true : false : false
+  inet_svs_ip         = local.inet_svs_vsi_exists ? [for vsi in module.landing_zone.vsi_list : vsi.ipv4_address if vsi.name == "${var.prefix}-inet-svs-1"][0] : ""
+  squid_port          = "3128"
 
-  valid_json_used   = local.access_host_or_ip_exists && local.private_svs_vsi_exists && local.inet_svs_vsi_exists ? true : false
+  valid_json_used   = local.access_host_or_ip_exists ? true : false
   validate_json_msg = "Wrong JSON preset used. Please use one of the JSON preset supported for Power."
   # tflint-ignore: terraform_unused_declarations
   validate_json_chk = regex("^${local.validate_json_msg}$", (local.valid_json_used ? local.validate_json_msg : ""))
@@ -105,30 +107,22 @@ locals {
     "squid_port"        = local.squid_port
   }
 
-  ### Proxy client will be configured on "${var.prefix}-private-svs-1" vsi
-  perform_proxy_client_setup = {
-    squid_client_ips = [local.private_svs_ip]
-    squid_server_ip  = local.squid_config["server_host_or_ip"]
-    squid_port       = local.squid_config["squid_port"]
-    no_proxy_hosts   = "161.0.0.0/8"
-  }
-
   ### DNS Forwarder will be configured on "${var.prefix}-private-svs-1" vsi
   dns_config = merge(var.dns_forwarder_config, {
     "dns_enable"        = var.configure_dns_forwarder
-    "server_host_or_ip" = local.private_svs_ip
+    "server_host_or_ip" = local.inet_svs_ip
   })
 
   ### NTP Forwarder will be configured on "${var.prefix}-private-svs-1" vsi
   ntp_config = {
     "ntp_enable"        = var.configure_ntp_forwarder
-    "server_host_or_ip" = local.private_svs_ip
+    "server_host_or_ip" = local.inet_svs_ip
   }
 
   ### NFS server will be configured on "${var.prefix}-private-svs-1" vsi
   nfs_config = {
     "nfs_enable"        = local.nfs_disk_size != "" ? var.configure_nfs_server : false
-    "server_host_or_ip" = local.private_svs_ip
+    "server_host_or_ip" = local.inet_svs_ip
     "nfs_file_system"   = [{ name = "nfs", mount_path : "/nfs", size : local.nfs_disk_size }]
   }
 
@@ -165,5 +159,5 @@ module "powervs_infra" {
   dns_forwarder_config        = local.dns_config
   ntp_forwarder_config        = local.ntp_config
   nfs_config                  = local.nfs_config
-  perform_proxy_client_setup  = local.perform_proxy_client_setup
+  perform_proxy_client_setup  = null
 }

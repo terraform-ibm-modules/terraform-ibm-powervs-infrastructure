@@ -28,6 +28,7 @@ output "vsi_list" {
   value       = module.landing_zone.vsi_list
 }
 
+/*
 output "powervs_workspace_name" {
   description = "PowerVS infrastructure workspace name."
   value       = module.powervs_infra.powervs_workspace_name
@@ -102,6 +103,7 @@ output "nfs_host_or_ip_path" {
   description = "NFS host for created PowerVS infrastructure."
   value       = module.powervs_infra.nfs_host_or_ip_path
 }
+*/
 
 output "schematics_workspace_id" {
   description = "ID of the IBM Cloud Schematics workspace. Returns null if not ran in Schematics."

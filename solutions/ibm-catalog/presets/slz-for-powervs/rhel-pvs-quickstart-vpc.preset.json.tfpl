@@ -869,6 +869,7 @@
       "machine_type": "cx2-2x4",
       "name": "inet-svs",
       "resource_group": "slz-edge-rg",
+      "enable_floating_ip": true,
       "security_group": {
         "name": "inet-svs",
         "rules": [
@@ -942,7 +943,15 @@
         "vsi-zone-1"
       ],
       "vpc_name": "edge",
-      "vsi_per_subnet": 1
+      "vsi_per_subnet": 1,
+      "block_storage_volumes": [
+        {
+          "name": "data",
+          "profile": "5iops-tier",
+          "capacity": 500,
+          "encryption_key": "slz-vsi-volume-key"
+        }
+      ]
     }
   ],
   "wait_till": "IngressReady"
