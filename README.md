@@ -20,9 +20,9 @@ The Power Virtual Server with VPC landing zone module automates the following ta
 
 The following limitations apply to the module:
 
-- Only two IBM Cloud connections are supported
-- You cannot reuse IBM Cloud connections
-- Private networks in a PowerVS workspace must be in 10.0.0.0/8 range
+- Only two IBM Cloud connections are supported.
+- You cannot reuse IBM Cloud connections.
+- Private networks in a PowerVS workspace must be in 10.0.0.0/8 range.
 - Only the following operating systems are supported:
     - SUSE Linux Enterprise Server (SLES) version 15 SP3
     - Red Hat Enterprise Linux (RHEL) version 8.4
@@ -93,11 +93,11 @@ You need the following permissions to run this module.
 <!-- END MODULE HOOK -->
 
 <!-- BEGIN EXAMPLES HOOK -->
-## Examples
+## Solutions
 
-- [ IBM Cloud catalog example for Power Virtual Server with VPC landing zone Extension Variation](examples/ibm-catalog/deployable-architectures/extension)
-- [ IBM Cloud catalog example for Power Virtual Server with VPC landing zone Full-Stack Variation](examples/ibm-catalog/deployable-architectures/full-stack)
-- [ Standard example for Power Virtual Server with VPC landing zone](examples/terraform-registry/powervs_infrastructure)
+- [ IBM Cloud catalog example for Power Virtual Server with VPC landing zone Extension Variation](solutions/ibm-catalog/deployable-architectures/extension)
+- [ IBM Cloud catalog example for Power Virtual Server with VPC landing zone Full-Stack Variation](solutions/ibm-catalog/deployable-architectures/full-stack)
+- [ Standard example for Power Virtual Server with VPC landing zone](solutions/terraform-registry/powervs_infrastructure)
 <!-- END EXAMPLES HOOK -->
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
