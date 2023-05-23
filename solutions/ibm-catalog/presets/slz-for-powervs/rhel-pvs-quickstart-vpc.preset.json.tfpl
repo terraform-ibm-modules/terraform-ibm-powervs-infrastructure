@@ -835,19 +835,19 @@
         "zone-1": [
           {
             "acl_name": "edge-acl",
-            "cidr": "10.30.10.0/24",
+            "cidr": "10.10.10.0/24",
             "name": "vsi-zone-1",
             "public_gateway": false
           },
           {
             "acl_name": "edge-acl",
-            "cidr": "10.30.20.0/24",
+            "cidr": "10.10.20.0/24",
             "name": "vpe-zone-1",
             "public_gateway": false
           },
           {
             "acl_name": "edge-acl",
-            "cidr": "10.30.30.0/24",
+            "cidr": "10.10.30.0/24",
             "name": "vpn-zone-1",
             "public_gateway": false
           }

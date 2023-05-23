@@ -107,6 +107,14 @@ locals {
     "squid_port"        = local.squid_port
   }
 
+  ### Proxy client will be configured on "${var.prefix}-private-svs-1" vsi
+  perform_proxy_client_setup = {
+    squid_client_ips = []
+    squid_server_ip  = ""
+    squid_port       = ""
+    no_proxy_hosts   = ""
+  }
+
   ### DNS Forwarder will be configured on "${var.prefix}-private-svs-1" vsi
   dns_config = merge(var.dns_forwarder_config, {
     "dns_enable"        = var.configure_dns_forwarder
@@ -159,5 +167,5 @@ module "powervs_infra" {
   dns_forwarder_config        = local.dns_config
   ntp_forwarder_config        = local.ntp_config
   nfs_config                  = local.nfs_config
-  perform_proxy_client_setup  = null
+  perform_proxy_client_setup  = local.perform_proxy_client_setup
 }
