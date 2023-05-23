@@ -202,11 +202,11 @@
                             "required": true,
                             "options": [
                                 {
-                                    "displayname": "RHEL OS Distro",
+                                    "displayname": "3 VPCs (with RHEL instances)",
                                     "value": "RHEL"
                                 },
                                 {
-                                    "displayname": "SLES OS Distro",
+                                    "displayname": "3 VPCs (with SLES instances)",
                                     "value": "SLES"
                                 }
                             ],
