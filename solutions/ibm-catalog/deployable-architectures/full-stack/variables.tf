@@ -14,7 +14,7 @@ variable "prefix" {
 }
 
 variable "landing_zone_configuration" {
-  description = "OS image distro for VPC landing zone. Supported values are 'RHEL' or 'SLES' only."
+  description = "OS image distro for VPC landing zone."
   type        = string
 
   validation {
