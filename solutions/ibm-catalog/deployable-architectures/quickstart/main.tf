@@ -169,3 +169,29 @@ module "powervs_infra" {
   nfs_config                  = local.nfs_config
   perform_proxy_client_setup  = local.perform_proxy_client_setup
 }
+
+locals {
+  powervs_sshkey_name      = module.powervs_infra.powervs_sshkey_name
+  powervs_share_image_name = upper(var.powervs_share_vsi_os_config) == "RHEL" ? "RHEL8-SP4-SAP-NETWEAVER" : "SLES15-SP3-SAP-NETWEAVER"
+  powervs_share_subnets    = [module.powervs_infra.powervs_management_network_name, module.powervs_infra.powervs_backup_network_name]
+}
+
+module "share_fs_instance" {
+  source     = "git::https://github.com/terraform-ibm-modules/terraform-ibm-powervs-sap.git//submodules//power_instance?ref=v6.2.0"
+  providers  = { ibm = ibm.ibm-pvs }
+  depends_on = [module.landing_zone, module.powervs_infra]
+  count      = var.powervs_share_number_of_instances
+
+  powervs_zone                 = var.powervs_zone
+  powervs_resource_group_name  = var.powervs_resource_group_name
+  powervs_workspace_name       = "${var.prefix}-${var.powervs_zone}-power-workspace"
+  powervs_instance_name        = var.powervs_share_instance_name
+  powervs_sshkey_name          = local.powervs_sshkey_name
+  powervs_os_image_name        = local.powervs_share_image_name
+  powervs_server_type          = var.powervs_share_server_type
+  powervs_cpu_proc_type        = var.powervs_share_cpu_proc_type
+  powervs_number_of_processors = var.powervs_share_number_of_processors
+  powervs_memory_size          = var.powervs_share_memory_size
+  powervs_networks             = local.powervs_share_subnets
+  powervs_storage_config       = var.powervs_share_storage_config
+}

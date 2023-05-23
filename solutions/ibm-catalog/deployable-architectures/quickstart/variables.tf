@@ -59,6 +59,68 @@ variable "configure_nfs_server" {
 }
 
 #####################################################
+# PowerVS Shared FS Instance parameters
+#####################################################
+
+variable "powervs_share_number_of_instances" {
+  description = "Number of instances which will be created"
+  type        = number
+  default     = 1
+}
+
+variable "powervs_share_instance_name" {
+  description = "Name of instance which will be created"
+  type        = string
+}
+
+variable "powervs_share_vsi_os_config" {
+  description = "OS distro for powervs share instance vsi. Supported values are 'RHEL' or 'SLES' only. Provisions images RHEL8-SP4-SAP-NETWEAVER or SLES15-SP3-SAP-NETWEAVER as per OS config selection."
+  type        = string
+}
+
+variable "powervs_share_server_type" {
+  description = "Processor type e980/s922/e1080/s1022"
+  type        = string
+  default     = null
+}
+
+variable "powervs_share_cpu_proc_type" {
+  description = "Dedicated or shared processors"
+  type        = string
+  default     = null
+}
+
+variable "powervs_share_number_of_processors" {
+  description = "Number of processors"
+  type        = string
+  default     = null
+}
+
+variable "powervs_share_memory_size" {
+  description = "Amount of memory"
+  type        = string
+  default     = 2
+}
+
+variable "powervs_share_storage_config" {
+  description = "DISKS To be created and attached to PowerVS Instance. Comma separated values.'disk_sizes' are in GB. 'count' specify over how many storage volumes the file system will be striped. 'tiers' specifies the storage tier in PowerVS workspace. For creating multiple file systems, specify multiple entries in each parameter in the structure. E.g., for creating 2 file systems, specify 2 names, 2 disk sizes, 2 counts, 2 tiers and 2 paths."
+  type = object({
+    names      = string
+    disks_size = string
+    counts     = string
+    tiers      = string
+    paths      = string
+  })
+  default = {
+    names      = ""
+    disks_size = ""
+    counts     = ""
+    tiers      = ""
+    paths      = ""
+  }
+}
+
+#####################################################
 # Optional Parameters
 #####################################################
 

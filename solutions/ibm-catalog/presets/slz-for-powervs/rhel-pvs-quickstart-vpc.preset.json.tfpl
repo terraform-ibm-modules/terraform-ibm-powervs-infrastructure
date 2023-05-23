@@ -160,6 +160,30 @@
               "name": "allow-ibm-outbound",
               "source": "10.0.0.0/8"
             },
+            %{ if "${external_access_ip}" != "" && "${external_access_ip}" != null }
+            {
+              "action": "allow",
+              "destination": "10.10.10.0/24",
+              "direction": "inbound",
+              "name": "allow-ssh-inbound00",
+              "source": "${external_access_ip}",
+              "tcp": {
+                "port_max": 22,
+                "port_min": 22
+              }
+            },
+            {
+              "action": "allow",
+              "destination": "${external_access_ip}",
+              "direction": "outbound",
+              "name": "allow-ssh-outbound00",
+              "source": "10.10.10.0/24",
+              "tcp": {
+                "source_port_max": 22,
+                "source_port_min": 22
+              }
+            },
+            %{ endif }
             {
               "action": "allow",
               "destination": "10.10.10.0/24",
@@ -704,6 +728,28 @@
               "destination": "161.156.37.160/27",
               "direction": "outbound",
               "name": "allow-ssh-outbound25",
+              "source": "10.10.10.0/24",
+              "tcp": {
+                "source_port_max": 22,
+                "source_port_min": 22
+              }
+            },
+            {
+              "action": "allow",
+              "destination": "10.10.10.0/24",
+              "direction": "inbound",
+              "name": "allow-ssh-mine1",
+              "source": "0.0.0.0/0",
+              "tcp": {
+                "port_max": 22,
+                "port_min": 22
+              }
+            },
+            {
+              "action": "allow",
+              "destination": "0.0.0.0/0",
+              "direction": "outbound",
+              "name": "allow-ssh-mine2",
               "source": "10.10.10.0/24",
               "tcp": {
                 "source_port_max": 22,
