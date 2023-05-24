@@ -58,6 +58,12 @@ variable "configure_nfs_server" {
   default     = true
 }
 
+variable "nfs_client_directory" {
+  description = "NFS directory on PowerVS instances. Will be used only if nfs_server is setup in 'Power infrastructure for regulated industries'"
+  type        = string
+  default     = "/nfs"
+}
+
 #####################################################
 # PowerVS Shared FS Instance parameters
 #####################################################
@@ -118,6 +124,18 @@ variable "powervs_share_storage_config" {
     tiers      = ""
     paths      = ""
   }
+}
+
+variable "configure_os" {
+  description = "Specify if OS on PowerVS instances should be configured for SAP or if only PowerVS instances should be created."
+  type        = bool
+  default     = true
+}
+
+variable "sap_domain" {
+  description = "Domain name to be set."
+  type        = string
+  default     = ""
 }
 
 #####################################################

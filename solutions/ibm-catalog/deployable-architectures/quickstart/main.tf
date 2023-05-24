@@ -195,3 +195,56 @@ module "share_fs_instance" {
   powervs_networks             = local.powervs_share_subnets
   powervs_storage_config       = var.powervs_share_storage_config
 }
+
+
+locals {
+
+  #access_host_or_ip = module.powervs_infra.access_host_or_ip
+  #target_server_ips = module.powervs_infra.proxy_host_or_ip_port
+
+  perform_proxy_client_setup_vsi = {
+    enable         = false
+    server_ip_port = ""
+    no_proxy_hosts = "161.0.0.0/8,10.0.0.0/8"
+  }
+
+  perform_ntp_client_setup = {
+    enable    = var.configure_ntp_forwarder
+    server_ip = module.powervs_infra.ntp_host_or_ip
+  }
+
+  perform_dns_client_setup = {
+    enable    = var.configure_dns_forwarder
+    server_ip = module.powervs_infra.dns_host_or_ip
+  }
+
+  perform_nfs_client_setup = {
+    enable          = var.configure_ntp_forwarder
+    nfs_server_path = module.powervs_infra.nfs_host_or_ip_path
+    nfs_client_path = var.nfs_client_directory
+  }
+
+  target_server_ips       = module.share_fs_instance[*].instance_mgmt_ip
+  sharefs_storage_configs = [for instance_wwns in module.share_fs_instance[*].instance_wwns : merge(var.powervs_share_storage_config, { "wwns" = join(",", instance_wwns) })]
+  all_storage_configs     = local.sharefs_storage_configs
+}
+
+module "instance_init" {
+
+  #source     = "./submodules/power_sap_instance_init"
+  source     = "git::https://github.com/terraform-ibm-modules/terraform-ibm-powervs-sap.git//submodules//power_sap_instance_init?ref=v6.2.0"
+  depends_on = [module.landing_zone, module.powervs_infra, module.share_fs_instance]
+
+  count                            = var.configure_os == true ? 1 : 0
+  access_host_or_ip                = local.access_host_or_ip
+  os_image_distro                  = var.powervs_share_vsi_os_config
+  target_server_ips                = local.target_server_ips
+  powervs_instance_storage_configs = local.all_storage_configs
+  sap_solutions                    = ["NONE"]
+  ssh_private_key                  = var.ssh_private_key
+  perform_proxy_client_setup       = local.perform_proxy_client_setup_vsi
+  perform_nfs_client_setup         = local.perform_nfs_client_setup
+  perform_ntp_client_setup         = local.perform_ntp_client_setup
+  perform_dns_client_setup         = local.perform_dns_client_setup
+  sap_domain                       = var.sap_domain
+}
