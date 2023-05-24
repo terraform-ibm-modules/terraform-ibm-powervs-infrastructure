@@ -203,8 +203,8 @@ locals {
   #target_server_ips = module.powervs_infra.proxy_host_or_ip_port
 
   perform_proxy_client_setup_vsi = {
-    enable         = false
-    server_ip_port = ""
+    enable         = true
+    server_ip_port = "${local.inet_svs_ip}:${local.squid_port}"
     no_proxy_hosts = "161.0.0.0/8,10.0.0.0/8"
   }
 

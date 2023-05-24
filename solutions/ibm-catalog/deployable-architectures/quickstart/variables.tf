@@ -118,11 +118,11 @@ variable "powervs_share_storage_config" {
     paths      = string
   })
   default = {
-    names      = ""
-    disks_size = ""
-    counts     = ""
-    tiers      = ""
-    paths      = ""
+    names      = "share"
+    disks_size = "1000"
+    counts     = "1"
+    tiers      = "tier3"
+    paths      = "/share"
   }
 }
 
@@ -135,7 +135,7 @@ variable "configure_os" {
 variable "sap_domain" {
   description = "Domain name to be set."
   type        = string
-  default     = ""
+  default     = "sap.com"
 }
 
 #####################################################
