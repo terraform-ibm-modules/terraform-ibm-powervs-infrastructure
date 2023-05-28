@@ -5,7 +5,7 @@ variable "ibmcloud_api_key" {
 }
 
 variable "powervs_zone" {
-  description = "IBM Cloud data center location where IBM PowerVS infrastructure will be created. Following locations are currently supported: syd04, syd05, eu-de-1, eu-de-2, tok04, osa21, sao01, lon04, lon06"
+  description = "IBM Cloud data center location where IBM PowerVS infrastructure will be created."
   type        = string
 }
 
