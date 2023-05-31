@@ -42,6 +42,22 @@ locals {
     "wdc06"    = "us-east"
     "wdc07"    = "us-east"
   }
+
+  ibm_powervs_quickstart_tshirt_sizes = {
+    "aix_xs"   = { "cores" = "1", "memory" = "32", "storage" = "100", "tier" = "tier3", "image" = "7300-01-01" }
+    "aix_s"    = { "cores" = "4", "memory" = "128", "storage" = "500", "tier" = "tier3", "image" = "7300-01-01" }
+    "aix_m"    = { "cores" = "8", "memory" = "256", "storage" = "1000", "tier" = "tier3", "image" = "7300-01-01" }
+    "aix_l"    = { "cores" = "15", "memory" = "512", "storage" = "2000", "tier" = "tier3", "image" = "7300-01-01" }
+    "ibm_i_xs" = { "cores" = "0.25", "memory" = "8", "storage" = "100", "tier" = "tier3", "image" = "IBMi-73-13-2924-1" }
+    "ibm_i_s"  = { "cores" = "1", "memory" = "32", "storage" = "500", "tier" = "tier3", "image" = "IBMi-73-13-2924-1" }
+    "ibm_i_m"  = { "cores" = "2", "memory" = "64", "storage" = "1000", "tier" = "tier3", "image" = "IBMi-73-13-2924-1" }
+    "ibm_i_l"  = { "cores" = "4", "memory" = "132", "storage" = "2000", "tier" = "tier3", "image" = "IBMi-73-13-2924-1" }
+    "sap_dev"  = { "sap_profile_id" = "ush1-4x128", "storage" = "500", "tier" = "tier3", "image" = "RHEL8-SP4-SAP" }
+    "sap_olap" = { "sap_profile_id" = "bh1-16x1600", "storage" = "3170", "tier" = "tier3", "image" = "RHEL8-SP4-SAP" }
+    "sap_oltp" = { "sap_profile_id" = "umh-4x960", "storage" = "2490", "tier" = "tier3", "image" = "RHEL8-SP4-SAP" }
+  }
+
+  sap_qs_infras = ["sap_dev", "sap_olap", "sap_oltp"]
 }
 
 # There are discrepancies between the region inputs on the powervs terraform resource, and the vpc ("is") resources
@@ -171,12 +187,54 @@ module "powervs_infra" {
 }
 
 locals {
+  powervs_instance_name    = "demo"
+  powervs_instance_storage = [{ name = "data", size = local.qs_tshirt_choice.storage, count = "1", tier = local.qs_tshirt_choice.tier, mount = "/data" }]
   powervs_sshkey_name      = module.powervs_infra.powervs_sshkey_name
-  powervs_share_image_name = upper(var.powervs_share_vsi_os_config) == "RHEL" ? "RHEL8-SP4-SAP-NETWEAVER" : "SLES15-SP3-SAP-NETWEAVER"
   powervs_share_subnets    = [module.powervs_infra.powervs_management_network_name, module.powervs_infra.powervs_backup_network_name]
+  qs_tshirt_choice         = lookup(local.ibm_powervs_quickstart_tshirt_sizes, var.tshirt_size, null)
 }
 
-module "share_fs_instance" {
+module "demo_sap_pi_instance" {
+  count = contains(local.sap_qs_infras, var.tshirt_size) ? 1 : 0
+
+  source     = "git::https://github.com/terraform-ibm-modules/terraform-ibm-powervs-instance.git?ref=v0.1.0"
+  providers  = { ibm = ibm.ibm-pvs }
+  depends_on = [module.landing_zone, module.powervs_infra]
+
+  pi_zone                = var.powervs_zone
+  pi_resource_group_name = var.powervs_resource_group_name
+  pi_workspace_name      = "${var.prefix}-${var.powervs_zone}-power-workspace"
+  pi_sshkey_name         = local.powervs_sshkey_name
+  pi_instance_name       = local.powervs_instance_name
+  pi_os_image_name       = local.qs_tshirt_choice.image
+  pi_networks            = local.powervs_share_subnets
+  pi_sap_profile_id      = local.qs_tshirt_choice.sap_profile_id
+  pi_storage_config      = local.powervs_instance_storage
+}
+
+module "demo_pi_instance" {
+  count = contains(local.sap_qs_infras, var.tshirt_size) ? 0 : 1
+  # tflint-ignore: terraform_unused_declarations
+  source     = "git::https://github.com/terraform-ibm-modules/terraform-ibm-powervs-instance.git?ref=v0.1.0"
+  providers  = { ibm = ibm.ibm-pvs }
+  depends_on = [module.landing_zone, module.powervs_infra]
+
+  pi_zone                 = var.powervs_zone
+  pi_resource_group_name  = var.powervs_resource_group_name
+  pi_workspace_name       = "${var.prefix}-${var.powervs_zone}-power-workspace"
+  pi_sshkey_name          = local.powervs_sshkey_name
+  pi_instance_name        = local.powervs_instance_name
+  pi_os_image_name        = local.qs_tshirt_choice.image
+  pi_networks             = local.powervs_share_subnets
+  pi_sap_profile_id       = null
+  pi_server_type          = "s922"
+  pi_cpu_proc_type        = "dedicated"
+  pi_number_of_processors = local.qs_tshirt_choice.cores
+  pi_memory_size          = local.qs_tshirt_choice.memory
+  pi_storage_config       = local.powervs_instance_storage
+}
+
+/*module "share_fs_instance" {
   source     = "git::https://github.com/terraform-ibm-modules/terraform-ibm-powervs-sap.git//submodules//power_instance?ref=v6.2.0"
   providers  = { ibm = ibm.ibm-pvs }
   depends_on = [module.landing_zone, module.powervs_infra]
@@ -247,4 +305,4 @@ module "instance_init" {
   perform_ntp_client_setup         = local.perform_ntp_client_setup
   perform_dns_client_setup         = local.perform_dns_client_setup
   sap_domain                       = var.sap_domain
-}
+}*/

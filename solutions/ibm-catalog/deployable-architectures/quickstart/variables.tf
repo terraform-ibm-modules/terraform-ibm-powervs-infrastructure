@@ -58,84 +58,13 @@ variable "configure_nfs_server" {
   default     = true
 }
 
-variable "nfs_client_directory" {
-  description = "NFS directory on PowerVS instances. Will be used only if nfs_server is setup in 'Power infrastructure for regulated industries'"
-  type        = string
-  default     = "/nfs"
-}
-
 #####################################################
-# PowerVS Shared FS Instance parameters
+# PowerVS Instance parameters
 #####################################################
-
-variable "powervs_share_number_of_instances" {
-  description = "Number of instances which will be created"
-  type        = number
-  default     = 1
-}
-
-variable "powervs_share_instance_name" {
-  description = "Name of instance which will be created"
+variable "tshirt_size" {
+  description = "Power VS vsi choice."
   type        = string
-}
-
-variable "powervs_share_vsi_os_config" {
-  description = "OS distro for powervs share instance vsi. Supported values are 'RHEL' or 'SLES' only. Provisions images RHEL8-SP4-SAP-NETWEAVER or SLES15-SP3-SAP-NETWEAVER as per OS config selection."
-  type        = string
-}
-
-variable "powervs_share_server_type" {
-  description = "Processor type e980/s922/e1080/s1022"
-  type        = string
-  default     = null
-}
-
-variable "powervs_share_cpu_proc_type" {
-  description = "Dedicated or shared processors"
-  type        = string
-  default     = null
-}
-
-variable "powervs_share_number_of_processors" {
-  description = "Number of processors"
-  type        = string
-  default     = null
-}
-
-variable "powervs_share_memory_size" {
-  description = "Amount of memory"
-  type        = string
-  default     = 2
-}
-
-variable "powervs_share_storage_config" {
-  description = "DISKS To be created and attached to PowerVS Instance. Comma separated values.'disk_sizes' are in GB. 'count' specify over how many storage volumes the file system will be striped. 'tiers' specifies the storage tier in PowerVS workspace. For creating multiple file systems, specify multiple entries in each parameter in the structure. E.g., for creating 2 file systems, specify 2 names, 2 disk sizes, 2 counts, 2 tiers and 2 paths."
-  type = object({
-    names      = string
-    disks_size = string
-    counts     = string
-    tiers      = string
-    paths      = string
-  })
-  default = {
-    names      = "share"
-    disks_size = "1000"
-    counts     = "1"
-    tiers      = "tier3"
-    paths      = "/share"
-  }
-}
-
-variable "configure_os" {
-  description = "Specify if OS on PowerVS instances should be configured for SAP or if only PowerVS instances should be created."
-  type        = bool
-  default     = true
-}
-
-variable "sap_domain" {
-  description = "Domain name to be set."
-  type        = string
-  default     = "sap.com"
+  default     = "sap-dev"
 }
 
 #####################################################
@@ -186,13 +115,13 @@ variable "cloud_connection" {
 variable "powervs_image_names" {
   description = "List of Images to be imported into cloud account from catalog images"
   type        = list(string)
-  default     = ["SLES15-SP3-SAP", "SLES15-SP3-SAP-NETWEAVER", "RHEL8-SP4-SAP", "RHEL8-SP4-SAP-NETWEAVER"]
+  default     = ["IBMi-73-13-2924-1", "7300-01-01", "RHEL8-SP4-SAP"]
 }
 
 variable "tags" {
   description = "List of tag names for the IBM Cloud PowerVS workspace"
   type        = list(string)
-  default     = ["sap"]
+  default     = ["demo"]
 }
 
 variable "dns_forwarder_config" {
