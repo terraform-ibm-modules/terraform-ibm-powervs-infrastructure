@@ -412,14 +412,12 @@
       "type": "number"
     },
     "dns_host_or_ip": {
-      "name": "dns_forwarder_config",
-      "description": "Configuration for the DNS forwarder to a DNS service that is not reachable directly from PowerVS.",
-      "value": "var.dns_forwarder_config",
+      "name": "dns_host_or_ip",
+      "description": "DNS forwarder host for created PowerVS infrastructure.",
       "pos": {
         "filename": "outputs.tf",
         "line": 51
-      },
-      "type": "object({\n    dns_enable        = bool\n    server_host_or_ip = string\n    dns_servers       = string\n  })"
+      }
     },
     "nfs_host_or_ip_path": {
       "name": "nfs_host_or_ip_path",
@@ -430,14 +428,12 @@
       }
     },
     "ntp_host_or_ip": {
-      "name": "ntp_forwarder_config",
-      "description": "Configuration for the NTP forwarder to an NTP service that is not reachable directly from PowerVS.",
-      "value": "var.ntp_forwarder_config",
+      "name": "ntp_host_or_ip",
+      "description": "NTP host for created PowerVS infrastructure.",
       "pos": {
         "filename": "outputs.tf",
         "line": 56
-      },
-      "type": "object({\n    ntp_enable        = bool\n    server_host_or_ip = string\n  })"
+      }
     },
     "powervs_backup_network_name": {
       "name": "powervs_backup_network",
