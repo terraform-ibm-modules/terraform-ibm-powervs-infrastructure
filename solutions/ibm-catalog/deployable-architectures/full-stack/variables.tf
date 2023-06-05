@@ -14,7 +14,7 @@ variable "prefix" {
 }
 
 variable "landing_zone_configuration" {
-  description = "OS image distro for VPC landing zone. Supported values are 'RHEL' or 'SLES' only."
+  description = "OS image distro for VPC landing zone."
   type        = string
 
   validation {
@@ -37,7 +37,6 @@ variable "ssh_private_key" {
 variable "external_access_ip" {
   description = "Specify the IP address or CIDR to login through SSH to the environment after deployment. Access to this environment will be allowed only from this IP address."
   type        = string
-  default     = ""
 }
 
 variable "configure_dns_forwarder" {

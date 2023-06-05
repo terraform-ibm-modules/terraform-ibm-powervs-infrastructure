@@ -84,17 +84,17 @@ output "proxy_host_or_ip_port" {
 
 output "dns_host_or_ip" {
   description = "DNS forwarder host for created PowerVS infrastructure."
-  value       = module.powervs_infra.dns_host_or_ip
+  value       = local.dns_host_or_ip
 }
 
 output "ntp_host_or_ip" {
   description = "NTP host for created PowerVS infrastructure."
-  value       = module.powervs_infra.ntp_host_or_ip
+  value       = local.ntp_host_or_ip
 }
 
 output "nfs_host_or_ip_path" {
   description = "NFS host for created PowerVS infrastructure."
-  value       = module.powervs_infra.nfs_host_or_ip_path
+  value       = local.nfs_host_or_ip != "" ? "${local.nfs_host_or_ip}:${local.nfs_path}" : ""
 }
 
 output "schematics_workspace_id" {
