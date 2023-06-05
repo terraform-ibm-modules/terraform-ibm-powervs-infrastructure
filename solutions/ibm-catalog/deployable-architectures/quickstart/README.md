@@ -30,8 +30,8 @@ This example sets up the following infrastructure:
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_demo_pi_instance"></a> [demo\_pi\_instance](#module\_demo\_pi\_instance) | git::https://github.com/terraform-ibm-modules/terraform-ibm-powervs-instance.git | v0.1.0 |
-| <a name="module_demo_sap_pi_instance"></a> [demo\_sap\_pi\_instance](#module\_demo\_sap\_pi\_instance) | git::https://github.com/terraform-ibm-modules/terraform-ibm-powervs-instance.git | v0.1.0 |
+| <a name="module_demo_pi_instance"></a> [demo\_pi\_instance](#module\_demo\_pi\_instance) | git::https://github.com/terraform-ibm-modules/terraform-ibm-powervs-instance.git | v0.1.3 |
+| <a name="module_demo_sap_pi_instance"></a> [demo\_sap\_pi\_instance](#module\_demo\_sap\_pi\_instance) | git::https://github.com/terraform-ibm-modules/terraform-ibm-powervs-instance.git | v0.1.3 |
 | <a name="module_landing_zone"></a> [landing\_zone](#module\_landing\_zone) | git::https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone.git//patterns//vsi | v3.8.3 |
 | <a name="module_powervs_infra"></a> [powervs\_infra](#module\_powervs\_infra) | ../../../../ | n/a |
 
@@ -51,7 +51,6 @@ No resources.
 | <a name="input_dns_forwarder_config"></a> [dns\_forwarder\_config](#input\_dns\_forwarder\_config) | Configuration for the DNS forwarder to a DNS service that is not reachable directly from PowerVS. | <pre>object({<br>    dns_servers = string<br>  })</pre> | <pre>{<br>  "dns_servers": "161.26.0.7; 161.26.0.8; 9.9.9.9;"<br>}</pre> | no |
 | <a name="input_external_access_ip"></a> [external\_access\_ip](#input\_external\_access\_ip) | Specify the IP address or CIDR to login through SSH to the environment after deployment. Access to this environment will be allowed only from this IP address. | `string` | `""` | no |
 | <a name="input_ibmcloud_api_key"></a> [ibmcloud\_api\_key](#input\_ibmcloud\_api\_key) | The IBM Cloud platform API key needed to deploy IAM enabled resources. | `string` | `null` | no |
-| <a name="input_landing_zone_configuration"></a> [landing\_zone\_configuration](#input\_landing\_zone\_configuration) | OS image distro for VPC landing zone. Supported values are 'RHEL' or 'SLES' only. | `string` | n/a | yes |
 | <a name="input_powervs_backup_network"></a> [powervs\_backup\_network](#input\_powervs\_backup\_network) | Name of the IBM Cloud PowerVS backup network and CIDR to create. | <pre>object({<br>    name = string<br>    cidr = string<br>  })</pre> | <pre>{<br>  "cidr": "10.52.0.0/24",<br>  "name": "bkp_net"<br>}</pre> | no |
 | <a name="input_powervs_image_names"></a> [powervs\_image\_names](#input\_powervs\_image\_names) | List of Images to be imported into cloud account from catalog images | `list(string)` | <pre>[<br>  "IBMi-73-13-2924-1",<br>  "7300-01-01",<br>  "RHEL8-SP4-SAP"<br>]</pre> | no |
 | <a name="input_powervs_management_network"></a> [powervs\_management\_network](#input\_powervs\_management\_network) | Name of the IBM Cloud PowerVS management subnet and CIDR to create. | <pre>object({<br>    name = string<br>    cidr = string<br>  })</pre> | <pre>{<br>  "cidr": "10.51.0.0/24",<br>  "name": "mgmt_net"<br>}</pre> | no |

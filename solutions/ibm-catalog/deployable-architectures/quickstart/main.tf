@@ -70,9 +70,8 @@ provider "ibm" {
 
 locals {
   path_rhel_preset   = "./../../presets/slz-for-powervs/rhel-pvs-quickstart-vpc.preset.json.tfpl"
-  path_sles_preset   = "./../../presets/slz-for-powervs/sles-vpc-pvs.preset.json.tftpl"
   external_access_ip = var.external_access_ip != null && var.external_access_ip != "" ? length(regexall("/", var.external_access_ip)) > 0 ? var.external_access_ip : "${var.external_access_ip}/32" : ""
-  new_preset         = upper(var.landing_zone_configuration) == "RHEL" ? templatefile(local.path_rhel_preset, { external_access_ip = local.external_access_ip }) : templatefile(local.path_sles_preset, { external_access_ip = local.external_access_ip })
+  new_preset         = templatefile(local.path_rhel_preset, { external_access_ip = local.external_access_ip })
 
 }
 
@@ -102,11 +101,9 @@ locals {
   access_host_or_ip_exists = local.fip_vsi_exists ? contains(keys(module.landing_zone.fip_vsi[0]), "floating_ip") ? true : false : false
   access_host_or_ip        = local.access_host_or_ip_exists ? module.landing_zone.fip_vsi[0].floating_ip : ""
   vsi_list_exists          = contains(keys(module.landing_zone), "vsi_list") ? true : false
-  #private_svs_vsi_exists   = local.vsi_list_exists ? contains(module.landing_zone.vsi_names, "${var.prefix}-private-svs-1") ? true : false : false
-  #private_svs_ip           = local.private_svs_vsi_exists ? [for vsi in module.landing_zone.vsi_list : vsi.ipv4_address if vsi.name == "${var.prefix}-private-svs-1"][0] : ""
-  inet_svs_vsi_exists = local.vsi_list_exists ? contains(module.landing_zone.vsi_names, "${var.prefix}-inet-svs-1") ? true : false : false
-  inet_svs_ip         = local.inet_svs_vsi_exists ? [for vsi in module.landing_zone.vsi_list : vsi.ipv4_address if vsi.name == "${var.prefix}-inet-svs-1"][0] : ""
-  squid_port          = "3128"
+  inet_svs_vsi_exists      = local.vsi_list_exists ? contains(module.landing_zone.vsi_names, "${var.prefix}-inet-svs-1") ? true : false : false
+  inet_svs_ip              = local.inet_svs_vsi_exists ? [for vsi in module.landing_zone.vsi_list : vsi.ipv4_address if vsi.name == "${var.prefix}-inet-svs-1"][0] : ""
+  squid_port               = "3128"
 
   valid_json_used   = local.access_host_or_ip_exists ? true : false
   validate_json_msg = "Wrong JSON preset used. Please use one of the JSON preset supported for Power."
@@ -197,7 +194,7 @@ locals {
 module "demo_sap_pi_instance" {
   count = contains(local.sap_qs_infras, var.tshirt_size) ? 1 : 0
 
-  source     = "git::https://github.com/terraform-ibm-modules/terraform-ibm-powervs-instance.git?ref=v0.1.0"
+  source     = "git::https://github.com/terraform-ibm-modules/terraform-ibm-powervs-instance.git?ref=v0.1.3"
   providers  = { ibm = ibm.ibm-pvs }
   depends_on = [module.landing_zone, module.powervs_infra]
 
@@ -215,7 +212,7 @@ module "demo_sap_pi_instance" {
 module "demo_pi_instance" {
   count = contains(local.sap_qs_infras, var.tshirt_size) ? 0 : 1
   # tflint-ignore: terraform_unused_declarations
-  source     = "git::https://github.com/terraform-ibm-modules/terraform-ibm-powervs-instance.git?ref=v0.1.0"
+  source     = "git::https://github.com/terraform-ibm-modules/terraform-ibm-powervs-instance.git?ref=v0.1.3"
   providers  = { ibm = ibm.ibm-pvs }
   depends_on = [module.landing_zone, module.powervs_infra]
 
@@ -233,76 +230,3 @@ module "demo_pi_instance" {
   pi_memory_size          = local.qs_tshirt_choice.memory
   pi_storage_config       = local.powervs_instance_storage
 }
-
-/*module "share_fs_instance" {
-  source     = "git::https://github.com/terraform-ibm-modules/terraform-ibm-powervs-sap.git//submodules//power_instance?ref=v6.2.0"
-  providers  = { ibm = ibm.ibm-pvs }
-  depends_on = [module.landing_zone, module.powervs_infra]
-  count      = var.powervs_share_number_of_instances
-
-  powervs_zone                 = var.powervs_zone
-  powervs_resource_group_name  = var.powervs_resource_group_name
-  powervs_workspace_name       = "${var.prefix}-${var.powervs_zone}-power-workspace"
-  powervs_instance_name        = var.powervs_share_instance_name
-  powervs_sshkey_name          = local.powervs_sshkey_name
-  powervs_os_image_name        = local.powervs_share_image_name
-  powervs_server_type          = var.powervs_share_server_type
-  powervs_cpu_proc_type        = var.powervs_share_cpu_proc_type
-  powervs_number_of_processors = var.powervs_share_number_of_processors
-  powervs_memory_size          = var.powervs_share_memory_size
-  powervs_networks             = local.powervs_share_subnets
-  powervs_storage_config       = var.powervs_share_storage_config
-}
-
-
-locals {
-
-  #access_host_or_ip = module.powervs_infra.access_host_or_ip
-  #target_server_ips = module.powervs_infra.proxy_host_or_ip_port
-
-  perform_proxy_client_setup_vsi = {
-    enable         = true
-    server_ip_port = "${local.inet_svs_ip}:${local.squid_port}"
-    no_proxy_hosts = "161.0.0.0/8,10.0.0.0/8"
-  }
-
-  perform_ntp_client_setup = {
-    enable    = var.configure_ntp_forwarder
-    server_ip = module.powervs_infra.ntp_host_or_ip
-  }
-
-  perform_dns_client_setup = {
-    enable    = var.configure_dns_forwarder
-    server_ip = module.powervs_infra.dns_host_or_ip
-  }
-
-  perform_nfs_client_setup = {
-    enable          = var.configure_ntp_forwarder
-    nfs_server_path = module.powervs_infra.nfs_host_or_ip_path
-    nfs_client_path = var.nfs_client_directory
-  }
-
-  target_server_ips       = module.share_fs_instance[*].instance_mgmt_ip
-  sharefs_storage_configs = [for instance_wwns in module.share_fs_instance[*].instance_wwns : merge(var.powervs_share_storage_config, { "wwns" = join(",", instance_wwns) })]
-  all_storage_configs     = local.sharefs_storage_configs
-}
-
-module "instance_init" {
-
-  #source     = "./submodules/power_sap_instance_init"
-  source     = "git::https://github.com/terraform-ibm-modules/terraform-ibm-powervs-sap.git//submodules//power_sap_instance_init?ref=v6.2.0"
-  depends_on = [module.landing_zone, module.powervs_infra, module.share_fs_instance]
-
-  count                            = var.configure_os == true ? 1 : 0
-  access_host_or_ip                = local.access_host_or_ip
-  os_image_distro                  = var.powervs_share_vsi_os_config
-  target_server_ips                = local.target_server_ips
-  powervs_instance_storage_configs = local.all_storage_configs
-  sap_solutions                    = ["NONE"]
-  ssh_private_key                  = var.ssh_private_key
-  perform_proxy_client_setup       = local.perform_proxy_client_setup_vsi
-  perform_nfs_client_setup         = local.perform_nfs_client_setup
-  perform_ntp_client_setup         = local.perform_ntp_client_setup
-  perform_dns_client_setup         = local.perform_dns_client_setup
-  sap_domain                       = var.sap_domain
-}*/

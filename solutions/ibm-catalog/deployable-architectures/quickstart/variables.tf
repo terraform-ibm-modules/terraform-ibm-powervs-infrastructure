@@ -13,16 +13,6 @@ variable "prefix" {
   type        = string
 }
 
-variable "landing_zone_configuration" {
-  description = "OS image distro for VPC landing zone. Supported values are 'RHEL' or 'SLES' only."
-  type        = string
-
-  validation {
-    condition     = (upper(var.landing_zone_configuration) == "RHEL" || upper(var.landing_zone_configuration) == "SLES")
-    error_message = "Supported values are 'RHEL' or 'SLES' only."
-  }
-}
-
 variable "ssh_public_key" {
   description = "Public SSH Key for VSI creation. Must be an RSA key with a key size of either 2048 bits or 4096 bits (recommended). Must be a valid SSH key that does not already exist in the deployment region."
   type        = string
