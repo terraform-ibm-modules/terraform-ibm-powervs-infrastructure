@@ -44,20 +44,18 @@ locals {
   }
 
   ibm_powervs_quickstart_tshirt_sizes = {
-    "aix_xs"   = { "cores" = "1", "memory" = "32", "storage" = "100", "tier" = "tier3", "image" = "7300-01-01" }
-    "aix_s"    = { "cores" = "4", "memory" = "128", "storage" = "500", "tier" = "tier3", "image" = "7300-01-01" }
-    "aix_m"    = { "cores" = "8", "memory" = "256", "storage" = "1000", "tier" = "tier3", "image" = "7300-01-01" }
-    "aix_l"    = { "cores" = "15", "memory" = "512", "storage" = "2000", "tier" = "tier3", "image" = "7300-01-01" }
-    "ibm_i_xs" = { "cores" = "0.25", "memory" = "8", "storage" = "100", "tier" = "tier3", "image" = "IBMi-73-13-2924-1" }
-    "ibm_i_s"  = { "cores" = "1", "memory" = "32", "storage" = "500", "tier" = "tier3", "image" = "IBMi-73-13-2924-1" }
-    "ibm_i_m"  = { "cores" = "2", "memory" = "64", "storage" = "1000", "tier" = "tier3", "image" = "IBMi-73-13-2924-1" }
-    "ibm_i_l"  = { "cores" = "4", "memory" = "132", "storage" = "2000", "tier" = "tier3", "image" = "IBMi-73-13-2924-1" }
+    "aix_xs"   = { "sap_profile_id" = null, "cores" = "1", "memory" = "32", "storage" = "100", "tier" = "tier3", "image" = "7300-01-01" }
+    "aix_s"    = { "sap_profile_id" = null, "cores" = "4", "memory" = "128", "storage" = "500", "tier" = "tier3", "image" = "7300-01-01" }
+    "aix_m"    = { "sap_profile_id" = null, "cores" = "8", "memory" = "256", "storage" = "1000", "tier" = "tier3", "image" = "7300-01-01" }
+    "aix_l"    = { "sap_profile_id" = null, "cores" = "15", "memory" = "512", "storage" = "2000", "tier" = "tier3", "image" = "7300-01-01" }
+    "ibm_i_xs" = { "sap_profile_id" = null, "cores" = "0.25", "memory" = "8", "storage" = "100", "tier" = "tier3", "image" = "IBMi-73-13-2924-1" }
+    "ibm_i_s"  = { "sap_profile_id" = null, "cores" = "1", "memory" = "32", "storage" = "500", "tier" = "tier3", "image" = "IBMi-73-13-2924-1" }
+    "ibm_i_m"  = { "sap_profile_id" = null, "cores" = "2", "memory" = "64", "storage" = "1000", "tier" = "tier3", "image" = "IBMi-73-13-2924-1" }
+    "ibm_i_l"  = { "sap_profile_id" = null, "cores" = "4", "memory" = "132", "storage" = "2000", "tier" = "tier3", "image" = "IBMi-73-13-2924-1" }
     "sap_dev"  = { "sap_profile_id" = "ush1-4x128", "storage" = "500", "tier" = "tier3", "image" = "RHEL8-SP4-SAP" }
     "sap_olap" = { "sap_profile_id" = "bh1-16x1600", "storage" = "3170", "tier" = "tier3", "image" = "RHEL8-SP4-SAP" }
     "sap_oltp" = { "sap_profile_id" = "umh-4x960", "storage" = "2490", "tier" = "tier3", "image" = "RHEL8-SP4-SAP" }
   }
-
-  sap_qs_infras = ["sap_dev", "sap_olap", "sap_oltp"]
 }
 
 # There are discrepancies between the region inputs on the powervs terraform resource, and the vpc ("is") resources
@@ -191,26 +189,7 @@ locals {
   qs_tshirt_choice         = lookup(local.ibm_powervs_quickstart_tshirt_sizes, var.tshirt_size, null)
 }
 
-module "demo_sap_pi_instance" {
-  count = contains(local.sap_qs_infras, var.tshirt_size) ? 1 : 0
-
-  source     = "git::https://github.com/terraform-ibm-modules/terraform-ibm-powervs-instance.git?ref=v0.1.3"
-  providers  = { ibm = ibm.ibm-pvs }
-  depends_on = [module.landing_zone, module.powervs_infra]
-
-  pi_zone                = var.powervs_zone
-  pi_resource_group_name = var.powervs_resource_group_name
-  pi_workspace_name      = "${var.prefix}-${var.powervs_zone}-power-workspace"
-  pi_sshkey_name         = local.powervs_sshkey_name
-  pi_instance_name       = local.powervs_instance_name
-  pi_os_image_name       = local.qs_tshirt_choice.image
-  pi_networks            = local.powervs_share_subnets
-  pi_sap_profile_id      = local.qs_tshirt_choice.sap_profile_id
-  pi_storage_config      = local.powervs_instance_storage
-}
-
 module "demo_pi_instance" {
-  count = contains(local.sap_qs_infras, var.tshirt_size) ? 0 : 1
   # tflint-ignore: terraform_unused_declarations
   source     = "git::https://github.com/terraform-ibm-modules/terraform-ibm-powervs-instance.git?ref=v0.1.3"
   providers  = { ibm = ibm.ibm-pvs }
@@ -223,10 +202,10 @@ module "demo_pi_instance" {
   pi_instance_name        = local.powervs_instance_name
   pi_os_image_name        = local.qs_tshirt_choice.image
   pi_networks             = local.powervs_share_subnets
-  pi_sap_profile_id       = null
-  pi_server_type          = "s922"
-  pi_cpu_proc_type        = "dedicated"
-  pi_number_of_processors = local.qs_tshirt_choice.cores
-  pi_memory_size          = local.qs_tshirt_choice.memory
+  pi_sap_profile_id       = local.qs_tshirt_choice.sap_profile_id
+  pi_server_type          = local.qs_tshirt_choice.sap_profile_id == null ? "s922" : null
+  pi_cpu_proc_type        = local.qs_tshirt_choice.sap_profile_id == null ? "shared" : null
+  pi_number_of_processors = local.qs_tshirt_choice.sap_profile_id == null ? local.qs_tshirt_choice.cores : null
+  pi_memory_size          = local.qs_tshirt_choice.sap_profile_id == null ? local.qs_tshirt_choice.memory : null
   pi_storage_config       = local.powervs_instance_storage
 }
