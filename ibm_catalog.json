@@ -891,47 +891,47 @@
                             "required": true,
                             "options": [
                                 {
-                                    "displayname": "AIX - XS",
+                                    "displayname": "AIX - XS(1x32)",
                                     "value": "aix_xs"
                                 },
                                 {
-                                    "displayname": "AIX - S",
+                                    "displayname": "AIX - S(4x128)",
                                     "value": "aix_s"
                                 },
                                 {
-                                    "displayname": "AIX - M",
+                                    "displayname": "AIX - M(8x256)",
                                     "value": "aix_m"
                                 },
                                 {
-                                    "displayname": "AIX - L",
+                                    "displayname": "AIX - L(15x512)",
                                     "value": "aix_l"
                                 },
                                 {
-                                    "displayname": "IBM i - XS",
+                                    "displayname": "IBM i - XS(0.25x8)",
                                     "value": "ibm_i_xs"
                                 },
                                 {
-                                    "displayname": "IBM i - S",
+                                    "displayname": "IBM i - S(1x32)",
                                     "value": "ibm_i_s"
                                 },
                                 {
-                                    "displayname": "IBM i - M",
+                                    "displayname": "IBM i - M(2x64)",
                                     "value": "ibm_i_m"
                                 },
                                 {
-                                    "displayname": "IBM i - L",
+                                    "displayname": "IBM i - L(4x132)",
                                     "value": "ibm_i_l"
                                 },
                                 {
-                                    "displayname": "SAP DEV",
+                                    "displayname": "SAP DEV(ush1-4x128)",
                                     "value": "sap_dev"
                                 },
                                 {
-                                    "displayname": "SAP OLAP",
+                                    "displayname": "SAP OLAP(bh1-16x1600)",
                                     "value": "sap_olap"
                                 },
                                 {
-                                    "displayname": "SAP OLTP",
+                                    "displayname": "SAP OLTP(umh-4x960)",
                                     "value": "sap_oltp"
                                 }
                             ],
