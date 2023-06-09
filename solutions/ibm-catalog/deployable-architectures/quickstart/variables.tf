@@ -27,7 +27,6 @@ variable "ssh_private_key" {
 variable "external_access_ip" {
   description = "Specify the IP address or CIDR to login through SSH to the environment after deployment. Access to this environment will be allowed only from this IP address."
   type        = string
-  default     = ""
 }
 
 variable "configure_dns_forwarder" {
@@ -52,9 +51,47 @@ variable "configure_nfs_server" {
 # PowerVS Instance parameters
 #####################################################
 variable "tshirt_size" {
-  description = "Power VS vsi choice."
+  description = "PowerVS instance choice."
   type        = string
   default     = "sap-dev"
+
+  validation {
+    condition     = contains(["aix_xs", "aix_s", "aix_m", "aix_l", "ibm_i_xs", "ibm_i_s", "ibm_i_m", "ibm_i_l", "sap_dev", "sap_olap", "sap_oltp"], var.tshirt_size)
+    error_message = "Only Following DC values are supported :  aix_xs, aix_s, aix_m, aix_l, ibm_i_xs, ibm_i_s, ibm_i_m, ibm_i_l, sap_dev, sap_olap, sap_oltp"
+  }
+}
+
+variable "custom_profile" {
+  description = "Specify the machine type, core type, cores and memory. If creating SAP systems, please set variable 'sap_profile_id' and leave 'cores' and 'memory' empty"
+  type = object({
+    sap_profile_id = string
+    cores          = string
+    memory         = string
+    storage        = string
+    tier           = string
+  })
+  default = {
+    sap_profile_id = null
+    cores          = ""
+    memory         = ""
+    storage        = ""
+    tier           = ""
+  }
+
+  validation {
+    condition     = ((var.custom_profile.sap_profile_id == null && ((var.custom_profile.cores == "" && var.custom_profile.memory == "") || (var.custom_profile.cores != "" && var.custom_profile.memory != ""))) || (var.custom_profile.sap_profile_id != null && (var.custom_profile.cores == "" && var.custom_profile.memory == ""))) && ((var.custom_profile.sap_profile_id != null || var.custom_profile.cores != "" || var.custom_profile.memory != "") && var.custom_profile.storage != "" && var.custom_profile.tier != "")
+    error_message = "Invalid custom config. If 'sap_profile_id' is not null, please set cores and memory as empty."
+  }
+}
+
+variable "powervs_instance_boot_image" {
+  description = "Boot image for the powervs worspace virtual server instance."
+  type        = string
+  default     = "RHEL8-SP4-SAP"
+  validation {
+    condition     = contains(["RHEL8-SP4-SAP", "SLES15-SP4-SAP", "RHEL8-SP4-SAP-NETWEAVER", "SLES15-SP4-SAP-NETWEAVER", "IBMi-73-13-2924-1", "IBMi-74-07-2924-1", "IBMi-75-01-2924-2", "IBMi_COR-74-07-2", "7300-01-01", "7300-00-01", "7200-05-03"], var.powervs_instance_boot_image)
+    error_message = "Only Following DC values are supported :  RHEL8-SP4-SAP, SLES15-SP4-SAP, RHEL8-SP4-SAP-NETWEAVER, SLES15-SP4-SAP-NETWEAVER, IBMi-73-13-2924-1, IBMi-74-07-2924-1, IBMi-75-01-2924-2, IBMi_COR-74-07-2, 7300-01-01, 7300-00-01, 7200-05-03"
+  }
 }
 
 #####################################################

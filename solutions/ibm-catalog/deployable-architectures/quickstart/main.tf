@@ -182,11 +182,20 @@ module "powervs_infra" {
 }
 
 locals {
-  powervs_instance_name    = "demo"
-  powervs_instance_storage = [{ name = "data", size = local.qs_tshirt_choice.storage, count = "1", tier = local.qs_tshirt_choice.tier, mount = "/data" }]
-  powervs_sshkey_name      = module.powervs_infra.powervs_sshkey_name
-  powervs_share_subnets    = [module.powervs_infra.powervs_management_network_name, module.powervs_infra.powervs_backup_network_name]
-  qs_tshirt_choice         = lookup(local.ibm_powervs_quickstart_tshirt_sizes, var.tshirt_size, null)
+  powervs_instance_name           = "demo"
+  powervs_sshkey_name             = module.powervs_infra.powervs_sshkey_name
+  powervs_share_subnets           = [module.powervs_infra.powervs_management_network_name, module.powervs_infra.powervs_backup_network_name]
+  qs_tshirt_choice                = lookup(local.ibm_powervs_quickstart_tshirt_sizes, var.tshirt_size, null)
+  custom_profile_enabled          = ((var.custom_profile.cores != "" && var.custom_profile.memory != "") || (var.custom_profile.sap_profile_id != null))
+  sap_system_creation_enabled     = (var.custom_profile.sap_profile_id != null) || (local.qs_tshirt_choice.sap_profile_id != null)
+  powervs_instance_sap_profile_id = local.custom_profile_enabled ? var.custom_profile.sap_profile_id : local.qs_tshirt_choice.sap_profile_id
+  powervs_instance_cores          = local.sap_system_creation_enabled ? null : local.custom_profile_enabled ? var.custom_profile.cores : local.qs_tshirt_choice.cores
+  powervs_instance_momory         = local.sap_system_creation_enabled ? null : local.custom_profile_enabled ? var.custom_profile.memory : local.qs_tshirt_choice.memory
+
+  powervs_instance_storage      = local.custom_profile_enabled ? var.custom_profile.storage : local.qs_tshirt_choice.storage
+  powervs_instance_storage_tier = local.custom_profile_enabled ? var.custom_profile.tier : local.qs_tshirt_choice.tier
+
+  powervs_instance_storage_obj = local.powervs_instance_storage != "" && local.powervs_instance_storage_tier != "" ? [{ name = "data", size = local.powervs_instance_storage, count = "1", tier = local.powervs_instance_storage_tier, mount = "/data" }] : [{ name = "", size = "", count = "", tier = "", mount = "" }]
 }
 
 module "demo_pi_instance" {
@@ -202,10 +211,10 @@ module "demo_pi_instance" {
   pi_instance_name        = local.powervs_instance_name
   pi_os_image_name        = local.qs_tshirt_choice.image
   pi_networks             = local.powervs_share_subnets
-  pi_sap_profile_id       = local.qs_tshirt_choice.sap_profile_id
-  pi_server_type          = local.qs_tshirt_choice.sap_profile_id == null ? "s922" : null
-  pi_cpu_proc_type        = local.qs_tshirt_choice.sap_profile_id == null ? "shared" : null
-  pi_number_of_processors = local.qs_tshirt_choice.sap_profile_id == null ? local.qs_tshirt_choice.cores : null
-  pi_memory_size          = local.qs_tshirt_choice.sap_profile_id == null ? local.qs_tshirt_choice.memory : null
-  pi_storage_config       = local.powervs_instance_storage
+  pi_sap_profile_id       = local.powervs_instance_sap_profile_id
+  pi_server_type          = local.sap_system_creation_enabled ? null : "s922"
+  pi_cpu_proc_type        = local.sap_system_creation_enabled ? null : "shared"
+  pi_number_of_processors = local.powervs_instance_cores
+  pi_memory_size          = local.powervs_instance_momory
+  pi_storage_config       = local.powervs_instance_storage_obj
 }

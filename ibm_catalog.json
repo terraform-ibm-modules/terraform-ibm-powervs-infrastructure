@@ -742,7 +742,7 @@
                     }
                 },
                 {
-                    "label": "PowerVS Workspace",
+                    "label": "PowerVS Quickstart",
                     "name": "powervs-workspace",
                     "install_type": "quickstart",
                     "working_directory": "solutions/ibm-catalog/deployable-architectures/quickstart",
@@ -1147,13 +1147,17 @@
                             {
                                 "description": "NFS server, NTP forwarder, and DNS forwarder reachable from PowerVS Workspace",
                                 "title": "Additional management configurations on VPC"
+                            },
+                            {
+                                "description": "PowerVS",
+                                "title": "Additional management configurations on VPC"
                             }
                         ],
                         "diagrams": [
                             {
                                 "diagram": {
                                     "caption": "Power Virtual Server with VPC landing zone 'full-stack' variation",
-                                    "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/main/reference-architectures/full-stack/deploy-arch-ibm-pvs-inf-full-stack.svg",
+                                    "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/main/reference-architectures/quickstart/deploy-arch-ibm-pvs-inf-quickstart.svg",
                                     "type": "image/svg+xml"
                                 },
                                 "description": "The Power Virtual Server with VPC landing zone as variation 'Create a new architecture' deploys VPC services and a Power Virtual Server workspace and interconnects them.\n \nRequired and optional management components are configured."
