@@ -746,7 +746,7 @@
                     "name": "powervs-quickstart",
                     "install_type": "fullstack",
                     "working_directory": "solutions/ibm-catalog/deployable-architectures/quickstart",
-                    "usage_template": "module \"power-infrastructure\" {\n  source                      = \"https://cm.globalcatalog.cloud.ibm.com/api/v1-beta/offering/source//${{workingDirectory}}?archive=tgz&flavor=${{flavor}}&kind=${{kind}}&name=${{name}}&version=${{version}}\"\n  powervs_zone                = var.powervs_zone\n  powervs_resource_group_name = var.powervs_resource_group_name\n  prefix                      = var.prefix\n  preset                      = var.preset\n  ssh_private_key             = var.ssh_private_key\n  ssh_public_key              = var.ssh_public_key\n  landing_zone_configuration  = var.landing_zone_configuration\n  external_access_ip          = var.external_access_ip\n  }",
+                    "usage_template": "module \"power-infrastructure\" {\n  source                      = \"https://cm.globalcatalog.cloud.ibm.com/api/v1-beta/offering/source//${{workingDirectory}}?archive=tgz&flavor=${{flavor}}&kind=${{kind}}&name=${{name}}&version=${{version}}\"\n  powervs_zone                = var.powervs_zone\n  powervs_resource_group_name = var.powervs_resource_group_name\n  prefix                      = var.prefix\n  tshirt_size                 = var.tshirt_size\n  ssh_private_key             = var.ssh_private_key\n  ssh_public_key              = var.ssh_public_key\n  external_access_ip          = var.external_access_ip\n }",
                     "compliance": {
                         "authority": "scc-v3",
                         "controls": [
@@ -1186,19 +1186,11 @@
                     "architecture": {
                         "features": [
                             {
-                                "title": "Separate VPC for management",
+                                "title": "1 VPC for management, Internet services and private services",
                                 "description": "Yes"
                             },
                             {
-                                "title": "Separate VPC for Internet Services",
-                                "description": "Yes"
-                            },
-                            {
-                                "title": "Separate VPC for Private Services",
-                                "description": "Yes"
-                            },
-                            {
-                                "title": "1 Virtual Server Instances for every VPC",
+                                "title": "1 Virtual Server Instances on VPC",
                                 "description": "Yes"
                             },
                             {
@@ -1218,8 +1210,8 @@
                                 "title": "Additional management configurations on VPC"
                             },
                             {
-                                "description": "PowerVS",
-                                "title": "Additional management configurations on VPC"
+                                "title": "1 Power Virtual Server Instance",
+                                "description": "Yes"
                             }
                         ],
                         "diagrams": [
@@ -1229,7 +1221,7 @@
                                     "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/215_quickstart/reference-architectures/quickstart/deploy-arch-ibm-pvs-inf-quickstart.svg",
                                     "type": "image/svg+xml"
                                 },
-                                "description": "The Power Virtual Server with VPC landing zone as variation 'Create a new architecture' deploys VPC services and a Power Virtual Server workspace and interconnects them.\n \nRequired and optional management components are configured."
+                                "description": "The Power Virtual Server with VPC landing zone as 'quickstart' variation of 'Create a new architecture' option deploys VPC services and a Power Virtual Server workspace and interconnects them. It also creates one Power virtual server instance of chosen t-shirt size or custom configuration.\n \nRequired and optional management components are configured."
                             }
                         ]
                     }
