@@ -15,7 +15,7 @@ This example sets up the following infrastructure:
     - Connects all created PowerVS instances to a proxy server that is specified by IP address or hostname.
 
 ## Architecture diagram
-![full-stack-variation](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/blob/main/reference-architectures/quick-start/deploy-arch-ibm-pvs-inf-quickstart.svg)
+![full-stack-variation](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/blob/main/reference-architectures/quickstart/deploy-arch-ibm-pvs-inf-quickstart.svg)
 
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
