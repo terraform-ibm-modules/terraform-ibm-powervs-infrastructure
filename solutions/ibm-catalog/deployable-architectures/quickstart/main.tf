@@ -187,10 +187,10 @@ locals {
   powervs_share_subnets           = [module.powervs_infra.powervs_management_network_name, module.powervs_infra.powervs_backup_network_name]
   qs_tshirt_choice                = lookup(local.ibm_powervs_quickstart_tshirt_sizes, var.tshirt_size, null)
   custom_profile_enabled          = ((var.custom_profile.cores != "" && var.custom_profile.memory != "") || (var.custom_profile.sap_profile_id != null))
-  sap_system_creation_enabled     = (var.custom_profile.sap_profile_id != null) || (local.qs_tshirt_choice.sap_profile_id != null)
+  sap_system_creation_enabled     = (local.custom_profile_enabled && (var.custom_profile.sap_profile_id != null)) || (!local.custom_profile_enabled && (local.qs_tshirt_choice.sap_profile_id != null))
   powervs_instance_sap_profile_id = local.custom_profile_enabled ? var.custom_profile.sap_profile_id : local.qs_tshirt_choice.sap_profile_id
   powervs_instance_cores          = local.sap_system_creation_enabled ? null : local.custom_profile_enabled ? var.custom_profile.cores : local.qs_tshirt_choice.cores
-  powervs_instance_momory         = local.sap_system_creation_enabled ? null : local.custom_profile_enabled ? var.custom_profile.memory : local.qs_tshirt_choice.memory
+  powervs_instance_memory         = local.sap_system_creation_enabled ? null : local.custom_profile_enabled ? var.custom_profile.memory : local.qs_tshirt_choice.memory
 
   powervs_instance_storage      = local.custom_profile_enabled ? var.custom_profile.storage : local.qs_tshirt_choice.storage
   powervs_instance_storage_tier = local.custom_profile_enabled ? var.custom_profile.tier : local.qs_tshirt_choice.tier
@@ -200,7 +200,7 @@ locals {
 
 module "demo_pi_instance" {
   # tflint-ignore: terraform_unused_declarations
-  source     = "git::https://github.com/terraform-ibm-modules/terraform-ibm-powervs-instance.git?ref=v0.1.3"
+  source     = "git::https://github.com/terraform-ibm-modules/terraform-ibm-powervs-instance.git?ref=v0.1.4"
   providers  = { ibm = ibm.ibm-pvs }
   depends_on = [module.landing_zone, module.powervs_infra]
 
@@ -215,6 +215,6 @@ module "demo_pi_instance" {
   pi_server_type          = local.sap_system_creation_enabled ? null : "s922"
   pi_cpu_proc_type        = local.sap_system_creation_enabled ? null : "shared"
   pi_number_of_processors = local.powervs_instance_cores
-  pi_memory_size          = local.powervs_instance_momory
+  pi_memory_size          = local.powervs_instance_memory
   pi_storage_config       = local.powervs_instance_storage_obj
 }

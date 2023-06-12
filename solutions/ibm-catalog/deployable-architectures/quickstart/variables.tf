@@ -79,7 +79,7 @@ variable "custom_profile" {
   }
 
   validation {
-    condition     = ((var.custom_profile.sap_profile_id == null && ((var.custom_profile.cores == "" && var.custom_profile.memory == "") || (var.custom_profile.cores != "" && var.custom_profile.memory != ""))) || (var.custom_profile.sap_profile_id != null && (var.custom_profile.cores == "" && var.custom_profile.memory == ""))) && ((var.custom_profile.sap_profile_id != null || var.custom_profile.cores != "" || var.custom_profile.memory != "") && var.custom_profile.storage != "" && var.custom_profile.tier != "")
+    condition     = ((var.custom_profile.sap_profile_id == null && ((var.custom_profile.cores == "" && var.custom_profile.memory == "") || (var.custom_profile.cores != "" && var.custom_profile.memory != ""))) || (var.custom_profile.sap_profile_id != null && (var.custom_profile.cores == "" && var.custom_profile.memory == "")))
     error_message = "Invalid custom config. If 'sap_profile_id' is not null, please set cores and memory as empty."
   }
 }
