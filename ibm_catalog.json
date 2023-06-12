@@ -742,9 +742,9 @@
                     }
                 },
                 {
-                    "label": "PowerVS Quickstart",
+                    "label": "PowerVS Workspace",
                     "name": "powervs-workspace",
-                    "install_type": "fullstack",
+                    "install_type": "quickstart",
                     "working_directory": "solutions/ibm-catalog/deployable-architectures/quickstart",
                     "usage_template": "module \"power-infrastructure\" {\n  source                      = \"https://cm.globalcatalog.cloud.ibm.com/api/v1-beta/offering/source//${{workingDirectory}}?archive=tgz&flavor=${{flavor}}&kind=${{kind}}&name=${{name}}&version=${{version}}\"\n  powervs_zone                = var.powervs_zone\n  powervs_resource_group_name = var.powervs_resource_group_name\n  prefix                      = var.prefix\n  preset                      = var.preset\n  ssh_private_key             = var.ssh_private_key\n  ssh_public_key              = var.ssh_public_key\n  landing_zone_configuration  = var.landing_zone_configuration\n  external_access_ip          = var.external_access_ip\n  }",
                     "compliance": {
