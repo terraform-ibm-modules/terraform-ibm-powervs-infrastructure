@@ -964,6 +964,63 @@
                             "default": ""
                         },
                         {
+                            "key": "powervs_instance_boot_image",
+                            "type": "string",
+                            "default_value": "",
+                            "required": false,
+                            "options": [
+                                {
+                                    "displayname": "SAP - RHEL8-SP4-SAP",
+                                    "value": "RHEL8-SP4-SAP"
+                                },
+                                {
+                                    "displayname": "SAP - SLES15-SP4-SAP",
+                                    "value": "SLES15-SP4-SAP"
+                                },
+                                {
+                                    "displayname": "SAP - RHEL8-SP4-SAP-NETWEAVER",
+                                    "value": "RHEL8-SP4-SAP-NETWEAVER"
+                                },
+                                {
+                                    "displayname": "SAP - SLES15-SP4-SAP-NETWEAVER",
+                                    "value": "SLES15-SP4-SAP-NETWEAVER"
+                                },
+                                {
+                                    "displayname": "IBM i - IBMi-73-13-2924-1",
+                                    "value": "IBMi-73-13-2924-1"
+                                },
+                                {
+                                    "displayname": "IBM i - IBMi-74-07-2924-1",
+                                    "value": "IBMi-74-07-2924-1"
+                                },
+                                {
+                                    "displayname": "IBM i - IBMi-75-01-2924-2",
+                                    "value": "IBMi-75-01-2924-2"
+                                },
+                                {
+                                    "displayname": "IBM i - IBMi_COR-74-07-2",
+                                    "value": "IBMi_COR-74-07-2"
+                                },
+                                {
+                                    "displayname": "AIX - 7300-01-01",
+                                    "value": "7300-01-01"
+                                },
+                                {
+                                    "displayname": "AIX - 7300-00-01",
+                                    "value": "7300-00-01"
+                                },
+                                {
+                                    "displayname": "AIX - 7200-05-03",
+                                    "value": "7200-05-03"
+                                }
+                            ],
+                            "hidden": false,
+                            "custom_config": {}
+                        },
+                        {
+                            "key": "custom_profile"
+                        },
+                        {
                             "key": "configure_dns_forwarder"
                         },
                         {
@@ -1043,6 +1100,18 @@
                         },
                         {
                             "key": "access_host_or_ip"
+                        },
+                        {
+                            "key": "instance_private_ips"
+                        },
+                        {
+                            "key": "instance_private_ips_info"
+                        },
+                        {
+                            "key": "instance_mgmt_ip"
+                        },
+                        {
+                            "key": "storage_configuration"
                         },
                         {
                             "key": "schematics_workspace_id"

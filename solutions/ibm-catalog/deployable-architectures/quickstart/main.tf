@@ -56,6 +56,8 @@ locals {
     "sap_olap" = { "sap_profile_id" = "bh1-16x1600", "storage" = "3170", "tier" = "tier3", "image" = "RHEL8-SP4-SAP" }
     "sap_oltp" = { "sap_profile_id" = "umh-4x960", "storage" = "2490", "tier" = "tier3", "image" = "RHEL8-SP4-SAP" }
   }
+
+  sap_boot_images = ["RHEL8-SP4-SAP", "SLES15-SP4-SAP", "RHEL8-SP4-SAP-NETWEAVER", "SLES15-SP4-SAP-NETWEAVER"]
 }
 
 # There are discrepancies between the region inputs on the powervs terraform resource, and the vpc ("is") resources
@@ -182,21 +184,30 @@ module "powervs_infra" {
 }
 
 locals {
-  powervs_instance_name           = "demo"
-  powervs_sshkey_name             = module.powervs_infra.powervs_sshkey_name
-  powervs_share_subnets           = [module.powervs_infra.powervs_management_network_name, module.powervs_infra.powervs_backup_network_name]
-  qs_tshirt_choice                = lookup(local.ibm_powervs_quickstart_tshirt_sizes, var.tshirt_size, null)
-  custom_profile_enabled          = ((var.custom_profile.cores != "" && var.custom_profile.memory != "") || (var.custom_profile.sap_profile_id != null))
-  sap_system_creation_enabled     = (local.custom_profile_enabled && (var.custom_profile.sap_profile_id != null)) || (!local.custom_profile_enabled && (local.qs_tshirt_choice.sap_profile_id != null))
+  powervs_instance_name       = "demo"
+  powervs_sshkey_name         = module.powervs_infra.powervs_sshkey_name
+  powervs_subnets             = [module.powervs_infra.powervs_management_network_name, module.powervs_infra.powervs_backup_network_name]
+  qs_tshirt_choice            = lookup(local.ibm_powervs_quickstart_tshirt_sizes, var.tshirt_size, null)
+  custom_profile_enabled      = ((var.custom_profile.cores != "" && var.custom_profile.memory != "") || (var.custom_profile.sap_profile_id != null && var.custom_profile.sap_profile_id != ""))
+  sap_system_creation_enabled = (local.custom_profile_enabled && (var.custom_profile.sap_profile_id != null)) || (!local.custom_profile_enabled && (local.qs_tshirt_choice.sap_profile_id != null))
+
+  powervs_instance_boot_image = local.custom_profile_enabled ? var.powervs_instance_boot_image : local.qs_tshirt_choice.image
+  valid_boot_image_used       = local.sap_system_creation_enabled ? contains(local.sap_boot_images, local.powervs_instance_boot_image) : true
+  validate_boot_image_msg     = "The provided boot image for powervs instance is not an SAP image."
+  # tflint-ignore: terraform_unused_declarations
+  validate_boot_image_chk = regex("^${local.validate_boot_image_msg}$", (local.valid_boot_image_used ? local.validate_boot_image_msg : ""))
+
   powervs_instance_sap_profile_id = local.custom_profile_enabled ? var.custom_profile.sap_profile_id : local.qs_tshirt_choice.sap_profile_id
   powervs_instance_cores          = local.sap_system_creation_enabled ? null : local.custom_profile_enabled ? var.custom_profile.cores : local.qs_tshirt_choice.cores
   powervs_instance_memory         = local.sap_system_creation_enabled ? null : local.custom_profile_enabled ? var.custom_profile.memory : local.qs_tshirt_choice.memory
-
-  powervs_instance_storage      = local.custom_profile_enabled ? var.custom_profile.storage : local.qs_tshirt_choice.storage
-  powervs_instance_storage_tier = local.custom_profile_enabled ? var.custom_profile.tier : local.qs_tshirt_choice.tier
-
-  powervs_instance_storage_obj = local.powervs_instance_storage != "" && local.powervs_instance_storage_tier != "" ? [{ name = "data", size = local.powervs_instance_storage, count = "1", tier = local.powervs_instance_storage_tier, mount = "/data" }] : [{ name = "", size = "", count = "", tier = "", mount = "" }]
+  powervs_instance_storage        = local.custom_profile_enabled ? var.custom_profile.storage : local.qs_tshirt_choice.storage
+  powervs_instance_storage_tier   = local.custom_profile_enabled ? var.custom_profile.tier : local.qs_tshirt_choice.tier
+  powervs_instance_storage_obj    = local.powervs_instance_storage != "" && local.powervs_instance_storage_tier != "" ? [{ name = "data", size = local.powervs_instance_storage, count = "1", tier = local.powervs_instance_storage_tier, mount = "/data" }] : null
 }
+
+#####################################################
+# PowerVS Instance module
+#####################################################
 
 module "demo_pi_instance" {
   # tflint-ignore: terraform_unused_declarations
@@ -209,8 +220,8 @@ module "demo_pi_instance" {
   pi_workspace_name       = "${var.prefix}-${var.powervs_zone}-power-workspace"
   pi_sshkey_name          = local.powervs_sshkey_name
   pi_instance_name        = local.powervs_instance_name
-  pi_os_image_name        = local.qs_tshirt_choice.image
-  pi_networks             = local.powervs_share_subnets
+  pi_os_image_name        = local.powervs_instance_boot_image
+  pi_networks             = local.powervs_subnets
   pi_sap_profile_id       = local.powervs_instance_sap_profile_id
   pi_server_type          = local.sap_system_creation_enabled ? null : "s922"
   pi_cpu_proc_type        = local.sap_system_creation_enabled ? null : "shared"

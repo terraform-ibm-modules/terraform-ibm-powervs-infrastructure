@@ -51,7 +51,7 @@ variable "configure_nfs_server" {
 # PowerVS Instance parameters
 #####################################################
 variable "tshirt_size" {
-  description = "PowerVS instance choice."
+  description = "PowerVS instance profiles. These profiles can be overriden by specifying powervs_instance_boot_image and custom_profile values in optional parameters."
   type        = string
   default     = "sap-dev"
 
@@ -85,7 +85,7 @@ variable "custom_profile" {
 }
 
 variable "powervs_instance_boot_image" {
-  description = "Boot image for the powervs worspace virtual server instance."
+  description = "Override the t-shirt size specs of powervs worspace instance by selecting an image name and providing valid custom_profile parameter."
   type        = string
   default     = "RHEL8-SP4-SAP"
   validation {
