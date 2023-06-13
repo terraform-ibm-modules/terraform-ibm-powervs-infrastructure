@@ -31,7 +31,7 @@ locals {
 
 resource "null_resource" "perform_proxy_client_setup" {
 
-  count = length(var.perform_proxy_client_setup["squid_client_ips"])
+  count = var.perform_proxy_client_setup != null ? length(var.perform_proxy_client_setup["squid_client_ips"]) : 0
 
   connection {
     type         = "ssh"

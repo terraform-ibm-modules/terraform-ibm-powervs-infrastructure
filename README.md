@@ -93,9 +93,10 @@ You need the following permissions to run this module.
 <!-- END MODULE HOOK -->
 
 <!-- BEGIN EXAMPLES HOOK -->
-## Examples
-
-- [Examples](examples)
+## Solutions
+- [ IBM Cloud catalog example for Power Virtual Server with VPC landing zone Extension Variation](solutions/ibm-catalog/deployable-architectures/extension)
+- [ IBM Cloud catalog example for Power Virtual Server with VPC landing zone Full-Stack Variation](solutions/ibm-catalog/deployable-architectures/full-stack)
+- [ Standard example for Power Virtual Server with VPC landing zone](solutions/terraform-registry/powervs_infrastructure)
 <!-- END EXAMPLES HOOK -->
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
