@@ -189,11 +189,16 @@ locals {
   powervs_subnets             = [module.powervs_infra.powervs_management_network_name, module.powervs_infra.powervs_backup_network_name]
   qs_tshirt_choice            = lookup(local.ibm_powervs_quickstart_tshirt_sizes, var.tshirt_size, null)
   custom_profile_enabled      = ((var.custom_profile.cores != "" && var.custom_profile.memory != "") || (var.custom_profile.sap_profile_id != null && var.custom_profile.sap_profile_id != ""))
-  sap_system_creation_enabled = (local.custom_profile_enabled && (var.custom_profile.sap_profile_id != null)) || (!local.custom_profile_enabled && (local.qs_tshirt_choice.sap_profile_id != null))
+  sap_system_creation_enabled = (local.custom_profile_enabled && var.custom_profile.sap_profile_id != null && var.custom_profile.sap_profile_id != "") || (!local.custom_profile_enabled && (local.qs_tshirt_choice.sap_profile_id != null))
 
-  powervs_instance_boot_image = local.custom_profile_enabled ? var.powervs_instance_boot_image : local.qs_tshirt_choice.image
-  valid_boot_image_used       = local.sap_system_creation_enabled ? contains(local.sap_boot_images, local.powervs_instance_boot_image) : true
-  validate_boot_image_msg     = "The provided boot image for powervs instance is not an SAP image."
+  custom_profile_instance_boot_image = local.custom_profile_enabled ? var.custom_profile_instance_boot_image : local.qs_tshirt_choice.image
+  valid_boot_image_provided          = local.custom_profile_instance_boot_image != "" ? true : false
+  valid_boot_image_provided_msg      = "'custom_profile' is enabled, but variable 'custom_profile_instance_boot_image' is not set."
+  # tflint-ignore: terraform_unused_declarations
+  validate_provided_custom_boot_image_chk = regex("^${local.valid_boot_image_provided_msg}$", (local.valid_boot_image_provided ? local.valid_boot_image_provided_msg : ""))
+
+  valid_boot_image_used   = local.sap_system_creation_enabled ? contains(local.sap_boot_images, local.custom_profile_instance_boot_image) : true
+  validate_boot_image_msg = "The provided boot image for powervs instance is not an SAP image."
   # tflint-ignore: terraform_unused_declarations
   validate_boot_image_chk = regex("^${local.validate_boot_image_msg}$", (local.valid_boot_image_used ? local.validate_boot_image_msg : ""))
 
@@ -220,7 +225,7 @@ module "demo_pi_instance" {
   pi_workspace_name       = "${var.prefix}-${var.powervs_zone}-power-workspace"
   pi_sshkey_name          = local.powervs_sshkey_name
   pi_instance_name        = local.powervs_instance_name
-  pi_os_image_name        = local.powervs_instance_boot_image
+  pi_os_image_name        = local.custom_profile_instance_boot_image
   pi_networks             = local.powervs_subnets
   pi_sap_profile_id       = local.powervs_instance_sap_profile_id
   pi_server_type          = local.sap_system_creation_enabled ? null : "s922"

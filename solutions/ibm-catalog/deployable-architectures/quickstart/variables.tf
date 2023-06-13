@@ -51,7 +51,7 @@ variable "configure_nfs_server" {
 # PowerVS Instance parameters
 #####################################################
 variable "tshirt_size" {
-  description = "PowerVS instance profiles. These profiles can be overridden by specifying 'powervs_instance_boot_image' and 'custom_profile' values in optional parameters."
+  description = "PowerVS instance profiles. These profiles can be overridden by specifying 'custom_profile_instance_boot_image' and 'custom_profile' values in optional parameters."
   type        = string
   default     = "sap-dev"
 
@@ -79,17 +79,17 @@ variable "custom_profile" {
   }
 
   validation {
-    condition     = ((var.custom_profile.sap_profile_id == null && ((var.custom_profile.cores == "" && var.custom_profile.memory == "") || (var.custom_profile.cores != "" && var.custom_profile.memory != ""))) || (var.custom_profile.sap_profile_id != null && (var.custom_profile.cores == "" && var.custom_profile.memory == "")))
-    error_message = "Invalid custom config. If 'sap_profile_id' is not null, please set cores and memory as empty."
+    condition     = (((var.custom_profile.sap_profile_id == null || var.custom_profile.sap_profile_id == "") && ((var.custom_profile.cores == "" && var.custom_profile.memory == "") || (var.custom_profile.cores != "" && var.custom_profile.memory != ""))) || (var.custom_profile.sap_profile_id != null && (var.custom_profile.cores == "" && var.custom_profile.memory == "")))
+    error_message = "Invalid custom config. If 'sap_profile_id' is not null, please set cores and memory as empty. Please set both storage and tier to create volumes."
   }
 }
 
-variable "powervs_instance_boot_image" {
+variable "custom_profile_instance_boot_image" {
   description = "Override the t-shirt size specs of PowerVS Workspace instance by selecting an image name and providing valid custom_profile parameter."
   type        = string
   default     = "RHEL8-SP4-SAP"
   validation {
-    condition     = contains(["RHEL8-SP4-SAP", "SLES15-SP4-SAP", "RHEL8-SP4-SAP-NETWEAVER", "SLES15-SP4-SAP-NETWEAVER", "IBMi-73-13-2924-1", "IBMi-74-07-2924-1", "IBMi-75-01-2924-2", "IBMi_COR-74-07-2", "7300-01-01", "7300-00-01", "7200-05-03"], var.powervs_instance_boot_image)
+    condition     = contains(["RHEL8-SP4-SAP", "SLES15-SP4-SAP", "RHEL8-SP4-SAP-NETWEAVER", "SLES15-SP4-SAP-NETWEAVER", "IBMi-73-13-2924-1", "IBMi-74-07-2924-1", "IBMi-75-01-2924-2", "IBMi_COR-74-07-2", "7300-01-01", "7300-00-01", "7200-05-03", ""], var.custom_profile_instance_boot_image)
     error_message = "Only Following DC values are supported :  RHEL8-SP4-SAP, SLES15-SP4-SAP, RHEL8-SP4-SAP-NETWEAVER, SLES15-SP4-SAP-NETWEAVER, IBMi-73-13-2924-1, IBMi-74-07-2924-1, IBMi-75-01-2924-2, IBMi_COR-74-07-2, 7300-01-01, 7300-00-01, 7200-05-03"
   }
 }
