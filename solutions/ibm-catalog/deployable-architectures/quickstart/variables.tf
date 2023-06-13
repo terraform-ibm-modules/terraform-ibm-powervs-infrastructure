@@ -62,7 +62,7 @@ variable "tshirt_size" {
 }
 
 variable "custom_profile" {
-  description = "Specify the machine type, core type, cores and memory. If creating SAP systems, please set variable 'sap_profile_id' and leave 'cores' and 'memory' empty"
+  description = "To override the t-shirt profile and create PowerVS wokspace instance with custom specifications, specify the sap_profile_id or combination of 'cores' and 'memory'. The variable 'sap_profile_id' should be set only while creating SAP systems using sap profile ids and must leave the fields 'cores' and 'memory' empty. The 'storage' & 'tier' are optional values. Please set both 'storage' and 'tier' if volumes are to be created."
   type = object({
     sap_profile_id = string
     cores          = string
@@ -80,7 +80,7 @@ variable "custom_profile" {
 
   validation {
     condition     = (((var.custom_profile.sap_profile_id == null || var.custom_profile.sap_profile_id == "") && ((var.custom_profile.cores == "" && var.custom_profile.memory == "") || (var.custom_profile.cores != "" && var.custom_profile.memory != ""))) || (var.custom_profile.sap_profile_id != null && (var.custom_profile.cores == "" && var.custom_profile.memory == "")))
-    error_message = "Invalid custom config. If 'sap_profile_id' is not null, please set cores and memory as empty. Please set both storage and tier to create volumes."
+    error_message = "Invalid custom config. If 'sap_profile_id' is not null or empty, please set cores and memory as empty."
   }
 }
 
