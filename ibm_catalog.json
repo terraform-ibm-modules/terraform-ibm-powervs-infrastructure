@@ -384,24 +384,24 @@
                     "architecture": {
                         "features": [
                             {
-                                "description": "Separate VPC for management",
-                                "title": "Yes"
+                                "title": "Separate VPC for management",
+                                "description": "Yes"
                             },
                             {
-                                "description": "Separate VPC for Internet Services",
-                                "title": "Yes"
+                                "title": "Separate VPC for Internet Services",
+                                "description": "Yes"
                             },
                             {
-                                "description": "Separate VPC for Private Services",
-                                "title": "Yes"
+                                "title": "Separate VPC for Private Services",
+                                "description": "Yes"
                             },
                             {
-                                "description": "1 Virtual Server Instances for every VPC",
-                                "title": "Yes"
+                                "title": "1 Virtual Server Instances for every VPC",
+                                "description": "Yes"
                             },
                             {
-                                "description": "Increases security with Key Management",
-                                "title": "Yes"
+                                "title": "Increases security with Key Management",
+                                "description": "Yes"
                             },
                             {
                                 "description": "PowerVS Workspace with all required components",
@@ -1164,32 +1164,32 @@
                     "architecture": {
                         "features": [
                             {
-                                "description": "1 VPC for management, Internet services and private services",
-                                "title": "Yes"
+                                "title": "1 VPC for management, Internet services and private services",
+                                "description": "Yes"
                             },
                             {
-                                "description": "1 Virtual Server Instances on VPC",
-                                "title": "Yes"
+                                "title": "1 Virtual Server Instances on VPC",
+                                "description": "Yes"
                             },
                             {
-                                "description": "Increases security with Key Management",
-                                "title": "Yes"
+                                "title": "Increases security with Key Management",
+                                "description": "Yes"
                             },
                             {
-                                "description": "PowerVS Workspace with all required components",
-                                "title": "Power Virtual Server Workspace"
+                                "title": "Power Virtual Server Workspace",
+                                "description": "PowerVS Workspace with all required components"
                             },
                             {
-                                "description": "Proxy service to reach public internet from PowerVS Workspace",
-                                "title": "Internet proxy on VPC"
+                                "title": "Internet proxy on VPC",
+                                "description": "Proxy service to reach public internet from PowerVS Workspace"
                             },
                             {
-                                "description": "NFS server, NTP forwarder, and DNS forwarder reachable from PowerVS Workspace",
-                                "title": "Additional management configurations on VPC"
+                                "title": "Additional management configurations on VPC",
+                                "description": "NFS server, NTP forwarder, and DNS forwarder reachable from PowerVS Workspace"
                             },
                             {
-                                "description": "1 Power Virtual Server Instance",
-                                "title": "Yes"
+                                "title": "1 Power Virtual Server Instance",
+                                "description": "Yes"
                             }
                         ],
                         "diagrams": [
