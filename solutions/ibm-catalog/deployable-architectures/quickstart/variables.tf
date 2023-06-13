@@ -3,11 +3,6 @@ variable "powervs_zone" {
   type        = string
 }
 
-variable "powervs_resource_group_name" {
-  description = "Existing IBM Cloud resource group name."
-  type        = string
-}
-
 variable "prefix" {
   description = "A unique identifier for resources. Must begin with a lowercase letter and end with a lowercase letter or number. This prefix will be prepended to any resources provisioned by this template. Prefixes must be 16 or fewer characters."
   type        = string
@@ -149,6 +144,12 @@ variable "tags" {
   description = "List of tag names for the IBM Cloud PowerVS workspace"
   type        = list(string)
   default     = ["demo"]
+}
+
+variable "powervs_resource_group_name" {
+  description = "Existing IBM Cloud resource group name."
+  type        = string
+  default     = "Default"
 }
 
 variable "dns_forwarder_config" {

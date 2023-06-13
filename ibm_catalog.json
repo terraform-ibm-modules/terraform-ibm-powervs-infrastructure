@@ -132,14 +132,6 @@
                                     "value": "mon01"
                                 },
                                 {
-                                    "displayname": "Dallas (dal12)",
-                                    "value": "dal12"
-                                },
-                                {
-                                    "displayname": "Dallas (dal13)",
-                                    "value": "dal13"
-                                },
-                                {
                                     "displayname": "Osaka (osa21)",
                                     "value": "osa21"
                                 },
@@ -156,24 +148,24 @@
                                     "value": "syd05"
                                 },
                                 {
-                                    "displayname": "US-east (us-east)",
-                                    "value": "us-east"
+                                    "displayname": "Sao Paulo (sao01)",
+                                    "value": "sao01"
                                 },
                                 {
                                     "displayname": "US-south (us-south)",
                                     "value": "us-south"
                                 },
                                 {
-                                    "displayname": "Sao Paulo (sao01)",
-                                    "value": "sao01"
+                                    "displayname": "Dallas (dal10)",
+                                    "value": "dal10"
                                 },
                                 {
-                                    "displayname": "Washington DC (wdc04)",
-                                    "value": "wdc04"
+                                    "displayname": "Dallas (dal12)",
+                                    "value": "dal12"
                                 },
                                 {
-                                    "displayname": "Washington DC (wdc06)",
-                                    "value": "wdc06"
+                                    "displayname": "US-east (us-east)",
+                                    "value": "us-east"
                                 }
                             ],
                             "hidden": false,
@@ -392,24 +384,24 @@
                     "architecture": {
                         "features": [
                             {
-                                "title": "Separate VPC for management",
-                                "description": "Yes"
+                                "description": "Separate VPC for management",
+                                "title": "Yes"
                             },
                             {
-                                "title": "Separate VPC for Internet Services",
-                                "description": "Yes"
+                                "description": "Separate VPC for Internet Services",
+                                "title": "Yes"
                             },
                             {
-                                "title": "Separate VPC for Private Services",
-                                "description": "Yes"
+                                "description": "Separate VPC for Private Services",
+                                "title": "Yes"
                             },
                             {
-                                "title": "1 Virtual Server Instances for every VPC",
-                                "description": "Yes"
+                                "description": "1 Virtual Server Instances for every VPC",
+                                "title": "Yes"
                             },
                             {
-                                "title": "Increases security with Key Management",
-                                "description": "Yes"
+                                "description": "Increases security with Key Management",
+                                "title": "Yes"
                             },
                             {
                                 "description": "PowerVS Workspace with all required components",
@@ -531,14 +523,6 @@
                                     "value": "mon01"
                                 },
                                 {
-                                    "displayname": "Dallas (dal12)",
-                                    "value": "dal12"
-                                },
-                                {
-                                    "displayname": "Dallas (dal13)",
-                                    "value": "dal13"
-                                },
-                                {
                                     "displayname": "Osaka (osa21)",
                                     "value": "osa21"
                                 },
@@ -555,24 +539,24 @@
                                     "value": "syd05"
                                 },
                                 {
-                                    "displayname": "US-east (us-east)",
-                                    "value": "us-east"
+                                    "displayname": "Sao Paulo (sao01)",
+                                    "value": "sao01"
                                 },
                                 {
                                     "displayname": "US-south (us-south)",
                                     "value": "us-south"
                                 },
                                 {
-                                    "displayname": "Sao Paulo (sao01)",
-                                    "value": "sao01"
+                                    "displayname": "Dallas (dal10)",
+                                    "value": "dal10"
                                 },
                                 {
-                                    "displayname": "Washington DC (wdc04)",
-                                    "value": "wdc04"
+                                    "displayname": "Dallas (dal12)",
+                                    "value": "dal12"
                                 },
                                 {
-                                    "displayname": "Washington DC (wdc06)",
-                                    "value": "wdc06"
+                                    "displayname": "US-east (us-east)",
+                                    "value": "us-east"
                                 }
                             ],
                             "hidden": false,
@@ -821,14 +805,6 @@
                                     "value": "mon01"
                                 },
                                 {
-                                    "displayname": "Dallas (dal12)",
-                                    "value": "dal12"
-                                },
-                                {
-                                    "displayname": "Dallas (dal13)",
-                                    "value": "dal13"
-                                },
-                                {
                                     "displayname": "Osaka (osa21)",
                                     "value": "osa21"
                                 },
@@ -845,40 +821,28 @@
                                     "value": "syd05"
                                 },
                                 {
-                                    "displayname": "US-east (us-east)",
-                                    "value": "us-east"
+                                    "displayname": "Sao Paulo (sao01)",
+                                    "value": "sao01"
                                 },
                                 {
                                     "displayname": "US-south (us-south)",
                                     "value": "us-south"
                                 },
                                 {
-                                    "displayname": "Sao Paulo (sao01)",
-                                    "value": "sao01"
+                                    "displayname": "Dallas (dal10)",
+                                    "value": "dal10"
                                 },
                                 {
-                                    "displayname": "Washington DC (wdc04)",
-                                    "value": "wdc04"
+                                    "displayname": "Dallas (dal12)",
+                                    "value": "dal12"
                                 },
                                 {
-                                    "displayname": "Washington DC (wdc06)",
-                                    "value": "wdc06"
+                                    "displayname": "US-east (us-east)",
+                                    "value": "us-east"
                                 }
                             ],
                             "hidden": false,
                             "custom_config": {}
-                        },
-                        {
-                            "custom_config": {
-                                "config_constraints": {
-                                    "identifier": "rg_name"
-                                },
-                                "grouping": "deployment",
-                                "original_grouping": "deployment",
-                                "type": "resource_group"
-                            },
-                            "key": "powervs_resource_group_name",
-                            "required": true
                         },
                         {
                             "key": "prefix",
@@ -891,35 +855,35 @@
                             "required": true,
                             "options": [
                                 {
-                                    "displayname": "AIX - XS (1x32)",
+                                    "displayname": "AIX - XS (1cpu,32GB)",
                                     "value": "aix_xs"
                                 },
                                 {
-                                    "displayname": "AIX - S (4x128)",
+                                    "displayname": "AIX - S (4cpu,128GB)",
                                     "value": "aix_s"
                                 },
                                 {
-                                    "displayname": "AIX - M (8x256)",
+                                    "displayname": "AIX - M (8cpu,256GB)",
                                     "value": "aix_m"
                                 },
                                 {
-                                    "displayname": "AIX - L (15x512)",
+                                    "displayname": "AIX - L (15cpu,512GB)",
                                     "value": "aix_l"
                                 },
                                 {
-                                    "displayname": "IBM i - XS (0.25x8)",
+                                    "displayname": "IBM i - XS (0.25cpu,8GB)",
                                     "value": "ibm_i_xs"
                                 },
                                 {
-                                    "displayname": "IBM i - S (1x32)",
+                                    "displayname": "IBM i - S (1cpu,32GB)",
                                     "value": "ibm_i_s"
                                 },
                                 {
-                                    "displayname": "IBM i - M (2x64)",
+                                    "displayname": "IBM i - M (2cpu,64GB)",
                                     "value": "ibm_i_m"
                                 },
                                 {
-                                    "displayname": "IBM i - L (4x132)",
+                                    "displayname": "IBM i - L (4cpu,132GB)",
                                     "value": "ibm_i_l"
                                 },
                                 {
@@ -1043,6 +1007,20 @@
                         },
                         {
                             "key": "dns_forwarder_config"
+                        },
+                        {
+                            "custom_config": {
+                                "config_constraints": {
+                                    "identifier": "rg_name"
+                                },
+                                "grouping": "deployment",
+                                "original_grouping": "deployment",
+                                "type": "resource_group"
+                            },
+                            "hidden": false,
+                            "default_value": "Default",
+                            "key": "powervs_resource_group_name",
+                            "required": false
                         },
                         {
                             "key": "tags"
@@ -1186,16 +1164,16 @@
                     "architecture": {
                         "features": [
                             {
-                                "title": "1 VPC for management, Internet services and private services",
-                                "description": "Yes"
+                                "description": "1 VPC for management, Internet services and private services",
+                                "title": "Yes"
                             },
                             {
-                                "title": "1 Virtual Server Instances on VPC",
-                                "description": "Yes"
+                                "description": "1 Virtual Server Instances on VPC",
+                                "title": "Yes"
                             },
                             {
-                                "title": "Increases security with Key Management",
-                                "description": "Yes"
+                                "description": "Increases security with Key Management",
+                                "title": "Yes"
                             },
                             {
                                 "description": "PowerVS Workspace with all required components",
@@ -1210,8 +1188,8 @@
                                 "title": "Additional management configurations on VPC"
                             },
                             {
-                                "title": "1 Power Virtual Server Instance",
-                                "description": "Yes"
+                                "description": "1 Power Virtual Server Instance",
+                                "title": "Yes"
                             }
                         ],
                         "diagrams": [
