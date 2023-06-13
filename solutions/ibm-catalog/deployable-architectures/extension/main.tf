@@ -6,20 +6,18 @@ locals {
     "eu-de-2"  = "eu-de"
     "tor01"    = "tor"
     "mon01"    = "mon"
-    "dal12"    = "us-south"
-    "dal13"    = "us-south"
     "osa21"    = "osa"
     "tok04"    = "tok"
     "syd04"    = "syd"
     "syd05"    = "syd"
-    "us-east"  = "us-east"
-    "us-south" = "us-south"
     "sao01"    = "sao"
     "sao04"    = "sao"
-    "wdc04"    = "us-east"
+    "dal10"    = "us-south"
+    "us-south" = "us-south"
+    "dal12"    = "us-south"
+    "us-east"  = "us-east"
     "wdc06"    = "us-east"
     "wdc07"    = "us-east"
-
   }
 }
 
