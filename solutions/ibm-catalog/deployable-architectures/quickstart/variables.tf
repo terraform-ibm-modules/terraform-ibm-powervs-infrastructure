@@ -57,7 +57,7 @@ variable "tshirt_size" {
 }
 
 variable "custom_profile" {
-  description = "To override the t-shirt profile and create PowerVS wokspace instance with custom specifications, specify the sap_profile_id or combination of 'cores' and 'memory'. The variable 'sap_profile_id' should be set only while creating SAP systems using sap profile ids and must leave the fields 'cores' and 'memory' empty. The 'storage' & 'tier' are optional values. Please set both 'storage' and 'tier' if volumes are to be created."
+  description = "Overrides t-shirt profile: Custom PowerVS wokspace instance. Specify the 'sap_profile_id' or combination of 'cores' and 'memory'. Please set 'sap_profile_id' and leave the fields 'cores' and 'memory' empty when creating SAP systems using SAP profile ids. The 'storage'(storage size) & 'tier' are optional values. Please set them to create volumes."
   type = object({
     sap_profile_id = string
     cores          = string

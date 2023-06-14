@@ -112,7 +112,7 @@ locals {
     "squid_port"        = local.squid_port
   }
 
-  ### Proxy client will be configured on "${var.prefix}-private-svs-1" vsi
+  ### Proxy client will be configured on "${var.prefix}-inet-svs-1" vsi
   perform_proxy_client_setup = {
     squid_client_ips = []
     squid_server_ip  = ""
@@ -120,19 +120,19 @@ locals {
     no_proxy_hosts   = ""
   }
 
-  ### DNS Forwarder will be configured on "${var.prefix}-private-svs-1" vsi
+  ### DNS Forwarder will be configured on "${var.prefix}-inet-svs-1" vsi
   dns_config = merge(var.dns_forwarder_config, {
     "dns_enable"        = var.configure_dns_forwarder
     "server_host_or_ip" = local.inet_svs_ip
   })
 
-  ### NTP Forwarder will be configured on "${var.prefix}-private-svs-1" vsi
+  ### NTP Forwarder will be configured on "${var.prefix}-inet-svs-1" vsi
   ntp_config = {
     "ntp_enable"        = var.configure_ntp_forwarder
     "server_host_or_ip" = local.inet_svs_ip
   }
 
-  ### NFS server will be configured on "${var.prefix}-private-svs-1" vsi
+  ### NFS server will be configured on "${var.prefix}-inet-svs-1" vsi
   nfs_config = {
     "nfs_enable"        = local.nfs_disk_size != "" ? var.configure_nfs_server : false
     "server_host_or_ip" = local.inet_svs_ip
@@ -207,7 +207,6 @@ locals {
 #####################################################
 
 module "demo_pi_instance" {
-  # tflint-ignore: terraform_unused_declarations
   source     = "git::https://github.com/terraform-ibm-modules/terraform-ibm-powervs-instance.git?ref=v0.1.4"
   providers  = { ibm = ibm.ibm-pvs }
   depends_on = [module.landing_zone, module.powervs_infra]
