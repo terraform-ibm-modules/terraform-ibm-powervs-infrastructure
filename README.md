@@ -43,8 +43,8 @@ provider "ibm" {
 }
 
 module "power-infrastructure" {
-  # Replace "main" with a GIT release version to lock into a specific release
-  source = "git::https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure.git?ref=main"
+  source  = "terraform-ibm-modules/powervs-infrastructure/ibm"
+  version = "latest" # Replace "latest" with a release version to lock into a specific release
 
   powervs_zone                 = var.powervs_zone
   powervs_resource_group_name  = var.powervs_resource_group_name
@@ -94,9 +94,10 @@ You need the following permissions to run this module.
 
 <!-- BEGIN EXAMPLES HOOK -->
 ## Solutions
+- [ IBM Cloud Power Virtual Server with VPC landing zone Full-Stack Variation](solutions/ibm-catalog/deployable-architectures/full-stack)
+- [ IBM Cloud Power Virtual Server with VPC landing zone Quickstart Variation](solutions/ibm-catalog/deployable-architectures/quickstart)
 - [ IBM Cloud catalog example for Power Virtual Server with VPC landing zone Extension Variation](solutions/ibm-catalog/deployable-architectures/extension)
-- [ IBM Cloud catalog example for Power Virtual Server with VPC landing zone Full-Stack Variation](solutions/ibm-catalog/deployable-architectures/full-stack)
-- [ Standard example for Power Virtual Server with VPC landing zone](solutions/terraform-registry/powervs_infrastructure)
+
 <!-- END EXAMPLES HOOK -->
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

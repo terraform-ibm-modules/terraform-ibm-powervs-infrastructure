@@ -1,18 +1,21 @@
-# IBM Cloud catalog example for Power Virtual Server with VPC landing zone Quick-Start Variation
+# IBM Cloud catalog example for Power Virtual Server with VPC landing zone Quickstart Variation
 
 This example sets up the following infrastructure:
 - A VPC Infrastructure with the following features:
     -  One VSI for management(jump/bastion).
     -  Installation and configuration of Squid Proxy, DNS Forwarder, NTP forwarder and NFS on the bastion host, and sets the host as the server for the NTP, NFS, and DNS services by using Ansible roles.
 
-- A PowerVS workspace instance with the following network topology:
+- A PowerVS workspace with the following network topology:
     - Creates two private networks: a management network and a backup network.
     - Creates one or two IBM Cloud connections.
     - Attaches the IBM Cloud connections to a transit gateway.
     - Attaches the private networks to the IBM Cloud connections.
     - Creates an SSH key for power workspace.
-    - Creates and configures one PowerVS instance that can be used for sharing SAP files between other system instances.
-    - Connects all created PowerVS instances to a proxy server that is specified by IP address or hostname.
+
+- A PowerVS Instance with following options:
+    - t-shirt profile (Aix/IBMi/SAP Image)
+    - Custom profile ( cores, memory storage and image)
+    - 1 volume
 
 ## Architecture diagram
 ![full-stack-variation](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/tree/215_quickstart/reference-architectures/quickstart/deploy-arch-ibm-pvs-inf-quickstart.svg)
@@ -30,8 +33,8 @@ This example sets up the following infrastructure:
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_demo_pi_instance"></a> [demo\_pi\_instance](#module\_demo\_pi\_instance) | git::https://github.com/terraform-ibm-modules/terraform-ibm-powervs-instance.git | v0.1.4 |
-| <a name="module_landing_zone"></a> [landing\_zone](#module\_landing\_zone) | git::https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone.git//patterns//vsi | v3.8.3 |
+| <a name="module_demo_pi_instance"></a> [demo\_pi\_instance](#module\_demo\_pi\_instance) | git::https://github.com/terraform-ibm-modules/terraform-ibm-powervs-instance.git | v0.2.0 |
+| <a name="module_landing_zone"></a> [landing\_zone](#module\_landing\_zone) | terraform-ibm-modules/landing-zone/ibm//patterns//vsi | 4.1.0 |
 | <a name="module_powervs_infra"></a> [powervs\_infra](#module\_powervs\_infra) | ../../../../ | n/a |
 
 ## Resources
@@ -47,7 +50,7 @@ No resources.
 | <a name="input_configure_dns_forwarder"></a> [configure\_dns\_forwarder](#input\_configure\_dns\_forwarder) | Specify if DNS forwarder will be configured. This will allow you to use central DNS servers (e.g. IBM Cloud DNS servers) sitting outside of the created IBM PowerVS infrastructure. If yes, ensure 'dns\_forwarder\_config' optional variable is set properly. DNS forwarder will be installed on the private-svs vsi. | `bool` | `true` | no |
 | <a name="input_configure_nfs_server"></a> [configure\_nfs\_server](#input\_configure\_nfs\_server) | Specify if NFS server will be configured. This will allow you easily to share files between PowerVS instances (e.g., SAP installation files). NFS server will be installed on the private-svs vsi. | `bool` | `true` | no |
 | <a name="input_configure_ntp_forwarder"></a> [configure\_ntp\_forwarder](#input\_configure\_ntp\_forwarder) | Specify if NTP forwarder will be configured. This will allow you to synchronize time between IBM PowerVS instances. NTP forwarder will be installed on the private-svs vsi. | `bool` | `true` | no |
-| <a name="input_custom_profile"></a> [custom\_profile](#input\_custom\_profile) | Overrides t-shirt profile: Custom PowerVS wokspace instance. Specify the 'sap\_profile\_id' or combination of 'cores' and 'memory'. Please set 'sap\_profile\_id' and leave the fields 'cores' and 'memory' empty when creating SAP systems using SAP profile ids. The 'storage'(storage size) & 'tier' are optional values. Please set them to create volumes. | <pre>object({<br>    sap_profile_id = string<br>    cores          = string<br>    memory         = string<br>    storage        = string<br>    tier           = string<br>  })</pre> | <pre>{<br>  "cores": "",<br>  "memory": "",<br>  "sap_profile_id": null,<br>  "storage": "",<br>  "tier": ""<br>}</pre> | no |
+| <a name="input_custom_profile"></a> [custom\_profile](#input\_custom\_profile) | Overrides t-shirt profile: Custom PowerVS instance. Specify 'sap\_profile\_id' [here](https://cloud.ibm.com/docs/sap?topic=sap-hana-iaas-offerings-profiles-power-vs) or combination of 'cores' & 'memory'. Optionally volumes can be created. | <pre>object({<br>    sap_profile_id = string<br>    cores          = string<br>    memory         = string<br>    storage        = object({ size = string, tier = string })<br>  })</pre> | <pre>{<br>  "cores": "",<br>  "memory": "",<br>  "sap_profile_id": null,<br>  "storage": {<br>    "size": "",<br>    "tier": ""<br>  }<br>}</pre> | no |
 | <a name="input_custom_profile_instance_boot_image"></a> [custom\_profile\_instance\_boot\_image](#input\_custom\_profile\_instance\_boot\_image) | Override the t-shirt size specs of PowerVS Workspace instance by selecting an image name and providing valid custom\_profile parameter. | `string` | `"RHEL8-SP4-SAP"` | no |
 | <a name="input_dns_forwarder_config"></a> [dns\_forwarder\_config](#input\_dns\_forwarder\_config) | Configuration for the DNS forwarder to a DNS service that is not reachable directly from PowerVS. | <pre>object({<br>    dns_servers = string<br>  })</pre> | <pre>{<br>  "dns_servers": "161.26.0.7; 161.26.0.8; 9.9.9.9;"<br>}</pre> | no |
 | <a name="input_external_access_ip"></a> [external\_access\_ip](#input\_external\_access\_ip) | Specify the IP address or CIDR to login through SSH to the environment after deployment. Access to this environment will be allowed only from this IP address. | `string` | n/a | yes |
@@ -61,7 +64,7 @@ No resources.
 | <a name="input_ssh_private_key"></a> [ssh\_private\_key](#input\_ssh\_private\_key) | Private SSH key (RSA format) used to login to IBM PowerVS instances. Should match to public SSH key referenced by 'ssh\_public\_key'. Entered data must be in [heredoc strings format](https://www.terraform.io/language/expressions/strings#heredoc-strings). The key is not uploaded or stored. For more information about SSH keys, see [SSH keys](https://cloud.ibm.com/docs/vpc?topic=vpc-ssh-keys). | `string` | n/a | yes |
 | <a name="input_ssh_public_key"></a> [ssh\_public\_key](#input\_ssh\_public\_key) | Public SSH Key for VSI creation. Must be an RSA key with a key size of either 2048 bits or 4096 bits (recommended). Must be a valid SSH key that does not already exist in the deployment region. | `string` | n/a | yes |
 | <a name="input_tags"></a> [tags](#input\_tags) | List of tag names for the IBM Cloud PowerVS workspace | `list(string)` | <pre>[<br>  "demo"<br>]</pre> | no |
-| <a name="input_tshirt_size"></a> [tshirt\_size](#input\_tshirt\_size) | PowerVS instance profiles. These profiles can be overridden by specifying 'custom\_profile\_instance\_boot\_image' and 'custom\_profile' values in optional parameters. | `string` | `"sap-dev"` | no |
+| <a name="input_tshirt_size"></a> [tshirt\_size](#input\_tshirt\_size) | PowerVS instance profiles. These profiles can be overridden by specifying 'custom\_profile\_instance\_boot\_image' and 'custom\_profile' values in optional parameters. | `string` | `"sap_dev"` | no |
 
 ## Outputs
 
@@ -70,11 +73,12 @@ No resources.
 | <a name="output_access_host_or_ip"></a> [access\_host\_or\_ip](#output\_access\_host\_or\_ip) | Access host(jump/bastion) for created PowerVS infrastructure. |
 | <a name="output_cloud_connection_count"></a> [cloud\_connection\_count](#output\_cloud\_connection\_count) | Number of cloud connections configured in created PowerVS infrastructure. |
 | <a name="output_dns_host_or_ip"></a> [dns\_host\_or\_ip](#output\_dns\_host\_or\_ip) | DNS forwarder host for created PowerVS infrastructure. |
-| <a name="output_instance_mgmt_ip"></a> [instance\_mgmt\_ip](#output\_instance\_mgmt\_ip) | IP address of the management network interface of IBM PowerVS instance. |
-| <a name="output_instance_private_ips"></a> [instance\_private\_ips](#output\_instance\_private\_ips) | All private IP addresses (as a list) of IBM PowerVS instance. |
-| <a name="output_instance_private_ips_info"></a> [instance\_private\_ips\_info](#output\_instance\_private\_ips\_info) | Complete info about all private IP addresses of IBM PowerVS instance. |
 | <a name="output_nfs_host_or_ip_path"></a> [nfs\_host\_or\_ip\_path](#output\_nfs\_host\_or\_ip\_path) | NFS host for created PowerVS infrastructure. |
 | <a name="output_ntp_host_or_ip"></a> [ntp\_host\_or\_ip](#output\_ntp\_host\_or\_ip) | NTP host for created PowerVS infrastructure. |
+| <a name="output_pi_instance_mgmt_ip"></a> [pi\_instance\_mgmt\_ip](#output\_pi\_instance\_mgmt\_ip) | IP address of the management network interface of IBM PowerVS instance. |
+| <a name="output_pi_instance_private_ips"></a> [pi\_instance\_private\_ips](#output\_pi\_instance\_private\_ips) | All private IP addresses (as a list) of IBM PowerVS instance. |
+| <a name="output_pi_instance_private_ips_info"></a> [pi\_instance\_private\_ips\_info](#output\_pi\_instance\_private\_ips\_info) | Complete info about all private IP addresses of IBM PowerVS instance. |
+| <a name="output_pi_storage_configuration"></a> [pi\_storage\_configuration](#output\_pi\_storage\_configuration) | Storage configuration of PowerVS instance. |
 | <a name="output_powervs_backup_network_name"></a> [powervs\_backup\_network\_name](#output\_powervs\_backup\_network\_name) | Name of backup network in created PowerVS infrastructure. |
 | <a name="output_powervs_backup_network_subnet"></a> [powervs\_backup\_network\_subnet](#output\_powervs\_backup\_network\_subnet) | Subnet CIDR of backup network in created PowerVS infrastructure. |
 | <a name="output_powervs_management_network_name"></a> [powervs\_management\_network\_name](#output\_powervs\_management\_network\_name) | Name of management network in created PowerVS infrastructure. |
@@ -88,7 +92,6 @@ No resources.
 | <a name="output_proxy_host_or_ip_port"></a> [proxy\_host\_or\_ip\_port](#output\_proxy\_host\_or\_ip\_port) | Proxy host:port for created PowerVS infrastructure. |
 | <a name="output_schematics_workspace_id"></a> [schematics\_workspace\_id](#output\_schematics\_workspace\_id) | ID of the IBM Cloud Schematics workspace. Returns null if not ran in Schematics. |
 | <a name="output_ssh_public_key"></a> [ssh\_public\_key](#output\_ssh\_public\_key) | The string value of the ssh public key used when deploying VPC |
-| <a name="output_storage_configuration"></a> [storage\_configuration](#output\_storage\_configuration) | Storage configuration of PowerVS instance. |
 | <a name="output_transit_gateway_name"></a> [transit\_gateway\_name](#output\_transit\_gateway\_name) | The name of the transit gateway. |
 | <a name="output_vpc_names"></a> [vpc\_names](#output\_vpc\_names) | A list of the names of the VPC. |
 | <a name="output_vsi_list"></a> [vsi\_list](#output\_vsi\_list) | A list of VSI with name, id, zone, and primary ipv4 address, VPC Name, and floating IP. |

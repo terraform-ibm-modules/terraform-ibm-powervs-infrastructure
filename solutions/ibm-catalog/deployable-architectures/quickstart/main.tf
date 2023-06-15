@@ -60,27 +60,26 @@ provider "ibm" {
   ibmcloud_api_key = var.ibmcloud_api_key != null ? var.ibmcloud_api_key : null
 }
 
+#####################################################
+# VPC landing zone module
+#####################################################
+
 locals {
-  path_rhel_preset   = "./../../presets/slz-for-powervs/rhel-pvs-quickstart-vpc.preset.json.tfpl"
+  path_rhel_preset   = "./../../presets/slz-for-powervs/rhel-vpc-pvs-quickstart.preset.json.tfpl"
   external_access_ip = var.external_access_ip != null && var.external_access_ip != "" ? length(regexall("/", var.external_access_ip)) > 0 ? var.external_access_ip : "${var.external_access_ip}/32" : ""
   new_preset         = templatefile(local.path_rhel_preset, { external_access_ip = local.external_access_ip })
 
 }
 
-#####################################################
-# VPC landing zone module
-#####################################################
-
 module "landing_zone" {
-  source               = "git::https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone.git//patterns//vsi?ref=v3.8.3"
+  source               = "terraform-ibm-modules/landing-zone/ibm//patterns//vsi"
+  version              = "4.1.0"
   ibmcloud_api_key     = var.ibmcloud_api_key
   ssh_public_key       = var.ssh_public_key
   region               = lookup(local.ibm_powervs_zone_cloud_region_map, var.powervs_zone, null)
   prefix               = var.prefix
   override_json_string = local.new_preset
 }
-
-
 
 locals {
   landing_zone_config = jsondecode(module.landing_zone.config)
@@ -102,6 +101,10 @@ locals {
   # tflint-ignore: terraform_unused_declarations
   validate_json_chk = regex("^${local.validate_json_msg}$", (local.valid_json_used ? local.validate_json_msg : ""))
 }
+
+#####################################################
+# PowerVS Infrastructure module
+#####################################################
 
 locals {
 
@@ -139,12 +142,8 @@ locals {
     "nfs_file_system"   = [{ name = "nfs", mount_path : "/nfs", size : local.nfs_disk_size }]
   }
 
+  powervs_image_names = distinct(concat(var.powervs_image_names, [var.custom_profile_instance_boot_image]))
 }
-
-#####################################################
-# PowerVS Infrastructure module
-#####################################################
-
 
 module "powervs_infra" {
   source     = "../../../../"
@@ -155,7 +154,7 @@ module "powervs_infra" {
   powervs_resource_group_name = var.powervs_resource_group_name
   powervs_workspace_name      = "${var.prefix}-${var.powervs_zone}-power-workspace"
   tags                        = var.tags
-  powervs_image_names         = var.powervs_image_names
+  powervs_image_names         = local.powervs_image_names
   powervs_sshkey_name         = "${var.prefix}-${var.powervs_zone}-ssh-pvs-key"
   ssh_public_key              = var.ssh_public_key
   ssh_private_key             = var.ssh_private_key
@@ -175,6 +174,10 @@ module "powervs_infra" {
   perform_proxy_client_setup  = local.perform_proxy_client_setup
 }
 
+#####################################################
+# PowerVS Instance module
+#####################################################
+
 locals {
   powervs_instance_name       = "demo"
   powervs_sshkey_name         = module.powervs_infra.powervs_sshkey_name
@@ -183,31 +186,27 @@ locals {
   custom_profile_enabled      = ((var.custom_profile.cores != "" && var.custom_profile.memory != "") || (var.custom_profile.sap_profile_id != null && var.custom_profile.sap_profile_id != ""))
   sap_system_creation_enabled = (local.custom_profile_enabled && var.custom_profile.sap_profile_id != null && var.custom_profile.sap_profile_id != "") || (!local.custom_profile_enabled && (local.qs_tshirt_choice.sap_profile_id != null))
 
-  custom_profile_instance_boot_image = local.custom_profile_enabled ? var.custom_profile_instance_boot_image : local.qs_tshirt_choice.image
-  valid_boot_image_provided          = local.custom_profile_instance_boot_image != "" ? true : false
-  valid_boot_image_provided_msg      = "'custom_profile' is enabled, but variable 'custom_profile_instance_boot_image' is not set."
+  powervs_instance_boot_image   = local.custom_profile_enabled ? var.custom_profile_instance_boot_image : local.qs_tshirt_choice.image
+  valid_boot_image_provided     = local.powervs_instance_boot_image != "" ? true : false
+  valid_boot_image_provided_msg = "'custom_profile' is enabled, but variable 'custom_profile_instance_boot_image' is not set."
   # tflint-ignore: terraform_unused_declarations
   validate_provided_custom_boot_image_chk = regex("^${local.valid_boot_image_provided_msg}$", (local.valid_boot_image_provided ? local.valid_boot_image_provided_msg : ""))
 
-  valid_boot_image_used   = local.sap_system_creation_enabled ? contains(local.sap_boot_images, local.custom_profile_instance_boot_image) : true
-  validate_boot_image_msg = "The provided boot image for powervs instance is not an SAP image."
+  valid_sap_boot_image_used   = local.sap_system_creation_enabled ? contains(local.sap_boot_images, local.powervs_instance_boot_image) : true
+  validate_sap_boot_image_msg = "The provided boot image for powervs instance is not an SAP image."
   # tflint-ignore: terraform_unused_declarations
-  validate_boot_image_chk = regex("^${local.validate_boot_image_msg}$", (local.valid_boot_image_used ? local.validate_boot_image_msg : ""))
+  validate_sap_boot_image_chk = regex("^${local.validate_sap_boot_image_msg}$", (local.valid_sap_boot_image_used ? local.validate_sap_boot_image_msg : ""))
 
-  powervs_instance_sap_profile_id = local.custom_profile_enabled ? var.custom_profile.sap_profile_id : local.qs_tshirt_choice.sap_profile_id
+  powervs_instance_sap_profile_id = local.sap_system_creation_enabled ? local.custom_profile_enabled ? var.custom_profile.sap_profile_id : local.qs_tshirt_choice.sap_profile_id : null
   powervs_instance_cores          = local.sap_system_creation_enabled ? null : local.custom_profile_enabled ? var.custom_profile.cores : local.qs_tshirt_choice.cores
   powervs_instance_memory         = local.sap_system_creation_enabled ? null : local.custom_profile_enabled ? var.custom_profile.memory : local.qs_tshirt_choice.memory
-  powervs_instance_storage        = local.custom_profile_enabled ? var.custom_profile.storage : local.qs_tshirt_choice.storage
-  powervs_instance_storage_tier   = local.custom_profile_enabled ? var.custom_profile.tier : local.qs_tshirt_choice.tier
-  powervs_instance_storage_obj    = local.powervs_instance_storage != "" && local.powervs_instance_storage_tier != "" ? [{ name = "data", size = local.powervs_instance_storage, count = "1", tier = local.powervs_instance_storage_tier, mount = "/data" }] : null
+  powervs_instance_storage_size   = local.custom_profile_enabled ? var.custom_profile.storage.size : local.qs_tshirt_choice.storage
+  powervs_instance_storage_tier   = local.custom_profile_enabled ? var.custom_profile.storage.tier : local.qs_tshirt_choice.tier
+  powervs_instance_storage_config = local.powervs_instance_storage_size != "" && local.powervs_instance_storage_tier != "" ? [{ name = "data", size = local.powervs_instance_storage_size, count = "1", tier = local.powervs_instance_storage_tier, mount = "/data" }] : null
 }
 
-#####################################################
-# PowerVS Instance module
-#####################################################
-
 module "demo_pi_instance" {
-  source     = "git::https://github.com/terraform-ibm-modules/terraform-ibm-powervs-instance.git?ref=v0.1.4"
+  source     = "git::https://github.com/terraform-ibm-modules/terraform-ibm-powervs-instance.git?ref=v0.2.0"
   providers  = { ibm = ibm.ibm-pvs }
   depends_on = [module.landing_zone, module.powervs_infra]
 
@@ -216,12 +215,12 @@ module "demo_pi_instance" {
   pi_workspace_name       = "${var.prefix}-${var.powervs_zone}-power-workspace"
   pi_sshkey_name          = local.powervs_sshkey_name
   pi_instance_name        = local.powervs_instance_name
-  pi_os_image_name        = local.custom_profile_instance_boot_image
+  pi_os_image_name        = local.powervs_instance_boot_image
   pi_networks             = local.powervs_subnets
   pi_sap_profile_id       = local.powervs_instance_sap_profile_id
-  pi_server_type          = local.sap_system_creation_enabled ? null : "s922"
-  pi_cpu_proc_type        = local.sap_system_creation_enabled ? null : "shared"
   pi_number_of_processors = local.powervs_instance_cores
   pi_memory_size          = local.powervs_instance_memory
-  pi_storage_config       = local.powervs_instance_storage_obj
+  pi_server_type          = local.sap_system_creation_enabled ? null : "s922"
+  pi_cpu_proc_type        = local.sap_system_creation_enabled ? null : "shared"
+  pi_storage_config       = local.powervs_instance_storage_config
 }

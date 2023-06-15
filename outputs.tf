@@ -30,12 +30,12 @@ output "cloud_connection_count" {
 
 output "powervs_management_network_name" {
   description = "Name of management network in created PowerVS infrastructure."
-  value       = var.powervs_management_network["name"]
+  value       = var.powervs_management_network.name
 }
 
 output "powervs_backup_network_name" {
   description = "Name of backup network in created PowerVS infrastructure."
-  value       = var.powervs_backup_network["name"]
+  value       = var.powervs_backup_network.name
 }
 
 output "access_host_or_ip" {
@@ -45,7 +45,7 @@ output "access_host_or_ip" {
 
 output "proxy_host_or_ip_port" {
   description = "Proxy host for created PowerVS infrastructure."
-  value       = var.perform_proxy_client_setup != null ? "${var.perform_proxy_client_setup["squid_server_ip"]}:${var.perform_proxy_client_setup["squid_port"]}" : null
+  value       = var.squid_config != null ? var.squid_config.squid_enable ? "${var.squid_config.server_host_or_ip}:${var.squid_config.squid_port}" : null : null
 }
 
 output "dns_host_or_ip" {
