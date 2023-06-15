@@ -438,7 +438,7 @@
     "powervs_backup_network_name": {
       "name": "powervs_backup_network",
       "description": "Name of the IBM Cloud PowerVS backup network and CIDR to create.",
-      "value": "var.powervs_backup_network",
+      "value": "var.powervs_backup_network.name",
       "pos": {
         "filename": "outputs.tf",
         "line": 36
@@ -448,7 +448,7 @@
     "powervs_management_network_name": {
       "name": "powervs_management_network",
       "description": "Name of the IBM Cloud PowerVS management subnet and CIDR to create.",
-      "value": "var.powervs_management_network",
+      "value": "var.powervs_management_network.name",
       "pos": {
         "filename": "outputs.tf",
         "line": 31
