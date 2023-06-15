@@ -97,9 +97,9 @@ You need the following permissions to run this module.
 ## Solutions
 | Variation  | IBM catalog | Deploy Without catalog  | VPC Landing Zone | VPC VSI OS Config | PVS Infrastructure | PVS Instance | PVS OS Config |
 | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
-| [Full-Stack](solutions/ibm-catalog/deployable-architectures/full-stack)  | :white_check_mark:  | :white_check_mark:  | :white_check_mark:  | :white_check_mark:  |  :white_check_mark: | :x: | :x: |
-| [Quickstart](solutions/ibm-catalog/deployable-architectures/quickstart)  | :white_check_mark:  | :white_check_mark:  | :white_check_mark:  | :white_check_mark:  | :white_check_mark:  | :white_check_mark: | :x: |
-| [Extension](solutions/ibm-catalog/deployable-architectures/extension)    | :white_check_mark:  |  :x: |  :x: | :x: | :white_check_mark:  | :x: | :x: |
+| [Full-Stack](solutions/full-stack)  | :white_check_mark:  | :white_check_mark:  | :white_check_mark:  | :white_check_mark:  |  :white_check_mark: | :x: | :x: |
+| [Quickstart](solutions/quickstart)  | :white_check_mark:  | :white_check_mark:  | :white_check_mark:  | :white_check_mark:  | :white_check_mark:  | :white_check_mark: | :x: |
+| [Extension](solutions/extension)    | :white_check_mark:  |  :x: |  :x: | :x: | :white_check_mark:  | :x: | :x: |
 
 <!-- END EXAMPLES HOOK -->
 

@@ -29,7 +29,7 @@ This example sets up the following infrastructure:
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_landing_zone"></a> [landing\_zone](#module\_landing\_zone) | terraform-ibm-modules/landing-zone/ibm//patterns//vsi | 4.1.0 |
-| <a name="module_powervs_infra"></a> [powervs\_infra](#module\_powervs\_infra) | ../../../../ | n/a |
+| <a name="module_powervs_infra"></a> [powervs\_infra](#module\_powervs\_infra) | ../../ | n/a |
 
 ## Resources
 

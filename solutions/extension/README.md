@@ -12,6 +12,7 @@ It provisions the following infrastructure on top of deployed Full Stack solutio
 
 
 Note: Kindly make sure that you are choosing a PowerVS zone different from that of the pre-requisite infrastructure.
+      **This solution requires a schematics workspace id as an input.**
 ## Before you begin
 
 If you do not have a PowerVS infrastructure that is the full stack solution for a PowerVS Workspace that includes the full stack solution for Secure Landing Zone, create it first.
@@ -31,7 +32,7 @@ If you do not have a PowerVS infrastructure that is the full stack solution for 
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_powervs_infra"></a> [powervs\_infra](#module\_powervs\_infra) | ../../../../ | n/a |
+| <a name="module_powervs_infra"></a> [powervs\_infra](#module\_powervs\_infra) | ../../ | n/a |
 
 ## Resources
 

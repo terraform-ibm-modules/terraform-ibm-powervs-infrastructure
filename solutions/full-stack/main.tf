@@ -133,7 +133,7 @@ locals {
 
 
 module "powervs_infra" {
-  source     = "../../../../"
+  source     = "../../"
   providers  = { ibm = ibm.ibm-pvs }
   depends_on = [module.landing_zone]
 

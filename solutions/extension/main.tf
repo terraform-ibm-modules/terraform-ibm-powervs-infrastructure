@@ -110,7 +110,7 @@ locals {
 }
 
 module "powervs_infra" {
-  source = "../../../../"
+  source = "../../"
 
   powervs_zone                = var.powervs_zone
   powervs_resource_group_name = var.powervs_resource_group_name
