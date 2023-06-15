@@ -32,6 +32,7 @@ For more information about IBM Power Virtual Server see the [getting started](ht
 ## Reference architectures
 
 - Power Virtual Server with VPC landing zone - [PowerVS workspace full-stack variation](reference-architectures/full-stack/deploy-arch-ibm-pvs-inf-full-stack.md)
+- Power Virtual Server with VPC landing zone - [PowerVS workspace quickstart variation](reference-architectures/quickstart/deploy-arch-ibm-pvs-inf-extension.md)
 - Power Virtual Server with VPC landing zone - [PowerVS workspace extension variation](reference-architectures/extension/deploy-arch-ibm-pvs-inf-extension.md)
 
 ## Usage
