@@ -142,7 +142,7 @@ locals {
     "nfs_file_system"   = [{ name = "nfs", mount_path : "/nfs", size : local.nfs_disk_size }]
   }
 
-  powervs_image_names = distinct(concat(var.powervs_image_names, [var.custom_profile_instance_boot_image]))
+  powervs_image_names = var.custom_profile_instance_boot_image != null && var.custom_profile_instance_boot_image != "" ? distinct(concat(var.powervs_image_names, [var.custom_profile_instance_boot_image])) : var.powervs_image_names
 }
 
 module "powervs_infra" {
