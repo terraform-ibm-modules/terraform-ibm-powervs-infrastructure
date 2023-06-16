@@ -45,7 +45,7 @@ output "access_host_or_ip" {
 
 output "proxy_host_or_ip_port" {
   description = "Proxy host for created PowerVS infrastructure."
-  value       = var.squid_config != null ? var.squid_config.squid_enable ? "${var.squid_config.server_host_or_ip}:${var.squid_config.squid_port}" : null : null
+  value       = var.squid_config != null ? (var.squid_config.squid_enable || var.squid_config.server_host_or_ip != "") ? "${var.squid_config.server_host_or_ip}:${var.squid_config.squid_port}" : null : null
 }
 
 output "dns_host_or_ip" {
