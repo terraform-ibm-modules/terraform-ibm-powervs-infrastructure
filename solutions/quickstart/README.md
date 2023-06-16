@@ -17,6 +17,11 @@ This example sets up the following infrastructure:
     - Custom profile ( cores, memory storage and image)
     - 1 volume
 
+| Variation  | IBM catalog | Deploy Without catalog  | VPC Landing Zone | VPC VSI OS Config | PVS Infrastructure | PVS Instance | PVS OS Config |
+| ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
+| [Quickstart](solutions/quickstart)  | :white_check_mark:  | :white_check_mark:  | :white_check_mark:  | :white_check_mark:  | :white_check_mark:  | :white_check_mark: | :x: |
+
+
 ## Architecture diagram
 ![full-stack-variation](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/tree/215_quickstart/reference-architectures/quickstart/deploy-arch-ibm-pvs-inf-quickstart.svg)
 

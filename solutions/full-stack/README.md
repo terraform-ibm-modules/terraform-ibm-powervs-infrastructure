@@ -12,6 +12,10 @@ This example sets up the following infrastructure:
     - Attaches the private networks to the IBM Cloud connections.
     - Creates an SSH key.
 
+| Variation  | IBM catalog | Deploy Without catalog  | VPC Landing Zone | VPC VSI OS Config | PVS Infrastructure | PVS Instance | PVS OS Config |
+| ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
+| [Full-Stack](solutions/full-stack)  | :white_check_mark:  | :white_check_mark:  | :white_check_mark:  | :white_check_mark:  |  :white_check_mark: | :x: | :x: |
+
 ## Architecture diagram
 ![full-stack-variation](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/blob/main/reference-architectures/full-stack/deploy-arch-ibm-pvs-inf-full-stack.svg)
 
