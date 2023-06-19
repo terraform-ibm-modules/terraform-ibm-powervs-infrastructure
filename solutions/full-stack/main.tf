@@ -6,19 +6,15 @@ locals {
     "eu-de-2"  = "eu-de"
     "tor01"    = "tor"
     "mon01"    = "mon"
-    "dal12"    = "us-south"
-    "dal13"    = "us-south"
     "osa21"    = "osa"
     "tok04"    = "tok"
     "syd04"    = "syd"
     "syd05"    = "syd"
-    "us-east"  = "us-east"
-    "us-south" = "us-south"
     "sao01"    = "sao"
-    "sao04"    = "sao"
-    "wdc04"    = "us-east"
-    "wdc06"    = "us-east"
-    "wdc07"    = "us-east"
+    "us-south" = "us-south"
+    "dal10"    = "us-south"
+    "dal12"    = "us-south"
+    "us-east"  = "us-east"
   }
 
   ibm_powervs_zone_cloud_region_map = {
@@ -29,18 +25,14 @@ locals {
     "lon04"    = "eu-gb"
     "lon06"    = "eu-gb"
     "tok04"    = "jp-tok"
-    "us-east"  = "us-east"
-    "us-south" = "us-south"
-    "dal12"    = "us-south"
-    "dal13"    = "us-south"
     "tor01"    = "ca-tor"
     "osa21"    = "jp-osa"
     "sao01"    = "br-sao"
-    "sao04"    = "br-sao"
     "mon01"    = "ca-tor"
-    "wdc04"    = "us-east"
-    "wdc06"    = "us-east"
-    "wdc07"    = "us-east"
+    "us-south" = "us-south"
+    "dal10"    = "us-south"
+    "dal12"    = "us-south"
+    "us-east"  = "us-east"
   }
 }
 
@@ -65,7 +57,8 @@ locals {
 #####################################################
 
 module "landing_zone" {
-  source               = "git::https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone.git//patterns//vsi?ref=v4.0.1"
+  source               = "terraform-ibm-modules/landing-zone/ibm//patterns//vsi"
+  version              = "4.1.0"
   ibmcloud_api_key     = var.ibmcloud_api_key
   ssh_public_key       = var.ssh_public_key
   region               = lookup(local.ibm_powervs_zone_cloud_region_map, var.powervs_zone, null)
@@ -140,7 +133,7 @@ locals {
 
 
 module "powervs_infra" {
-  source     = "../../../../"
+  source     = "../../"
   providers  = { ibm = ibm.ibm-pvs }
   depends_on = [module.landing_zone]
 

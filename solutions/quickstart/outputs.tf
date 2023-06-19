@@ -60,22 +60,22 @@ output "cloud_connection_count" {
 
 output "powervs_management_network_name" {
   description = "Name of management network in created PowerVS infrastructure."
-  value       = var.powervs_management_network["name"]
+  value       = var.powervs_management_network.name
 }
 
 output "powervs_management_network_subnet" {
   description = "Subnet CIDR  of management network in created PowerVS infrastructure."
-  value       = var.powervs_management_network["cidr"]
+  value       = var.powervs_management_network.cidr
 }
 
 output "powervs_backup_network_name" {
   description = "Name of backup network in created PowerVS infrastructure."
-  value       = var.powervs_backup_network["name"]
+  value       = var.powervs_backup_network.name
 }
 
 output "powervs_backup_network_subnet" {
   description = "Subnet CIDR of backup network in created PowerVS infrastructure."
-  value       = var.powervs_backup_network["cidr"]
+  value       = var.powervs_backup_network.cidr
 }
 
 output "access_host_or_ip" {
@@ -101,6 +101,26 @@ output "ntp_host_or_ip" {
 output "nfs_host_or_ip_path" {
   description = "NFS host for created PowerVS infrastructure."
   value       = module.powervs_infra.nfs_host_or_ip_path
+}
+
+output "pi_instance_private_ips" {
+  description = "All private IP addresses (as a list) of IBM PowerVS instance."
+  value       = module.demo_pi_instance.pi_instance_private_ips
+}
+
+output "pi_instance_private_ips_info" {
+  description = "Complete info about all private IP addresses of IBM PowerVS instance."
+  value       = module.demo_pi_instance.pi_instance_private_ips_info
+}
+
+output "pi_instance_mgmt_ip" {
+  description = "IP address of the management network interface of IBM PowerVS instance."
+  value       = module.demo_pi_instance.pi_instance_mgmt_ip
+}
+
+output "pi_storage_configuration" {
+  description = "Storage configuration of PowerVS instance."
+  value       = module.demo_pi_instance.pi_storage_configuration
 }
 
 output "schematics_workspace_id" {
