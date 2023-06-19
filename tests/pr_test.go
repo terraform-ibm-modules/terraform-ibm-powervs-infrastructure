@@ -14,7 +14,7 @@ import (
 
 // Use existing resource group
 const resourceGroup = "geretain-test-resources"
-const defaultExampleTerraformDir = "solutions/ibm-catalog/deployable-architectures/full-stack"
+const defaultExampleTerraformDir = "solutions/full-stack"
 
 var sharedInfoSvc *cloudinfo.CloudInfoService
 

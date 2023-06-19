@@ -32,6 +32,7 @@ For more information about IBM Power Virtual Server see the [getting started](ht
 ## Reference architectures
 
 - Power Virtual Server with VPC landing zone - [PowerVS workspace full-stack variation](reference-architectures/full-stack/deploy-arch-ibm-pvs-inf-full-stack.md)
+- Power Virtual Server with VPC landing zone - [PowerVS workspace quickstart variation](reference-architectures/quickstart/deploy-arch-ibm-pvs-inf-extension.md)
 - Power Virtual Server with VPC landing zone - [PowerVS workspace extension variation](reference-architectures/extension/deploy-arch-ibm-pvs-inf-extension.md)
 
 ## Usage
@@ -43,8 +44,8 @@ provider "ibm" {
 }
 
 module "power-infrastructure" {
-  # Replace "main" with a GIT release version to lock into a specific release
-  source = "git::https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure.git?ref=main"
+  source  = "terraform-ibm-modules/powervs-infrastructure/ibm"
+  version = "latest" # Replace "latest" with a release version to lock into a specific release
 
   powervs_zone                 = var.powervs_zone
   powervs_resource_group_name  = var.powervs_resource_group_name
@@ -94,10 +95,12 @@ You need the following permissions to run this module.
 
 <!-- BEGIN EXAMPLES HOOK -->
 ## Solutions
+| Variation  | IBM catalog | Deploy Without catalog  | VPC Landing Zone | VPC VSI OS Config | PVS Infrastructure | PVS Instance | PVS OS Config |
+| ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
+| [Full-Stack](solutions/full-stack)  | :white_check_mark:  | :white_check_mark:  | :white_check_mark:  | :white_check_mark:  |  :white_check_mark: | :x: | :x: |
+| [Quickstart](solutions/quickstart)  | :white_check_mark:  | :white_check_mark:  | :white_check_mark:  | :white_check_mark:  | :white_check_mark:  | :white_check_mark: | :x: |
+| [Extension](solutions/extension)    | :white_check_mark:  |  :x: |  :x: | :x: | :white_check_mark:  | :x: | :x: |
 
-- [ IBM Cloud catalog example for Power Virtual Server with VPC landing zone Extension Variation](solutions/ibm-catalog/deployable-architectures/extension)
-- [ IBM Cloud catalog example for Power Virtual Server with VPC landing zone Full-Stack Variation](solutions/ibm-catalog/deployable-architectures/full-stack)
-- [ Standard example for Power Virtual Server with VPC landing zone](solutions/terraform-registry/powervs_infrastructure)
 <!-- END EXAMPLES HOOK -->
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

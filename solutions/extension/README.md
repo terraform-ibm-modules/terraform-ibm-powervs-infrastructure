@@ -12,9 +12,14 @@ It provisions the following infrastructure on top of deployed Full Stack solutio
 
 
 Note: Kindly make sure that you are choosing a PowerVS zone different from that of the pre-requisite infrastructure.
+      **This solution requires a schematics workspace id as an input.**
 ## Before you begin
 
 If you do not have a PowerVS infrastructure that is the full stack solution for a PowerVS Workspace that includes the full stack solution for Secure Landing Zone, create it first.
+
+| Variation  | IBM catalog | Deploy Without catalog  | VPC Landing Zone | VPC VSI OS Config | PVS Infrastructure | PVS Instance | PVS OS Config |
+| ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
+| [Extension](solutions/extension)    | :white_check_mark:  |  :x: |  :x: | :x: | :white_check_mark:  | :x: | :x: |
 
 ## Architecture diagram
 ![extension-variation](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/blob/main/reference-architectures/extension/deploy-arch-ibm-pvs-inf-extension.svg)
@@ -31,7 +36,7 @@ If you do not have a PowerVS infrastructure that is the full stack solution for 
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_powervs_infra"></a> [powervs\_infra](#module\_powervs\_infra) | ../../../../ | n/a |
+| <a name="module_powervs_infra"></a> [powervs\_infra](#module\_powervs\_infra) | ../../ | n/a |
 
 ## Resources
 
