@@ -506,6 +506,7 @@
                             "key": "powervs_zone",
                             "type": "string",
                             "required": true,
+                            "default_value": "",
                             "options": [
                                 {
                                     "displayname": "London (lon04)",
