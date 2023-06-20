@@ -17,7 +17,7 @@ Note: Kindly make sure that you are choosing a PowerVS zone different from that 
 
 If you do not have a PowerVS infrastructure that is the full stack solution for a PowerVS Workspace that includes the full stack solution for Secure Landing Zone, create it first.
 
-| Variation  | IBM catalog | Deploy Without catalog  | Creates VPC Landing Zone | Creates VPC VSI OS Config | Creates PVS Infrastructure | Creates PVS Instance | Creates PVS OS Config |
+| Variation  | IBM catalog | Deploy Without catalog  | Creates VPC Landing Zone | Creates VPC VSI OS Config | Creates PowerVS Infrastructure | Creates PowerVS Instance | Creates PowerVS OS Config |
 | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
 | [Extension](./)    | :white_check_mark:  |  :x: |  :x: | :x: | :white_check_mark:  | :x: | :x: |
 

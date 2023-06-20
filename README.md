@@ -92,7 +92,7 @@ You need the following permissions to run this module.
 - Power Virtual Server with VPC landing zone - [PowerVS workspace extension variation](reference-architectures/extension/deploy-arch-ibm-pvs-inf-extension.md)
 
 ## Solutions
-| Variation  | IBM catalog | Deploy Without catalog  | Creates VPC Landing Zone | Creates VPC VSI OS Config | Creates PVS Infrastructure | Creates PVS Instance | Creates PVS OS Config |
+| Variation  | IBM catalog | Deploy Without catalog  | Creates VPC Landing Zone | Creates VPC VSI OS Config | Creates PowerVS Infrastructure | Creates PowerVS Instance | Creates PowerVS OS Config |
 | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
 | [Full-Stack](solutions/full-stack)  | :white_check_mark:  | :white_check_mark:  | :white_check_mark:  | :white_check_mark:  |  :white_check_mark: | :x: | :x: |
 | [Quickstart](solutions/quickstart)  | :white_check_mark:  | :white_check_mark:  | :white_check_mark:  | :white_check_mark:  | :white_check_mark:  | :white_check_mark: | :x: |
