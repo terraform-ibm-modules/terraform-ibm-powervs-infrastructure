@@ -104,7 +104,6 @@
                         {
                             "key": "powervs_zone",
                             "type": "string",
-                            "default_value": "",
                             "required": true,
                             "options": [
                                 {
@@ -168,10 +167,11 @@
                                     "value": "us-east"
                                 }
                             ],
-                            "hidden": false,
                             "custom_config": {}
                         },
                         {
+                            "key": "powervs_resource_group_name",
+                            "required": true,
                             "custom_config": {
                                 "config_constraints": {
                                     "identifier": "rg_name"
@@ -179,18 +179,16 @@
                                 "grouping": "deployment",
                                 "original_grouping": "deployment",
                                 "type": "resource_group"
-                            },
-                            "key": "powervs_resource_group_name",
-                            "required": true
+                            }
                         },
                         {
                             "key": "prefix",
+                            "type": "string",
                             "required": true
                         },
                         {
                             "key": "landing_zone_configuration",
                             "type": "string",
-                            "default_value": "",
                             "required": true,
                             "options": [
                                 {
@@ -202,33 +200,31 @@
                                     "value": "SLES"
                                 }
                             ],
-                            "hidden": false,
                             "custom_config": {}
                         },
                         {
+                            "key": "ssh_public_key",
+                            "type": "multiline_secure_value",
+                            "required": true,
                             "custom_config": {
                                 "grouping": "deployment",
                                 "original_grouping": "deployment",
                                 "type": "multiline_secure_value"
-                            },
-                            "key": "ssh_public_key",
-                            "required": true,
-                            "type": "multiline_secure_value"
+                            }
                         },
                         {
+                            "key": "ssh_private_key",
+                            "type": "multiline_secure_value",
+                            "required": true,
                             "custom_config": {
                                 "grouping": "deployment",
                                 "original_grouping": "deployment",
                                 "type": "multiline_secure_value"
-                            },
-                            "key": "ssh_private_key",
-                            "required": true,
-                            "type": "multiline_secure_value"
+                            }
                         },
                         {
                             "key": "external_access_ip",
-                            "required": true,
-                            "default": ""
+                            "required": true
                         },
                         {
                             "key": "configure_dns_forwarder"
@@ -416,16 +412,16 @@
                                 "description": "Yes"
                             },
                             {
-                                "description": "PowerVS Workspace with all required components",
-                                "title": "Power Virtual Server Workspace"
+                                "title": "Power Virtual Server Workspace",
+                                "description": "PowerVS Workspace with all required components"
                             },
                             {
-                                "description": "Proxy service to reach public internet from PowerVS Workspace",
-                                "title": "Internet proxy on VPC"
+                                "title": "Internet proxy on VPC",
+                                "description": "Proxy service to reach public internet from PowerVS Workspace"
                             },
                             {
-                                "description": "NFS server, NTP forwarder, and DNS forwarder reachable from PowerVS Workspace",
-                                "title": "Additional management configurations on VPC"
+                                "title": "Additional management configurations on VPC",
+                                "description": "NFS server, NTP forwarder, and DNS forwarder reachable from PowerVS Workspace"
                             }
                         ],
                         "diagrams": [
@@ -490,6 +486,8 @@
                     },
                     "configuration": [
                         {
+                            "key": "prerequisite_workspace_id",
+                            "required": true,
                             "custom_config": {
                                 "config_constraints": {
                                     "catalogID": "da12d6f3-3cb7-402e-9350-878837212a6e",
@@ -500,14 +498,11 @@
                                 "grouping": "deployment",
                                 "original_grouping": "deployment",
                                 "type": "schematics_workspace"
-                            },
-                            "key": "prerequisite_workspace_id",
-                            "required": true
+                            }
                         },
                         {
                             "key": "powervs_zone",
                             "type": "string",
-                            "default_value": "",
                             "required": true,
                             "options": [
                                 {
@@ -571,10 +566,11 @@
                                     "value": "us-east"
                                 }
                             ],
-                            "hidden": false,
                             "custom_config": {}
                         },
                         {
+                            "key": "powervs_resource_group_name",
+                            "required": true,
                             "custom_config": {
                                 "config_constraints": {
                                     "identifier": "rg_name"
@@ -582,9 +578,7 @@
                                 "grouping": "deployment",
                                 "original_grouping": "deployment",
                                 "type": "resource_group"
-                            },
-                            "key": "powervs_resource_group_name",
-                            "required": true
+                            }
                         },
                         {
                             "key": "powervs_management_network",
@@ -713,16 +707,16 @@
                     "architecture": {
                         "features": [
                             {
-                                "description": "PowerVS Workspace with all required components",
-                                "title": "Power Virtual Server Workspace"
+                                "title": "Power Virtual Server Workspace",
+                                "description": "PowerVS Workspace with all required components"
                             },
                             {
-                                "description": "Proxy service to reach public internet from PowerVS Workspace",
-                                "title": "Internet proxy on VPC"
+                                "title": "Internet proxy on VPC",
+                                "description": "Proxy service to reach public internet from PowerVS Workspace"
                             },
                             {
-                                "description": "NFS server, NTP forwarder, and DNS forwarder reachable from PowerVS Workspace",
-                                "title": "Additional management configurations on VPC"
+                                "title": "Additional management configurations on VPC",
+                                "description": "NFS server, NTP forwarder, and DNS forwarder reachable from PowerVS Workspace"
                             }
                         ],
                         "diagrams": [
@@ -789,7 +783,6 @@
                         {
                             "key": "powervs_zone",
                             "type": "string",
-                            "default_value": "",
                             "required": true,
                             "options": [
                                 {
@@ -853,7 +846,6 @@
                                     "value": "us-east"
                                 }
                             ],
-                            "hidden": false,
                             "custom_config": {}
                         },
                         {
@@ -863,7 +855,6 @@
                         {
                             "key": "tshirt_size",
                             "type": "string",
-                            "default_value": "",
                             "required": true,
                             "options": [
                                 {
@@ -911,39 +902,35 @@
                                     "value": "sap_oltp"
                                 }
                             ],
-                            "hidden": false,
                             "custom_config": {}
                         },
                         {
-                            "custom_config": {
-                                "grouping": "deployment",
-                                "original_grouping": "deployment",
-                                "type": "multiline_secure_value"
-                            },
                             "key": "ssh_public_key",
                             "required": true,
-                            "type": "multiline_secure_value"
-                        },
-                        {
+                            "type": "multiline_secure_value",
                             "custom_config": {
                                 "grouping": "deployment",
                                 "original_grouping": "deployment",
                                 "type": "multiline_secure_value"
-                            },
+                            }
+                        },
+                        {
                             "key": "ssh_private_key",
                             "required": true,
-                            "type": "multiline_secure_value"
+                            "type": "multiline_secure_value",
+                            "custom_config": {
+                                "grouping": "deployment",
+                                "original_grouping": "deployment",
+                                "type": "multiline_secure_value"
+                            }
                         },
                         {
                             "key": "external_access_ip",
-                            "required": true,
-                            "default": ""
+                            "required": true
                         },
                         {
                             "key": "custom_profile_instance_boot_image",
                             "type": "string",
-                            "default_value": "",
-                            "required": false,
                             "options": [
                                 {
                                     "displayname": "SAP - RHEL8-SP4-SAP",
@@ -990,8 +977,21 @@
                                     "value": "7200-05-03"
                                 }
                             ],
-                            "hidden": false,
                             "custom_config": {}
+                        },
+                        {
+                            "custom_config": {
+                                "config_constraints": {
+                                    "identifier": "rg_name"
+                                },
+                                "grouping": "deployment",
+                                "original_grouping": "deployment",
+                                "type": "resource_group"
+                            },
+                            "hidden": false,
+                            "default_value": "Default",
+                            "key": "powervs_resource_group_name",
+                            "required": false
                         },
                         {
                             "key": "custom_profile"
@@ -1019,20 +1019,6 @@
                         },
                         {
                             "key": "dns_forwarder_config"
-                        },
-                        {
-                            "custom_config": {
-                                "config_constraints": {
-                                    "identifier": "rg_name"
-                                },
-                                "grouping": "deployment",
-                                "original_grouping": "deployment",
-                                "type": "resource_group"
-                            },
-                            "hidden": false,
-                            "default_value": "Default",
-                            "key": "powervs_resource_group_name",
-                            "required": false
                         },
                         {
                             "key": "tags"
