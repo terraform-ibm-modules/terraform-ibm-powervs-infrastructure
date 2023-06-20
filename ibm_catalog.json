@@ -575,6 +575,7 @@
                         {
                             "key": "powervs_resource_group_name",
                             "required": true,
+                            "default_value": "",
                             "custom_config": {
                                 "config_constraints": {
                                     "identifier": "rg_name"
