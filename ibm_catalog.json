@@ -105,6 +105,7 @@
                             "key": "powervs_zone",
                             "type": "string",
                             "required": true,
+                            "default_value": "",
                             "options": [
                                 {
                                     "displayname": "London (lon04)",
@@ -190,6 +191,7 @@
                             "key": "landing_zone_configuration",
                             "type": "string",
                             "required": true,
+                            "default_value": "",
                             "options": [
                                 {
                                     "displayname": "3 VPCs (with RHEL instances)",
@@ -783,6 +785,7 @@
                         {
                             "key": "powervs_zone",
                             "type": "string",
+                            "default_value": "",
                             "required": true,
                             "options": [
                                 {
@@ -855,6 +858,7 @@
                         {
                             "key": "tshirt_size",
                             "type": "string",
+                            "default_value": "",
                             "required": true,
                             "options": [
                                 {
@@ -931,6 +935,7 @@
                         {
                             "key": "custom_profile_instance_boot_image",
                             "type": "string",
+                            "default_value": "",
                             "options": [
                                 {
                                     "displayname": "SAP - RHEL8-SP4-SAP",
@@ -980,6 +985,8 @@
                             "custom_config": {}
                         },
                         {
+                            "key": "powervs_resource_group_name",
+                            "default_value": "Default",
                             "custom_config": {
                                 "config_constraints": {
                                     "identifier": "rg_name"
@@ -987,11 +994,7 @@
                                 "grouping": "deployment",
                                 "original_grouping": "deployment",
                                 "type": "resource_group"
-                            },
-                            "hidden": false,
-                            "default_value": "Default",
-                            "key": "powervs_resource_group_name",
-                            "required": false
+                            }
                         },
                         {
                             "key": "custom_profile"
