@@ -264,34 +264,34 @@
                     ],
                     "outputs": [
                         {
-                            "key": "powervs_management_network_name"
-                        },
-                        {
-                            "key": "dns_host_or_ip"
-                        },
-                        {
-                            "key": "powervs_sshkey_name"
+                            "key": "prefix"
                         },
                         {
                             "key": "vpc_names"
                         },
                         {
-                            "key": "powervs_zone"
+                            "key": "vsi_names"
                         },
                         {
-                            "key": "proxy_host_or_ip_port"
+                            "key": "ssh_public_key"
+                        },
+                        {
+                            "key": "transit_gateway_name"
                         },
                         {
                             "key": "vsi_list"
                         },
                         {
-                            "key": "powervs_backup_network_name"
+                            "key": "powervs_workspace_name"
                         },
                         {
-                            "key": "ntp_host_or_ip"
+                            "key": "powervs_workspace_crn"
                         },
                         {
-                            "key": "nfs_host_or_ip_path"
+                            "key": "powervs_sshkey_name"
+                        },
+                        {
+                            "key": "powervs_zone"
                         },
                         {
                             "key": "powervs_resource_group_name"
@@ -300,22 +300,34 @@
                             "key": "cloud_connection_count"
                         },
                         {
-                            "key": "prefix"
+                            "key": "powervs_management_network_name"
                         },
                         {
-                            "key": "powervs_workspace_name"
+                            "key": "powervs_management_network_subnet"
                         },
                         {
-                            "key": "transit_gateway_name"
+                            "key": "powervs_backup_network_name"
+                        },
+                        {
+                            "key": "powervs_backup_network_subnet"
                         },
                         {
                             "key": "access_host_or_ip"
                         },
                         {
-                            "key": "schematics_workspace_id"
+                            "key": "proxy_host_or_ip_port"
                         },
                         {
-                            "key": "vsi_names"
+                            "key": "dns_host_or_ip"
+                        },
+                        {
+                            "key": "ntp_host_or_ip"
+                        },
+                        {
+                            "key": "nfs_host_or_ip_path"
+                        },
+                        {
+                            "key": "schematics_workspace_id"
                         }
                     ],
                     "iam_permissions": [
@@ -622,28 +634,13 @@
                             "key": "powervs_sshkey_name"
                         },
                         {
-                            "key": "powervs_backup_network_name"
-                        },
-                        {
-                            "key": "powervs_backup_network_subnet"
-                        },
-                        {
-                            "key": "proxy_host_or_ip_port"
-                        },
-                        {
                             "key": "powervs_zone"
                         },
                         {
-                            "key": "ntp_host_or_ip"
-                        },
-                        {
-                            "key": "access_host_or_ip"
+                            "key": "powervs_resource_group_name"
                         },
                         {
                             "key": "cloud_connection_count"
-                        },
-                        {
-                            "key": "schematics_workspace_id"
                         },
                         {
                             "key": "powervs_management_network_name"
@@ -652,13 +649,28 @@
                             "key": "powervs_management_network_subnet"
                         },
                         {
+                            "key": "powervs_backup_network_name"
+                        },
+                        {
+                            "key": "powervs_backup_network_subnet"
+                        },
+                        {
+                            "key": "access_host_or_ip"
+                        },
+                        {
+                            "key": "proxy_host_or_ip_port"
+                        },
+                        {
                             "key": "dns_host_or_ip"
+                        },
+                        {
+                            "key": "ntp_host_or_ip"
                         },
                         {
                             "key": "nfs_host_or_ip_path"
                         },
                         {
-                            "key": "powervs_resource_group_name"
+                            "key": "schematics_workspace_id"
                         }
                     ],
                     "iam_permissions": [
@@ -1032,34 +1044,34 @@
                     ],
                     "outputs": [
                         {
-                            "key": "powervs_management_network_name"
-                        },
-                        {
-                            "key": "dns_host_or_ip"
-                        },
-                        {
-                            "key": "powervs_sshkey_name"
+                            "key": "prefix"
                         },
                         {
                             "key": "vpc_names"
                         },
                         {
-                            "key": "powervs_zone"
+                            "key": "vsi_names"
                         },
                         {
-                            "key": "proxy_host_or_ip_port"
+                            "key": "ssh_public_key"
+                        },
+                        {
+                            "key": "transit_gateway_name"
                         },
                         {
                             "key": "vsi_list"
                         },
                         {
-                            "key": "powervs_backup_network_name"
+                            "key": "powervs_workspace_name"
                         },
                         {
-                            "key": "ntp_host_or_ip"
+                            "key": "powervs_workspace_crn"
                         },
                         {
-                            "key": "nfs_host_or_ip_path"
+                            "key": "powervs_sshkey_name"
+                        },
+                        {
+                            "key": "powervs_zone"
                         },
                         {
                             "key": "powervs_resource_group_name"
@@ -1068,34 +1080,46 @@
                             "key": "cloud_connection_count"
                         },
                         {
-                            "key": "prefix"
+                            "key": "powervs_management_network_name"
                         },
                         {
-                            "key": "powervs_workspace_name"
+                            "key": "powervs_management_network_subnet"
                         },
                         {
-                            "key": "transit_gateway_name"
+                            "key": "powervs_backup_network_name"
+                        },
+                        {
+                            "key": "powervs_backup_network_subnet"
                         },
                         {
                             "key": "access_host_or_ip"
                         },
                         {
-                            "key": "instance_private_ips"
+                            "key": "proxy_host_or_ip_port"
                         },
                         {
-                            "key": "instance_private_ips_info"
+                            "key": "dns_host_or_ip"
                         },
                         {
-                            "key": "instance_mgmt_ip"
+                            "key": "ntp_host_or_ip"
                         },
                         {
-                            "key": "storage_configuration"
+                            "key": "nfs_host_or_ip_path"
+                        },
+                        {
+                            "key": "pi_instance_private_ips"
+                        },
+                        {
+                            "key": "pi_instance_private_ips_info"
+                        },
+                        {
+                            "key": "pi_instance_mgmt_ip"
+                        },
+                        {
+                            "key": "pi_storage_configuration"
                         },
                         {
                             "key": "schematics_workspace_id"
-                        },
-                        {
-                            "key": "vsi_names"
                         }
                     ],
                     "iam_permissions": [

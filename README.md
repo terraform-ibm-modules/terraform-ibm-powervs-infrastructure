@@ -29,12 +29,6 @@ The following limitations apply to the module:
 
 For more information about IBM Power Virtual Server see the [getting started](https://cloud.ibm.com/docs/power-iaas?topic=power-iaas-getting-started) IBM Cloud docs.
 
-## Reference architectures
-
-- Power Virtual Server with VPC landing zone - [PowerVS workspace full-stack variation](reference-architectures/full-stack/deploy-arch-ibm-pvs-inf-full-stack.md)
-- Power Virtual Server with VPC landing zone - [PowerVS workspace quickstart variation](reference-architectures/quickstart/deploy-arch-ibm-pvs-inf-extension.md)
-- Power Virtual Server with VPC landing zone - [PowerVS workspace extension variation](reference-architectures/extension/deploy-arch-ibm-pvs-inf-extension.md)
-
 ## Usage
 ```hcl
 provider "ibm" {
@@ -91,17 +85,20 @@ You need the following permissions to run this module.
         - **Direct Link** service
             - `Editor` platform access
 
-<!-- END MODULE HOOK -->
+## Reference architectures
 
-<!-- BEGIN EXAMPLES HOOK -->
+- Power Virtual Server with VPC landing zone - [PowerVS workspace full-stack variation](reference-architectures/full-stack/deploy-arch-ibm-pvs-inf-full-stack.md)
+- Power Virtual Server with VPC landing zone - [PowerVS workspace quickstart variation](reference-architectures/quickstart/deploy-arch-ibm-pvs-inf-extension.md)
+- Power Virtual Server with VPC landing zone - [PowerVS workspace extension variation](reference-architectures/extension/deploy-arch-ibm-pvs-inf-extension.md)
+
 ## Solutions
-| Variation  | IBM catalog | Deploy Without catalog  | VPC Landing Zone | VPC VSI OS Config | PVS Infrastructure | PVS Instance | PVS OS Config |
+| Variation  | IBM catalog | Deploy Without catalog  | Creates VPC Landing Zone | Creates VPC VSI OS Config | Creates PVS Infrastructure | Creates PVS Instance | Creates PVS OS Config |
 | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
 | [Full-Stack](solutions/full-stack)  | :white_check_mark:  | :white_check_mark:  | :white_check_mark:  | :white_check_mark:  |  :white_check_mark: | :x: | :x: |
 | [Quickstart](solutions/quickstart)  | :white_check_mark:  | :white_check_mark:  | :white_check_mark:  | :white_check_mark:  | :white_check_mark:  | :white_check_mark: | :x: |
 | [Extension](solutions/extension)    | :white_check_mark:  |  :x: |  :x: | :x: | :white_check_mark:  | :x: | :x: |
 
-<!-- END EXAMPLES HOOK -->
+<!-- END MODULE HOOK -->
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
