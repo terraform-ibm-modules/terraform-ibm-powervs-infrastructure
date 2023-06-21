@@ -4,5 +4,6 @@
   "powervs_resource_group_name": "Automation",
   "prefix": $PREFIX,
   "landing_zone_configuration": "RHEL",
-  "external_access_ip": "0.0.0.0/0"
+  "external_access_ip": "0.0.0.0/0",
+  "tshirt_size": "aix_xs"
 }
