@@ -1,6 +1,6 @@
 {
   "ibmcloud_api_key": $VALIDATION_APIKEY,
-  "powervs_zone": "tok04",
+  "powervs_zone": "tor01",
   "powervs_resource_group_name": "Automation",
   "prefix": $PREFIX,
   "landing_zone_configuration": "RHEL",
