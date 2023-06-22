@@ -32,15 +32,7 @@
   ],
   "service_endpoints": "private",
   "security_groups": [],
-  "vpn_gateways": [
-    {
-      "connections": [],
-      "name": "edge-gateway",
-      "resource_group": "slz-edge-rg",
-      "subnet_name": "vpn-zone-1",
-      "vpc_name": "edge"
-    }
-  ],
+  "vpn_gateways": [],
   "atracker": {
     "collector_bucket_name": "atracker-bucket",
     "receive_global_events": true,

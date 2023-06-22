@@ -14,7 +14,7 @@ variable "prefix" {
 }
 
 variable "landing_zone_configuration" {
-  description = "OS image distro for VPC landing zone."
+  description = "VPC landing zone configuration."
   type        = string
 
   validation {
@@ -139,5 +139,5 @@ variable "ibmcloud_api_key" {
 variable "IC_SCHEMATICS_WORKSPACE_ID" {
   default     = ""
   type        = string
-  description = "leave blank if running locally. This variable will be automatically populated if running from an IBM Cloud Schematics workspace"
+  description = "leave blank if running locally. This variable will be automatically populated if running from an IBM Cloud Schematics workspace."
 }
