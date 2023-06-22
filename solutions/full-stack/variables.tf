@@ -14,7 +14,7 @@ variable "prefix" {
 }
 
 variable "landing_zone_configuration" {
-  description = "OS image distro for VPC landing zone."
+  description = "VPC landing zone configuration."
   type        = string
 
   validation {
