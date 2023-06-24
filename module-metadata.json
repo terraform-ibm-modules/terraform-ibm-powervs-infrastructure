@@ -576,7 +576,7 @@
           },
           "pos": {
             "filename": "submodules/configure_network_services/main.tf",
-            "line": 178
+            "line": 186
           }
         },
         "null_resource.install_packages": {
@@ -588,7 +588,7 @@
           },
           "pos": {
             "filename": "submodules/configure_network_services/main.tf",
-            "line": 132
+            "line": 128
           }
         },
         "null_resource.perform_proxy_client_setup": {
@@ -603,7 +603,7 @@
           },
           "pos": {
             "filename": "submodules/configure_network_services/main.tf",
-            "line": 33
+            "line": 23
           }
         },
         "null_resource.update_os": {
@@ -615,7 +615,7 @@
           },
           "pos": {
             "filename": "submodules/configure_network_services/main.tf",
-            "line": 81
+            "line": 71
           }
         },
         "time_sleep.wait_for_reboot": {
@@ -627,7 +627,7 @@
           },
           "pos": {
             "filename": "submodules/configure_network_services/main.tf",
-            "line": 123
+            "line": 113
           }
         }
       },
@@ -658,7 +658,7 @@
           },
           "pos": {
             "filename": "submodules/configure_network_services/main.tf",
-            "line": 178
+            "line": 186
           }
         },
         "null_resource.install_packages": {
@@ -670,7 +670,7 @@
           },
           "pos": {
             "filename": "submodules/configure_network_services/main.tf",
-            "line": 132
+            "line": 128
           }
         },
         "null_resource.perform_proxy_client_setup": {
@@ -685,7 +685,7 @@
           },
           "pos": {
             "filename": "submodules/configure_network_services/main.tf",
-            "line": 33
+            "line": 23
           }
         },
         "null_resource.update_os": {
@@ -697,7 +697,7 @@
           },
           "pos": {
             "filename": "submodules/configure_network_services/main.tf",
-            "line": 81
+            "line": 71
           }
         },
         "time_sleep.wait_for_reboot": {
@@ -709,7 +709,7 @@
           },
           "pos": {
             "filename": "submodules/configure_network_services/main.tf",
-            "line": 123
+            "line": 113
           }
         }
       },
@@ -740,7 +740,7 @@
           },
           "pos": {
             "filename": "submodules/configure_network_services/main.tf",
-            "line": 178
+            "line": 186
           }
         },
         "null_resource.install_packages": {
@@ -752,7 +752,7 @@
           },
           "pos": {
             "filename": "submodules/configure_network_services/main.tf",
-            "line": 132
+            "line": 128
           }
         },
         "null_resource.perform_proxy_client_setup": {
@@ -767,7 +767,7 @@
           },
           "pos": {
             "filename": "submodules/configure_network_services/main.tf",
-            "line": 33
+            "line": 23
           }
         },
         "null_resource.update_os": {
@@ -779,7 +779,7 @@
           },
           "pos": {
             "filename": "submodules/configure_network_services/main.tf",
-            "line": 81
+            "line": 71
           }
         },
         "time_sleep.wait_for_reboot": {
@@ -791,7 +791,7 @@
           },
           "pos": {
             "filename": "submodules/configure_network_services/main.tf",
-            "line": 123
+            "line": 113
           }
         }
       },
@@ -822,7 +822,7 @@
           },
           "pos": {
             "filename": "submodules/configure_network_services/main.tf",
-            "line": 178
+            "line": 186
           }
         },
         "null_resource.install_packages": {
@@ -834,7 +834,7 @@
           },
           "pos": {
             "filename": "submodules/configure_network_services/main.tf",
-            "line": 132
+            "line": 128
           }
         },
         "null_resource.perform_proxy_client_setup": {
@@ -849,7 +849,7 @@
           },
           "pos": {
             "filename": "submodules/configure_network_services/main.tf",
-            "line": 33
+            "line": 23
           }
         },
         "null_resource.update_os": {
@@ -861,7 +861,7 @@
           },
           "pos": {
             "filename": "submodules/configure_network_services/main.tf",
-            "line": 81
+            "line": 71
           }
         },
         "time_sleep.wait_for_reboot": {
@@ -873,7 +873,7 @@
           },
           "pos": {
             "filename": "submodules/configure_network_services/main.tf",
-            "line": 123
+            "line": 113
           }
         }
       },
