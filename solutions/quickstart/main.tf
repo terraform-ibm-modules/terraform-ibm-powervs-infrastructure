@@ -73,7 +73,7 @@ locals {
 
 module "landing_zone" {
   source               = "terraform-ibm-modules/landing-zone/ibm//patterns//vsi"
-  version              = "4.1.0"
+  version              = "4.2.1"
   ibmcloud_api_key     = var.ibmcloud_api_key
   ssh_public_key       = var.ssh_public_key
   region               = lookup(local.ibm_powervs_zone_cloud_region_map, var.powervs_zone, null)
@@ -206,7 +206,7 @@ locals {
 }
 
 module "demo_pi_instance" {
-  source     = "git::https://github.com/terraform-ibm-modules/terraform-ibm-powervs-instance.git?ref=v0.2.1"
+  source     = "git::https://github.com/terraform-ibm-modules/terraform-ibm-powervs-instance.git?ref=v0.2.2"
   providers  = { ibm = ibm.ibm-pvs }
   depends_on = [module.landing_zone, module.powervs_infra]
 
