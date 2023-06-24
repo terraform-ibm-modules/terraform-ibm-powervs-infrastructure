@@ -3,11 +3,11 @@
 # 2. Update OS and Reboot
 # 3. Install Necessary Packages
 # 4. Execute Ansible galaxy role to install Management
-# services for SAP installation
+# services (NTP, NFS, DNS)
 #####################################################
 
 locals {
-  scr_scripts_dir = "${path.module}/../terraform_templates"
+  scr_scripts_dir = "${path.module}/templates"
   dst_scripts_dir = "/root/terraform_scripts"
 
   src_services_init_tpl_path    = "${local.scr_scripts_dir}/services_init.sh.tftpl"
@@ -19,10 +19,11 @@ locals {
   server_config_options    = { for key, value in local.server_config_option_tmp : key => local.server_config_option_tmp[key] }
   server_config_name       = split("_", one([for item in keys(var.service_config) : item if can(regex("enable", item))]))[0]
 
-  ansible_config_mgmt_svs_playbook_name = "powervs-services.yml"
-  src_ansible_exec_tpl_path             = "${local.scr_scripts_dir}/ansible_exec.sh.tftpl"
-  dst_ansible_exec_path                 = "${local.dst_scripts_dir}/${local.server_config_name}_config.sh"
-  dst_ansible_vars_path                 = "${local.dst_scripts_dir}/${local.server_config_name}_config.yml"
+
+  ansible_config_mgmt_svs_playbook_name            = "powervs-services.yml"
+  src_script_configure_network_services_tftpl_path = "${local.scr_scripts_dir}/configure_network_services.sh.tftpl"
+  dst_script_configure_network_services_sh_path    = "${local.dst_scripts_dir}/${local.server_config_name}_config.sh"
+  dst_ansible_vars_path                            = "${local.dst_scripts_dir}/${local.server_config_name}_config.yml"
 }
 
 #####################################################
@@ -200,9 +201,9 @@ EOF
 
   ####### Copy Template file to target host ############
   provisioner "file" {
-    destination = local.dst_ansible_exec_path
+    destination = local.dst_script_configure_network_services_sh_path
     content = templatefile(
-      local.src_ansible_exec_tpl_path,
+      local.src_script_configure_network_services_tftpl_path,
       {
         "ansible_playbook_name" : local.ansible_config_mgmt_svs_playbook_name
         "ansible_extra_vars_path" : local.dst_ansible_vars_path
@@ -214,8 +215,8 @@ EOF
   ####  Execute ansible collection to Configure management services  ####
   provisioner "remote-exec" {
     inline = [
-      "chmod +x ${local.dst_ansible_exec_path}",
-      local.dst_ansible_exec_path
+      "chmod +x ${local.dst_script_configure_network_services_sh_path}",
+      local.dst_script_configure_network_services_sh_path
     ]
   }
 }
