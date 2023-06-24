@@ -11,7 +11,7 @@ ibmcloud_api_key = "your api key" != null ? "your api key" : null
 }
 
 module "cloud_connection_attach" {
-source                      = "./submodules/power_cloudconnection_attach"
+source                      = "./submodules/powervs_cloudconnection_attach"
 powervs_zone                = var.powervs_zone
 powervs_resource_group_name = var.powervs_resource_group_name
 powervs_workspace_name      = var.powervs_workspace_name

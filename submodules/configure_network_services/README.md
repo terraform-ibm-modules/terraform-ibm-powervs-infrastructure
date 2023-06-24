@@ -10,9 +10,9 @@ zone             = "sao01"
 ibmcloud_api_key = "your api key" != null ? "your api key" : null
 }
 
-module "power_management_service_squid" {
+module "configure_squid" {
 
-source     = "./submodules/power_management_services_setup"
+source     = "./submodules/configure_network_services"
 access_host_or_ip          = var.access_host_or_ip
 target_server_ip           = var.target_server_ip
 ssh_private_key            = var.ssh_private_key

@@ -113,14 +113,14 @@ You need the following permissions to run this module.
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_cloud_connection_attach"></a> [cloud\_connection\_attach](#module\_cloud\_connection\_attach) | ./submodules/power_cloudconnection_attach | n/a |
-| <a name="module_cloud_connection_create"></a> [cloud\_connection\_create](#module\_cloud\_connection\_create) | ./submodules/power_cloudconnection_create | n/a |
-| <a name="module_initial_validation"></a> [initial\_validation](#module\_initial\_validation) | ./submodules/initial_validation | n/a |
-| <a name="module_power_management_service_dns"></a> [power\_management\_service\_dns](#module\_power\_management\_service\_dns) | ./submodules/power_management_services_setup | n/a |
-| <a name="module_power_management_service_nfs"></a> [power\_management\_service\_nfs](#module\_power\_management\_service\_nfs) | ./submodules/power_management_services_setup | n/a |
-| <a name="module_power_management_service_ntp"></a> [power\_management\_service\_ntp](#module\_power\_management\_service\_ntp) | ./submodules/power_management_services_setup | n/a |
-| <a name="module_power_management_service_squid"></a> [power\_management\_service\_squid](#module\_power\_management\_service\_squid) | ./submodules/power_management_services_setup | n/a |
-| <a name="module_power_workspace"></a> [power\_workspace](#module\_power\_workspace) | ./submodules/power_workspace | n/a |
+| <a name="module_configure_dns"></a> [configure\_dns](#module\_configure\_dns) | ./submodules/configure_network_services | n/a |
+| <a name="module_configure_nfs"></a> [configure\_nfs](#module\_configure\_nfs) | ./submodules/configure_network_services | n/a |
+| <a name="module_configure_ntp"></a> [configure\_ntp](#module\_configure\_ntp) | ./submodules/configure_network_services | n/a |
+| <a name="module_configure_squid"></a> [configure\_squid](#module\_configure\_squid) | ./submodules/configure_network_services | n/a |
+| <a name="module_initial_validation"></a> [initial\_validation](#module\_initial\_validation) | ./submodules/terraform_initial_validation | n/a |
+| <a name="module_powervs_cloud_connection_attach"></a> [powervs\_cloud\_connection\_attach](#module\_powervs\_cloud\_connection\_attach) | ./submodules/powervs_cloudconnection_attach | n/a |
+| <a name="module_powervs_cloud_connection_create"></a> [powervs\_cloud\_connection\_create](#module\_powervs\_cloud\_connection\_create) | ./submodules/powervs_cloudconnection_create | n/a |
+| <a name="module_powervs_workspace"></a> [powervs\_workspace](#module\_powervs\_workspace) | ./submodules/powervs_workspace | n/a |
 
 ## Resources
 
