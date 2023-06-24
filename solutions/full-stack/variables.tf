@@ -39,6 +39,10 @@ variable "external_access_ip" {
   type        = string
 }
 
+#####################################################
+# Optional Parameters
+#####################################################
+
 variable "configure_dns_forwarder" {
   description = "Specify if DNS forwarder will be configured. This will allow you to use central DNS servers (e.g. IBM Cloud DNS servers) sitting outside of the created IBM PowerVS infrastructure. If yes, ensure 'dns_forwarder_config' optional variable is set properly. DNS forwarder will be installed on the private-svs vsi."
   type        = bool
@@ -57,9 +61,15 @@ variable "configure_nfs_server" {
   default     = true
 }
 
-#####################################################
-# Optional Parameters
-#####################################################
+variable "dns_forwarder_config" {
+  description = "Configuration for the DNS forwarder to a DNS service that is not reachable directly from PowerVS."
+  type = object({
+    dns_servers = string
+  })
+  default = {
+    "dns_servers" = "161.26.0.7; 161.26.0.8; 9.9.9.9;"
+  }
+}
 
 variable "powervs_management_network" {
   description = "Name of the IBM Cloud PowerVS management subnet and CIDR to create."
@@ -114,15 +124,7 @@ variable "tags" {
   default     = ["sap"]
 }
 
-variable "dns_forwarder_config" {
-  description = "Configuration for the DNS forwarder to a DNS service that is not reachable directly from PowerVS."
-  type = object({
-    dns_servers = string
-  })
-  default = {
-    "dns_servers" = "161.26.0.7; 161.26.0.8; 9.9.9.9;"
-  }
-}
+
 
 variable "ibmcloud_api_key" {
   description = "The IBM Cloud platform API key needed to deploy IAM enabled resources."

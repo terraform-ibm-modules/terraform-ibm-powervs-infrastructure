@@ -233,10 +233,13 @@
                             "key": "configure_dns_forwarder"
                         },
                         {
+                            "key": "configure_ntp_forwarder"
+                        },
+                        {
                             "key": "configure_nfs_server"
                         },
                         {
-                            "key": "configure_ntp_forwarder"
+                            "key": "dns_forwarder_config"
                         },
                         {
                             "key": "powervs_management_network"
@@ -245,20 +248,22 @@
                             "key": "powervs_backup_network"
                         },
                         {
-                            "key": "powervs_image_names"
-                        },
-                        {
                             "key": "cloud_connection"
                         },
                         {
-                            "key": "dns_forwarder_config"
+                            "key": "powervs_image_names"
                         },
                         {
                             "key": "tags"
                         },
                         {
                             "key": "ibmcloud_api_key",
-                            "type": "multiline_secure_value"
+                            "type": "multiline_secure_value",
+                            "custom_config": {
+                                "grouping": "deployment",
+                                "original_grouping": "deployment",
+                                "type": "multiline_secure_value"
+                            }
                         }
                     ],
                     "outputs": [
@@ -563,7 +568,12 @@
                         },
                         {
                             "key": "ibmcloud_api_key",
-                            "type": "multiline_secure_value"
+                            "type": "multiline_secure_value",
+                            "custom_config": {
+                                "grouping": "deployment",
+                                "original_grouping": "deployment",
+                                "type": "multiline_secure_value"
+                            }
                         }
                     ],
                     "outputs": [
@@ -947,6 +957,33 @@
                             "custom_config": {}
                         },
                         {
+                            "key": "custom_profile"
+                        },
+                        {
+                            "key": "configure_dns_forwarder"
+                        },
+                        {
+                            "key": "configure_ntp_forwarder"
+                        },
+                        {
+                            "key": "configure_nfs_server"
+                        },
+                        {
+                            "key": "dns_forwarder_config"
+                        },
+                        {
+                            "key": "powervs_management_network"
+                        },
+                        {
+                            "key": "powervs_backup_network"
+                        },
+                        {
+                            "key": "cloud_connection"
+                        },
+                        {
+                            "key": "powervs_image_names"
+                        },
+                        {
                             "key": "powervs_resource_group_name",
                             "default_value": "Default",
                             "custom_config": {
@@ -959,38 +996,16 @@
                             }
                         },
                         {
-                            "key": "custom_profile"
-                        },
-                        {
-                            "key": "configure_dns_forwarder"
-                        },
-                        {
-                            "key": "configure_nfs_server"
-                        },
-                        {
-                            "key": "configure_ntp_forwarder"
-                        },
-                        {
-                            "key": "powervs_management_network"
-                        },
-                        {
-                            "key": "powervs_backup_network"
-                        },
-                        {
-                            "key": "powervs_image_names"
-                        },
-                        {
-                            "key": "cloud_connection"
-                        },
-                        {
-                            "key": "dns_forwarder_config"
-                        },
-                        {
                             "key": "tags"
                         },
                         {
                             "key": "ibmcloud_api_key",
-                            "type": "multiline_secure_value"
+                            "type": "multiline_secure_value",
+                            "custom_config": {
+                                "grouping": "deployment",
+                                "original_grouping": "deployment",
+                                "type": "multiline_secure_value"
+                            }
                         }
                     ],
                     "outputs": [

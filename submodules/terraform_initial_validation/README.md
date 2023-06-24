@@ -11,7 +11,7 @@ ibmcloud_api_key = "your api key" != null ? "your api key" : null
 }
 
 module "initial_validation" {
-source = "./submodules/initial_validation"
+source = "./submodules/terraform_initial_validation"
 cloud_connection_validate = var.cloud_connection_validate
 }
 
