@@ -19,6 +19,11 @@ variable "tshirt_size" {
   }
 }
 
+variable "external_access_ip" {
+  description = "Specify the IP address or CIDR to login through SSH to the environment after deployment. Access to this environment will be allowed only from this IP address."
+  type        = string
+}
+
 variable "ssh_public_key" {
   description = "Public SSH Key for VSI creation. Must be an RSA key with a key size of either 2048 bits or 4096 bits (recommended). Must be a valid SSH key that does not already exist in the deployment region."
   type        = string
@@ -30,9 +35,10 @@ variable "ssh_private_key" {
   sensitive   = true
 }
 
-variable "external_access_ip" {
-  description = "Specify the IP address or CIDR to login through SSH to the environment after deployment. Access to this environment will be allowed only from this IP address."
+variable "ibmcloud_api_key" {
+  description = "The IBM Cloud platform API key needed to deploy IAM enabled resources."
   type        = string
+  sensitive   = true
 }
 
 #####################################################
@@ -156,13 +162,6 @@ variable "tags" {
   description = "List of tag names for the IBM Cloud PowerVS workspace"
   type        = list(string)
   default     = ["demo"]
-}
-
-variable "ibmcloud_api_key" {
-  description = "The IBM Cloud platform API key needed to deploy IAM enabled resources."
-  type        = string
-  sensitive   = true
-  default     = null
 }
 
 #############################################################################

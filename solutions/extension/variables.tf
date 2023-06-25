@@ -37,6 +37,12 @@ variable "powervs_backup_network" {
   }
 }
 
+variable "ibmcloud_api_key" {
+  description = "The IBM Cloud platform API key needed to deploy IAM enabled resources."
+  type        = string
+  sensitive   = true
+}
+
 #####################################################
 # Optional Parameters
 #####################################################
@@ -68,13 +74,6 @@ variable "tags" {
   description = "List of tag names for the IBM Cloud PowerVS workspace"
   type        = list(string)
   default     = ["sap"]
-}
-
-variable "ibmcloud_api_key" {
-  description = "The IBM Cloud platform API key needed to deploy IAM enabled resources."
-  type        = string
-  sensitive   = true
-  default     = null
 }
 
 #############################################################################

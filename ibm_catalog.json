@@ -206,6 +206,10 @@
                             "custom_config": {}
                         },
                         {
+                            "key": "external_access_ip",
+                            "required": true
+                        },
+                        {
                             "key": "ssh_public_key",
                             "type": "multiline_secure_value",
                             "required": true,
@@ -226,8 +230,14 @@
                             }
                         },
                         {
-                            "key": "external_access_ip",
-                            "required": true
+                            "key": "ibmcloud_api_key",
+                            "type": "multiline_secure_value",
+                            "required": true,
+                            "custom_config": {
+                                "grouping": "deployment",
+                                "original_grouping": "deployment",
+                                "type": "multiline_secure_value"
+                            }
                         },
                         {
                             "key": "configure_dns_forwarder"
@@ -255,15 +265,6 @@
                         },
                         {
                             "key": "tags"
-                        },
-                        {
-                            "key": "ibmcloud_api_key",
-                            "type": "multiline_secure_value",
-                            "custom_config": {
-                                "grouping": "deployment",
-                                "original_grouping": "deployment",
-                                "type": "multiline_secure_value"
-                            }
                         }
                     ],
                     "outputs": [
@@ -558,6 +559,16 @@
                             "required": true
                         },
                         {
+                            "key": "ibmcloud_api_key",
+                            "type": "multiline_secure_value",
+                            "required": true,
+                            "custom_config": {
+                                "grouping": "deployment",
+                                "original_grouping": "deployment",
+                                "type": "multiline_secure_value"
+                            }
+                        },
+                        {
                             "key": "cloud_connection"
                         },
                         {
@@ -565,15 +576,6 @@
                         },
                         {
                             "key": "tags"
-                        },
-                        {
-                            "key": "ibmcloud_api_key",
-                            "type": "multiline_secure_value",
-                            "custom_config": {
-                                "grouping": "deployment",
-                                "original_grouping": "deployment",
-                                "type": "multiline_secure_value"
-                            }
                         }
                     ],
                     "outputs": [
@@ -881,6 +883,10 @@
                             "custom_config": {}
                         },
                         {
+                            "key": "external_access_ip",
+                            "required": true
+                        },
+                        {
                             "key": "ssh_public_key",
                             "required": true,
                             "type": "multiline_secure_value",
@@ -901,8 +907,14 @@
                             }
                         },
                         {
-                            "key": "external_access_ip",
-                            "required": true
+                            "key": "ibmcloud_api_key",
+                            "type": "multiline_secure_value",
+                            "required": true,
+                            "custom_config": {
+                                "grouping": "deployment",
+                                "original_grouping": "deployment",
+                                "type": "multiline_secure_value"
+                            }
                         },
                         {
                             "key": "custom_profile_instance_boot_image",
@@ -997,15 +1009,6 @@
                         },
                         {
                             "key": "tags"
-                        },
-                        {
-                            "key": "ibmcloud_api_key",
-                            "type": "multiline_secure_value",
-                            "custom_config": {
-                                "grouping": "deployment",
-                                "original_grouping": "deployment",
-                                "type": "multiline_secure_value"
-                            }
                         }
                     ],
                     "outputs": [
