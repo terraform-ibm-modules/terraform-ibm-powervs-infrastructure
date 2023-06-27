@@ -461,7 +461,7 @@
                                     "catalogID": "da12d6f3-3cb7-402e-9350-878837212a6e",
                                     "flavorConstraint": "powervs-workspace",
                                     "offeringID": "2dd486c7-b317-4aaa-907b-42671485ad96",
-                                    "versionConstraint": "\u003e=8.0.0"
+                                    "versionConstraint": "\u003e=1.0.0"
                                 },
                                 "grouping": "deployment",
                                 "original_grouping": "deployment",
@@ -677,7 +677,7 @@
                             "catalog_id": "da12d6f3-3cb7-402e-9350-878837212a6e",
                             "id": "2dd486c7-b317-4aaa-907b-42671485ad96",
                             "name": "deploy-arch-ibm-pvs-inf",
-                            "version": ">=8.0.0"
+                            "version": ">=1.0.0"
                         }
                     ],
                     "architecture": {

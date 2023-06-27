@@ -65,7 +65,7 @@ provider "ibm" {
 #####################################################
 
 locals {
-  path_rhel_preset   = "./../../presets/slz-for-powervs/rhel-vpc-pvs-quickstart.preset.json.tfpl"
+  path_rhel_preset   = "${path.module}/../../presets/slz-for-powervs/rhel-vpc-pvs-quickstart.preset.json.tfpl"
   external_access_ip = var.external_access_ip != null && var.external_access_ip != "" ? length(regexall("/", var.external_access_ip)) > 0 ? var.external_access_ip : "${var.external_access_ip}/32" : ""
   new_preset         = templatefile(local.path_rhel_preset, { external_access_ip = local.external_access_ip })
 
