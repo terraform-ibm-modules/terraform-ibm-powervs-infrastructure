@@ -17,13 +17,13 @@ This example sets up the following infrastructure:
     - Custom profile ( cores, memory storage and image)
     - 1 volume
 
-| Variation  | IBM catalog | Deploy Without catalog  | Creates VPC Landing Zone | Creates VPC VSI OS Config | Creates PowerVS Infrastructure | Creates PowerVS Instance | Creates PowerVS OS Config |
+| Variation  | Available on IBM Catalog  |  Requires Schematics Workspace ID | Creates VPC Landing Zone | Performs VPC VSI OS Config | Creates PowerVS Infrastructure | Creates PowerVS Instance | Performs PowerVS OS Config |
 | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
-| [Quickstart](./)  | :white_check_mark:  | :white_check_mark:  | :white_check_mark:  | :white_check_mark:  | :white_check_mark:  | :white_check_mark: | :x: |
+| [Quickstart](./)  | :heavy_check_mark:  | N/A  | :heavy_check_mark:  | :heavy_check_mark:  | :heavy_check_mark:  | :heavy_check_mark: | N/A |
 
 
 ## Architecture diagram
-![full-stack-variation](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/tree/215_quickstart/reference-architectures/quickstart/deploy-arch-ibm-pvs-inf-quickstart.svg)
+![full-stack-variation](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/blob/main/reference-architectures/quickstart/deploy-arch-ibm-pvs-inf-quickstart.svg)
 
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

@@ -29,6 +29,31 @@ The following limitations apply to the module:
 
 For more information about IBM Power Virtual Server see the [getting started](https://cloud.ibm.com/docs/power-iaas?topic=power-iaas-getting-started) IBM Cloud docs.
 
+# Table of Contents
+1. [Required IAM access policies](#required-iam-access-policies)
+2. [Usage](#usage)
+3. [Reference architectures](#reference-architectures)
+4. [Solutions](#solutions)
+
+
+## Required IAM access policies
+
+You need the following permissions to run this module.
+
+- Account Management
+    - **Resource Group** service
+        - `Viewer` platform access
+    - IAM Services
+        - **Workspace for Power Virtual Server** service
+        - **Power Virtual Server** service
+            - `Editor` platform access
+        - **VPC Infrastructure Services** service
+            - `Editor` platform access
+        - **Transit Gateway** service
+            - `Editor` platform access
+        - **Direct Link** service
+            - `Editor` platform access
+
 ## Usage
 ```hcl
 provider "ibm" {
@@ -67,24 +92,6 @@ module "power-infrastructure" {
 }
 ```
 
-## Required IAM access policies
-
-You need the following permissions to run this module.
-
-- Account Management
-    - **Resource Group** service
-        - `Viewer` platform access
-    - IAM Services
-        - **Workspace for Power Virtual Server** service
-        - **Power Virtual Server** service
-            - `Editor` platform access
-        - **VPC Infrastructure Services** service
-            - `Editor` platform access
-        - **Transit Gateway** service
-            - `Editor` platform access
-        - **Direct Link** service
-            - `Editor` platform access
-
 ## Reference architectures
 
 - Power Virtual Server with VPC landing zone - [PowerVS workspace full-stack variation](reference-architectures/full-stack/deploy-arch-ibm-pvs-inf-full-stack.md)
@@ -92,11 +99,11 @@ You need the following permissions to run this module.
 - Power Virtual Server with VPC landing zone - [PowerVS workspace extension variation](reference-architectures/extension/deploy-arch-ibm-pvs-inf-extension.md)
 
 ## Solutions
-| Variation  | IBM catalog | Deploy Without catalog  | Creates VPC Landing Zone | Creates VPC VSI OS Config | Creates PowerVS Infrastructure | Creates PowerVS Instance | Creates PowerVS OS Config |
+| Variation  | Available on IBM Catalog  |  Requires Schematics Workspace ID | Creates VPC Landing Zone | Performs VPC VSI OS Config | Creates PowerVS Infrastructure | Creates PowerVS Instance | Performs PowerVS OS Config |
 | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
-| [Full-Stack](solutions/full-stack)  | :white_check_mark:  | :white_check_mark:  | :white_check_mark:  | :white_check_mark:  |  :white_check_mark: | :x: | :x: |
-| [Quickstart](solutions/quickstart)  | :white_check_mark:  | :white_check_mark:  | :white_check_mark:  | :white_check_mark:  | :white_check_mark:  | :white_check_mark: | :x: |
-| [Extension](solutions/extension)    | :white_check_mark:  |  :x: |  :x: | :x: | :white_check_mark:  | :x: | :x: |
+| [Full-Stack](solutions/full-stack)  | :heavy_check_mark:  | N/A  | :heavy_check_mark:  | :heavy_check_mark:  |  :heavy_check_mark: | N/A | N/A |
+| [Quickstart](solutions/quickstart)  | :heavy_check_mark:  | N/A  | :heavy_check_mark:  | :heavy_check_mark:  | :heavy_check_mark:  | :heavy_check_mark: | N/A |
+| [Extension](solutions/extension)    | :heavy_check_mark:  |  :heavy_check_mark: |  N/A | N/A | :heavy_check_mark:  | N/A | N/A |
 
 <!-- END MODULE HOOK -->
 

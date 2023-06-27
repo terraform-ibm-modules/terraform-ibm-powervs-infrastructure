@@ -12,9 +12,9 @@ This example sets up the following infrastructure:
     - Attaches the private networks to the IBM Cloud connections.
     - Creates an SSH key.
 
-| Variation  | IBM catalog | Deploy Without catalog  | Creates VPC Landing Zone | Creates VPC VSI OS Config | Creates PowerVS Infrastructure | Creates PowerVS Instance | Creates PowerVS OS Config |
+| Variation  | Available on IBM Catalog  |  Requires Schematics Workspace ID | Creates VPC Landing Zone | Performs VPC VSI OS Config | Creates PowerVS Infrastructure | Creates PowerVS Instance | Performs PowerVS OS Config |
 | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
-| [Full-Stack](./)  | :white_check_mark:  | :white_check_mark:  | :white_check_mark:  | :white_check_mark:  |  :white_check_mark: | :x: | :x: |
+| [Full-Stack](./)  | :heavy_check_mark:  | N/A  | :heavy_check_mark:  | :heavy_check_mark:  |  :heavy_check_mark: | N/A | N/A |
 
 ## Reference architecture
 [PowerVS workspace full-stack variation](../../reference-architectures/full-stack/deploy-arch-ibm-pvs-inf-full-stack.md)
