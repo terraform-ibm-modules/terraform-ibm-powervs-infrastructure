@@ -28,7 +28,7 @@ cloud_connection_metered     = var.cloud_connection_metered
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.3, < 1.5 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.3, < 1.6 |
 | <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | >=1.49.0 |
 | <a name="requirement_time"></a> [time](#requirement\_time) | >= 0.9.1 |
 
