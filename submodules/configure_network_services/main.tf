@@ -2,8 +2,8 @@
 # 1. Configure Squid client
 # 2. Update OS and Reboot
 # 3. Install Necessary Packages
-# 4. Execute Ansible galaxy role to install Management
-# services (NTP, NFS, DNS)
+# 4. Execute Ansible galaxy role to configure network
+#    services (NTP, NFS, DNS)
 #####################################################
 
 locals {
