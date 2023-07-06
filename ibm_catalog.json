@@ -448,14 +448,26 @@
                     "working_directory": "solutions/extension",
                     "usage_template": "module \"power-infrastructure\" {\n  source                      = \"https://cm.globalcatalog.cloud.ibm.com/api/v1-beta/offering/source//${{workingDirectory}}?archive=tgz&flavor=${{flavor}}&kind=${{kind}}&name=${{name}}&version=${{version}}\"\n  powervs_zone                = var.powervs_zone\n  powervs_resource_group_name = var.powervs_resource_group_name\n  prerequisite_workspace_id   = var.prerequisite_workspace_id\n  }",
                     "compliance": {},
+                    "dependencies": [
+                        {
+                            "flavors": [
+                                "powervs-workspace"
+                            ],
+                            "install_type": "fullstack",
+                            "catalogID": "1082e7d2-5e2f-0a11-a3bc-f88a8e1931fc",
+                            "id": "2dd486c7-b317-4aaa-907b-42671485ad96-global",
+                            "name": "deploy-arch-ibm-pvs-inf",
+                            "version": ">=1.0.0"
+                        }
+                    ],
                     "configuration": [
                         {
                             "key": "prerequisite_workspace_id",
                             "required": true,
                             "custom_config": {
                                 "config_constraints": {
-                                    "catalogID": "1082e7d2-5e2f-0a11-a3bc-f88a8e1931fc",
                                     "flavorConstraint": "powervs-workspace",
+                                    "catalogID": "1082e7d2-5e2f-0a11-a3bc-f88a8e1931fc",
                                     "offeringID": "2dd486c7-b317-4aaa-907b-42671485ad96-global",
                                     "install_type": "fullstack",
                                     "versionConstraint": "\u003e=1.0.0"
@@ -660,18 +672,6 @@
                                 "crn:v1:bluemix:public:iam::::serviceRole:Manager"
                             ],
                             "service_name": "power-iaas"
-                        }
-                    ],
-                    "dependencies": [
-                        {
-                            "flavors": [
-                                "powervs-workspace"
-                            ],
-                            "install_type": "fullstack",
-                            "catalog_id": "1082e7d2-5e2f-0a11-a3bc-f88a8e1931fc",
-                            "id": "2dd486c7-b317-4aaa-907b-42671485ad96-global",
-                            "name": "deploy-arch-ibm-pvs-inf",
-                            "version": ">=1.0.0"
                         }
                     ],
                     "architecture": {
