@@ -28,27 +28,27 @@ If you do not have a PowerVS infrastructure that is the full stack solution for 
 ![extension-variation](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/blob/main/reference-architectures/extension/deploy-arch-ibm-pvs-inf-extension.svg)
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
-## Requirements
+### Requirements
 
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.3, < 1.6 |
 | <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | =1.54.0 |
 
-## Modules
+### Modules
 
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_powervs_infra"></a> [powervs\_infra](#module\_powervs\_infra) | ../../ | n/a |
 
-## Resources
+### Resources
 
 | Name | Type |
 |------|------|
 | [ibm_schematics_output.schematics_output](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.54.0/docs/data-sources/schematics_output) | data source |
 | [ibm_schematics_workspace.schematics_workspace](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.54.0/docs/data-sources/schematics_workspace) | data source |
 
-## Inputs
+### Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
@@ -63,7 +63,7 @@ If you do not have a PowerVS infrastructure that is the full stack solution for 
 | <a name="input_prerequisite_workspace_id"></a> [prerequisite\_workspace\_id](#input\_prerequisite\_workspace\_id) | IBM Cloud Schematics workspace ID of the prerequisite infrastructure. If you do not have an existing deployment yet, create a new architecture. | `string` | n/a | yes |
 | <a name="input_tags"></a> [tags](#input\_tags) | List of tag names for the IBM Cloud PowerVS workspace | `list(string)` | <pre>[<br>  "sap"<br>]</pre> | no |
 
-## Outputs
+### Outputs
 
 | Name | Description |
 |------|-------------|

@@ -23,7 +23,7 @@ perform_proxy_client_setup = var.perform_proxy_client_setup
 ```
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
-## Requirements
+### Requirements
 
 | Name | Version |
 |------|---------|
@@ -31,11 +31,11 @@ perform_proxy_client_setup = var.perform_proxy_client_setup
 | <a name="requirement_null"></a> [null](#requirement\_null) | >= 3.2.1 |
 | <a name="requirement_time"></a> [time](#requirement\_time) | >= 0.9.1 |
 
-## Modules
+### Modules
 
 No modules.
 
-## Resources
+### Resources
 
 | Name | Type |
 |------|------|
@@ -45,7 +45,7 @@ No modules.
 | [null_resource.update_os](https://registry.terraform.io/providers/hashicorp/null/latest/docs/resources/resource) | resource |
 | [time_sleep.wait_for_reboot](https://registry.terraform.io/providers/hashicorp/time/latest/docs/resources/sleep) | resource |
 
-## Inputs
+### Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
@@ -55,7 +55,7 @@ No modules.
 | <a name="input_ssh_private_key"></a> [ssh\_private\_key](#input\_ssh\_private\_key) | Private SSH key used to login to IBM PowerVS instances.Entered data must be in heredoc strings format (https://www.terraform.io/language/expressions/strings#heredoc-strings). The key is not uploaded or stored. | `string` | n/a | yes |
 | <a name="input_target_server_ip"></a> [target\_server\_ip](#input\_target\_server\_ip) | Target/server\_host ip on which the DNS,NTP,NFS,SQUID services will be configured. | `string` | n/a | yes |
 
-## Outputs
+### Outputs
 
 No outputs.
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
