@@ -67,18 +67,18 @@ provider "ibm" {
 locals {
   path_rhel_preset   = "${path.module}/../../presets/slz-for-powervs/rhel-vpc-pvs-quickstart.preset.json.tfpl"
   external_access_ip = var.external_access_ip != null && var.external_access_ip != "" ? length(regexall("/", var.external_access_ip)) > 0 ? var.external_access_ip : "${var.external_access_ip}/32" : ""
-  new_preset         = templatefile(local.path_rhel_preset, { external_access_ip = local.external_access_ip })
+  preset             = templatefile(local.path_rhel_preset, { external_access_ip = local.external_access_ip })
 
 }
 
 module "landing_zone" {
   source               = "terraform-ibm-modules/landing-zone/ibm//patterns//vsi"
-  version              = "4.2.1"
+  version              = "4.4.6"
   ibmcloud_api_key     = var.ibmcloud_api_key
   ssh_public_key       = var.ssh_public_key
   region               = lookup(local.ibm_powervs_zone_cloud_region_map, var.powervs_zone, null)
   prefix               = var.prefix
-  override_json_string = local.new_preset
+  override_json_string = local.preset
 }
 
 locals {
@@ -143,7 +143,6 @@ locals {
   }
 
   powervs_image_names = [local.custom_profile_enabled ? var.custom_profile_instance_boot_image : local.qs_tshirt_choice.image]
-  #powervs_image_names = var.custom_profile_instance_boot_image != null && var.custom_profile_instance_boot_image != "" ? distinct(concat(var.powervs_image_names, [var.custom_profile_instance_boot_image])) : var.powervs_image_names
 }
 
 module "powervs_infra" {

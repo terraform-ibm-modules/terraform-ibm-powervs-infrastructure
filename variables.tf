@@ -117,7 +117,7 @@ variable "cloud_connection_metered" {
 }
 
 variable "access_host_or_ip" {
-  description = "The public IP address or hostname for the access host. The address is used to reach the target or server_host IP address and to configure the DNS, NTP, NFS, and Squid proxy services. Set it to null if you do not want to configure any services."
+  description = "The public IP address or hostname for the access host(Jump/Bastion server). The address is used to reach the target or server_host IP address and to configure the DNS, NTP, NFS, and Squid proxy services. Set it to null if you do not want to configure any services."
   type        = string
   default     = null
 }

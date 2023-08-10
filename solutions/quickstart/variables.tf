@@ -46,12 +46,12 @@ variable "ibmcloud_api_key" {
 #####################################################
 
 variable "custom_profile_instance_boot_image" {
-  description = "Override the t-shirt size specs of PowerVS Workspace instance by selecting an image name and providing valid custom_profile parameter."
+  description = "Override the t-shirt size specs of PowerVS Workspace instance by selecting an image name and providing valid 'custom_profile' optional parameter."
   type        = string
   default     = "RHEL8-SP4-SAP"
   validation {
     condition     = contains(["RHEL8-SP4-SAP", "SLES15-SP4-SAP", "RHEL8-SP4-SAP-NETWEAVER", "SLES15-SP4-SAP-NETWEAVER", "IBMi-73-13-2924-1", "IBMi-74-07-2924-1", "IBMi-75-01-2924-2", "IBMi_COR-74-07-2", "7300-01-01", "7300-00-01", "7200-05-03", ""], var.custom_profile_instance_boot_image)
-    error_message = "Only Following DC values are supported :  RHEL8-SP4-SAP, SLES15-SP4-SAP, RHEL8-SP4-SAP-NETWEAVER, SLES15-SP4-SAP-NETWEAVER, IBMi-73-13-2924-1, IBMi-74-07-2924-1, IBMi-75-01-2924-2, IBMi_COR-74-07-2, 7300-01-01, 7300-00-01, 7200-05-03"
+    error_message = "Only Following IBM catalog images are supported :  RHEL8-SP4-SAP, SLES15-SP4-SAP, RHEL8-SP4-SAP-NETWEAVER, SLES15-SP4-SAP-NETWEAVER, IBMi-73-13-2924-1, IBMi-74-07-2924-1, IBMi-75-01-2924-2, IBMi_COR-74-07-2, 7300-01-01, 7300-00-01, 7200-05-03"
   }
 }
 
@@ -64,10 +64,10 @@ variable "custom_profile" {
     storage        = object({ size = string, tier = string })
   })
   default = {
-    sap_profile_id = null
-    cores          = ""
-    memory         = ""
-    storage        = { size = "", tier = "" }
+    "sap_profile_id" : null,
+    "cores" : "",
+    "memory" : "",
+    "storage" : { "size" : "", tier = "" }
 
   }
 
@@ -112,8 +112,8 @@ variable "powervs_management_network" {
     cidr = string
   })
   default = {
-    name = "mgmt_net"
-    cidr = "10.51.0.0/24"
+    "name" : "mgmt_net",
+    "cidr" : "10.51.0.0/24"
   }
 }
 
@@ -124,8 +124,8 @@ variable "powervs_backup_network" {
     cidr = string
   })
   default = {
-    name = "bkp_net"
-    cidr = "10.52.0.0/24"
+    "name" : "bkp_net",
+    "cidr" : "10.52.0.0/24"
   }
 }
 
@@ -139,10 +139,10 @@ variable "cloud_connection" {
   })
 
   default = {
-    count          = 2
-    speed          = 5000
-    global_routing = true
-    metered        = true
+    "count" : 2,
+    "speed" : 5000,
+    "global_routing" : true,
+    "metered" : true
   }
 }
 
