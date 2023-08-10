@@ -10,7 +10,7 @@ power_linux_sap_arr=("powervs-services.yml")
 ### Download and install collections from ansible-galaxy
 ansible-galaxy collection install ibm.power_linux_sap:1.1.3
 
-## Execute ansible playbook
+### Execute ansible playbook
 echo -e "[defaults]\nlog_path=$${ansible_log_path}/$${playbook_name}.$(date "+%Y.%m.%d-%H.%M.%S").log" >ansible.cfg
 
 if [[ " $${power_linux_sap_arr[@]} " =~ " $${playbook_name} " ]]; then
