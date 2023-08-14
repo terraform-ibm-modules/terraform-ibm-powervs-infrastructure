@@ -58,7 +58,7 @@ A proxy service for public internet access from the PowerVS workspace is configu
 
 ## Design requirements
 {: #full-design-requirements}
-
+TODO FILE HERE
 ![Design requirements for 'Power Virtual Server with VPC landing zone' - variation 'PowerVS workspace'.](heat-map-deploy-arch-ibm-pvs-inf-quickstart.svg "Design requirements"){: caption="Figure 2. Scope of the solution requirements" caption-side="bottom"}
 
 IBM Cloud® Power Virtual Servers (PowerVS) is a public cloud offering that an enterprise can use to establish its own private IBM Power computing environment on shared public cloud infrastructure. PowerVS is logically isolated from all other public cloud tenants and infrastructure components, creating a private, secure place on the public cloud. This deployable architecture provides a framework to build a PowerVS offering according to the best practices and requirements from the IBM Cloud.
@@ -84,23 +84,14 @@ IBM Cloud® Power Virtual Servers (PowerVS) is a public cloud offering that an e
 
 | Requirement | Component | Choice | Alternative choice |
 |-------------|-----------|--------------------|--------------------|
-|* Connect PowerVS workspace with VPC services|Cloud connections|Set up two redundant cloud connections| |
-|* Configure the network for management of all instances  \n * Throughput and latency are not relevant|Management network|Configure private network with default configurations and attach it to both cloud connections| |
-|* Configure separate network for backup purposes with higher data throughput|Backup network|Configure separate private network with default configurations and attach it to both cloud connections. Networks characteristics might be adapted by the users manually (for example to improve throughput)| |
-|* Preload OS images relevant for customer workload|Preloaded OS images|Preload Linux OS images for SAP workload. Keep the number of preloaded images at minimum to save costs.|Modify the input parameter that specifies the list of preloaded OS images.|
-|* Preload a public SSH key that is injected into every OS deployment|Preloaded SSH public key|Preload customer specified SSH public key| |
-{: caption="Table 2. PowerVS workspace architecture decisions" caption-side="bottom"}
+TODO
 
 ### PowerVS management services architecture decisions
 {: #full-pvs-components-mgmt}
 
 | Requirement | Component | Choice | Alternative choice |
 |-------------|-----------|--------------------|--------------------|
-|* Ensure public internet connectivity from all the instances to be deployed in PowerVS workspace|SQUID proxy|Set up SQUID proxy software on Linux virtual server instance that is running in edge VPC|                    |
-|* Provide shared NFS storage that might be directly attached to all the instances to be deployed in PowerVS workspace|NFS server|Export NFS disk that is attached to Linux virtual server instance that is running in workload VPC. Disk size is specified by the user.|Shared NFS storage on VPC is optional.|
-|* Provide time synchronization to all instances to be deployed in PowerVS workspace|NTP forwarder|Synchronize time by using public NTP servers. Set up time synchronization on Linux virtual server instance that is running in workload VPC.|By using time synchronization servers directly reachable from PowerVS workspace, NTP forwarder is not required.|
-|* Provide a DNS forwarder to a DNS server not directly reachable from PowerVS workspace (for example, running on-premises or in other isolated environment)|DNS forwarder|Configure DNS forwarder on Linux virtual server instance that is running in workload VPC| By using default IBM Cloud DNS service, DNS forwarder is not needed. Direct domain name resolution is possible.|
-{: caption="Table 3. PowerVS management services architecture decisions" caption-side="bottom"}
+TODO
 
 ### Network security architecture decisions
 {: #full-net-sec}
