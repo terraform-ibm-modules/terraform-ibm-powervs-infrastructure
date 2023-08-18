@@ -912,20 +912,16 @@
                             "default_value": "",
                             "options": [
                                 {
-                                    "displayname": "SAP - RHEL8-SP4-SAP",
-                                    "value": "RHEL8-SP4-SAP"
+                                    "displayname": "AIX - 7300-01-01",
+                                    "value": "7300-01-01"
                                 },
                                 {
-                                    "displayname": "SAP - SLES15-SP4-SAP",
-                                    "value": "SLES15-SP4-SAP"
+                                    "displayname": "AIX - 7300-00-01",
+                                    "value": "7300-00-01"
                                 },
                                 {
-                                    "displayname": "SAP - RHEL8-SP4-SAP-NETWEAVER",
-                                    "value": "RHEL8-SP4-SAP-NETWEAVER"
-                                },
-                                {
-                                    "displayname": "SAP - SLES15-SP4-SAP-NETWEAVER",
-                                    "value": "SLES15-SP4-SAP-NETWEAVER"
+                                    "displayname": "AIX - 7200-05-03",
+                                    "value": "7200-05-03"
                                 },
                                 {
                                     "displayname": "IBM i - IBMi-73-13-2924-1",
@@ -944,16 +940,20 @@
                                     "value": "IBMi_COR-74-07-2"
                                 },
                                 {
-                                    "displayname": "AIX - 7300-01-01",
-                                    "value": "7300-01-01"
+                                    "displayname": "SAP - RHEL8-SP4-SAP",
+                                    "value": "RHEL8-SP4-SAP"
                                 },
                                 {
-                                    "displayname": "AIX - 7300-00-01",
-                                    "value": "7300-00-01"
+                                    "displayname": "SAP - SLES15-SP4-SAP",
+                                    "value": "SLES15-SP4-SAP"
                                 },
                                 {
-                                    "displayname": "AIX - 7200-05-03",
-                                    "value": "7200-05-03"
+                                    "displayname": "SAP - RHEL8-SP4-SAP-NETWEAVER",
+                                    "value": "RHEL8-SP4-SAP-NETWEAVER"
+                                },
+                                {
+                                    "displayname": "SAP - SLES15-SP4-SAP-NETWEAVER",
+                                    "value": "SLES15-SP4-SAP-NETWEAVER"
                                 }
                             ],
                             "custom_config": {}
