@@ -700,6 +700,489 @@
                             }
                         ]
                     }
+                },
+                {
+                    "label": "PowerVS Quickstart",
+                    "name": "powervs-quickstart",
+                    "install_type": "fullstack",
+                    "working_directory": "solutions/quickstart",
+                    "usage_template": "module \"power-infrastructure\" {\n  source                      = \"https://cm.globalcatalog.cloud.ibm.com/api/v1-beta/offering/source//${{workingDirectory}}?archive=tgz&flavor=${{flavor}}&kind=${{kind}}&name=${{name}}&version=${{version}}\"\n  powervs_zone                = var.powervs_zone\n  powervs_resource_group_name = var.powervs_resource_group_name\n  prefix                      = var.prefix\n  tshirt_size                 = var.tshirt_size\n  ssh_private_key             = var.ssh_private_key\n  ssh_public_key              = var.ssh_public_key\n  external_access_ip          = var.external_access_ip\n }",
+                    "compliance": {
+                        "authority": "scc-v3",
+                        "controls": [
+                            {
+                                "profile": {
+                                    "name": "IBM Cloud for Financial Services",
+                                    "version": "1.2.0"
+                                },
+                                "names": [
+                                    "AC-2(4)(0)",
+                                    "AC-2(7)(b)",
+                                    "AC-2(g)",
+                                    "AC-6(9)(0)",
+                                    "AU-2(a)",
+                                    "AU-2(d)",
+                                    "AU-3(0)",
+                                    "AU-4(0)",
+                                    "AU-8(1)(a)",
+                                    "AU-8(1)(b)",
+                                    "AU-8(a)",
+                                    "AU-8(b)",
+                                    "AU-11(0)",
+                                    "AU-12(a)",
+                                    "AU-12(b)",
+                                    "AU-12(c)",
+                                    "CA-7(d)",
+                                    "IA-3(0)",
+                                    "SC-2(0)",
+                                    "SC-3(0)",
+                                    "SC-7(4)(c)",
+                                    "SC-8(0)",
+                                    "SC-8(1)(0)",
+                                    "SC-11(0)",
+                                    "SC-23(0)",
+                                    "SI-4(a)",
+                                    "SI-4(b)",
+                                    "SI-4(c)",
+                                    "SI-12(0)"
+                                ]
+                            }
+                        ]
+                    },
+                    "configuration": [
+                        {
+                            "key": "powervs_zone",
+                            "type": "string",
+                            "default_value": "",
+                            "required": true,
+                            "options": [
+                                {
+                                    "displayname": "London (lon04)",
+                                    "value": "lon04"
+                                },
+                                {
+                                    "displayname": "London (lon06)",
+                                    "value": "lon06"
+                                },
+                                {
+                                    "displayname": "Frankfurt (eu-de-1)",
+                                    "value": "eu-de-1"
+                                },
+                                {
+                                    "displayname": "Frankfurt (eu-de-2)",
+                                    "value": "eu-de-2"
+                                },
+                                {
+                                    "displayname": "Toronto (tor01)",
+                                    "value": "tor01"
+                                },
+                                {
+                                    "displayname": "Montreal (mon01)",
+                                    "value": "mon01"
+                                },
+                                {
+                                    "displayname": "Osaka (osa21)",
+                                    "value": "osa21"
+                                },
+                                {
+                                    "displayname": "Tokyo (tok04)",
+                                    "value": "tok04"
+                                },
+                                {
+                                    "displayname": "Sydney (syd04)",
+                                    "value": "syd04"
+                                },
+                                {
+                                    "displayname": "Sydney (syd05)",
+                                    "value": "syd05"
+                                },
+                                {
+                                    "displayname": "Sao Paulo (sao01)",
+                                    "value": "sao01"
+                                },
+                                {
+                                    "displayname": "US-south (us-south)",
+                                    "value": "us-south"
+                                },
+                                {
+                                    "displayname": "Dallas (dal12)",
+                                    "value": "dal12"
+                                },
+                                {
+                                    "displayname": "US-east (us-east)",
+                                    "value": "us-east"
+                                }
+                            ],
+                            "custom_config": {}
+                        },
+                        {
+                            "key": "prefix",
+                            "required": true
+                        },
+                        {
+                            "key": "tshirt_size",
+                            "type": "string",
+                            "default_value": "",
+                            "required": true,
+                            "options": [
+                                {
+                                    "displayname": "AIX - XS (1cpu,32GB,disk-100GB,7300-01-01)",
+                                    "value": "aix_xs"
+                                },
+                                {
+                                    "displayname": "AIX - S (4cpu,128GB,disk-500GB,7300-01-01)",
+                                    "value": "aix_s"
+                                },
+                                {
+                                    "displayname": "AIX - M (8cpu,256GB,disk-1000GB,7300-01-01)",
+                                    "value": "aix_m"
+                                },
+                                {
+                                    "displayname": "AIX - L (15cpu,512GB,disk-2000GB,7300-01-01)",
+                                    "value": "aix_l"
+                                },
+                                {
+                                    "displayname": "IBM i - XS (0.25cpu,8GB,disk-100GB,IBMi-73-13-2924-1)",
+                                    "value": "ibm_i_xs"
+                                },
+                                {
+                                    "displayname": "IBM i - S (1cpu,32GB,disk-500GB,IBMi-73-13-2924-1)",
+                                    "value": "ibm_i_s"
+                                },
+                                {
+                                    "displayname": "IBM i - M (2cpu,64GB,disk-1000GB,IBMi-73-13-2924-1)",
+                                    "value": "ibm_i_m"
+                                },
+                                {
+                                    "displayname": "IBM i - L (4cpu,132GB,disk-2000GB,IBMi-73-13-2924-1)",
+                                    "value": "ibm_i_l"
+                                },
+                                {
+                                    "displayname": "SAP DEV (ush1-4x128,disk-500GB,RHEL-SP4-SAP)",
+                                    "value": "sap_dev"
+                                },
+                                {
+                                    "displayname": "SAP OLAP (bh1-16x1600,disk-3170GB,RHEL-SP4-SAP)",
+                                    "value": "sap_olap"
+                                },
+                                {
+                                    "displayname": "SAP OLTP (umh-4x960,disk-2490GB,RHEL-SP4-SAP)",
+                                    "value": "sap_oltp"
+                                }
+                            ],
+                            "custom_config": {}
+                        },
+                        {
+                            "key": "external_access_ip",
+                            "required": true
+                        },
+                        {
+                            "key": "ssh_public_key",
+                            "required": true,
+                            "type": "multiline_secure_value",
+                            "custom_config": {
+                                "grouping": "deployment",
+                                "original_grouping": "deployment",
+                                "type": "multiline_secure_value"
+                            }
+                        },
+                        {
+                            "key": "ssh_private_key",
+                            "required": true,
+                            "type": "multiline_secure_value",
+                            "custom_config": {
+                                "grouping": "deployment",
+                                "original_grouping": "deployment",
+                                "type": "multiline_secure_value"
+                            }
+                        },
+                        {
+                            "key": "ibmcloud_api_key",
+                            "type": "multiline_secure_value",
+                            "required": true,
+                            "custom_config": {
+                                "grouping": "deployment",
+                                "original_grouping": "deployment",
+                                "type": "multiline_secure_value"
+                            }
+                        },
+                        {
+                            "key": "custom_profile_instance_boot_image",
+                            "type": "string",
+                            "default_value": "",
+                            "options": [
+                                {
+                                    "displayname": "AIX - 7300-01-01",
+                                    "value": "7300-01-01"
+                                },
+                                {
+                                    "displayname": "AIX - 7300-00-01",
+                                    "value": "7300-00-01"
+                                },
+                                {
+                                    "displayname": "AIX - 7200-05-03",
+                                    "value": "7200-05-03"
+                                },
+                                {
+                                    "displayname": "IBM i - IBMi-73-13-2924-1",
+                                    "value": "IBMi-73-13-2924-1"
+                                },
+                                {
+                                    "displayname": "IBM i - IBMi-74-07-2924-1",
+                                    "value": "IBMi-74-07-2924-1"
+                                },
+                                {
+                                    "displayname": "IBM i - IBMi-75-01-2924-2",
+                                    "value": "IBMi-75-01-2924-2"
+                                },
+                                {
+                                    "displayname": "IBM i - IBMi_COR-74-07-2",
+                                    "value": "IBMi_COR-74-07-2"
+                                },
+                                {
+                                    "displayname": "SAP - RHEL8-SP4-SAP",
+                                    "value": "RHEL8-SP4-SAP"
+                                },
+                                {
+                                    "displayname": "SAP - SLES15-SP4-SAP",
+                                    "value": "SLES15-SP4-SAP"
+                                },
+                                {
+                                    "displayname": "SAP - RHEL8-SP4-SAP-NETWEAVER",
+                                    "value": "RHEL8-SP4-SAP-NETWEAVER"
+                                },
+                                {
+                                    "displayname": "SAP - SLES15-SP4-SAP-NETWEAVER",
+                                    "value": "SLES15-SP4-SAP-NETWEAVER"
+                                }
+                            ],
+                            "custom_config": {}
+                        },
+                        {
+                            "key": "custom_profile"
+                        },
+                        {
+                            "key": "configure_dns_forwarder"
+                        },
+                        {
+                            "key": "configure_ntp_forwarder"
+                        },
+                        {
+                            "key": "configure_nfs_server"
+                        },
+                        {
+                            "key": "dns_forwarder_config"
+                        },
+                        {
+                            "key": "powervs_management_network"
+                        },
+                        {
+                            "key": "powervs_backup_network"
+                        },
+                        {
+                            "key": "cloud_connection"
+                        },
+                        {
+                            "key": "powervs_resource_group_name",
+                            "default_value": "Default",
+                            "custom_config": {
+                                "config_constraints": {
+                                    "identifier": "rg_name"
+                                },
+                                "grouping": "deployment",
+                                "original_grouping": "deployment",
+                                "type": "resource_group"
+                            }
+                        },
+                        {
+                            "key": "tags"
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "key": "prefix"
+                        },
+                        {
+                            "key": "vpc_names"
+                        },
+                        {
+                            "key": "vsi_names"
+                        },
+                        {
+                            "key": "ssh_public_key"
+                        },
+                        {
+                            "key": "transit_gateway_name"
+                        },
+                        {
+                            "key": "vsi_list"
+                        },
+                        {
+                            "key": "powervs_workspace_name"
+                        },
+                        {
+                            "key": "powervs_workspace_crn"
+                        },
+                        {
+                            "key": "powervs_sshkey_name"
+                        },
+                        {
+                            "key": "powervs_zone"
+                        },
+                        {
+                            "key": "powervs_resource_group_name"
+                        },
+                        {
+                            "key": "cloud_connection_count"
+                        },
+                        {
+                            "key": "powervs_management_network_name"
+                        },
+                        {
+                            "key": "powervs_management_network_subnet"
+                        },
+                        {
+                            "key": "powervs_backup_network_name"
+                        },
+                        {
+                            "key": "powervs_backup_network_subnet"
+                        },
+                        {
+                            "key": "access_host_or_ip"
+                        },
+                        {
+                            "key": "proxy_host_or_ip_port"
+                        },
+                        {
+                            "key": "dns_host_or_ip"
+                        },
+                        {
+                            "key": "ntp_host_or_ip"
+                        },
+                        {
+                            "key": "nfs_host_or_ip_path"
+                        },
+                        {
+                            "key": "pi_instance_private_ips"
+                        },
+                        {
+                            "key": "pi_instance_private_ips_info"
+                        },
+                        {
+                            "key": "pi_instance_mgmt_ip"
+                        },
+                        {
+                            "key": "pi_storage_configuration"
+                        },
+                        {
+                            "key": "schematics_workspace_id"
+                        }
+                    ],
+                    "iam_permissions": [
+                        {
+                            "role_crns": [
+                                "crn:v1:bluemix:public:iam::::serviceRole:Manager"
+                            ],
+                            "service_name": "appid"
+                        },
+                        {
+                            "role_crns": [
+                                "crn:v1:bluemix:public:iam::::serviceRole:Manager"
+                            ],
+                            "service_name": "cloud-object-storage"
+                        },
+                        {
+                            "role_crns": [
+                                "crn:v1:bluemix:public:iam::::serviceRole:Manager"
+                            ],
+                            "service_name": "hs-crypto"
+                        },
+                        {
+                            "role_crns": [
+                                "crn:v1:bluemix:public:iam::::role:Administrator"
+                            ],
+                            "service_name": "iam-identity"
+                        },
+                        {
+                            "role_crns": [
+                                "crn:v1:bluemix:public:iam::::serviceRole:Manager"
+                            ],
+                            "service_name": "kms"
+                        },
+                        {
+                            "role_crns": [
+                                "crn:v1:bluemix:public:iam::::serviceRole:Manager",
+                                "crn:v1:bluemix:public:iam::::role:Administrator"
+                            ],
+                            "service_name": "is.vpc"
+                        },
+                        {
+                            "role_crns": [
+                                "crn:v1:bluemix:public:iam::::role:Editor"
+                            ],
+                            "service_name": "is.vpc"
+                        },
+                        {
+                            "role_crns": [
+                                "crn:v1:bluemix:public:iam::::role:Editor"
+                            ],
+                            "service_name": "transit.gateway"
+                        },
+                        {
+                            "role_crns": [
+                                "crn:v1:bluemix:public:iam::::role:Editor"
+                            ],
+                            "service_name": "directlink.connect"
+                        },
+                        {
+                            "role_crns": [
+                                "crn:v1:bluemix:public:iam::::serviceRole:Manager"
+                            ],
+                            "service_name": "power-iaas"
+                        }
+                    ],
+                    "architecture": {
+                        "features": [
+                            {
+                                "title": "1 VPC for management, Internet services and private services",
+                                "description": "Yes"
+                            },
+                            {
+                                "title": "1 Virtual Server Instances on VPC",
+                                "description": "Yes"
+                            },
+                            {
+                                "title": "Increases security with Key Management",
+                                "description": "Yes"
+                            },
+                            {
+                                "title": "Power Virtual Server Workspace",
+                                "description": "PowerVS Workspace with all required components"
+                            },
+                            {
+                                "title": "Internet proxy on VPC",
+                                "description": "Proxy service to reach public internet from PowerVS Workspace"
+                            },
+                            {
+                                "title": "Additional management configurations on VPC",
+                                "description": "NFS server, NTP forwarder, and DNS forwarder reachable from PowerVS Workspace"
+                            },
+                            {
+                                "title": "1 Power Virtual Server Instance",
+                                "description": "Yes"
+                            }
+                        ],
+                        "diagrams": [
+                            {
+                                "diagram": {
+                                    "caption": "Power Virtual Server with VPC landing zone 'quickstart' variation",
+                                    "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/main/reference-architectures/quickstart/deploy-arch-ibm-pvs-inf-quickstart.svg",
+                                    "type": "image/svg+xml"
+                                },
+                                "description": "The Power Virtual Server with VPC landing zone as 'quickstart' variation of 'Create a new architecture' option deploys VPC services and a Power Virtual Server workspace and interconnects them. It also creates one Power virtual server instance of chosen t-shirt size or custom configuration.\n \nRequired and optional management components are configured."
+                            }
+                        ]
+                    }
                 }
             ]
         }
