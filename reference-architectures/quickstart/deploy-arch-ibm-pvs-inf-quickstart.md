@@ -77,8 +77,7 @@ IBM Cloud® Power Virtual Servers (PowerVS) is a public cloud offering that an e
 |* Allow customer to choose operating system from two most widely used commercial Linux operating system offerings  <br /> * Support new OS releases|Linux operating system|Red Hat Enterprise Linux (RHEL)|SUSE Linux Enterprise Server(SLES)| |
 |* Create a virtual server instance that can act as an internet proxy server and host basic management services like DNS, NTP, NFS|Proxy server, Bastion host and Management services VPC instance|Create a Linux VPC instance that can act as a proxy server, bastion host and can host management components. Preconfigure ACL and security group rules to allow public internet traffic over proxy that uses default proxy ports (3828). <br />Configure ACL and security group rules to allow SSH connectivity (port 22). Add a public IP address to the VPC instance. Allow connectivity from a restricted and limited number of public IP addresses. Allow connectivity from IP addresses of the Schematics engine nodes.   <br />Configure ACL and security group rules to allow communication for basic management components | Configure application load balancer to act as proxy server manually.  <br />Modify number of virtual server instances and allowed ports in preset or perform the modifications manually|
 |* Ensure financial services compliancy for VPC services  <br /> * Perform network setup of all created services  <br /> * Perform network isolation of all created services  <br /> * Ensure all created services are interconnected |Secure landing zone components|Create a minimum set of required components for a secure landing zone|Create a modified set of required components for a secure landing zone in preset|
-
-Table: 1. VPC architecture decisions
+{: caption="Table 1. VPC architecture decisions" caption-side="bottom"}
 
 ### PowerVS workspace architecture decisions
 {: #full-pvs-components-workspace}
@@ -101,7 +100,6 @@ Table: 1. VPC architecture decisions
 |* Provide shared NFS storage that might be directly attached to all the instances to be deployed in PowerVS workspace|NFS server|Export NFS disk that is attached to Linux virtual server instance that is running in edge VPC. Disk size is specified by the user.|Shared NFS storage on VPC is optional.|
 |* Provide time synchronization to all instances to be deployed in PowerVS workspace|NTP forwarder|Synchronize time by using public NTP servers. Set up time synchronization on Linux virtual server instance that is running in edge VPC.|By using time synchronization servers directly reachable from PowerVS workspace, NTP forwarder is not required.|
 |* Provide a DNS forwarder to a DNS server not directly reachable from PowerVS workspace (for example, running on-premises or in other isolated environment)|DNS forwarder|Configure DNS forwarder on Linux virtual server instance that is running in edge VPC| By using default IBM Cloud DNS service, DNS forwarder is not needed. Direct domain name resolution is possible.|
-
 {: caption="Table 3. PowerVS management services architecture decisions" caption-side="bottom"}
 
 ### Network security architecture decisions
@@ -112,7 +110,6 @@ Table: 1. VPC architecture decisions
 |* Restrict edge VPC to allow only a limited number of network connections   <br />* All other connections from or to edge VPC are forbidden|ACL and security group rules in edge VPC|Open following ports by default: 53 (DNS service), 8443 (OS registration), 443 (HTTPS), 80 (HTTP),  22 (for limited number of IPs).  <br /> All ports to PowerVS workspace are open. |More ports might be opened in preset or added manually after deployment|
 |* Enable floating IP on bastion host to execute deployment|Floating IPs on bastion host in edge VPC|Use floating IP on bastion host from IBM Schematics to complete deployment|                    |
 |* Preload VPN configuration to simplify VPN setup|VPNs|VPN configuration is the responsibility of the customer|                    |
-
 {: caption="Table 4. Network security architecture decisions" caption-side="bottom"}
 
 ### PowerVS instance - architecture decisions
@@ -123,7 +120,6 @@ Table: 1. VPC architecture decisions
 TODO
 |* Deploy PowerVS instance for SAP workload  <br /> * Use SAP certified configurations regarding CPU and memory combinations (t-shirt sizes)  | PowerVS instance | * Attach all required storage filesystems based on PowerVS instance memory size  <br /> * Attach networks for management, backup and for SAP system internal communication  <br /> * Connect instance with infrastructure management services like DNS, NTP, NFS  <br /> * Perform OS configuration for SAP workload| Allow customer to specify additional parameters, like non-standard file system sizes |
 |* Deploy PowerVS instance for hosting shared SAP system files  <br /> * Prepare operating system | PowerVS instance | Host shared SAP system files on one of PowerVS instances for SAP NetWeaver and do not deploy a separate PowerVS instance | * Allow customer to deploy PowerVS instance with specified CPU and memory  <br /> * Attach specified storage filesystems  <br /> * Attach networks for management, backup and for SAP system internal communication  <br /> * Connect instance with infrastructure management services like DNS, NTP, NFS  <br /> * Perform OS configuration  <br /> * Allow customer to specify additional parameters, like non-standard file system sizes |
-
 {: caption="Table 5. PowerVS workspace architecture decisions" caption-side="bottom"}
 
 
@@ -133,11 +129,9 @@ TODO
 | Requirement | Component | Choice | Alternative choice |
 |-------------|-----------|--------------------|--------------------|
 |* Use public/private SSH key to access virtual server instances by using SSH  <br /> * Use SSH proxy to log in to all virtual server instances by using the bastion host  <br /> * Do not store private ssh key on any virtual instances, also not on the bastion host  <br /> * Do not allow any other SSH login methods except the one with specified private/public SSH key pair|Public SSH key - provided by customer. Private SSH key - provided by customer.|Ask customer to specify the keys. Accept the input as secure parameter or as reference to the key stored in IBM Cloud Secure Storage Manager. Do not print SSH keys in any log files. Do not persist private SSH key.|                    |
-
 {: caption="Table 6. Key and passwords management architecture decisions" caption-side="bottom"}
 
 ## Compliance
 {: #full-compliance}
 
-TODO
-This reference architecture is certified for SAP deployments.?
+This reference architecture is certified for SAP deployments.
