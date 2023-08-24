@@ -39,7 +39,7 @@ content-type: reference-architecture
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Power Virtual Server with VPC landing zone - as new deployment
+# Power Virtual Server with VPC landing zone - as quickstart deployment
 {: #deploy-arch-ibm-pvs-inf-quickstart}
 {: toc-content-type="reference-architecture"}
 {: toc-industry="Technology"}
@@ -47,7 +47,7 @@ content-type: reference-architecture
 {: toc-compliance=""}
 {: toc-version="1.0.0"}
 
-New deployment of the Power Virtual Server with VPC landing zone creates VPC services , a Power Virtual Server workspace and interconnects them. It also deploys a Power Virtual Server of chosen T-shirt size or custom configuration. Supported Os are Aix, IBM i and Linux images.
+Quickstart deployment of the Power Virtual Server with VPC landing zone creates VPC services , a Power Virtual Server workspace and interconnects them. It also deploys a Power Virtual Server of chosen T-shirt size or custom configuration. Supported Os are Aix, IBM i and Linux images.
 
 A proxy service for public internet access from the PowerVS workspace is configured. You can optionally configure some management components on VPC (such as an NFS server, NTP forwarder, and DNS forwarder).
 
