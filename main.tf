@@ -2,6 +2,11 @@
 # IBM Cloud PowerVS Configuration
 #####################################################
 
+locals {
+  per_enabled_dc_list = ["dal10"]
+  per_enabled         = contains(local.per_enabled_dc_list, var.powervs_zone)
+}
+
 module "initial_validation" {
   source = "./submodules/terraform_initial_validation"
   cloud_connection_validate = {
@@ -32,6 +37,7 @@ module "powervs_cloud_connection_create" {
   powervs_resource_group_name  = var.powervs_resource_group_name
   powervs_workspace_name       = var.powervs_workspace_name
   transit_gateway_name         = var.transit_gateway_name
+  per_enabled                  = local.per_enabled
   cloud_connection_name_prefix = var.cloud_connection_name_prefix
   cloud_connection_count       = var.cloud_connection_count
   cloud_connection_speed       = var.cloud_connection_speed
@@ -42,7 +48,7 @@ module "powervs_cloud_connection_create" {
 
 module "powervs_cloud_connection_attach" {
   source                      = "./submodules/powervs_cloudconnection_attach"
-  count                       = var.powervs_zone != "dal10" ? 1 : 0
+  count                       = local.per_enabled ? 0 : 1
   depends_on                  = [module.powervs_workspace, module.powervs_cloud_connection_create]
   powervs_zone                = var.powervs_zone
   powervs_resource_group_name = var.powervs_resource_group_name

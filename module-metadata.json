@@ -284,10 +284,8 @@
       "description": "IBM Cloud PowerVS zone.",
       "required": true,
       "source": [
-        "module.powervs_cloud_connection_attach",
         "module.powervs_cloud_connection_attach.data.ibm_resource_instance.powervs_workspace_ds.location",
         "module.powervs_cloud_connection_create.data.ibm_resource_instance.powervs_workspace_ds.location",
-        "module.powervs_cloud_connection_create.ibm_tg_connection.ibm_powervs_workspace_attach_per.count",
         "module.powervs_workspace.ibm_resource_instance.powervs_workspace.location"
       ],
       "pos": {
@@ -555,7 +553,7 @@
       },
       "pos": {
         "filename": "main.tf",
-        "line": 71
+        "line": 77
       }
     }
   },
@@ -640,7 +638,7 @@
       "data_resources": {},
       "pos": {
         "filename": "main.tf",
-        "line": 78
+        "line": 84
       }
     },
     "configure_nfs": {
@@ -722,7 +720,7 @@
       "data_resources": {},
       "pos": {
         "filename": "main.tf",
-        "line": 104
+        "line": 110
       }
     },
     "configure_ntp": {
@@ -804,7 +802,7 @@
       "data_resources": {},
       "pos": {
         "filename": "main.tf",
-        "line": 91
+        "line": 97
       }
     },
     "configure_squid": {
@@ -886,7 +884,7 @@
       "data_resources": {},
       "pos": {
         "filename": "main.tf",
-        "line": 59
+        "line": 65
       }
     },
     "initial_validation": {
@@ -899,7 +897,7 @@
       "data_resources": {},
       "pos": {
         "filename": "main.tf",
-        "line": 5
+        "line": 10
       }
     },
     "powervs_cloud_connection_attach": {
@@ -907,7 +905,6 @@
       "source": "./submodules/powervs_cloudconnection_attach",
       "attributes": {
         "cloud_connection_count": "cloud_connection_count",
-        "count": "powervs_zone",
         "powervs_resource_group_name": "powervs_resource_group_name",
         "powervs_subnet_names": "powervs_management_network",
         "powervs_workspace_name": "powervs_workspace_name",
@@ -1038,7 +1035,7 @@
       },
       "pos": {
         "filename": "main.tf",
-        "line": 43
+        "line": 49
       }
     },
     "powervs_cloud_connection_create": {
@@ -1098,7 +1095,7 @@
           "type": "ibm_tg_connection",
           "name": "ibm_powervs_workspace_attach_per",
           "attributes": {
-            "count": "powervs_zone",
+            "count": "per_enabled",
             "name": "powervs_workspace_name"
           },
           "provider": {
@@ -1250,7 +1247,7 @@
       },
       "pos": {
         "filename": "main.tf",
-        "line": 27
+        "line": 32
       }
     },
     "powervs_workspace": {
@@ -1413,7 +1410,7 @@
       },
       "pos": {
         "filename": "main.tf",
-        "line": 13
+        "line": 18
       }
     }
   }

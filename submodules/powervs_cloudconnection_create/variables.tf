@@ -18,6 +18,11 @@ variable "transit_gateway_name" {
   type        = string
 }
 
+variable "per_enabled" {
+  description = "Set it to true if the DC is PER enabled, then cloud connections will not be created."
+  type        = bool
+}
+
 variable "cloud_connection_name_prefix" {
   description = "If null or empty string, default cloud connection name will be <zone>-conn-1."
   type        = string
