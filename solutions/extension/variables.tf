@@ -48,7 +48,7 @@ variable "ibmcloud_api_key" {
 #####################################################
 
 variable "cloud_connection" {
-  description = "Cloud connection configuration: speed (50, 100, 200, 500, 1000, 2000, 5000, 10000 Mb/s), count (1 or 2 connections), global_routing (true or false), metered (true or false)"
+  description = "Cloud connection configuration: speed (50, 100, 200, 500, 1000, 2000, 5000, 10000 Mb/s), count (1 or 2 connections), global_routing (true or false), metered (true or false). Not applicable for dal10 DC where PER is enabled."
   type = object({
     count          = number
     speed          = number

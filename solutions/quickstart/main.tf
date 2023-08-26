@@ -72,7 +72,7 @@ locals {
 }
 
 module "landing_zone" {
-  source               = "terraform-ibm-modules/landing-zone/ibm//patterns//vsi"
+  source               = "terraform-ibm-modules/landing-zone/ibm//patterns//vsi//module"
   version              = "4.4.6"
   ibmcloud_api_key     = var.ibmcloud_api_key
   ssh_public_key       = var.ssh_public_key
