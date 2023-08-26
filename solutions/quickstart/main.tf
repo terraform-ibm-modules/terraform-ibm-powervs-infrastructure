@@ -206,7 +206,7 @@ locals {
 }
 
 module "demo_pi_instance" {
-  source     = "git::https://github.com/terraform-ibm-modules/terraform-ibm-powervs-instance.git?ref=v0.2.6"
+  source     = "git::https://github.com/terraform-ibm-modules/terraform-ibm-powervs-instance.git?ref=v0.2.8"
   providers  = { ibm = ibm.ibm-pvs }
   depends_on = [module.landing_zone, module.powervs_infra]
 
