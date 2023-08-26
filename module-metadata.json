@@ -1069,7 +1069,7 @@
           },
           "pos": {
             "filename": "submodules/powervs_cloudconnection_create/main.tf",
-            "line": 29
+            "line": 26
           }
         },
         "ibm_pi_cloud_connection.cloud_connection_backup": {
@@ -1087,7 +1087,7 @@
           },
           "pos": {
             "filename": "submodules/powervs_cloudconnection_create/main.tf",
-            "line": 39
+            "line": 37
           }
         },
         "ibm_tg_connection.ibm_powervs_workspace_attach_per": {
@@ -1103,7 +1103,7 @@
           },
           "pos": {
             "filename": "submodules/powervs_cloudconnection_create/main.tf",
-            "line": 114
+            "line": 123
           }
         },
         "ibm_tg_connection.ibm_tg_connection_1": {
@@ -1118,7 +1118,7 @@
           },
           "pos": {
             "filename": "submodules/powervs_cloudconnection_create/main.tf",
-            "line": 96
+            "line": 99
           }
         },
         "ibm_tg_connection.ibm_tg_connection_2": {
@@ -1133,7 +1133,7 @@
           },
           "pos": {
             "filename": "submodules/powervs_cloudconnection_create/main.tf",
-            "line": 105
+            "line": 109
           }
         },
         "time_sleep.dl_1_resource_propagation": {
@@ -1148,7 +1148,7 @@
           },
           "pos": {
             "filename": "submodules/powervs_cloudconnection_create/main.tf",
-            "line": 74
+            "line": 75
           }
         },
         "time_sleep.dl_2_resource_propagation": {
@@ -1163,7 +1163,7 @@
           },
           "pos": {
             "filename": "submodules/powervs_cloudconnection_create/main.tf",
-            "line": 83
+            "line": 85
           }
         }
       },
@@ -1180,7 +1180,7 @@
           },
           "pos": {
             "filename": "submodules/powervs_cloudconnection_create/main.tf",
-            "line": 62
+            "line": 61
           }
         },
         "data.ibm_dl_gateway.gateway_ds_2": {
@@ -1210,7 +1210,7 @@
           },
           "pos": {
             "filename": "submodules/powervs_cloudconnection_create/main.tf",
-            "line": 9
+            "line": 11
           }
         },
         "data.ibm_resource_instance.powervs_workspace_ds": {
@@ -1226,7 +1226,7 @@
           },
           "pos": {
             "filename": "submodules/powervs_cloudconnection_create/main.tf",
-            "line": 13
+            "line": 15
           }
         },
         "data.ibm_tg_gateway.tg_gateway_ds": {
@@ -1241,7 +1241,7 @@
           },
           "pos": {
             "filename": "submodules/powervs_cloudconnection_create/main.tf",
-            "line": 54
+            "line": 53
           }
         }
       },
