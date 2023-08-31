@@ -54,8 +54,14 @@ locals {
 
 # There are discrepancies between the region inputs on the powervs terraform resource, and the vpc ("is") resources
 provider "ibm" {
-  alias            = "ibm-pvs"
   region           = lookup(local.ibm_powervs_zone_region_map, var.powervs_zone, null)
+  zone             = var.powervs_zone
+  ibmcloud_api_key = var.ibmcloud_api_key != null ? var.ibmcloud_api_key : null
+}
+
+provider "ibm" {
+  alias            = "ibm-is"
+  region           = lookup(local.ibm_powervs_zone_cloud_region_map, var.powervs_zone, null)
   zone             = var.powervs_zone
   ibmcloud_api_key = var.ibmcloud_api_key != null ? var.ibmcloud_api_key : null
 }
@@ -72,8 +78,10 @@ locals {
 }
 
 module "landing_zone" {
-  source               = "terraform-ibm-modules/landing-zone/ibm//patterns//vsi//module"
-  version              = "4.4.6"
+  source    = "terraform-ibm-modules/landing-zone/ibm//patterns//vsi//module"
+  version   = "4.4.6"
+  providers = { ibm = ibm.ibm-is }
+
   ibmcloud_api_key     = var.ibmcloud_api_key
   ssh_public_key       = var.ssh_public_key
   region               = lookup(local.ibm_powervs_zone_cloud_region_map, var.powervs_zone, null)
@@ -147,7 +155,6 @@ locals {
 
 module "powervs_infra" {
   source     = "../../"
-  providers  = { ibm = ibm.ibm-pvs }
   depends_on = [module.landing_zone]
 
   powervs_zone                = var.powervs_zone
@@ -207,7 +214,6 @@ locals {
 
 module "demo_pi_instance" {
   source     = "git::https://github.com/terraform-ibm-modules/terraform-ibm-powervs-instance.git?ref=v0.2.8"
-  providers  = { ibm = ibm.ibm-pvs }
   depends_on = [module.landing_zone, module.powervs_infra]
 
   pi_zone                 = var.powervs_zone
