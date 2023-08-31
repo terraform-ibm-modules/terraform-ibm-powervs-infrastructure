@@ -76,6 +76,7 @@ setup_proxy() {
 ###########################################
 # Registration helper functions           #
 ###########################################
+
 zypper_check_process() {
   ##### If zypper command is running, wait for it to exit as this causes a blocker for SUSEConnect command
   ##### Timeout 5 mins
@@ -93,7 +94,6 @@ zypper_check_process() {
 }
 
 suseconnect_register() {
-
   SUSEConnect --de-register >/dev/null
   SUSEConnect --cleanup >/dev/null
   mv "$SUBSCRIPTION_LOG" "$SUBSCRIPTION_LOG.old"
@@ -102,7 +102,6 @@ suseconnect_register() {
 }
 
 suseconnect_sub_final_status() {
-
   ACTIVATION_STATUS="$(SUSEConnect --status | grep -ci "error")"
   if [ "$ACTIVATION_STATUS" != 0 ]; then
     print_out "OS activation Failed"
@@ -117,13 +116,11 @@ subscription_mgr_register() {
 }
 
 subscription_mgr_final_status() {
-
   ACTIVATION_STATUS="$(subscription-manager status | grep -c "Overall Status: Current")"
   if [ "$ACTIVATION_STATUS" == 0 ]; then
     print_out "OS activation Failed"
     exit 1
   fi
-
 }
 
 ###########################################
