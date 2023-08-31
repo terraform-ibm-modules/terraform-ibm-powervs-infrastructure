@@ -48,10 +48,10 @@ variable "ibmcloud_api_key" {
 variable "custom_profile_instance_boot_image" {
   description = "Override the t-shirt size specs of PowerVS Workspace instance by selecting an image name and providing valid 'custom_profile' optional parameter."
   type        = string
-  default     = "RHEL8-SP4-SAP"
+  default     = "RHEL8-SP6-SAP"
   validation {
-    condition     = contains(["RHEL8-SP4-SAP", "SLES15-SP4-SAP", "RHEL8-SP4-SAP-NETWEAVER", "SLES15-SP4-SAP-NETWEAVER", "IBMi-73-13-2924-1", "IBMi-75-01-2984-2", "IBMi-75-01-2924-2", "IBMi-74-07-2984-1", "IBMi_COR-74-07-2", "7300-01-01", "7300-00-01", "7200-05-03", ""], var.custom_profile_instance_boot_image)
-    error_message = "Only Following IBM catalog images are supported :  RHEL8-SP4-SAP, SLES15-SP4-SAP, RHEL8-SP4-SAP-NETWEAVER, SLES15-SP4-SAP-NETWEAVER, IBMi-75-01-2984-2, IBMi-75-01-2924-2, IBMi-74-07-2984-1, IBMi_COR-74-07-2, 7300-01-01, 7300-00-01, 7200-05-03"
+    condition     = contains(["RHEL8-SP6-SAP", "SLES15-SP4-SAP", "RHEL8-SP6-SAP-NETWEAVER", "SLES15-SP4-SAP-NETWEAVER", "IBMi-73-13-2924-1", "IBMi-75-01-2984-2", "IBMi-75-01-2924-2", "IBMi-74-07-2984-1", "IBMi_COR-74-07-2", "7300-01-01", "7300-00-01", "7200-05-03", ""], var.custom_profile_instance_boot_image)
+    error_message = "Only Following IBM catalog images are supported :  RHEL8-SP6-SAP, SLES15-SP4-SAP, RHEL8-SP6-SAP-NETWEAVER, SLES15-SP4-SAP-NETWEAVER, IBMi-75-01-2984-2, IBMi-75-01-2924-2, IBMi-74-07-2984-1, IBMi_COR-74-07-2, 7300-01-01, 7300-00-01, 7200-05-03"
   }
 }
 

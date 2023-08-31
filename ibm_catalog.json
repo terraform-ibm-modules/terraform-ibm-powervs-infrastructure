@@ -952,16 +952,16 @@
                                     "value": "IBMi_COR-74-07-2"
                                 },
                                 {
-                                    "displayname": "SAP - RHEL8-SP4-SAP",
-                                    "value": "RHEL8-SP4-SAP"
+                                    "displayname": "SAP - RHEL8-SP6-SAP",
+                                    "value": "RHEL8-SP6-SAP"
                                 },
                                 {
                                     "displayname": "SAP - SLES15-SP4-SAP",
                                     "value": "SLES15-SP4-SAP"
                                 },
                                 {
-                                    "displayname": "SAP - RHEL8-SP4-SAP-NETWEAVER",
-                                    "value": "RHEL8-SP4-SAP-NETWEAVER"
+                                    "displayname": "SAP - RHEL8-SP6-SAP-NETWEAVER",
+                                    "value": "RHEL8-SP6-SAP-NETWEAVER"
                                 },
                                 {
                                     "displayname": "SAP - SLES15-SP4-SAP-NETWEAVER",

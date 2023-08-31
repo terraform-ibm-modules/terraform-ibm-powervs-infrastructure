@@ -194,10 +194,10 @@
       "type": "list(string)",
       "description": "List of Images to be imported into cloud account from catalog images.",
       "default": [
-        "SLES15-SP3-SAP",
-        "SLES15-SP3-SAP-NETWEAVER",
-        "RHEL8-SP4-SAP",
-        "RHEL8-SP4-SAP-NETWEAVER"
+        "SLES15-SP4-SAP",
+        "SLES15-SP4-SAP-NETWEAVER",
+        "RHEL8-SP6-SAP",
+        "RHEL8-SP6-SAP-NETWEAVER"
       ],
       "source": [
         "module.powervs_workspace"

@@ -23,9 +23,9 @@ The following limitations apply to the module:
 - Only two IBM Cloud connections are supported.
 - You cannot reuse IBM Cloud connections.
 - Private networks in a PowerVS workspace must be in 10.0.0.0/8 range.
-- Only the following operating systems are supported:
-    - SUSE Linux Enterprise Server (SLES) version 15 SP3
-    - Red Hat Enterprise Linux (RHEL) version 8.4
+- Only the following operating systems are supported :
+    - SUSE Linux Enterprise Server (SLES) version 15 SP4
+    - Red Hat Enterprise Linux (RHEL) version 8.6
 
 For more information about IBM Power Virtual Server see the [getting started](https://cloud.ibm.com/docs/power-iaas?topic=power-iaas-getting-started) IBM Cloud docs.
 
@@ -149,7 +149,7 @@ module "power-infrastructure" {
 | <a name="input_ntp_forwarder_config"></a> [ntp\_forwarder\_config](#input\_ntp\_forwarder\_config) | Configuration for the NTP forwarder to an NTP service that is not reachable directly from PowerVS. | <pre>object({<br>    ntp_enable        = bool<br>    server_host_or_ip = string<br>  })</pre> | <pre>{<br>  "ntp_enable": "false",<br>  "server_host_or_ip": ""<br>}</pre> | no |
 | <a name="input_perform_proxy_client_setup"></a> [perform\_proxy\_client\_setup](#input\_perform\_proxy\_client\_setup) | Proxy configuration to allow internet access for a VM or LPAR. | <pre>object(<br>    {<br>      squid_client_ips = list(string)<br>      squid_server_ip  = string<br>      squid_port       = string<br>      no_proxy_hosts   = string<br>    }<br>  )</pre> | `null` | no |
 | <a name="input_powervs_backup_network"></a> [powervs\_backup\_network](#input\_powervs\_backup\_network) | Name of the IBM Cloud PowerVS backup network and CIDR to create. | <pre>object({<br>    name = string<br>    cidr = string<br>  })</pre> | <pre>{<br>  "cidr": "10.52.0.0/24",<br>  "name": "bkp_net"<br>}</pre> | no |
-| <a name="input_powervs_image_names"></a> [powervs\_image\_names](#input\_powervs\_image\_names) | List of Images to be imported into cloud account from catalog images. | `list(string)` | <pre>[<br>  "SLES15-SP3-SAP",<br>  "SLES15-SP3-SAP-NETWEAVER",<br>  "RHEL8-SP4-SAP",<br>  "RHEL8-SP4-SAP-NETWEAVER"<br>]</pre> | no |
+| <a name="input_powervs_image_names"></a> [powervs\_image\_names](#input\_powervs\_image\_names) | List of Images to be imported into cloud account from catalog images. | `list(string)` | <pre>[<br>  "SLES15-SP4-SAP",<br>  "SLES15-SP4-SAP-NETWEAVER",<br>  "RHEL8-SP6-SAP",<br>  "RHEL8-SP6-SAP-NETWEAVER"<br>]</pre> | no |
 | <a name="input_powervs_management_network"></a> [powervs\_management\_network](#input\_powervs\_management\_network) | Name of the IBM Cloud PowerVS management subnet and CIDR to create. | <pre>object({<br>    name = string<br>    cidr = string<br>  })</pre> | <pre>{<br>  "cidr": "10.51.0.0/24",<br>  "name": "mgmt_net"<br>}</pre> | no |
 | <a name="input_powervs_resource_group_name"></a> [powervs\_resource\_group\_name](#input\_powervs\_resource\_group\_name) | Existing IBM Cloud resource group name. | `string` | n/a | yes |
 | <a name="input_powervs_sshkey_name"></a> [powervs\_sshkey\_name](#input\_powervs\_sshkey\_name) | Name of the PowerVS SSH key to create. | `string` | `"ssh-key-pvs"` | no |

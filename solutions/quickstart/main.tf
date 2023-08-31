@@ -44,12 +44,12 @@ locals {
     "ibm_i_s"  = { "sap_profile_id" = null, "cores" = "1", "memory" = "32", "storage" = "500", "tier" = "tier3", "image" = "IBMi-75-01-2984-2" }
     "ibm_i_m"  = { "sap_profile_id" = null, "cores" = "2", "memory" = "64", "storage" = "1000", "tier" = "tier3", "image" = "IBMi-75-01-2984-2" }
     "ibm_i_l"  = { "sap_profile_id" = null, "cores" = "4", "memory" = "132", "storage" = "2000", "tier" = "tier3", "image" = "IBMi-75-01-2984-2" }
-    "sap_dev"  = { "sap_profile_id" = "ush1-4x128", "storage" = "500", "tier" = "tier3", "image" = "RHEL8-SP4-SAP" }
-    "sap_olap" = { "sap_profile_id" = "bh1-16x1600", "storage" = "3170", "tier" = "tier3", "image" = "RHEL8-SP4-SAP" }
-    "sap_oltp" = { "sap_profile_id" = "umh-4x960", "storage" = "2490", "tier" = "tier3", "image" = "RHEL8-SP4-SAP" }
+    "sap_dev"  = { "sap_profile_id" = "ush1-4x128", "storage" = "500", "tier" = "tier3", "image" = "RHEL8-SP6-SAP" }
+    "sap_olap" = { "sap_profile_id" = "bh1-16x1600", "storage" = "3170", "tier" = "tier3", "image" = "RHEL8-SP6-SAP" }
+    "sap_oltp" = { "sap_profile_id" = "umh-4x960", "storage" = "2490", "tier" = "tier3", "image" = "RHEL8-SP6-SAP" }
   }
 
-  sap_boot_images = ["RHEL8-SP4-SAP", "SLES15-SP4-SAP", "RHEL8-SP4-SAP-NETWEAVER", "SLES15-SP4-SAP-NETWEAVER"]
+  sap_boot_images = ["RHEL8-SP6-SAP", "SLES15-SP4-SAP", "RHEL8-SP6-SAP-NETWEAVER", "SLES15-SP4-SAP-NETWEAVER"]
 }
 
 # There are discrepancies between the region inputs on the powervs terraform resource, and the vpc ("is") resources
