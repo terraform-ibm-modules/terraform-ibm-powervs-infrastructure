@@ -6,8 +6,20 @@
 # setup_proxy ,register_os or update_os                    #
 ############################################################
 
-proxy_ip_and_port=${proxy_ip_and_port}
-no_proxy_ip=${no_proxy_ip}
+PROXY_IP_AND_PORT=${proxy_ip_and_port}
+NO_PROXY_IP=${no_proxy_ip}
+
+README="/usr/share/powervs-fls/powervs-fls-readme.md"
+SUBSCRIPTION_LOG="/var/log/powervs-fls.log"
+ARCH=$(uname -p)
+
+############################################################
+# Helper Functions                                         #
+############################################################
+
+print_out() {
+  echo "$(date -u):  $*"
+}
 
 ############################################################
 # Check OS Distribution                                    #
@@ -16,56 +28,55 @@ no_proxy_ip=${no_proxy_ip}
 if [ -f /etc/SuSE-release ]; then
   OS_DETECTED=SLES
   #  echo "Executing command: cat /etc/SuSE-release"
-  echo -e "Detected OS: $OS_DETECTED \n" # "$(cat /etc/SuSE-release)"
-  FILE="/etc/bash.bashrc"
+  print_out "Detected OS: $OS_DETECTED " # "$(cat /etc/SuSE-release)"
+  PROXY_CONFIG_FILE="/etc/bash.bashrc"
 fi
 
 if grep --quiet "SUSE Linux Enterprise Server" /etc/os-release; then
   OS_DETECTED=SLES
   #  echo "Executing command: cat /etc/os-release"
-  echo -e "Detected OS: $OS_DETECTED \n" # "$(cat /etc/os-release)"
-  FILE="/etc/bash.bashrc"
+  print_out "Detected OS: $OS_DETECTED " # "$(cat /etc/os-release)"
+  PROXY_CONFIG_FILE="/etc/bash.bashrc"
 fi
 
 if [ -f /etc/redhat-release ]; then
   OS_DETECTED=RHEL
   #  echo "Executing command: cat /etc/redhat-release"
-  echo -e "Detected OS: $OS_DETECTED \n" #"$(cat /etc/redhat-release)"
-  FILE="/etc/bashrc"
+  print_out "Detected OS: $OS_DETECTED " #"$(cat /etc/redhat-release)"
+  PROXY_CONFIG_FILE="/etc/bashrc"
 fi
 
-source $FILE
+source $PROXY_CONFIG_FILE
 
 ##########################################
 #  Proxy setup                           #
 ##########################################
 setup_proxy() {
-  if [[ -n $no_proxy_ip ]]; then
-    grep -qx "export no_proxy=$no_proxy_ip" "$FILE" || echo "export no_proxy=$no_proxy_ip" >>"$FILE"
-    source "$FILE"
+  if [[ -n $NO_PROXY_IP ]]; then
+    grep -qx "export no_proxy=$NO_PROXY_IP" "$PROXY_CONFIG_FILE" || echo "export no_proxy=$NO_PROXY_IP" >>"$PROXY_CONFIG_FILE"
+    source "$PROXY_CONFIG_FILE"
   fi
 
-  if [[ $proxy_ip_and_port =~ ^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+:[0-9]+$ ]]; then
+  if [[ $PROXY_IP_AND_PORT =~ ^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+:[0-9]+$ ]]; then
     #######  SQUID Forward PROXY CLIENT SETUP ############
-    echo "Proxy Server IP:  $proxy_ip_and_port"
-    echo "Setting exports in $FILE file On $OS_DETECTED"
-    grep -qx "export http_proxy=http://$proxy_ip_and_port" "$FILE" || echo "export http_proxy=http://$proxy_ip_and_port" >>"$FILE"
-    grep -qx "export https_proxy=http://$proxy_ip_and_port" "$FILE" || echo "export https_proxy=http://$proxy_ip_and_port" >>"$FILE"
-    grep -qx "export HTTP_PROXY=http://$proxy_ip_and_port" "$FILE" || echo "export HTTP_PROXY=http://$proxy_ip_and_port" >>"$FILE"
-    grep -qx "export HTTPS_PROXY=http://$proxy_ip_and_port" "$FILE" || echo "export HTTPS_PROXY=http://$proxy_ip_and_port" >>"$FILE"
+    print_out "Proxy Server IP:  $PROXY_IP_AND_PORT"
+    print_out "Setting exports in $PROXY_CONFIG_FILE file On $OS_DETECTED"
+    grep -qx "export http_proxy=http://$PROXY_IP_AND_PORT" "$PROXY_CONFIG_FILE" || echo "export http_proxy=http://$PROXY_IP_AND_PORT" >>"$PROXY_CONFIG_FILE"
+    grep -qx "export https_proxy=http://$PROXY_IP_AND_PORT" "$PROXY_CONFIG_FILE" || echo "export https_proxy=http://$PROXY_IP_AND_PORT" >>"$PROXY_CONFIG_FILE"
+    grep -qx "export HTTP_PROXY=http://$PROXY_IP_AND_PORT" "$PROXY_CONFIG_FILE" || echo "export HTTP_PROXY=http://$PROXY_IP_AND_PORT" >>"$PROXY_CONFIG_FILE"
+    grep -qx "export HTTPS_PROXY=http://$PROXY_IP_AND_PORT" "$PROXY_CONFIG_FILE" || echo "export HTTPS_PROXY=http://$PROXY_IP_AND_PORT" >>"$PROXY_CONFIG_FILE"
     if [ "$OS_DETECTED" == "RHEL" ]; then
-      grep -qx "proxy=http://$proxy_ip_and_port" /etc/dnf/dnf.conf || echo "proxy=http://$proxy_ip_and_port" >>/etc/dnf/dnf.conf
+      grep -qx "proxy=http://$PROXY_IP_AND_PORT" /etc/dnf/dnf.conf || echo "proxy=http://$PROXY_IP_AND_PORT" >>/etc/dnf/dnf.conf
     fi
-    source "$FILE"
+    source "$PROXY_CONFIG_FILE"
   fi
 
 }
 
 ###########################################
-# zypper process check                    #
+# Registration helper functions           #
 ###########################################
-
-zypper_check() {
+zypper_check_process() {
   ##### If zypper command is running, wait for it to exit as this causes a blocker for SUSEConnect command
   ##### Timeout 5 mins
   count=1
@@ -77,76 +88,113 @@ zypper_check() {
     sleep 10
     count=$((count + 1))
   done
-  echo "zypper command is still running, please kill it to continue"
+  print_out "zypper command is still running, please kill it to continue"
   exit 1
+}
+
+suseconnect_register() {
+
+  SUSEConnect --de-register >/dev/null
+  SUSEConnect --cleanup >/dev/null
+  mv "$SUBSCRIPTION_LOG" "$SUBSCRIPTION_LOG.old"
+  cmd=$(grep /usr/local/bin/sles-cloud-init.sh <$README | grep -v RMT_Server_address)
+  $cmd "$PROXY_IP_AND_PORT"
+  echo "blah"
+}
+
+suseconnect_sub_final_status() {
+
+  ACTIVATION_STATUS="$(SUSEConnect --status | grep -ci "error")"
+  if [ "$ACTIVATION_STATUS" != 0 ]; then
+    print_out "OS activation Failed"
+    exit 1
+  fi
+}
+
+subscription_mgr_register() {
+  mv "$SUBSCRIPTION_LOG" "$SUBSCRIPTION_LOG.old"
+  cmd=$(grep /usr/local/bin/rhel-cloud-init.sh <$README | grep Private.proxy.IP.address | sed "s/Private.proxy.IP.address:3128/$PROXY_IP_AND_PORT/g")
+  $cmd
+}
+
+subscription_mgr_final_status() {
+
+  ACTIVATION_STATUS="$(subscription-manager status | grep -c "Overall Status: Current")"
+  if [ "$ACTIVATION_STATUS" == 0 ]; then
+    print_out "OS activation Failed"
+    exit 1
+  fi
+
 }
 
 ###########################################
 # OS Registration                         #
 ###########################################
-
 register_os() {
-  ARCH=$(uname -p)
 
   ###########################################
   # SLES Registration                       #
   ###########################################
   if [ "$OS_DETECTED" == "SLES" ]; then
     ###### Checking if system is registered. Subscription is done when not registered.
-    OS_Activated="$(SUSEConnect --status | grep -ci "\"status\":\"Registered\"")"
-    if [ "$OS_Activated" -ge 1 ]; then
-      echo "OS is Registered"
+    OS_ACTIVATED="$(SUSEConnect --status | grep -ci "\"status\":\"Registered\"")"
+    if [ "$OS_ACTIVATED" -ge 1 ]; then
+      print_out "OS is Registered"
     else
       ##### check if the system is a x86_64 processor
       if [[ "$ARCH" == "x86_64" ]]; then
         #### Wait for registration to complete
-        count=0
-        while [[ $count -le 15 ]]; do
+        ATTEMPT=1
+        MAX_ATTEMPTS=15
+        while [[ "$ATTEMPT" -le "$MAX_ATTEMPTS" ]]; do
+          print_out "Sleeping 60 seconds"
           sleep 60
-          OS_Activated="$(SUSEConnect --status | grep -ci "\"status\":\"Registered\"")"
-          if [[ "$OS_Activated" -ge 1 ]]; then
-            echo "OS is Registered"
+          ATTEMPT=$((ATTEMPT + 1))
+          OS_ACTIVATED="$(SUSEConnect --status | grep -ci "\"status\":\"Registered\"")"
+          if [[ "$OS_ACTIVATED" -ge 1 ]]; then
+            print_out "OS is Registered"
             break
           fi
-          count=$((count + 1))
         done
       fi
 
       ##### check if the system is a ppc64le processor
       if [[ "$ARCH" == "ppc64le" ]]; then
-        SUSEConnect --de-register >/dev/null
-        SUSEConnect --cleanup >/dev/null
-        mv /var/log/powervs-fls.log /var/log/powervs-fls.log.old
-        cmd=$(grep /usr/local/bin/sles-cloud-init.sh </usr/share/powervs-fls/powervs-fls-readme.md | grep -v RMT_Server_address)
-        $cmd "${proxy_ip_and_port}"
-        count=1
-        while [[ $count -le 15 ]]; do
+
+        if [ ! -e "$README" ]; then
+          print_out "PER enabled DC. Registration was done automatically."
+        else
+          #will run the register command
+          suseconnect_register
+        fi
+
+        ATTEMPT=1
+        MAX_ATTEMPTS=15
+        while [[ "$ATTEMPT" -lt "$MAX_ATTEMPTS" ]]; do
+          print_out "Sleeping 60 seconds"
           sleep 60
-          count=$((count + 1))
-          if grep -i failed /var/log/powervs-fls.log; then
-            echo "SLES registration has failed, exiting"
+          ATTEMPT=$((ATTEMPT + 1))
+          if grep -iq failed "$SUBSCRIPTION_LOG"; then
+            print_out "SLES registration has failed, exiting"
             exit 1
           fi
-          if grep "Successfully completed SLES subscription registration process" /var/log/powervs-fls.log; then
-            echo "Successfully completed SLES subscription registration process. Done"
+          if grep -q "Successfully completed SLES subscription registration process" "$SUBSCRIPTION_LOG"; then
+            print_out "Successfully completed SLES subscription registration process. Done"
             break
           fi
         done
       fi
 
-      if [[ $count -gt 15 ]]; then
-        echo "Timeout: SLES registration process failed, or still ongoing"
+      if [[ "$ATTEMPT" -gt "$MAX_ATTEMPTS" ]]; then
+        print_out "Timeout: SLES registration process failed, or still ongoing"
         exit 1
       fi
 
       ##### If zypper command is running, wait for it to exit as this causes a blocker for SUSEConnect command
-      zypper_check
+      zypper_check_process
 
-      Activation_status="$(SUSEConnect --status | grep -ci "error")"
-      if [ "$Activation_status" != 0 ]; then
-        echo "OS activation Failed"
-        exit 1
-      fi
+      ## Get suse connect final activation status
+      suseconnect_sub_final_status
     fi
   fi
 
@@ -156,43 +204,48 @@ register_os() {
   if [ "$OS_DETECTED" == "RHEL" ]; then
 
     ###### Checking if system is registered. Subscription is done when not registered.
-    OS_Activated="$(subscription-manager status | grep -ic "Overall Status: Current")"
-    if [ "$OS_Activated" -ge 1 ]; then
-      echo "OS is Registered"
+    OS_ACTIVATED="$(subscription-manager status | grep -ic "Overall Status: Current")"
+    if [ "$OS_ACTIVATED" -ge 1 ]; then
+      print_out "OS is Registered"
     else
       ##### check if the system is a x86_64 processor
       if [[ "$ARCH" == "x86_64" ]]; then
         #### Wait for registration to complete
-        count=0
-        while [[ $count -le 15 ]]; do
+        ATTEMPT=1
+        MAX_ATTEMPTS=15
+        while [[ "$ATTEMPT" -le "$MAX_ATTEMPTS" ]]; do
+          print_out "Sleeping 60 seconds"
           sleep 60
-          OS_Activated="$(subscription-manager status | grep -c "Overall Status: Current")"
-          if [[ "$OS_Activated" -ge 1 ]]; then
-            echo "OS is Registered"
+          ATTEMPT=$((ATTEMPT + 1))
+          OS_ACTIVATED="$(subscription-manager status | grep -c "Overall Status: Current")"
+          if [[ "$OS_ACTIVATED" -ge 1 ]]; then
+            print_out "OS is Registered"
             break
           fi
-          count=$((count + 1))
         done
       fi
 
       ##### check if the system is a ppc64le processor
       if [[ "$ARCH" == "ppc64le" ]]; then
-        mv /var/log/powervs-fls.log /var/log/powervs-fls.log.old
-        cmd=$(grep /usr/local/bin/rhel-cloud-init.sh </usr/share/powervs-fls/powervs-fls-readme.md | grep Private.proxy.IP.address | sed "s/Private.proxy.IP.address:3128/$proxy_ip_and_port/g")
-        $cmd
-        count=1
-        while [[ $count -le 15 ]]; do
+        if [ ! -e "$README" ]; then
+          print_out "PER enabled DC. Registration was done automatically."
+        else
+          #will run the register command
+          subscription_mgr_register
+        fi
+
+        ATTEMPT=1
+        MAX_ATTEMPTS=15
+        while [[ "$ATTEMPT" -lt "$MAX_ATTEMPTS" ]]; do
+          print_out "Sleeping 60 seconds"
           sleep 60
-          count=$((count + 1))
-          if grep -i failed /var/log/powervs-fls.log; then
-            echo "RHEL registration has failed, exiting"
+          ATTEMPT=$((ATTEMPT + 1))
+          if grep -i failed "$SUBSCRIPTION_LOG"; then
+            print_out "RHEL registration has failed, exiting"
             exit 1
           fi
-          ##### Check if registration was successful
-          #get the subscription server name from /var/log/powervs-fls.log
-          subscription_server=$(grep sap_hana /usr/share/powervs-fls/powervs-fls-readme.md | awk -F"-u" '{ print $NF }' | awk '{ print $1 }')
-          if subscription-manager config | grep "$subscription_server"; then
-            echo "Successfully completed RHEL subscription registration process. Done"
+          if subscription-manager config | grep -q ".iaas.service.networklayer.com"; then
+            print_out "Successfully completed RHEL subscription registration process. Done"
             break
           fi
         done
@@ -202,16 +255,13 @@ register_os() {
 
       fi
 
-      if [[ $count -gt 15 ]]; then
-        echo "Timeout: RHEL registration process failed, or still ongoing"
+      if [[ "$ATTEMPT" -gt "$MAX_ATTEMPTS" ]]; then
+        print_out "Timeout: RHEL registration process failed, or still ongoing"
         exit 1
       fi
 
-      Activation_status="$(subscription-manager status | grep -c "Overall Status: Current")"
-      if [ "$Activation_status" == 0 ]; then
-        echo "OS activation Failed"
-        exit 1
-      fi
+      ## Get RHEL subscription final activation status
+      subscription_mgr_final_status
     fi
   fi
 }
@@ -222,10 +272,10 @@ register_os() {
 update_os() {
 
   # set client=1 indicating that proxy client setup exists and reconfigure after OS update
-  if grep -qx "export http_proxy=http://$proxy_ip_and_port" $FILE; then client=1; fi
+  if grep -qx "export http_proxy=http://$PROXY_IP_AND_PORT" $PROXY_CONFIG_FILE; then client=1; fi
 
   # update os
-  echo "Updating OS"
+  print_out "Updating OS"
 
   if [ "$OS_DETECTED" == "SLES" ]; then
     zypper update -y >>os_update.log
@@ -235,7 +285,7 @@ update_os() {
     yum update -y >>os_update.log
   fi
 
-  echo "Updating OS Completed"
+  print_out "Updating OS Completed"
 
   # Reconfigure proxy client config after updating os
   if [[ $client ]]; then
@@ -243,7 +293,7 @@ update_os() {
   fi
 
   # Reboot VM
-  echo "Rebooting VM"
+  print_out "Rebooting VM"
   shutdown -r +1
 }
 

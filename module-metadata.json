@@ -407,13 +407,11 @@
     },
     "cloud_connection_count": {
       "name": "cloud_connection_count",
-      "description": "Required number of Cloud connections to create or reuse. The maximum number of connections is two per location.",
-      "value": "var.cloud_connection_count",
+      "description": "Number of cloud connections configured in created PowerVS infrastructure.",
       "pos": {
         "filename": "outputs.tf",
         "line": 26
-      },
-      "type": "number"
+      }
     },
     "dns_host_or_ip": {
       "name": "dns_host_or_ip",
