@@ -99,7 +99,6 @@ suseconnect_register() {
   mv "$SUBSCRIPTION_LOG" "$SUBSCRIPTION_LOG.old"
   cmd=$(grep /usr/local/bin/sles-cloud-init.sh <$README | grep -v RMT_Server_address)
   $cmd "$PROXY_IP_AND_PORT"
-  echo "blah"
 }
 
 suseconnect_sub_final_status() {
