@@ -13,19 +13,20 @@ The Power Virtual Server with VPC landing zone module automates the following ta
 - Creates an IBM® Power Virtual Server (PowerVS) workspace.
 - Creates an SSH key.
 - Creates two private networks: a management network and a backup network.
-- Creates two [IBM Cloud connections](https://cloud.ibm.com/docs/power-iaas?topic=power-iaas-cloud-connections) with an option to reuse the connections.
-- Attaches the IBM Cloud connections to a transit gateway.
-- Attaches the private networks to the IBM Cloud connections.
-- Installs and configures the Squid Proxy, DNS Forwarder, NTP Forwarder and NFS on specified host, and sets the host as server for these services by using Ansible roles.
+- Creates two [IBM Cloud connections](https://cloud.ibm.com/docs/power-iaas?topic=power-iaas-cloud-connections) with an option to reuse the connections in Non PER environment
+- Attaches the IBM Cloud connections to a transit gateway in Non PER environment
+- Attaches the private networks to the IBM Cloud connections in Non PER environment
+- Attaches the PowerVS workspace to Transit gateway in PER enabled DC
+- Installs and configures the Squid Proxy, DNS Forwarder, NTP Forwarder and NFS on specified host, and sets the host as server for these services by using Ansible roles
 
 The following limitations apply to the module:
 
 - Only two IBM Cloud connections are supported.
 - You cannot reuse IBM Cloud connections.
 - Private networks in a PowerVS workspace must be in 10.0.0.0/8 range.
-- Only the following operating systems are supported :
-    - SUSE Linux Enterprise Server (SLES) version 15 SP4
-    - Red Hat Enterprise Linux (RHEL) version 8.6
+- Only the following operating systems are supported for OS configurations:
+    - SUSE Linux Enterprise Server (SLES) version 15 SP43and SP4
+    - Red Hat Enterprise Linux (RHEL) version 8.6 and 8.4
 
 For more information about IBM Power Virtual Server see the [getting started](https://cloud.ibm.com/docs/power-iaas?topic=power-iaas-getting-started) IBM Cloud docs.
 
