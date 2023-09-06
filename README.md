@@ -21,7 +21,7 @@ The Power Virtual Server with VPC landing zone module automates the following ta
 
 The following limitations apply to the module:
 
-- Only two IBM Cloud connections are supported.
+- Only two IBM Cloud connections are supported in non PER environment.
 - You cannot reuse IBM Cloud connections.
 - Private networks in a PowerVS workspace must be in 10.0.0.0/8 range.
 - Only the following operating systems are supported for OS configurations:
