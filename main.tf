@@ -2,6 +2,11 @@
 # IBM Cloud PowerVS Configuration
 #####################################################
 
+locals {
+  per_enabled_dc_list = ["dal10"]
+  per_enabled         = contains(local.per_enabled_dc_list, var.powervs_zone)
+}
+
 module "initial_validation" {
   source = "./submodules/terraform_initial_validation"
   cloud_connection_validate = {
@@ -32,6 +37,7 @@ module "powervs_cloud_connection_create" {
   powervs_resource_group_name  = var.powervs_resource_group_name
   powervs_workspace_name       = var.powervs_workspace_name
   transit_gateway_name         = var.transit_gateway_name
+  per_enabled                  = local.per_enabled
   cloud_connection_name_prefix = var.cloud_connection_name_prefix
   cloud_connection_count       = var.cloud_connection_count
   cloud_connection_speed       = var.cloud_connection_speed
@@ -42,6 +48,7 @@ module "powervs_cloud_connection_create" {
 
 module "powervs_cloud_connection_attach" {
   source                      = "./submodules/powervs_cloudconnection_attach"
+  count                       = local.per_enabled ? 0 : 1
   depends_on                  = [module.powervs_workspace, module.powervs_cloud_connection_create]
   powervs_zone                = var.powervs_zone
   powervs_resource_group_name = var.powervs_resource_group_name
@@ -50,11 +57,15 @@ module "powervs_cloud_connection_attach" {
   powervs_subnet_names        = [var.powervs_management_network.name, var.powervs_backup_network.name]
 }
 
+
+#####################################################
+# VPC VSI Management Services OS configuration
+#####################################################
+
 module "configure_squid" {
 
-  source     = "./submodules/configure_network_services"
-  depends_on = [module.powervs_cloud_connection_attach]
-  count      = var.squid_config["squid_enable"] ? 1 : 0
+  source = "./submodules/configure_network_services"
+  count  = var.squid_config["squid_enable"] ? 1 : 0
 
   access_host_or_ip          = var.access_host_or_ip
   target_server_ip           = var.squid_config["server_host_or_ip"]
@@ -73,7 +84,7 @@ resource "time_sleep" "wait_for_squid_setup_to_complete" {
 module "configure_dns" {
 
   source     = "./submodules/configure_network_services"
-  depends_on = [module.powervs_cloud_connection_attach, module.configure_squid, time_sleep.wait_for_squid_setup_to_complete]
+  depends_on = [module.configure_squid, time_sleep.wait_for_squid_setup_to_complete]
   count      = var.dns_forwarder_config["dns_enable"] ? 1 : 0
 
   access_host_or_ip          = var.access_host_or_ip
@@ -86,7 +97,7 @@ module "configure_dns" {
 module "configure_ntp" {
 
   source     = "./submodules/configure_network_services"
-  depends_on = [module.powervs_cloud_connection_attach, module.configure_squid, module.configure_dns, time_sleep.wait_for_squid_setup_to_complete]
+  depends_on = [module.configure_squid, module.configure_dns, time_sleep.wait_for_squid_setup_to_complete]
   count      = var.ntp_forwarder_config["ntp_enable"] ? 1 : 0
 
   access_host_or_ip          = var.access_host_or_ip
@@ -99,7 +110,7 @@ module "configure_ntp" {
 module "configure_nfs" {
 
   source     = "./submodules/configure_network_services"
-  depends_on = [module.powervs_cloud_connection_attach, module.configure_squid, module.configure_dns, module.configure_ntp, time_sleep.wait_for_squid_setup_to_complete]
+  depends_on = [module.configure_squid, module.configure_dns, module.configure_ntp, time_sleep.wait_for_squid_setup_to_complete]
   count      = var.nfs_config["nfs_enable"] ? 1 : 0
 
   access_host_or_ip          = var.access_host_or_ip

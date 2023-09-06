@@ -152,8 +152,12 @@
                                     "value": "sao01"
                                 },
                                 {
-                                    "displayname": "US-south (us-south)",
+                                    "displayname": "Dallas (dallas)",
                                     "value": "us-south"
+                                },
+                                {
+                                    "displayname": "Dallas (dal10)",
+                                    "value": "dal10"
                                 },
                                 {
                                     "displayname": "Dallas (dal12)",
@@ -528,8 +532,12 @@
                                     "value": "sao01"
                                 },
                                 {
-                                    "displayname": "US-south (us-south)",
+                                    "displayname": "Dallas (dallas)",
                                     "value": "us-south"
+                                },
+                                {
+                                    "displayname": "Dallas (dal10)",
+                                    "value": "dal10"
                                 },
                                 {
                                     "displayname": "Dallas (dal12)",
@@ -801,8 +809,12 @@
                                     "value": "sao01"
                                 },
                                 {
-                                    "displayname": "US-south (us-south)",
+                                    "displayname": "Dallas (dallas)",
                                     "value": "us-south"
+                                },
+                                {
+                                    "displayname": "Dallas (dal10)",
+                                    "value": "dal10"
                                 },
                                 {
                                     "displayname": "Dallas (dal12)",
@@ -842,19 +854,19 @@
                                     "value": "aix_l"
                                 },
                                 {
-                                    "displayname": "IBM i - XS (0.25cpu,8GB,disk-100GB,IBMi-73-13-2924-1)",
+                                    "displayname": "IBM i - XS (0.25cpu,8GB,disk-100GB,IBMi-75-01-2984-2)",
                                     "value": "ibm_i_xs"
                                 },
                                 {
-                                    "displayname": "IBM i - S (1cpu,32GB,disk-500GB,IBMi-73-13-2924-1)",
+                                    "displayname": "IBM i - S (1cpu,32GB,disk-500GB,IBMi-75-01-2984-2)",
                                     "value": "ibm_i_s"
                                 },
                                 {
-                                    "displayname": "IBM i - M (2cpu,64GB,disk-1000GB,IBMi-73-13-2924-1)",
+                                    "displayname": "IBM i - M (2cpu,64GB,disk-1000GB,IBMi-75-01-2984-2)",
                                     "value": "ibm_i_m"
                                 },
                                 {
-                                    "displayname": "IBM i - L (4cpu,132GB,disk-2000GB,IBMi-73-13-2924-1)",
+                                    "displayname": "IBM i - L (4cpu,132GB,disk-2000GB,IBMi-75-01-2984-2)",
                                     "value": "ibm_i_l"
                                 },
                                 {
@@ -924,32 +936,32 @@
                                     "value": "7200-05-03"
                                 },
                                 {
-                                    "displayname": "IBM i - IBMi-73-13-2924-1",
-                                    "value": "IBMi-73-13-2924-1"
-                                },
-                                {
-                                    "displayname": "IBM i - IBMi-74-07-2924-1",
-                                    "value": "IBMi-74-07-2924-1"
+                                    "displayname": "IBM i - IBMi-75-01-2984-2",
+                                    "value": "IBMi-75-01-2984-2"
                                 },
                                 {
                                     "displayname": "IBM i - IBMi-75-01-2924-2",
                                     "value": "IBMi-75-01-2924-2"
                                 },
                                 {
+                                    "displayname": "IBM i - IBMi-74-07-2984-1",
+                                    "value": "IBMi-74-07-2984-1"
+                                },
+                                {
                                     "displayname": "IBM i - IBMi_COR-74-07-2",
                                     "value": "IBMi_COR-74-07-2"
                                 },
                                 {
-                                    "displayname": "SAP - RHEL8-SP4-SAP",
-                                    "value": "RHEL8-SP4-SAP"
+                                    "displayname": "SAP - RHEL8-SP6-SAP",
+                                    "value": "RHEL8-SP6-SAP"
                                 },
                                 {
                                     "displayname": "SAP - SLES15-SP4-SAP",
                                     "value": "SLES15-SP4-SAP"
                                 },
                                 {
-                                    "displayname": "SAP - RHEL8-SP4-SAP-NETWEAVER",
-                                    "value": "RHEL8-SP4-SAP-NETWEAVER"
+                                    "displayname": "SAP - RHEL8-SP6-SAP-NETWEAVER",
+                                    "value": "RHEL8-SP6-SAP-NETWEAVER"
                                 },
                                 {
                                     "displayname": "SAP - SLES15-SP4-SAP-NETWEAVER",

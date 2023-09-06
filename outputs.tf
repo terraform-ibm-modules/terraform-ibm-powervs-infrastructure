@@ -25,7 +25,7 @@ output "powervs_resource_group_name" {
 
 output "cloud_connection_count" {
   description = "Number of cloud connections configured in created PowerVS infrastructure."
-  value       = var.cloud_connection_count
+  value       = local.per_enabled ? 0 : var.cloud_connection_count
 }
 
 output "powervs_management_network_name" {

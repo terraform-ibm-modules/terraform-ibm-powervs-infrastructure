@@ -101,7 +101,7 @@ variable "tags" {
 variable "powervs_image_names" {
   description = "List of Images to be imported into cloud account from catalog images."
   type        = list(string)
-  default     = ["SLES15-SP3-SAP", "SLES15-SP3-SAP-NETWEAVER", "RHEL8-SP4-SAP", "RHEL8-SP4-SAP-NETWEAVER"]
+  default     = ["SLES15-SP4-SAP", "SLES15-SP4-SAP-NETWEAVER", "RHEL8-SP6-SAP", "RHEL8-SP6-SAP-NETWEAVER"]
 }
 
 variable "cloud_connection_gr" {
