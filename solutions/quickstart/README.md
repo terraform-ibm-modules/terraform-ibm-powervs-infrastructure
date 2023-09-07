@@ -7,9 +7,10 @@ This example sets up the following infrastructure:
 
 - A PowerVS workspace with the following network topology:
     - Creates two private networks: a management network and a backup network.
-    - Creates one or two IBM Cloud connections.
-    - Attaches the IBM Cloud connections to a transit gateway.
-    - Attaches the private networks to the IBM Cloud connections.
+    - Creates one or two IBM Cloud connections in Non PER environment.
+    - Attaches the private networks to the IBM Cloud connections in Non PER environment.
+    - Attaches the IBM Cloud connections to a transit gateway in Non PER environment.
+    - Attaches the PowerVS workspace to Transit gateway in PER enabled DC
     - Creates an SSH key for power workspace.
 
 - A PowerVS Instance with following options:

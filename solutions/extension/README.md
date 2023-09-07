@@ -5,10 +5,11 @@ It provisions the following infrastructure on top of deployed Full Stack solutio
 
 - A PowerVS workspace instance with the following network topology:
     - Creates two private networks: a management network and a backup network
-    - Creates one or two IBM Cloud connections
-    - Attaches the IBM Cloud connections to a transit gateway
-    - Attaches the private networks to the IBM Cloud connections
-    - Creates an SSH key
+    - Creates one or two IBM Cloud connections in Non PER environment.
+    - Attaches the private networks to the IBM Cloud connections in Non PER environment.
+    - Attaches the IBM Cloud connections to a transit gateway in Non PER environment.
+    - Attaches the PowerVS workspace to Transit gateway in PER enabled DC
+    - Creates an SSH key.
 
 
 Note: Kindly make sure that you are choosing a PowerVS zone different from that of the pre-requisite infrastructure.
