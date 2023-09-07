@@ -13,9 +13,14 @@ This example sets up the following infrastructure:
     - Attaches the PowerVS workspace to Transit gateway in PER enabled DC
     - Creates an SSH key.
 
+### Notes:
+Catalog image names to be imported into infrastructure can be found [here](./docs/catalog_image_names.md)
+
 | Variation  | Available on IBM Catalog  |  Requires Schematics Workspace ID | Creates VPC Landing Zone | Performs VPC VSI OS Config | Creates PowerVS Infrastructure | Creates PowerVS Instance | Performs PowerVS OS Config |
 | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
 | [Full-Stack](./)  | :heavy_check_mark:  | N/A  | :heavy_check_mark:  | :heavy_check_mark:  |  :heavy_check_mark: | N/A | N/A |
+
+
 
 ## Reference architecture
 [PowerVS workspace full-stack variation](../../reference-architectures/full-stack/deploy-arch-ibm-pvs-inf-full-stack.md)
