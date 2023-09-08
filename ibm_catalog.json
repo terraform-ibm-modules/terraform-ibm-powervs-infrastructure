@@ -240,6 +240,10 @@
                             }
                         },
                         {
+                            "key": "powervs_image_names",
+                            "required": true
+                        },
+                        {
                             "key": "configure_dns_forwarder"
                         },
                         {
@@ -259,9 +263,6 @@
                         },
                         {
                             "key": "cloud_connection"
-                        },
-                        {
-                            "key": "powervs_image_names"
                         },
                         {
                             "key": "tags"
@@ -582,10 +583,11 @@
                             }
                         },
                         {
-                            "key": "cloud_connection"
+                            "key": "powervs_image_names",
+                            "required": true
                         },
                         {
-                            "key": "powervs_image_names"
+                            "key": "cloud_connection"
                         },
                         {
                             "key": "tags"
