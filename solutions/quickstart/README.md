@@ -23,6 +23,8 @@ This example sets up the following infrastructure:
 | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
 | [Quickstart](./)    | :heavy_check_mark:  |   N/A  | :heavy_check_mark:| :heavy_check_mark: | :heavy_check_mark:  | :heavy_check_mark: | N/A |
 
+## Reference architecture
+[PowerVS Quickstart variation](../../reference-architectures/quickstart/deploy-arch-ibm-pvs-inf-quickstart.md)
 
 ## Architecture diagram
 ![quickstart-variation](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/blob/main/reference-architectures/quickstart/deploy-arch-ibm-pvs-inf-quickstart.svg)

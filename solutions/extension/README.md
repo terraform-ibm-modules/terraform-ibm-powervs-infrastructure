@@ -22,6 +22,9 @@ If you do not have a PowerVS infrastructure that is the full stack solution for 
 | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
 | [Extension](./)    | :heavy_check_mark:  |  :heavy_check_mark: |  N/A | N/A | :heavy_check_mark:  | N/A | N/A |
 
+### Notes:
+Catalog image names to be imported into infrastructure can be found [here](../full-stack/docs/catalog_image_names.md)
+
 ## Reference architecture
 [PowerVS workspace extension variation](../../reference-architectures/extension/deploy-arch-ibm-pvs-inf-extension.md)
 
