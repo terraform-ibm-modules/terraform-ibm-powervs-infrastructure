@@ -79,7 +79,7 @@ locals {
 
 module "landing_zone" {
   source    = "terraform-ibm-modules/landing-zone/ibm//patterns//vsi//module"
-  version   = "4.4.6"
+  version   = "4.8.0"
   providers = { ibm = ibm.ibm-is }
 
   ibmcloud_api_key     = var.ibmcloud_api_key
