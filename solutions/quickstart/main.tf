@@ -82,7 +82,6 @@ module "landing_zone" {
   version   = "4.10.0"
   providers = { ibm = ibm.ibm-is }
 
-  #  ibmcloud_api_key     = var.ibmcloud_api_key
   ssh_public_key       = var.ssh_public_key
   region               = lookup(local.ibm_powervs_zone_cloud_region_map, var.powervs_zone, null)
   prefix               = var.prefix
