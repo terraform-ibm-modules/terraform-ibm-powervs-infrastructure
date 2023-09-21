@@ -154,6 +154,12 @@ register_os() {
         done
       fi
 
+     ##### check if the subscription log file /var/log/powervs-fls.log exists
+      if [ ! -e "$SUBSCRIPTION_LOG" ]; then
+        print_out "Subscription log /var/log/powervs-fls.log is missing.Cannot perform OS Registration.OS Registration failed."
+        exit 1
+      fi
+
       ##### check if the system is a ppc64le processor
       if [[ "$ARCH" == "ppc64le" ]]; then
 
@@ -219,6 +225,12 @@ register_os() {
             break
           fi
         done
+      fi
+
+      ##### check if the subscription log file /var/log/powervs-fls.log exists
+      if [ ! -e "$SUBSCRIPTION_LOG" ]; then
+        print_out "Subscription log /var/log/powervs-fls.log is missing.Cannot perform OS Registration.OS Registration failed."
+        exit 1
       fi
 
       ##### check if the system is a ppc64le processor

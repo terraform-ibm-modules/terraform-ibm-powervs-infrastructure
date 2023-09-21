@@ -108,19 +108,19 @@
                             "default_value": "",
                             "options": [
                                 {
-                                    "displayname": "London (lon04)",
+                                    "displayname": "London 04 (lon04)",
                                     "value": "lon04"
                                 },
                                 {
-                                    "displayname": "London (lon06)",
+                                    "displayname": "London 06 (lon06)",
                                     "value": "lon06"
                                 },
                                 {
-                                    "displayname": "Frankfurt (eu-de-1)",
+                                    "displayname": "Frankfurt 1 (eu-de-1)",
                                     "value": "eu-de-1"
                                 },
                                 {
-                                    "displayname": "Frankfurt (eu-de-2)",
+                                    "displayname": "Frankfurt 2 (eu-de-2)",
                                     "value": "eu-de-2"
                                 },
                                 {
@@ -132,19 +132,19 @@
                                     "value": "mon01"
                                 },
                                 {
-                                    "displayname": "Osaka (osa21)",
+                                    "displayname": "Osaka 21 (osa21)",
                                     "value": "osa21"
                                 },
                                 {
-                                    "displayname": "Tokyo (tok04)",
+                                    "displayname": "Tokyo 04 (tok04)",
                                     "value": "tok04"
                                 },
                                 {
-                                    "displayname": "Sydney (syd04)",
+                                    "displayname": "Sydney 04 (syd04)",
                                     "value": "syd04"
                                 },
                                 {
-                                    "displayname": "Sydney (syd05)",
+                                    "displayname": "Sydney 05 (syd05)",
                                     "value": "syd05"
                                 },
                                 {
@@ -156,11 +156,11 @@
                                     "value": "us-south"
                                 },
                                 {
-                                    "displayname": "Dallas (dal10)",
+                                    "displayname": "Dallas 10 (dal10)",
                                     "value": "dal10"
                                 },
                                 {
-                                    "displayname": "Dallas (dal12)",
+                                    "displayname": "Dallas 12 (dal12)",
                                     "value": "dal12"
                                 },
                                 {
@@ -489,19 +489,19 @@
                             "default_value": "",
                             "options": [
                                 {
-                                    "displayname": "London (lon04)",
+                                    "displayname": "London 04 (lon04)",
                                     "value": "lon04"
                                 },
                                 {
-                                    "displayname": "London (lon06)",
+                                    "displayname": "London 06 (lon06)",
                                     "value": "lon06"
                                 },
                                 {
-                                    "displayname": "Frankfurt (eu-de-1)",
+                                    "displayname": "Frankfurt 1 (eu-de-1)",
                                     "value": "eu-de-1"
                                 },
                                 {
-                                    "displayname": "Frankfurt (eu-de-2)",
+                                    "displayname": "Frankfurt 2 (eu-de-2)",
                                     "value": "eu-de-2"
                                 },
                                 {
@@ -513,7 +513,7 @@
                                     "value": "mon01"
                                 },
                                 {
-                                    "displayname": "Osaka (osa21)",
+                                    "displayname": "Osaka 21 (osa21)",
                                     "value": "osa21"
                                 },
                                 {
@@ -521,11 +521,11 @@
                                     "value": "tok04"
                                 },
                                 {
-                                    "displayname": "Sydney (syd04)",
+                                    "displayname": "Sydney 04 (syd04)",
                                     "value": "syd04"
                                 },
                                 {
-                                    "displayname": "Sydney (syd05)",
+                                    "displayname": "Sydney 05 (syd05)",
                                     "value": "syd05"
                                 },
                                 {
@@ -537,11 +537,11 @@
                                     "value": "us-south"
                                 },
                                 {
-                                    "displayname": "Dallas (dal10)",
+                                    "displayname": "Dallas 10 (dal10)",
                                     "value": "dal10"
                                 },
                                 {
-                                    "displayname": "Dallas (dal12)",
+                                    "displayname": "Dallas 12 (dal12)",
                                     "value": "dal12"
                                 },
                                 {
@@ -767,19 +767,19 @@
                             "required": true,
                             "options": [
                                 {
-                                    "displayname": "London (lon04)",
+                                    "displayname": "London 04 (lon04)",
                                     "value": "lon04"
                                 },
                                 {
-                                    "displayname": "London (lon06)",
+                                    "displayname": "London 06 (lon06)",
                                     "value": "lon06"
                                 },
                                 {
-                                    "displayname": "Frankfurt (eu-de-1)",
+                                    "displayname": "Frankfurt 1 (eu-de-1)",
                                     "value": "eu-de-1"
                                 },
                                 {
-                                    "displayname": "Frankfurt (eu-de-2)",
+                                    "displayname": "Frankfurt 2 (eu-de-2)",
                                     "value": "eu-de-2"
                                 },
                                 {
@@ -791,7 +791,7 @@
                                     "value": "mon01"
                                 },
                                 {
-                                    "displayname": "Osaka (osa21)",
+                                    "displayname": "Osaka 21 (osa21)",
                                     "value": "osa21"
                                 },
                                 {
@@ -799,11 +799,11 @@
                                     "value": "tok04"
                                 },
                                 {
-                                    "displayname": "Sydney (syd04)",
+                                    "displayname": "Sydney 04 (syd04)",
                                     "value": "syd04"
                                 },
                                 {
-                                    "displayname": "Sydney (syd05)",
+                                    "displayname": "Sydney 05 (syd05)",
                                     "value": "syd05"
                                 },
                                 {
@@ -815,11 +815,11 @@
                                     "value": "us-south"
                                 },
                                 {
-                                    "displayname": "Dallas (dal10)",
+                                    "displayname": "Dallas 10 (dal10)",
                                     "value": "dal10"
                                 },
                                 {
-                                    "displayname": "Dallas (dal12)",
+                                    "displayname": "Dallas 12 (dal12)",
                                     "value": "dal12"
                                 },
                                 {
