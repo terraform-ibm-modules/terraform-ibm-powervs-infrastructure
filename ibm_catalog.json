@@ -124,11 +124,11 @@
                                     "value": "eu-de-2"
                                 },
                                 {
-                                    "displayname": "Toronto (tor01)",
+                                    "displayname": "Toronto 01 (tor01)",
                                     "value": "tor01"
                                 },
                                 {
-                                    "displayname": "Montreal (mon01)",
+                                    "displayname": "Montreal 01 (mon01)",
                                     "value": "mon01"
                                 },
                                 {
@@ -148,7 +148,7 @@
                                     "value": "syd05"
                                 },
                                 {
-                                    "displayname": "Sao Paulo (sao01)",
+                                    "displayname": "Sao Paulo 01 (sao01)",
                                     "value": "sao01"
                                 },
                                 {
@@ -164,7 +164,7 @@
                                     "value": "dal12"
                                 },
                                 {
-                                    "displayname": "US-east (us-east)",
+                                    "displayname": "Washington DC (us-east)",
                                     "value": "us-east"
                                 }
                             ],
@@ -505,11 +505,11 @@
                                     "value": "eu-de-2"
                                 },
                                 {
-                                    "displayname": "Toronto (tor01)",
+                                    "displayname": "Toronto 01 (tor01)",
                                     "value": "tor01"
                                 },
                                 {
-                                    "displayname": "Montreal (mon01)",
+                                    "displayname": "Montreal 01 (mon01)",
                                     "value": "mon01"
                                 },
                                 {
@@ -517,7 +517,7 @@
                                     "value": "osa21"
                                 },
                                 {
-                                    "displayname": "Tokyo (tok04)",
+                                    "displayname": "Tokyo 04 (tok04)",
                                     "value": "tok04"
                                 },
                                 {
@@ -529,7 +529,7 @@
                                     "value": "syd05"
                                 },
                                 {
-                                    "displayname": "Sao Paulo (sao01)",
+                                    "displayname": "Sao Paulo 01 (sao01)",
                                     "value": "sao01"
                                 },
                                 {
@@ -545,7 +545,7 @@
                                     "value": "dal12"
                                 },
                                 {
-                                    "displayname": "US-east (us-east)",
+                                    "displayname": "Washington DC (us-east)",
                                     "value": "us-east"
                                 }
                             ],
@@ -783,11 +783,11 @@
                                     "value": "eu-de-2"
                                 },
                                 {
-                                    "displayname": "Toronto (tor01)",
+                                    "displayname": "Toronto 01 (tor01)",
                                     "value": "tor01"
                                 },
                                 {
-                                    "displayname": "Montreal (mon01)",
+                                    "displayname": "Montreal 01 (mon01)",
                                     "value": "mon01"
                                 },
                                 {
@@ -795,7 +795,7 @@
                                     "value": "osa21"
                                 },
                                 {
-                                    "displayname": "Tokyo (tok04)",
+                                    "displayname": "Tokyo 04 (tok04)",
                                     "value": "tok04"
                                 },
                                 {
@@ -807,7 +807,7 @@
                                     "value": "syd05"
                                 },
                                 {
-                                    "displayname": "Sao Paulo (sao01)",
+                                    "displayname": "Sao Paulo 01 (sao01)",
                                     "value": "sao01"
                                 },
                                 {
@@ -823,7 +823,7 @@
                                     "value": "dal12"
                                 },
                                 {
-                                    "displayname": "US-east (us-east)",
+                                    "displayname": "Washington DC (us-east)",
                                     "value": "us-east"
                                 }
                             ],
