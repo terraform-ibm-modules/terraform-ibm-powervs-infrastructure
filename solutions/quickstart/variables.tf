@@ -111,6 +111,10 @@ variable "powervs_management_network" {
     name = string
     cidr = string
   })
+  validation {
+    condition     = anytrue([can(regex("^10\\.((([2][0-5]{2})|([0-1]{0,1}[0-9]{1,2}))\\.){2}(([2][0-5]{2})|([0-1]{0,1}[0-9]{1,2}))", var.powervs_management_network.cidr)), can(regex("^192\\.168\\.((([2][0-5]{2})|([0-1]{0,1}[0-9]{1,2}))\\.)(([2][0-5]{2})|([0-1]{0,1}[0-9]{1,2}))", var.powervs_management_network.cidr)), can(regex("^172\\.(([1][6-9])|([2][0-9])|([3][0-1]))\\.((([2][0-5]{2})|([0-1]{0,1}[0-9]{1,2}))\\.)(([2][0-5]{2})|([0-1]{0,1}[0-9]{1,2}))", var.powervs_management_network.cidr))])
+    error_message = "Must be a valid IPv4 CIDR block address."
+  }
   default = {
     "name" : "mgmt_net",
     "cidr" : "10.51.0.0/24"
@@ -123,6 +127,10 @@ variable "powervs_backup_network" {
     name = string
     cidr = string
   })
+  validation {
+    condition     = anytrue([can(regex("^10\\.((([2][0-5]{2})|([0-1]{0,1}[0-9]{1,2}))\\.){2}(([2][0-5]{2})|([0-1]{0,1}[0-9]{1,2}))", var.powervs_backup_network.cidr)), can(regex("^192\\.168\\.((([2][0-5]{2})|([0-1]{0,1}[0-9]{1,2}))\\.)(([2][0-5]{2})|([0-1]{0,1}[0-9]{1,2}))", var.powervs_backup_network.cidr)), can(regex("^172\\.(([1][6-9])|([2][0-9])|([3][0-1]))\\.((([2][0-5]{2})|([0-1]{0,1}[0-9]{1,2}))\\.)(([2][0-5]{2})|([0-1]{0,1}[0-9]{1,2}))", var.powervs_backup_network.cidr))])
+    error_message = "Must be a valid IPv4 CIDR block address."
+  }
   default = {
     "name" : "bkp_net",
     "cidr" : "10.52.0.0/24"
