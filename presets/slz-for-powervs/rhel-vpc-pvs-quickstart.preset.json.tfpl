@@ -838,6 +838,20 @@
                 "port_min": 80
               }
             },
+            {
+              "action": "allow",
+              "destination": "10.0.0.0/8",
+              "direction": "inbound",
+              "name": "allow-all-network-inbound",
+              "source": "10.0.0.0/8"
+            },
+            {
+              "action": "allow",
+              "destination": "10.0.0.0/8",
+              "direction": "outbound",
+              "name": "allow-all-network-outbound",
+              "source": "10.0.0.0/8"
+            },
             %{ if "${powervs_management_network_cidr}" != "" && "${powervs_management_network_cidr}" != null }
             {
               "action": "allow",
