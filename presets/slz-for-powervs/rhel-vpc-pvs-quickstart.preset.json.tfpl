@@ -842,48 +842,44 @@
               "action": "allow",
               "destination": "10.0.0.0/8",
               "direction": "inbound",
-              "name": "allow-all-network-inbound",
+              "name": "allow-private-net-inbound1",
               "source": "10.0.0.0/8"
             },
             {
               "action": "allow",
               "destination": "10.0.0.0/8",
               "direction": "outbound",
-              "name": "allow-all-network-outbound",
+              "name": "allow-private-net-outbound1",
               "source": "10.0.0.0/8"
             },
-            %{ if "${powervs_management_network_cidr}" != "" && "${powervs_management_network_cidr}" != null }
-            {
-              "action": "allow",
-              "destination": "10.0.0.0/8",
-              "direction": "inbound",
-              "name": "power-mgmt-net-inbound",
-              "source": "${powervs_management_network_cidr}"
-            },
-            {
-              "action": "allow",
-              "destination": "${powervs_management_network_cidr}",
-              "direction": "outbound",
-              "name": "power-mgmt-net-outbound",
-              "source": "10.0.0.0/8"
-            },
-            %{ endif }
-            %{ if "${powervs_backup_network_cidr}" != "" && "${powervs_backup_network_cidr}" != null }
             {
               "action": "allow",
               "destination": "10.0.0.0/8",
               "direction": "inbound",
-              "name": "power-bkp-net-inbound",
-              "source": "${powervs_backup_network_cidr}"
+              "name": "allow-private-net-inbound2",
+              "source": "172.16.0.0/12"
             },
             {
               "action": "allow",
-              "destination": "${powervs_backup_network_cidr}",
+              "destination": "172.16.0.0/12",
               "direction": "outbound",
-              "name": "power-bkp-net-outbound",
+              "name": "allow-private-net-outbound2",
               "source": "10.0.0.0/8"
             },
-            %{ endif }
+            {
+              "action": "allow",
+              "destination": "10.0.0.0/8",
+              "direction": "inbound",
+              "name": "allow-private-net-inbound3",
+              "source": "192.168.0.0/16"
+            },
+            {
+              "action": "allow",
+              "destination": "192.168.0.0/16",
+              "direction": "outbound",
+              "name": "allow-private-net-outbound3",
+              "source": "10.0.0.0/8"
+            },
             {
               "action": "deny",
               "destination": "0.0.0.0/0",
@@ -952,8 +948,18 @@
           },
           {
             "direction": "inbound",
-            "name": "allow-vpc-inbound",
+            "name": "allow-private-inbound1",
             "source": "10.0.0.0/8"
+          },
+          {
+            "direction": "inbound",
+            "name": "allow-private-inbound2",
+            "source": "172.16.0.0/12"
+          },
+          {
+            "direction": "inbound",
+            "name": "allow-private-inbound3",
+            "source": "192.168.0.0/16"
           },
           {
             "direction": "inbound",

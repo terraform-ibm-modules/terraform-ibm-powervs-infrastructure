@@ -73,7 +73,7 @@ provider "ibm" {
 locals {
   path_rhel_preset   = "${path.module}/../../presets/slz-for-powervs/rhel-vpc-pvs-quickstart.preset.json.tfpl"
   external_access_ip = var.external_access_ip != null && var.external_access_ip != "" ? length(regexall("/", var.external_access_ip)) > 0 ? var.external_access_ip : "${var.external_access_ip}/32" : ""
-  preset             = templatefile(local.path_rhel_preset, { external_access_ip = local.external_access_ip, powervs_management_network_cidr = var.powervs_management_network.cidr, powervs_backup_network_cidr = var.powervs_backup_network.cidr })
+  preset             = templatefile(local.path_rhel_preset, { external_access_ip = local.external_access_ip })
 }
 
 module "landing_zone" {
