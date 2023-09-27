@@ -8,5 +8,10 @@ on:
 
 jobs:
   call-terraform-ci-pipeline:
-    uses: terraform-ibm-modules/common-pipeline-assets/.github/workflows/common-terraform-module-ci-v2.yml@v1.17.9
+    uses: terraform-ibm-modules/common-pipeline-assets/.github/workflows/common-terraform-module-ci.yml@v1.9.1
     secrets: inherit
+    with:
+      craSCCv2: true
+      craTarget: "solutions/full-stack"
+      #craGoalIgnoreFile: "cra-tf-validate-ignore-goals.json"
+      craEnvironmentVariables: "TF_VAR_prefix=cra-infra,TF_VAR_powervs_zone=syd05,TF_VAR_powervs_resource_group_name=Default,TF_VAR_landing_zone_configuration=rhel,TF_VAR_external_access_ip=0.0.0.0,TF_VAR_ssh_private_key=some_private_key,TF_VAR_ssh_public_key=some_public_key"
