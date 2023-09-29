@@ -12,6 +12,4 @@ jobs:
     secrets: inherit
     with:
       craSCCv2: true
-      craTarget: "solutions/full-stack"
-      #craGoalIgnoreFile: "cra-tf-validate-ignore-goals.json"
-      craEnvironmentVariables: "TF_VAR_prefix=cra-infra,TF_VAR_powervs_zone=syd05,TF_VAR_powervs_resource_group_name=Default,TF_VAR_landing_zone_configuration=rhel,TF_VAR_external_access_ip=0.0.0.0,TF_VAR_ssh_private_key=some_private_key,TF_VAR_ssh_public_key=some_public_key"
+      craConfigYamlFile: "cra-config.yaml"
