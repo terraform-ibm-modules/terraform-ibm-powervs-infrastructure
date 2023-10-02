@@ -842,14 +842,42 @@
               "action": "allow",
               "destination": "10.0.0.0/8",
               "direction": "inbound",
-              "name": "allow-all-network-inbound",
+              "name": "allow-private-net-inbound1",
               "source": "10.0.0.0/8"
             },
             {
               "action": "allow",
               "destination": "10.0.0.0/8",
               "direction": "outbound",
-              "name": "allow-all-network-outbound",
+              "name": "allow-private-net-outbound1",
+              "source": "10.0.0.0/8"
+            },
+            {
+              "action": "allow",
+              "destination": "10.0.0.0/8",
+              "direction": "inbound",
+              "name": "allow-private-net-inbound2",
+              "source": "172.16.0.0/12"
+            },
+            {
+              "action": "allow",
+              "destination": "172.16.0.0/12",
+              "direction": "outbound",
+              "name": "allow-private-net-outbound2",
+              "source": "10.0.0.0/8"
+            },
+            {
+              "action": "allow",
+              "destination": "10.0.0.0/8",
+              "direction": "inbound",
+              "name": "allow-private-net-inbound3",
+              "source": "192.168.0.0/16"
+            },
+            {
+              "action": "allow",
+              "destination": "192.168.0.0/16",
+              "direction": "outbound",
+              "name": "allow-private-net-outbound3",
               "source": "10.0.0.0/8"
             },
             {
@@ -920,8 +948,18 @@
           },
           {
             "direction": "inbound",
-            "name": "allow-vpc-inbound",
+            "name": "allow-private-inbound1",
             "source": "10.0.0.0/8"
+          },
+          {
+            "direction": "inbound",
+            "name": "allow-private-inbound2",
+            "source": "172.16.0.0/12"
+          },
+          {
+            "direction": "inbound",
+            "name": "allow-private-inbound3",
+            "source": "192.168.0.0/16"
           },
           {
             "direction": "inbound",
