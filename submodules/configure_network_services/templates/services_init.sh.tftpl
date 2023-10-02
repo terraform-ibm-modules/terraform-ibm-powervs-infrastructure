@@ -164,13 +164,6 @@ register_os() {
           suseconnect_register
         fi
 
-        print_out "Sleeping 30 seconds"
-        sleep 30
-        if [ ! -e "$SUBSCRIPTION_LOG" ]; then
-          print_out "OS registration script did not create $SUBSCRIPTION_LOG file. Possible causes: $README file is missing or Registration did not happen automatically. SLES registration has failed, exiting"
-          exit 1
-        fi
-
         ATTEMPT=1
         MAX_ATTEMPTS=15
         while [[ "$ATTEMPT" -lt "$MAX_ATTEMPTS" ]]; do
@@ -235,13 +228,6 @@ register_os() {
         else
           #will run the register command
           subscription_mgr_register
-        fi
-
-        print_out "Sleeping 30 seconds"
-        sleep 30
-        if [ ! -e "$SUBSCRIPTION_LOG" ]; then
-          print_out "OS registration script did not create $SUBSCRIPTION_LOG file. Possible causes: $README file is missing or Registration did not happen automatically. RHEL registration has failed, exiting"
-          exit 1
         fi
 
         ATTEMPT=1

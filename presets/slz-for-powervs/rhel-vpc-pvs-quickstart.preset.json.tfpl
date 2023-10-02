@@ -11,7 +11,6 @@
   },
   "clusters": [],
   "enable_transit_gateway": true,
-  "transit_gateway_global": true,
   "transit_gateway_connections": [
     "edge"
   ],
@@ -134,7 +133,6 @@
         "zone-3": []
       },
       "default_security_group_rules": [],
-      "clean_default_sg_acl": true,
       "flow_logs_bucket_name": null,
       "network_acls": [
         {
@@ -905,7 +903,7 @@
   "vsi": [
     {
       "boot_volume_encryption_key_name": "slz-vsi-volume-key",
-      "image_name": "ibm-redhat-8-6-amd64-sap-applications-4",
+      "image_name": "ibm-redhat-8-4-amd64-sap-applications-4",
       "machine_type": "cx2-2x4",
       "name": "inet-svs",
       "resource_group": "slz-edge-rg",
