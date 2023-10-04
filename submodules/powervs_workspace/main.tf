@@ -1,5 +1,5 @@
 #####################################################
-# IBM Cloud PowerVS Resource Configuration
+# IBM Cloud PowerVS Workspace Configuration
 #####################################################
 
 locals {
@@ -37,7 +37,7 @@ resource "ibm_pi_key" "ssh_key" {
 }
 
 #####################################################
-# Create Public and Private Subnets
+# Create Private Subnets
 #####################################################
 
 resource "ibm_pi_network" "management_network" {
@@ -83,6 +83,12 @@ locals {
 
 }
 
+
+#######################################################
+# Using 3 resource blocks for import images as parallel
+# import of multiple images causes an error
+#######################################################
+
 resource "ibm_pi_image" "import_images_1" {
 
   for_each             = toset(local.split_images_1)
@@ -117,5 +123,4 @@ resource "ibm_pi_image" "import_images_3" {
   timeouts {
     create = "9m"
   }
-
 }

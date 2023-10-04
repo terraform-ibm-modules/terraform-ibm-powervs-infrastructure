@@ -35,7 +35,7 @@ No resources.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_cloud_connection_validate"></a> [cloud\_connection\_validate](#input\_cloud\_connection\_validate) | Verify reuse\_cloud\_connection and transit\_gateway\_name variables | <pre>object({<br>    reuse_cloud_connections = bool<br>    transit_gateway_name    = string<br>  })</pre> | n/a | yes |
+| <a name="input_cloud_connection_validate"></a> [cloud\_connection\_validate](#input\_cloud\_connection\_validate) | Verify reuse\_cloud\_connection and transit\_gateway\_id variables | <pre>object({<br>    reuse_cloud_connections = bool<br>    transit_gateway_id      = string<br>  })</pre> | n/a | yes |
 
 ### Outputs
 
