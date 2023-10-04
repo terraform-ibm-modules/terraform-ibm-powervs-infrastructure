@@ -35,7 +35,7 @@ Catalog image names to be imported into infrastructure can be found [here](./doc
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.3,  <=1.5.5 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.3, <=1.5.5 |
 | <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | =1.56.1 |
 
 ### Modules
