@@ -78,7 +78,7 @@ locals {
 
 module "landing_zone" {
   source    = "terraform-ibm-modules/landing-zone/ibm//patterns//vsi//module"
-  version   = "4.10.0"
+  version   = "4.13.0"
   providers = { ibm = ibm.ibm-is }
 
   ssh_public_key       = var.ssh_public_key
@@ -91,8 +91,6 @@ locals {
   landing_zone_config = jsondecode(module.landing_zone.config)
   nfs_disk_exists     = [for vsi in local.landing_zone_config.vsi : vsi.block_storage_volumes[0].capacity if contains(keys(vsi), "block_storage_volumes")]
   nfs_disk_size       = length(local.nfs_disk_exists) >= 1 ? local.nfs_disk_exists[0] : ""
-
-  transit_gateway_name = module.landing_zone.transit_gateway_name
 
   fip_vsi_exists           = contains(keys(module.landing_zone), "fip_vsi") ? true : false
   access_host_or_ip_exists = local.fip_vsi_exists ? contains(keys(module.landing_zone.fip_vsi[0]), "floating_ip") ? true : false : false
@@ -152,8 +150,7 @@ locals {
 }
 
 module "powervs_infra" {
-  source     = "../../"
-  depends_on = [module.landing_zone]
+  source = "../../"
 
   powervs_zone                = var.powervs_zone
   powervs_resource_group_name = var.powervs_resource_group_name
@@ -165,7 +162,7 @@ module "powervs_infra" {
   ssh_private_key             = var.ssh_private_key
   powervs_management_network  = var.powervs_management_network
   powervs_backup_network      = var.powervs_backup_network
-  transit_gateway_name        = local.transit_gateway_name
+  transit_gateway_id          = module.landing_zone.transit_gateway_data.id
   reuse_cloud_connections     = false
   cloud_connection_count      = var.cloud_connection["count"]
   cloud_connection_speed      = var.cloud_connection["speed"]
@@ -212,7 +209,7 @@ locals {
 
 module "demo_pi_instance" {
   source     = "git::https://github.com/terraform-ibm-modules/terraform-ibm-powervs-instance.git?ref=v0.3.0"
-  depends_on = [module.landing_zone, module.powervs_infra]
+  depends_on = [module.powervs_infra]
 
   pi_zone                 = var.powervs_zone
   pi_resource_group_name  = var.powervs_resource_group_name

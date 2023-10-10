@@ -18,6 +18,11 @@ output "transit_gateway_name" {
   value       = local.transit_gateway_name
 }
 
+output "transit_gateway_id" {
+  description = "The ID of transit gateway."
+  value       = local.transit_gateway_id
+}
+
 output "vsi_list" {
   description = "A list of VSI with name, id, zone, and primary ipv4 address, VPC Name, and floating IP."
   value       = local.fullstack_output[0].vsi_list.value

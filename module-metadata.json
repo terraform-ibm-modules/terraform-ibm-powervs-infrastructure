@@ -216,7 +216,6 @@
         "name": "mgmt_net"
       },
       "source": [
-        "module.powervs_cloud_connection_attach",
         "module.powervs_workspace"
       ],
       "pos": {
@@ -230,8 +229,6 @@
       "description": "Existing IBM Cloud resource group name.",
       "required": true,
       "source": [
-        "module.powervs_cloud_connection_attach.data.ibm_resource_group.resource_group_ds.name",
-        "module.powervs_cloud_connection_create.data.ibm_resource_group.resource_group_ds.name",
         "module.powervs_workspace.data.ibm_resource_group.resource_group_ds.name"
       ],
       "pos": {
@@ -265,8 +262,6 @@
       "default": "power-workspace",
       "required": true,
       "source": [
-        "module.powervs_cloud_connection_attach.data.ibm_resource_instance.powervs_workspace_ds.name",
-        "module.powervs_cloud_connection_create.data.ibm_resource_instance.powervs_workspace_ds.name",
         "module.powervs_cloud_connection_create.ibm_tg_connection.ibm_powervs_workspace_attach_per.name",
         "module.powervs_workspace.ibm_resource_instance.powervs_workspace.name"
       ],
@@ -284,8 +279,7 @@
       "description": "IBM Cloud PowerVS zone.",
       "required": true,
       "source": [
-        "module.powervs_cloud_connection_attach.data.ibm_resource_instance.powervs_workspace_ds.location",
-        "module.powervs_cloud_connection_create.data.ibm_resource_instance.powervs_workspace_ds.location",
+        "module.powervs_cloud_connection_create",
         "module.powervs_workspace.ibm_resource_instance.powervs_workspace.location"
       ],
       "pos": {
@@ -293,8 +287,7 @@
         "line": 1
       },
       "cloud_data_type": "region",
-      "immutable": true,
-      "computed": true
+      "immutable": true
     },
     "reuse_cloud_connections": {
       "name": "reuse_cloud_connections",
@@ -380,18 +373,21 @@
         "type": "TypeString"
       }
     },
-    "transit_gateway_name": {
-      "name": "transit_gateway_name",
+    "transit_gateway_id": {
+      "name": "transit_gateway_id",
       "type": "string",
-      "description": "Name of the existing transit gateway. Required when you create new IBM Cloud connections. Set it to null if reusing cloud connections",
+      "description": "ID of the existing transit gateway. Required when you create new IBM Cloud connections. Set it to null if reusing cloud connections",
       "required": true,
       "source": [
-        "module.powervs_cloud_connection_create.data.ibm_tg_gateway.tg_gateway_ds.name"
+        "module.powervs_cloud_connection_create.ibm_tg_connection.ibm_powervs_workspace_attach_per.gateway",
+        "module.powervs_cloud_connection_create.ibm_tg_connection.ibm_tg_connection_1.gateway",
+        "module.powervs_cloud_connection_create.ibm_tg_connection.ibm_tg_connection_2.gateway"
       ],
       "pos": {
         "filename": "variables.tf",
         "line": 62
-      }
+      },
+      "immutable": true
     }
   },
   "outputs": {
@@ -483,7 +479,7 @@
     },
     "powervs_workspace_crn": {
       "name": "powervs_workspace_crn",
-      "description": "PowerVS infrastructure workspace CRN.",
+      "description": "PowerVS infrastructure workspace CRN. The full deployment CRN as defined in the global catalog. The Cloud Resource Name (CRN) of the deployment location where the instance is provisioned.",
       "value": "module.powervs_workspace.powervs_workspace_crn",
       "pos": {
         "filename": "outputs.tf",
@@ -551,7 +547,7 @@
       },
       "pos": {
         "filename": "main.tf",
-        "line": 77
+        "line": 101
       }
     }
   },
@@ -636,7 +632,7 @@
       "data_resources": {},
       "pos": {
         "filename": "main.tf",
-        "line": 84
+        "line": 108
       }
     },
     "configure_nfs": {
@@ -718,7 +714,7 @@
       "data_resources": {},
       "pos": {
         "filename": "main.tf",
-        "line": 110
+        "line": 134
       }
     },
     "configure_ntp": {
@@ -800,7 +796,7 @@
       "data_resources": {},
       "pos": {
         "filename": "main.tf",
-        "line": 97
+        "line": 121
       }
     },
     "configure_squid": {
@@ -882,7 +878,7 @@
       "data_resources": {},
       "pos": {
         "filename": "main.tf",
-        "line": 65
+        "line": 89
       }
     },
     "initial_validation": {
@@ -895,18 +891,14 @@
       "data_resources": {},
       "pos": {
         "filename": "main.tf",
-        "line": 10
+        "line": 15
       }
     },
     "powervs_cloud_connection_attach": {
       "name": "powervs_cloud_connection_attach",
       "source": "./submodules/powervs_cloudconnection_attach",
       "attributes": {
-        "cloud_connection_count": "cloud_connection_count",
-        "powervs_resource_group_name": "powervs_resource_group_name",
-        "powervs_subnet_names": "powervs_management_network",
-        "powervs_workspace_name": "powervs_workspace_name",
-        "powervs_zone": "powervs_zone"
+        "cloud_connection_count": "cloud_connection_count"
       },
       "managed_resources": {
         "ibm_pi_cloud_connection_network_attach.powervs_subnet_bkp_nw_attach": {
@@ -914,14 +906,16 @@
           "type": "ibm_pi_cloud_connection_network_attach",
           "name": "powervs_subnet_bkp_nw_attach",
           "attributes": {
-            "count": "cloud_connection_count"
+            "count": "cloud_connection_count",
+            "pi_cloud_instance_id": "powervs_workspace_guid",
+            "pi_network_id": "powervs_subnet_ids"
           },
           "provider": {
             "name": "ibm"
           },
           "pos": {
             "filename": "submodules/powervs_cloudconnection_attach/main.tf",
-            "line": 47
+            "line": 23
           }
         },
         "ibm_pi_cloud_connection_network_attach.powervs_subnet_bkp_nw_attach_backup": {
@@ -929,14 +923,16 @@
           "type": "ibm_pi_cloud_connection_network_attach",
           "name": "powervs_subnet_bkp_nw_attach_backup",
           "attributes": {
-            "count": "cloud_connection_count"
+            "count": "cloud_connection_count",
+            "pi_cloud_instance_id": "powervs_workspace_guid",
+            "pi_network_id": "powervs_subnet_ids"
           },
           "provider": {
             "name": "ibm"
           },
           "pos": {
             "filename": "submodules/powervs_cloudconnection_attach/main.tf",
-            "line": 63
+            "line": 45
           }
         },
         "ibm_pi_cloud_connection_network_attach.powervs_subnet_mgmt_nw_attach": {
@@ -944,14 +940,16 @@
           "type": "ibm_pi_cloud_connection_network_attach",
           "name": "powervs_subnet_mgmt_nw_attach",
           "attributes": {
-            "count": "cloud_connection_count"
+            "count": "cloud_connection_count",
+            "pi_cloud_instance_id": "powervs_workspace_guid",
+            "pi_network_id": "powervs_subnet_ids"
           },
           "provider": {
             "name": "ibm"
           },
           "pos": {
             "filename": "submodules/powervs_cloudconnection_attach/main.tf",
-            "line": 39
+            "line": 13
           }
         },
         "ibm_pi_cloud_connection_network_attach.powervs_subnet_mgmt_nw_attach_backup": {
@@ -959,14 +957,16 @@
           "type": "ibm_pi_cloud_connection_network_attach",
           "name": "powervs_subnet_mgmt_nw_attach_backup",
           "attributes": {
-            "count": "cloud_connection_count"
+            "count": "cloud_connection_count",
+            "pi_cloud_instance_id": "powervs_workspace_guid",
+            "pi_network_id": "powervs_subnet_ids"
           },
           "provider": {
             "name": "ibm"
           },
           "pos": {
             "filename": "submodules/powervs_cloudconnection_attach/main.tf",
-            "line": 55
+            "line": 34
           }
         }
       },
@@ -975,36 +975,8 @@
           "mode": "data",
           "type": "ibm_pi_cloud_connections",
           "name": "cloud_connection_ds",
-          "provider": {
-            "name": "ibm"
-          },
-          "pos": {
-            "filename": "submodules/powervs_cloudconnection_attach/main.tf",
-            "line": 31
-          }
-        },
-        "data.ibm_pi_network.powervs_subnets_ds": {
-          "mode": "data",
-          "type": "ibm_pi_network",
-          "name": "powervs_subnets_ds",
           "attributes": {
-            "count": "powervs_subnet_names",
-            "pi_network_name": "powervs_subnet_names"
-          },
-          "provider": {
-            "name": "ibm"
-          },
-          "pos": {
-            "filename": "submodules/powervs_cloudconnection_attach/main.tf",
-            "line": 21
-          }
-        },
-        "data.ibm_resource_group.resource_group_ds": {
-          "mode": "data",
-          "type": "ibm_resource_group",
-          "name": "resource_group_ds",
-          "attributes": {
-            "name": "powervs_resource_group_name"
+            "pi_cloud_instance_id": "powervs_workspace_guid"
           },
           "provider": {
             "name": "ibm"
@@ -1013,27 +985,11 @@
             "filename": "submodules/powervs_cloudconnection_attach/main.tf",
             "line": 5
           }
-        },
-        "data.ibm_resource_instance.powervs_workspace_ds": {
-          "mode": "data",
-          "type": "ibm_resource_instance",
-          "name": "powervs_workspace_ds",
-          "attributes": {
-            "location": "powervs_zone",
-            "name": "powervs_workspace_name"
-          },
-          "provider": {
-            "name": "ibm"
-          },
-          "pos": {
-            "filename": "submodules/powervs_cloudconnection_attach/main.tf",
-            "line": 9
-          }
         }
       },
       "pos": {
         "filename": "main.tf",
-        "line": 49
+        "line": 74
       }
     },
     "powervs_cloud_connection_create": {
@@ -1046,10 +1002,9 @@
         "cloud_connection_name_prefix": "cloud_connection_name_prefix",
         "cloud_connection_speed": "cloud_connection_speed",
         "count": "reuse_cloud_connections",
-        "powervs_resource_group_name": "powervs_resource_group_name",
         "powervs_workspace_name": "powervs_workspace_name",
         "powervs_zone": "powervs_zone",
-        "transit_gateway_name": "transit_gateway_name"
+        "transit_gateway_id": "transit_gateway_id"
       },
       "managed_resources": {
         "ibm_pi_cloud_connection.cloud_connection": {
@@ -1060,14 +1015,15 @@
             "count": "cloud_connection_count",
             "pi_cloud_connection_global_routing": "cloud_connection_gr",
             "pi_cloud_connection_metered": "cloud_connection_metered",
-            "pi_cloud_connection_speed": "cloud_connection_speed"
+            "pi_cloud_connection_speed": "cloud_connection_speed",
+            "pi_cloud_instance_id": "powervs_workspace_guid"
           },
           "provider": {
             "name": "ibm"
           },
           "pos": {
             "filename": "submodules/powervs_cloudconnection_create/main.tf",
-            "line": 26
+            "line": 14
           }
         },
         "ibm_pi_cloud_connection.cloud_connection_backup": {
@@ -1078,14 +1034,15 @@
             "count": "cloud_connection_count",
             "pi_cloud_connection_global_routing": "cloud_connection_gr",
             "pi_cloud_connection_metered": "cloud_connection_metered",
-            "pi_cloud_connection_speed": "cloud_connection_speed"
+            "pi_cloud_connection_speed": "cloud_connection_speed",
+            "pi_cloud_instance_id": "powervs_workspace_guid"
           },
           "provider": {
             "name": "ibm"
           },
           "pos": {
             "filename": "submodules/powervs_cloudconnection_create/main.tf",
-            "line": 37
+            "line": 25
           }
         },
         "ibm_tg_connection.ibm_powervs_workspace_attach_per": {
@@ -1094,14 +1051,16 @@
           "name": "ibm_powervs_workspace_attach_per",
           "attributes": {
             "count": "per_enabled",
-            "name": "powervs_workspace_name"
+            "gateway": "transit_gateway_id",
+            "name": "powervs_workspace_name",
+            "network_id": "powervs_workspace_id"
           },
           "provider": {
             "name": "ibm"
           },
           "pos": {
             "filename": "submodules/powervs_cloudconnection_create/main.tf",
-            "line": 123
+            "line": 103
           }
         },
         "ibm_tg_connection.ibm_tg_connection_1": {
@@ -1109,14 +1068,15 @@
           "type": "ibm_tg_connection",
           "name": "ibm_tg_connection_1",
           "attributes": {
-            "count": "cloud_connection_count"
+            "count": "cloud_connection_count",
+            "gateway": "transit_gateway_id"
           },
           "provider": {
             "name": "ibm"
           },
           "pos": {
             "filename": "submodules/powervs_cloudconnection_create/main.tf",
-            "line": 99
+            "line": 79
           }
         },
         "ibm_tg_connection.ibm_tg_connection_2": {
@@ -1124,14 +1084,15 @@
           "type": "ibm_tg_connection",
           "name": "ibm_tg_connection_2",
           "attributes": {
-            "count": "cloud_connection_count"
+            "count": "cloud_connection_count",
+            "gateway": "transit_gateway_id"
           },
           "provider": {
             "name": "ibm"
           },
           "pos": {
             "filename": "submodules/powervs_cloudconnection_create/main.tf",
-            "line": 109
+            "line": 89
           }
         },
         "time_sleep.dl_1_resource_propagation": {
@@ -1146,7 +1107,7 @@
           },
           "pos": {
             "filename": "submodules/powervs_cloudconnection_create/main.tf",
-            "line": 75
+            "line": 55
           }
         },
         "time_sleep.dl_2_resource_propagation": {
@@ -1161,7 +1122,7 @@
           },
           "pos": {
             "filename": "submodules/powervs_cloudconnection_create/main.tf",
-            "line": 85
+            "line": 65
           }
         }
       },
@@ -1178,7 +1139,7 @@
           },
           "pos": {
             "filename": "submodules/powervs_cloudconnection_create/main.tf",
-            "line": 61
+            "line": 41
           }
         },
         "data.ibm_dl_gateway.gateway_ds_2": {
@@ -1193,59 +1154,13 @@
           },
           "pos": {
             "filename": "submodules/powervs_cloudconnection_create/main.tf",
-            "line": 68
-          }
-        },
-        "data.ibm_resource_group.resource_group_ds": {
-          "mode": "data",
-          "type": "ibm_resource_group",
-          "name": "resource_group_ds",
-          "attributes": {
-            "name": "powervs_resource_group_name"
-          },
-          "provider": {
-            "name": "ibm"
-          },
-          "pos": {
-            "filename": "submodules/powervs_cloudconnection_create/main.tf",
-            "line": 11
-          }
-        },
-        "data.ibm_resource_instance.powervs_workspace_ds": {
-          "mode": "data",
-          "type": "ibm_resource_instance",
-          "name": "powervs_workspace_ds",
-          "attributes": {
-            "location": "powervs_zone",
-            "name": "powervs_workspace_name"
-          },
-          "provider": {
-            "name": "ibm"
-          },
-          "pos": {
-            "filename": "submodules/powervs_cloudconnection_create/main.tf",
-            "line": 15
-          }
-        },
-        "data.ibm_tg_gateway.tg_gateway_ds": {
-          "mode": "data",
-          "type": "ibm_tg_gateway",
-          "name": "tg_gateway_ds",
-          "attributes": {
-            "name": "transit_gateway_name"
-          },
-          "provider": {
-            "name": "ibm"
-          },
-          "pos": {
-            "filename": "submodules/powervs_cloudconnection_create/main.tf",
-            "line": 53
+            "line": 48
           }
         }
       },
       "pos": {
         "filename": "main.tf",
-        "line": 32
+        "line": 50
       }
     },
     "powervs_workspace": {
@@ -1272,7 +1187,7 @@
           },
           "pos": {
             "filename": "submodules/powervs_workspace/main.tf",
-            "line": 86
+            "line": 92
           }
         },
         "ibm_pi_image.import_images_2": {
@@ -1284,7 +1199,7 @@
           },
           "pos": {
             "filename": "submodules/powervs_workspace/main.tf",
-            "line": 98
+            "line": 104
           }
         },
         "ibm_pi_image.import_images_3": {
@@ -1296,7 +1211,7 @@
           },
           "pos": {
             "filename": "submodules/powervs_workspace/main.tf",
-            "line": 110
+            "line": 116
           }
         },
         "ibm_pi_key.ssh_key": {
@@ -1395,20 +1310,69 @@
         }
       },
       "outputs": {
+        "powervs_workspace_backup_subnet_id": {
+          "name": "powervs_workspace_backup_subnet_id",
+          "description": "PowerVS infrastructure workspace backup subnet id. The unique identifier of the network.",
+          "value": "ibm_pi_network.backup_network.network_id",
+          "pos": {
+            "filename": "submodules/powervs_workspace/outputs.tf",
+            "line": 26
+          },
+          "type": "TypeString"
+        },
         "powervs_workspace_crn": {
           "name": "powervs_workspace_crn",
-          "description": "PowerVS infrastructure workspace CRN.",
+          "description": "PowerVS infrastructure workspace CRN. The full deployment CRN as defined in the global catalog. The Cloud Resource Name (CRN) of the deployment location where the instance is provisioned.",
           "value": "ibm_resource_instance.powervs_workspace.target_crn",
           "pos": {
             "filename": "submodules/powervs_workspace/outputs.tf",
             "line": 1
           },
           "type": "TypeString"
+        },
+        "powervs_workspace_guid": {
+          "name": "powervs_workspace_guid",
+          "description": "PowerVS infrastructure workspace guid. The GUID of the resource instance.",
+          "value": "ibm_resource_instance.powervs_workspace.guid",
+          "pos": {
+            "filename": "submodules/powervs_workspace/outputs.tf",
+            "line": 11
+          },
+          "type": "TypeString"
+        },
+        "powervs_workspace_id": {
+          "name": "powervs_workspace_id",
+          "description": "PowerVS infrastructure workspace id. The unique identifier of the new resource instance.",
+          "value": "ibm_resource_instance.powervs_workspace.id",
+          "pos": {
+            "filename": "submodules/powervs_workspace/outputs.tf",
+            "line": 16
+          }
+        },
+        "powervs_workspace_management_subnet_id": {
+          "name": "powervs_workspace_management_subnet_id",
+          "description": "PowerVS infrastructure workspace management subnet id. The unique identifier of the network.",
+          "value": "ibm_pi_network.management_network.network_id",
+          "pos": {
+            "filename": "submodules/powervs_workspace/outputs.tf",
+            "line": 21
+          },
+          "type": "TypeString"
+        },
+        "powervs_workspace_resource_id": {
+          "name": "powervs_workspace_resource_id",
+          "description": "PowerVS infrastructure workspace resource id. The unique ID of the offering. This value is provided by and stored in the global catalog.",
+          "value": "ibm_resource_instance.powervs_workspace.resource_id",
+          "pos": {
+            "filename": "submodules/powervs_workspace/outputs.tf",
+            "line": 6
+          },
+          "type": "TypeString"
         }
       },
       "pos": {
         "filename": "main.tf",
-        "line": 18
+        "line": 29
       }
     }
   }

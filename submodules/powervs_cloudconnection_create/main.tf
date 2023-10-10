@@ -1,32 +1,20 @@
-#####################################################
-# IBM Cloud PowerVS cloud connection / PER  Configuration
-#####################################################
+########################################################
+# IBM Cloud PowerVS Cloud Connection / PER  Configuration
+########################################################
 
 locals {
-  service_type            = "power-iaas"
   cloud_connection_name_1 = var.cloud_connection_name_prefix != null && var.cloud_connection_name_prefix != "" ? "${var.cloud_connection_name_prefix}-${var.powervs_zone}-conn-1" : "${var.powervs_zone}-conn-1"
   cloud_connection_name_2 = var.cloud_connection_name_prefix != null && var.cloud_connection_name_prefix != "" ? "${var.cloud_connection_name_prefix}-${var.powervs_zone}-conn-2" : "${var.powervs_zone}-conn-2"
 }
 
-data "ibm_resource_group" "resource_group_ds" {
-  name = var.powervs_resource_group_name
-}
-
-data "ibm_resource_instance" "powervs_workspace_ds" {
-  name              = var.powervs_workspace_name
-  service           = local.service_type
-  location          = var.powervs_zone
-  resource_group_id = data.ibm_resource_group.resource_group_ds.id
-}
-
 #####################################################
-# Create Cloud Connection to attach PVS subnets
+# Create Cloud Connections in Non PER DC
 #####################################################
 
 resource "ibm_pi_cloud_connection" "cloud_connection" {
   count = var.cloud_connection_count > 0 && !var.per_enabled ? 1 : 0
 
-  pi_cloud_instance_id                = data.ibm_resource_instance.powervs_workspace_ds.guid
+  pi_cloud_instance_id                = var.powervs_workspace_guid
   pi_cloud_connection_name            = local.cloud_connection_name_1
   pi_cloud_connection_speed           = var.cloud_connection_speed
   pi_cloud_connection_global_routing  = var.cloud_connection_gr
@@ -38,7 +26,7 @@ resource "ibm_pi_cloud_connection" "cloud_connection_backup" {
   depends_on = [ibm_pi_cloud_connection.cloud_connection]
   count      = var.cloud_connection_count > 1 && !var.per_enabled ? 1 : 0
 
-  pi_cloud_instance_id                = data.ibm_resource_instance.powervs_workspace_ds.guid
+  pi_cloud_instance_id                = var.powervs_workspace_guid
   pi_cloud_connection_name            = local.cloud_connection_name_2
   pi_cloud_connection_speed           = var.cloud_connection_speed
   pi_cloud_connection_global_routing  = var.cloud_connection_gr
@@ -46,17 +34,9 @@ resource "ibm_pi_cloud_connection" "cloud_connection_backup" {
   pi_cloud_connection_transit_enabled = true
 }
 
-#####################################################
-# Get transit gateway
-#####################################################
-
-data "ibm_tg_gateway" "tg_gateway_ds" {
-  name = var.transit_gateway_name
-}
-
-#####################################################
+######################################################
 # Get direct link CRNs from created cloud connections
-#####################################################
+######################################################
 
 data "ibm_dl_gateway" "gateway_ds_1" {
   depends_on = [ibm_pi_cloud_connection.cloud_connection]
@@ -93,7 +73,7 @@ resource "time_sleep" "dl_2_resource_propagation" {
 }
 
 #####################################################
-# Attach direct link CRNs to transit gateway
+# Attach direct link CRNs to transit gateway : Non PER
 #####################################################
 
 resource "ibm_tg_connection" "ibm_tg_connection_1" {
@@ -102,7 +82,7 @@ resource "ibm_tg_connection" "ibm_tg_connection_1" {
 
   name         = local.cloud_connection_name_1
   network_type = "directlink"
-  gateway      = data.ibm_tg_gateway.tg_gateway_ds.id
+  gateway      = var.transit_gateway_id
   network_id   = time_sleep.dl_1_resource_propagation[0].triggers["dl_crn"]
 }
 
@@ -112,12 +92,12 @@ resource "ibm_tg_connection" "ibm_tg_connection_2" {
 
   name         = local.cloud_connection_name_2
   network_type = "directlink"
-  gateway      = data.ibm_tg_gateway.tg_gateway_ds.id
+  gateway      = var.transit_gateway_id
   network_id   = time_sleep.dl_2_resource_propagation[0].triggers["dl_crn"]
 }
 
 #####################################################
-# Attach PowerVS Workspace to transit gateway :PER
+# Attach PowerVS Workspace to transit gateway : PER DC
 #####################################################
 
 resource "ibm_tg_connection" "ibm_powervs_workspace_attach_per" {
@@ -125,6 +105,6 @@ resource "ibm_tg_connection" "ibm_powervs_workspace_attach_per" {
 
   name         = var.powervs_workspace_name
   network_type = "power_virtual_server"
-  gateway      = data.ibm_tg_gateway.tg_gateway_ds.id
-  network_id   = data.ibm_resource_instance.powervs_workspace_ds.id
+  gateway      = var.transit_gateway_id
+  network_id   = var.powervs_workspace_id
 }

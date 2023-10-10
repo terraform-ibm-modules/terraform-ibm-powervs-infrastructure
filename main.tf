@@ -7,13 +7,24 @@ locals {
   per_enabled         = contains(local.per_enabled_dc_list, var.powervs_zone)
 }
 
+
+#####################################################
+# Validation Submodule
+#####################################################
+
 module "initial_validation" {
   source = "./submodules/terraform_initial_validation"
   cloud_connection_validate = {
     reuse_cloud_connections = var.reuse_cloud_connections
-    transit_gateway_name    = var.transit_gateway_name
+    transit_gateway_id      = var.transit_gateway_id
   }
 }
+
+
+#####################################################
+# Workspace Submodule ( Creates Workspace, SSH key,
+# Subnets, Imports catalog images )
+#####################################################
 
 module "powervs_workspace" {
   source = "./submodules/powervs_workspace"
@@ -29,14 +40,22 @@ module "powervs_workspace" {
   powervs_backup_network      = var.powervs_backup_network
 }
 
+
+#####################################################
+# CC Create Submodule
+# Non PER DC: Creates CCs, attaches CCs to TGW
+# PER DC: Attaches PowerVS workspace to TGW
+#####################################################
+
 module "powervs_cloud_connection_create" {
-  source                       = "./submodules/powervs_cloudconnection_create"
-  depends_on                   = [module.powervs_workspace]
-  count                        = var.reuse_cloud_connections ? 0 : 1
+  source = "./submodules/powervs_cloudconnection_create"
+  count  = var.reuse_cloud_connections ? 0 : 1
+
   powervs_zone                 = var.powervs_zone
-  powervs_resource_group_name  = var.powervs_resource_group_name
   powervs_workspace_name       = var.powervs_workspace_name
-  transit_gateway_name         = var.transit_gateway_name
+  powervs_workspace_guid       = module.powervs_workspace.powervs_workspace_guid
+  powervs_workspace_id         = module.powervs_workspace.powervs_workspace_id
+  transit_gateway_id           = var.transit_gateway_id
   per_enabled                  = local.per_enabled
   cloud_connection_name_prefix = var.cloud_connection_name_prefix
   cloud_connection_count       = var.cloud_connection_count
@@ -46,15 +65,20 @@ module "powervs_cloud_connection_create" {
 
 }
 
+#####################################################
+# CC Subnet Attach Submodule
+# Non PER DC: Attaches Subnets to CCs
+# PER DC: Skip
+#####################################################
+
 module "powervs_cloud_connection_attach" {
-  source                      = "./submodules/powervs_cloudconnection_attach"
-  count                       = local.per_enabled ? 0 : 1
-  depends_on                  = [module.powervs_workspace, module.powervs_cloud_connection_create]
-  powervs_zone                = var.powervs_zone
-  powervs_resource_group_name = var.powervs_resource_group_name
-  powervs_workspace_name      = var.powervs_workspace_name
-  cloud_connection_count      = var.cloud_connection_count
-  powervs_subnet_names        = [var.powervs_management_network.name, var.powervs_backup_network.name]
+  source     = "./submodules/powervs_cloudconnection_attach"
+  depends_on = [module.powervs_cloud_connection_create]
+  count      = local.per_enabled ? 0 : 1
+
+  powervs_workspace_guid = module.powervs_workspace.powervs_workspace_guid
+  cloud_connection_count = var.cloud_connection_count
+  powervs_subnet_ids     = [module.powervs_workspace.powervs_workspace_management_subnet_id, module.powervs_workspace.powervs_workspace_backup_subnet_id]
 }
 
 

@@ -59,8 +59,8 @@ variable "powervs_backup_network" {
   }
 }
 
-variable "transit_gateway_name" {
-  description = "Name of the existing transit gateway. Required when you create new IBM Cloud connections. Set it to null if reusing cloud connections"
+variable "transit_gateway_id" {
+  description = "ID of the existing transit gateway. Required when you create new IBM Cloud connections. Set it to null if reusing cloud connections"
   type        = string
 }
 

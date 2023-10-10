@@ -46,6 +46,7 @@ locals {
   prefix               = local.fullstack_output[0].prefix.value
   ssh_public_key       = local.fullstack_output[0].ssh_public_key.value
   transit_gateway_name = local.fullstack_output[0].transit_gateway_name.value
+  transit_gateway_id   = local.fullstack_output[0].transit_gateway_id.value
 
   access_host_or_ip_exists   = contains(keys(local.fullstack_output[0]), "access_host_or_ip") ? true : false
   access_host_or_ip          = local.access_host_or_ip_exists ? local.fullstack_output[0].access_host_or_ip.value : ""
@@ -122,7 +123,7 @@ module "powervs_infra" {
   ssh_private_key             = null
   powervs_management_network  = var.powervs_management_network
   powervs_backup_network      = var.powervs_backup_network
-  transit_gateway_name        = local.transit_gateway_name
+  transit_gateway_id          = local.transit_gateway_id
   reuse_cloud_connections     = false
   cloud_connection_count      = var.cloud_connection["count"]
   cloud_connection_speed      = var.cloud_connection["speed"]
