@@ -1,5 +1,3 @@
-<!-- BEGIN MODULE HOOK -->
-
 # IBM Power Virtual Server with VPC landing zone module
 
 [![Graduated (Supported)](https://img.shields.io/badge/status-Graduated%20(Supported)-brightgreen?style=plastic)](https://terraform-ibm-modules.github.io/documentation/#/badge-status)
