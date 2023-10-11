@@ -40,11 +40,11 @@ if [ "$OS_DETECTED" == "SLES" ]; then
 
     ##### Activate SuSE packages #####
     zypper --gpg-auto-import-keys ref >/dev/null
-    SUSEConnect -p PackageHub/"$${VERSION_ID}"/"$${ARCH}" >/dev/null
+    SUSEConnect -p PackageHub/$VERSION_ID/$ARCH >/dev/null
     zypper --gpg-auto-import-keys ref >/dev/null
-    SUSEConnect -p sle-module-server-applications/"$${VERSION_ID}"/"$${ARCH}" >/dev/null
+    SUSEConnect -p sle-module-server-applications/$VERSION_ID/$ARCH >/dev/null
     zypper --gpg-auto-import-keys ref >/dev/null
-    SUSEConnect -p sle-module-public-cloud/"$${VERSION_ID}"/"$${ARCH}" >/dev/null
+    SUSEConnect -p sle-module-public-cloud/$VERSION_ID/$ARCH >/dev/null
     zypper --gpg-auto-import-keys ref >/dev/null
 
     ##### Zypper Install Ansible #####
