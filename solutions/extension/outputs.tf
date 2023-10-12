@@ -79,12 +79,12 @@ output "powervs_backup_network_subnet" {
 
 output "access_host_or_ip" {
   description = "Access host for created PowerVS infrastructure."
-  value       = module.powervs_infra.access_host_or_ip
+  value       = local.access_host_or_ip
 }
 
 output "proxy_host_or_ip_port" {
   description = "Proxy host:port for created PowerVS infrastructure."
-  value       = module.powervs_infra.proxy_host_or_ip_port
+  value       = "${local.proxy_host_or_ip}:${local.squid_port}"
 }
 
 output "dns_host_or_ip" {

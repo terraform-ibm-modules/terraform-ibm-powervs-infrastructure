@@ -104,6 +104,7 @@ locals {
   }
 
   ### Proxy client will be configured on "${var.prefix}-private-svs-1" vsi
+  # tflint-ignore: terraform_unused_declarations
   perform_proxy_client_setup = {
     squid_client_ips = [local.private_svs_ip]
     squid_server_ip  = local.squid_config["server_host_or_ip"]
@@ -146,7 +147,6 @@ module "powervs_infra" {
   powervs_image_names         = var.powervs_image_names
   powervs_sshkey_name         = "${var.prefix}-${var.powervs_zone}-ssh-pvs-key"
   ssh_public_key              = var.ssh_public_key
-  ssh_private_key             = var.ssh_private_key
   powervs_management_network  = var.powervs_management_network
   powervs_backup_network      = var.powervs_backup_network
   transit_gateway_id          = module.landing_zone.transit_gateway_data.id
@@ -155,10 +155,4 @@ module "powervs_infra" {
   cloud_connection_speed      = var.cloud_connection["speed"]
   cloud_connection_gr         = var.cloud_connection["global_routing"]
   cloud_connection_metered    = var.cloud_connection["metered"]
-  access_host_or_ip           = local.access_host_or_ip
-  squid_config                = local.squid_config
-  dns_forwarder_config        = local.dns_config
-  ntp_forwarder_config        = local.ntp_config
-  nfs_config                  = local.nfs_config
-  perform_proxy_client_setup  = local.perform_proxy_client_setup
 }

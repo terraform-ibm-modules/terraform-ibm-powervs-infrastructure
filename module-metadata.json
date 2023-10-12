@@ -1,21 +1,6 @@
 {
   "path": ".",
   "variables": {
-    "access_host_or_ip": {
-      "name": "access_host_or_ip",
-      "type": "string",
-      "description": "The public IP address or hostname for the access host(Jump/Bastion server). The address is used to reach the target or server_host IP address and to configure the DNS, NTP, NFS, and Squid proxy services. Set it to null if you do not want to configure any services.",
-      "source": [
-        "module.configure_dns",
-        "module.configure_nfs",
-        "module.configure_ntp",
-        "module.configure_squid"
-      ],
-      "pos": {
-        "filename": "variables.tf",
-        "line": 119
-      }
-    },
     "cloud_connection_count": {
       "name": "cloud_connection_count",
       "type": "number",
@@ -38,7 +23,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 79
+        "line": 73
       }
     },
     "cloud_connection_gr": {
@@ -52,7 +37,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 107
+        "line": 101
       }
     },
     "cloud_connection_metered": {
@@ -66,7 +51,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 113
+        "line": 107
       }
     },
     "cloud_connection_name_prefix": {
@@ -78,7 +63,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 73
+        "line": 67
       }
     },
     "cloud_connection_speed": {
@@ -93,84 +78,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 85
-      }
-    },
-    "dns_forwarder_config": {
-      "name": "dns_forwarder_config",
-      "type": "object({\n    dns_enable        = bool\n    server_host_or_ip = string\n    dns_servers       = string\n  })",
-      "description": "Configuration for the DNS forwarder to a DNS service that is not reachable directly from PowerVS.",
-      "default": {
-        "dns_enable": "false",
-        "dns_servers": "161.26.0.7; 161.26.0.8; 9.9.9.9;",
-        "server_host_or_ip": ""
-      },
-      "source": [
-        "module.configure_dns",
-        "module.configure_dns",
-        "module.configure_dns"
-      ],
-      "pos": {
-        "filename": "variables.tf",
-        "line": 139
-      }
-    },
-    "nfs_config": {
-      "name": "nfs_config",
-      "type": "object({\n    nfs_enable        = bool\n    server_host_or_ip = string\n    nfs_file_system = list(object({\n      name       = string\n      mount_path = string\n      size       = number\n    }))\n  })",
-      "description": "Configuration for the shared NFS file system (for example, for the installation media). Creates a filesystem of disk size specified, mounts and NFS exports it.",
-      "default": {
-        "nfs_enable": "false",
-        "nfs_file_system": [
-          {
-            "mount_path": "/nfs",
-            "name": "nfs",
-            "size": 1000
-          }
-        ],
-        "server_host_or_ip": ""
-      },
-      "source": [
-        "module.configure_nfs",
-        "module.configure_nfs",
-        "module.configure_nfs"
-      ],
-      "pos": {
-        "filename": "variables.tf",
-        "line": 165
-      }
-    },
-    "ntp_forwarder_config": {
-      "name": "ntp_forwarder_config",
-      "type": "object({\n    ntp_enable        = bool\n    server_host_or_ip = string\n  })",
-      "description": "Configuration for the NTP forwarder to an NTP service that is not reachable directly from PowerVS.",
-      "default": {
-        "ntp_enable": "false",
-        "server_host_or_ip": ""
-      },
-      "source": [
-        "module.configure_ntp",
-        "module.configure_ntp",
-        "module.configure_ntp"
-      ],
-      "pos": {
-        "filename": "variables.tf",
-        "line": 153
-      }
-    },
-    "perform_proxy_client_setup": {
-      "name": "perform_proxy_client_setup",
-      "type": "object(\n    {\n      squid_client_ips = list(string)\n      squid_server_ip  = string\n      squid_port       = string\n      no_proxy_hosts   = string\n    }\n  )",
-      "description": "Proxy configuration to allow internet access for a VM or LPAR.",
-      "source": [
-        "module.configure_dns",
-        "module.configure_nfs",
-        "module.configure_ntp",
-        "module.configure_squid"
-      ],
-      "pos": {
-        "filename": "variables.tf",
-        "line": 183
+        "line": 79
       }
     },
     "powervs_backup_network": {
@@ -186,7 +94,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 50
+        "line": 44
       }
     },
     "powervs_image_names": {
@@ -204,7 +112,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 101
+        "line": 95
       }
     },
     "powervs_management_network": {
@@ -220,7 +128,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 38
+        "line": 32
       }
     },
     "powervs_resource_group_name": {
@@ -300,44 +208,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 67
-      }
-    },
-    "squid_config": {
-      "name": "squid_config",
-      "type": "object({\n    squid_enable      = bool\n    server_host_or_ip = string\n    squid_port        = string\n  })",
-      "description": "Configuration for the Squid proxy setup.",
-      "default": {
-        "server_host_or_ip": "",
-        "squid_enable": "false",
-        "squid_port": "3128"
-      },
-      "source": [
-        "module.configure_squid",
-        "module.configure_squid",
-        "module.configure_squid",
-        "time_sleep.wait_for_squid_setup_to_complete.count"
-      ],
-      "pos": {
-        "filename": "variables.tf",
-        "line": 125
-      }
-    },
-    "ssh_private_key": {
-      "name": "ssh_private_key",
-      "type": "string",
-      "description": "Private SSH key (RSA format) used to login to IBM PowerVS instances. Should match to uploaded public SSH key referenced by 'ssh_public_key'. Entered data must be in heredoc strings format (https://www.terraform.io/language/expressions/strings#heredoc-strings). The key is not uploaded or stored.",
-      "required": true,
-      "sensitive": true,
-      "source": [
-        "module.configure_dns",
-        "module.configure_nfs",
-        "module.configure_ntp",
-        "module.configure_squid"
-      ],
-      "pos": {
-        "filename": "variables.tf",
-        "line": 32
+        "line": 61
       }
     },
     "ssh_public_key": {
@@ -363,7 +234,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 95
+        "line": 89
       },
       "min_length": 1,
       "max_length": 128,
@@ -385,52 +256,18 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 62
+        "line": 56
       },
       "immutable": true
     }
   },
   "outputs": {
-    "access_host_or_ip": {
-      "name": "access_host_or_ip",
-      "description": "The public IP address or hostname for the access host(Jump/Bastion server). The address is used to reach the target or server_host IP address and to configure the DNS, NTP, NFS, and Squid proxy services. Set it to null if you do not want to configure any services.",
-      "value": "var.access_host_or_ip",
-      "pos": {
-        "filename": "outputs.tf",
-        "line": 41
-      },
-      "type": "string"
-    },
     "cloud_connection_count": {
       "name": "cloud_connection_count",
       "description": "Number of cloud connections configured in created PowerVS infrastructure.",
       "pos": {
         "filename": "outputs.tf",
         "line": 26
-      }
-    },
-    "dns_host_or_ip": {
-      "name": "dns_host_or_ip",
-      "description": "DNS forwarder host for created PowerVS infrastructure.",
-      "pos": {
-        "filename": "outputs.tf",
-        "line": 51
-      }
-    },
-    "nfs_host_or_ip_path": {
-      "name": "nfs_host_or_ip_path",
-      "description": "NFS host for created PowerVS infrastructure.",
-      "pos": {
-        "filename": "outputs.tf",
-        "line": 61
-      }
-    },
-    "ntp_host_or_ip": {
-      "name": "ntp_host_or_ip",
-      "description": "NTP host for created PowerVS infrastructure.",
-      "pos": {
-        "filename": "outputs.tf",
-        "line": 56
       }
     },
     "powervs_backup_network_name": {
@@ -507,14 +344,6 @@
       },
       "type": "string",
       "cloud_data_type": "region"
-    },
-    "proxy_host_or_ip_port": {
-      "name": "proxy_host_or_ip_port",
-      "description": "Proxy host for created PowerVS infrastructure.",
-      "pos": {
-        "filename": "outputs.tf",
-        "line": 46
-      }
     }
   },
   "required_core": [
@@ -526,361 +355,11 @@
       "version_constraints": [
         "\u003e=1.49.0"
       ]
-    },
-    "time": {
-      "source": "hashicorp/time",
-      "version_constraints": [
-        "\u003e= 0.9.1"
-      ]
     }
   },
-  "managed_resources": {
-    "time_sleep.wait_for_squid_setup_to_complete": {
-      "mode": "managed",
-      "type": "time_sleep",
-      "name": "wait_for_squid_setup_to_complete",
-      "attributes": {
-        "count": "squid_config"
-      },
-      "provider": {
-        "name": "time"
-      },
-      "pos": {
-        "filename": "main.tf",
-        "line": 101
-      }
-    }
-  },
+  "managed_resources": {},
   "data_resources": {},
   "module_calls": {
-    "configure_dns": {
-      "name": "configure_dns",
-      "source": "./submodules/configure_network_services",
-      "attributes": {
-        "access_host_or_ip": "access_host_or_ip",
-        "count": "dns_forwarder_config",
-        "perform_proxy_client_setup": "perform_proxy_client_setup",
-        "service_config": "dns_forwarder_config",
-        "ssh_private_key": "ssh_private_key",
-        "target_server_ip": "dns_forwarder_config"
-      },
-      "managed_resources": {
-        "null_resource.execute_ansible_role": {
-          "mode": "managed",
-          "type": "null_resource",
-          "name": "execute_ansible_role",
-          "provider": {
-            "name": "null"
-          },
-          "pos": {
-            "filename": "submodules/configure_network_services/main.tf",
-            "line": 186
-          }
-        },
-        "null_resource.install_packages": {
-          "mode": "managed",
-          "type": "null_resource",
-          "name": "install_packages",
-          "provider": {
-            "name": "null"
-          },
-          "pos": {
-            "filename": "submodules/configure_network_services/main.tf",
-            "line": 128
-          }
-        },
-        "null_resource.perform_proxy_client_setup": {
-          "mode": "managed",
-          "type": "null_resource",
-          "name": "perform_proxy_client_setup",
-          "attributes": {
-            "count": "perform_proxy_client_setup"
-          },
-          "provider": {
-            "name": "null"
-          },
-          "pos": {
-            "filename": "submodules/configure_network_services/main.tf",
-            "line": 23
-          }
-        },
-        "null_resource.update_os": {
-          "mode": "managed",
-          "type": "null_resource",
-          "name": "update_os",
-          "provider": {
-            "name": "null"
-          },
-          "pos": {
-            "filename": "submodules/configure_network_services/main.tf",
-            "line": 71
-          }
-        },
-        "time_sleep.wait_for_reboot": {
-          "mode": "managed",
-          "type": "time_sleep",
-          "name": "wait_for_reboot",
-          "provider": {
-            "name": "time"
-          },
-          "pos": {
-            "filename": "submodules/configure_network_services/main.tf",
-            "line": 113
-          }
-        }
-      },
-      "data_resources": {},
-      "pos": {
-        "filename": "main.tf",
-        "line": 108
-      }
-    },
-    "configure_nfs": {
-      "name": "configure_nfs",
-      "source": "./submodules/configure_network_services",
-      "attributes": {
-        "access_host_or_ip": "access_host_or_ip",
-        "count": "nfs_config",
-        "perform_proxy_client_setup": "perform_proxy_client_setup",
-        "service_config": "nfs_config",
-        "ssh_private_key": "ssh_private_key",
-        "target_server_ip": "nfs_config"
-      },
-      "managed_resources": {
-        "null_resource.execute_ansible_role": {
-          "mode": "managed",
-          "type": "null_resource",
-          "name": "execute_ansible_role",
-          "provider": {
-            "name": "null"
-          },
-          "pos": {
-            "filename": "submodules/configure_network_services/main.tf",
-            "line": 186
-          }
-        },
-        "null_resource.install_packages": {
-          "mode": "managed",
-          "type": "null_resource",
-          "name": "install_packages",
-          "provider": {
-            "name": "null"
-          },
-          "pos": {
-            "filename": "submodules/configure_network_services/main.tf",
-            "line": 128
-          }
-        },
-        "null_resource.perform_proxy_client_setup": {
-          "mode": "managed",
-          "type": "null_resource",
-          "name": "perform_proxy_client_setup",
-          "attributes": {
-            "count": "perform_proxy_client_setup"
-          },
-          "provider": {
-            "name": "null"
-          },
-          "pos": {
-            "filename": "submodules/configure_network_services/main.tf",
-            "line": 23
-          }
-        },
-        "null_resource.update_os": {
-          "mode": "managed",
-          "type": "null_resource",
-          "name": "update_os",
-          "provider": {
-            "name": "null"
-          },
-          "pos": {
-            "filename": "submodules/configure_network_services/main.tf",
-            "line": 71
-          }
-        },
-        "time_sleep.wait_for_reboot": {
-          "mode": "managed",
-          "type": "time_sleep",
-          "name": "wait_for_reboot",
-          "provider": {
-            "name": "time"
-          },
-          "pos": {
-            "filename": "submodules/configure_network_services/main.tf",
-            "line": 113
-          }
-        }
-      },
-      "data_resources": {},
-      "pos": {
-        "filename": "main.tf",
-        "line": 134
-      }
-    },
-    "configure_ntp": {
-      "name": "configure_ntp",
-      "source": "./submodules/configure_network_services",
-      "attributes": {
-        "access_host_or_ip": "access_host_or_ip",
-        "count": "ntp_forwarder_config",
-        "perform_proxy_client_setup": "perform_proxy_client_setup",
-        "service_config": "ntp_forwarder_config",
-        "ssh_private_key": "ssh_private_key",
-        "target_server_ip": "ntp_forwarder_config"
-      },
-      "managed_resources": {
-        "null_resource.execute_ansible_role": {
-          "mode": "managed",
-          "type": "null_resource",
-          "name": "execute_ansible_role",
-          "provider": {
-            "name": "null"
-          },
-          "pos": {
-            "filename": "submodules/configure_network_services/main.tf",
-            "line": 186
-          }
-        },
-        "null_resource.install_packages": {
-          "mode": "managed",
-          "type": "null_resource",
-          "name": "install_packages",
-          "provider": {
-            "name": "null"
-          },
-          "pos": {
-            "filename": "submodules/configure_network_services/main.tf",
-            "line": 128
-          }
-        },
-        "null_resource.perform_proxy_client_setup": {
-          "mode": "managed",
-          "type": "null_resource",
-          "name": "perform_proxy_client_setup",
-          "attributes": {
-            "count": "perform_proxy_client_setup"
-          },
-          "provider": {
-            "name": "null"
-          },
-          "pos": {
-            "filename": "submodules/configure_network_services/main.tf",
-            "line": 23
-          }
-        },
-        "null_resource.update_os": {
-          "mode": "managed",
-          "type": "null_resource",
-          "name": "update_os",
-          "provider": {
-            "name": "null"
-          },
-          "pos": {
-            "filename": "submodules/configure_network_services/main.tf",
-            "line": 71
-          }
-        },
-        "time_sleep.wait_for_reboot": {
-          "mode": "managed",
-          "type": "time_sleep",
-          "name": "wait_for_reboot",
-          "provider": {
-            "name": "time"
-          },
-          "pos": {
-            "filename": "submodules/configure_network_services/main.tf",
-            "line": 113
-          }
-        }
-      },
-      "data_resources": {},
-      "pos": {
-        "filename": "main.tf",
-        "line": 121
-      }
-    },
-    "configure_squid": {
-      "name": "configure_squid",
-      "source": "./submodules/configure_network_services",
-      "attributes": {
-        "access_host_or_ip": "access_host_or_ip",
-        "count": "squid_config",
-        "perform_proxy_client_setup": "perform_proxy_client_setup",
-        "service_config": "squid_config",
-        "ssh_private_key": "ssh_private_key",
-        "target_server_ip": "squid_config"
-      },
-      "managed_resources": {
-        "null_resource.execute_ansible_role": {
-          "mode": "managed",
-          "type": "null_resource",
-          "name": "execute_ansible_role",
-          "provider": {
-            "name": "null"
-          },
-          "pos": {
-            "filename": "submodules/configure_network_services/main.tf",
-            "line": 186
-          }
-        },
-        "null_resource.install_packages": {
-          "mode": "managed",
-          "type": "null_resource",
-          "name": "install_packages",
-          "provider": {
-            "name": "null"
-          },
-          "pos": {
-            "filename": "submodules/configure_network_services/main.tf",
-            "line": 128
-          }
-        },
-        "null_resource.perform_proxy_client_setup": {
-          "mode": "managed",
-          "type": "null_resource",
-          "name": "perform_proxy_client_setup",
-          "attributes": {
-            "count": "perform_proxy_client_setup"
-          },
-          "provider": {
-            "name": "null"
-          },
-          "pos": {
-            "filename": "submodules/configure_network_services/main.tf",
-            "line": 23
-          }
-        },
-        "null_resource.update_os": {
-          "mode": "managed",
-          "type": "null_resource",
-          "name": "update_os",
-          "provider": {
-            "name": "null"
-          },
-          "pos": {
-            "filename": "submodules/configure_network_services/main.tf",
-            "line": 71
-          }
-        },
-        "time_sleep.wait_for_reboot": {
-          "mode": "managed",
-          "type": "time_sleep",
-          "name": "wait_for_reboot",
-          "provider": {
-            "name": "time"
-          },
-          "pos": {
-            "filename": "submodules/configure_network_services/main.tf",
-            "line": 113
-          }
-        }
-      },
-      "data_resources": {},
-      "pos": {
-        "filename": "main.tf",
-        "line": 89
-      }
-    },
     "initial_validation": {
       "name": "initial_validation",
       "source": "./submodules/terraform_initial_validation",

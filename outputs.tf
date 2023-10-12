@@ -37,28 +37,3 @@ output "powervs_backup_network_name" {
   description = "Name of backup network in created PowerVS infrastructure."
   value       = var.powervs_backup_network.name
 }
-
-output "access_host_or_ip" {
-  description = "Access host for created PowerVS infrastructure."
-  value       = var.access_host_or_ip
-}
-
-output "proxy_host_or_ip_port" {
-  description = "Proxy host for created PowerVS infrastructure."
-  value       = var.squid_config != null ? (var.squid_config.squid_enable || var.squid_config.server_host_or_ip != "") ? "${var.squid_config.server_host_or_ip}:${var.squid_config.squid_port}" : "" : ""
-}
-
-output "dns_host_or_ip" {
-  description = "DNS forwarder host for created PowerVS infrastructure."
-  value       = var.dns_forwarder_config.dns_enable ? var.dns_forwarder_config["server_host_or_ip"] : ""
-}
-
-output "ntp_host_or_ip" {
-  description = "NTP host for created PowerVS infrastructure."
-  value       = var.ntp_forwarder_config.ntp_enable ? var.ntp_forwarder_config["server_host_or_ip"] : ""
-}
-
-output "nfs_host_or_ip_path" {
-  description = "NFS host for created PowerVS infrastructure."
-  value       = var.nfs_config.nfs_enable ? "${var.nfs_config["server_host_or_ip"]}:${var.nfs_config["nfs_file_system"][0]["mount_path"]}" : ""
-}

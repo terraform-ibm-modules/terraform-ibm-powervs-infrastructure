@@ -79,37 +79,6 @@ locals {
   validate_bkp_subnet_chk = regex("^${local.validate_bkp_subnet_msg}$", (local.valid_bkp_subnet_used ? local.validate_bkp_subnet_msg : ""))
 }
 
-locals {
-  squid_config = {
-    "squid_enable"      = false
-    "server_host_or_ip" = local.proxy_host_or_ip
-    "squid_port"        = local.squid_port
-  }
-  perform_proxy_client_setup = {
-    squid_client_ips = distinct([local.ntp_host_or_ip, local.nfs_host_or_ip, local.dns_host_or_ip])
-    squid_server_ip  = local.squid_config["server_host_or_ip"]
-    squid_port       = local.squid_config["squid_port"]
-    no_proxy_hosts   = "161.0.0.0/8"
-  }
-
-  dns_config = {
-    "dns_enable"        = false
-    "server_host_or_ip" = local.dns_host_or_ip
-    "dns_servers"       = "161.26.0.7; 161.26.0.8; 9.9.9.9;"
-  }
-  ntp_config = {
-    "ntp_enable"        = false
-    "server_host_or_ip" = local.ntp_host_or_ip
-  }
-
-  nfs_config = {
-    "nfs_enable"        = false
-    "server_host_or_ip" = local.nfs_host_or_ip
-    "nfs_file_system"   = [{ name = "nfs", mount_path : local.nfs_path, size : null }]
-  }
-
-}
-
 module "powervs_infra" {
   source = "../../"
 
@@ -120,7 +89,6 @@ module "powervs_infra" {
   powervs_image_names         = var.powervs_image_names
   powervs_sshkey_name         = "${local.prefix}-${var.powervs_zone}-ssh-pvs-key"
   ssh_public_key              = local.ssh_public_key
-  ssh_private_key             = null
   powervs_management_network  = var.powervs_management_network
   powervs_backup_network      = var.powervs_backup_network
   transit_gateway_id          = local.transit_gateway_id
@@ -129,10 +97,4 @@ module "powervs_infra" {
   cloud_connection_speed      = var.cloud_connection["speed"]
   cloud_connection_gr         = var.cloud_connection["global_routing"]
   cloud_connection_metered    = var.cloud_connection["metered"]
-  access_host_or_ip           = local.access_host_or_ip
-  squid_config                = local.squid_config
-  dns_forwarder_config        = local.dns_config
-  ntp_forwarder_config        = local.ntp_config
-  nfs_config                  = local.nfs_config
-  perform_proxy_client_setup  = local.perform_proxy_client_setup
 }
