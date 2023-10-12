@@ -43,7 +43,8 @@ module "powervs_infra" {
 #edge vsi: update, reboot, ansible squid
 module "vsi_configure_proxy_server" {
 
-  source = "../../submodules/ansible_configure_network_services"
+  source     = "../../submodules/ansible_configure_network_services"
+  depends_on = [module.landing_zone]
 
   access_host_or_ip          = local.access_host_or_ip
   target_server_ip           = local.inet_svs_ip
