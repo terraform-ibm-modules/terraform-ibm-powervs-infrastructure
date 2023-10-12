@@ -36,3 +36,36 @@ module "powervs_infra" {
   cloud_connection_gr         = var.cloud_connection["global_routing"]
   cloud_connection_metered    = var.cloud_connection["metered"]
 }
+
+#####################################################
+# VPC VSI Management Services OS configuration
+#####################################################
+#edge vsi: update, reboot, ansible squid
+module "vsi_configure_proxy_server" {
+
+  source = "../../submodules/ansible_configure_network_services"
+
+  access_host_or_ip          = local.access_host_or_ip
+  target_server_ip           = local.inet_svs_ip
+  ssh_private_key            = var.ssh_private_key
+  service_config             = local.squid_config
+  perform_proxy_client_setup = null
+}
+
+resource "time_sleep" "wait_for_squid_setup_to_complete" {
+  depends_on = [module.vsi_configure_proxy_server]
+
+  create_duration = "60s"
+}
+
+module "landing_zone_configure_network_services" {
+
+  source     = "../../submodules/ansible_configure_network_services"
+  depends_on = [time_sleep.wait_for_squid_setup_to_complete]
+
+  access_host_or_ip          = local.access_host_or_ip
+  target_server_ip           = local.private_svs_ip
+  ssh_private_key            = var.ssh_private_key
+  service_config             = local.network_services_config
+  perform_proxy_client_setup = local.perform_proxy_client_setup
+}
