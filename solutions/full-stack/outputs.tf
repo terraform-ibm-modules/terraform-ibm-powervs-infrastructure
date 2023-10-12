@@ -40,22 +40,22 @@ output "access_host_or_ip" {
 
 output "proxy_host_or_ip_port" {
   description = "Proxy host:port for created PowerVS infrastructure."
-  value       = "${local.squid_config.server_host_or_ip}:${local.squid_config.squid_port}"
+  value       = "${local.squid_config.squid.server_host_or_ip}:${local.squid_config.squid.squid_port}"
 }
 
 output "dns_host_or_ip" {
   description = "DNS forwarder host for created PowerVS infrastructure."
-  value       = local.network_services_config.dns_config.server_host_or_ip
+  value       = local.network_services_config.dns.server_host_or_ip
 }
 
 output "ntp_host_or_ip" {
   description = "NTP host for created PowerVS infrastructure."
-  value       = local.network_services_config.ntp_config.server_host_or_ip
+  value       = local.network_services_config.ntp.server_host_or_ip
 }
 
 output "nfs_host_or_ip_path" {
   description = "NFS host for created PowerVS infrastructure."
-  value       = "${local.network_services_config.nfs_config.server_host_or_ip}:${local.network_services_config.nfs_config.nfs_file_system[0].mount_path}"
+  value       = "${local.network_services_config.nfs.server_host_or_ip}:${local.network_services_config.nfs.nfs_file_system[0].mount_path}"
 }
 
 output "powervs_workspace_name" {

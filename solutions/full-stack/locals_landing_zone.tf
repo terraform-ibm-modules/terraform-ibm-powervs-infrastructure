@@ -32,16 +32,18 @@ locals {
 
   ### Squid Proxy will be installed on "${var.prefix}-inet-svs-1" vsi
   squid_config = {
-    "squid_enable"      = true
-    "server_host_or_ip" = local.inet_svs_ip
-    "squid_port"        = local.squid_port
+    squid = {
+      "enable"            = true
+      "server_host_or_ip" = local.inet_svs_ip
+      "squid_port"        = local.squid_port
+    }
   }
 
   ### Proxy client will be configured on "${var.prefix}-private-svs-1" vsi
   perform_proxy_client_setup = {
     squid_client_ips = [local.private_svs_ip]
     squid_server_ip  = local.inet_svs_ip
-    squid_port       = local.squid_config["squid_port"]
+    squid_port       = local.squid_config.squid["squid_port"]
     no_proxy_hosts   = "161.0.0.0/8"
 
   }
@@ -49,17 +51,17 @@ locals {
   ### DNS, NTP Forwarder and NFS server will be configured on "${var.prefix}-private-svs-1" vsi
   network_services_config = {
 
-    dns_config = merge(var.dns_forwarder_config, {
+    dns = merge(var.dns_forwarder_config, {
       "enable"            = var.configure_dns_forwarder
       "server_host_or_ip" = local.private_svs_ip
     })
 
-    ntp_config = {
+    ntp = {
       "enable"            = var.configure_ntp_forwarder
       "server_host_or_ip" = local.private_svs_ip
     }
 
-    nfs_config = {
+    nfs = {
       "enable"            = local.nfs_disk_size != "" ? var.configure_nfs_server : false
       "server_host_or_ip" = local.private_svs_ip
       "nfs_file_system"   = [{ name = "nfs", mount_path : "/nfs", size : local.nfs_disk_size }]
