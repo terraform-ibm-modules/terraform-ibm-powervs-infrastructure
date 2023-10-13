@@ -40,11 +40,10 @@ module "powervs_infra" {
 #####################################################
 # VPC VSI Management Services OS configuration
 #####################################################
-#edge vsi: update, reboot, ansible squid
+
 module "vsi_configure_proxy_server" {
 
-  source     = "../../submodules/ansible_configure_network_services"
-  depends_on = [module.landing_zone]
+  source = "../../submodules/ansible_configure_network_services"
 
   access_host_or_ip          = local.access_host_or_ip
   target_server_ip           = local.inet_svs_ip
@@ -56,7 +55,7 @@ module "vsi_configure_proxy_server" {
 resource "time_sleep" "wait_for_squid_setup_to_complete" {
   depends_on = [module.vsi_configure_proxy_server]
 
-  create_duration = "60s"
+  create_duration = "120s"
 }
 
 module "landing_zone_configure_network_services" {
