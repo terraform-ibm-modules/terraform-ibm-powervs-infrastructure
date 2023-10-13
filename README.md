@@ -1,6 +1,6 @@
 <!-- BEGIN MODULE HOOK -->
 
-# IBM Power Virtual Server with VPC landing zone module
+# Infrastructure for IBM Power Virtual Server
 
 [![Graduated (Supported)](https://img.shields.io/badge/status-Graduated%20(Supported)-brightgreen?style=plastic)](https://terraform-ibm-modules.github.io/documentation/#/badge-status)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
@@ -8,7 +8,7 @@
 [![latest release](https://img.shields.io/github/v/release/terraform-ibm-modules/terraform-ibm-powervs-infrastructure?logo=GitHub&sort=semver)](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/releases/latest)
 [![Renovate enabled](https://img.shields.io/badge/renovate-enabled-brightgreen.svg)](https://renovatebot.com/)
 
-The Power Virtual Server with VPC landing zone module automates the following tasks:
+Infrastructure for IBM Power Virtual Server terraform root module automates the following tasks:
 
 - Creates an IBM® Power Virtual Server (PowerVS) workspace.
 - Creates an SSH key.
@@ -17,16 +17,11 @@ The Power Virtual Server with VPC landing zone module automates the following ta
 - Attaches the IBM Cloud connections to a transit gateway in Non PER environment
 - Attaches the private networks to the IBM Cloud connections in Non PER environment
 - Attaches the PowerVS workspace to Transit gateway in PER enabled DC
-- Installs and configures the Squid Proxy, DNS Forwarder, NTP Forwarder and NFS on specified host, and sets the host as server for these services by using Ansible roles
 
 The following limitations apply to the module:
 
 - Only two IBM Cloud connections are supported in non PER environment.
 - You cannot reuse IBM Cloud connections.
-- Private networks in a PowerVS workspace must be in 10.0.0.0/8 range.
-- Only the following operating systems are supported for OS configurations:
-    - SUSE Linux Enterprise Server (SLES) version 15 SP43and SP4
-    - Red Hat Enterprise Linux (RHEL) version 8.6 and 8.4
 
 For more information about IBM Power Virtual Server see the [getting started](https://cloud.ibm.com/docs/power-iaas?topic=power-iaas-getting-started) IBM Cloud docs.
 
@@ -74,22 +69,15 @@ module "power-infrastructure" {
   powervs_image_names          = var.powervs_image_names
   powervs_sshkey_name          = var.powervs_sshkey_name
   ssh_public_key               = var.ssh_public_key
-  ssh_private_key              = var.ssh_private_key
   powervs_management_network   = var.powervs_management_network
   powervs_backup_network       = var.powervs_backup_network
-  transit_gateway_name         = var.transit_gateway_name
+  transit_gateway_id           = var.transit_gateway_id
   reuse_cloud_connections      = var.reuse_cloud_connections
   cloud_connection_name_prefix = var.cloud_connection_name_prefix
   cloud_connection_count       = var.cloud_connection_count
   cloud_connection_speed       = var.cloud_connection_speed
   cloud_connection_gr          = var.cloud_connection_gr
   cloud_connection_metered     = var.cloud_connection_metered
-  access_host_or_ip            = var.access_host_or_ip
-  squid_config                 = var.squid_config
-  dns_forwarder_config         = var.dns_forwarder_config
-  ntp_forwarder_config         = var.ntp_forwarder_config
-  nfs_config                   = var.nfs_config
-  perform_proxy_client_setup   = var.perform_proxy_client_setup
 }
 ```
 

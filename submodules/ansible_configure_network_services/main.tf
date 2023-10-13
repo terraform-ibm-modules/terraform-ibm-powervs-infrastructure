@@ -123,10 +123,10 @@ resource "terraform_data" "install_packages" {
 
 locals {
 
-  ansible_configure_network_services_playbook_name = "powervs-services.yml"
   src_script_configure_network_services_tftpl_path = "${local.scr_scripts_dir}/configure_network_services.sh.tftpl"
   dst_script_configure_network_services_sh_path    = "${local.dst_scripts_dir}/configure_network_services.sh"
-  dst_ansible_vars_path                            = "${local.dst_scripts_dir}/configure_network_services_config.yml"
+  dst_ansible_vars_path                            = "${local.dst_scripts_dir}/ansible_configure_network_services_vars.yml"
+  ansible_configure_network_services_playbook_name = "powervs-services.yml"
 }
 
 resource "terraform_data" "execute_ansible_role" {
