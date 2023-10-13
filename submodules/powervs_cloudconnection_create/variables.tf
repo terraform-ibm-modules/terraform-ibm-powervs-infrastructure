@@ -3,18 +3,8 @@ variable "powervs_zone" {
   type        = string
 }
 
-variable "powervs_workspace_name" {
-  description = "Existing IBM Cloud PowerVS Workspace Name."
-  type        = string
-}
-
 variable "powervs_workspace_guid" {
   description = "Existing IBM Cloud PowerVS Workspace GUID."
-  type        = string
-}
-
-variable "powervs_workspace_id" {
-  description = "Existing IBM Cloud PowerVS Workspace ID."
   type        = string
 }
 

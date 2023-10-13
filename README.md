@@ -72,7 +72,6 @@ module "power-infrastructure" {
   powervs_management_network   = var.powervs_management_network
   powervs_backup_network       = var.powervs_backup_network
   transit_gateway_id           = var.transit_gateway_id
-  reuse_cloud_connections      = var.reuse_cloud_connections
   cloud_connection_name_prefix = var.cloud_connection_name_prefix
   cloud_connection_count       = var.cloud_connection_count
   cloud_connection_speed       = var.cloud_connection_speed
@@ -107,14 +106,15 @@ module "power-infrastructure" {
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_initial_validation"></a> [initial\_validation](#module\_initial\_validation) | ./submodules/terraform_initial_validation | n/a |
 | <a name="module_powervs_cloud_connection_attach"></a> [powervs\_cloud\_connection\_attach](#module\_powervs\_cloud\_connection\_attach) | ./submodules/powervs_cloudconnection_attach | n/a |
 | <a name="module_powervs_cloud_connection_create"></a> [powervs\_cloud\_connection\_create](#module\_powervs\_cloud\_connection\_create) | ./submodules/powervs_cloudconnection_create | n/a |
 | <a name="module_powervs_workspace"></a> [powervs\_workspace](#module\_powervs\_workspace) | ./submodules/powervs_workspace | n/a |
 
 ### Resources
 
-No resources.
+| Name | Type |
+|------|------|
+| [ibm_tg_connection.ibm_powervs_workspace_attach_per](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/tg_connection) | resource |
 
 ### Inputs
 
@@ -132,10 +132,9 @@ No resources.
 | <a name="input_powervs_sshkey_name"></a> [powervs\_sshkey\_name](#input\_powervs\_sshkey\_name) | Name of the PowerVS SSH key to create. | `string` | `"ssh-key-pvs"` | no |
 | <a name="input_powervs_workspace_name"></a> [powervs\_workspace\_name](#input\_powervs\_workspace\_name) | Name of the PowerVS workspace to create. | `string` | `"power-workspace"` | no |
 | <a name="input_powervs_zone"></a> [powervs\_zone](#input\_powervs\_zone) | IBM Cloud PowerVS zone. | `string` | n/a | yes |
-| <a name="input_reuse_cloud_connections"></a> [reuse\_cloud\_connections](#input\_reuse\_cloud\_connections) | When true, IBM Cloud connections are reused (if attached to the transit gateway). | `bool` | `false` | no |
 | <a name="input_ssh_public_key"></a> [ssh\_public\_key](#input\_ssh\_public\_key) | Public SSH Key for the PowerVM to create. | `string` | n/a | yes |
 | <a name="input_tags"></a> [tags](#input\_tags) | List of tag names for the IBM Cloud PowerVS Workspace. | `list(string)` | `null` | no |
-| <a name="input_transit_gateway_id"></a> [transit\_gateway\_id](#input\_transit\_gateway\_id) | ID of the existing transit gateway. Required when you create new IBM Cloud connections. Set it to null if reusing cloud connections | `string` | n/a | yes |
+| <a name="input_transit_gateway_id"></a> [transit\_gateway\_id](#input\_transit\_gateway\_id) | ID of the existing transit gateway. Required when you create new IBM Cloud connections(Non-PER DC) or to attach the PowerVS workspace to Transit Gateway(PER DC). | `string` | n/a | yes |
 
 ### Outputs
 

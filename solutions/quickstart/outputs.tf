@@ -35,7 +35,7 @@ output "vsi_list" {
 
 output "powervs_workspace_name" {
   description = "PowerVS infrastructure workspace name."
-  value       = module.powervs_infra.powervs_workspace_name
+  value       = local.powervs_workspace_name
 }
 
 output "powervs_workspace_crn" {
@@ -45,7 +45,7 @@ output "powervs_workspace_crn" {
 
 output "powervs_sshkey_name" {
   description = "SSH public key name in created PowerVS infrastructure."
-  value       = module.powervs_infra.powervs_sshkey_name
+  value       = local.powervs_sshkey_name
 }
 
 output "powervs_zone" {

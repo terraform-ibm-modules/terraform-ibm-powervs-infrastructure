@@ -54,14 +54,8 @@ variable "powervs_backup_network" {
 }
 
 variable "transit_gateway_id" {
-  description = "ID of the existing transit gateway. Required when you create new IBM Cloud connections. Set it to null if reusing cloud connections"
+  description = "ID of the existing transit gateway. Required when you create new IBM Cloud connections(Non-PER DC) or to attach the PowerVS workspace to Transit Gateway(PER DC)."
   type        = string
-}
-
-variable "reuse_cloud_connections" {
-  description = "When true, IBM Cloud connections are reused (if attached to the transit gateway)."
-  type        = bool
-  default     = false
 }
 
 variable "cloud_connection_name_prefix" {

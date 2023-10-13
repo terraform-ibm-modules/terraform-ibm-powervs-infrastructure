@@ -30,7 +30,6 @@ module "powervs_infra" {
   powervs_management_network  = var.powervs_management_network
   powervs_backup_network      = var.powervs_backup_network
   transit_gateway_id          = module.landing_zone.transit_gateway_data.id
-  reuse_cloud_connections     = false
   cloud_connection_count      = var.cloud_connection["count"]
   cloud_connection_speed      = var.cloud_connection["speed"]
   cloud_connection_gr         = var.cloud_connection["global_routing"]

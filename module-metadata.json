@@ -23,7 +23,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 73
+        "line": 67
       }
     },
     "cloud_connection_gr": {
@@ -37,7 +37,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 101
+        "line": 95
       }
     },
     "cloud_connection_metered": {
@@ -51,7 +51,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 107
+        "line": 101
       }
     },
     "cloud_connection_name_prefix": {
@@ -63,7 +63,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 67
+        "line": 61
       }
     },
     "cloud_connection_speed": {
@@ -78,7 +78,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 79
+        "line": 73
       }
     },
     "powervs_backup_network": {
@@ -112,7 +112,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 95
+        "line": 89
       }
     },
     "powervs_management_network": {
@@ -170,7 +170,7 @@
       "default": "power-workspace",
       "required": true,
       "source": [
-        "module.powervs_cloud_connection_create.ibm_tg_connection.ibm_powervs_workspace_attach_per.name",
+        "ibm_tg_connection.ibm_powervs_workspace_attach_per.name",
         "module.powervs_workspace.ibm_resource_instance.powervs_workspace.name"
       ],
       "pos": {
@@ -197,20 +197,6 @@
       "cloud_data_type": "region",
       "immutable": true
     },
-    "reuse_cloud_connections": {
-      "name": "reuse_cloud_connections",
-      "type": "bool",
-      "description": "When true, IBM Cloud connections are reused (if attached to the transit gateway).",
-      "default": false,
-      "source": [
-        "module.initial_validation",
-        "module.powervs_cloud_connection_create"
-      ],
-      "pos": {
-        "filename": "variables.tf",
-        "line": 61
-      }
-    },
     "ssh_public_key": {
       "name": "ssh_public_key",
       "type": "string",
@@ -234,7 +220,7 @@
       ],
       "pos": {
         "filename": "variables.tf",
-        "line": 89
+        "line": 83
       },
       "min_length": 1,
       "max_length": 128,
@@ -247,10 +233,10 @@
     "transit_gateway_id": {
       "name": "transit_gateway_id",
       "type": "string",
-      "description": "ID of the existing transit gateway. Required when you create new IBM Cloud connections. Set it to null if reusing cloud connections",
+      "description": "ID of the existing transit gateway. Required when you create new IBM Cloud connections(Non-PER DC) or to attach the PowerVS workspace to Transit Gateway(PER DC).",
       "required": true,
       "source": [
-        "module.powervs_cloud_connection_create.ibm_tg_connection.ibm_powervs_workspace_attach_per.gateway",
+        "ibm_tg_connection.ibm_powervs_workspace_attach_per.gateway",
         "module.powervs_cloud_connection_create.ibm_tg_connection.ibm_tg_connection_1.gateway",
         "module.powervs_cloud_connection_create.ibm_tg_connection.ibm_tg_connection_2.gateway"
       ],
@@ -357,22 +343,26 @@
       ]
     }
   },
-  "managed_resources": {},
-  "data_resources": {},
-  "module_calls": {
-    "initial_validation": {
-      "name": "initial_validation",
-      "source": "./submodules/terraform_initial_validation",
+  "managed_resources": {
+    "ibm_tg_connection.ibm_powervs_workspace_attach_per": {
+      "mode": "managed",
+      "type": "ibm_tg_connection",
+      "name": "ibm_powervs_workspace_attach_per",
       "attributes": {
-        "cloud_connection_validate": "reuse_cloud_connections"
+        "gateway": "transit_gateway_id",
+        "name": "powervs_workspace_name"
       },
-      "managed_resources": {},
-      "data_resources": {},
+      "provider": {
+        "name": "ibm"
+      },
       "pos": {
         "filename": "main.tf",
-        "line": 15
+        "line": 71
       }
-    },
+    }
+  },
+  "data_resources": {},
+  "module_calls": {
     "powervs_cloud_connection_attach": {
       "name": "powervs_cloud_connection_attach",
       "source": "./submodules/powervs_cloudconnection_attach",
@@ -468,7 +458,7 @@
       },
       "pos": {
         "filename": "main.tf",
-        "line": 74
+        "line": 57
       }
     },
     "powervs_cloud_connection_create": {
@@ -480,8 +470,6 @@
         "cloud_connection_metered": "cloud_connection_metered",
         "cloud_connection_name_prefix": "cloud_connection_name_prefix",
         "cloud_connection_speed": "cloud_connection_speed",
-        "count": "reuse_cloud_connections",
-        "powervs_workspace_name": "powervs_workspace_name",
         "powervs_zone": "powervs_zone",
         "transit_gateway_id": "transit_gateway_id"
       },
@@ -522,24 +510,6 @@
           "pos": {
             "filename": "submodules/powervs_cloudconnection_create/main.tf",
             "line": 25
-          }
-        },
-        "ibm_tg_connection.ibm_powervs_workspace_attach_per": {
-          "mode": "managed",
-          "type": "ibm_tg_connection",
-          "name": "ibm_powervs_workspace_attach_per",
-          "attributes": {
-            "count": "per_enabled",
-            "gateway": "transit_gateway_id",
-            "name": "powervs_workspace_name",
-            "network_id": "powervs_workspace_id"
-          },
-          "provider": {
-            "name": "ibm"
-          },
-          "pos": {
-            "filename": "submodules/powervs_cloudconnection_create/main.tf",
-            "line": 103
           }
         },
         "ibm_tg_connection.ibm_tg_connection_1": {
@@ -639,7 +609,7 @@
       },
       "pos": {
         "filename": "main.tf",
-        "line": 50
+        "line": 35
       }
     },
     "powervs_workspace": {
@@ -851,7 +821,7 @@
       },
       "pos": {
         "filename": "main.tf",
-        "line": 29
+        "line": 15
       }
     }
   }
