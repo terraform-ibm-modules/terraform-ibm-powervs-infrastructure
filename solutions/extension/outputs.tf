@@ -29,7 +29,7 @@ output "vsi_list" {
 }
 output "powervs_workspace_name" {
   description = "PowerVS infrastructure workspace name."
-  value       = module.powervs_infra.powervs_workspace_name
+  value       = local.powervs_workspace_name
 }
 
 output "powervs_workspace_crn" {
@@ -39,42 +39,42 @@ output "powervs_workspace_crn" {
 
 output "powervs_sshkey_name" {
   description = "SSH public key name in created PowerVS infrastructure."
-  value       = module.powervs_infra.powervs_sshkey_name
+  value       = local.powervs_sshkey_name
 }
 
 output "powervs_zone" {
   description = "Zone where PowerVS infrastructure is created."
-  value       = module.powervs_infra.powervs_zone
+  value       = var.powervs_zone
 }
 
 output "powervs_resource_group_name" {
   description = "IBM Cloud resource group where PowerVS infrastructure is created."
-  value       = module.powervs_infra.powervs_resource_group_name
+  value       = var.powervs_resource_group_name
 }
 
 output "cloud_connection_count" {
   description = "Number of cloud connections configured in created PowerVS infrastructure."
-  value       = module.powervs_infra.cloud_connection_count
+  value       = var.cloud_connection.count
 }
 
 output "powervs_management_network_name" {
   description = "Name of management network in created PowerVS infrastructure."
-  value       = module.powervs_infra.powervs_management_network_name
+  value       = var.powervs_management_network.name
 }
 
 output "powervs_management_network_subnet" {
   description = "Subnet CIDR  of management network in created PowerVS infrastructure."
-  value       = var.powervs_management_network["cidr"]
+  value       = var.powervs_management_network.cidr
 }
 
 output "powervs_backup_network_name" {
   description = "Name of backup network in created PowerVS infrastructure."
-  value       = module.powervs_infra.powervs_backup_network_name
+  value       = var.powervs_backup_network.name
 }
 
 output "powervs_backup_network_subnet" {
   description = "Subnet CIDR of backup network in created PowerVS infrastructure."
-  value       = var.powervs_backup_network["cidr"]
+  value       = var.powervs_backup_network.cidr
 }
 
 output "access_host_or_ip" {
