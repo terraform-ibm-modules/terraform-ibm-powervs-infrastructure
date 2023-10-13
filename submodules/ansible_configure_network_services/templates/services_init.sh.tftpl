@@ -134,8 +134,8 @@ register_os() {
   if [ "$OS_DETECTED" == "SLES" ]; then
 
     ##### Check for SUSEConnect process
-    sleep 30
     print_out "Sleeping 30 seconds in case of auto OS registration, as this causes a conflict for SUSEConnect Process."
+    sleep 30
     SUSECONNECT_PID="$(pgrep SUSEConnect)"
     if [ ! -z "$SUSECONNECT_PID" ]; then
       print_out "A SUSEConnect PID process with PID $SUSECONNECT_PID is still running, waiting for it to finish."

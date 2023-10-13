@@ -39,8 +39,8 @@ if [ "$OS_DETECTED" == "SLES" ]; then
     ARCH=$(uname -p)
 
     ##### Check for SUSEConnect process
-    sleep 30
     echo "Sleeping 30 seconds in case of auto OS registration, as this causes a conflict for SUSEConnect Process."
+    sleep 30
     SUSECONNECT_PID="$(pgrep SUSEConnect)"
     if [ ! -z "$SUSECONNECT_PID" ]; then
       echo "A SUSEConnect PID process with PID $SUSECONNECT_PID is still running, waiting for it to finish"
