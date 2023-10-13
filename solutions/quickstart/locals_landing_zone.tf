@@ -24,38 +24,30 @@ locals {
 }
 
 locals {
-  ### Squid Proxy will be installed on "${var.prefix}-inet-svs-1" vsi
-  squid_config = {
-    "squid_enable"      = true
-    "server_host_or_ip" = local.inet_svs_ip
-    "squid_port"        = local.squid_port
-  }
 
-  ### Proxy client will be configured on "${var.prefix}-inet-svs-1" vsi
-  # tflint-ignore: terraform_unused_declarations
-  perform_proxy_client_setup = {
-    squid_client_ips = []
-    squid_server_ip  = ""
-    squid_port       = ""
-    no_proxy_hosts   = ""
-  }
+  ### SQUID, DNS, NTP Forwarder and NFS server will be configured on "${var.prefix}-inet-svs-1" vsi
+  network_services_config = {
 
-  ### DNS Forwarder will be configured on "${var.prefix}-inet-svs-1" vsi
-  dns_config = merge(var.dns_forwarder_config, {
-    "dns_enable"        = var.configure_dns_forwarder
-    "server_host_or_ip" = local.inet_svs_ip
-  })
+    squid = {
+      "enable"            = true
+      "server_host_or_ip" = local.inet_svs_ip
+      "squid_port"        = local.squid_port
+    }
 
-  ### NTP Forwarder will be configured on "${var.prefix}-inet-svs-1" vsi
-  ntp_config = {
-    "ntp_enable"        = var.configure_ntp_forwarder
-    "server_host_or_ip" = local.inet_svs_ip
-  }
+    dns = merge(var.dns_forwarder_config, {
+      "enable"            = var.configure_dns_forwarder
+      "server_host_or_ip" = local.inet_svs_ip
+    })
 
-  ### NFS server will be configured on "${var.prefix}-inet-svs-1" vsi
-  nfs_config = {
-    "nfs_enable"        = local.nfs_disk_size != "" ? var.configure_nfs_server : false
-    "server_host_or_ip" = local.inet_svs_ip
-    "nfs_file_system"   = [{ name = "nfs", mount_path : "/nfs", size : local.nfs_disk_size }]
+    ntp = {
+      "enable"            = var.configure_ntp_forwarder
+      "server_host_or_ip" = local.inet_svs_ip
+    }
+
+    nfs = {
+      "enable"            = local.nfs_disk_size != "" ? var.configure_nfs_server : false
+      "server_host_or_ip" = local.inet_svs_ip
+      "nfs_file_system"   = [{ name = "nfs", mount_path : "/nfs", size : local.nfs_disk_size }]
+    }
   }
 }

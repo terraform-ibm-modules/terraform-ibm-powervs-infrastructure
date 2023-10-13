@@ -36,6 +36,17 @@ module "powervs_infra" {
   cloud_connection_metered    = var.cloud_connection["metered"]
 }
 
+module "vsi_configure_proxy_server" {
+
+  source = "../../submodules/ansible_configure_network_services"
+
+  access_host_or_ip          = local.access_host_or_ip
+  target_server_ip           = local.inet_svs_ip
+  ssh_private_key            = var.ssh_private_key
+  service_config             = local.network_services_config
+  perform_proxy_client_setup = null
+}
+
 #####################################################
 # PowerVS Instance module
 #####################################################
