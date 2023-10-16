@@ -35,7 +35,7 @@ output "vsi_list" {
 
 output "powervs_workspace_name" {
   description = "PowerVS infrastructure workspace name."
-  value       = module.powervs_infra.powervs_workspace_name
+  value       = local.powervs_workspace_name
 }
 
 output "powervs_workspace_crn" {
@@ -45,7 +45,7 @@ output "powervs_workspace_crn" {
 
 output "powervs_sshkey_name" {
   description = "SSH public key name in created PowerVS infrastructure."
-  value       = module.powervs_infra.powervs_sshkey_name
+  value       = local.powervs_sshkey_name
 }
 
 output "powervs_zone" {
@@ -85,27 +85,27 @@ output "powervs_backup_network_subnet" {
 
 output "access_host_or_ip" {
   description = "Access host(jump/bastion) for created PowerVS infrastructure."
-  value       = module.powervs_infra.access_host_or_ip
+  value       = local.access_host_or_ip
 }
 
 output "proxy_host_or_ip_port" {
   description = "Proxy host:port for created PowerVS infrastructure."
-  value       = module.powervs_infra.proxy_host_or_ip_port
+  value       = "${local.network_services_config.squid.server_host_or_ip}:${local.network_services_config.squid.squid_port}"
 }
 
 output "dns_host_or_ip" {
   description = "DNS forwarder host for created PowerVS infrastructure."
-  value       = module.powervs_infra.dns_host_or_ip
+  value       = local.network_services_config.dns.server_host_or_ip
 }
 
 output "ntp_host_or_ip" {
   description = "NTP host for created PowerVS infrastructure."
-  value       = module.powervs_infra.ntp_host_or_ip
+  value       = local.network_services_config.ntp.server_host_or_ip
 }
 
 output "nfs_host_or_ip_path" {
   description = "NFS host for created PowerVS infrastructure."
-  value       = module.powervs_infra.nfs_host_or_ip_path
+  value       = "${local.network_services_config.nfs.server_host_or_ip}:${local.network_services_config.nfs.nfs_file_system[0].mount_path}"
 }
 
 output "pi_instance_private_ips" {

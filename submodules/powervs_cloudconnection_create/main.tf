@@ -95,16 +95,3 @@ resource "ibm_tg_connection" "ibm_tg_connection_2" {
   gateway      = var.transit_gateway_id
   network_id   = time_sleep.dl_2_resource_propagation[0].triggers["dl_crn"]
 }
-
-#####################################################
-# Attach PowerVS Workspace to transit gateway : PER DC
-#####################################################
-
-resource "ibm_tg_connection" "ibm_powervs_workspace_attach_per" {
-  count = var.per_enabled ? 1 : 0
-
-  name         = var.powervs_workspace_name
-  network_type = "power_virtual_server"
-  gateway      = var.transit_gateway_id
-  network_id   = var.powervs_workspace_id
-}

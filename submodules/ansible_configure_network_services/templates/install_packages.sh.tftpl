@@ -28,6 +28,45 @@ if [ -f /etc/redhat-release ]; then
 fi
 
 ###########################################
+# Helper functions                        #
+###########################################
+
+subscription_mgr_check_process() {
+  ##### Check for subscription-manager process
+  echo "Sleeping 60 seconds in case of auto OS registration, as this causes a conflict for subscription-manager Process."
+  sleep 60
+  SUBS_MANAGER_PID="$(pgrep -f subscription-manager)"
+  if [ ! -z "$SUBS_MANAGER_PID" ]; then
+    echo "A subscription-manager PID process with PID $SUBS_MANAGER_PID is still running, waiting for it to finish. Max Timeout 180 seconds."
+    timeout 180 tail --pid=$SUBS_MANAGER_PID -f /dev/null
+  fi
+  ###### Check for running zypper process
+  YUM_PID="$(pidof yum)"
+  if [ ! -z "$YUM_PID" ]; then
+    echo " A yum process with PID $YUM_PID is still running, waiting for it to finish. Max Timeout 180 seconds."
+    timeout 180 tail --pid=$YUM_PID -f /dev/null
+  fi
+}
+
+suseconnect_check_process() {
+
+  ##### Check for SUSEConnect process
+  echo "Sleeping 60 seconds in case of auto OS registration, as this causes a conflict for SUSEConnect Process."
+  sleep 60
+  SUSECONNECT_PID="$(pgrep SUSEConnect)"
+  if [ ! -z "$SUSECONNECT_PID" ]; then
+    echo "A SUSEConnect PID process with PID $SUSECONNECT_PID is still running, waiting for it to finish. Max Timeout 180 seconds."
+    timeout 180 tail --pid=$SUSECONNECT_PID -f /dev/null
+  fi
+  ###### Check for running zypper process
+  ZYPPER_PID="$(pidof zypper)"
+  if [ ! -z "$ZYPPER_PID" ]; then
+    echo " A zypper process with PID $ZYPPER_PID is still running, waiting for it to finish. Max Timeout 180 seconds."
+    timeout 180 tail --pid=$ZYPPER_PID -f /dev/null
+  fi
+}
+
+###########################################
 # SLES : Install Packages                 #
 ###########################################
 
@@ -37,6 +76,8 @@ if [ "$OS_DETECTED" == "SLES" ]; then
 
     VERSION_ID=$(grep VERSION_ID /etc/os-release | awk -F= '{ print $NF }' | sed 's/\"//g')
     ARCH=$(uname -p)
+
+    suseconnect_check_process
 
     ##### Activate SuSE packages #####
     zypper --gpg-auto-import-keys ref >/dev/null
@@ -68,6 +109,8 @@ if [ "$OS_DETECTED" == "RHEL" ]; then
   if [ "$install_packages" == true ]; then
 
     ARCH=$(uname -p)
+
+    subscription_mgr_check_process
 
     ##### pip Install Ansible ####
     if [[ "$ARCH" == "x86_64" ]]; then

@@ -42,7 +42,6 @@ No modules.
 |------|------|
 | [ibm_pi_cloud_connection.cloud_connection](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/pi_cloud_connection) | resource |
 | [ibm_pi_cloud_connection.cloud_connection_backup](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/pi_cloud_connection) | resource |
-| [ibm_tg_connection.ibm_powervs_workspace_attach_per](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/tg_connection) | resource |
 | [ibm_tg_connection.ibm_tg_connection_1](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/tg_connection) | resource |
 | [ibm_tg_connection.ibm_tg_connection_2](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/tg_connection) | resource |
 | [time_sleep.dl_1_resource_propagation](https://registry.terraform.io/providers/hashicorp/time/latest/docs/resources/sleep) | resource |
@@ -61,8 +60,6 @@ No modules.
 | <a name="input_cloud_connection_speed"></a> [cloud\_connection\_speed](#input\_cloud\_connection\_speed) | Speed in megabits per sec. Supported values are 50, 100, 200, 500, 1000, 2000, 5000, 10000. Required when creating new connection. | `number` | n/a | yes |
 | <a name="input_per_enabled"></a> [per\_enabled](#input\_per\_enabled) | Set it to true if the DC is PER enabled, then cloud connections will not be created. | `bool` | n/a | yes |
 | <a name="input_powervs_workspace_guid"></a> [powervs\_workspace\_guid](#input\_powervs\_workspace\_guid) | Existing IBM Cloud PowerVS Workspace GUID. | `string` | n/a | yes |
-| <a name="input_powervs_workspace_id"></a> [powervs\_workspace\_id](#input\_powervs\_workspace\_id) | Existing IBM Cloud PowerVS Workspace ID. | `string` | n/a | yes |
-| <a name="input_powervs_workspace_name"></a> [powervs\_workspace\_name](#input\_powervs\_workspace\_name) | Existing IBM Cloud PowerVS Workspace Name. | `string` | n/a | yes |
 | <a name="input_powervs_zone"></a> [powervs\_zone](#input\_powervs\_zone) | IBM Cloud PowerVS Zone. | `string` | n/a | yes |
 | <a name="input_transit_gateway_id"></a> [transit\_gateway\_id](#input\_transit\_gateway\_id) | Name of the existing transit gateway. Required when creating new cloud connections. | `string` | n/a | yes |
 

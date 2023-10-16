@@ -33,6 +33,31 @@ output "vsi_list" {
   value       = module.landing_zone.vsi_list
 }
 
+output "access_host_or_ip" {
+  description = "Access host(jump/bastion) for created PowerVS infrastructure."
+  value       = local.access_host_or_ip
+}
+
+output "proxy_host_or_ip_port" {
+  description = "Proxy host:port for created PowerVS infrastructure."
+  value       = "${local.squid_config.squid.server_host_or_ip}:${local.squid_config.squid.squid_port}"
+}
+
+output "dns_host_or_ip" {
+  description = "DNS forwarder host for created PowerVS infrastructure."
+  value       = local.network_services_config.dns.server_host_or_ip
+}
+
+output "ntp_host_or_ip" {
+  description = "NTP host for created PowerVS infrastructure."
+  value       = local.network_services_config.ntp.server_host_or_ip
+}
+
+output "nfs_host_or_ip_path" {
+  description = "NFS host for created PowerVS infrastructure."
+  value       = "${local.network_services_config.nfs.server_host_or_ip}:${local.network_services_config.nfs.nfs_file_system[0].mount_path}"
+}
+
 output "powervs_workspace_name" {
   description = "PowerVS infrastructure workspace name."
   value       = module.powervs_infra.powervs_workspace_name
@@ -50,17 +75,17 @@ output "powervs_sshkey_name" {
 
 output "powervs_zone" {
   description = "Zone where PowerVS infrastructure is created."
-  value       = module.powervs_infra.powervs_zone
+  value       = var.powervs_zone
 }
 
 output "powervs_resource_group_name" {
   description = "IBM Cloud resource group where PowerVS infrastructure is created."
-  value       = module.powervs_infra.powervs_resource_group_name
+  value       = var.powervs_resource_group_name
 }
 
 output "cloud_connection_count" {
   description = "Number of cloud connections configured in created PowerVS infrastructure."
-  value       = module.powervs_infra.cloud_connection_count
+  value       = var.cloud_connection.count
 }
 
 output "powervs_management_network_name" {
@@ -81,31 +106,6 @@ output "powervs_backup_network_name" {
 output "powervs_backup_network_subnet" {
   description = "Subnet CIDR of backup network in created PowerVS infrastructure."
   value       = var.powervs_backup_network.cidr
-}
-
-output "access_host_or_ip" {
-  description = "Access host(jump/bastion) for created PowerVS infrastructure."
-  value       = module.powervs_infra.access_host_or_ip
-}
-
-output "proxy_host_or_ip_port" {
-  description = "Proxy host:port for created PowerVS infrastructure."
-  value       = module.powervs_infra.proxy_host_or_ip_port
-}
-
-output "dns_host_or_ip" {
-  description = "DNS forwarder host for created PowerVS infrastructure."
-  value       = module.powervs_infra.dns_host_or_ip
-}
-
-output "ntp_host_or_ip" {
-  description = "NTP host for created PowerVS infrastructure."
-  value       = module.powervs_infra.ntp_host_or_ip
-}
-
-output "nfs_host_or_ip_path" {
-  description = "NFS host for created PowerVS infrastructure."
-  value       = module.powervs_infra.nfs_host_or_ip_path
 }
 
 output "schematics_workspace_id" {
