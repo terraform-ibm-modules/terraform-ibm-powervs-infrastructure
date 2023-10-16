@@ -36,7 +36,7 @@ module "powervs_infra" {
   cloud_connection_metered    = var.cloud_connection["metered"]
 }
 
-module "vsi_configure_proxy_server" {
+module "vsi_configure_network_services" {
 
   source = "../../submodules/ansible_configure_network_services"
 
@@ -52,7 +52,8 @@ module "vsi_configure_proxy_server" {
 #####################################################
 
 module "demo_pi_instance" {
-  source     = "git::https://github.com/terraform-ibm-modules/terraform-ibm-powervs-instance.git?ref=v0.3.0"
+  source     = "terraform-ibm-modules/powervs-instance/ibm"
+  version    = "0.3.2"
   depends_on = [module.powervs_infra]
 
   pi_zone                 = var.powervs_zone
