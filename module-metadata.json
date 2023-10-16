@@ -253,7 +253,7 @@
       "description": "Number of cloud connections configured in created PowerVS infrastructure.",
       "pos": {
         "filename": "outputs.tf",
-        "line": 26
+        "line": 31
       }
     },
     "powervs_backup_network_name": {
@@ -262,7 +262,7 @@
       "value": "var.powervs_backup_network.name",
       "pos": {
         "filename": "outputs.tf",
-        "line": 36
+        "line": 41
       },
       "type": "object({\n    name = string\n    cidr = string\n  })"
     },
@@ -272,7 +272,7 @@
       "value": "var.powervs_management_network.name",
       "pos": {
         "filename": "outputs.tf",
-        "line": 31
+        "line": 36
       },
       "type": "object({\n    name = string\n    cidr = string\n  })"
     },
@@ -282,7 +282,7 @@
       "value": "var.powervs_resource_group_name",
       "pos": {
         "filename": "outputs.tf",
-        "line": 21
+        "line": 26
       },
       "type": "string",
       "cloud_data_type": "resource_group",
@@ -296,7 +296,7 @@
       "value": "var.powervs_sshkey_name",
       "pos": {
         "filename": "outputs.tf",
-        "line": 11
+        "line": 16
       },
       "type": "string"
     },
@@ -307,6 +307,16 @@
       "pos": {
         "filename": "outputs.tf",
         "line": 6
+      },
+      "type": "TypeString"
+    },
+    "powervs_workspace_guid": {
+      "name": "powervs_workspace_guid",
+      "description": "PowerVS infrastructure workspace guid. The GUID of the resource instance.",
+      "value": "module.powervs_workspace.powervs_workspace_guid",
+      "pos": {
+        "filename": "outputs.tf",
+        "line": 11
       },
       "type": "TypeString"
     },
@@ -326,7 +336,7 @@
       "value": "var.powervs_zone",
       "pos": {
         "filename": "outputs.tf",
-        "line": 16
+        "line": 21
       },
       "type": "string",
       "cloud_data_type": "region"

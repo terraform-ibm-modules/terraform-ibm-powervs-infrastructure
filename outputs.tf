@@ -8,6 +8,11 @@ output "powervs_workspace_crn" {
   value       = module.powervs_workspace.powervs_workspace_crn
 }
 
+output "powervs_workspace_guid" {
+  description = "PowerVS infrastructure workspace guid. The GUID of the resource instance."
+  value       = module.powervs_workspace.powervs_workspace_guid
+}
+
 output "powervs_sshkey_name" {
   description = "SSH public key name in created PowerVS infrastructure."
   value       = var.powervs_sshkey_name
