@@ -1,5 +1,20 @@
 #!/bin/bash
 
+################################################################
+# Fix: When upgrading from 2.0.0 Fullstack/quickstart version
+# to 3.0.0 version as 1TB nfs storage will be destroyed and
+# attached again. This will ensure that vm is boots successfully
+# after reboot. This block is not applicable for new deployments.
+################################################################
+if grep -q '^/dev/mapper/nfsvg-nfslv' /etc/fstab; then
+    echo "#The above line has been commented to avoid vm boot failure, as that volume doesn't exist anymore after update. A new volume has been attached and filesystem for it has been created and updated below. The entry above can be deleted as it is no longer valid." >>/etc/fstab
+fi
+sed -e '/\/dev\/mapper\/nfsvg-nfslv/ s/^#*/#/' -i /etc/fstab
+
+################################################################
+# Run ansible playbook
+################################################################
+
 ### Using input variables from terraform
 playbook_name=${ansible_playbook_name}
 ansible_vars_location=${ansible_extra_vars_path}

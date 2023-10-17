@@ -47,7 +47,7 @@ locals {
     nfs = {
       "enable"            = local.nfs_disk_size != "" ? var.configure_nfs_server : false
       "server_host_or_ip" = local.inet_svs_ip
-      "nfs_file_system"   = [{ name = "nfs", mount_path : "/nfs", size : local.nfs_disk_size }]
+      "nfs_file_system"   = [{ name = "nfsn", mount_path : "/nfs", size : local.nfs_disk_size }]
     }
   }
 }

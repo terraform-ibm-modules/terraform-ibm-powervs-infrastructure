@@ -36,7 +36,7 @@ module "powervs_infra" {
   cloud_connection_metered    = var.cloud_connection["metered"]
 }
 
-module "vsi_configure_network_services" {
+module "landing_zone_configure_network_services" {
 
   source = "../../submodules/ansible_configure_network_services"
 
