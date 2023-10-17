@@ -40,7 +40,7 @@ module "powervs_infra" {
 # VPC VSI Management Services OS configuration
 #####################################################
 
-module "vsi_configure_proxy_server" {
+module "landing_zone_configure_proxy_server" {
 
   source = "../../submodules/ansible_configure_network_services"
 
@@ -52,7 +52,7 @@ module "vsi_configure_proxy_server" {
 }
 
 resource "time_sleep" "wait_for_squid_setup_to_complete" {
-  depends_on = [module.vsi_configure_proxy_server]
+  depends_on = [module.landing_zone_configure_proxy_server]
 
   create_duration = "120s"
 }
