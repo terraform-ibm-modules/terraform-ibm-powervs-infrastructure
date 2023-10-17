@@ -31,7 +31,9 @@
                 "secure",
                 "networking",
                 "vertical scaling",
-                "scalable server"
+                "scalable server",
+                "quickstart",
+                "quick"
             ],
             "short_description": "Build a IBM Cloud® Power Virtual Servers (PowerVS) offering according to the best practices and requirements from the IBM Cloud.",
             "long_description": "IBM Cloud® Power Virtual Servers (PowerVS) is a public cloud offering that an enterprise can use to establish its own private IBM Power computing environment on shared public cloud infrastructure. PowerVS is logically isolated from all other public cloud tenants and infrastructure components, creating a private, secure place on the public cloud. This deployable architecture provides a framework to build a PowerVS offering according to the best practices and requirements from the IBM Cloud.",
@@ -414,6 +416,14 @@
                     "architecture": {
                         "features": [
                             {
+                                "title": "Number of VPCs",
+                                "description": "3"
+                            },
+                            {
+                                "title": "Number of Intel VSIs",
+                                "description": "3"
+                            },
+                            {
                                 "title": "Separate VPC for management",
                                 "description": "Yes"
                             },
@@ -423,10 +433,6 @@
                             },
                             {
                                 "title": "Separate VPC for Private Services",
-                                "description": "Yes"
-                            },
-                            {
-                                "title": "1 Virtual Server Instances for every VPC",
                                 "description": "Yes"
                             },
                             {
@@ -444,6 +450,10 @@
                             {
                                 "title": "Additional management configurations on VPC",
                                 "description": "NFS server, NTP forwarder, and DNS forwarder reachable from PowerVS Workspace"
+                            },
+                            {
+                                "title": "Power Virtual Server Instance",
+                                "description": "No"
                             }
                         ],
                         "diagrams": [
@@ -715,15 +725,7 @@
                         "features": [
                             {
                                 "title": "Power Virtual Server Workspace",
-                                "description": "PowerVS Workspace with all required components"
-                            },
-                            {
-                                "title": "Internet proxy on VPC",
-                                "description": "Proxy service to reach public internet from PowerVS Workspace"
-                            },
-                            {
-                                "title": "Additional management configurations on VPC",
-                                "description": "NFS server, NTP forwarder, and DNS forwarder reachable from PowerVS Workspace"
+                                "description": "PowerVS Workspace with all required components in different zone. Used for HA scenario."
                             }
                         ],
                         "diagrams": [
@@ -1197,12 +1199,24 @@
                     "architecture": {
                         "features": [
                             {
-                                "title": "1 VPC for management, Internet services and private services",
-                                "description": "Yes"
+                                "title": "Number of VPCs",
+                                "description": "1"
                             },
                             {
-                                "title": "1 Virtual Server Instances on VPC",
-                                "description": "Yes"
+                                "title": "Number of Intel VSIs",
+                                "description": "1"
+                            },
+                            {
+                                "title": "Separate VPC for management",
+                                "description": "No"
+                            },
+                            {
+                                "title": "Separate VPC for Internet Services",
+                                "description": "No"
+                            },
+                            {
+                                "title": "Separate VPC for Private Services",
+                                "description": "No"
                             },
                             {
                                 "title": "Increases security with Key Management",
@@ -1221,8 +1235,8 @@
                                 "description": "NFS server, NTP forwarder, and DNS forwarder reachable from PowerVS Workspace"
                             },
                             {
-                                "title": "1 Power Virtual Server Instance",
-                                "description": "Yes"
+                                "title": "Power Virtual Server Instance",
+                                "description": "Yes, 1 instance"
                             }
                         ],
                         "diagrams": [
