@@ -44,8 +44,8 @@ This example sets up the following infrastructure:
 |------|--------|---------|
 | <a name="module_demo_pi_instance"></a> [demo\_pi\_instance](#module\_demo\_pi\_instance) | terraform-ibm-modules/powervs-instance/ibm | 0.3.2 |
 | <a name="module_landing_zone"></a> [landing\_zone](#module\_landing\_zone) | terraform-ibm-modules/landing-zone/ibm//patterns//vsi//module | 4.13.0 |
+| <a name="module_landing_zone_configure_network_services"></a> [landing\_zone\_configure\_network\_services](#module\_landing\_zone\_configure\_network\_services) | ../../submodules/ansible_configure_network_services | n/a |
 | <a name="module_powervs_infra"></a> [powervs\_infra](#module\_powervs\_infra) | ../../ | n/a |
-| <a name="module_vsi_configure_network_services"></a> [vsi\_configure\_network\_services](#module\_vsi\_configure\_network\_services) | ../../submodules/ansible_configure_network_services | n/a |
 
 ### Resources
 
