@@ -129,7 +129,7 @@ output "powervs_backup_network_subnet_id" {
 
 output "cloud_connection_count" {
   description = "Number of cloud connections configured in created PowerVS infrastructure."
-  value       = var.cloud_connection.count
+  value       = module.powervs_infra.cloud_connection_count
 }
 
 output "schematics_workspace_id" {
