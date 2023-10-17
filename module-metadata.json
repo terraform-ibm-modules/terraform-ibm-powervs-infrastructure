@@ -253,7 +253,7 @@
       "description": "Number of cloud connections configured in created PowerVS infrastructure.",
       "pos": {
         "filename": "outputs.tf",
-        "line": 31
+        "line": 51
       }
     },
     "powervs_backup_network_name": {
@@ -272,7 +272,7 @@
       "value": "var.powervs_management_network.name",
       "pos": {
         "filename": "outputs.tf",
-        "line": 36
+        "line": 31
       },
       "type": "object({\n    name = string\n    cidr = string\n  })"
     },
@@ -282,7 +282,7 @@
       "value": "var.powervs_resource_group_name",
       "pos": {
         "filename": "outputs.tf",
-        "line": 26
+        "line": 6
       },
       "type": "string",
       "cloud_data_type": "resource_group",
@@ -296,17 +296,17 @@
       "value": "var.powervs_sshkey_name",
       "pos": {
         "filename": "outputs.tf",
-        "line": 16
+        "line": 26
       },
       "type": "string"
     },
-    "powervs_workspace_crn": {
-      "name": "powervs_workspace_crn",
-      "description": "PowerVS infrastructure workspace CRN. The full deployment CRN as defined in the global catalog. The Cloud Resource Name (CRN) of the deployment location where the instance is provisioned.",
-      "value": "module.powervs_workspace.powervs_workspace_crn",
+    "powervs_workspace_backup_subnet_id": {
+      "name": "powervs_workspace_backup_subnet_id",
+      "description": "PowerVS infrastructure workspace backup subnet id. The unique identifier of the network.",
+      "value": "module.powervs_workspace.powervs_workspace_backup_subnet_id",
       "pos": {
         "filename": "outputs.tf",
-        "line": 6
+        "line": 46
       },
       "type": "TypeString"
     },
@@ -316,7 +316,26 @@
       "value": "module.powervs_workspace.powervs_workspace_guid",
       "pos": {
         "filename": "outputs.tf",
-        "line": 11
+        "line": 21
+      },
+      "type": "TypeString"
+    },
+    "powervs_workspace_id": {
+      "name": "powervs_workspace_id",
+      "description": "PowerVS infrastructure workspace id. The unique identifier of the new resource instance.",
+      "value": "module.powervs_workspace.powervs_workspace_id",
+      "pos": {
+        "filename": "outputs.tf",
+        "line": 16
+      }
+    },
+    "powervs_workspace_management_subnet_id": {
+      "name": "powervs_workspace_management_subnet_id",
+      "description": "PowerVS infrastructure workspace management subnet id. The unique identifier of the network.",
+      "value": "module.powervs_workspace.powervs_workspace_management_subnet_id",
+      "pos": {
+        "filename": "outputs.tf",
+        "line": 36
       },
       "type": "TypeString"
     },
@@ -326,7 +345,7 @@
       "value": "var.powervs_workspace_name",
       "pos": {
         "filename": "outputs.tf",
-        "line": 1
+        "line": 11
       },
       "type": "string"
     },
@@ -336,7 +355,7 @@
       "value": "var.powervs_zone",
       "pos": {
         "filename": "outputs.tf",
-        "line": 21
+        "line": 1
       },
       "type": "string",
       "cloud_data_type": "region"
@@ -775,17 +794,7 @@
           "value": "ibm_pi_network.backup_network.network_id",
           "pos": {
             "filename": "submodules/powervs_workspace/outputs.tf",
-            "line": 26
-          },
-          "type": "TypeString"
-        },
-        "powervs_workspace_crn": {
-          "name": "powervs_workspace_crn",
-          "description": "PowerVS infrastructure workspace CRN. The full deployment CRN as defined in the global catalog. The Cloud Resource Name (CRN) of the deployment location where the instance is provisioned.",
-          "value": "ibm_resource_instance.powervs_workspace.target_crn",
-          "pos": {
-            "filename": "submodules/powervs_workspace/outputs.tf",
-            "line": 1
+            "line": 16
           },
           "type": "TypeString"
         },
@@ -795,7 +804,7 @@
           "value": "ibm_resource_instance.powervs_workspace.guid",
           "pos": {
             "filename": "submodules/powervs_workspace/outputs.tf",
-            "line": 11
+            "line": 6
           },
           "type": "TypeString"
         },
@@ -805,7 +814,7 @@
           "value": "ibm_resource_instance.powervs_workspace.id",
           "pos": {
             "filename": "submodules/powervs_workspace/outputs.tf",
-            "line": 16
+            "line": 1
           }
         },
         "powervs_workspace_management_subnet_id": {
@@ -814,17 +823,7 @@
           "value": "ibm_pi_network.management_network.network_id",
           "pos": {
             "filename": "submodules/powervs_workspace/outputs.tf",
-            "line": 21
-          },
-          "type": "TypeString"
-        },
-        "powervs_workspace_resource_id": {
-          "name": "powervs_workspace_resource_id",
-          "description": "PowerVS infrastructure workspace resource id. The unique ID of the offering. This value is provided by and stored in the global catalog.",
-          "value": "ibm_resource_instance.powervs_workspace.resource_id",
-          "pos": {
-            "filename": "submodules/powervs_workspace/outputs.tf",
-            "line": 6
+            "line": 11
           },
           "type": "TypeString"
         }

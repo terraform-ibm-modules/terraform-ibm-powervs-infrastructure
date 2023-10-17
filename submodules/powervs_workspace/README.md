@@ -69,9 +69,7 @@ No modules.
 | Name | Description |
 |------|-------------|
 | <a name="output_powervs_workspace_backup_subnet_id"></a> [powervs\_workspace\_backup\_subnet\_id](#output\_powervs\_workspace\_backup\_subnet\_id) | PowerVS infrastructure workspace backup subnet id. The unique identifier of the network. |
-| <a name="output_powervs_workspace_crn"></a> [powervs\_workspace\_crn](#output\_powervs\_workspace\_crn) | PowerVS infrastructure workspace CRN. The full deployment CRN as defined in the global catalog. The Cloud Resource Name (CRN) of the deployment location where the instance is provisioned. |
 | <a name="output_powervs_workspace_guid"></a> [powervs\_workspace\_guid](#output\_powervs\_workspace\_guid) | PowerVS infrastructure workspace guid. The GUID of the resource instance. |
 | <a name="output_powervs_workspace_id"></a> [powervs\_workspace\_id](#output\_powervs\_workspace\_id) | PowerVS infrastructure workspace id. The unique identifier of the new resource instance. |
 | <a name="output_powervs_workspace_management_subnet_id"></a> [powervs\_workspace\_management\_subnet\_id](#output\_powervs\_workspace\_management\_subnet\_id) | PowerVS infrastructure workspace management subnet id. The unique identifier of the network. |
-| <a name="output_powervs_workspace_resource_id"></a> [powervs\_workspace\_resource\_id](#output\_powervs\_workspace\_resource\_id) | PowerVS infrastructure workspace resource id. The unique ID of the offering. This value is provided by and stored in the global catalog. |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

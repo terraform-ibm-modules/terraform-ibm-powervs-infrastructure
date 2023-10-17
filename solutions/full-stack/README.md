@@ -88,11 +88,14 @@ Catalog image names to be imported into infrastructure can be found [here](./doc
 | <a name="output_ntp_host_or_ip"></a> [ntp\_host\_or\_ip](#output\_ntp\_host\_or\_ip) | NTP host for created PowerVS infrastructure. |
 | <a name="output_powervs_backup_network_name"></a> [powervs\_backup\_network\_name](#output\_powervs\_backup\_network\_name) | Name of backup network in created PowerVS infrastructure. |
 | <a name="output_powervs_backup_network_subnet"></a> [powervs\_backup\_network\_subnet](#output\_powervs\_backup\_network\_subnet) | Subnet CIDR of backup network in created PowerVS infrastructure. |
+| <a name="output_powervs_backup_network_subnet_id"></a> [powervs\_backup\_network\_subnet\_id](#output\_powervs\_backup\_network\_subnet\_id) | PowerVS infrastructure workspace backup subnet id. The unique identifier of the network. |
 | <a name="output_powervs_management_network_name"></a> [powervs\_management\_network\_name](#output\_powervs\_management\_network\_name) | Name of management network in created PowerVS infrastructure. |
 | <a name="output_powervs_management_network_subnet"></a> [powervs\_management\_network\_subnet](#output\_powervs\_management\_network\_subnet) | Subnet CIDR  of management network in created PowerVS infrastructure. |
+| <a name="output_powervs_management_network_subnet_id"></a> [powervs\_management\_network\_subnet\_id](#output\_powervs\_management\_network\_subnet\_id) | PowerVS infrastructure workspace management subnet id. The unique identifier of the network. |
 | <a name="output_powervs_resource_group_name"></a> [powervs\_resource\_group\_name](#output\_powervs\_resource\_group\_name) | IBM Cloud resource group where PowerVS infrastructure is created. |
 | <a name="output_powervs_sshkey_name"></a> [powervs\_sshkey\_name](#output\_powervs\_sshkey\_name) | SSH public key name in created PowerVS infrastructure. |
-| <a name="output_powervs_workspace_crn"></a> [powervs\_workspace\_crn](#output\_powervs\_workspace\_crn) | PowerVS infrastructure workspace CRN. |
+| <a name="output_powervs_workspace_guid"></a> [powervs\_workspace\_guid](#output\_powervs\_workspace\_guid) | PowerVS infrastructure workspace guid. The GUID of the resource instance. |
+| <a name="output_powervs_workspace_id"></a> [powervs\_workspace\_id](#output\_powervs\_workspace\_id) | PowerVS infrastructure workspace id. The unique identifier of the new resource instance. |
 | <a name="output_powervs_workspace_name"></a> [powervs\_workspace\_name](#output\_powervs\_workspace\_name) | PowerVS infrastructure workspace name. |
 | <a name="output_powervs_zone"></a> [powervs\_zone](#output\_powervs\_zone) | Zone where PowerVS infrastructure is created. |
 | <a name="output_prefix"></a> [prefix](#output\_prefix) | The prefix that is associated with all resources |

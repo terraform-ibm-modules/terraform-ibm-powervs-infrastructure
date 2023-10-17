@@ -3,6 +3,10 @@ output "prefix" {
   value       = var.prefix
 }
 
+########################################################################
+# Landing Zone VPC outputs
+########################################################################
+
 output "vpc_names" {
   description = "A list of the names of the VPC."
   value       = module.landing_zone.vpc_names
@@ -33,56 +37,6 @@ output "vsi_list" {
   value       = module.landing_zone.vsi_list
 }
 
-output "powervs_workspace_name" {
-  description = "PowerVS infrastructure workspace name."
-  value       = local.powervs_workspace_name
-}
-
-output "powervs_workspace_crn" {
-  description = "PowerVS infrastructure workspace CRN."
-  value       = module.powervs_infra.powervs_workspace_crn
-}
-
-output "powervs_sshkey_name" {
-  description = "SSH public key name in created PowerVS infrastructure."
-  value       = local.powervs_sshkey_name
-}
-
-output "powervs_zone" {
-  description = "Zone where PowerVS infrastructure is created."
-  value       = module.powervs_infra.powervs_zone
-}
-
-output "powervs_resource_group_name" {
-  description = "IBM Cloud resource group where PowerVS infrastructure is created."
-  value       = module.powervs_infra.powervs_resource_group_name
-}
-
-output "cloud_connection_count" {
-  description = "Number of cloud connections configured in created PowerVS infrastructure."
-  value       = module.powervs_infra.cloud_connection_count
-}
-
-output "powervs_management_network_name" {
-  description = "Name of management network in created PowerVS infrastructure."
-  value       = var.powervs_management_network.name
-}
-
-output "powervs_management_network_subnet" {
-  description = "Subnet CIDR  of management network in created PowerVS infrastructure."
-  value       = var.powervs_management_network.cidr
-}
-
-output "powervs_backup_network_name" {
-  description = "Name of backup network in created PowerVS infrastructure."
-  value       = var.powervs_backup_network.name
-}
-
-output "powervs_backup_network_subnet" {
-  description = "Subnet CIDR of backup network in created PowerVS infrastructure."
-  value       = var.powervs_backup_network.cidr
-}
-
 output "access_host_or_ip" {
   description = "Access host(jump/bastion) for created PowerVS infrastructure."
   value       = local.access_host_or_ip
@@ -108,14 +62,89 @@ output "nfs_host_or_ip_path" {
   value       = "${local.network_services_config.nfs.server_host_or_ip}:${local.network_services_config.nfs.nfs_file_system[0].mount_path}"
 }
 
-output "pi_instance_private_ips" {
-  description = "All private IP addresses (as a list) of IBM PowerVS instance."
-  value       = module.demo_pi_instance.pi_instance_private_ips
+
+########################################################################
+# PowerVS Infrastructure outputs
+########################################################################
+
+output "powervs_zone" {
+  description = "Zone where PowerVS infrastructure is created."
+  value       = module.powervs_infra.powervs_zone
 }
+
+output "powervs_resource_group_name" {
+  description = "IBM Cloud resource group where PowerVS infrastructure is created."
+  value       = module.powervs_infra.powervs_resource_group_name
+}
+
+output "powervs_workspace_name" {
+  description = "PowerVS infrastructure workspace name."
+  value       = module.powervs_infra.powervs_workspace_name
+}
+
+output "powervs_workspace_id" {
+  description = "PowerVS infrastructure workspace id. The unique identifier of the new resource instance."
+  value       = module.powervs_infra.powervs_workspace_id
+}
+
+output "powervs_workspace_guid" {
+  description = "PowerVS infrastructure workspace guid. The GUID of the resource instance."
+  value       = module.powervs_infra.powervs_workspace_guid
+}
+
+output "powervs_sshkey_name" {
+  description = "SSH public key name in created PowerVS infrastructure."
+  value       = local.powervs_sshkey_name
+}
+
+output "powervs_management_network_name" {
+  description = "Name of management network in created PowerVS infrastructure."
+  value       = var.powervs_management_network.name
+}
+
+output "powervs_management_network_subnet" {
+  description = "Subnet CIDR  of management network in created PowerVS infrastructure."
+  value       = var.powervs_management_network.cidr
+}
+
+output "powervs_management_network_subnet_id" {
+  description = "PowerVS infrastructure workspace management subnet id. The unique identifier of the network."
+  value       = module.powervs_infra.powervs_workspace_management_subnet_id
+}
+
+output "powervs_backup_network_name" {
+  description = "Name of backup network in created PowerVS infrastructure."
+  value       = var.powervs_backup_network.name
+}
+
+output "powervs_backup_network_subnet" {
+  description = "Subnet CIDR of backup network in created PowerVS infrastructure."
+  value       = var.powervs_backup_network.cidr
+}
+
+output "powervs_backup_network_subnet_id" {
+  description = "PowerVS infrastructure workspace backup subnet id. The unique identifier of the network."
+  value       = module.powervs_infra.powervs_workspace_backup_subnet_id
+}
+
+output "cloud_connection_count" {
+  description = "Number of cloud connections configured in created PowerVS infrastructure."
+  value       = module.powervs_infra.cloud_connection_count
+}
+
+
+########################################################################
+# PowerVS Instance outputs
+########################################################################
 
 output "pi_instance_private_ips_info" {
   description = "Complete info about all private IP addresses of IBM PowerVS instance."
   value       = module.demo_pi_instance.pi_instance_private_ips_info
+}
+
+output "pi_instance_private_ips" {
+  description = "All private IP addresses (as a list) of IBM PowerVS instance."
+  value       = module.demo_pi_instance.pi_instance_private_ips
 }
 
 output "pi_instance_mgmt_ip" {

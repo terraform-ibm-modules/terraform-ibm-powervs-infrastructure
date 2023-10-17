@@ -3,6 +3,10 @@ output "prefix" {
   value       = var.prefix
 }
 
+########################################################################
+# Landing Zone VPC outputs
+########################################################################
+
 output "vpc_names" {
   description = "A list of the names of the VPC."
   value       = module.landing_zone.vpc_names
@@ -58,20 +62,10 @@ output "nfs_host_or_ip_path" {
   value       = "${local.network_services_config.nfs.server_host_or_ip}:${local.network_services_config.nfs.nfs_file_system[0].mount_path}"
 }
 
-output "powervs_workspace_name" {
-  description = "PowerVS infrastructure workspace name."
-  value       = module.powervs_infra.powervs_workspace_name
-}
 
-output "powervs_workspace_crn" {
-  description = "PowerVS infrastructure workspace CRN."
-  value       = module.powervs_infra.powervs_workspace_crn
-}
-
-output "powervs_sshkey_name" {
-  description = "SSH public key name in created PowerVS infrastructure."
-  value       = module.powervs_infra.powervs_sshkey_name
-}
+########################################################################
+# PowerVS Infrastructure outputs
+########################################################################
 
 output "powervs_zone" {
   description = "Zone where PowerVS infrastructure is created."
@@ -83,9 +77,24 @@ output "powervs_resource_group_name" {
   value       = var.powervs_resource_group_name
 }
 
-output "cloud_connection_count" {
-  description = "Number of cloud connections configured in created PowerVS infrastructure."
-  value       = var.cloud_connection.count
+output "powervs_workspace_name" {
+  description = "PowerVS infrastructure workspace name."
+  value       = module.powervs_infra.powervs_workspace_name
+}
+
+output "powervs_workspace_id" {
+  description = "PowerVS infrastructure workspace id. The unique identifier of the new resource instance."
+  value       = module.powervs_infra.powervs_workspace_id
+}
+
+output "powervs_workspace_guid" {
+  description = "PowerVS infrastructure workspace guid. The GUID of the resource instance."
+  value       = module.powervs_infra.powervs_workspace_guid
+}
+
+output "powervs_sshkey_name" {
+  description = "SSH public key name in created PowerVS infrastructure."
+  value       = module.powervs_infra.powervs_sshkey_name
 }
 
 output "powervs_management_network_name" {
@@ -98,6 +107,11 @@ output "powervs_management_network_subnet" {
   value       = var.powervs_management_network.cidr
 }
 
+output "powervs_management_network_subnet_id" {
+  description = "PowerVS infrastructure workspace management subnet id. The unique identifier of the network."
+  value       = module.powervs_infra.powervs_workspace_management_subnet_id
+}
+
 output "powervs_backup_network_name" {
   description = "Name of backup network in created PowerVS infrastructure."
   value       = var.powervs_backup_network.name
@@ -108,6 +122,15 @@ output "powervs_backup_network_subnet" {
   value       = var.powervs_backup_network.cidr
 }
 
+output "powervs_backup_network_subnet_id" {
+  description = "PowerVS infrastructure workspace backup subnet id. The unique identifier of the network."
+  value       = module.powervs_infra.powervs_workspace_backup_subnet_id
+}
+
+output "cloud_connection_count" {
+  description = "Number of cloud connections configured in created PowerVS infrastructure."
+  value       = var.cloud_connection.count
+}
 output "schematics_workspace_id" {
   description = "ID of the IBM Cloud Schematics workspace. Returns null if not ran in Schematics."
   value       = var.IC_SCHEMATICS_WORKSPACE_ID
