@@ -258,6 +258,9 @@
                             "key": "dns_forwarder_config"
                         },
                         {
+                            "key": "nfs_server_config"
+                        },
+                        {
                             "key": "powervs_management_network"
                         },
                         {
@@ -1015,6 +1018,9 @@
                         },
                         {
                             "key": "dns_forwarder_config"
+                        },
+                        {
+                            "key": "nfs_server_config"
                         },
                         {
                             "key": "powervs_management_network"
