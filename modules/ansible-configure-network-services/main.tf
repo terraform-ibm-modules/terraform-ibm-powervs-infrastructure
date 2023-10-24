@@ -117,6 +117,10 @@ locals {
   dst_playbook_configure_network_services_file_path = "${local.dst_files_dir}/playbook_configure_network_services.yml"
 }
 
+resource "terraform_data" "trigger_ansible" {
+  input = var.network_services_config
+}
+
 resource "terraform_data" "execute_ansible_role" {
   depends_on = [terraform_data.install_packages]
 
@@ -130,6 +134,7 @@ resource "terraform_data" "execute_ansible_role" {
     timeout      = "5m"
   }
 
+  triggers_replace = terraform_data.trigger_ansible
   # Creates terraform scripts directory
   provisioner "remote-exec" {
     inline = ["mkdir -p ${local.dst_files_dir}", "chmod 777 ${local.dst_files_dir}", ]
