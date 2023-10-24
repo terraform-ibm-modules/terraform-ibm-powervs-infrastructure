@@ -24,6 +24,47 @@ This module provisions the following resources in IBM Cloud:
 
 - Finally Interconnects both VPC and PowerVS infrastructure.
 
+## Usage
+```hcl
+provider "ibm" {
+  alias            = "ibm-pi"
+  region           = ""
+  zone             = ""
+  ibmcloud_api_key = var.ibmcloud_api_key != null ? var.ibmcloud_api_key : null
+}
+
+provider "ibm" {
+  alias            = "ibm-is"
+  region           = ""
+  zone             = ""
+  ibmcloud_api_key = var.ibmcloud_api_key != null ? var.ibmcloud_api_key : null
+}
+
+module "fullstack" {
+  source  = "terraform-ibm-modules/powervs-infrastructure/ibm//modules//fullstack"
+  version = "x.x.x" # Replace "x.x.x" with a git release version to lock into a specific release
+
+  providers = { ibm.ibm-is = ibm.ibm-is, ibm.ibm-pi = ibm.ibm-pi }
+
+  powervs_zone                = var.powervs_zone
+  landing_zone_configuration  = var.landing_zone_configuration
+  prefix                      = var.prefix
+  external_access_ip          = var.external_access_ip
+  ssh_public_key              = var.ssh_public_key
+  ssh_private_key             = var.ssh_private_key
+  configure_dns_forwarder     = var.configure_dns_forwarder
+  configure_ntp_forwarder     = var.configure_ntp_forwarder
+  configure_nfs_server        = var.configure_nfs_server
+  dns_forwarder_config        = var.dns_forwarder_config
+  powervs_resource_group_name = var.powervs_resource_group_name
+  powervs_management_network  = var.powervs_management_network
+  powervs_backup_network      = var.powervs_backup_network
+  cloud_connection            = var.cloud_connection
+  powervs_image_names         = var.powervs_image_names
+  tags                        = var.tags
+}
+```
+
 ### Notes:
 Catalog image names to be imported into infrastructure can be found [here](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/blob/main/solutions/full-stack/docs/catalog_image_names.md)
 
