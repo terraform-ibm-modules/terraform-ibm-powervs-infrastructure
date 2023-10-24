@@ -1,4 +1,4 @@
-# IBM Cloud catalog solution for Power Virtual Server with VPC landing zone Full-Stack Variation
+# IBM Cloud solution for Power Virtual Server with VPC landing zone Full-Stack Variation
 
 This example sets up the following infrastructure:
 - A **VPC Infrastructure** with the following components:

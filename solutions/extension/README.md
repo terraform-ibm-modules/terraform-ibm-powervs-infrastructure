@@ -1,4 +1,4 @@
-# IBM Cloud catalog example for Power Virtual Server with VPC landing zone Extension Variation
+# IBM Cloud catalog solution for Power Virtual Server with VPC landing zone Extension Variation
 
 This example extends an existing PowerVS infrastructure for deployable architectures deployed as full-stack with an additional PowerVS workspace.
 It provisions the following infrastructure on top of deployed Full Stack solution :
