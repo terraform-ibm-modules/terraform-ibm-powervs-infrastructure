@@ -14,12 +14,12 @@ variable "prefix" {
 }
 
 variable "landing_zone_configuration" {
-  description = "VPC landing zone configuration."
+  description = "VPC landing zone configuration. Provided value must be one of ['3VPC_RHEL', '3VPC_SLES', '1VPC_RHEL'] only."
   type        = string
 
   validation {
     condition     = contains(["3VPC_RHEL", "3VPC_SLES", "1VPC_RHEL"], var.landing_zone_configuration)
-    error_message = "Provided value must be one of ['3VPC_RHEL', '3VPC_SLES', '1VPC_RHEL'] only"
+    error_message = "Provided value must be one of  ['3VPC_RHEL', '3VPC_SLES', '1VPC_RHEL'] only."
   }
 }
 
@@ -35,12 +35,6 @@ variable "ssh_public_key" {
 
 variable "ssh_private_key" {
   description = "Private SSH key (RSA format) used to login to IBM PowerVS instances. Should match to public SSH key referenced by 'ssh_public_key'. Entered data must be in [heredoc strings format](https://www.terraform.io/language/expressions/strings#heredoc-strings). The key is not uploaded or stored. For more information about SSH keys, see [SSH keys](https://cloud.ibm.com/docs/vpc?topic=vpc-ssh-keys)."
-  type        = string
-  sensitive   = true
-}
-
-variable "ibmcloud_api_key" {
-  description = "The IBM Cloud platform API key needed to deploy IAM enabled resources."
   type        = string
   sensitive   = true
 }
@@ -130,15 +124,4 @@ variable "tags" {
   description = "List of tag names for the IBM Cloud PowerVS workspace"
   type        = list(string)
   default     = ["sap"]
-}
-
-#############################################################################
-# Schematics Output
-#############################################################################
-
-# tflint-ignore: all
-variable "IC_SCHEMATICS_WORKSPACE_ID" {
-  default     = ""
-  type        = string
-  description = "leave blank if running locally. This variable will be automatically populated if running from an IBM Cloud Schematics workspace."
 }

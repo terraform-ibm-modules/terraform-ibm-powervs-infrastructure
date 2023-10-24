@@ -37,22 +37,16 @@ Catalog image names to be imported into infrastructure can be found [here](./doc
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.3, < 1.6 |
 | <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | =1.58.1 |
-| <a name="requirement_time"></a> [time](#requirement\_time) | >= 0.9.1 |
 
 ### Modules
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_landing_zone"></a> [landing\_zone](#module\_landing\_zone) | terraform-ibm-modules/landing-zone/ibm//patterns//vsi//module | 4.13.0 |
-| <a name="module_landing_zone_configure_network_services"></a> [landing\_zone\_configure\_network\_services](#module\_landing\_zone\_configure\_network\_services) | ../../submodules/ansible_configure_network_services | n/a |
-| <a name="module_landing_zone_configure_proxy_server"></a> [landing\_zone\_configure\_proxy\_server](#module\_landing\_zone\_configure\_proxy\_server) | ../../submodules/ansible_configure_network_services | n/a |
-| <a name="module_powervs_infra"></a> [powervs\_infra](#module\_powervs\_infra) | ../../ | n/a |
+| <a name="module_powervs_infra"></a> [powervs\_infra](#module\_powervs\_infra) | ../../modules/powervs-vpc-landing-zone | n/a |
 
 ### Resources
 
-| Name | Type |
-|------|------|
-| [time_sleep.wait_for_squid_setup_to_complete](https://registry.terraform.io/providers/hashicorp/time/latest/docs/resources/sleep) | resource |
+No resources.
 
 ### Inputs
 
@@ -86,14 +80,11 @@ Catalog image names to be imported into infrastructure can be found [here](./doc
 | <a name="output_dns_host_or_ip"></a> [dns\_host\_or\_ip](#output\_dns\_host\_or\_ip) | DNS forwarder host for created PowerVS infrastructure. |
 | <a name="output_nfs_host_or_ip_path"></a> [nfs\_host\_or\_ip\_path](#output\_nfs\_host\_or\_ip\_path) | NFS host for created PowerVS infrastructure. |
 | <a name="output_ntp_host_or_ip"></a> [ntp\_host\_or\_ip](#output\_ntp\_host\_or\_ip) | NTP host for created PowerVS infrastructure. |
-| <a name="output_powervs_backup_network_name"></a> [powervs\_backup\_network\_name](#output\_powervs\_backup\_network\_name) | Name of backup network in created PowerVS infrastructure. |
-| <a name="output_powervs_backup_network_subnet"></a> [powervs\_backup\_network\_subnet](#output\_powervs\_backup\_network\_subnet) | Subnet CIDR of backup network in created PowerVS infrastructure. |
-| <a name="output_powervs_backup_network_subnet_id"></a> [powervs\_backup\_network\_subnet\_id](#output\_powervs\_backup\_network\_subnet\_id) | PowerVS infrastructure workspace backup subnet id. The unique identifier of the network. |
-| <a name="output_powervs_management_network_name"></a> [powervs\_management\_network\_name](#output\_powervs\_management\_network\_name) | Name of management network in created PowerVS infrastructure. |
-| <a name="output_powervs_management_network_subnet"></a> [powervs\_management\_network\_subnet](#output\_powervs\_management\_network\_subnet) | Subnet CIDR  of management network in created PowerVS infrastructure. |
-| <a name="output_powervs_management_network_subnet_id"></a> [powervs\_management\_network\_subnet\_id](#output\_powervs\_management\_network\_subnet\_id) | PowerVS infrastructure workspace management subnet id. The unique identifier of the network. |
+| <a name="output_powervs_backup_subnet"></a> [powervs\_backup\_subnet](#output\_powervs\_backup\_subnet) | Name, ID and CIDR of backup private network in created PowerVS infrastructure. |
+| <a name="output_powervs_images"></a> [powervs\_images](#output\_powervs\_images) | Object containing imported PowerVS image names and image ids. |
+| <a name="output_powervs_management_subnet"></a> [powervs\_management\_subnet](#output\_powervs\_management\_subnet) | Name, ID and CIDR of management private network in created PowerVS infrastructure. |
 | <a name="output_powervs_resource_group_name"></a> [powervs\_resource\_group\_name](#output\_powervs\_resource\_group\_name) | IBM Cloud resource group where PowerVS infrastructure is created. |
-| <a name="output_powervs_sshkey_name"></a> [powervs\_sshkey\_name](#output\_powervs\_sshkey\_name) | SSH public key name in created PowerVS infrastructure. |
+| <a name="output_powervs_ssh_public_key"></a> [powervs\_ssh\_public\_key](#output\_powervs\_ssh\_public\_key) | SSH public key name and value in created PowerVS infrastructure. |
 | <a name="output_powervs_workspace_guid"></a> [powervs\_workspace\_guid](#output\_powervs\_workspace\_guid) | PowerVS infrastructure workspace guid. The GUID of the resource instance. |
 | <a name="output_powervs_workspace_id"></a> [powervs\_workspace\_id](#output\_powervs\_workspace\_id) | PowerVS infrastructure workspace id. The unique identifier of the new resource instance. |
 | <a name="output_powervs_workspace_name"></a> [powervs\_workspace\_name](#output\_powervs\_workspace\_name) | PowerVS infrastructure workspace name. |

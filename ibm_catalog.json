@@ -198,11 +198,11 @@
                             "options": [
                                 {
                                     "displayname": "3 VPCs (with RHEL instances)",
-                                    "value": "RHEL"
+                                    "value": "3VPC_RHEL"
                                 },
                                 {
                                     "displayname": "3 VPCs (with SLES instances)",
-                                    "value": "SLES"
+                                    "value": "3VPC_SLES"
                                 }
                             ],
                             "custom_config": {}

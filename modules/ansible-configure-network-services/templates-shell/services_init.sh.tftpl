@@ -80,7 +80,7 @@ setup_proxy() {
 suseconnect_check_process() {
 
   ##### Check for SUSEConnect process
-  print_out "Sleeping 60 seconds in case of auto OS registration, as this causes a conflict for SUSEConnect Process."
+  print_out "Sleeping 60 seconds for all SUSEConnect process to finish."
   sleep 60
   SUSECONNECT_PID="$(pgrep SUSEConnect)"
   if [ ! -z "$SUSECONNECT_PID" ]; then
@@ -113,7 +113,7 @@ suseconnect_sub_final_status() {
 
 subscription_mgr_check_process() {
   ##### Check for subscription-manager process
-  echo "Sleeping 60 seconds in case of auto OS registration, as this causes a conflict for subscription-manager Process."
+  echo "Sleeping 60 seconds for all subscription-manager process to finish."
   sleep 60
   SUBS_MANAGER_PID="$(pgrep -f subscription-manager)"
   if [ ! -z "$SUBS_MANAGER_PID" ]; then
