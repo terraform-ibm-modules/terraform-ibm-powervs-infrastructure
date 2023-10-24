@@ -3,7 +3,7 @@
 This example extends an existing PowerVS infrastructure for deployable architectures deployed as full-stack with an additional PowerVS workspace.
 It provisions the following infrastructure on top of deployed Full Stack solution :
 
-- A PowerVS workspace instance with the following network topology:
+- A **Power Virtual Server workspace** with the following network topology:
     - Creates two private networks: a management network and a backup network
     - Creates one or two IBM Cloud connections in Non PER environment.
     - Attaches the private networks to the IBM Cloud connections in Non PER environment.
@@ -12,11 +12,12 @@ It provisions the following infrastructure on top of deployed Full Stack solutio
     - Creates an SSH key.
 
 
-Note: Kindly make sure that you are choosing a PowerVS zone different from that of the pre-requisite infrastructure.
-      **This solution requires a schematics workspace id as an input.**
-## Before you begin
+Note:
+- Kindly make sure that you are **choosing a PowerVS zone different** from that of the pre-requisite infrastructure.
+- **This solution requires a schematics workspace id as an input.**
 
-If you do not have a PowerVS infrastructure that is the full stack solution for a PowerVS Workspace that includes the full stack solution for Secure Landing Zone, create it first.
+## Before you begin
+If you do not have a PowerVS infrastructure that is the [full stack solution](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/tree/main/solutions/full-stack) for a PowerVS Workspace that includes the full stack solution for Secure Landing Zone, create it first.
 
 | Variation  | Available on IBM Catalog  |  Requires Schematics Workspace ID | Creates VPC Landing Zone | Performs VPC VSI OS Config | Creates PowerVS Infrastructure | Creates PowerVS Instance | Performs PowerVS OS Config |
 | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
@@ -64,7 +65,7 @@ Catalog image names to be imported into infrastructure can be found [here](../fu
 | <a name="input_powervs_management_network"></a> [powervs\_management\_network](#input\_powervs\_management\_network) | Name of the IBM Cloud PowerVS management subnet and CIDR to create. | <pre>object({<br>    name = string<br>    cidr = string<br>  })</pre> | <pre>{<br>  "cidr": "10.61.0.0/24",<br>  "name": "mgmt_net"<br>}</pre> | no |
 | <a name="input_powervs_resource_group_name"></a> [powervs\_resource\_group\_name](#input\_powervs\_resource\_group\_name) | Existing IBM Cloud resource group name. | `string` | n/a | yes |
 | <a name="input_powervs_zone"></a> [powervs\_zone](#input\_powervs\_zone) | IBM Cloud data center location where IBM PowerVS infrastructure will be created. | `string` | n/a | yes |
-| <a name="input_prerequisite_workspace_id"></a> [prerequisite\_workspace\_id](#input\_prerequisite\_workspace\_id) | IBM Cloud Schematics workspace ID of the prerequisite infrastructure. If you do not have an existing deployment yet, create a new architecture. | `string` | n/a | yes |
+| <a name="input_prerequisite_workspace_id"></a> [prerequisite\_workspace\_id](#input\_prerequisite\_workspace\_id) | IBM Cloud Schematics workspace ID of the prerequisite infrastructure. If you do not have an existing deployment yet, create a new architecture using the same catalog tile. | `string` | n/a | yes |
 | <a name="input_tags"></a> [tags](#input\_tags) | List of tag names for the IBM Cloud PowerVS workspace | `list(string)` | <pre>[<br>  "sap"<br>]</pre> | no |
 
 ### Outputs

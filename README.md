@@ -9,15 +9,18 @@
 [![Renovate enabled](https://img.shields.io/badge/renovate-enabled-brightgreen.svg)](https://renovatebot.com/)
 
 ## Summary
-This repository contains deployable architecture solutions which helps in provisioning VPC landing zone, PowerVS workspace and interconnecting them. The solutions are available in IBM Cloud Catalog and also can be deployed with catalog as well.
+This repository contains deployable architecture solutions which helps in provisioning VPC landing zone, PowerVS workspace and interconnecting them. The solutions are available in IBM Cloud Catalog and also can be deployed without catalog as well except the second solution below.
 
 Three solutions are offered:
 1. [PowerVS full-stack variation](soltuions/full-stack)
-    - Creates three vpcs with RHEL or SLES instances, Power Virtual Server workspace, interconnects them and configures os network management services.
+    - Creates three VPCs with RHEL or SLES instances, Power Virtual Server workspace, interconnects them and configures os network management services(SQUID proxy, NTP, NFS, and DNS services) using ansible galaxy collection roles [ibm.power_linux_sap collection](https://galaxy.ansible.com/ui/repo/published/ibm/power_linux_sap/).
 2. [PowerVS extension variation](soltuions/extension)
-    - Extends the full-stack solution by creating a new Power Virtual Server workspace in different zone and interconnects with the previous solution. This solution is typically used for High Availability scenarios where a single management VPCs can be used to reach both PowerVS workspaces.
+    - Extends the full-stack solution by creating a new Power Virtual Server workspace in different zone and interconnects with the previous solution.
+    - This solution is typically used for **High Availability scenarios** where a single management VPCs can be used to reach both PowerVS workspaces.
 3. [PowerVS quickstart variation](soltuions/quickstart)
-    - Creates 1VPC and a Power Virtual Server workspace, interconnects them and configures os network management services. Additionally creates a Power Virtual Server Instance of selected t-shirt size. This solution is typically used for Pocs, demos and quick onboarding to Power Infrastructure.
+    - Creates 1VPC and a Power Virtual Server workspace, interconnects them and configures os network management services(SQUID proxy, NTP, NFS, and DNS services) using ansible galaxy collection roles [ibm.power_linux_sap collection](https://galaxy.ansible.com/ui/repo/published/ibm/power_linux_sap/).
+    - Additionally creates a Power Virtual Server Instance of selected t-shirt size.
+    - This solution is typically used for **Pocs, demos and quick onboarding** to Power Infrastructure.
 
 ## Reference architectures
 - [PowerVS full-stack variation](reference-architectures/full-stack/deploy-arch-ibm-pvs-inf-full-stack.md)

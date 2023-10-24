@@ -2,19 +2,19 @@
 
 ## IBM Power Virtual Server with VPC landing zone
 
-TThis module provisions the following resources in IBM Cloud:
-- A VPC Infrastructure based on value passed to 'var.landing_zone_configuration' with the following components:
+This module provisions the following resources in IBM Cloud:
+- A **VPC Infrastructure** based on value passed to 'var.landing_zone_configuration' with the following components:
     -  **landing_zone_configuration = 3VPC_RHEL or 3VPC_SLES**
 
-        - Provisions three VPCs with one VSI in each VPC (one management(jump/bastion) VSI, one inet-svs VSI configured as squid proxy server, one private-svs VSI configured as NFS, NTP, DNS server) using the [ this preset](presets/3vpc-rhel.preset.json.tftpl).
-        - Installs and configures the Squid Proxy, DNS Forwarder, NTP forwarder and NFS on hosts, and sets the host as the server for the NTP, NFS, and DNS services by using Ansible roles.
+        - Provisions three VPCs with one VSI in each VPC one management(jump/bastion) VSI, one inet-svs VSI configured as squid proxy server, one private-svs VSI (configured as NFS, NTP, DNS server) using [this preset](presets/3vpc-rhel.preset.json.tftpl).
+        - Installs and configures the Squid Proxy, DNS Forwarder, NTP forwarder and NFS on hosts, and sets the host as the server for the NTP, NFS, and DNS services by using ansible galaxy collection roles [ibm.power_linux_sap collection](https://galaxy.ansible.com/ui/repo/published/ibm/power_linux_sap/).
 
-    -  **landing_zone_configuration = 3VPC_RHEL or 3VPC_SLES**
+    -  **landing_zone_configuration = 1VPC_RHEL**
 
-        - One VPC with one VSI for management(jump/bastion).
-        -  Installation and configuration of Squid Proxy, DNS Forwarder, NTP forwarder and NFS on the bastion host, and sets the host as the server for the NTP, NFS, and DNS services by using Ansible roles.
+        - One VPC with one VSI for management(jump/bastion) using [this preset](presets/1vpc-rhel.preset.json.tftpl).
+        -  Installation and configuration of Squid Proxy, DNS Forwarder, NTP forwarder and NFS on the bastion host, and sets the host as the server for the NTP, NFS, and DNS services using ansible galaxy collection roles [ibm.power_linux_sap collection](https://galaxy.ansible.com/ui/repo/published/ibm/power_linux_sap/)
 
-- A PowerVS workspace instance with the following network topology:
+- **A Power Virtual Server workspace**  with the following network topology:
     - Creates two private networks: a management network and a backup network.
     - Creates one or two IBM Cloud connections in Non PER environment.
     - Attaches the private networks to the IBM Cloud connections in Non PER environment.

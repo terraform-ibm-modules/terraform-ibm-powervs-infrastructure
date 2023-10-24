@@ -1,6 +1,6 @@
-# Submodule power_management_services_setup
+# Module ansible-configure-network-services
 
-This submodule Installs and configures the Squid Proxy, DNS Forwarder, NTP Forwarder, NFS on specified host and sets the host as server for these services
+This module installs and configures the Squid Proxy, DNS Forwarder, NTP Forwarder, NFS on specified host and sets the host as server for these services using ansible galaxy collection roles [ibm.power_linux_sap collection](https://galaxy.ansible.com/ui/repo/published/ibm/power_linux_sap/).
 
 ## Usage
 ```hcl
