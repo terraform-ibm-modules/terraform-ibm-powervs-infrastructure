@@ -18,7 +18,7 @@ locals {
 
   fullstack_output     = jsondecode(data.ibm_schematics_output.schematics_output.output_json)
   prefix               = local.fullstack_output[0].prefix.value
-  ssh_public_key       = local.fullstack_output[0].ssh_public_key.value
+  ssh_public_key       = local.fullstack_output[0].powervs_ssh_public_key.value.value
   transit_gateway_name = local.fullstack_output[0].transit_gateway_name.value
   transit_gateway_id   = local.fullstack_output[0].transit_gateway_id.value
 
@@ -40,8 +40,8 @@ locals {
   # tflint-ignore: terraform_unused_declarations
   validate_json_chk = regex("^${local.validate_powervs_zone_msg}$", (local.valid_powervs_zone_used ? local.validate_powervs_zone_msg : ""))
 
-  fullstack_mgt_net       = local.fullstack_output[0].powervs_management_network_subnet.value
-  fullstack_bkp_net       = local.fullstack_output[0].powervs_backup_network_subnet.value
+  fullstack_mgt_net       = local.fullstack_output[0].powervs_management_subnet.value.cidr
+  fullstack_bkp_net       = local.fullstack_output[0].powervs_backup_subnet.value.cidr
   valid_mgt_subnet_used   = local.fullstack_mgt_net != var.powervs_management_network["cidr"] ? true : false
   validate_mgt_subnet_msg = "This management subnet CIDR already exists in the infrastructure. Please use another CIDR block."
   # tflint-ignore: terraform_unused_declarations
