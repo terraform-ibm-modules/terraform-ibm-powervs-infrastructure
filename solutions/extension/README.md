@@ -12,19 +12,20 @@ It provisions the following infrastructure on top of deployed Full Stack solutio
     - Creates an SSH key.
 
 
-Note:
+### Notes:
 - Kindly make sure that you are **choosing a PowerVS zone different** from that of the pre-requisite infrastructure.
 - **This solution requires a schematics workspace id as an input.**
+- Catalog image names to be imported into infrastructure can be found [here](../full-stack/docs/catalog_image_names.md)
 
-## Before you begin
+### Before you begin
+
 If you do not have a PowerVS infrastructure that is the [full stack solution](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/tree/main/solutions/full-stack) for a PowerVS Workspace that includes the full stack solution for Secure Landing Zone, create it first.
+
 
 | Variation  | Available on IBM Catalog  |  Requires Schematics Workspace ID | Creates VPC Landing Zone | Performs VPC VSI OS Config | Creates PowerVS Infrastructure | Creates PowerVS Instance | Performs PowerVS OS Config |
 | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
 | [Extension](./)    | :heavy_check_mark:  |  :heavy_check_mark: |  N/A | N/A | :heavy_check_mark:  | N/A | N/A |
 
-### Notes:
-Catalog image names to be imported into infrastructure can be found [here](../full-stack/docs/catalog_image_names.md)
 
 ## Reference architecture
 [PowerVS workspace extension variation](../../reference-architectures/extension/deploy-arch-ibm-pvs-inf-extension.md)
