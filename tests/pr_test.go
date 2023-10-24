@@ -67,19 +67,19 @@ func setupOptions(t *testing.T, prefix string) *testhelper.TestOptions {
 	return options
 }
 
-func TestRunDefaultExample(t *testing.T) {
+func TestRunBranchExample(t *testing.T) {
 	t.Parallel()
 
-	options := setupOptions(t, "pvs-inf")
+	options := setupOptions(t, "pvs-i-b")
 
 	output, err := options.RunTestConsistency()
 	assert.Nil(t, err, "This should not have errored")
 	assert.NotNil(t, output, "Expected some output")
 }
 
-func TestRunUpgradeExample(t *testing.T) {
+func TestRunMainExample(t *testing.T) {
 	t.Parallel()
-	options := setupOptions(t, "pvs-i-up")
+	options := setupOptions(t, "pvs-i-m")
 
 	output, err := options.RunTestUpgrade()
 	if !options.UpgradeTestSkipped {
