@@ -1,24 +1,25 @@
-#####################################################
+##########################################################################################################
 # 1. Proxy Client setup
 # 2. Register OS
 # 3. Install Necessary Packages
-# 4. Execute Ansible galaxy role to configure network services (NTP, NFS, DNS)
+# 4. Execute Ansible galaxy role to configure network services (NTP, NFS, DNS, SQUID)
 # 5. Update OS and Reboot
-#####################################################
+##########################################################################################################
 
 locals {
-  scr_scripts_dir = "${path.module}/templates"
-  dst_scripts_dir = "/root/terraform_scripts"
+  src_shell_templates_dir   = "${path.module}/templates-shell/"
+  src_ansible_templates_dir = "${path.module}/templates-ansible/"
+  dst_files_dir             = "/root/terraform_files"
 }
 
-#####################################################
+##########################################################################################################
 # 1. Proxy Client setup
 # 2. Register OS
-#####################################################
+##########################################################################################################
 
 locals {
-  src_services_init_tpl_path = "${local.scr_scripts_dir}/services_init.sh.tftpl"
-  dst_services_init_path     = "${local.dst_scripts_dir}/services_init.sh"
+  src_services_init_tpl_path = "${local.src_shell_templates_dir}/services_init.sh.tftpl"
+  dst_services_init_path     = "${local.dst_files_dir}/services_init.sh"
 }
 
 resource "terraform_data" "perform_proxy_client_setup" {
@@ -37,10 +38,7 @@ resource "terraform_data" "perform_proxy_client_setup" {
 
   ####### Create Terraform scripts directory ############
   provisioner "remote-exec" {
-    inline = [
-      "mkdir -p ${local.dst_scripts_dir}",
-      "chmod 777 ${local.dst_scripts_dir}",
-    ]
+    inline = ["mkdir -p ${local.dst_files_dir}", "chmod 777 ${local.dst_files_dir}", ]
   }
 
   ####### Copy Template file to target host ############
@@ -65,14 +63,14 @@ resource "terraform_data" "perform_proxy_client_setup" {
   }
 }
 
-#####################################################
+##########################################################################################################
 # 3. Install Necessary Packages
-#####################################################
+##########################################################################################################
 
 locals {
 
-  src_install_packages_tpl_path = "${local.scr_scripts_dir}/install_packages.sh.tftpl"
-  dst_install_packages_path     = "${local.dst_scripts_dir}/install_packages.sh"
+  src_install_packages_tpl_path = "${local.src_shell_templates_dir}/install_packages.sh.tftpl"
+  dst_install_packages_path     = "${local.dst_files_dir}/install_packages.sh"
 }
 
 resource "terraform_data" "install_packages" {
@@ -90,43 +88,33 @@ resource "terraform_data" "install_packages" {
 
   ####### Create Terraform scripts directory , Update OS and Reboot ############
   provisioner "remote-exec" {
-    inline = [
-      "mkdir -p ${local.dst_scripts_dir}",
-      "chmod 777 ${local.dst_scripts_dir}",
-    ]
+    inline = ["mkdir -p ${local.dst_files_dir}", "chmod 777 ${local.dst_files_dir}", ]
   }
 
   ####### Copy Template file to target host ############
   provisioner "file" {
     destination = local.dst_install_packages_path
-    content = templatefile(
-      local.src_install_packages_tpl_path,
-      {
-        "install_packages" : true
-      }
-    )
+    content     = templatefile(local.src_install_packages_tpl_path, { "install_packages" : true })
   }
 
   #######  Execute script: Install packages ############
   provisioner "remote-exec" {
-    inline = [
-      "chmod +x ${local.dst_install_packages_path}",
-      local.dst_install_packages_path
-    ]
+    inline = ["chmod +x ${local.dst_install_packages_path}", local.dst_install_packages_path]
   }
 }
 
-#####################################################
+
+##########################################################################################################
 # 4. Execute Ansible galaxy role to configure network
 # services (NTP, NFS, DNS, Squid)
-#####################################################
+##########################################################################################################
 
 locals {
 
-  src_script_configure_network_services_tftpl_path = "${local.scr_scripts_dir}/configure_network_services.sh.tftpl"
-  dst_script_configure_network_services_sh_path    = "${local.dst_scripts_dir}/configure_network_services.sh"
-  dst_ansible_vars_path                            = "${local.dst_scripts_dir}/ansible_configure_network_services_vars.yml"
-  ansible_configure_network_services_playbook_name = "powervs-services.yml"
+  src_configure_network_services_tpl_path           = "${local.src_ansible_templates_dir}/ansible_exec.sh.tftpl"
+  dst_configure_network_services_file_path          = "${local.dst_files_dir}/configure_network_services.sh"
+  src_playbook_configure_network_services_tpl_path  = "${local.src_ansible_templates_dir}/playbook_configure_network_services.yml.tftpl"
+  dst_playbook_configure_network_services_file_path = "${local.dst_files_dir}/playbook_configure_network_services.yml"
 }
 
 resource "terraform_data" "execute_ansible_role" {
@@ -142,40 +130,34 @@ resource "terraform_data" "execute_ansible_role" {
     timeout      = "5m"
   }
 
-  ####### Create variable file for ansible playbook execution ############
-  provisioner "file" {
-    destination = local.dst_ansible_vars_path
-    content     = <<EOF
-server_config:  ${jsonencode(var.service_config)}
-EOF
-
-  }
-
-  ####### Copy Template file to target host ############
-  provisioner "file" {
-    destination = local.dst_script_configure_network_services_sh_path
-    content = templatefile(
-      local.src_script_configure_network_services_tftpl_path,
-      {
-        "ansible_playbook_name" : local.ansible_configure_network_services_playbook_name
-        "ansible_extra_vars_path" : local.dst_ansible_vars_path
-        "ansible_log_path" : local.dst_scripts_dir
-      }
-    )
-  }
-
-  ####  Execute ansible collection to Configure management services  ####
+  # Creates terraform scripts directory
   provisioner "remote-exec" {
-    inline = [
-      "chmod +x ${local.dst_script_configure_network_services_sh_path}",
-      local.dst_script_configure_network_services_sh_path
-    ]
+    inline = ["mkdir -p ${local.dst_files_dir}", "chmod 777 ${local.dst_files_dir}", ]
+  }
+
+  # Copy playbook template file to target host
+  provisioner "file" {
+    content     = templatefile(local.src_playbook_configure_network_services_tpl_path, { "server_config" : jsonencode(var.network_services_config) })
+    destination = local.dst_playbook_configure_network_services_file_path
+  }
+
+  # Copy ansible exec template file to target host
+  provisioner "file" {
+    content     = templatefile(local.src_configure_network_services_tpl_path, { "ansible_playbook_file" : local.dst_playbook_configure_network_services_file_path, "ansible_log_path" : local.dst_files_dir })
+    destination = local.dst_configure_network_services_file_path
+  }
+
+
+  #  Execute script: configure_network_services.sh
+  provisioner "remote-exec" {
+    inline = ["chmod +x ${local.dst_configure_network_services_file_path}", local.dst_configure_network_services_file_path]
   }
 }
 
-#####################################################
+
+##########################################################################################################
 # 5. Update OS and Reboot
-#####################################################
+##########################################################################################################
 
 resource "terraform_data" "update_os" {
   depends_on = [terraform_data.execute_ansible_role]
@@ -192,10 +174,7 @@ resource "terraform_data" "update_os" {
 
   ####### Create Terraform scripts directory , Update OS and Reboot ############
   provisioner "remote-exec" {
-    inline = [
-      "mkdir -p ${local.dst_scripts_dir}",
-      "chmod 777 ${local.dst_scripts_dir}",
-    ]
+    inline = ["mkdir -p ${local.dst_files_dir}", "chmod 777 ${local.dst_files_dir}", ]
   }
 
   ####### Copy Template file to target host ############
@@ -213,9 +192,6 @@ resource "terraform_data" "update_os" {
 
   ####### Update OS and Reboot ############
   provisioner "remote-exec" {
-    inline = [
-      "chmod +x ${local.dst_services_init_path}",
-      "${local.dst_services_init_path} update_os",
-    ]
+    inline = ["chmod +x ${local.dst_services_init_path}", "${local.dst_services_init_path} update_os", ]
   }
 }

@@ -53,5 +53,5 @@ locals {
   validate_bkp_subnet_chk = regex("^${local.validate_bkp_subnet_msg}$", (local.valid_bkp_subnet_used ? local.validate_bkp_subnet_msg : ""))
 
   powervs_workspace_name = "${local.prefix}-${var.powervs_zone}-power-workspace"
-  powervs_sshkey_name    = "${local.prefix}-${var.powervs_zone}-ssh-pvs-key"
+  powervs_ssh_public_key = { "name" = "${local.prefix}-${var.powervs_zone}-ssh-pvs-key", value = local.ssh_public_key }
 }

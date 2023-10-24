@@ -1,5 +1,9 @@
 #!/bin/bash
 
+### Using input variables from terraform
+ansible_playbook=${ansible_playbook_file}
+ansible_log_path=${ansible_log_path}
+
 ################################################################
 # Fix: When upgrading from 2.0.0 Fullstack/quickstart version
 # to 3.0.0 version as 1TB nfs storage will be destroyed and
@@ -11,25 +15,13 @@ if grep -q '^/dev/mapper/nfsvg-nfslv' /etc/fstab; then
 fi
 sed -e '/\/dev\/mapper\/nfsvg-nfslv/ s/^#*/#/' -i /etc/fstab
 
-################################################################
-# Run ansible playbook
-################################################################
-
-### Using input variables from terraform
-playbook_name=${ansible_playbook_name}
-ansible_vars_location=${ansible_extra_vars_path}
-ansible_log_path=${ansible_log_path}
-
-power_linux_sap_arr=("powervs-services.yml")
-
 ### Download and install collections from ansible-galaxy
 ansible-galaxy collection install ibm.power_linux_sap:1.1.4 -f
+ansible-galaxy collection install ansible.utils
 
+ansible_playbook_name=$(basename $${ansible_playbook})
 ## Execute ansible playbook
-echo -e "[defaults]\nlog_path=$${ansible_log_path}/$${playbook_name}.$(date "+%Y.%m.%d-%H.%M.%S").log" >ansible.cfg
-
-if [[ " $${power_linux_sap_arr[@]} " =~ " $${playbook_name} " ]]; then
-    unbuffer ansible-playbook --connection=local -i 'localhost,' ~/.ansible/collections/ansible_collections/ibm/power_linux_sap/playbooks/$${playbook_name} --extra-vars "@$${ansible_vars_location}"
-    status=$?
-    [ $status -eq 0 ] && echo \"Playbook command successful\" || exit 1
-fi
+echo -e "[defaults]\nlog_path=$${ansible_log_path}/$${ansible_playbook_name}.$(date "+%Y.%m.%d-%H.%M.%S").log" >ansible.cfg
+unbuffer ansible-playbook --connection=local -i 'localhost,' $${ansible_playbook}
+status=$?
+[ $status -eq 0 ] && echo \"Playbook command successful\" || exit 1

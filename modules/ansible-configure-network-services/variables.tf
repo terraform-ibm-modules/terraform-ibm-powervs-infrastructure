@@ -14,7 +14,7 @@ variable "ssh_private_key" {
   sensitive   = true
 }
 
-variable "service_config" {
+variable "network_services_config" {
   description = "An object which contains configuration for NFS, NTP, DNS, Squid Services."
   type        = any
   default     = {}
