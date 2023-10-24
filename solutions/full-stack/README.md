@@ -42,7 +42,7 @@ Catalog image names to be imported into infrastructure can be found [here](./doc
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_powervs_infra"></a> [powervs\_infra](#module\_powervs\_infra) | ../../modules/powervs-vpc-landing-zone | n/a |
+| <a name="module_fullstack"></a> [fullstack](#module\_fullstack) | ../../modules/powervs-vpc-landing-zone | n/a |
 
 ### Resources
 
