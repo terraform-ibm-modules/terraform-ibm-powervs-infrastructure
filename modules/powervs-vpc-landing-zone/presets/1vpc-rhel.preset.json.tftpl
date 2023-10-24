@@ -1023,12 +1023,14 @@
       "vpc_name": "edge",
       "vsi_per_subnet": 1,
       "block_storage_volumes": [
-        {
-          "name": "data",
-          "profile": "5iops-tier",
-          "capacity": 500,
-          "encryption_key": "slz-vsi-volume-key"
-        }
+        %{ if "${nfs_volume_size}" != 0 }
+          {
+            "name": "data",
+            "profile": "5iops-tier",
+            "capacity": "${nfs_volume_size}",
+            "encryption_key": "slz-vsi-volume-key"
+          }
+         %{ endif }
       ]
     }
   ],

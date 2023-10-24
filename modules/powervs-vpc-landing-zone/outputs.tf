@@ -59,7 +59,7 @@ output "ntp_host_or_ip" {
 
 output "nfs_host_or_ip_path" {
   description = "NFS host for created PowerVS infrastructure."
-  value       = "${local.network_services_config.nfs.server_host_or_ip}:${local.network_services_config.nfs.nfs_file_system[0].mount_path}"
+  value       = local.valid_nfs_config && var.configure_nfs_server ? "${local.network_services_config.nfs.server_host_or_ip}:${local.network_services_config.nfs.nfs_file_system[0].mount_path}" : ""
 }
 
 

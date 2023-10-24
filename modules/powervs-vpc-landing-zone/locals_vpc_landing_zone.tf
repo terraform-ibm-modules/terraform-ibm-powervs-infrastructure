@@ -5,18 +5,28 @@ locals {
 
   external_access_ip = var.external_access_ip != null && var.external_access_ip != "" ? length(regexall("/", var.external_access_ip)) > 0 ? var.external_access_ip : "${var.external_access_ip}/32" : ""
 
+  ## Validate NFS Server Storage config
+  valid_nfs_server_config = var.configure_nfs_server ? var.nfs_server_config != null ? var.nfs_server_config.size != null && var.nfs_server_config.size != "" && var.nfs_server_config.mount_path != null && var.nfs_server_config.mount_path != "" ? true : false : false : false
+  valid_nfs_config        = var.configure_nfs_server ? local.valid_nfs_server_config : true
+  validate_nfs_config_msg = "'var.configure_nfs_server' is true but 'var.nfs_server_config' has incorrect value."
+  # tflint-ignore: terraform_unused_declarations
+  validate_nfs_config_chk = regex("^${local.validate_nfs_config_msg}$", (local.valid_nfs_config ? local.validate_nfs_config_msg : ""))
+  nfs_enable              = local.valid_nfs_config && var.configure_nfs_server ? true : false
+  nfs_volume_size         = local.nfs_enable ? var.nfs_server_config.size : 0
+
+
   landing_zone_preset = {
     "1VPC_RHEL" = {
       template_path = "${path.module}/presets/1vpc-rhel.preset.json.tftpl"
-      template_vars = { external_access_ip = local.external_access_ip }
+      template_vars = { external_access_ip = local.external_access_ip, nfs_volume_size = local.nfs_volume_size }
     },
     "3VPC_RHEL" = {
       template_path = "${path.module}/presets/3vpc-rhel.preset.json.tftpl"
-      template_vars = { external_access_ip = local.external_access_ip }
+      template_vars = { external_access_ip = local.external_access_ip, nfs_volume_size = local.nfs_volume_size }
     }
     "3VPC_SLES" = {
       template_path = "${path.module}/presets/3vpc-sles.preset.json.tftpl"
-      template_vars = { external_access_ip = local.external_access_ip }
+      template_vars = { external_access_ip = local.external_access_ip, nfs_volume_size = local.nfs_volume_size }
     }
   }
 
@@ -31,10 +41,6 @@ locals {
 ##########################################ä
 
 locals {
-
-  landing_zone_output = jsondecode(module.landing_zone.config)
-  nfs_disk_exists     = [for vsi in local.landing_zone_output.vsi : vsi.block_storage_volumes[0].capacity if contains(keys(vsi), "block_storage_volumes")]
-  nfs_disk_size       = length(local.nfs_disk_exists) >= 1 ? local.nfs_disk_exists[0] : ""
 
   key_fip_vsi_exists     = contains(keys(module.landing_zone), "fip_vsi") ? true : false
   key_floating_ip_exists = local.key_fip_vsi_exists ? contains(keys(module.landing_zone.fip_vsi[0]), "floating_ip") ? true : false : false
@@ -58,5 +64,4 @@ locals {
   validate_1vpc_json_msg = "Wrong JSON preset used. Please use one of the JSON preset supported for Power."
   # tflint-ignore: terraform_unused_declarations
   validate_1vpc_json_chk = regex("^${local.validate_1vpc_json_msg}$", (local.valid_1vpc_json_used ? local.validate_1vpc_json_msg : ""))
-
 }

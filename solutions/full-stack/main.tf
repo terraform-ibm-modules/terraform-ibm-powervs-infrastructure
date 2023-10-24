@@ -13,6 +13,7 @@ module "fullstack" {
   configure_ntp_forwarder     = var.configure_ntp_forwarder
   configure_nfs_server        = var.configure_nfs_server
   dns_forwarder_config        = var.dns_forwarder_config
+  nfs_server_config           = var.nfs_server_config
   powervs_resource_group_name = var.powervs_resource_group_name
   powervs_management_network  = var.powervs_management_network
   powervs_backup_network      = var.powervs_backup_network
