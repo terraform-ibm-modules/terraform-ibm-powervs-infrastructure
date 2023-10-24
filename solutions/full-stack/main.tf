@@ -20,8 +20,3 @@ module "powervs_infra" {
   powervs_image_names         = var.powervs_image_names
   tags                        = var.tags
 }
-
-moved {
-  from = module.fullstack
-  to   = module.powervs_infra
-}
