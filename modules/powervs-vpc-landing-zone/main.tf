@@ -61,7 +61,3 @@ module "powervs_infra" {
   pi_tags                       = var.tags
   pi_image_names                = var.powervs_image_names
 }
-moved {
-  from = module.powervs
-  to   = module.powervs_infra
-}

@@ -1,4 +1,4 @@
-module "powervs_infra" {
+module "fullstack" {
   source = "../../modules/powervs-vpc-landing-zone"
 
   providers = { ibm.ibm-is = ibm.ibm-is, ibm.ibm-pi = ibm.ibm-pi }
@@ -19,4 +19,14 @@ module "powervs_infra" {
   cloud_connection            = var.cloud_connection
   powervs_image_names         = var.powervs_image_names
   tags                        = var.tags
+}
+
+moved {
+  from = module.landing_zone
+  to   = module.fullstack.module.landing_zone
+}
+
+moved {
+  from = module.powervs_infra
+  to   = module.fullstack.module.powervs_infra
 }
