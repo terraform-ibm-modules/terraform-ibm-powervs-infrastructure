@@ -158,7 +158,7 @@
                                     "value": "us-south"
                                 },
                                 {
-                                    "displayname": "Dallas 10 (dal10)",
+                                    "displayname": "Dallas 10 (dal10) PER",
                                     "value": "dal10"
                                 },
                                 {
@@ -484,7 +484,7 @@
                             "catalogID": "1082e7d2-5e2f-0a11-a3bc-f88a8e1931fc",
                             "id": "2dd486c7-b317-4aaa-907b-42671485ad96-global",
                             "name": "deploy-arch-ibm-pvs-inf",
-                            "version": ">=1.0.0"
+                            "version": ">=3.0.0"
                         }
                     ],
                     "configuration": [
@@ -497,7 +497,7 @@
                                     "catalogID": "1082e7d2-5e2f-0a11-a3bc-f88a8e1931fc",
                                     "offeringID": "2dd486c7-b317-4aaa-907b-42671485ad96-global",
                                     "install_type": "fullstack",
-                                    "versionConstraint": ">=1.0.0"
+                                    "versionConstraint": ">=3.0.0"
                                 },
                                 "grouping": "deployment",
                                 "original_grouping": "deployment",
@@ -559,7 +559,7 @@
                                     "value": "us-south"
                                 },
                                 {
-                                    "displayname": "Dallas 10 (dal10)",
+                                    "displayname": "Dallas 10 (dal10) PER",
                                     "value": "dal10"
                                 },
                                 {
@@ -844,7 +844,7 @@
                                     "value": "us-south"
                                 },
                                 {
-                                    "displayname": "Dallas 10 (dal10)",
+                                    "displayname": "Dallas 10 (dal10) PER",
                                     "value": "dal10"
                                 },
                                 {
