@@ -11,13 +11,21 @@
 ## Summary
 This repository contains deployable architecture solutions which helps in provisioning VPC landing zone, PowerVS workspace and interconnecting them. The solutions are available in IBM Cloud Catalog and also can be deployed with catalog as well.
 
+Three solutions are offered:
+1. [PowerVS full-stack variation](soltuions/full-stack)
+    - Creates three vpcs with RHEL or SLES instances, Power Virtual Server workspace, interconnects them and configures os network management services.
+2. [PowerVS extension variation](soltuions/extension)
+    - Extends the full-stack solution by creating a new Power Virtual Server workspace in different zone and interconnects with the previous solution. This solution is typically used for High Availability scenarios where a single management VPCs can be used to reach both PowerVS workspaces.
+3. [PowerVS quickstart variation](soltuions/quickstart)
+    - Creates 1VPC and a Power Virtual Server workspace, interconnects them and configures os network management services. Additionally creates a Power Virtual Server Instance of selected t-shirt size. This solution is typically used for Pocs, demos and quick onboarding to Power Infrastructure.
+
 ## Reference architectures
 - [PowerVS full-stack variation](reference-architectures/full-stack/deploy-arch-ibm-pvs-inf-full-stack.md)
 - [PowerVS extension variation](reference-architectures/extension/deploy-arch-ibm-pvs-inf-extension.md)
 - [PowerVS quickstart variation](reference-architectures/quickstart/deploy-arch-ibm-pvs-inf-quickstart.md)
 
 ## Solutions
-| Variation  | Available on IBM Catalog  |  Requires Schematics Workspace ID | Creates VPC Landing Zone | Performs VPC VSI OS Config | Creates PowerVS Infrastructure | Creates PowerVS Instance | Performs PowerVS OS Config |
+| Variation  | Available on IBM Catalog  |  Requires IBM Schematics Workspace ID | Creates VPC Landing Zone | Performs VPC VSI OS Config | Creates PowerVS Infrastructure | Creates PowerVS Instance | Performs PowerVS OS Config |
 | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
 | [Full-Stack](solutions/full-stack)  | :heavy_check_mark:  | N/A  | :heavy_check_mark:  | :heavy_check_mark:  |  :heavy_check_mark: | N/A | N/A |
 | [Extension](solutions/extension)    | :heavy_check_mark:  |  :heavy_check_mark: |  N/A | N/A | :heavy_check_mark:  | N/A | N/A |
@@ -28,10 +36,9 @@ This repository contains deployable architecture solutions which helps in provis
 * [terraform-ibm-powervs-infrastructure](#terraform-ibm-powervs-infrastructure)
 * [Submodules](./modules)
     * [ansible-configure-network-services](./modules/ansible-configure-network-services)
+    * [powervs-vpc-landing-zone](./modules/powervs-vpc-landing-zone)
 * [Contributing](#contributing)
 <!-- END OVERVIEW HOOK -->
-
-## terraform-ibm-powervs-infrastructure
 
 ## Required IAM access policies
 
@@ -52,28 +59,6 @@ You need the following permissions to run this module.
             - `Editor` platform access
 
 <!-- END MODULE HOOK -->
-
-<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
-### Requirements
-
-No requirements.
-
-### Modules
-
-No modules.
-
-### Resources
-
-No resources.
-
-### Inputs
-
-No inputs.
-
-### Outputs
-
-No outputs.
-<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 <!-- BEGIN CONTRIBUTING HOOK -->
 ## Contributing
