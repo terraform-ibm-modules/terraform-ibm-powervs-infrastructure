@@ -1,5 +1,5 @@
 #####################################################
-# powervs fullstack solution
+# PowerVS fullstack solution
 #####################################################
 
 terraform {

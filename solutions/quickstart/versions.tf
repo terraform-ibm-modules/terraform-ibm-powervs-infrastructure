@@ -1,5 +1,5 @@
 #####################################################
-# powervs quickstart solution
+# PowerVS quickstart solution
 #####################################################
 
 terraform {

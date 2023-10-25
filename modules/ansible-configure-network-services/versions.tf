@@ -1,5 +1,5 @@
 #####################################################
-# IBM Cloud PowerVS cloud connection create Module
+# Ansible configure network services module
 #####################################################
 
 terraform {
