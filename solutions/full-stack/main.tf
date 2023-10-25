@@ -1,3 +1,7 @@
+#####################################################
+# PowerVS with VPC landing zone module
+#####################################################
+
 module "fullstack" {
   source = "../../modules/powervs-vpc-landing-zone"
 

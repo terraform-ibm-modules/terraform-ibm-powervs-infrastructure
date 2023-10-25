@@ -26,6 +26,7 @@ module "landing_zone_configure_proxy_server" {
 
 resource "time_sleep" "wait_for_squid_setup_to_complete" {
   depends_on = [module.landing_zone_configure_proxy_server]
+  count      = local.private_svs_vsi_exists ? 1 : 0
 
   create_duration = "120s"
 }
