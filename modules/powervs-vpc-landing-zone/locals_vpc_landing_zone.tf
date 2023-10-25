@@ -14,19 +14,24 @@ locals {
   nfs_enable              = local.valid_nfs_config && var.configure_nfs_server ? true : false
   nfs_volume_size         = local.nfs_enable ? var.nfs_server_config.size : 0
 
+  vsi_images = {
+    "1VPC_RHEL" = "ibm-redhat-8-6-amd64-sap-applications-4"
+    "3VPC_RHEL" = "ibm-redhat-8-6-amd64-sap-applications-4"
+    "3VPC_SLES" = "ibm-sles-15-4-amd64-sap-applications-6"
+  }
 
   landing_zone_preset = {
     "1VPC_RHEL" = {
-      template_path = "${path.module}/presets/1vpc-rhel.preset.json.tftpl"
-      template_vars = { external_access_ip = local.external_access_ip, nfs_volume_size = local.nfs_volume_size }
+      template_path = "${path.module}/presets/1vpc.preset.json.tftpl"
+      template_vars = { external_access_ip = local.external_access_ip, nfs_volume_size = local.nfs_volume_size, vsi_image = local.vsi_images["1VPC_RHEL"] }
     },
     "3VPC_RHEL" = {
-      template_path = "${path.module}/presets/3vpc-rhel.preset.json.tftpl"
-      template_vars = { external_access_ip = local.external_access_ip, nfs_volume_size = local.nfs_volume_size }
-    }
+      template_path = "${path.module}/presets/3vpc.preset.json.tftpl"
+      template_vars = { external_access_ip = local.external_access_ip, nfs_volume_size = local.nfs_volume_size, vsi_image = local.vsi_images["3VPC_RHEL"] }
+    },
     "3VPC_SLES" = {
-      template_path = "${path.module}/presets/3vpc-sles.preset.json.tftpl"
-      template_vars = { external_access_ip = local.external_access_ip, nfs_volume_size = local.nfs_volume_size }
+      template_path = "${path.module}/presets/3vpc.preset.json.tftpl"
+      template_vars = { external_access_ip = local.external_access_ip, nfs_volume_size = local.nfs_volume_size, vsi_image = local.vsi_images["3VPC_SLES"] }
     }
   }
 

@@ -326,25 +326,16 @@
                             "key": "powervs_workspace_guid"
                         },
                         {
-                            "key": "powervs_sshkey_name"
+                            "key": "powervs_ssh_public_key"
                         },
                         {
-                            "key": "powervs_management_network_name"
+                            "key": "powervs_management_subnet"
                         },
                         {
-                            "key": "powervs_management_network_subnet"
+                            "key": "powervs_backup_subnet"
                         },
                         {
-                            "key": "powervs_management_network_subnet_id"
-                        },
-                        {
-                            "key": "powervs_backup_network_name"
-                        },
-                        {
-                            "key": "powervs_backup_network_subnet"
-                        },
-                        {
-                            "key": "powervs_backup_network_subnet_id"
+                            "key": "powervs_images"
                         },
                         {
                             "key": "cloud_connection_count"
@@ -671,25 +662,16 @@
                             "key": "powervs_workspace_guid"
                         },
                         {
-                            "key": "powervs_sshkey_name"
+                            "key": "powervs_ssh_public_key"
                         },
                         {
-                            "key": "powervs_management_network_name"
+                            "key": "powervs_management_subnet"
                         },
                         {
-                            "key": "powervs_management_network_subnet"
+                            "key": "powervs_backup_subnet"
                         },
                         {
-                            "key": "powervs_management_network_subnet_id"
-                        },
-                        {
-                            "key": "powervs_backup_network_name"
-                        },
-                        {
-                            "key": "powervs_backup_network_subnet"
-                        },
-                        {
-                            "key": "powervs_backup_network_subnet_id"
+                            "key": "powervs_images"
                         },
                         {
                             "key": "cloud_connection_count"
@@ -1100,40 +1082,28 @@
                             "key": "powervs_workspace_guid"
                         },
                         {
-                            "key": "powervs_sshkey_name"
+                            "key": "powervs_ssh_public_key"
                         },
                         {
-                            "key": "powervs_management_network_name"
+                            "key": "powervs_management_subnet"
                         },
                         {
-                            "key": "powervs_management_network_subnet"
+                            "key": "powervs_backup_subnet"
                         },
                         {
-                            "key": "powervs_management_network_subnet_id"
-                        },
-                        {
-                            "key": "powervs_backup_network_name"
-                        },
-                        {
-                            "key": "powervs_backup_network_subnet"
-                        },
-                        {
-                            "key": "powervs_backup_network_subnet_id"
+                            "key": "powervs_images"
                         },
                         {
                             "key": "cloud_connection_count"
                         },
                         {
-                            "key": "pi_instance_private_ips_info"
+                            "key": "powervs_instance_management_ip"
                         },
                         {
-                            "key": "pi_instance_private_ips"
+                            "key": "powervs_instance_private_ips"
                         },
                         {
-                            "key": "pi_instance_mgmt_ip"
-                        },
-                        {
-                            "key": "pi_storage_configuration"
+                            "key": "powervs_storage_configuration"
                         },
                         {
                             "key": "schematics_workspace_id"
