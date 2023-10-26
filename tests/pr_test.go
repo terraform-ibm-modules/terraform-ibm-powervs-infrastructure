@@ -60,8 +60,8 @@ func setupOptions(t *testing.T, prefix string) *testhelper.TestOptions {
 		"landing_zone_configuration":  "3VPC_RHEL",
 		"external_access_ip":          "0.0.0.0/0",
 		// locking into syd05 due to other data center issues
-		"powervs_zone": "syd05",
-		//"powervs_zone": options.Region,
+		//"powervs_zone": "syd05",
+		"powervs_zone": options.Region,
 	}
 
 	return options

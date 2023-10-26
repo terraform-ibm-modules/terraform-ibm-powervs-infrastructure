@@ -49,3 +49,18 @@ module "powervs_instance" {
   pi_storage_config       = local.powervs_instance_storage_config
 
 }
+
+moved {
+  from = module.landing_zone
+  to   = module.quickstart.module.landing_zone
+}
+
+moved {
+  from = module.powervs_infra
+  to   = module.quickstart.module.powervs_infra
+}
+
+moved {
+  from = module.demo_pi_instance
+  to   = module.powervs_instance
+}

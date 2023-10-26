@@ -171,7 +171,7 @@ variable "powervs_resource_group_name" {
 variable "tags" {
   description = "List of tag names for the IBM Cloud PowerVS workspace"
   type        = list(string)
-  default     = [""]
+  default     = []
 }
 
 #############################################################################

@@ -148,7 +148,7 @@ variable "powervs_image_names" {
 variable "tags" {
   description = "List of tag names for the IBM Cloud PowerVS workspace"
   type        = list(string)
-  default     = [""]
+  default     = []
 }
 
 #############################################################################
