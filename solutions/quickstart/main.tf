@@ -40,7 +40,7 @@ module "powervs_instance" {
   pi_ssh_public_key_name  = module.quickstart.powervs_ssh_public_key.name
   pi_image_id             = local.powervs_instance_boot_image_id
   pi_networks             = local.powervs_networks
-  pi_instance_name        = "pi"
+  pi_instance_name        = "pi-qs"
   pi_sap_profile_id       = local.powervs_instance_sap_profile_id
   pi_server_type          = local.sap_system_creation_enabled ? null : "s922"
   pi_number_of_processors = local.powervs_instance_cores
