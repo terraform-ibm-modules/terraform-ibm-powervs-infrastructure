@@ -64,7 +64,7 @@ variable "configure_ntp_forwarder" {
 variable "configure_nfs_server" {
   description = "Specify if NFS server will be configured. This will allow you easily to share files between PowerVS instances (e.g., SAP installation files). NFS server will be installed on the private-svs vsi. If yes, ensure 'nfs_server_config' optional variable is set properly below. Default value is 1TB which will be mounted on /nfs."
   type        = bool
-  default     = false
+  default     = true
 }
 
 variable "dns_forwarder_config" {
