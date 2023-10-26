@@ -74,7 +74,7 @@ variable "dns_forwarder_config" {
   })
 
   default = {
-    "dns_servers" = "161.26.0.7; 161.26.0.8; 9.9.9.9;"
+    "dns_servers" : "161.26.0.7; 161.26.0.8; 9.9.9.9;"
   }
 }
 
@@ -86,8 +86,8 @@ variable "nfs_server_config" {
   })
 
   default = {
-    size       = 1000
-    mount_path = "/nfs"
+    "size" : 1000,
+    "mount_path" : "/nfs"
   }
 }
 
@@ -104,8 +104,8 @@ variable "powervs_management_network" {
   })
 
   default = {
-    name = "mgmt_net"
-    cidr = "10.51.0.0/24"
+    "name" : "mgmt_net",
+    "cidr" : "10.51.0.0/24"
   }
 }
 
@@ -117,8 +117,8 @@ variable "powervs_backup_network" {
   })
 
   default = {
-    name = "bkp_net"
-    cidr = "10.52.0.0/24"
+    "name" : "bkp_net",
+    "cidr" : "10.52.0.0/24"
   }
 }
 
@@ -132,17 +132,17 @@ variable "cloud_connection" {
   })
 
   default = {
-    count          = 2
-    speed          = 5000
-    global_routing = true
-    metered        = true
+    "count" : 2,
+    "speed" : 5000,
+    "global_routing" : true,
+    "metered" : true
   }
 }
 
 variable "powervs_image_names" {
   description = "List of Images to be imported into cloud account from catalog images. Supported values can be found [here](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/blob/main/solutions/full-stack/docs/catalog_image_names.md)"
   type        = list(string)
-  default     = ["SLES15-SP4-SAP", "SLES15-SP4-SAP-NETWEAVER", "RHEL8-SP6-SAP", "RHEL8-SP6-SAP-NETWEAVER"]
+  default     = ["IBMi-75-01-2924-2", "IBMi-75-01-2984-2", "7300-01-01", "7300-00-01", "VTL-FalconStor-10_03-001", "SLES15-SP4-SAP", "SLES15-SP4-SAP-NETWEAVER", "RHEL8-SP6-SAP", "RHEL8-SP6-SAP-NETWEAVER"]
 }
 
 variable "tags" {

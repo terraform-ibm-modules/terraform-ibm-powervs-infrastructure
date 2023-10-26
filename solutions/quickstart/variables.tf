@@ -102,7 +102,7 @@ variable "dns_forwarder_config" {
   })
 
   default = {
-    "dns_servers" = "161.26.0.7; 161.26.0.8; 9.9.9.9;"
+    "dns_servers" : "161.26.0.7; 161.26.0.8; 9.9.9.9;"
   }
 }
 
@@ -114,8 +114,8 @@ variable "nfs_server_config" {
   })
 
   default = {
-    size       = 1000
-    mount_path = "/nfs"
+    "size" : 1000,
+    "mount_path" : "/nfs"
   }
 }
 
