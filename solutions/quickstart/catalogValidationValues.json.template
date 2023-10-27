@@ -1,9 +1,8 @@
 {
   "ibmcloud_api_key": $VALIDATION_APIKEY,
   "powervs_zone": "tor01",
-  "powervs_resource_group_name": "Automation",
   "prefix": $PREFIX,
-  "landing_zone_configuration": "1VPC_RHEL",
+  "tshirt_size": "aix_xs",
   "external_access_ip": "0.0.0.0/0",
-  "tshirt_size": "aix_xs"
+  "powervs_resource_group_name": "Automation"
 }
