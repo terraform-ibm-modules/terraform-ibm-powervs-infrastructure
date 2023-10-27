@@ -15,7 +15,7 @@ It provisions the following infrastructure on top of deployed Full Stack solutio
 ### Notes:
 - Kindly make sure that you are **choosing a PowerVS zone different** from that of the pre-requisite infrastructure.
 - **This solution requires a schematics workspace id as an input.**
-- Catalog image names to be imported into infrastructure can be found [here](../full-stack/docs/catalog_image_names.md)
+- Catalog image names to be imported into infrastructure can be found [here](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/blob/main/solutions/full-stack/docs/catalog_image_names.md)
 
 ### Before you begin
 
@@ -28,7 +28,7 @@ If you do not have a PowerVS infrastructure that is the [full stack solution](ht
 
 
 ## Reference architecture
-[PowerVS workspace extension variation](../../reference-architectures/extension/deploy-arch-ibm-pvs-inf-extension.md)
+[PowerVS workspace extension variation](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/blob/main/reference-architectures/extension/deploy-arch-ibm-pvs-inf-extension.md)
 
 ## Architecture diagram
 ![extension-variation](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/blob/main/reference-architectures/extension/deploy-arch-ibm-pvs-inf-extension.svg)

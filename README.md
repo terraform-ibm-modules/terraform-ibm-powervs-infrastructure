@@ -12,27 +12,27 @@
 This repository contains deployable architecture solutions which helps in provisioning VPC landing zone, PowerVS workspace and interconnecting them. The solutions are available in IBM Cloud Catalog and also can be deployed without catalog as well except the second solution below.
 
 Three solutions are offered:
-1. [PowerVS full-stack variation](soltuions/full-stack)
+1. [PowerVS full-stack variation](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/tree/main/solutions/full-stack)
     - Creates three VPCs with RHEL or SLES instances, Power Virtual Server workspace, interconnects them and configures os network management services(SQUID proxy, NTP, NFS, and DNS services) using ansible galaxy collection roles [ibm.power_linux_sap collection](https://galaxy.ansible.com/ui/repo/published/ibm/power_linux_sap/).
-2. [PowerVS extension variation](soltuions/extension)
+2. [PowerVS extension variation](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/tree/main/solutions/extension)
     - Extends the full-stack solution by creating a new Power Virtual Server workspace in different zone and interconnects with the previous solution.
     - This solution is typically used for **High Availability scenarios** where a single management VPCs can be used to reach both PowerVS workspaces.
-3. [PowerVS quickstart variation](soltuions/quickstart)
+3. [PowerVS quickstart variation](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/tree/main/solutions/quickstart)
     - Creates 1VPC and a Power Virtual Server workspace, interconnects them and configures os network management services(SQUID proxy, NTP, NFS, and DNS services) using ansible galaxy collection roles [ibm.power_linux_sap collection](https://galaxy.ansible.com/ui/repo/published/ibm/power_linux_sap/).
     - Additionally creates a Power Virtual Server Instance of selected t-shirt size.
-    - This solution is typically used for **Pocs, demos and quick onboarding** to Power Infrastructure.
+    - This solution is typically used for **PoCs, demos and quick onboarding** to Power Infrastructure.
 
 ## Reference architectures
-- [PowerVS full-stack variation](reference-architectures/full-stack/deploy-arch-ibm-pvs-inf-full-stack.md)
-- [PowerVS extension variation](reference-architectures/extension/deploy-arch-ibm-pvs-inf-extension.md)
-- [PowerVS quickstart variation](reference-architectures/quickstart/deploy-arch-ibm-pvs-inf-quickstart.md)
+- [PowerVS full-stack variation](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/tree/main/reference-architectures/full-stack/deploy-arch-ibm-pvs-inf-full-stack.md)
+- [PowerVS extension variation](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/tree/main/reference-architectures/extension/deploy-arch-ibm-pvs-inf-extension.md)
+- [PowerVS quickstart variation](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/tree/main/reference-architectures/quickstart/deploy-arch-ibm-pvs-inf-quickstart.md)
 
 ## Solutions
 | Variation  | Available on IBM Catalog  |  Requires IBM Schematics Workspace ID | Creates VPC Landing Zone | Performs VPC VSI OS Config | Creates PowerVS Infrastructure | Creates PowerVS Instance | Performs PowerVS OS Config |
 | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
-| [Full-Stack](solutions/full-stack)  | :heavy_check_mark:  | N/A  | :heavy_check_mark:  | :heavy_check_mark:  |  :heavy_check_mark: | N/A | N/A |
-| [Extension](solutions/extension)    | :heavy_check_mark:  |  :heavy_check_mark: |  N/A | N/A | :heavy_check_mark:  | N/A | N/A |
-| [Quickstart](solutions/quickstart)    | :heavy_check_mark:  |   N/A  | :heavy_check_mark:| :heavy_check_mark: | :heavy_check_mark:  | :heavy_check_mark: | N/A |
+| [Full-Stack](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/tree/main/solutions/full-stack)  | :heavy_check_mark:  | N/A  | :heavy_check_mark:  | :heavy_check_mark:  |  :heavy_check_mark: | N/A | N/A |
+| [Extension](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/tree/main/solutions/extension)    | :heavy_check_mark:  |  :heavy_check_mark: |  N/A | N/A | :heavy_check_mark:  | N/A | N/A |
+| [Quickstart](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/tree/main/solutions/quickstart)    | :heavy_check_mark:  |   N/A  | :heavy_check_mark:| :heavy_check_mark: | :heavy_check_mark:  | :heavy_check_mark: | N/A |
 
 <!-- BEGIN OVERVIEW HOOK -->
 ## Overview
