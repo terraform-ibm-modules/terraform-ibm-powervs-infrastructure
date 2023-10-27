@@ -1,11 +1,20 @@
-# IBM Cloud solution for Power Virtual Server with VPC landing zone Full-Stack Variation
+# Module powervs-vpc-landing-zone
 
-This example sets up the following infrastructure:
-- A **VPC Infrastructure** with the following components:
-    -  Provisions three VPCs with one VSI in each VPC (one management(jump/bastion) VSI, one inet-svs VSI configured as squid proxy server, one private-svs VSI configured as NFS, NTP, DNS server).
-    - Installs and configures the Squid Proxy, DNS Forwarder, NTP forwarder and NFS on hosts, and sets the host as the server for the NTP, NFS, and DNS services using ansible galaxy collection roles [ibm.power_linux_sap collection](https://galaxy.ansible.com/ui/repo/published/ibm/power_linux_sap/).
+## IBM Power Virtual Server with VPC landing zone
 
-- A **Power Virtual Server** workspace with the following network topology:
+This module provisions the following resources in IBM Cloud:
+- A **VPC Infrastructure** based on value passed to 'var.landing_zone_configuration' with the following components:
+    -  **landing_zone_configuration = 3VPC_RHEL or 3VPC_SLES**
+
+        - Provisions three VPCs with one VSI in each VPC one management(jump/bastion) VSI, one inet-svs VSI configured as squid proxy server, one private-svs VSI (configured as NFS, NTP, DNS server) using [this preset](presets/3vpc.preset.json.tftpl).
+        - Installs and configures the Squid Proxy, DNS Forwarder, NTP forwarder and NFS on hosts, and sets the host as the server for the NTP, NFS, and DNS services by using ansible galaxy collection roles [ibm.power_linux_sap collection](https://galaxy.ansible.com/ui/repo/published/ibm/power_linux_sap/).
+
+    -  **landing_zone_configuration = 1VPC_RHEL**
+
+        - One VPC with one VSI for management(jump/bastion) using [this preset](presets/1vpc.preset.json.tftpl).
+        -  Installation and configuration of Squid Proxy, DNS Forwarder, NTP forwarder and NFS on the bastion host, and sets the host as the server for the NTP, NFS, and DNS services using ansible galaxy collection roles [ibm.power_linux_sap collection](https://galaxy.ansible.com/ui/repo/published/ibm/power_linux_sap/)
+
+- **A Power Virtual Server workspace**  with the following network topology:
     - Creates two private networks: a management network and a backup network.
     - Creates one or two IBM Cloud connections in Non PER environment.
     - Attaches the private networks to the IBM Cloud connections in Non PER environment.
@@ -13,21 +22,61 @@ This example sets up the following infrastructure:
     - Attaches the PowerVS workspace to Transit gateway in PER enabled DC
     - Creates an SSH key.
 
+- Finally Interconnects both VPC and PowerVS infrastructure.
+
+## Usage
+```hcl
+provider "ibm" {
+  alias            = "ibm-pi"
+  region           = ""
+  zone             = ""
+  ibmcloud_api_key = var.ibmcloud_api_key != null ? var.ibmcloud_api_key : null
+}
+
+provider "ibm" {
+  alias            = "ibm-is"
+  region           = ""
+  zone             = ""
+  ibmcloud_api_key = var.ibmcloud_api_key != null ? var.ibmcloud_api_key : null
+}
+
+module "fullstack" {
+  source  = "terraform-ibm-modules/powervs-infrastructure/ibm//modules//fullstack"
+  version = "x.x.x" # Replace "x.x.x" with a git release version to lock into a specific release
+
+  providers = { ibm.ibm-is = ibm.ibm-is, ibm.ibm-pi = ibm.ibm-pi }
+
+  powervs_zone                = var.powervs_zone
+  landing_zone_configuration  = var.landing_zone_configuration
+  prefix                      = var.prefix
+  external_access_ip          = var.external_access_ip
+  ssh_public_key              = var.ssh_public_key
+  ssh_private_key             = var.ssh_private_key
+  configure_dns_forwarder     = var.configure_dns_forwarder      #(optional,  default false)
+  configure_ntp_forwarder     = var.configure_ntp_forwarder      #(optional,  default false)
+  configure_nfs_server        = var.configure_nfs_server         #(optional.  default false)
+  nfs_server_config           = var.nfs_server_config            #(optional.  default check vars)
+  dns_forwarder_config        = var.dns_forwarder_config         #(optional.  default check vars)
+  powervs_resource_group_name = var.powervs_resource_group_name  #(optional.  default check vars)
+  powervs_management_network  = var.powervs_management_network   #(optional.  default check vars)
+  powervs_backup_network      = var.powervs_backup_network       #(optional.  default check vars)
+  cloud_connection            = var.cloud_connection             #(optional.  default check vars)
+  powervs_image_names         = var.powervs_image_names          #(optional.  default check vars)
+  tags                        = var.tags                         #(optional.  default check vars)
+}
+```
+
 ### Notes:
-Catalog image names to be imported into infrastructure can be found [here](./docs/catalog_image_names.md)
+Catalog image names to be imported into infrastructure can be found [here](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/blob/main/solutions/full-stack/docs/catalog_image_names.md)
 
-| Variation  | Available on IBM Catalog  |  Requires Schematics Workspace ID | Creates VPC Landing Zone | Performs VPC VSI OS Config | Creates PowerVS Infrastructure | Creates PowerVS Instance | Performs PowerVS OS Config |
-| ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
-| [Full-Stack](./)  | :heavy_check_mark:  | N/A  | :heavy_check_mark:  | :heavy_check_mark:  |  :heavy_check_mark: | N/A | N/A |
-
-
-
-## Reference architecture
-[PowerVS workspace full-stack variation](../../reference-architectures/full-stack/deploy-arch-ibm-pvs-inf-full-stack.md)
+Creates VPC Landing Zone | Performs VPC VSI OS Config | Creates PowerVS Infrastructure | Creates PowerVS Instance | Performs PowerVS OS Config |
+|  ------------- | ------------- | ------------- | ------------- | ------------- |
+| :heavy_check_mark:  | :heavy_check_mark:  |  :heavy_check_mark: | N/A | N/A |
 
 
-## Architecture diagram
-![full-stack-variation](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/blob/main/reference-architectures/full-stack/deploy-arch-ibm-pvs-inf-full-stack.svg)
+## Supported Reference architectures
+1. [PowerVS workspace full-stack variation](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/blob/main/reference-architectures/full-stack/deploy-arch-ibm-pvs-inf-full-stack.svg)
+2. [PowerVS quickstart variation](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/blob/main/reference-architectures/quickstart/deploy-arch-ibm-pvs-inf-quickstart.svg)
 
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
@@ -35,32 +84,36 @@ Catalog image names to be imported into infrastructure can be found [here](./doc
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.3, < 1.6 |
-| <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | =1.58.1 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.3 |
+| <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | >=1.58.1 |
+| <a name="requirement_time"></a> [time](#requirement\_time) | >= 0.9.1 |
 
 ### Modules
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_fullstack"></a> [fullstack](#module\_fullstack) | ../../modules/powervs-vpc-landing-zone | n/a |
+| <a name="module_landing_zone"></a> [landing\_zone](#module\_landing\_zone) | terraform-ibm-modules/landing-zone/ibm//patterns//vsi//module | 4.13.0 |
+| <a name="module_landing_zone_configure_network_services"></a> [landing\_zone\_configure\_network\_services](#module\_landing\_zone\_configure\_network\_services) | ../ansible-configure-network-services | n/a |
+| <a name="module_landing_zone_configure_proxy_server"></a> [landing\_zone\_configure\_proxy\_server](#module\_landing\_zone\_configure\_proxy\_server) | ../ansible-configure-network-services | n/a |
+| <a name="module_powervs_infra"></a> [powervs\_infra](#module\_powervs\_infra) | terraform-ibm-modules/powervs-workspace/ibm | 1.1.3 |
 
 ### Resources
 
-No resources.
+| Name | Type |
+|------|------|
+| [time_sleep.wait_for_squid_setup_to_complete](https://registry.terraform.io/providers/hashicorp/time/latest/docs/resources/sleep) | resource |
 
 ### Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_IC_SCHEMATICS_WORKSPACE_ID"></a> [IC\_SCHEMATICS\_WORKSPACE\_ID](#input\_IC\_SCHEMATICS\_WORKSPACE\_ID) | leave blank if running locally. This variable will be automatically populated if running from an IBM Cloud Schematics workspace. | `string` | `""` | no |
 | <a name="input_cloud_connection"></a> [cloud\_connection](#input\_cloud\_connection) | Cloud connection configuration: speed (50, 100, 200, 500, 1000, 2000, 5000, 10000 Mb/s), count (1 or 2 connections), global\_routing (true or false), metered (true or false). Not applicable for dal10 DC where PER is enabled. | <pre>object({<br>    count          = number<br>    speed          = number<br>    global_routing = bool<br>    metered        = bool<br>  })</pre> | <pre>{<br>  "count": 2,<br>  "global_routing": true,<br>  "metered": true,<br>  "speed": 5000<br>}</pre> | no |
-| <a name="input_configure_dns_forwarder"></a> [configure\_dns\_forwarder](#input\_configure\_dns\_forwarder) | Specify if DNS forwarder will be configured. This will allow you to use central DNS servers (e.g. IBM Cloud DNS servers) sitting outside of the created IBM PowerVS infrastructure. If yes, ensure 'dns\_forwarder\_config' optional variable is set properly. DNS forwarder will be installed on the private-svs vsi. | `bool` | `true` | no |
-| <a name="input_configure_nfs_server"></a> [configure\_nfs\_server](#input\_configure\_nfs\_server) | Specify if NFS server will be configured. This will allow you easily to share files between PowerVS instances (e.g., SAP installation files). NFS server will be installed on the private-svs vsi. If yes, ensure 'nfs\_server\_config' optional variable is set properly below. Default value is 1TB which will be mounted on /nfs. | `bool` | `true` | no |
-| <a name="input_configure_ntp_forwarder"></a> [configure\_ntp\_forwarder](#input\_configure\_ntp\_forwarder) | Specify if NTP forwarder will be configured. This will allow you to synchronize time between IBM PowerVS instances. NTP forwarder will be installed on the private-svs vsi. | `bool` | `true` | no |
+| <a name="input_configure_dns_forwarder"></a> [configure\_dns\_forwarder](#input\_configure\_dns\_forwarder) | Specify if DNS forwarder will be configured. This will allow you to use central DNS servers (e.g. IBM Cloud DNS servers) sitting outside of the created IBM PowerVS infrastructure. If yes, ensure 'dns\_forwarder\_config' optional variable is set properly. DNS forwarder will be installed on the private-svs-1 vsi if exists else on inet-svs-1 vsi. | `bool` | `false` | no |
+| <a name="input_configure_nfs_server"></a> [configure\_nfs\_server](#input\_configure\_nfs\_server) | Specify if NFS server will be configured. This will allow you easily to share files between PowerVS instances (e.g., SAP installation files). NFS server will be installed on the private-svs vsi. If yes, ensure 'nfs\_server\_config' optional variable is set properly below. Default value is '1TB' which will be mounted on '/nfs'. | `bool` | `false` | no |
+| <a name="input_configure_ntp_forwarder"></a> [configure\_ntp\_forwarder](#input\_configure\_ntp\_forwarder) | Specify if NTP forwarder will be configured. This will allow you to synchronize time between IBM PowerVS instances. NTP forwarder will be installed on the private-svs-1 vsi if exists else on inet-svs-1 vsi. | `bool` | `false` | no |
 | <a name="input_dns_forwarder_config"></a> [dns\_forwarder\_config](#input\_dns\_forwarder\_config) | Configuration for the DNS forwarder to a DNS service that is not reachable directly from PowerVS. | <pre>object({<br>    dns_servers = string<br>  })</pre> | <pre>{<br>  "dns_servers": "161.26.0.7; 161.26.0.8; 9.9.9.9;"<br>}</pre> | no |
 | <a name="input_external_access_ip"></a> [external\_access\_ip](#input\_external\_access\_ip) | Specify the IP address or CIDR to login through SSH to the environment after deployment. Access to this environment will be allowed only from this IP address. | `string` | n/a | yes |
-| <a name="input_ibmcloud_api_key"></a> [ibmcloud\_api\_key](#input\_ibmcloud\_api\_key) | The IBM Cloud platform API key needed to deploy IAM enabled resources. | `string` | n/a | yes |
-| <a name="input_landing_zone_configuration"></a> [landing\_zone\_configuration](#input\_landing\_zone\_configuration) | VPC landing zone configuration. | `string` | n/a | yes |
+| <a name="input_landing_zone_configuration"></a> [landing\_zone\_configuration](#input\_landing\_zone\_configuration) | VPC landing zone configuration. Provided value must be one of ['3VPC\_RHEL', '3VPC\_SLES', '1VPC\_RHEL'] only. | `string` | n/a | yes |
 | <a name="input_nfs_server_config"></a> [nfs\_server\_config](#input\_nfs\_server\_config) | Configuration for the NFS server. 'size' is in GB, 'mount\_path' defines the mount point on os. Set 'configure\_nfs\_server' to false to ignore creating volume. | <pre>object({<br>    size       = number<br>    mount_path = string<br>  })</pre> | <pre>{<br>  "mount_path": "/nfs",<br>  "size": 1000<br>}</pre> | no |
 | <a name="input_powervs_backup_network"></a> [powervs\_backup\_network](#input\_powervs\_backup\_network) | Name of the IBM Cloud PowerVS backup network and CIDR to create. | <pre>object({<br>    name = string<br>    cidr = string<br>  })</pre> | <pre>{<br>  "cidr": "10.52.0.0/24",<br>  "name": "bkp_net"<br>}</pre> | no |
 | <a name="input_powervs_image_names"></a> [powervs\_image\_names](#input\_powervs\_image\_names) | List of Images to be imported into cloud account from catalog images. Supported values can be found [here](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/blob/main/solutions/full-stack/docs/catalog_image_names.md) | `list(string)` | <pre>[<br>  "IBMi-75-01-2924-2",<br>  "IBMi-75-01-2984-2",<br>  "7300-01-01",<br>  "7300-00-01",<br>  "SLES15-SP4-SAP",<br>  "SLES15-SP4-SAP-NETWEAVER",<br>  "RHEL8-SP6-SAP",<br>  "RHEL8-SP6-SAP-NETWEAVER"<br>]</pre> | no |
@@ -92,7 +145,6 @@ No resources.
 | <a name="output_powervs_zone"></a> [powervs\_zone](#output\_powervs\_zone) | Zone where PowerVS infrastructure is created. |
 | <a name="output_prefix"></a> [prefix](#output\_prefix) | The prefix that is associated with all resources |
 | <a name="output_proxy_host_or_ip_port"></a> [proxy\_host\_or\_ip\_port](#output\_proxy\_host\_or\_ip\_port) | Proxy host:port for created PowerVS infrastructure. |
-| <a name="output_schematics_workspace_id"></a> [schematics\_workspace\_id](#output\_schematics\_workspace\_id) | ID of the IBM Cloud Schematics workspace. Returns null if not ran in Schematics. |
 | <a name="output_ssh_public_key"></a> [ssh\_public\_key](#output\_ssh\_public\_key) | The string value of the ssh public key used when deploying VPC |
 | <a name="output_transit_gateway_id"></a> [transit\_gateway\_id](#output\_transit\_gateway\_id) | The ID of transit gateway. |
 | <a name="output_transit_gateway_name"></a> [transit\_gateway\_name](#output\_transit\_gateway\_name) | The name of the transit gateway. |

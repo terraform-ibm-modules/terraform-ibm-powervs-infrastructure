@@ -9,12 +9,12 @@ output "prefix" {
 
 output "vpc_names" {
   description = "A list of the names of the VPC."
-  value       = module.quickstart.vpc_names
+  value       = module.landing_zone.vpc_names
 }
 
 output "vsi_names" {
   description = "A list of the vsis names provisioned within the VPCs."
-  value       = module.quickstart.vsi_names
+  value       = module.landing_zone.vsi_names
 }
 
 output "ssh_public_key" {
@@ -24,42 +24,42 @@ output "ssh_public_key" {
 
 output "transit_gateway_name" {
   description = "The name of the transit gateway."
-  value       = module.quickstart.transit_gateway_name
+  value       = module.landing_zone.transit_gateway_name
 }
 
 output "transit_gateway_id" {
   description = "The ID of transit gateway."
-  value       = module.quickstart.transit_gateway_id
+  value       = module.landing_zone.transit_gateway_data.id
 }
 
 output "vsi_list" {
   description = "A list of VSI with name, id, zone, and primary ipv4 address, VPC Name, and floating IP."
-  value       = module.quickstart.vsi_list
+  value       = module.landing_zone.vsi_list
 }
 
 output "access_host_or_ip" {
   description = "Access host(jump/bastion) for created PowerVS infrastructure."
-  value       = module.quickstart.access_host_or_ip
+  value       = local.access_host_or_ip
 }
 
 output "proxy_host_or_ip_port" {
   description = "Proxy host:port for created PowerVS infrastructure."
-  value       = module.quickstart.proxy_host_or_ip_port
+  value       = "${local.squid_config.squid.server_host_or_ip}:${local.squid_config.squid.squid_port}"
 }
 
 output "dns_host_or_ip" {
   description = "DNS forwarder host for created PowerVS infrastructure."
-  value       = module.quickstart.dns_host_or_ip
+  value       = local.network_services_config.dns.server_host_or_ip
 }
 
 output "ntp_host_or_ip" {
   description = "NTP host for created PowerVS infrastructure."
-  value       = module.quickstart.ntp_host_or_ip
+  value       = local.network_services_config.ntp.server_host_or_ip
 }
 
 output "nfs_host_or_ip_path" {
   description = "NFS host for created PowerVS infrastructure."
-  value       = module.quickstart.nfs_host_or_ip_path
+  value       = local.valid_nfs_config && var.configure_nfs_server ? "${local.network_services_config.nfs.server_host_or_ip}:${local.network_services_config.nfs.nfs_file_system[0].mount_path}" : ""
 }
 
 
@@ -79,65 +79,40 @@ output "powervs_resource_group_name" {
 
 output "powervs_workspace_name" {
   description = "PowerVS infrastructure workspace name."
-  value       = module.quickstart.powervs_workspace_name
+  value       = module.powervs_infra.pi_workspace_name
 }
 
 output "powervs_workspace_id" {
   description = "PowerVS infrastructure workspace id. The unique identifier of the new resource instance."
-  value       = module.quickstart.powervs_workspace_id
+  value       = module.powervs_infra.pi_workspace_id
 }
 
 output "powervs_workspace_guid" {
   description = "PowerVS infrastructure workspace guid. The GUID of the resource instance."
-  value       = module.quickstart.powervs_workspace_guid
+  value       = module.powervs_infra.pi_workspace_guid
 }
 
 output "powervs_ssh_public_key" {
   description = "SSH public key name and value in created PowerVS infrastructure."
-  value       = module.quickstart.powervs_ssh_public_key
+  value       = module.powervs_infra.pi_ssh_public_key
 }
 
 output "powervs_management_subnet" {
   description = "Name, ID and CIDR of management private network in created PowerVS infrastructure."
-  value       = module.quickstart.powervs_management_subnet
+  value       = module.powervs_infra.pi_private_subnet_1
 }
 
 output "powervs_backup_subnet" {
   description = "Name, ID and CIDR of backup private network in created PowerVS infrastructure."
-  value       = module.quickstart.powervs_backup_subnet
+  value       = module.powervs_infra.pi_private_subnet_2
 }
 
 output "powervs_images" {
   description = "Object containing imported PowerVS image names and image ids."
-  value       = module.quickstart.powervs_images
+  value       = module.powervs_infra.pi_images
 }
 
 output "cloud_connection_count" {
   description = "Number of cloud connections configured in created PowerVS infrastructure."
-  value       = module.quickstart.cloud_connection_count
-}
-
-
-########################################################################
-# PowerVS Instance outputs
-########################################################################
-
-output "powervs_instance_management_ip" {
-  description = "IP address of the primary network interface of IBM PowerVS instance."
-  value       = module.powervs_instance.pi_instance_primary_ip
-}
-
-output "powervs_instance_private_ips" {
-  description = "All private IP addresses (as a list) of IBM PowerVS instance."
-  value       = module.powervs_instance.pi_instance_private_ips
-}
-
-output "powervs_storage_configuration" {
-  description = "Storage configuration of PowerVS instance."
-  value       = module.powervs_instance.pi_storage_configuration
-}
-
-output "schematics_workspace_id" {
-  description = "ID of the IBM Cloud Schematics workspace. Returns null if not ran in Schematics."
-  value       = var.IC_SCHEMATICS_WORKSPACE_ID
+  value       = module.powervs_infra.pi_cloud_connection_count
 }

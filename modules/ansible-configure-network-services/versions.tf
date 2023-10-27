@@ -1,13 +1,10 @@
 #####################################################
-# PowerVS quickstart solution
+# Ansible configure network services module
 #####################################################
 
 terraform {
-  required_version = ">= 1.3, < 1.6"
+  required_version = ">= 1.3"
   required_providers {
-    ibm = {
-      source  = "IBM-Cloud/ibm"
-      version = "=1.58.1"
-    }
+
   }
 }

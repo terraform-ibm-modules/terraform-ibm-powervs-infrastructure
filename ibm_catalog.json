@@ -31,11 +31,13 @@
                 "secure",
                 "networking",
                 "vertical scaling",
-                "scalable server"
+                "scalable server",
+                "quickstart",
+                "quick"
             ],
             "short_description": "Build a IBM Cloud® Power Virtual Servers (PowerVS) offering according to the best practices and requirements from the IBM Cloud.",
             "long_description": "IBM Cloud® Power Virtual Servers (PowerVS) is a public cloud offering that an enterprise can use to establish its own private IBM Power computing environment on shared public cloud infrastructure. PowerVS is logically isolated from all other public cloud tenants and infrastructure components, creating a private, secure place on the public cloud. This deployable architecture provides a framework to build a PowerVS offering according to the best practices and requirements from the IBM Cloud.",
-            "offering_docs_url": "https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/blob/main/solutions/full-stack/#README",
+            "offering_docs_url": "https://cloud.ibm.com/docs/powervs-vpc?topic=powervs-vpc-powervs-automation-overview",
             "offering_icon_url": "data:image/svg+xml;base64,PHN2ZyBpZD0iUG93ZXJJbmZyYXN0cnVjdHVyZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmlld0JveD0iMCAwIDMyIDMyIj48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9Inc2aHpjbXV6amEiIHgxPSItMTg1NS4yMDgiIHkxPSItMjUwMi41NjMiIHgyPSItMTg1NS4yMDgiIHkyPSItMjUyMi4xNzkiIGdyYWRpZW50VHJhbnNmb3JtPSJtYXRyaXgoMS4wNiAwIDAgLS40OTEgMTk3My42NzYgLTEyMjcuMjkzKSIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiPjxzdG9wIG9mZnNldD0iMCIvPjxzdG9wIG9mZnNldD0iLjgiIHN0b3Atb3BhY2l0eT0iMCIvPjwvbGluZWFyR3JhZGllbnQ+PGxpbmVhckdyYWRpZW50IGlkPSI2dmZkbzMxaXNiIiB4MT0iMzI4LjUwMiIgeTE9Ii02NzY1LjY0NyIgeDI9IjMyOC41MDIiIHkyPSItNjc4NS4yNjMiIGdyYWRpZW50VHJhbnNmb3JtPSJtYXRyaXgoMS4wNiAwIDAgLjUxNSAtMzM5Ljk2NiAzNTEzLjI1KSIgeGxpbms6aHJlZj0iI3c2aHpjbXV6amEiLz48bGluZWFyR3JhZGllbnQgaWQ9ImJ0eDNhMG9vZ2MiIHgxPSItOTUzLjI2NiIgeTE9Ii0yODI4LjY1OSIgeDI9Ii05NTMuMjY2IiB5Mj0iLTI4MzguNTMzIiBncmFkaWVudFRyYW5zZm9ybT0ibWF0cml4KDEuMDYgMCAwIC0uNjY5IDEwMzcuMjE4IC0xODc2LjQzOSkiIHhsaW5rOmhyZWY9IiN3Nmh6Y211emphIi8+PGxpbmVhckdyYWRpZW50IGlkPSI2NmhzYWNybDVkIiB4MT0iLTE5MjMuMjUiIHkxPSItMjYyMC4yOSIgeDI9Ii0xOTIzLjI1IiB5Mj0iLTI2MjcuODg0IiBncmFkaWVudFRyYW5zZm9ybT0ibWF0cml4KDEuMDYgMCAwIC42NjkgMjA0OC4wOTEgMTc4Mi4zNjQpIiB4bGluazpocmVmPSIjdzZoemNtdXpqYSIvPjxsaW5lYXJHcmFkaWVudCBpZD0idXp2YXRxaGhwZSIgeDE9Ii0xOTE1LjgwMiIgeTE9Ii0zMTkxLjI5NCIgeDI9Ii0xOTE1LjgwMiIgeTI9Ii0zMTk4Ljg4OSIgZ3JhZGllbnRUcmFuc2Zvcm09Im1hdHJpeCgxLjA2IDAgMCAuNjY5IDIwNDMuNDggMjE0MS4xMjgpIiB4bGluazpocmVmPSIjdzZoemNtdXpqYSIvPjxsaW5lYXJHcmFkaWVudCBpZD0iZTFxMWF3ZXJxZyIgeDE9IjAiIHkxPSIzMiIgeDI9IjMyIiB5Mj0iMCIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiPjxzdG9wIG9mZnNldD0iLjEiIHN0b3AtY29sb3I9IiMwOGJkYmEiLz48c3RvcCBvZmZzZXQ9Ii45IiBzdG9wLWNvbG9yPSIjMGY2MmZlIi8+PC9saW5lYXJHcmFkaWVudD48bWFzayBpZD0idnZmcnV4eXl1ZiIgeD0iMCIgeT0iMCIgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiBtYXNrVW5pdHM9InVzZXJTcGFjZU9uVXNlIj48cGF0aCBkPSJNMTUuOTgyIDMwYy03LjcyIDAtMTQtNi4yOC0xNC0xNHM2LjI4MS0xNCAxNC0xNCAxNCA2LjI4IDE0IDE0LTYuMjggMTQtMTQgMTR6bTAtMjZjLTYuNjE3IDAtMTIgNS4zODMtMTIgMTJzNS4zODMgMTIgMTIgMTIgMTItNS4zODMgMTItMTItNS4zODMtMTItMTItMTJ6IiBzdHlsZT0iZmlsbDojZmZmIi8+PHBhdGggZD0iTTMwLjY5MSAzMC43MDhIMTEuNzI5bDMtOC43MDggMTAuNDY1LjAxMSA1LjU3Ny0uMDIxLS4wOCA4LjcxOHpNNi45ODIgMjBsLTYgNS40OTRWNi44MDdsNiA1LjAxNVYyMHpNMTYuMDAzIDFoMTQuOTk5djEzLjAzMkgxNi4wMDN6Ii8+PHBhdGggdHJhbnNmb3JtPSJyb3RhdGUoLTEzNSA3Ljk0MyA2Ljc4NykiIHN0eWxlPSJmaWxsOnVybCgjdzZoemNtdXpqYSkiIGQ9Ik00Ljc2NCAxLjk3aDYuMzU3djkuNjM1SDQuNzY0eiIvPjxwYXRoIHRyYW5zZm9ybT0icm90YXRlKDEzNSA4LjEwNiAyNS4zNDQpIiBzdHlsZT0iZmlsbDp1cmwoIzZ2ZmRvMzFpc2IpIiBkPSJNNC45MjggMjAuMjk1aDYuMzU3djEwLjA5OEg0LjkyOHoiLz48cGF0aCB0cmFuc2Zvcm09InJvdGF0ZSgxODAgMjcuMTYxIDE4Ljg2MykiIHN0eWxlPSJmaWxsOnVybCgjYnR4M2Ewb29nYykiIGQ9Ik0yMy45ODIgMTUuNTYxaDYuMzU3djYuNjA0aC02LjM1N3oiLz48cGF0aCB0cmFuc2Zvcm09InJvdGF0ZSgtNzAuNzkgMTAuMjYyIDI3LjE5NSkiIHN0eWxlPSJmaWxsOnVybCgjNjZoc2Fjcmw1ZCkiIGQ9Ik03LjA4NCAyNC42NTVoNi4zNTd2NS4wOEg3LjA4NHoiLz48cGF0aCBkPSJNOC45ODIgMjAuOThoLTZjLTEuMTAzIDAtMi0uODk3LTItMnYtNmMwLTEuMTAzLjg5Ny0yIDItMmg2YzEuMTAzIDAgMiAuODk3IDIgMnY2YzAgMS4xMDMtLjg5NyAyLTIgMnptLTYtOHY2aDYuMDAxdi02SDIuOTgyeiIgc3R5bGU9ImZpbGw6I2ZmZiIvPjxwYXRoIHRyYW5zZm9ybT0icm90YXRlKC05MCAxMy41NDMgNC4wMzIpIiBzdHlsZT0iZmlsbDp1cmwoI3V6dmF0cWhocGUpIiBkPSJNMTAuMzY0IDEuNDkyaDYuMzU3djUuMDhoLTYuMzU3eiIvPjxwYXRoIGQ9Ik0yNy4zMDQgNy4xMzRjMC0uMzctLjA2Ny0uNzIxLS4xNjEtMS4wNjJMMjkgNWwtMS0xLjczMi0xLjg0NyAxLjA2NmEzLjk5MSAzLjk5MSAwIDAgMC0xLjg0OS0xLjA1OFYxLjEzNGgtMnYyLjE0MmEzLjk5MSAzLjk5MSAwIDAgMC0xLjg0OSAxLjA1OGwtMS44NDctMS4wNjYtMSAxLjczMiAxLjg1NyAxLjA3MmMtLjA5NC4zNC0uMTYxLjY5Mi0uMTYxIDEuMDYycy4wNjcuNzIxLjE2MSAxLjA2MmwtMS44NTcgMS4wNzIgMSAxLjczMiAxLjg0Ny0xLjA2NmMuNS41MDkgMS4xMzguODczIDEuODQ5IDEuMDU4djIuMTQyaDJ2LTIuMTQyYTMuOTkxIDMuOTkxIDAgMCAwIDEuODQ5LTEuMDU4TDI4IDExbDEtMS43MzItMS44NTctMS4wNzJjLjA5NC0uMzQuMTYxLS42OTIuMTYxLTEuMDYyem0tNCAyYy0xLjEwMyAwLTItLjg5Ny0yLTJzLjg5Ny0yIDItMiAyIC44OTcgMiAyLS44OTcgMi0yIDJ6IiBzdHlsZT0iZmlsbDojZmZmIi8+PC9tYXNrPjwvZGVmcz48ZyBzdHlsZT0ibWFzazp1cmwoI3Z2ZnJ1eHl5dWYpIj48cGF0aCBzdHlsZT0iZmlsbDp1cmwoI2UxcTFhd2VycWcpIiBkPSJNMCAwaDMydjMySDB6Ii8+PC9nPjxwYXRoIGQ9Ik0yOS4wMDIgMzFoLTEzYy0xLjEwMyAwLTItLjg5Ny0yLTJ2LTRjMC0xLjEwMy44OTctMiAyLTJoMTNjMS4xMDMgMCAyIC44OTcgMiAydjRjMCAxLjEwMy0uODk3IDItMiAyem0tMTMtNnY0aDEzLjAwMXYtNEgxNi4wMDJ6IiBzdHlsZT0iZmlsbDojMDAxZDZjIi8+PGNpcmNsZSBjeD0iMTkuMDAyIiBjeT0iMjciIHI9IjEiIHN0eWxlPSJmaWxsOiMwMDFkNmMiLz48L3N2Zz4=",
             "features": [
                 {
@@ -56,47 +58,15 @@
                     "label": "PowerVS Workspace",
                     "name": "powervs-workspace",
                     "install_type": "fullstack",
+                    "index": 1,
                     "working_directory": "solutions/full-stack",
                     "usage_template": "module \"power-infrastructure\" {\n  source                      = \"https://cm.globalcatalog.cloud.ibm.com/api/v1-beta/offering/source//${{workingDirectory}}?archive=tgz&flavor=${{flavor}}&kind=${{kind}}&name=${{name}}&version=${{version}}\"\n  powervs_zone                = var.powervs_zone\n  powervs_resource_group_name = var.powervs_resource_group_name\n  prefix                      = var.prefix\n  preset                      = var.preset\n  ssh_private_key             = var.ssh_private_key\n  ssh_public_key              = var.ssh_public_key\n  landing_zone_configuration  = var.landing_zone_configuration\n  external_access_ip          = var.external_access_ip\n  }",
                     "compliance": {
                         "authority": "scc-v3",
-                        "controls": [
+                        "profiles": [
                             {
-                                "profile": {
-                                    "name": "IBM Cloud for Financial Services",
-                                    "version": "1.2.0"
-                                },
-                                "names": [
-                                    "AC-2(4)(0)",
-                                    "AC-2(7)(b)",
-                                    "AC-2(g)",
-                                    "AC-6(9)(0)",
-                                    "AU-2(a)",
-                                    "AU-2(d)",
-                                    "AU-3(0)",
-                                    "AU-4(0)",
-                                    "AU-8(1)(a)",
-                                    "AU-8(1)(b)",
-                                    "AU-8(a)",
-                                    "AU-8(b)",
-                                    "AU-11(0)",
-                                    "AU-12(a)",
-                                    "AU-12(b)",
-                                    "AU-12(c)",
-                                    "CA-7(d)",
-                                    "IA-3(0)",
-                                    "SC-2(0)",
-                                    "SC-3(0)",
-                                    "SC-7(4)(c)",
-                                    "SC-8(0)",
-                                    "SC-8(1)(0)",
-                                    "SC-11(0)",
-                                    "SC-23(0)",
-                                    "SI-4(a)",
-                                    "SI-4(b)",
-                                    "SI-4(c)",
-                                    "SI-12(0)"
-                                ]
+                                "profile_name": "IBM Cloud for Financial Services",
+                                "profile_version": "1.3.0"
                             }
                         ]
                     },
@@ -108,47 +78,47 @@
                             "default_value": "",
                             "options": [
                                 {
-                                    "displayname": "London (lon04)",
+                                    "displayname": "London 04 (lon04)",
                                     "value": "lon04"
                                 },
                                 {
-                                    "displayname": "London (lon06)",
+                                    "displayname": "London 06 (lon06)",
                                     "value": "lon06"
                                 },
                                 {
-                                    "displayname": "Frankfurt (eu-de-1)",
+                                    "displayname": "Frankfurt 1 (eu-de-1)",
                                     "value": "eu-de-1"
                                 },
                                 {
-                                    "displayname": "Frankfurt (eu-de-2)",
+                                    "displayname": "Frankfurt 2 (eu-de-2)",
                                     "value": "eu-de-2"
                                 },
                                 {
-                                    "displayname": "Toronto (tor01)",
+                                    "displayname": "Toronto 01 (tor01)",
                                     "value": "tor01"
                                 },
                                 {
-                                    "displayname": "Montreal (mon01)",
+                                    "displayname": "Montreal 01 (mon01)",
                                     "value": "mon01"
                                 },
                                 {
-                                    "displayname": "Osaka (osa21)",
+                                    "displayname": "Osaka 21 (osa21)",
                                     "value": "osa21"
                                 },
                                 {
-                                    "displayname": "Tokyo (tok04)",
+                                    "displayname": "Tokyo 04 (tok04)",
                                     "value": "tok04"
                                 },
                                 {
-                                    "displayname": "Sydney (syd04)",
+                                    "displayname": "Sydney 04 (syd04)",
                                     "value": "syd04"
                                 },
                                 {
-                                    "displayname": "Sydney (syd05)",
+                                    "displayname": "Sydney 05 (syd05)",
                                     "value": "syd05"
                                 },
                                 {
-                                    "displayname": "Sao Paulo (sao01)",
+                                    "displayname": "Sao Paulo 01 (sao01)",
                                     "value": "sao01"
                                 },
                                 {
@@ -156,15 +126,15 @@
                                     "value": "us-south"
                                 },
                                 {
-                                    "displayname": "Dallas (dal10)",
+                                    "displayname": "Dallas 10 (dal10) PER",
                                     "value": "dal10"
                                 },
                                 {
-                                    "displayname": "Dallas (dal12)",
+                                    "displayname": "Dallas 12 (dal12)",
                                     "value": "dal12"
                                 },
                                 {
-                                    "displayname": "US-east (us-east)",
+                                    "displayname": "Washington DC (us-east)",
                                     "value": "us-east"
                                 }
                             ],
@@ -196,11 +166,11 @@
                             "options": [
                                 {
                                     "displayname": "3 VPCs (with RHEL instances)",
-                                    "value": "RHEL"
+                                    "value": "3VPC_RHEL"
                                 },
                                 {
                                     "displayname": "3 VPCs (with SLES instances)",
-                                    "value": "SLES"
+                                    "value": "3VPC_SLES"
                                 }
                             ],
                             "custom_config": {}
@@ -256,6 +226,9 @@
                             "key": "dns_forwarder_config"
                         },
                         {
+                            "key": "nfs_server_config"
+                        },
+                        {
                             "key": "powervs_management_network"
                         },
                         {
@@ -285,37 +258,10 @@
                             "key": "transit_gateway_name"
                         },
                         {
+                            "key": "transit_gateway_id"
+                        },
+                        {
                             "key": "vsi_list"
-                        },
-                        {
-                            "key": "powervs_workspace_name"
-                        },
-                        {
-                            "key": "powervs_workspace_crn"
-                        },
-                        {
-                            "key": "powervs_sshkey_name"
-                        },
-                        {
-                            "key": "powervs_zone"
-                        },
-                        {
-                            "key": "powervs_resource_group_name"
-                        },
-                        {
-                            "key": "cloud_connection_count"
-                        },
-                        {
-                            "key": "powervs_management_network_name"
-                        },
-                        {
-                            "key": "powervs_management_network_subnet"
-                        },
-                        {
-                            "key": "powervs_backup_network_name"
-                        },
-                        {
-                            "key": "powervs_backup_network_subnet"
                         },
                         {
                             "key": "access_host_or_ip"
@@ -331,6 +277,36 @@
                         },
                         {
                             "key": "nfs_host_or_ip_path"
+                        },
+                        {
+                            "key": "powervs_zone"
+                        },
+                        {
+                            "key": "powervs_resource_group_name"
+                        },
+                        {
+                            "key": "powervs_workspace_name"
+                        },
+                        {
+                            "key": "powervs_workspace_id"
+                        },
+                        {
+                            "key": "powervs_workspace_guid"
+                        },
+                        {
+                            "key": "powervs_ssh_public_key"
+                        },
+                        {
+                            "key": "powervs_management_subnet"
+                        },
+                        {
+                            "key": "powervs_backup_subnet"
+                        },
+                        {
+                            "key": "powervs_images"
+                        },
+                        {
+                            "key": "cloud_connection_count"
                         },
                         {
                             "key": "schematics_workspace_id"
@@ -402,6 +378,14 @@
                     "architecture": {
                         "features": [
                             {
+                                "title": "Number of VPCs",
+                                "description": "3"
+                            },
+                            {
+                                "title": "Number of Intel VSIs",
+                                "description": "3"
+                            },
+                            {
                                 "title": "Separate VPC for management",
                                 "description": "Yes"
                             },
@@ -411,10 +395,6 @@
                             },
                             {
                                 "title": "Separate VPC for Private Services",
-                                "description": "Yes"
-                            },
-                            {
-                                "title": "1 Virtual Server Instances for every VPC",
                                 "description": "Yes"
                             },
                             {
@@ -432,6 +412,10 @@
                             {
                                 "title": "Additional management configurations on VPC",
                                 "description": "NFS server, NTP forwarder, and DNS forwarder reachable from PowerVS Workspace"
+                            },
+                            {
+                                "title": "Power Virtual Server Instance",
+                                "description": "No"
                             }
                         ],
                         "diagrams": [
@@ -447,315 +431,18 @@
                     }
                 },
                 {
-                    "label": "PowerVS Workspace",
-                    "name": "powervs-workspace",
-                    "install_type": "extension",
-                    "working_directory": "solutions/extension",
-                    "usage_template": "module \"power-infrastructure\" {\n  source                      = \"https://cm.globalcatalog.cloud.ibm.com/api/v1-beta/offering/source//${{workingDirectory}}?archive=tgz&flavor=${{flavor}}&kind=${{kind}}&name=${{name}}&version=${{version}}\"\n  powervs_zone                = var.powervs_zone\n  powervs_resource_group_name = var.powervs_resource_group_name\n  prerequisite_workspace_id   = var.prerequisite_workspace_id\n  }",
-                    "compliance": {},
-                    "dependencies": [
-                        {
-                            "flavors": [
-                                "powervs-workspace"
-                            ],
-                            "install_type": "fullstack",
-                            "catalogID": "1082e7d2-5e2f-0a11-a3bc-f88a8e1931fc",
-                            "id": "2dd486c7-b317-4aaa-907b-42671485ad96-global",
-                            "name": "deploy-arch-ibm-pvs-inf",
-                            "version": ">=1.0.0"
-                        }
-                    ],
-                    "configuration": [
-                        {
-                            "key": "prerequisite_workspace_id",
-                            "required": true,
-                            "custom_config": {
-                                "config_constraints": {
-                                    "flavorConstraint": "powervs-workspace",
-                                    "catalogID": "1082e7d2-5e2f-0a11-a3bc-f88a8e1931fc",
-                                    "offeringID": "2dd486c7-b317-4aaa-907b-42671485ad96-global",
-                                    "install_type": "fullstack",
-                                    "versionConstraint": ">=1.0.0"
-                                },
-                                "grouping": "deployment",
-                                "original_grouping": "deployment",
-                                "type": "schematics_workspace"
-                            }
-                        },
-                        {
-                            "key": "powervs_zone",
-                            "type": "string",
-                            "required": true,
-                            "default_value": "",
-                            "options": [
-                                {
-                                    "displayname": "London (lon04)",
-                                    "value": "lon04"
-                                },
-                                {
-                                    "displayname": "London (lon06)",
-                                    "value": "lon06"
-                                },
-                                {
-                                    "displayname": "Frankfurt (eu-de-1)",
-                                    "value": "eu-de-1"
-                                },
-                                {
-                                    "displayname": "Frankfurt (eu-de-2)",
-                                    "value": "eu-de-2"
-                                },
-                                {
-                                    "displayname": "Toronto (tor01)",
-                                    "value": "tor01"
-                                },
-                                {
-                                    "displayname": "Montreal (mon01)",
-                                    "value": "mon01"
-                                },
-                                {
-                                    "displayname": "Osaka (osa21)",
-                                    "value": "osa21"
-                                },
-                                {
-                                    "displayname": "Tokyo (tok04)",
-                                    "value": "tok04"
-                                },
-                                {
-                                    "displayname": "Sydney (syd04)",
-                                    "value": "syd04"
-                                },
-                                {
-                                    "displayname": "Sydney (syd05)",
-                                    "value": "syd05"
-                                },
-                                {
-                                    "displayname": "Sao Paulo (sao01)",
-                                    "value": "sao01"
-                                },
-                                {
-                                    "displayname": "Dallas (dallas)",
-                                    "value": "us-south"
-                                },
-                                {
-                                    "displayname": "Dallas (dal10)",
-                                    "value": "dal10"
-                                },
-                                {
-                                    "displayname": "Dallas (dal12)",
-                                    "value": "dal12"
-                                },
-                                {
-                                    "displayname": "US-east (us-east)",
-                                    "value": "us-east"
-                                }
-                            ],
-                            "custom_config": {}
-                        },
-                        {
-                            "key": "powervs_resource_group_name",
-                            "required": true,
-                            "default_value": "",
-                            "custom_config": {
-                                "config_constraints": {
-                                    "identifier": "rg_name"
-                                },
-                                "grouping": "deployment",
-                                "original_grouping": "deployment",
-                                "type": "resource_group"
-                            }
-                        },
-                        {
-                            "key": "powervs_management_network",
-                            "required": true
-                        },
-                        {
-                            "key": "powervs_backup_network",
-                            "required": true
-                        },
-                        {
-                            "key": "ibmcloud_api_key",
-                            "type": "multiline_secure_value",
-                            "required": true,
-                            "custom_config": {
-                                "grouping": "deployment",
-                                "original_grouping": "deployment",
-                                "type": "multiline_secure_value"
-                            }
-                        },
-                        {
-                            "key": "powervs_image_names",
-                            "required": true
-                        },
-                        {
-                            "key": "cloud_connection"
-                        },
-                        {
-                            "key": "tags"
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "key": "prefix"
-                        },
-                        {
-                            "key": "vpc_names"
-                        },
-                        {
-                            "key": "vsi_names"
-                        },
-                        {
-                            "key": "transit_gateway_name"
-                        },
-                        {
-                            "key": "vsi_list"
-                        },
-                        {
-                            "key": "powervs_workspace_name"
-                        },
-                        {
-                            "key": "powervs_workspace_crn"
-                        },
-                        {
-                            "key": "powervs_sshkey_name"
-                        },
-                        {
-                            "key": "powervs_zone"
-                        },
-                        {
-                            "key": "powervs_resource_group_name"
-                        },
-                        {
-                            "key": "cloud_connection_count"
-                        },
-                        {
-                            "key": "powervs_management_network_name"
-                        },
-                        {
-                            "key": "powervs_management_network_subnet"
-                        },
-                        {
-                            "key": "powervs_backup_network_name"
-                        },
-                        {
-                            "key": "powervs_backup_network_subnet"
-                        },
-                        {
-                            "key": "access_host_or_ip"
-                        },
-                        {
-                            "key": "proxy_host_or_ip_port"
-                        },
-                        {
-                            "key": "dns_host_or_ip"
-                        },
-                        {
-                            "key": "ntp_host_or_ip"
-                        },
-                        {
-                            "key": "nfs_host_or_ip_path"
-                        },
-                        {
-                            "key": "schematics_workspace_id"
-                        }
-                    ],
-                    "iam_permissions": [
-                        {
-                            "role_crns": [
-                                "crn:v1:bluemix:public:iam::::role:Editor"
-                            ],
-                            "service_name": "is.vpc"
-                        },
-                        {
-                            "role_crns": [
-                                "crn:v1:bluemix:public:iam::::role:Editor"
-                            ],
-                            "service_name": "transit.gateway"
-                        },
-                        {
-                            "role_crns": [
-                                "crn:v1:bluemix:public:iam::::role:Editor"
-                            ],
-                            "service_name": "directlink.connect"
-                        },
-                        {
-                            "role_crns": [
-                                "crn:v1:bluemix:public:iam::::serviceRole:Manager"
-                            ],
-                            "service_name": "power-iaas"
-                        }
-                    ],
-                    "architecture": {
-                        "features": [
-                            {
-                                "title": "Power Virtual Server Workspace",
-                                "description": "PowerVS Workspace with all required components"
-                            },
-                            {
-                                "title": "Internet proxy on VPC",
-                                "description": "Proxy service to reach public internet from PowerVS Workspace"
-                            },
-                            {
-                                "title": "Additional management configurations on VPC",
-                                "description": "NFS server, NTP forwarder, and DNS forwarder reachable from PowerVS Workspace"
-                            }
-                        ],
-                        "diagrams": [
-                            {
-                                "diagram": {
-                                    "caption": "Power Virtual Server with VPC landing zone 'extension' variation",
-                                    "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/main/reference-architectures/extension/deploy-arch-ibm-pvs-inf-extension.svg",
-                                    "type": "image/svg+xml"
-                                },
-                                "description": "The Power Virtual Server with VPC landing zone as variation 'Extend Power Virtual Server with VPC landing zone' creates an additional Power Virtual Server workspace and connects it with already created Power Virtual Server with VPC landing zone. It builds on existing Power Virtual Server with VPC landing zone deployed as a variation 'Create a new architecture'."
-                            }
-                        ]
-                    }
-                },
-                {
                     "label": "PowerVS Quickstart",
                     "name": "powervs-quickstart",
                     "install_type": "fullstack",
+                    "index": 2,
                     "working_directory": "solutions/quickstart",
                     "usage_template": "module \"power-infrastructure\" {\n  source                      = \"https://cm.globalcatalog.cloud.ibm.com/api/v1-beta/offering/source//${{workingDirectory}}?archive=tgz&flavor=${{flavor}}&kind=${{kind}}&name=${{name}}&version=${{version}}\"\n  powervs_zone                = var.powervs_zone\n  powervs_resource_group_name = var.powervs_resource_group_name\n  prefix                      = var.prefix\n  tshirt_size                 = var.tshirt_size\n  ssh_private_key             = var.ssh_private_key\n  ssh_public_key              = var.ssh_public_key\n  external_access_ip          = var.external_access_ip\n }",
                     "compliance": {
                         "authority": "scc-v3",
-                        "controls": [
+                        "profiles": [
                             {
-                                "profile": {
-                                    "name": "IBM Cloud for Financial Services",
-                                    "version": "1.2.0"
-                                },
-                                "names": [
-                                    "AC-2(4)(0)",
-                                    "AC-2(7)(b)",
-                                    "AC-2(g)",
-                                    "AC-6(9)(0)",
-                                    "AU-2(a)",
-                                    "AU-2(d)",
-                                    "AU-3(0)",
-                                    "AU-4(0)",
-                                    "AU-8(1)(a)",
-                                    "AU-8(1)(b)",
-                                    "AU-8(a)",
-                                    "AU-8(b)",
-                                    "AU-11(0)",
-                                    "AU-12(a)",
-                                    "AU-12(b)",
-                                    "AU-12(c)",
-                                    "CA-7(d)",
-                                    "IA-3(0)",
-                                    "SC-2(0)",
-                                    "SC-3(0)",
-                                    "SC-7(4)(c)",
-                                    "SC-8(0)",
-                                    "SC-8(1)(0)",
-                                    "SC-11(0)",
-                                    "SC-23(0)",
-                                    "SI-4(a)",
-                                    "SI-4(b)",
-                                    "SI-4(c)",
-                                    "SI-12(0)"
-                                ]
+                                "profile_name": "IBM Cloud for Financial Services",
+                                "profile_version": "1.3.0"
                             }
                         ]
                     },
@@ -767,47 +454,47 @@
                             "required": true,
                             "options": [
                                 {
-                                    "displayname": "London (lon04)",
+                                    "displayname": "London 04 (lon04)",
                                     "value": "lon04"
                                 },
                                 {
-                                    "displayname": "London (lon06)",
+                                    "displayname": "London 06 (lon06)",
                                     "value": "lon06"
                                 },
                                 {
-                                    "displayname": "Frankfurt (eu-de-1)",
+                                    "displayname": "Frankfurt 1 (eu-de-1)",
                                     "value": "eu-de-1"
                                 },
                                 {
-                                    "displayname": "Frankfurt (eu-de-2)",
+                                    "displayname": "Frankfurt 2 (eu-de-2)",
                                     "value": "eu-de-2"
                                 },
                                 {
-                                    "displayname": "Toronto (tor01)",
+                                    "displayname": "Toronto 01 (tor01)",
                                     "value": "tor01"
                                 },
                                 {
-                                    "displayname": "Montreal (mon01)",
+                                    "displayname": "Montreal 01 (mon01)",
                                     "value": "mon01"
                                 },
                                 {
-                                    "displayname": "Osaka (osa21)",
+                                    "displayname": "Osaka 21 (osa21)",
                                     "value": "osa21"
                                 },
                                 {
-                                    "displayname": "Tokyo (tok04)",
+                                    "displayname": "Tokyo 04 (tok04)",
                                     "value": "tok04"
                                 },
                                 {
-                                    "displayname": "Sydney (syd04)",
+                                    "displayname": "Sydney 04 (syd04)",
                                     "value": "syd04"
                                 },
                                 {
-                                    "displayname": "Sydney (syd05)",
+                                    "displayname": "Sydney 05 (syd05)",
                                     "value": "syd05"
                                 },
                                 {
-                                    "displayname": "Sao Paulo (sao01)",
+                                    "displayname": "Sao Paulo 01 (sao01)",
                                     "value": "sao01"
                                 },
                                 {
@@ -815,15 +502,15 @@
                                     "value": "us-south"
                                 },
                                 {
-                                    "displayname": "Dallas (dal10)",
+                                    "displayname": "Dallas 10 (dal10) PER",
                                     "value": "dal10"
                                 },
                                 {
-                                    "displayname": "Dallas (dal12)",
+                                    "displayname": "Dallas 12 (dal12)",
                                     "value": "dal12"
                                 },
                                 {
-                                    "displayname": "US-east (us-east)",
+                                    "displayname": "Washington DC (us-east)",
                                     "value": "us-east"
                                 }
                             ],
@@ -988,6 +675,9 @@
                             "key": "dns_forwarder_config"
                         },
                         {
+                            "key": "nfs_server_config"
+                        },
+                        {
                             "key": "powervs_management_network"
                         },
                         {
@@ -1029,37 +719,10 @@
                             "key": "transit_gateway_name"
                         },
                         {
+                            "key": "transit_gateway_id"
+                        },
+                        {
                             "key": "vsi_list"
-                        },
-                        {
-                            "key": "powervs_workspace_name"
-                        },
-                        {
-                            "key": "powervs_workspace_crn"
-                        },
-                        {
-                            "key": "powervs_sshkey_name"
-                        },
-                        {
-                            "key": "powervs_zone"
-                        },
-                        {
-                            "key": "powervs_resource_group_name"
-                        },
-                        {
-                            "key": "cloud_connection_count"
-                        },
-                        {
-                            "key": "powervs_management_network_name"
-                        },
-                        {
-                            "key": "powervs_management_network_subnet"
-                        },
-                        {
-                            "key": "powervs_backup_network_name"
-                        },
-                        {
-                            "key": "powervs_backup_network_subnet"
                         },
                         {
                             "key": "access_host_or_ip"
@@ -1077,16 +740,43 @@
                             "key": "nfs_host_or_ip_path"
                         },
                         {
-                            "key": "pi_instance_private_ips"
+                            "key": "powervs_zone"
                         },
                         {
-                            "key": "pi_instance_private_ips_info"
+                            "key": "powervs_resource_group_name"
                         },
                         {
-                            "key": "pi_instance_mgmt_ip"
+                            "key": "powervs_workspace_name"
                         },
                         {
-                            "key": "pi_storage_configuration"
+                            "key": "powervs_workspace_id"
+                        },
+                        {
+                            "key": "powervs_workspace_guid"
+                        },
+                        {
+                            "key": "powervs_ssh_public_key"
+                        },
+                        {
+                            "key": "powervs_management_subnet"
+                        },
+                        {
+                            "key": "powervs_backup_subnet"
+                        },
+                        {
+                            "key": "powervs_images"
+                        },
+                        {
+                            "key": "cloud_connection_count"
+                        },
+                        {
+                            "key": "powervs_instance_management_ip"
+                        },
+                        {
+                            "key": "powervs_instance_private_ips"
+                        },
+                        {
+                            "key": "powervs_storage_configuration"
                         },
                         {
                             "key": "schematics_workspace_id"
@@ -1158,12 +848,24 @@
                     "architecture": {
                         "features": [
                             {
-                                "title": "1 VPC for management, Internet services and private services",
-                                "description": "Yes"
+                                "title": "Number of VPCs",
+                                "description": "1"
                             },
                             {
-                                "title": "1 Virtual Server Instances on VPC",
-                                "description": "Yes"
+                                "title": "Number of Intel VSIs",
+                                "description": "1"
+                            },
+                            {
+                                "title": "Separate VPC for management",
+                                "description": "No"
+                            },
+                            {
+                                "title": "Separate VPC for Internet Services",
+                                "description": "No"
+                            },
+                            {
+                                "title": "Separate VPC for Private Services",
+                                "description": "No"
                             },
                             {
                                 "title": "Increases security with Key Management",
@@ -1182,8 +884,8 @@
                                 "description": "NFS server, NTP forwarder, and DNS forwarder reachable from PowerVS Workspace"
                             },
                             {
-                                "title": "1 Power Virtual Server Instance",
-                                "description": "Yes"
+                                "title": "Power Virtual Server Instance",
+                                "description": "Yes, 1 instance"
                             }
                         ],
                         "diagrams": [
@@ -1194,6 +896,270 @@
                                     "type": "image/svg+xml"
                                 },
                                 "description": "The Power Virtual Server with VPC landing zone as 'quickstart' variation of 'Create a new architecture' option deploys VPC services and a Power Virtual Server workspace and interconnects them. It also creates one Power virtual server instance of chosen t-shirt size or custom configuration.\n \nRequired and optional management components are configured."
+                            }
+                        ]
+                    }
+                },
+                {
+                    "label": "PowerVS Workspace",
+                    "name": "powervs-workspace",
+                    "install_type": "extension",
+                    "index": 3,
+                    "working_directory": "solutions/extension",
+                    "usage_template": "module \"power-infrastructure\" {\n  source                      = \"https://cm.globalcatalog.cloud.ibm.com/api/v1-beta/offering/source//${{workingDirectory}}?archive=tgz&flavor=${{flavor}}&kind=${{kind}}&name=${{name}}&version=${{version}}\"\n  powervs_zone                = var.powervs_zone\n  powervs_resource_group_name = var.powervs_resource_group_name\n  prerequisite_workspace_id   = var.prerequisite_workspace_id\n  }",
+                    "compliance": {},
+                    "dependencies": [
+                        {
+                            "flavors": [
+                                "powervs-workspace"
+                            ],
+                            "install_type": "fullstack",
+                            "catalogID": "1082e7d2-5e2f-0a11-a3bc-f88a8e1931fc",
+                            "id": "2dd486c7-b317-4aaa-907b-42671485ad96-global",
+                            "name": "deploy-arch-ibm-pvs-inf",
+                            "version": ">=3.0.0"
+                        }
+                    ],
+                    "configuration": [
+                        {
+                            "key": "prerequisite_workspace_id",
+                            "required": true,
+                            "custom_config": {
+                                "config_constraints": {
+                                    "flavorConstraint": "powervs-workspace",
+                                    "catalogID": "1082e7d2-5e2f-0a11-a3bc-f88a8e1931fc",
+                                    "offeringID": "2dd486c7-b317-4aaa-907b-42671485ad96-global",
+                                    "install_type": "fullstack",
+                                    "versionConstraint": ">=3.0.0"
+                                },
+                                "grouping": "deployment",
+                                "original_grouping": "deployment",
+                                "type": "schematics_workspace"
+                            }
+                        },
+                        {
+                            "key": "powervs_zone",
+                            "type": "string",
+                            "required": true,
+                            "default_value": "",
+                            "options": [
+                                {
+                                    "displayname": "London 04 (lon04)",
+                                    "value": "lon04"
+                                },
+                                {
+                                    "displayname": "London 06 (lon06)",
+                                    "value": "lon06"
+                                },
+                                {
+                                    "displayname": "Frankfurt 1 (eu-de-1)",
+                                    "value": "eu-de-1"
+                                },
+                                {
+                                    "displayname": "Frankfurt 2 (eu-de-2)",
+                                    "value": "eu-de-2"
+                                },
+                                {
+                                    "displayname": "Toronto 01 (tor01)",
+                                    "value": "tor01"
+                                },
+                                {
+                                    "displayname": "Montreal 01 (mon01)",
+                                    "value": "mon01"
+                                },
+                                {
+                                    "displayname": "Osaka 21 (osa21)",
+                                    "value": "osa21"
+                                },
+                                {
+                                    "displayname": "Tokyo 04 (tok04)",
+                                    "value": "tok04"
+                                },
+                                {
+                                    "displayname": "Sydney 04 (syd04)",
+                                    "value": "syd04"
+                                },
+                                {
+                                    "displayname": "Sydney 05 (syd05)",
+                                    "value": "syd05"
+                                },
+                                {
+                                    "displayname": "Sao Paulo 01 (sao01)",
+                                    "value": "sao01"
+                                },
+                                {
+                                    "displayname": "Dallas (dallas)",
+                                    "value": "us-south"
+                                },
+                                {
+                                    "displayname": "Dallas 10 (dal10) PER",
+                                    "value": "dal10"
+                                },
+                                {
+                                    "displayname": "Dallas 12 (dal12)",
+                                    "value": "dal12"
+                                },
+                                {
+                                    "displayname": "Washington DC (us-east)",
+                                    "value": "us-east"
+                                }
+                            ],
+                            "custom_config": {}
+                        },
+                        {
+                            "key": "powervs_resource_group_name",
+                            "required": true,
+                            "default_value": "",
+                            "custom_config": {
+                                "config_constraints": {
+                                    "identifier": "rg_name"
+                                },
+                                "grouping": "deployment",
+                                "original_grouping": "deployment",
+                                "type": "resource_group"
+                            }
+                        },
+                        {
+                            "key": "powervs_management_network",
+                            "required": true
+                        },
+                        {
+                            "key": "powervs_backup_network",
+                            "required": true
+                        },
+                        {
+                            "key": "ibmcloud_api_key",
+                            "type": "multiline_secure_value",
+                            "required": true,
+                            "custom_config": {
+                                "grouping": "deployment",
+                                "original_grouping": "deployment",
+                                "type": "multiline_secure_value"
+                            }
+                        },
+                        {
+                            "key": "powervs_image_names",
+                            "required": true
+                        },
+                        {
+                            "key": "cloud_connection"
+                        },
+                        {
+                            "key": "tags"
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "key": "prefix"
+                        },
+                        {
+                            "key": "vpc_names"
+                        },
+                        {
+                            "key": "vsi_names"
+                        },
+                        {
+                            "key": "ssh_public_key"
+                        },
+                        {
+                            "key": "transit_gateway_name"
+                        },
+                        {
+                            "key": "transit_gateway_id"
+                        },
+                        {
+                            "key": "vsi_list"
+                        },
+                        {
+                            "key": "access_host_or_ip"
+                        },
+                        {
+                            "key": "proxy_host_or_ip_port"
+                        },
+                        {
+                            "key": "dns_host_or_ip"
+                        },
+                        {
+                            "key": "ntp_host_or_ip"
+                        },
+                        {
+                            "key": "nfs_host_or_ip_path"
+                        },
+                        {
+                            "key": "powervs_zone"
+                        },
+                        {
+                            "key": "powervs_resource_group_name"
+                        },
+                        {
+                            "key": "powervs_workspace_name"
+                        },
+                        {
+                            "key": "powervs_workspace_id"
+                        },
+                        {
+                            "key": "powervs_workspace_guid"
+                        },
+                        {
+                            "key": "powervs_ssh_public_key"
+                        },
+                        {
+                            "key": "powervs_management_subnet"
+                        },
+                        {
+                            "key": "powervs_backup_subnet"
+                        },
+                        {
+                            "key": "powervs_images"
+                        },
+                        {
+                            "key": "cloud_connection_count"
+                        },
+                        {
+                            "key": "schematics_workspace_id"
+                        }
+                    ],
+                    "iam_permissions": [
+                        {
+                            "role_crns": [
+                                "crn:v1:bluemix:public:iam::::role:Editor"
+                            ],
+                            "service_name": "is.vpc"
+                        },
+                        {
+                            "role_crns": [
+                                "crn:v1:bluemix:public:iam::::role:Editor"
+                            ],
+                            "service_name": "transit.gateway"
+                        },
+                        {
+                            "role_crns": [
+                                "crn:v1:bluemix:public:iam::::role:Editor"
+                            ],
+                            "service_name": "directlink.connect"
+                        },
+                        {
+                            "role_crns": [
+                                "crn:v1:bluemix:public:iam::::serviceRole:Manager"
+                            ],
+                            "service_name": "power-iaas"
+                        }
+                    ],
+                    "architecture": {
+                        "features": [
+                            {
+                                "title": "Power Virtual Server Workspace",
+                                "description": "PowerVS Workspace with all required components in different zone. Used for HA scenario."
+                            }
+                        ],
+                        "diagrams": [
+                            {
+                                "diagram": {
+                                    "caption": "Power Virtual Server with VPC landing zone 'extension' variation",
+                                    "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/main/reference-architectures/extension/deploy-arch-ibm-pvs-inf-extension.svg",
+                                    "type": "image/svg+xml"
+                                },
+                                "description": "The Power Virtual Server with VPC landing zone as variation 'Extend Power Virtual Server with VPC landing zone' creates an additional Power Virtual Server workspace and connects it with already created Power Virtual Server with VPC landing zone. It builds on existing Power Virtual Server with VPC landing zone deployed as a variation 'Create a new architecture'."
                             }
                         ]
                     }

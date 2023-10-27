@@ -38,4 +38,3 @@
 | SLES15-SP4                 |
 | SLES15-SP4-SAP             |
 | SLES15-SP4-SAP-NETWEAVER   |
-| VTL-FalconStor-10_03-001   |

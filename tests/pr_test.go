@@ -57,29 +57,29 @@ func setupOptions(t *testing.T, prefix string) *testhelper.TestOptions {
 	options.TerraformVars = map[string]interface{}{
 		"prefix":                      options.Prefix,
 		"powervs_resource_group_name": options.ResourceGroup,
-		"landing_zone_configuration":  "RHEL",
+		"landing_zone_configuration":  "3VPC_RHEL",
 		"external_access_ip":          "0.0.0.0/0",
 		// locking into syd05 due to other data center issues
-		//"powervs_zone": "lon06",
+		//"powervs_zone": "syd05",
 		"powervs_zone": options.Region,
 	}
 
 	return options
 }
 
-func TestRunDefaultExample(t *testing.T) {
+func TestRunBranchExample(t *testing.T) {
 	t.Parallel()
 
-	options := setupOptions(t, "pvs-inf")
+	options := setupOptions(t, "pvs-i-b")
 
 	output, err := options.RunTestConsistency()
 	assert.Nil(t, err, "This should not have errored")
 	assert.NotNil(t, output, "Expected some output")
 }
 
-func TestRunUpgradeExample(t *testing.T) {
+func TestRunMainExample(t *testing.T) {
 	t.Parallel()
-	options := setupOptions(t, "pvs-i-up")
+	options := setupOptions(t, "pvs-i-m")
 
 	output, err := options.RunTestUpgrade()
 	if !options.UpgradeTestSkipped {

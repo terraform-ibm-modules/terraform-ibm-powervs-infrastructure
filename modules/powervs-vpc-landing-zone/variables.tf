@@ -14,12 +14,12 @@ variable "prefix" {
 }
 
 variable "landing_zone_configuration" {
-  description = "VPC landing zone configuration."
+  description = "VPC landing zone configuration. Provided value must be one of ['3VPC_RHEL', '3VPC_SLES', '1VPC_RHEL'] only."
   type        = string
 
   validation {
     condition     = contains(["3VPC_RHEL", "3VPC_SLES", "1VPC_RHEL"], var.landing_zone_configuration)
-    error_message = "Provided value must be one of ['3VPC_RHEL', '3VPC_SLES', '1VPC_RHEL'] only"
+    error_message = "Provided value must be one of  ['3VPC_RHEL', '3VPC_SLES', '1VPC_RHEL'] only."
   }
 }
 
@@ -39,32 +39,26 @@ variable "ssh_private_key" {
   sensitive   = true
 }
 
-variable "ibmcloud_api_key" {
-  description = "The IBM Cloud platform API key needed to deploy IAM enabled resources."
-  type        = string
-  sensitive   = true
-}
-
 #####################################################
 # Optional Parameters VSI OS Management Services
 #####################################################
 
 variable "configure_dns_forwarder" {
-  description = "Specify if DNS forwarder will be configured. This will allow you to use central DNS servers (e.g. IBM Cloud DNS servers) sitting outside of the created IBM PowerVS infrastructure. If yes, ensure 'dns_forwarder_config' optional variable is set properly. DNS forwarder will be installed on the private-svs vsi."
+  description = "Specify if DNS forwarder will be configured. This will allow you to use central DNS servers (e.g. IBM Cloud DNS servers) sitting outside of the created IBM PowerVS infrastructure. If yes, ensure 'dns_forwarder_config' optional variable is set properly. DNS forwarder will be installed on the private-svs-1 vsi if exists else on inet-svs-1 vsi."
   type        = bool
-  default     = true
+  default     = false
 }
 
 variable "configure_ntp_forwarder" {
-  description = "Specify if NTP forwarder will be configured. This will allow you to synchronize time between IBM PowerVS instances. NTP forwarder will be installed on the private-svs vsi."
+  description = "Specify if NTP forwarder will be configured. This will allow you to synchronize time between IBM PowerVS instances. NTP forwarder will be installed on the private-svs-1 vsi if exists else on inet-svs-1 vsi."
   type        = bool
-  default     = true
+  default     = false
 }
 
 variable "configure_nfs_server" {
-  description = "Specify if NFS server will be configured. This will allow you easily to share files between PowerVS instances (e.g., SAP installation files). NFS server will be installed on the private-svs vsi. If yes, ensure 'nfs_server_config' optional variable is set properly below. Default value is 1TB which will be mounted on /nfs."
+  description = "Specify if NFS server will be configured. This will allow you easily to share files between PowerVS instances (e.g., SAP installation files). NFS server will be installed on the private-svs vsi. If yes, ensure 'nfs_server_config' optional variable is set properly below. Default value is '1TB' which will be mounted on '/nfs'."
   type        = bool
-  default     = true
+  default     = false
 }
 
 variable "dns_forwarder_config" {
@@ -72,7 +66,6 @@ variable "dns_forwarder_config" {
   type = object({
     dns_servers = string
   })
-
   default = {
     "dns_servers" : "161.26.0.7; 161.26.0.8; 9.9.9.9;"
   }
@@ -85,6 +78,10 @@ variable "nfs_server_config" {
     mount_path = string
   })
 
+  validation {
+    condition     = var.nfs_server_config != null ? (var.nfs_server_config.mount_path == null || var.nfs_server_config.mount_path == "" || can(regex("/[A-Za-z]+", var.nfs_server_config.mount_path))) : true
+    error_message = "The 'mount_path' attribute must begin with '/' and can contain only characters."
+  }
   default = {
     "size" : 1000,
     "mount_path" : "/nfs"
@@ -149,15 +146,4 @@ variable "tags" {
   description = "List of tag names for the IBM Cloud PowerVS workspace"
   type        = list(string)
   default     = []
-}
-
-#############################################################################
-# Schematics Output
-#############################################################################
-
-# tflint-ignore: all
-variable "IC_SCHEMATICS_WORKSPACE_ID" {
-  default     = ""
-  type        = string
-  description = "leave blank if running locally. This variable will be automatically populated if running from an IBM Cloud Schematics workspace."
 }
