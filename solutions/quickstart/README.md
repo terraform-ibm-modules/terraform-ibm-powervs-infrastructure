@@ -2,7 +2,7 @@
 
 This example sets up the following infrastructure:
 -  A **VPC Infrastructure** with the following components:
-     - One VPC with one VSI for management(jump/bastion) using [this preset](presets/1vpc.preset.json.tftpl).
+     - One VPC with one VSI for management(jump/bastion) using [this preset](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/blob/main/modules/powervs-vpc-landing-zone/presets/1vpc.preset.json.tftpl).
      -  Installation and configuration of Squid Proxy, DNS Forwarder, NTP forwarder and NFS on the bastion host, and sets the host as the server for the NTP, NFS, and DNS services using ansible galaxy collection roles [ibm.power_linux_sap collection](https://galaxy.ansible.com/ui/repo/published/ibm/power_linux_sap/)
 
 - A **Power Virtual Server** workspace with the following network topology:
@@ -24,7 +24,7 @@ This example sets up the following infrastructure:
 | [Quickstart](./)    | :heavy_check_mark:  |   N/A  | :heavy_check_mark:| :heavy_check_mark: | :heavy_check_mark:  | :heavy_check_mark: | N/A |
 
 ## Reference architecture
-[PowerVS Quickstart variation](../../reference-architectures/quickstart/deploy-arch-ibm-pvs-inf-quickstart.md)
+[PowerVS Quickstart variation](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/blob/main/reference-architectures/quickstart/deploy-arch-ibm-pvs-inf-quickstart.md)
 
 ## Architecture diagram
 ![quickstart-variation](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/blob/main/reference-architectures/quickstart/deploy-arch-ibm-pvs-inf-quickstart.svg)

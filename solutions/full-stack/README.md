@@ -14,7 +14,7 @@ This example sets up the following infrastructure:
     - Creates an SSH key.
 
 ### Notes:
-Catalog image names to be imported into infrastructure can be found [here](./docs/catalog_image_names.md)
+- Catalog image names to be imported into infrastructure can be found [here](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/blob/main/solutions/full-stack/docs/catalog_image_names.md)
 
 | Variation  | Available on IBM Catalog  |  Requires Schematics Workspace ID | Creates VPC Landing Zone | Performs VPC VSI OS Config | Creates PowerVS Infrastructure | Creates PowerVS Instance | Performs PowerVS OS Config |
 | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
@@ -23,7 +23,7 @@ Catalog image names to be imported into infrastructure can be found [here](./doc
 
 
 ## Reference architecture
-[PowerVS workspace full-stack variation](../../reference-architectures/full-stack/deploy-arch-ibm-pvs-inf-full-stack.md)
+[PowerVS workspace full-stack variation](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/blob/main/reference-architectures/full-stack/deploy-arch-ibm-pvs-inf-full-stack.md)
 
 
 ## Architecture diagram
