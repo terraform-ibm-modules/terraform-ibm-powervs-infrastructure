@@ -52,11 +52,11 @@ locals {
   access_host_or_ip      = local.key_floating_ip_exists ? module.landing_zone.fip_vsi[0].floating_ip : ""
 
   key_vsi_list_exists    = contains(keys(module.landing_zone), "vsi_list") ? true : false
-  private_svs_vsi_exists = local.key_vsi_list_exists ? contains(module.landing_zone.vsi_names, "${var.prefix}-private-svs-1") ? true : false : false
-  private_svs_ip         = local.private_svs_vsi_exists ? [for vsi in module.landing_zone.vsi_list : vsi.ipv4_address if vsi.name == "${var.prefix}-private-svs-1"][0] : ""
+  private_svs_vsi_exists = local.key_vsi_list_exists ? contains(module.landing_zone.vsi_names, "${var.prefix}-private-svs-001") ? true : false : false
+  private_svs_ip         = local.private_svs_vsi_exists ? [for vsi in module.landing_zone.vsi_list : vsi.ipv4_address if vsi.name == "${var.prefix}-private-svs-001"][0] : ""
 
-  inet_svs_vsi_exists = local.key_vsi_list_exists ? contains(module.landing_zone.vsi_names, "${var.prefix}-inet-svs-1") ? true : false : false
-  inet_svs_ip         = local.inet_svs_vsi_exists ? [for vsi in module.landing_zone.vsi_list : vsi.ipv4_address if vsi.name == "${var.prefix}-inet-svs-1"][0] : ""
+  inet_svs_vsi_exists = local.key_vsi_list_exists ? contains(module.landing_zone.vsi_names, "${var.prefix}-inet-svs-001") ? true : false : false
+  inet_svs_ip         = local.inet_svs_vsi_exists ? [for vsi in module.landing_zone.vsi_list : vsi.ipv4_address if vsi.name == "${var.prefix}-inet-svs-001"][0] : ""
 
   ###### For 3VPC presets floating ip , inet svs vsi and private svs vsi should exist.
   valid_3vpc_json_used   = contains(["3VPC_RHEL", "3VPC_SLES"], var.landing_zone_configuration) ? local.key_floating_ip_exists && local.inet_svs_vsi_exists && local.private_svs_vsi_exists : true
