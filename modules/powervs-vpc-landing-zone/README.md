@@ -41,7 +41,7 @@ provider "ibm" {
 }
 
 module "fullstack" {
-  source  = "terraform-ibm-modules/powervs-infrastructure/ibm//modules//fullstack"
+  source  = "terraform-ibm-modules/powervs-infrastructure/ibm//modules//powervs-vpc-landing-zone"
   version = "x.x.x" # Replace "x.x.x" with a git release version to lock into a specific release
 
   providers = { ibm.ibm-is = ibm.ibm-is, ibm.ibm-pi = ibm.ibm-pi }
