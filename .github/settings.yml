@@ -16,3 +16,4 @@ repository:
   # The description is displayed under the repository name on the
   # organization page and in the 'About' section of the repository.
   description: "Sets up and configures a ready-to-use Power Virtual Servers infrastructure with IBM Cloud landing zone."
+  topics: terraform, ibm-cloud, DA, deployable-architecture
