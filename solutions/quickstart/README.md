@@ -42,7 +42,7 @@ This example sets up the following infrastructure:
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_powervs_instance"></a> [powervs\_instance](#module\_powervs\_instance) | terraform-ibm-modules/powervs-instance/ibm | 1.0.1 |
+| <a name="module_powervs_instance"></a> [powervs\_instance](#module\_powervs\_instance) | terraform-ibm-modules/powervs-instance/ibm | 1.0.2 |
 | <a name="module_quickstart"></a> [quickstart](#module\_quickstart) | ../../modules/powervs-vpc-landing-zone | n/a |
 
 ### Resources
