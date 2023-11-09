@@ -942,6 +942,16 @@
                             "key": "powervs_backup_network_name"
                         },
                         {
+                            "key": "ibmcloud_api_key",
+                            "type": "multiline_secure_value",
+                            "required": true,
+                            "custom_config": {
+                                "grouping": "deployment",
+                                "original_grouping": "deployment",
+                                "type": "multiline_secure_value"
+                            }
+                        },
+                        {
                             "key": "tags"
                         }
                     ],
