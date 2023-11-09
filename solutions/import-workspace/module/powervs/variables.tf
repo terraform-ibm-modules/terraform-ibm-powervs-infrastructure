@@ -19,11 +19,6 @@ variable "powervs_workspace_name" {
   type        = string
 }
 
-/*variable "powervs_sshkey_name" {
-  description = "SSH public key name in created PowerVS infrastructure."
-  type        = string
-}*/
-
 variable "powervs_management_network_name" {
   description = "Name of management network in created PowerVS infrastructure."
   type        = string

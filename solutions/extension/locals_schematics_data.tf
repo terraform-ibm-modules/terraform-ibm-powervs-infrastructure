@@ -17,7 +17,7 @@ data "ibm_schematics_output" "schematics_output" {
 locals {
 
   fullstack_output     = jsondecode(data.ibm_schematics_output.schematics_output.output_json)
-  prefix               = local.fullstack_output[0].prefix.value
+  prefix               = local.fullstack_output[0].prefix.value == "" ? "pvs-${var.powervs_zone}" : local.fullstack_output[0].prefix.value
   ssh_public_key       = local.fullstack_output[0].powervs_ssh_public_key.value.value
   transit_gateway_name = local.fullstack_output[0].transit_gateway_name.value
   transit_gateway_id   = local.fullstack_output[0].transit_gateway_id.value

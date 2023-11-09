@@ -1,3 +1,8 @@
+output "prefix" {
+  description = "The prefix that is associated with all resources"
+  value       = ""
+}
+
 ##############################################################
 # VPC Landing Zone Values
 ##############################################################
