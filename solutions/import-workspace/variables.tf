@@ -5,7 +5,7 @@ variable "ibmcloud_api_key" {
 }
 
 ##############################################################
-################## VPC LANDING ZONE VALUES ###################
+# Parameters for VPC VSIs and Transit Gateway
 ##############################################################
 
 variable "access_host" {
@@ -24,7 +24,6 @@ variable "proxy_host" {
   })
 }
 
-# QUESTION: what if their services of ntp, nfs & dns are running on different servers?
 variable "workload_host" {
   description = "Workload host InameP."
   type = object({
@@ -39,7 +38,7 @@ variable "transit_gateway_name" {
 }
 
 ##############################################################
-########### POWER VIRTUAL SERVER WORKSPACE VALUES ############
+# Parameters for PowerVS Workspace
 ##############################################################
 
 variable "powervs_zone" {
@@ -67,9 +66,13 @@ variable "powervs_backup_network_name" {
   type        = string
 }
 
-# how should we fetch the ssh key, floating?
-# Can this be retrieved automatically?
-/*variable "transit_gateway_name" {
-  description = "Jump host IP."
+##############################################################
+# Schematics Output
+##############################################################
+
+# tflint-ignore: all
+variable "IC_SCHEMATICS_WORKSPACE_ID" {
+  default     = ""
   type        = string
-}*/
+  description = "leave blank if running locally. This variable will be automatically populated if running from an IBM Cloud Schematics workspace."
+}
