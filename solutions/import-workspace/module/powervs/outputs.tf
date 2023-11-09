@@ -15,7 +15,10 @@ output "powervs_resource_group_name" {
 
 output "powervs_images" {
   description = "Object containing imported PowerVS image names and image ids."
-  value       = local.powervs_image_map
+  value = {
+    for image in data.ibm_pi_images.powervs_workspace_images_ds.image_info : image.name => image.id
+  }
+  #}data.ibm_pi_images.powervs_workspace_images_ds
 }
 
 /*output "powervs_management_network_name" {
