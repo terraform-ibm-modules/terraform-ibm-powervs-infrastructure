@@ -1165,7 +1165,6 @@
                     "label": "PowerVS Import Workspace",
                     "name": "powervs-import-workspace",
                     "install_type": "extension",
-                    "index": 4,
                     "working_directory": "solutions/import-workspace",
                     "compliance": {
                         "authority": "scc-v3",
@@ -1373,15 +1372,6 @@
                         },
                         {
                             "key": "cloud_connection_count"
-                        },
-                        {
-                            "key": "powervs_instance_management_ip"
-                        },
-                        {
-                            "key": "powervs_instance_private_ip"
-                        },
-                        {
-                            "key": "powervs_storage_configuration"
                         },
                         {
                             "key": "schematics_workspace_id"

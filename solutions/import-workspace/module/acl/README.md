@@ -10,7 +10,7 @@ This module creates the access rules in the Access Control List for the subnets 
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.3, < 1.6 |
-| <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | =1.54.0 |
+| <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | >=1.58.1 |
 
 ### Modules
 
@@ -20,9 +20,9 @@ No modules.
 
 | Name | Type |
 |------|------|
-| [ibm_is_network_acl_rule.all_network_acl_rules](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.54.0/docs/resources/is_network_acl_rule) | resource |
-| [ibm_is_network_acl_rule.deny_all_inbound](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.54.0/docs/resources/is_network_acl_rule) | resource |
-| [ibm_is_network_acl_rule.deny_all_outbound](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.54.0/docs/resources/is_network_acl_rule) | resource |
+| [ibm_is_network_acl_rule.all_network_acl_rules](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/is_network_acl_rule) | resource |
+| [ibm_is_network_acl_rule.deny_all_inbound](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/is_network_acl_rule) | resource |
+| [ibm_is_network_acl_rule.deny_all_outbound](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/is_network_acl_rule) | resource |
 
 ### Inputs
 

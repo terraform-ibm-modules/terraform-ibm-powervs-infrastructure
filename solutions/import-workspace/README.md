@@ -17,7 +17,7 @@ This solution helps to create a IBM Cloud Schematics Workspace ID for a pre-exis
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.3, < 1.6 |
-| <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | =1.54.0 |
+| <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | =1.58.1 |
 
 ### Modules
 
@@ -38,29 +38,29 @@ This solution helps to create a IBM Cloud Schematics Workspace ID for a pre-exis
 
 | Name | Type |
 |------|------|
-| [ibm_is_network_acl.edge_acls](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.54.0/docs/data-sources/is_network_acl) | data source |
-| [ibm_is_network_acl.management_acls](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.54.0/docs/data-sources/is_network_acl) | data source |
-| [ibm_is_network_acl.workload_acls](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.54.0/docs/data-sources/is_network_acl) | data source |
-| [ibm_is_subnet.edge_subnets](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.54.0/docs/data-sources/is_subnet) | data source |
-| [ibm_is_subnet.management_subnets](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.54.0/docs/data-sources/is_subnet) | data source |
-| [ibm_is_subnet.workload_subnets](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.54.0/docs/data-sources/is_subnet) | data source |
-| [ibm_tg_gateway.ds_tggateway](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.54.0/docs/data-sources/tg_gateway) | data source |
+| [ibm_is_network_acl.edge_acls](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.58.1/docs/data-sources/is_network_acl) | data source |
+| [ibm_is_network_acl.management_acls](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.58.1/docs/data-sources/is_network_acl) | data source |
+| [ibm_is_network_acl.workload_acls](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.58.1/docs/data-sources/is_network_acl) | data source |
+| [ibm_is_subnet.edge_subnets](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.58.1/docs/data-sources/is_subnet) | data source |
+| [ibm_is_subnet.management_subnets](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.58.1/docs/data-sources/is_subnet) | data source |
+| [ibm_is_subnet.workload_subnets](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.58.1/docs/data-sources/is_subnet) | data source |
+| [ibm_tg_gateway.ds_tggateway](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.58.1/docs/data-sources/tg_gateway) | data source |
 
 ### Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_IC_SCHEMATICS_WORKSPACE_ID"></a> [IC\_SCHEMATICS\_WORKSPACE\_ID](#input\_IC\_SCHEMATICS\_WORKSPACE\_ID) | leave blank if running locally. This variable will be automatically populated if running from an IBM Cloud Schematics workspace. | `string` | `""` | no |
-| <a name="input_access_host"></a> [access\_host](#input\_access\_host) | Access host name and floating ip. | <pre>object({<br>    name        = string<br>    floating_ip = string<br>  })</pre> | n/a | yes |
+| <a name="input_access_host"></a> [access\_host](#input\_access\_host) | Access host name and floating ip. | <pre>object({<br>    name        = string<br>    floating_ip = string<br>  })</pre> | <pre>{<br>  "floating_ip": "",<br>  "name": ""<br>}</pre> | no |
 | <a name="input_ibmcloud_api_key"></a> [ibmcloud\_api\_key](#input\_ibmcloud\_api\_key) | The IBM Cloud platform API key needed to deploy IAM enabled resources. | `string` | n/a | yes |
 | <a name="input_powervs_backup_network_name"></a> [powervs\_backup\_network\_name](#input\_powervs\_backup\_network\_name) | Name of backup network in created PowerVS infrastructure. | `string` | n/a | yes |
 | <a name="input_powervs_management_network_name"></a> [powervs\_management\_network\_name](#input\_powervs\_management\_network\_name) | Name of management network in created PowerVS infrastructure. | `string` | n/a | yes |
 | <a name="input_powervs_sshkey_name"></a> [powervs\_sshkey\_name](#input\_powervs\_sshkey\_name) | SSH public key name in created PowerVS infrastructure. | `string` | n/a | yes |
 | <a name="input_powervs_workspace_name"></a> [powervs\_workspace\_name](#input\_powervs\_workspace\_name) | PowerVS infrastructure workspace name. | `string` | n/a | yes |
 | <a name="input_powervs_zone"></a> [powervs\_zone](#input\_powervs\_zone) | IBM Cloud data center location where IBM PowerVS infrastructure will be created. | `string` | n/a | yes |
-| <a name="input_proxy_host"></a> [proxy\_host](#input\_proxy\_host) | Proxy server name and port. | <pre>object({<br>    name = string<br>    port = string<br>  })</pre> | n/a | yes |
+| <a name="input_proxy_host"></a> [proxy\_host](#input\_proxy\_host) | Proxy server name and port. | <pre>object({<br>    name = string<br>    port = string<br>  })</pre> | <pre>{<br>  "name": "",<br>  "port": ""<br>}</pre> | no |
 | <a name="input_transit_gateway_name"></a> [transit\_gateway\_name](#input\_transit\_gateway\_name) | The name of the transit gateway. | `string` | n/a | yes |
-| <a name="input_workload_host"></a> [workload\_host](#input\_workload\_host) | Workload host InameP. | <pre>object({<br>    name     = string<br>    nfs_path = string<br>  })</pre> | n/a | yes |
+| <a name="input_workload_host"></a> [workload\_host](#input\_workload\_host) | Workload host InameP. | <pre>object({<br>    name     = string<br>    nfs_path = string<br>  })</pre> | <pre>{<br>  "name": "",<br>  "nfs_path": ""<br>}</pre> | no |
 
 ### Outputs
 
@@ -80,6 +80,7 @@ This solution helps to create a IBM Cloud Schematics Workspace ID for a pre-exis
 | <a name="output_powervs_workspace_id"></a> [powervs\_workspace\_id](#output\_powervs\_workspace\_id) | PowerVS infrastructure workspace CRN. |
 | <a name="output_powervs_workspace_name"></a> [powervs\_workspace\_name](#output\_powervs\_workspace\_name) | PowerVS infrastructure workspace name. |
 | <a name="output_powervs_zone"></a> [powervs\_zone](#output\_powervs\_zone) | Zone where PowerVS infrastructure is created. |
+| <a name="output_prefix"></a> [prefix](#output\_prefix) | The prefix that is associated with all resources |
 | <a name="output_proxy_host_or_ip_port"></a> [proxy\_host\_or\_ip\_port](#output\_proxy\_host\_or\_ip\_port) | Proxy host:port for created PowerVS infrastructure. |
 | <a name="output_schematics_workspace_id"></a> [schematics\_workspace\_id](#output\_schematics\_workspace\_id) | ID of the IBM Cloud Schematics workspace. Returns null if not ran in Schematics. |
 | <a name="output_ssh_public_key"></a> [ssh\_public\_key](#output\_ssh\_public\_key) | The string value of the ssh public key used when deploying VPC |
