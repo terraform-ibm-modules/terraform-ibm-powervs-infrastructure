@@ -1163,8 +1163,8 @@
                 },
                 {
                     "label": "PowerVS Import Workspace",
-                    "name": "powervs-import-workspace",
-                    "install_type": "extension",
+                    "name": "import-power-workspace",
+                    "install_type": "fullstack",
                     "working_directory": "solutions/import-workspace",
                     "compliance": {
                         "authority": "scc-v3",
