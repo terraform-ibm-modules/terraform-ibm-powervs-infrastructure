@@ -14,6 +14,10 @@ variable "access_host" {
     name        = string
     floating_ip = string
   })
+  default = {
+    "name" : "",
+    "floating_ip" : ""
+  }
 }
 
 variable "proxy_host" {
@@ -22,6 +26,10 @@ variable "proxy_host" {
     name = string
     port = string
   })
+  default = {
+    "name" : "",
+    "port" : ""
+  }
 }
 
 variable "workload_host" {
@@ -30,6 +38,10 @@ variable "workload_host" {
     name     = string
     nfs_path = string
   })
+  default = {
+    "name" : "",
+    "nfs_path" : ""
+  }
 }
 
 variable "transit_gateway_name" {
