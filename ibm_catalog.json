@@ -1163,7 +1163,7 @@
                 },
                 {
                     "label": "PowerVS Import Workspace",
-                    "name": "import-power-workspace",
+                    "name": "powervs-import-workspace",
                     "install_type": "fullstack",
                     "working_directory": "solutions/import-workspace",
                     "compliance": {

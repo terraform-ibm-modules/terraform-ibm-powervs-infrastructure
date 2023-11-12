@@ -134,7 +134,7 @@ output "powervs_images" {
   value       = module.power_workspace_data_retrieval.powervs_images
 }
 
-output "cloud_connections_count" {
+output "cloud_connection_count" {
   description = "Number of cloud connections configured in created PowerVS infrastructure."
   value       = length(local.cloud_connections)
 }
