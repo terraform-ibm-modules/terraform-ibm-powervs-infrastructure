@@ -1,8 +1,21 @@
+data "ibm_is_network_acl_rules" "existing_acl" {
+  network_acl = var.ibm_is_network_acl_id
+}
+
+locals {
+  all_rules       = data.ibm_is_network_acl_rules.existing_acl.rules
+  inbound_rules   = [for rule in local.all_rules : rule if rule.direction == "inbound"]
+  outbound_rules  = [for rule in local.all_rules : rule if rule.direction == "outbound"]
+  inbound_before  = length(local.inbound_rules) > 0 ? local.inbound_rules[0].rule_id : null
+  outbound_before = length(local.outbound_rules) > 0 ? local.outbound_rules[0].rule_id : null
+}
+
 resource "ibm_is_network_acl_rule" "all_network_acl_rules" {
   for_each    = { for rule in var.acl_rules : rule.name => rule if rule.action != "deny" }
   network_acl = var.ibm_is_network_acl_id
   name        = each.value.name
   action      = each.value.action
+  before      = each.value.direction == "inbound" ? local.inbound_before : local.outbound_before
   source      = each.value.source
   destination = each.value.destination
   direction   = each.value.direction

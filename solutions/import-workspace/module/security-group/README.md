@@ -20,14 +20,14 @@ No modules.
 
 | Name | Type |
 |------|------|
-| [ibm_is_security_group_rule.example](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/is_security_group_rule) | resource |
+| [ibm_is_security_group_rule.sg_rule_creation](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/is_security_group_rule) | resource |
 
 ### Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_sg_id"></a> [sg\_id](#input\_sg\_id) | VPC's network ACL id | `string` | n/a | yes |
-| <a name="input_sg_rules"></a> [sg\_rules](#input\_sg\_rules) | List of Security Group rules | <pre>list(object({<br>    name      = string<br>    direction = string<br>    remote    = optional(string)<br>    tcp = optional(object({<br>      port_max = optional(string)<br>      port_min = optional(string)<br>    }))<br>    udp = optional(object({<br>      port_max = optional(string)<br>      port_min = optional(string)<br>    }))<br>    icmp = optional(object({<br>      type = optional(string)<br>      code = optional(string)<br>    }))<br>  }))</pre> | n/a | yes |
+| <a name="input_sg_rules"></a> [sg\_rules](#input\_sg\_rules) | List of Security Group rules | <pre>list(object({<br>    name      = string<br>    direction = string<br>    source    = optional(string)<br>    tcp = optional(object({<br>      port_max = optional(string)<br>      port_min = optional(string)<br>    }))<br>    udp = optional(object({<br>      port_max = optional(string)<br>      port_min = optional(string)<br>    }))<br>    icmp = optional(object({<br>      type = optional(string)<br>      code = optional(string)<br>    }))<br>  }))</pre> | n/a | yes |
 
 ### Outputs
 

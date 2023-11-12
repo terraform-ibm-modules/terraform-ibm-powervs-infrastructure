@@ -23,6 +23,7 @@ No modules.
 | [ibm_is_network_acl_rule.all_network_acl_rules](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/is_network_acl_rule) | resource |
 | [ibm_is_network_acl_rule.deny_all_inbound](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/is_network_acl_rule) | resource |
 | [ibm_is_network_acl_rule.deny_all_outbound](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/is_network_acl_rule) | resource |
+| [ibm_is_network_acl_rules.existing_acl](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/data-sources/is_network_acl_rules) | data source |
 
 ### Inputs
 

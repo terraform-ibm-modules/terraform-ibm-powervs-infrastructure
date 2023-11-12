@@ -1,8 +1,8 @@
-resource "ibm_is_security_group_rule" "example" {
+resource "ibm_is_security_group_rule" "sg_rule_creation" {
   for_each  = { for rule in var.sg_rules : rule.name => rule }
   group     = var.sg_id
   direction = each.value.direction
-  remote    = each.value.remote
+  remote    = each.value.source
 
   dynamic "icmp" {
     for_each = contains(keys(each.value), "icmp") && each.value.icmp != null ? [1] : []
