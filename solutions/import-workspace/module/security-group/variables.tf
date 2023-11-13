@@ -3,7 +3,7 @@ variable "sg_rules" {
   type = list(object({
     name      = string
     direction = string
-    remote    = optional(string)
+    source    = optional(string)
     tcp = optional(object({
       port_max = optional(string)
       port_min = optional(string)
