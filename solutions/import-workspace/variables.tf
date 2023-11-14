@@ -9,43 +9,43 @@ variable "ibmcloud_api_key" {
 ##############################################################
 
 variable "access_host" {
-  description = "Access host name and floating ip."
+  description = "Name of the existing access host VSI and its floating ip."
   type = object({
-    name        = string
+    vsi_name    = string
     floating_ip = string
   })
   default = {
-    "name" : "",
+    "vsi_name" : "",
     "floating_ip" : ""
   }
 }
 
 variable "proxy_host" {
-  description = "Proxy server name and port."
+  description = "Name of the existing VSI on which proxy server is configured and proxy server port."
   type = object({
-    name = string
-    port = string
+    vsi_name = string
+    port     = string
   })
   default = {
-    "name" : "",
+    "vsi_name" : "",
     "port" : ""
   }
 }
 
 variable "workload_host" {
-  description = "Workload host InameP."
+  description = "Name of the existing workload host VSI name and NFS path."
   type = object({
-    name     = string
+    vsi_name = string
     nfs_path = string
   })
   default = {
-    "name" : "",
+    "vsi_name" : "",
     "nfs_path" : ""
   }
 }
 
 variable "transit_gateway_name" {
-  description = "The name of the transit gateway."
+  description = "The name of the transit gateway that connects the existing VPCs and PowerVS Workspace."
   type        = string
 }
 
@@ -54,27 +54,27 @@ variable "transit_gateway_name" {
 ##############################################################
 
 variable "powervs_zone" {
-  description = "IBM Cloud data center location where IBM PowerVS infrastructure will be created."
+  description = "IBM Cloud data center location where IBM PowerVS Workspace is created."
   type        = string
 }
 
 variable "powervs_workspace_name" {
-  description = "PowerVS infrastructure workspace name."
+  description = "Name of the existing PowerVS Workspace."
   type        = string
 }
 
 variable "powervs_sshkey_name" {
-  description = "SSH public key name in created PowerVS infrastructure."
+  description = "SSH public key name used for the existing PowerVS Workspace."
   type        = string
 }
 
 variable "powervs_management_network_name" {
-  description = "Name of management network in created PowerVS infrastructure."
+  description = "Name of management network in existing PowerVS Workspace."
   type        = string
 }
 
 variable "powervs_backup_network_name" {
-  description = "Name of backup network in created PowerVS infrastructure."
+  description = "Name of backup network in existing PowerVS Workspace."
   type        = string
 }
 

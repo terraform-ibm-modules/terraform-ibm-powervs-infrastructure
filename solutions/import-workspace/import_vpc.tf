@@ -2,19 +2,19 @@
 
 module "access_host" {
   source       = "./module/vpc"
-  vsi_ip       = var.access_host.name
+  vsi_name     = var.access_host.vsi_name
   fip_enabled  = true
   attached_fip = var.access_host.floating_ip
 }
 
 module "edge_vsi" {
-  source = "./module/vpc"
-  vsi_ip = var.proxy_host.name
+  source   = "./module/vpc"
+  vsi_name = var.proxy_host.vsi_name
 }
 
 module "workload_vsi" {
-  source = "./module/vpc"
-  vsi_ip = var.workload_host.name
+  source   = "./module/vpc"
+  vsi_name = var.workload_host.vsi_name
 }
 
 data "ibm_tg_gateway" "ds_tggateway" {

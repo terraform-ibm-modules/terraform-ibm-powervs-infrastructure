@@ -1,4 +1,4 @@
-variable "vsi_ip" {
+variable "vsi_name" {
   description = "Jump host IP."
   type        = string
 }

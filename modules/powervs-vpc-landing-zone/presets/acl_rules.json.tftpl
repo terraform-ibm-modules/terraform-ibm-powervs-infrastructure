@@ -1,0 +1,899 @@
+{
+    "management_acl": [
+        %{ if "${access_host_ip}" != "" && "${access_host_ip}" != null }
+        {
+            "name": "management-acl",
+            "rules": [
+                {
+                    "name": "allow-ibm-inbound",
+                    "action": "allow",
+                    "direction": "inbound",
+                    "source": "161.0.0.0/8",
+                    "destination": "${access_host_ip}"
+                },
+                {
+                    "name": "allow-ibm-outbound",
+                    "action": "allow",
+                    "direction": "outbound",
+                    "source": "${access_host_ip}",
+                    "destination": "161.0.0.0/8"
+                },
+                {
+                    "name": "allow-ssh-inbound-schematics1",
+                    "action": "allow",
+                    "direction": "inbound",
+                    "source": "169.45.235.176/28",
+                    "destination": "${access_host_ip}",
+                    "tcp": {
+                        "port_max": 22,
+                        "port_min": 22
+                    }
+                },
+                {
+                    "name": "allow-ssh-outbound-schematics1",
+                    "action": "allow",
+                    "direction": "outbound",
+                    "source": "${access_host_ip}",
+                    "destination": "169.45.235.176/28",
+                    "tcp": {
+                        "source_port_max": 22,
+                        "source_port_min": 22
+                    }
+                },
+                {
+                    "name": "allow-ssh-inbound-schematics2",
+                    "action": "allow",
+                    "direction": "inbound",
+                    "source": "169.55.82.128/27",
+                    "destination": "${access_host_ip}",
+                    "tcp": {
+                        "port_max": 22,
+                        "port_min": 22
+                    }
+                },
+                {
+                    "name": "allow-ssh-outbound-schematics2",
+                    "action": "allow",
+                    "direction": "outbound",
+                    "source": "${access_host_ip}",
+                    "destination": "169.55.82.128/28",
+                    "tcp": {
+                        "source_port_max": 22,
+                        "source_port_min": 22
+                    }
+                },
+                {
+                    "name": "allow-ssh-inbound-schematics3",
+                    "action": "allow",
+                    "direction": "inbound",
+                    "source": "169.60.115.32/27",
+                    "destination": "${access_host_ip}",
+                    "tcp": {
+                        "port_max": 22,
+                        "port_min": 22
+                    }
+                },
+                {
+                    "name": "allow-ssh-outbound-schematics3",
+                    "action": "allow",
+                    "direction": "outbound",
+                    "source": "${access_host_ip}",
+                    "destination": "169.60.115.32/27",
+                    "tcp": {
+                        "source_port_max": 22,
+                        "source_port_min": 22
+                    }
+                },
+                {
+                    "name": "allow-ssh-inbound-schematics4",
+                    "action": "allow",
+                    "direction": "inbound",
+                    "source": "169.63.150.144/28",
+                    "destination": "${access_host_ip}",
+                    "tcp": {
+                        "port_max": 22,
+                        "port_min": 22
+                    }
+                },
+                {
+                    "name": "allow-ssh-outbound-schematics4",
+                    "action": "allow",
+                    "direction": "outbound",
+                    "source": "${access_host_ip}",
+                    "destination": "169.63.150.144/28",
+                    "tcp": {
+                        "source_port_max": 22,
+                        "source_port_min": 22
+                    }
+                },
+                {
+                    "name": "allow-ssh-inbound-schematics5",
+                    "action": "allow",
+                    "direction": "inbound",
+                    "source": "169.62.1.224/28",
+                    "destination": "${access_host_ip}",
+                    "tcp": {
+                        "port_max": 22,
+                        "port_min": 22
+                    }
+                },
+                {
+                    "name": "allow-ssh-outbound-schematics5",
+                    "action": "allow",
+                    "direction": "outbound",
+                    "source": "${access_host_ip}",
+                    "destination": "169.62.1.224/28",
+                    "tcp": {
+                        "source_port_max": 22,
+                        "source_port_min": 22
+                    }
+                },
+                {
+                    "name": "allow-ssh-inbound-schematics6",
+                    "action": "allow",
+                    "direction": "inbound",
+                    "source": "169.62.53.64/27",
+                    "destination": "${access_host_ip}",
+                    "tcp": {
+                        "port_max": 22,
+                        "port_min": 22
+                    }
+                },
+                {
+                    "name": "allow-ssh-outbound-schematics6",
+                    "action": "allow",
+                    "direction": "outbound",
+                    "source": "${access_host_ip}",
+                    "destination": "169.62.53.64/27",
+                    "tcp": {
+                        "source_port_max": 22,
+                        "source_port_min": 22
+                    }
+                },
+                {
+                    "name": "allow-ssh-inbound-schematics7",
+                    "action": "allow",
+                    "direction": "inbound",
+                    "source": "150.238.230.128/27",
+                    "destination": "${access_host_ip}",
+                    "tcp": {
+                        "port_max": 22,
+                        "port_min": 22
+                    }
+                },
+                {
+                    "name": "allow-ssh-outbound-schematics7",
+                    "action": "allow",
+                    "direction": "outbound",
+                    "source": "${access_host_ip}",
+                    "destination": "150.238.230.128/27",
+                    "tcp": {
+                        "source_port_max": 22,
+                        "source_port_min": 22
+                    }
+                },
+                {
+                    "name": "allow-ssh-inbound-schematics8",
+                    "action": "allow",
+                    "direction": "inbound",
+                    "source": "169.63.254.64/28",
+                    "destination": "${access_host_ip}",
+                    "tcp": {
+                        "port_max": 22,
+                        "port_min": 22
+                    }
+                },
+                {
+                    "name": "allow-ssh-outbound-schematics8",
+                    "action": "allow",
+                    "direction": "outbound",
+                    "source": "${access_host_ip}",
+                    "destination": "169.63.254.64/28",
+                    "tcp": {
+                        "source_port_max": 22,
+                        "source_port_min": 22
+                    }
+                },
+                {
+                    "name": "allow-ssh-inbound-schematics9",
+                    "action": "allow",
+                    "direction": "inbound",
+                    "source": "169.47.104.160/28",
+                    "destination": "${access_host_ip}",
+                    "tcp": {
+                        "port_max": 22,
+                        "port_min": 22
+                    }
+                },
+                {
+                    "name": "allow-ssh-outbound-schematics9",
+                    "action": "allow",
+                    "direction": "outbound",
+                    "source": "${access_host_ip}",
+                    "destination": "169.47.104.160/28",
+                    "tcp": {
+                        "source_port_max": 22,
+                        "source_port_min": 22
+                    }
+                },
+                {
+                    "name": "allow-ssh-inbound-schematics10",
+                    "action": "allow",
+                    "direction": "inbound",
+                    "source": "169.61.191.64/27",
+                    "destination": "${access_host_ip}",
+                    "tcp": {
+                        "port_max": 22,
+                        "port_min": 22
+                    }
+                },
+                {
+                    "name": "allow-ssh-outbound-schematics10",
+                    "action": "allow",
+                    "direction": "outbound",
+                    "source": "${access_host_ip}",
+                    "destination": "169.61.191.64/27",
+                    "tcp": {
+                        "source_port_max": 22,
+                        "source_port_min": 22
+                    }
+                },
+                {
+                    "name": "allow-ssh-inbound-schematics11",
+                    "action": "allow",
+                    "direction": "inbound",
+                    "source": "169.60.172.144/28",
+                    "destination": "${access_host_ip}",
+                    "tcp": {
+                        "port_max": 22,
+                        "port_min": 22
+                    }
+                },
+                {
+                    "name": "allow-ssh-outbound-schematics11",
+                    "action": "allow",
+                    "direction": "outbound",
+                    "source": "${access_host_ip}",
+                    "destination": "169.60.172.144/28",
+                    "tcp": {
+                        "source_port_max": 22,
+                        "source_port_min": 22
+                    }
+                },
+                {
+                    "name": "allow-ssh-inbound-schematics12",
+                    "action": "allow",
+                    "direction": "inbound",
+                    "source": "169.62.204.32/27",
+                    "destination": "${access_host_ip}",
+                    "tcp": {
+                        "port_max": 22,
+                        "port_min": 22
+                    }
+                },
+                {
+                    "name": "allow-ssh-outbound-schematics12",
+                    "action": "allow",
+                    "direction": "outbound",
+                    "source": "${access_host_ip}",
+                    "destination": "169.62.204.32/27",
+                    "tcp": {
+                        "source_port_max": 22,
+                        "source_port_min": 22
+                    }
+                },
+                {
+                    "name": "allow-ssh-inbound-schematics13",
+                    "action": "allow",
+                    "direction": "inbound",
+                    "source": "158.175.106.64/27",
+                    "destination": "${access_host_ip}",
+                    "tcp": {
+                        "port_max": 22,
+                        "port_min": 22
+                    }
+                },
+                {
+                    "name": "allow-ssh-outbound-schematics13",
+                    "action": "allow",
+                    "direction": "outbound",
+                    "source": "${access_host_ip}",
+                    "destination": "158.175.106.64/27",
+                    "tcp": {
+                        "source_port_max": 22,
+                        "source_port_min": 22
+                    }
+                },
+                {
+                    "name": "allow-ssh-inbound-schematics14",
+                    "action": "allow",
+                    "direction": "inbound",
+                    "source": "158.175.138.176/28",
+                    "destination": "${access_host_ip}",
+                    "tcp": {
+                        "port_max": 22,
+                        "port_min": 22
+                    }
+                },
+                {
+                    "name": "allow-ssh-outbound-schematics14",
+                    "action": "allow",
+                    "direction": "outbound",
+                    "source": "${access_host_ip}",
+                    "destination": "158.175.138.176/28",
+                    "tcp": {
+                        "source_port_max": 22,
+                        "source_port_min": 22
+                    }
+                },
+                {
+                    "name": "allow-ssh-inbound-schematics15",
+                    "action": "allow",
+                    "direction": "inbound",
+                    "source": "141.125.79.160/28",
+                    "destination": "${access_host_ip}",
+                    "tcp": {
+                        "port_max": 22,
+                        "port_min": 22
+                    }
+                },
+                {
+                    "name": "allow-ssh-outbound-schematics15",
+                    "action": "allow",
+                    "direction": "outbound",
+                    "source": "${access_host_ip}",
+                    "destination": "141.125.79.160/28",
+                    "tcp": {
+                        "source_port_max": 22,
+                        "source_port_min": 22
+                    }
+                },
+                {
+                    "name": "allow-ssh-inbound-schematics16",
+                    "action": "allow",
+                    "direction": "inbound",
+                    "source": "141.125.142.96/27",
+                    "destination": "${access_host_ip}",
+                    "tcp": {
+                        "port_max": 22,
+                        "port_min": 22
+                    }
+                },
+                {
+                    "name": "allow-ssh-outbound-schematics16",
+                    "action": "allow",
+                    "direction": "outbound",
+                    "source": "${access_host_ip}",
+                    "destination": "141.125.142.96/27",
+                    "tcp": {
+                        "source_port_max": 22,
+                        "source_port_min": 22
+                    }
+                },
+                {
+                    "name": "allow-ssh-inbound-schematics17",
+                    "action": "allow",
+                    "direction": "inbound",
+                    "source": "158.176.111.64/27",
+                    "destination": "${access_host_ip}",
+                    "tcp": {
+                        "port_max": 22,
+                        "port_min": 22
+                    }
+                },
+                {
+                    "name": "allow-ssh-outbound-schematics17",
+                    "action": "allow",
+                    "direction": "outbound",
+                    "source": "${access_host_ip}",
+                    "destination": "158.176.111.64/27",
+                    "tcp": {
+                        "source_port_max": 22,
+                        "source_port_min": 22
+                    }
+                },
+                {
+                    "name": "allow-ssh-inbound-schematics18",
+                    "action": "allow",
+                    "direction": "inbound",
+                    "source": "158.176.134.80/28",
+                    "destination": "${access_host_ip}",
+                    "tcp": {
+                        "port_max": 22,
+                        "port_min": 22
+                    }
+                },
+                {
+                    "name": "allow-ssh-outbound-schematics18",
+                    "action": "allow",
+                    "direction": "outbound",
+                    "source": "${access_host_ip}",
+                    "destination": "158.176.134.80/28",
+                    "tcp": {
+                        "source_port_max": 22,
+                        "source_port_min": 22
+                    }
+                },
+                {
+                    "name": "allow-ssh-inbound-schematics19",
+                    "action": "allow",
+                    "direction": "inbound",
+                    "source": "149.81.123.64/27",
+                    "destination": "${access_host_ip}",
+                    "tcp": {
+                        "port_max": 22,
+                        "port_min": 22
+                    }
+                },
+                {
+                    "name": "allow-ssh-outbound-schematics19",
+                    "action": "allow",
+                    "direction": "outbound",
+                    "source": "${access_host_ip}",
+                    "destination": "149.81.123.64/27",
+                    "tcp": {
+                        "source_port_max": 22,
+                        "source_port_min": 22
+                    }
+                },
+                {
+                    "name": "allow-ssh-inbound-schematics20",
+                    "action": "allow",
+                    "direction": "inbound",
+                    "source": "149.81.135.64/28",
+                    "destination": "${access_host_ip}",
+                    "tcp": {
+                        "port_max": 22,
+                        "port_min": 22
+                    }
+                },
+                {
+                    "name": "allow-ssh-outbound-schematics20",
+                    "action": "allow",
+                    "direction": "outbound",
+                    "source": "${access_host_ip}",
+                    "destination": "149.81.135.64/28",
+                    "tcp": {
+                        "source_port_max": 22,
+                        "source_port_min": 22
+                    }
+                },
+                {
+                    "name": "allow-ssh-inbound-schematics21",
+                    "action": "allow",
+                    "direction": "inbound",
+                    "source": "158.177.210.176/28",
+                    "destination": "${access_host_ip}",
+                    "tcp": {
+                        "port_max": 22,
+                        "port_min": 22
+                    }
+                },
+                {
+                    "name": "allow-ssh-outbound-schematics21",
+                    "action": "allow",
+                    "direction": "outbound",
+                    "source": "${access_host_ip}",
+                    "destination": "158.177.210.176/28",
+                    "tcp": {
+                        "source_port_max": 22,
+                        "source_port_min": 22
+                    }
+                },
+                {
+                    "name": "allow-ssh-inbound-schematics22",
+                    "action": "allow",
+                    "direction": "inbound",
+                    "source": "158.177.216.144/28",
+                    "destination": "${access_host_ip}",
+                    "tcp": {
+                        "port_max": 22,
+                        "port_min": 22
+                    }
+                },
+                {
+                    "name": "allow-ssh-outbound-schematics22",
+                    "action": "allow",
+                    "direction": "outbound",
+                    "source": "${access_host_ip}",
+                    "destination": "158.177.216.144/28",
+                    "tcp": {
+                        "source_port_max": 22,
+                        "source_port_min": 22
+                    }
+                },
+                {
+                    "name": "allow-ssh-inbound-schematics23",
+                    "action": "allow",
+                    "direction": "inbound",
+                    "source": "161.156.138.80/28",
+                    "destination": "${access_host_ip}",
+                    "tcp": {
+                        "port_max": 22,
+                        "port_min": 22
+                    }
+                },
+                {
+                    "name": "allow-ssh-outbound-schematics23",
+                    "action": "allow",
+                    "direction": "outbound",
+                    "source": "${access_host_ip}",
+                    "destination": "161.156.138.80/28",
+                    "tcp": {
+                        "source_port_max": 22,
+                        "source_port_min": 22
+                    }
+                },
+                {
+                    "name": "allow-ssh-inbound-schematics24",
+                    "action": "allow",
+                    "direction": "inbound",
+                    "source": "159.122.111.224/27",
+                    "destination": "${access_host_ip}",
+                    "tcp": {
+                        "port_max": 22,
+                        "port_min": 22
+                    }
+                },
+                {
+                    "name": "allow-ssh-outbound-schematics24",
+                    "action": "allow",
+                    "direction": "outbound",
+                    "source": "${access_host_ip}",
+                    "destination": "159.122.111.224/27",
+                    "tcp": {
+                        "source_port_max": 22,
+                        "source_port_min": 22
+                    }
+                },
+                {
+                    "name": "allow-ssh-inbound-schematics25",
+                    "action": "allow",
+                    "direction": "inbound",
+                    "source": "161.156.37.160/27",
+                    "destination": "${access_host_ip}",
+                    "tcp": {
+                        "port_max": 22,
+                        "port_min": 22
+                    }
+                },
+                {
+                    "name": "allow-ssh-outbound-schematics25",
+                    "action": "allow",
+                    "direction": "outbound",
+                    "source": "${access_host_ip}",
+                    "destination": "161.156.37.160/27",
+                    "tcp": {
+                        "source_port_max": 22,
+                        "source_port_min": 22
+                    }
+                },
+                {
+                    "name": "allow-private-net-1-inbound",
+                    "action": "allow",
+                    "direction": "inbound",
+                    "source": "10.0.0.0/8",
+                    "destination": "${access_host_ip}"
+                },
+                {
+                    "name": "allow-private-net-1-outbound",
+                    "action": "allow",
+                    "direction": "outbound",
+                    "source": "${access_host_ip}",
+                    "destination": "10.0.0.0/8"
+                },
+                {
+                    "name": "allow-private-net-2-inbound",
+                    "action": "allow",
+                    "direction": "inbound",
+                    "source": "172.16.0.0/12",
+                    "destination": "${access_host_ip}"
+                },
+                {
+                    "name": "allow-private-net-2-outbound",
+                    "action": "allow",
+                    "direction": "outbound",
+                    "source": "${access_host_ip}",
+                    "destination": "172.16.0.0/12"
+                },
+                {
+                    "name": "allow-private-net-3-inbound",
+                    "action": "allow",
+                    "direction": "inbound",
+                    "source": "192.168.0.0/16",
+                    "destination": "${access_host_ip}"
+                },
+                {
+                    "name": "allow-private-net-3-outbound",
+                    "action": "allow",
+                    "direction": "outbound",
+                    "source": "${access_host_ip}",
+                    "destination": "192.168.0.0/16"
+                },
+                {
+                    "name": "default-inbound-deny",
+                    "action": "deny",
+                    "direction": "inbound",
+                    "source": "0.0.0.0/0",
+                    "destination": "0.0.0.0/0"
+                },
+                {
+                    "name": "default-outbound-deny",
+                    "action": "deny",
+                    "direction": "outbound",
+                    "source": "0.0.0.0/0",
+                    "destination": "0.0.0.0/0"
+                }
+            ]
+        }
+        %{ endif }
+    ],
+        "edge_acl": [
+        %{ if "${inet_host_ip}" != "" && "${inet_host_ip}" != null }
+        {
+            "name": "edge-acl",
+            "rules": [
+                {
+                    "action": "allow",
+                    "destination": "${inet_host_ip}",
+                    "direction": "inbound",
+                    "name": "allow-ibm-inbound",
+                    "source": "161.0.0.0/8"
+                },
+                {
+                    "action": "allow",
+                    "destination": "161.0.0.0/8",
+                    "direction": "outbound",
+                    "name": "allow-ibm-outbound",
+                    "source": "${inet_host_ip}"
+                },
+                {
+                    "name": "allow-udp-dns-inbound",
+                    "action": "allow",
+                    "direction": "inbound",
+                    "source": "0.0.0.0/0",
+                    "destination": "${inet_host_ip}",
+                    "udp": {
+                        "source_port_max": 53,
+                        "source_port_min": 53
+                    }
+                },
+                {
+                    "name": "allow-udp-dns-outbound",
+                    "action": "allow",
+                    "direction": "outbound",
+                    "source": "${inet_host_ip}",
+                    "destination": "0.0.0.0/0",
+                    "udp": {
+                        "port_max": 53,
+                        "port_min": 53
+                    }
+                },
+                {
+                    "name": "allow-tcp-8443-inbound",
+                    "action": "allow",
+                    "direction": "inbound",
+                    "source": "0.0.0.0/0",
+                    "destination": "${inet_host_ip}",
+                    "tcp": {
+                        "source_port_max": 8443,
+                        "source_port_min": 8443
+                    }
+                },
+                {
+                    "name": "allow-tcp-8443-outbound",
+                    "action": "allow",
+                    "direction": "outbound",
+                    "source": "${inet_host_ip}",
+                    "destination": "0.0.0.0/0",
+                    "tcp": {
+                        "port_max": 8443,
+                        "port_min": 8443
+                    }
+                },
+                {
+                    "name": "allow-tcp-443-inbound",
+                    "action": "allow",
+                    "direction": "inbound",
+                    "source": "0.0.0.0/0",
+                    "destination": "${inet_host_ip}",
+                    "tcp": {
+                        "source_port_max": 443,
+                        "source_port_min": 443
+                    }
+                },
+                {
+                    "name": "allow-tcp-443-outbound",
+                    "action": "allow",
+                    "direction": "outbound",
+                    "source": "${inet_host_ip}",
+                    "destination": "0.0.0.0/0",
+                    "tcp": {
+                        "port_max": 443,
+                        "port_min": 443
+                    }
+                },
+                {
+                    "name": "allow-tcp-80-inbound",
+                    "action": "allow",
+                    "direction": "inbound",
+                    "source": "0.0.0.0/0",
+                    "destination": "${inet_host_ip}",
+                    "tcp": {
+                        "source_port_max": 80,
+                        "source_port_min": 80
+                    }
+                },
+                {
+                    "name": "allow-tcp-80-outbound",
+                    "action": "allow",
+                    "direction": "outbound",
+                    "source": "${inet_host_ip}",
+                    "destination": "0.0.0.0/0",
+                    "tcp": {
+                        "port_max": 80,
+                        "port_min": 80
+                    }
+                },
+                {
+                    "name": "allow-private-net-1-inbound",
+                    "action": "allow",
+                    "direction": "inbound",
+                    "source": "10.0.0.0/8",
+                    "destination": "${inet_host_ip}"
+                },
+                {
+                    "name": "allow-private-net-1-outbound",
+                    "action": "allow",
+                    "direction": "outbound",
+                    "source": "${inet_host_ip}",
+                    "destination": "10.0.0.0/8"
+                },
+                {
+                    "name": "allow-private-net-2-inbound",
+                    "action": "allow",
+                    "direction": "inbound",
+                    "source": "172.16.0.0/12",
+                    "destination": "${inet_host_ip}"
+                },
+                {
+                    "name": "allow-private-net-2-outbound",
+                    "action": "allow",
+                    "direction": "outbound",
+                    "source": "${inet_host_ip}",
+                    "destination": "172.16.0.0/12"
+                },
+                {
+                    "name": "allow-private-net-3-inbound",
+                    "action": "allow",
+                    "direction": "inbound",
+                    "source": "192.168.0.0/16",
+                    "destination": "${inet_host_ip}"
+                },
+                {
+                    "name": "allow-private-net-3-outbound",
+                    "action": "allow",
+                    "direction": "outbound",
+                    "source": "${inet_host_ip}",
+                    "destination": "192.168.0.0/16"
+                },
+                {
+                    "name": "default-inbound-deny",
+                    "action": "deny",
+                    "direction": "inbound",
+                    "source": "0.0.0.0/0",
+                    "destination": "0.0.0.0/0"
+                },
+                {
+                    "name": "default-outbound-deny",
+                    "action": "deny",
+                    "direction": "outbound",
+                    "source": "0.0.0.0/0",
+                    "destination": "0.0.0.0/0"
+                }
+            ]
+        }
+        %{ endif }
+    ],
+    "workload_acl": [
+        %{ if "${workload_host_ip}" != "" && "${workload_host_ip}" != null }
+        {
+            "name": "workload-acl",
+            "rules": [
+                {
+                    "name": "allow-ibm-inbound",
+                    "action": "allow",
+                    "direction": "inbound",
+                    "source": "161.0.0.0/8",
+                    "destination": "${workload_host_ip}"
+                },
+                {
+                    "name": "allow-ibm-outbound",
+                    "action": "allow",
+                    "direction": "outbound",
+                    "source": "${workload_host_ip}",
+                    "destination": "161.0.0.0/8"
+                },
+                {
+                    "name": "allow-udp-dns-inbound",
+                    "action": "allow",
+                    "direction": "inbound",
+                    "source": "0.0.0.0/0",
+                    "destination": "${workload_host_ip}",
+                    "udp": {
+                        "source_port_max": 53,
+                        "source_port_min": 53
+                    }
+                },
+                {
+                    "name": "allow-udp-dns-outbound",
+                    "action": "allow",
+                    "direction": "outbound",
+                    "source": "${workload_host_ip}",
+                    "destination": "0.0.0.0/0",
+                    "udp": {
+                        "port_max": 53,
+                        "port_min": 53
+                    }
+                },
+                {
+                    "name": "allow-private-net-1-inbound",
+                    "action": "allow",
+                    "direction": "inbound",
+                    "source": "10.0.0.0/8",
+                    "destination": "${workload_host_ip}"
+                },
+                {
+                    "name": "allow-private-net-1-outbound",
+                    "action": "allow",
+                    "direction": "outbound",
+                    "source": "${workload_host_ip}",
+                    "destination": "10.0.0.0/8"
+                },
+                {
+                    "name": "allow-private-net-2-inbound",
+                    "action": "allow",
+                    "direction": "inbound",
+                    "source": "172.16.0.0/12",
+                    "destination": "${workload_host_ip}"
+                },
+                {
+                    "name": "allow-private-net-2-outbound",
+                    "action": "allow",
+                    "direction": "outbound",
+                    "source": "${workload_host_ip}",
+                    "destination": "172.16.0.0/12"
+                },
+                {
+                    "name": "allow-private-net-3-inbound",
+                    "action": "allow",
+                    "direction": "inbound",
+                    "source": "192.168.0.0/16",
+                    "destination": "${workload_host_ip}"
+                },
+                {
+                    "name": "allow-private-net-3-outbound",
+                    "action": "allow",
+                    "direction": "outbound",
+                    "source": "${workload_host_ip}",
+                    "destination": "192.168.0.0/16"
+                },
+                {
+                    "name": "default-inbound-deny",
+                    "action": "deny",
+                    "direction": "inbound",
+                    "source": "0.0.0.0/0",
+                    "destination": "0.0.0.0/0"
+                },
+                {
+                    "name": "default-outbound-deny",
+                    "action": "deny",
+                    "direction": "outbound",
+                    "source": "0.0.0.0/0",
+                    "destination": "0.0.0.0/0"
+                }
+            ]
+        }
+        %{ endif }
+    ]
+}
