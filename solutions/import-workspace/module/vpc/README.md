@@ -30,7 +30,7 @@ No modules.
 |------|-------------|------|---------|:--------:|
 | <a name="input_attached_fip"></a> [attached\_fip](#input\_attached\_fip) | The floating IP attached to the VSI. | `string` | `""` | no |
 | <a name="input_fip_enabled"></a> [fip\_enabled](#input\_fip\_enabled) | This values indicates whether a floating IP is attched to it. | `bool` | `false` | no |
-| <a name="input_vsi_ip"></a> [vsi\_ip](#input\_vsi\_ip) | Jump host IP. | `string` | n/a | yes |
+| <a name="input_vsi_name"></a> [vsi\_name](#input\_vsi\_name) | Jump host IP. | `string` | n/a | yes |
 
 ### Outputs
 

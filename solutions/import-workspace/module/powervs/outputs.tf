@@ -9,7 +9,7 @@ output "powervs_workspace_crn" {
 }
 
 output "powervs_resource_group_name" {
-  description = "IBM Cloud resource group where PowerVS infrastructure is created."
+  description = "IBM Cloud resource group in which PowerVS infrastructure is created."
   value       = data.ibm_resource_instance.power_workspace.resource_group_name
 }
 
@@ -18,18 +18,7 @@ output "powervs_images" {
   value = {
     for image in data.ibm_pi_images.powervs_workspace_images_ds.image_info : image.name => image.id
   }
-  #}data.ibm_pi_images.powervs_workspace_images_ds
 }
-
-/*output "powervs_management_network_name" {
-  description = "Name of management network in created PowerVS infrastructure."
-  value       = var.powervs_management_network_name
-}
-
-output "powervs_backup_network_name" {
-  description = "Name of backup network in created PowerVS infrastructure."
-  value       = var.powervs_backup_network_name
-} */
 
 output "powervs_management_network_subnet" {
   description = "Subnet CIDR  of management network in created PowerVS infrastructure."

@@ -14,22 +14,25 @@ locals {
 }
 
 locals {
-  new_preset = templatefile("${path.module}/../../modules/powervs-vpc-landing-zone/presets/3vpc.preset.json.tftpl", { external_access_ip = "", nfs_volume_size = "", vsi_image = "" })
-  preset     = jsondecode(local.new_preset)
-
-  managemnt_vpc_acl_rules = flatten([for s in local.preset.vpcs : s.network_acls if s.prefix == "management"])[0].rules
-  management_vsi_subnets  = flatten([module.access_host.vsi_as_is.primary_network_interface[*].subnet, module.access_host.vsi_as_is.network_interfaces[*].subnet])
-  edge_vpc_acl_rules      = flatten([for s in local.preset.vpcs : s.network_acls if s.prefix == "edge"])[0].rules
-  edge_vsi_subnets        = flatten([module.edge_vsi.vsi_as_is.primary_network_interface[*].subnet, module.edge_vsi.vsi_as_is.network_interfaces[*].subnet])
-  workload_vpc_acl_rules  = flatten([for s in local.preset.vpcs : s.network_acls if s.prefix == "workload"])[0].rules
-  workload_vsi_subnets    = flatten([module.workload_vsi.vsi_as_is.primary_network_interface[*].subnet, module.workload_vsi.vsi_as_is.network_interfaces[*].subnet])
+  acl_preset          = templatefile("${path.module}/../../modules/powervs-vpc-landing-zone/presets/acl_rules.json.tftpl", { access_host_ip = module.access_host.vsi_info.ipv4_address, inet_host_ip = module.edge_vsi.vsi_info.ipv4_address, workload_host_ip = module.workload_vsi.vsi_info.ipv4_address })
+  imported_acl_preset = jsondecode(local.acl_preset)
+  # access control list rules from presets
+  managemnt_vpc_acl_rules = local.imported_acl_preset.management_acl[0].rules[*]
+  edge_vpc_acl_rules      = local.imported_acl_preset.edge_acl[0].rules[*]
+  workload_vpc_acl_rules  = local.imported_acl_preset.workload_acl[0].rules[*]
+  # list of subnets from each vpc
+  management_vsi_subnets = flatten([module.access_host.vsi_as_is.primary_network_interface[*].subnet, module.access_host.vsi_as_is.network_interfaces[*].subnet])
+  edge_vsi_subnets       = flatten([module.edge_vsi.vsi_as_is.primary_network_interface[*].subnet, module.edge_vsi.vsi_as_is.network_interfaces[*].subnet])
+  workload_vsi_subnets   = flatten([module.workload_vsi.vsi_as_is.primary_network_interface[*].subnet, module.workload_vsi.vsi_as_is.network_interfaces[*].subnet])
 }
 
 locals {
+  sg_preset          = templatefile("${path.module}/../../modules/powervs-vpc-landing-zone/presets/sg_rules.json.tftpl", { access_host_ip = module.access_host.vsi_info.ipv4_address, inet_host_ip = module.edge_vsi.vsi_info.ipv4_address, workload_host_ip = module.workload_vsi.vsi_info.ipv4_address })
+  imported_sg_preset = jsondecode(local.sg_preset)
   # security rules from presets
-  managemnt_sg_rules = flatten([for s in local.preset.vsi : (s.security_group.name == "management" ? [s.security_group.rules] : [])])
-  edge_sg_rules      = flatten([for s in local.preset.vsi : (s.security_group.name == "inet-svs" ? [s.security_group.rules] : [])])
-  workload_sg_rules  = flatten([for s in local.preset.vsi : (s.security_group.name == "workload" ? [s.security_group.rules] : [])])
+  managemnt_sg_rules = local.imported_sg_preset.management_sg.rules[*]
+  edge_sg_rules      = local.imported_sg_preset.edge_sg.rules[*]
+  workload_sg_rules  = local.imported_sg_preset.workload_sg.rules[*]
   # list of security groups from each VSI
   management_sgs = distinct(flatten([module.access_host.vsi_as_is.primary_network_interface[*].security_groups, module.access_host.vsi_as_is.network_interfaces[*].security_groups]))
   edge_sgs       = distinct(flatten([module.edge_vsi.vsi_as_is.primary_network_interface[*].security_groups, module.edge_vsi.vsi_as_is.network_interfaces[*].security_groups]))

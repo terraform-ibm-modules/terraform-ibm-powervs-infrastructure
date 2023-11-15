@@ -1,10 +1,9 @@
 # IBM Cloud solution for Power Virtual Server with VPC landing zone Full-Stack Variation
 
-This solution helps to create a IBM Cloud Schematics Workspace ID for a pre-existing infrastructure landscape. The
+This solution takes pre-existing VPC and PowerVS infrastructure resource details as inputs and creates a schematics workspace for them. The created schematics workspace's id can be used as pre-requisite workspace to install the deployable architecture 'Power Virtual Server for SAP HANA' to create and configure the Power LPARs for SAP over the the existing infrastructure landscape.
 
 
 ### Notes:
-- Catalog image names to be imported into infrastructure can be found [here](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/blob/main/solutions/full-stack/docs/catalog_image_names.md)
 
 | Variation  | Available on IBM Catalog  |  Requires Schematics Workspace ID | Imports VPC Landing Zone | Imports VPC VSI OS Config | Imports PowerVS Infrastructure | Imports PowerVS Instance | Performs PowerVS OS Config |
 | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
@@ -51,23 +50,23 @@ This solution helps to create a IBM Cloud Schematics Workspace ID for a pre-exis
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_IC_SCHEMATICS_WORKSPACE_ID"></a> [IC\_SCHEMATICS\_WORKSPACE\_ID](#input\_IC\_SCHEMATICS\_WORKSPACE\_ID) | leave blank if running locally. This variable will be automatically populated if running from an IBM Cloud Schematics workspace. | `string` | `""` | no |
-| <a name="input_access_host"></a> [access\_host](#input\_access\_host) | Access host name and floating ip. | <pre>object({<br>    name        = string<br>    floating_ip = string<br>  })</pre> | <pre>{<br>  "floating_ip": "",<br>  "name": ""<br>}</pre> | no |
+| <a name="input_access_host"></a> [access\_host](#input\_access\_host) | Name of the existing access host VSI and its floating ip. | <pre>object({<br>    vsi_name    = string<br>    floating_ip = string<br>  })</pre> | <pre>{<br>  "floating_ip": "",<br>  "vsi_name": ""<br>}</pre> | no |
 | <a name="input_ibmcloud_api_key"></a> [ibmcloud\_api\_key](#input\_ibmcloud\_api\_key) | The IBM Cloud platform API key needed to deploy IAM enabled resources. | `string` | n/a | yes |
-| <a name="input_powervs_backup_network_name"></a> [powervs\_backup\_network\_name](#input\_powervs\_backup\_network\_name) | Name of backup network in created PowerVS infrastructure. | `string` | n/a | yes |
-| <a name="input_powervs_management_network_name"></a> [powervs\_management\_network\_name](#input\_powervs\_management\_network\_name) | Name of management network in created PowerVS infrastructure. | `string` | n/a | yes |
-| <a name="input_powervs_sshkey_name"></a> [powervs\_sshkey\_name](#input\_powervs\_sshkey\_name) | SSH public key name in created PowerVS infrastructure. | `string` | n/a | yes |
-| <a name="input_powervs_workspace_name"></a> [powervs\_workspace\_name](#input\_powervs\_workspace\_name) | PowerVS infrastructure workspace name. | `string` | n/a | yes |
-| <a name="input_powervs_zone"></a> [powervs\_zone](#input\_powervs\_zone) | IBM Cloud data center location where IBM PowerVS infrastructure will be created. | `string` | n/a | yes |
-| <a name="input_proxy_host"></a> [proxy\_host](#input\_proxy\_host) | Proxy server name and port. | <pre>object({<br>    name = string<br>    port = string<br>  })</pre> | <pre>{<br>  "name": "",<br>  "port": ""<br>}</pre> | no |
-| <a name="input_transit_gateway_name"></a> [transit\_gateway\_name](#input\_transit\_gateway\_name) | The name of the transit gateway. | `string` | n/a | yes |
-| <a name="input_workload_host"></a> [workload\_host](#input\_workload\_host) | Workload host InameP. | <pre>object({<br>    name     = string<br>    nfs_path = string<br>  })</pre> | <pre>{<br>  "name": "",<br>  "nfs_path": ""<br>}</pre> | no |
+| <a name="input_powervs_backup_network_name"></a> [powervs\_backup\_network\_name](#input\_powervs\_backup\_network\_name) | Name of backup network in existing PowerVS Workspace. | `string` | n/a | yes |
+| <a name="input_powervs_management_network_name"></a> [powervs\_management\_network\_name](#input\_powervs\_management\_network\_name) | Name of management network in existing PowerVS Workspace. | `string` | n/a | yes |
+| <a name="input_powervs_sshkey_name"></a> [powervs\_sshkey\_name](#input\_powervs\_sshkey\_name) | SSH public key name used for the existing PowerVS Workspace. | `string` | n/a | yes |
+| <a name="input_powervs_workspace_name"></a> [powervs\_workspace\_name](#input\_powervs\_workspace\_name) | Name of the existing PowerVS Workspace. | `string` | n/a | yes |
+| <a name="input_powervs_zone"></a> [powervs\_zone](#input\_powervs\_zone) | IBM Cloud data center location where IBM PowerVS Workspace is created. | `string` | n/a | yes |
+| <a name="input_proxy_host"></a> [proxy\_host](#input\_proxy\_host) | Name of the existing VSI on which proxy server is configured and proxy server port. | <pre>object({<br>    vsi_name = string<br>    port     = string<br>  })</pre> | <pre>{<br>  "port": "",<br>  "vsi_name": ""<br>}</pre> | no |
+| <a name="input_transit_gateway_name"></a> [transit\_gateway\_name](#input\_transit\_gateway\_name) | The name of the transit gateway that connects the existing VPCs and PowerVS Workspace. | `string` | n/a | yes |
+| <a name="input_workload_host"></a> [workload\_host](#input\_workload\_host) | Name of the existing workload host VSI name and NFS path. | <pre>object({<br>    vsi_name = string<br>    nfs_path = string<br>  })</pre> | <pre>{<br>  "nfs_path": "",<br>  "vsi_name": ""<br>}</pre> | no |
 
 ### Outputs
 
 | Name | Description |
 |------|-------------|
 | <a name="output_access_host_or_ip"></a> [access\_host\_or\_ip](#output\_access\_host\_or\_ip) | Access host(jump/bastion) for created PowerVS infrastructure. |
-| <a name="output_cloud_connections_count"></a> [cloud\_connections\_count](#output\_cloud\_connections\_count) | Number of cloud connections configured in created PowerVS infrastructure. |
+| <a name="output_cloud_connection_count"></a> [cloud\_connection\_count](#output\_cloud\_connection\_count) | Number of cloud connections configured in created PowerVS infrastructure. |
 | <a name="output_dns_host_or_ip"></a> [dns\_host\_or\_ip](#output\_dns\_host\_or\_ip) | DNS forwarder host for created PowerVS infrastructure. |
 | <a name="output_nfs_host_or_ip_path"></a> [nfs\_host\_or\_ip\_path](#output\_nfs\_host\_or\_ip\_path) | NFS host for created PowerVS infrastructure. |
 | <a name="output_ntp_host_or_ip"></a> [ntp\_host\_or\_ip](#output\_ntp\_host\_or\_ip) | NTP host for created PowerVS infrastructure. |

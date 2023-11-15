@@ -2,7 +2,7 @@
 
 ## IBM Security Group
 
-This module creates the Security Group(SG) rules in the for the VSIs in a VPC. It takes a list of SG rules and a SG id for VSIs as inputs.
+This module creates the Security Group(SG) rules for the VSIs in a VPC. It takes a list of SG rules and a SG id for VSIs as inputs.
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ### Requirements
