@@ -14,7 +14,6 @@ locals {
 }
 
 locals {
-  #ew_preset = templatefile("${path.module}/../../modules/powervs-vpc-landing-zone/presets/3vpc.preset.json.tftpl", { external_access_ip = "", nfs_volume_size = "", vsi_image = "" })
   acl_preset          = templatefile("${path.module}/../../modules/powervs-vpc-landing-zone/presets/acl_rules.json.tftpl", { access_host_ip = module.access_host.vsi_info.ipv4_address, inet_host_ip = module.edge_vsi.vsi_info.ipv4_address, workload_host_ip = module.workload_vsi.vsi_info.ipv4_address })
   imported_acl_preset = jsondecode(local.acl_preset)
   # access control list rules from presets
