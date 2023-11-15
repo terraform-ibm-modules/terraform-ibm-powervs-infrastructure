@@ -1,5 +1,5 @@
 variable "vsi_name" {
-  description = "Jump host IP."
+  description = "The VSI name on VPC side."
   type        = string
 }
 

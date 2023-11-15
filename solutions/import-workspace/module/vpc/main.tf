@@ -18,7 +18,6 @@ locals {
     zone                   = data.ibm_is_instance.vsi.zone
   }
   ssh_public_key_name = data.ibm_is_instance.vsi.keys[0].name
-  #ssh_public_key_id   = data.ibm_is_instance.vsi.keys[0].id
 }
 
 data "ibm_is_ssh_key" "jump_host_ssh_key" {

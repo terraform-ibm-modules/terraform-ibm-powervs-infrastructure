@@ -21,6 +21,10 @@ Three solutions are offered:
     - Creates 1VPC and a Power Virtual Server workspace, interconnects them and configures os network management services(SQUID proxy, NTP, NFS, and DNS services) using ansible galaxy collection roles [ibm.power_linux_sap collection](https://galaxy.ansible.com/ui/repo/published/ibm/power_linux_sap/).
     - Additionally creates a Power Virtual Server Instance of selected t-shirt size.
     - This solution is typically used for **PoCs, demos and quick onboarding** to Power Infrastructure.
+4. [PowerVS import-workspace variation](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/tree/main/solutions/import-workspace)
+    - Takes information of an existing infrastructure and creates a schematics workspace id and output.
+    - The schematics workspace id can be used to install the terraform solution 'Power Virtual Server for SAP HANA' on top of a pre-existing Power infrastructure.
+    - This solution is typically used for converting an existing Power Virtual Server landscape to Schematics workspace.
 
 ## Reference architectures
 - [PowerVS full-stack variation](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/tree/main/reference-architectures/full-stack/deploy-arch-ibm-pvs-inf-full-stack.md)
