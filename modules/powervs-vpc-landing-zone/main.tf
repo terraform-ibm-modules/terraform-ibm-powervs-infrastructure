@@ -47,8 +47,8 @@ module "landing_zone_configure_network_services" {
 #####################################################
 
 module "powervs_infra" {
-  source    = "terraform-ibm-modules/powervs-workspace/ibm"
-  version   = "1.1.3"
+  source = "git::https://github.com/terraform-ibm-modules/terraform-ibm-powervs-workspace.git?ref=wdc06_per"
+  #version   = "1.1.3"
   providers = { ibm = ibm.ibm-pi }
 
   pi_zone                       = var.powervs_zone
