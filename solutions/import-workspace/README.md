@@ -1,13 +1,13 @@
-# IBM Cloud solution for Power Virtual Server with VPC landing zone Full-Stack Variation
+# IBM Cloud solution for Power Virtual Server with VPC landing zone Import-Workspace Variation
 
-This solution takes pre-existing VPC and PowerVS infrastructure resource details as inputs and creates a schematics workspace for them. The created schematics workspace's id can be used as pre-requisite workspace to install the deployable architecture 'Power Virtual Server for SAP HANA' to create and configure the Power LPARs for SAP over the the existing infrastructure landscape.
+This solution takes pre-existing VPC and PowerVS infrastructure resource details as inputs and creates a schematics workspace. The created schematics workspace's id can be used as pre-requisite workspace to install the deployable architecture 'Power Virtual Server for SAP HANA' which will create and configure the PowerVS instances for SAP on top of the existing infrastructure.
 
 
 ### Notes:
 
 | Variation  | Available on IBM Catalog  |  Requires Schematics Workspace ID | Imports VPC Landing Zone | Imports VPC VSI OS Config | Imports PowerVS Infrastructure | Imports PowerVS Instance | Performs PowerVS OS Config |
 | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
-| [Full-Stack](./)  | :heavy_check_mark:  | N/A  | :heavy_check_mark:  | :heavy_check_mark:  |  :heavy_check_mark: | N/A | N/A |
+| [Import-Workspace](./)  | :heavy_check_mark:  | N/A  | N/A  | N/A  |  N/A  | N/A | N/A |
 
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

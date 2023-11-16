@@ -20,10 +20,11 @@ Three solutions are offered:
 3. [PowerVS quickstart variation](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/tree/main/solutions/quickstart)
     - Creates 1VPC and a Power Virtual Server workspace, interconnects them and configures os network management services(SQUID proxy, NTP, NFS, and DNS services) using ansible galaxy collection roles [ibm.power_linux_sap collection](https://galaxy.ansible.com/ui/repo/published/ibm/power_linux_sap/).
     - Additionally creates a Power Virtual Server Instance of selected t-shirt size.
-    - This solution is typically used for **PoCs, demos and quick onboarding** to Power Infrastructure.
+    - This solution is typically used for **PoCs, demos and quick onboarding** to PowerVS Infrastructure.
 4. [PowerVS import-workspace variation](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/tree/main/solutions/import-workspace)
-    - Takes information of an existing infrastructure and creates a schematics workspace id and output.
-    - The schematics workspace id can be used to install the terraform solution 'Power Virtual Server for SAP HANA' on top of a pre-existing Power infrastructure.
+    - Takes information of an existing infrastructure and creates a schematics workspace.
+    - The schematics workspace's id and the outputs from it can be used to install the terraform solution 'Power Virtual Server for SAP HANA' on top of a pre-existing PowerVS infrastructure.
+    - It creates the ACL and security group rules necessary for management services(NTP. NFS, DNS and proxy server) and schematics engine access.
     - This solution is typically used for converting an existing Power Virtual Server landscape to Schematics workspace.
 
 ## Reference architectures
@@ -36,6 +37,7 @@ Three solutions are offered:
 | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
 | [Full-Stack](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/tree/main/solutions/full-stack)  | :heavy_check_mark:  | N/A  | :heavy_check_mark:  | :heavy_check_mark:  |  :heavy_check_mark: | N/A | N/A |
 | [Extension](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/tree/main/solutions/extension)    | :heavy_check_mark:  |  :heavy_check_mark: |  N/A | N/A | :heavy_check_mark:  | N/A | N/A |
+| [Quickstart](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/tree/main/solutions/quickstart)    | :heavy_check_mark:  |   N/A  | :heavy_check_mark:| :heavy_check_mark: | :heavy_check_mark:  | :heavy_check_mark: | N/A |
 | [Quickstart](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/tree/main/solutions/quickstart)    | :heavy_check_mark:  |   N/A  | :heavy_check_mark:| :heavy_check_mark: | :heavy_check_mark:  | :heavy_check_mark: | N/A |
 
 <!-- BEGIN OVERVIEW HOOK -->
