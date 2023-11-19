@@ -22,16 +22,16 @@ This solution takes pre-existing VPC and PowerVS infrastructure resource details
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_access_host"></a> [access\_host](#module\_access\_host) | ./module/vpc | n/a |
-| <a name="module_edge_sg_rules_creation"></a> [edge\_sg\_rules\_creation](#module\_edge\_sg\_rules\_creation) | ./module/security-group | n/a |
-| <a name="module_edge_vpc_acl_rules_creation"></a> [edge\_vpc\_acl\_rules\_creation](#module\_edge\_vpc\_acl\_rules\_creation) | ./module/acl | n/a |
-| <a name="module_edge_vsi"></a> [edge\_vsi](#module\_edge\_vsi) | ./module/vpc | n/a |
-| <a name="module_management_sg_rules_creation"></a> [management\_sg\_rules\_creation](#module\_management\_sg\_rules\_creation) | ./module/security-group | n/a |
-| <a name="module_management_vpc_acl_rules_creation"></a> [management\_vpc\_acl\_rules\_creation](#module\_management\_vpc\_acl\_rules\_creation) | ./module/acl | n/a |
-| <a name="module_power_workspace_data_retrieval"></a> [power\_workspace\_data\_retrieval](#module\_power\_workspace\_data\_retrieval) | ./module/powervs | n/a |
-| <a name="module_wokload_sg_rules_creation"></a> [wokload\_sg\_rules\_creation](#module\_wokload\_sg\_rules\_creation) | ./module/security-group | n/a |
-| <a name="module_workload_vpc_acl_rules_creation"></a> [workload\_vpc\_acl\_rules\_creation](#module\_workload\_vpc\_acl\_rules\_creation) | ./module/acl | n/a |
-| <a name="module_workload_vsi"></a> [workload\_vsi](#module\_workload\_vsi) | ./module/vpc | n/a |
+| <a name="module_access_host"></a> [access\_host](#module\_access\_host) | ../../modules/import-powervs-vpc/vpc | n/a |
+| <a name="module_edge_sg_rules"></a> [edge\_sg\_rules](#module\_edge\_sg\_rules) | ../../modules/import-powervs-vpc/security-group | n/a |
+| <a name="module_edge_vpc_acl_rules"></a> [edge\_vpc\_acl\_rules](#module\_edge\_vpc\_acl\_rules) | ../../modules/import-powervs-vpc/acl | n/a |
+| <a name="module_edge_vsi"></a> [edge\_vsi](#module\_edge\_vsi) | ../../modules/import-powervs-vpc/vpc | n/a |
+| <a name="module_management_sg_rules"></a> [management\_sg\_rules](#module\_management\_sg\_rules) | ../../modules/import-powervs-vpc/security-group | n/a |
+| <a name="module_management_vpc_acl_rules"></a> [management\_vpc\_acl\_rules](#module\_management\_vpc\_acl\_rules) | ../../modules/import-powervs-vpc/acl | n/a |
+| <a name="module_power_workspace_data_retrieval"></a> [power\_workspace\_data\_retrieval](#module\_power\_workspace\_data\_retrieval) | ../../modules/import-powervs-vpc/powervs | n/a |
+| <a name="module_wokload_sg_rules"></a> [wokload\_sg\_rules](#module\_wokload\_sg\_rules) | ../../modules/import-powervs-vpc/security-group | n/a |
+| <a name="module_workload_vpc_acl_rules"></a> [workload\_vpc\_acl\_rules](#module\_workload\_vpc\_acl\_rules) | ../../modules/import-powervs-vpc/acl | n/a |
+| <a name="module_workload_vsi"></a> [workload\_vsi](#module\_workload\_vsi) | ../../modules/import-powervs-vpc/vpc | n/a |
 
 ### Resources
 
