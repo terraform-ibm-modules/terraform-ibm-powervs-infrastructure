@@ -45,7 +45,7 @@ If you do not have a PowerVS infrastructure that is the [full stack solution](ht
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_powervs_infra"></a> [powervs\_infra](#module\_powervs\_infra) | terraform-ibm-modules/powervs-workspace/ibm | 1.1.3 |
+| <a name="module_powervs_infra"></a> [powervs\_infra](#module\_powervs\_infra) | terraform-ibm-modules/powervs-workspace/ibm | 1.2.0 |
 
 ### Resources
 
