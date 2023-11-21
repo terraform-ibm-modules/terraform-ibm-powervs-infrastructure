@@ -4,7 +4,7 @@
 
 module "landing_zone" {
   source    = "terraform-ibm-modules/landing-zone/ibm//patterns//vsi//module"
-  version   = "4.13.3"
+  version   = "4.14.0"
   providers = { ibm = ibm.ibm-is }
 
   ssh_public_key       = var.ssh_public_key
@@ -47,8 +47,8 @@ module "landing_zone_configure_network_services" {
 #####################################################
 
 module "powervs_infra" {
-  source = "git::https://github.com/terraform-ibm-modules/terraform-ibm-powervs-workspace.git?ref=wdc06_per"
-  #version   = "1.1.3"
+  source    = "terraform-ibm-modules/powervs-workspace/ibm"
+  version   = "1.2.0"
   providers = { ibm = ibm.ibm-pi }
 
   pi_zone                       = var.powervs_zone
