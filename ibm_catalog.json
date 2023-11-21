@@ -135,6 +135,10 @@
                                 {
                                     "displayname": "Washington DC (us-east)",
                                     "value": "us-east"
+                                },
+                                {
+                                    "displayname": "Washington DC 06 (wdc06) PER",
+                                    "value": "wdc06"
                                 }
                             ],
                             "custom_config": {}
@@ -377,6 +381,10 @@
                     "architecture": {
                         "features": [
                             {
+                                "title": "Power Virtual Server Instance",
+                                "description": "No"
+                            },
+                            {
                                 "title": "Number of VPCs",
                                 "description": "3"
                             },
@@ -411,10 +419,6 @@
                             {
                                 "title": "Additional management configurations on VPC",
                                 "description": "NFS server, NTP forwarder, and DNS forwarder reachable from PowerVS Workspace"
-                            },
-                            {
-                                "title": "Power Virtual Server Instance",
-                                "description": "No"
                             }
                         ],
                         "diagrams": [
@@ -510,6 +514,10 @@
                                 {
                                     "displayname": "Washington DC (us-east)",
                                     "value": "us-east"
+                                },
+                                {
+                                    "displayname": "Washington DC 06 (wdc06) PER",
+                                    "value": "wdc06"
                                 }
                             ],
                             "custom_config": {}
@@ -846,6 +854,10 @@
                     "architecture": {
                         "features": [
                             {
+                                "title": "Power Virtual Server Instance",
+                                "description": "Yes, 1 instance"
+                            },
+                            {
                                 "title": "Number of VPCs",
                                 "description": "1"
                             },
@@ -880,10 +892,6 @@
                             {
                                 "title": "Additional management configurations on VPC",
                                 "description": "NFS server, NTP forwarder, and DNS forwarder reachable from PowerVS Workspace"
-                            },
-                            {
-                                "title": "Power Virtual Server Instance",
-                                "description": "Yes, 1 instance"
                             }
                         ],
                         "diagrams": [
@@ -999,6 +1007,10 @@
                                 {
                                     "displayname": "Washington DC (us-east)",
                                     "value": "us-east"
+                                },
+                                {
+                                    "displayname": "Washington DC 06 (wdc06) PER",
+                                    "value": "wdc06"
                                 }
                             ],
                             "custom_config": {}
