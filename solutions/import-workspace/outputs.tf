@@ -115,7 +115,6 @@ output "powervs_ssh_public_key" {
     "name"  = var.powervs_sshkey_name
     "value" = module.access_host.vsi_ssh_public_key[0].public_key
   }
-  sensitive = true
 }
 
 output "powervs_management_subnet" {
