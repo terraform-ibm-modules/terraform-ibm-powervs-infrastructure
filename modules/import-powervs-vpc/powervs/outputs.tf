@@ -25,7 +25,7 @@ output "powervs_management_network_subnet" {
   value = tomap({
     "cidr" = data.ibm_pi_network.pvs_management_network.cidr
     "id"   = data.ibm_pi_network.pvs_management_network.id
-    "name" = var.powervs_management_network_name
+    "name" = var.pi_management_network_name
   })
 }
 
@@ -34,6 +34,6 @@ output "powervs_backup_network_subnet" {
   value = tomap({
     "cidr" = data.ibm_pi_network.pvs_backup_network.cidr
     "id"   = data.ibm_pi_network.pvs_backup_network.id
-    "name" = var.powervs_backup_network_name
+    "name" = var.pi_backup_network_name
   })
 }
