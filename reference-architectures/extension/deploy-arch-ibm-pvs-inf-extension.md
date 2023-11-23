@@ -1,7 +1,7 @@
 ---
 copyright:
   years: 2023
-lastupdated: "2023-11-22"
+lastupdated: "2023-04-13"
 
 keywords:
 
@@ -9,9 +9,8 @@ subcollection: deployable-reference-architectures
 
 authors:
   - name: Arnold Beilmann
-  - name: Suraj Bharadwaj
 
-version: v3.1.0
+version: v7.0.0
 
 production: true
 
@@ -47,7 +46,7 @@ content-type: reference-architecture
 {: toc-industry="Technology"}
 {: toc-use-case="ITServiceManagement"}
 {: toc-compliance="SAPCertified"}
-{: toc-version="3.1.0"}
+{: toc-version="7.0.0"}
 
 The Power Virtual Server with VPC landing zone as variation 'Extend Power Virtual Server with VPC landing zone' creates an additional Power Virtual Server workspace and connects it with already created Power Virtual Server with VPC landing zone. It builds on existing Power Virtual Server with VPC landing zone deployed as a variation 'Create a new architecture'.
 

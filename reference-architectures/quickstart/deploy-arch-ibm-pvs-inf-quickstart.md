@@ -1,7 +1,7 @@
 ---
 copyright:
   years: 2023
-lastupdated: "2023-11-22"
+lastupdated: "2023-08-03"
 
 keywords:
 
@@ -9,9 +9,8 @@ subcollection: deployable-reference-architectures
 
 authors:
   - name: Arnold Beilmann
-  - name: Stafania Saju
 
-version: v3.1.0
+version: v1.0.0
 
 # Whether the reference architecture is published to Cloud Docs production.
 # When set to false, the file is available only in staging. Default is false.
@@ -46,7 +45,7 @@ content-type: reference-architecture
 {: toc-industry="Technology"}
 {: toc-use-case="ITServiceManagement"}
 {: toc-compliance=""}
-{: toc-version="3.1.0"}
+{: toc-version="1.0.0"}
 
 Quickstart deployment of the Power Virtual Server with VPC landing zone creates VPC services , a Power Virtual Server workspace and interconnects them. It also deploys a Power Virtual Server of chosen T-shirt size or custom configuration. Supported Os are Aix, IBM i and Linux images.
 
