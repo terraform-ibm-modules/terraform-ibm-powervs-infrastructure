@@ -45,36 +45,36 @@ variable "workload_host" {
 }
 
 variable "transit_gateway_name" {
-  description = "The name of the transit gateway that connects the existing VPCs and PowerVS Workspace."
+  description = "The name of the transit gateway that connects the existing VPCs and PowerVS workspace."
   type        = string
 }
 
 ##############################################################
-# Parameters for PowerVS Workspace
+# Parameters for PowerVS workspace
 ##############################################################
 
 variable "powervs_zone" {
-  description = "IBM Cloud data center location where IBM PowerVS Workspace is created."
+  description = "IBM Cloud data center location where IBM PowerVS workspace is created."
   type        = string
 }
 
 variable "powervs_workspace_name" {
-  description = "Name of the existing PowerVS Workspace."
+  description = "Name of the existing PowerVS workspace."
   type        = string
 }
 
 variable "powervs_sshkey_name" {
-  description = "SSH public key name used for the existing PowerVS Workspace."
+  description = "SSH public key name used for the existing PowerVS workspace."
   type        = string
 }
 
 variable "powervs_management_network_name" {
-  description = "Name of management network in existing PowerVS Workspace."
+  description = "Name of management network in existing PowerVS workspace."
   type        = string
 }
 
 variable "powervs_backup_network_name" {
-  description = "Name of backup network in existing PowerVS Workspace."
+  description = "Name of backup network in existing PowerVS workspace."
   type        = string
 }
 

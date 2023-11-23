@@ -36,7 +36,7 @@ output "transit_gateway_name" {
 
 output "transit_gateway_id" {
   description = "The ID of transit gateway."
-  value       = data.ibm_tg_gateway.ds_tggateway.id
+  value       = data.ibm_tg_gateway.tgw_ds.id
 }
 
 output "vsi_list" {
@@ -67,12 +67,12 @@ output "proxy_host_or_ip_port" {
 
 output "dns_host_or_ip" {
   description = "DNS forwarder host for created PowerVS infrastructure."
-  value       = module.workload_vsi.vsi_info.ipv4_address
+  value       = module.workload_vsi.vsi_details.ipv4_address
 }
 
 output "ntp_host_or_ip" {
   description = "NTP host for created PowerVS infrastructure."
-  value       = module.workload_vsi.vsi_info.ipv4_address
+  value       = module.workload_vsi.vsi_details.ipv4_address
 }
 
 output "nfs_host_or_ip_path" {
@@ -90,7 +90,7 @@ output "powervs_zone" {
 }
 
 output "powervs_resource_group_name" {
-  description = "IBM Cloud resource group where PowerVS infrastructure is created."
+  description = "IBM Cloud resource group of the existing PowerVS infrastructure."
   value       = module.power_workspace_data_retrieval.powervs_resource_group_name
 }
 
@@ -119,12 +119,12 @@ output "powervs_ssh_public_key" {
 }
 
 output "powervs_management_subnet" {
-  description = "Name, ID and CIDR of management private network in created PowerVS infrastructure."
+  description = "Name, ID and CIDR of management private network in existing PowerVS infrastructure."
   value       = module.power_workspace_data_retrieval.powervs_management_network_subnet
 }
 
 output "powervs_backup_subnet" {
-  description = "Name, ID and CIDR of backup private network in created PowerVS infrastructure."
+  description = "Name, ID and CIDR of backup private network in existing PowerVS infrastructure."
   value       = module.power_workspace_data_retrieval.powervs_backup_network_subnet
 }
 

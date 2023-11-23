@@ -1,5 +1,5 @@
 variable "acl_rules" {
-  description = "List of ACL rules"
+  description = "List of ACL rules which will be created"
   type = list(object({
     name        = string
     action      = string
@@ -26,6 +26,6 @@ variable "acl_rules" {
 }
 
 variable "ibm_is_network_acl_id" {
-  description = "VPC's network ACL id"
+  description = "An existing VPC's existing network ACL id to which rules will be added."
   type        = string
 }

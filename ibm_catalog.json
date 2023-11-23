@@ -1284,6 +1284,10 @@
                                 {
                                     "displayname": "Washington DC (us-east)",
                                     "value": "us-east"
+                                },
+                                {
+                                    "displayname": "Washington DC 06 (wdc06) PER",
+                                    "value": "wdc06"
                                 }
                             ],
                             "custom_config": {}
@@ -1451,61 +1455,7 @@
                             ],
                             "service_name": "power-iaas"
                         }
-                    ],
-                    "architecture": {
-                        "features": [
-                            {
-                                "title": "Number of VPCs",
-                                "description": "1"
-                            },
-                            {
-                                "title": "Number of Intel VSIs",
-                                "description": "1"
-                            },
-                            {
-                                "title": "Separate VPC for management",
-                                "description": "No"
-                            },
-                            {
-                                "title": "Separate VPC for Internet Services",
-                                "description": "No"
-                            },
-                            {
-                                "title": "Separate VPC for Private Services",
-                                "description": "No"
-                            },
-                            {
-                                "title": "Increases security with Key Management",
-                                "description": "Yes"
-                            },
-                            {
-                                "title": "Power Virtual Server Workspace",
-                                "description": "PowerVS Workspace with all required components"
-                            },
-                            {
-                                "title": "Internet proxy on VPC",
-                                "description": "Proxy service to reach public internet from PowerVS Workspace"
-                            },
-                            {
-                                "title": "Additional management configurations on VPC",
-                                "description": "NFS server, NTP forwarder, and DNS forwarder reachable from PowerVS Workspace"
-                            },
-                            {
-                                "title": "Power Virtual Server Instance",
-                                "description": "Yes, 1 instance"
-                            }
-                        ],
-                        "diagrams": [
-                            {
-                                "diagram": {
-                                    "caption": "Power Virtual Server with VPC landing zone 'quickstart' variation",
-                                    "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/main/reference-architectures/quickstart/deploy-arch-ibm-pvs-inf-quickstart.svg",
-                                    "type": "image/svg+xml"
-                                },
-                                "description": "The Power Virtual Server with VPC landing zone as 'quickstart' variation of 'Create a new architecture' option deploys VPC services and a Power Virtual Server workspace and interconnects them. It also creates one Power virtual server instance of chosen t-shirt size or custom configuration.\n \nRequired and optional management components are configured."
-                            }
-                        ]
-                    }
+                    ]
                 }
             ]
         }

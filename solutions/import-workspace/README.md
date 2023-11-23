@@ -37,13 +37,13 @@ This solution takes pre-existing VPC and PowerVS infrastructure resource details
 
 | Name | Type |
 |------|------|
-| [ibm_is_network_acl.edge_acls](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.58.1/docs/data-sources/is_network_acl) | data source |
-| [ibm_is_network_acl.management_acls](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.58.1/docs/data-sources/is_network_acl) | data source |
-| [ibm_is_network_acl.workload_acls](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.58.1/docs/data-sources/is_network_acl) | data source |
-| [ibm_is_subnet.edge_subnets](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.58.1/docs/data-sources/is_subnet) | data source |
-| [ibm_is_subnet.management_subnets](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.58.1/docs/data-sources/is_subnet) | data source |
-| [ibm_is_subnet.workload_subnets](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.58.1/docs/data-sources/is_subnet) | data source |
-| [ibm_tg_gateway.ds_tggateway](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.58.1/docs/data-sources/tg_gateway) | data source |
+| [ibm_is_network_acl.edge_acls_ds](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.58.1/docs/data-sources/is_network_acl) | data source |
+| [ibm_is_network_acl.management_acls_ds](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.58.1/docs/data-sources/is_network_acl) | data source |
+| [ibm_is_network_acl.workload_acls_ds](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.58.1/docs/data-sources/is_network_acl) | data source |
+| [ibm_is_subnet.edge_subnets_ds](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.58.1/docs/data-sources/is_subnet) | data source |
+| [ibm_is_subnet.management_subnets_ds](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.58.1/docs/data-sources/is_subnet) | data source |
+| [ibm_is_subnet.workload_subnets_ds](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.58.1/docs/data-sources/is_subnet) | data source |
+| [ibm_tg_gateway.tgw_ds](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.58.1/docs/data-sources/tg_gateway) | data source |
 
 ### Inputs
 
@@ -52,13 +52,13 @@ This solution takes pre-existing VPC and PowerVS infrastructure resource details
 | <a name="input_IC_SCHEMATICS_WORKSPACE_ID"></a> [IC\_SCHEMATICS\_WORKSPACE\_ID](#input\_IC\_SCHEMATICS\_WORKSPACE\_ID) | leave blank if running locally. This variable will be automatically populated if running from an IBM Cloud Schematics workspace. | `string` | `""` | no |
 | <a name="input_access_host"></a> [access\_host](#input\_access\_host) | Name of the existing access host VSI and its floating ip. | <pre>object({<br>    vsi_name    = string<br>    floating_ip = string<br>  })</pre> | <pre>{<br>  "floating_ip": "",<br>  "vsi_name": ""<br>}</pre> | no |
 | <a name="input_ibmcloud_api_key"></a> [ibmcloud\_api\_key](#input\_ibmcloud\_api\_key) | The IBM Cloud platform API key needed to deploy IAM enabled resources. | `string` | n/a | yes |
-| <a name="input_powervs_backup_network_name"></a> [powervs\_backup\_network\_name](#input\_powervs\_backup\_network\_name) | Name of backup network in existing PowerVS Workspace. | `string` | n/a | yes |
-| <a name="input_powervs_management_network_name"></a> [powervs\_management\_network\_name](#input\_powervs\_management\_network\_name) | Name of management network in existing PowerVS Workspace. | `string` | n/a | yes |
-| <a name="input_powervs_sshkey_name"></a> [powervs\_sshkey\_name](#input\_powervs\_sshkey\_name) | SSH public key name used for the existing PowerVS Workspace. | `string` | n/a | yes |
-| <a name="input_powervs_workspace_name"></a> [powervs\_workspace\_name](#input\_powervs\_workspace\_name) | Name of the existing PowerVS Workspace. | `string` | n/a | yes |
-| <a name="input_powervs_zone"></a> [powervs\_zone](#input\_powervs\_zone) | IBM Cloud data center location where IBM PowerVS Workspace is created. | `string` | n/a | yes |
+| <a name="input_powervs_backup_network_name"></a> [powervs\_backup\_network\_name](#input\_powervs\_backup\_network\_name) | Name of backup network in existing PowerVS workspace. | `string` | n/a | yes |
+| <a name="input_powervs_management_network_name"></a> [powervs\_management\_network\_name](#input\_powervs\_management\_network\_name) | Name of management network in existing PowerVS workspace. | `string` | n/a | yes |
+| <a name="input_powervs_sshkey_name"></a> [powervs\_sshkey\_name](#input\_powervs\_sshkey\_name) | SSH public key name used for the existing PowerVS workspace. | `string` | n/a | yes |
+| <a name="input_powervs_workspace_name"></a> [powervs\_workspace\_name](#input\_powervs\_workspace\_name) | Name of the existing PowerVS workspace. | `string` | n/a | yes |
+| <a name="input_powervs_zone"></a> [powervs\_zone](#input\_powervs\_zone) | IBM Cloud data center location where IBM PowerVS workspace is created. | `string` | n/a | yes |
 | <a name="input_proxy_host"></a> [proxy\_host](#input\_proxy\_host) | Name of the existing VSI on which proxy server is configured and proxy server port. | <pre>object({<br>    vsi_name = string<br>    port     = string<br>  })</pre> | <pre>{<br>  "port": "",<br>  "vsi_name": ""<br>}</pre> | no |
-| <a name="input_transit_gateway_name"></a> [transit\_gateway\_name](#input\_transit\_gateway\_name) | The name of the transit gateway that connects the existing VPCs and PowerVS Workspace. | `string` | n/a | yes |
+| <a name="input_transit_gateway_name"></a> [transit\_gateway\_name](#input\_transit\_gateway\_name) | The name of the transit gateway that connects the existing VPCs and PowerVS workspace. | `string` | n/a | yes |
 | <a name="input_workload_host"></a> [workload\_host](#input\_workload\_host) | Name of the existing workload host VSI name and NFS path. | <pre>object({<br>    vsi_name = string<br>    nfs_path = string<br>  })</pre> | <pre>{<br>  "nfs_path": "",<br>  "vsi_name": ""<br>}</pre> | no |
 
 ### Outputs
@@ -70,10 +70,10 @@ This solution takes pre-existing VPC and PowerVS infrastructure resource details
 | <a name="output_dns_host_or_ip"></a> [dns\_host\_or\_ip](#output\_dns\_host\_or\_ip) | DNS forwarder host for created PowerVS infrastructure. |
 | <a name="output_nfs_host_or_ip_path"></a> [nfs\_host\_or\_ip\_path](#output\_nfs\_host\_or\_ip\_path) | NFS host for created PowerVS infrastructure. |
 | <a name="output_ntp_host_or_ip"></a> [ntp\_host\_or\_ip](#output\_ntp\_host\_or\_ip) | NTP host for created PowerVS infrastructure. |
-| <a name="output_powervs_backup_subnet"></a> [powervs\_backup\_subnet](#output\_powervs\_backup\_subnet) | Name, ID and CIDR of backup private network in created PowerVS infrastructure. |
+| <a name="output_powervs_backup_subnet"></a> [powervs\_backup\_subnet](#output\_powervs\_backup\_subnet) | Name, ID and CIDR of backup private network in existing PowerVS infrastructure. |
 | <a name="output_powervs_images"></a> [powervs\_images](#output\_powervs\_images) | Object containing imported PowerVS image names and image ids. |
-| <a name="output_powervs_management_subnet"></a> [powervs\_management\_subnet](#output\_powervs\_management\_subnet) | Name, ID and CIDR of management private network in created PowerVS infrastructure. |
-| <a name="output_powervs_resource_group_name"></a> [powervs\_resource\_group\_name](#output\_powervs\_resource\_group\_name) | IBM Cloud resource group where PowerVS infrastructure is created. |
+| <a name="output_powervs_management_subnet"></a> [powervs\_management\_subnet](#output\_powervs\_management\_subnet) | Name, ID and CIDR of management private network in existing PowerVS infrastructure. |
+| <a name="output_powervs_resource_group_name"></a> [powervs\_resource\_group\_name](#output\_powervs\_resource\_group\_name) | IBM Cloud resource group of the existing PowerVS infrastructure. |
 | <a name="output_powervs_ssh_public_key"></a> [powervs\_ssh\_public\_key](#output\_powervs\_ssh\_public\_key) | SSH public key name and value in created PowerVS infrastructure. |
 | <a name="output_powervs_workspace_guid"></a> [powervs\_workspace\_guid](#output\_powervs\_workspace\_guid) | PowerVS infrastructure workspace guid. The GUID of the resource instance. |
 | <a name="output_powervs_workspace_id"></a> [powervs\_workspace\_id](#output\_powervs\_workspace\_id) | PowerVS infrastructure workspace CRN. |

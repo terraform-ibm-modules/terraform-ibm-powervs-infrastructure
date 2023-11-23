@@ -1,14 +1,14 @@
 variable "pi_workspace_name" {
-  description = "PowerVS infrastructure workspace name."
+  description = "An existing PowerVS infrastructure workspace name."
   type        = string
 }
 
 variable "pi_management_network_name" {
-  description = "Name of management network in created PowerVS infrastructure."
+  description = "The name of existing management network in PowerVS infrastructure."
   type        = string
 }
 
 variable "pi_backup_network_name" {
-  description = "Name of backup network in created PowerVS infrastructure."
+  description = "The name of existing backup network in PowerVS infrastructure."
   type        = string
 }

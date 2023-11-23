@@ -1,5 +1,5 @@
 variable "vsi_name" {
-  description = "The VSI name on VPC side."
+  description = "Name of the existing VSI"
   type        = string
 }
 

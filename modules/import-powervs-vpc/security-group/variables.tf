@@ -1,5 +1,5 @@
 variable "sg_rules" {
-  description = "List of Security Group rules"
+  description = "List of Security Group rules which will be created."
   type = list(object({
     name      = string
     direction = string
@@ -20,6 +20,6 @@ variable "sg_rules" {
 }
 
 variable "sg_id" {
-  description = "VPC's network ACL id"
+  description = "An existing VPC's existing security group id to which rules will be added."
   type        = string
 }

@@ -1,9 +1,9 @@
-data "ibm_is_network_acl_rules" "existing_acl" {
+data "ibm_is_network_acl_rules" "existing_acl_ds" {
   network_acl = var.ibm_is_network_acl_id
 }
 
 locals {
-  all_rules       = data.ibm_is_network_acl_rules.existing_acl.rules
+  all_rules       = data.ibm_is_network_acl_rules.existing_acl_ds.rules
   inbound_rules   = [for rule in local.all_rules : rule if rule.direction == "inbound"]
   outbound_rules  = [for rule in local.all_rules : rule if rule.direction == "outbound"]
   inbound_before  = length(local.inbound_rules) > 0 ? local.inbound_rules[0].rule_id : null
