@@ -25,10 +25,8 @@ data "ibm_tg_gateway" "tgw_ds" {
 }
 
 ######################################################################
-# Create ACL rules
+# Create ACL Rules for management, edge and workload VPCs
 ######################################################################
-
-# Create acl rules for management vpc
 
 data "ibm_is_subnet" "management_subnets_ds" {
   for_each = toset(local.management_vsi_subnets)
@@ -41,7 +39,6 @@ data "ibm_is_network_acl" "management_acls_ds" {
   network_acl = each.value.network_acl
 }
 
-
 module "management_vpc_acl_rules" {
   for_each = data.ibm_is_network_acl.management_acls_ds
 
@@ -49,8 +46,6 @@ module "management_vpc_acl_rules" {
   ibm_is_network_acl_id = each.value.id
   acl_rules             = local.managemnt_vpc_acl_rules
 }
-
-# Create acl rules for edge vpc
 
 data "ibm_is_subnet" "edge_subnets_ds" {
   for_each = toset(local.edge_vsi_subnets)
@@ -70,8 +65,6 @@ module "edge_vpc_acl_rules" {
   ibm_is_network_acl_id = each.value.id
   acl_rules             = local.edge_vpc_acl_rules
 }
-
-# Create acl rules for workload vpc
 
 data "ibm_is_subnet" "workload_subnets_ds" {
   for_each = toset(local.workload_vsi_subnets)
