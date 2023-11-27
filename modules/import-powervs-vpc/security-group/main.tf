@@ -1,4 +1,4 @@
-resource "ibm_is_security_group_rule" "sg_rule_creation" {
+resource "ibm_is_security_group_rule" "sg_rules" {
   for_each  = { for rule in var.sg_rules : rule.name => rule }
   group     = var.sg_id
   direction = each.value.direction

@@ -10,7 +10,7 @@ locals {
   outbound_before = length(local.outbound_rules) > 0 ? local.outbound_rules[0].rule_id : null
 }
 
-resource "ibm_is_network_acl_rule" "all_network_acl_rules" {
+resource "ibm_is_network_acl_rule" "network_acl_rules" {
   for_each    = { for rule in var.acl_rules : rule.name => rule if rule.action != "deny" }
   network_acl = var.ibm_is_network_acl_id
   name        = each.value.name
@@ -50,7 +50,7 @@ resource "ibm_is_network_acl_rule" "all_network_acl_rules" {
 }
 
 resource "ibm_is_network_acl_rule" "deny_all_outbound" {
-  depends_on = [resource.ibm_is_network_acl_rule.all_network_acl_rules]
+  depends_on = [resource.ibm_is_network_acl_rule.network_acl_rules]
 
   network_acl = var.ibm_is_network_acl_id
   name        = "default-deny-outbound"
@@ -60,7 +60,7 @@ resource "ibm_is_network_acl_rule" "deny_all_outbound" {
   direction   = "outbound"
 }
 resource "ibm_is_network_acl_rule" "deny_all_inbound" {
-  depends_on = [resource.ibm_is_network_acl_rule.all_network_acl_rules]
+  depends_on = [resource.ibm_is_network_acl_rule.network_acl_rules]
 
   network_acl = var.ibm_is_network_acl_id
   name        = "default-deny-inbound"
