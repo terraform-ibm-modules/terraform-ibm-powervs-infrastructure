@@ -54,7 +54,7 @@ variable "transit_gateway_name" {
 ##############################################################
 
 variable "powervs_zone" {
-  description = "IBM Cloud data center location where IBM PowerVS workspace is created."
+  description = "IBM Cloud data center location where IBM PowerVS workspace exists."
   type        = string
 }
 

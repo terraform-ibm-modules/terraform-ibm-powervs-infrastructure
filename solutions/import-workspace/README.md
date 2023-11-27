@@ -28,7 +28,7 @@ This solution takes pre-existing VPC and PowerVS infrastructure resource details
 | <a name="module_edge_vsi"></a> [edge\_vsi](#module\_edge\_vsi) | ../../modules/import-powervs-vpc/vpc | n/a |
 | <a name="module_management_sg_rules"></a> [management\_sg\_rules](#module\_management\_sg\_rules) | ../../modules/import-powervs-vpc/security-group | n/a |
 | <a name="module_management_vpc_acl_rules"></a> [management\_vpc\_acl\_rules](#module\_management\_vpc\_acl\_rules) | ../../modules/import-powervs-vpc/acl | n/a |
-| <a name="module_power_workspace_data_retrieval"></a> [power\_workspace\_data\_retrieval](#module\_power\_workspace\_data\_retrieval) | ../../modules/import-powervs-vpc/powervs | n/a |
+| <a name="module_powervs_workspace_ds"></a> [powervs\_workspace\_ds](#module\_powervs\_workspace\_ds) | ../../modules/import-powervs-vpc/powervs | n/a |
 | <a name="module_wokload_sg_rules"></a> [wokload\_sg\_rules](#module\_wokload\_sg\_rules) | ../../modules/import-powervs-vpc/security-group | n/a |
 | <a name="module_workload_vpc_acl_rules"></a> [workload\_vpc\_acl\_rules](#module\_workload\_vpc\_acl\_rules) | ../../modules/import-powervs-vpc/acl | n/a |
 | <a name="module_workload_vsi"></a> [workload\_vsi](#module\_workload\_vsi) | ../../modules/import-powervs-vpc/vpc | n/a |
@@ -56,7 +56,7 @@ This solution takes pre-existing VPC and PowerVS infrastructure resource details
 | <a name="input_powervs_management_network_name"></a> [powervs\_management\_network\_name](#input\_powervs\_management\_network\_name) | Name of management network in existing PowerVS workspace. | `string` | n/a | yes |
 | <a name="input_powervs_sshkey_name"></a> [powervs\_sshkey\_name](#input\_powervs\_sshkey\_name) | SSH public key name used for the existing PowerVS workspace. | `string` | n/a | yes |
 | <a name="input_powervs_workspace_name"></a> [powervs\_workspace\_name](#input\_powervs\_workspace\_name) | Name of the existing PowerVS workspace. | `string` | n/a | yes |
-| <a name="input_powervs_zone"></a> [powervs\_zone](#input\_powervs\_zone) | IBM Cloud data center location where IBM PowerVS workspace is created. | `string` | n/a | yes |
+| <a name="input_powervs_zone"></a> [powervs\_zone](#input\_powervs\_zone) | IBM Cloud data center location where IBM PowerVS workspace exists. | `string` | n/a | yes |
 | <a name="input_proxy_host"></a> [proxy\_host](#input\_proxy\_host) | Name of the existing VSI on which proxy server is configured and proxy server port. | <pre>object({<br>    vsi_name = string<br>    port     = string<br>  })</pre> | <pre>{<br>  "port": "",<br>  "vsi_name": ""<br>}</pre> | no |
 | <a name="input_transit_gateway_name"></a> [transit\_gateway\_name](#input\_transit\_gateway\_name) | The name of the transit gateway that connects the existing VPCs and PowerVS workspace. | `string` | n/a | yes |
 | <a name="input_workload_host"></a> [workload\_host](#input\_workload\_host) | Name of the existing workload host VSI name and NFS path. | <pre>object({<br>    vsi_name = string<br>    nfs_path = string<br>  })</pre> | <pre>{<br>  "nfs_path": "",<br>  "vsi_name": ""<br>}</pre> | no |
@@ -66,7 +66,7 @@ This solution takes pre-existing VPC and PowerVS infrastructure resource details
 | Name | Description |
 |------|-------------|
 | <a name="output_access_host_or_ip"></a> [access\_host\_or\_ip](#output\_access\_host\_or\_ip) | Access host(jump/bastion) for created PowerVS infrastructure. |
-| <a name="output_cloud_connection_count"></a> [cloud\_connection\_count](#output\_cloud\_connection\_count) | Number of cloud connections configured in created PowerVS infrastructure. |
+| <a name="output_cloud_connection_count"></a> [cloud\_connection\_count](#output\_cloud\_connection\_count) | Number of cloud connections configured in existing PowerVS infrastructure. |
 | <a name="output_dns_host_or_ip"></a> [dns\_host\_or\_ip](#output\_dns\_host\_or\_ip) | DNS forwarder host for created PowerVS infrastructure. |
 | <a name="output_nfs_host_or_ip_path"></a> [nfs\_host\_or\_ip\_path](#output\_nfs\_host\_or\_ip\_path) | NFS host for created PowerVS infrastructure. |
 | <a name="output_ntp_host_or_ip"></a> [ntp\_host\_or\_ip](#output\_ntp\_host\_or\_ip) | NTP host for created PowerVS infrastructure. |
@@ -74,11 +74,11 @@ This solution takes pre-existing VPC and PowerVS infrastructure resource details
 | <a name="output_powervs_images"></a> [powervs\_images](#output\_powervs\_images) | Object containing imported PowerVS image names and image ids. |
 | <a name="output_powervs_management_subnet"></a> [powervs\_management\_subnet](#output\_powervs\_management\_subnet) | Name, ID and CIDR of management private network in existing PowerVS infrastructure. |
 | <a name="output_powervs_resource_group_name"></a> [powervs\_resource\_group\_name](#output\_powervs\_resource\_group\_name) | IBM Cloud resource group of the existing PowerVS infrastructure. |
-| <a name="output_powervs_ssh_public_key"></a> [powervs\_ssh\_public\_key](#output\_powervs\_ssh\_public\_key) | SSH public key name and value in created PowerVS infrastructure. |
+| <a name="output_powervs_ssh_public_key"></a> [powervs\_ssh\_public\_key](#output\_powervs\_ssh\_public\_key) | SSH public key name and value used in existing PowerVS infrastructure. |
 | <a name="output_powervs_workspace_guid"></a> [powervs\_workspace\_guid](#output\_powervs\_workspace\_guid) | PowerVS infrastructure workspace guid. The GUID of the resource instance. |
 | <a name="output_powervs_workspace_id"></a> [powervs\_workspace\_id](#output\_powervs\_workspace\_id) | PowerVS infrastructure workspace CRN. |
 | <a name="output_powervs_workspace_name"></a> [powervs\_workspace\_name](#output\_powervs\_workspace\_name) | PowerVS infrastructure workspace name. |
-| <a name="output_powervs_zone"></a> [powervs\_zone](#output\_powervs\_zone) | Zone where PowerVS infrastructure is created. |
+| <a name="output_powervs_zone"></a> [powervs\_zone](#output\_powervs\_zone) | Zone of existing PowerVS infrastructure. |
 | <a name="output_prefix"></a> [prefix](#output\_prefix) | The prefix that is associated with all resources |
 | <a name="output_proxy_host_or_ip_port"></a> [proxy\_host\_or\_ip\_port](#output\_proxy\_host\_or\_ip\_port) | Proxy host:port for created PowerVS infrastructure. |
 | <a name="output_schematics_workspace_id"></a> [schematics\_workspace\_id](#output\_schematics\_workspace\_id) | ID of the IBM Cloud Schematics workspace. Returns null if not ran in Schematics. |

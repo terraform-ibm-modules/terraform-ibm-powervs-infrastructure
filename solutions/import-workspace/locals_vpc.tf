@@ -1,3 +1,6 @@
+####################################################
+# Locals for outputs
+####################################################
 locals {
   proxy_host_or_ip_port = join(":", [module.edge_vsi.vsi_details.ipv4_address, var.proxy_host.port])
   nfs_host_or_ip_path   = join(":", [module.workload_vsi.vsi_details.ipv4_address, var.workload_host.nfs_path])
@@ -13,6 +16,10 @@ locals {
   cloud_connections = tolist([for each in data.ibm_tg_gateway.tgw_ds.connections : each.name if each.network_type == "directlink"])
 }
 
+####################################################
+# Locals for creating ACL rules
+####################################################
+
 locals {
   acl_preset          = templatefile("${path.module}/../../modules/powervs-vpc-landing-zone/presets/acl_rules.json.tftpl", { access_host_ip = module.access_host.vsi_details.ipv4_address, inet_host_ip = module.edge_vsi.vsi_details.ipv4_address, workload_host_ip = module.workload_vsi.vsi_details.ipv4_address })
   imported_acl_preset = jsondecode(local.acl_preset)
@@ -25,6 +32,10 @@ locals {
   edge_vsi_subnets       = flatten([module.edge_vsi.vsi_ds.primary_network_interface[*].subnet, module.edge_vsi.vsi_ds.network_interfaces[*].subnet])
   workload_vsi_subnets   = flatten([module.workload_vsi.vsi_ds.primary_network_interface[*].subnet, module.workload_vsi.vsi_ds.network_interfaces[*].subnet])
 }
+
+####################################################
+# Locals for creating Security Group rules
+####################################################
 
 locals {
   sg_preset          = templatefile("${path.module}/../../modules/powervs-vpc-landing-zone/presets/sg_rules.json.tftpl", { access_host_ip = module.access_host.vsi_details.ipv4_address, inet_host_ip = module.edge_vsi.vsi_details.ipv4_address, workload_host_ip = module.workload_vsi.vsi_details.ipv4_address })

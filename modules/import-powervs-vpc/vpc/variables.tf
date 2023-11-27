@@ -3,14 +3,18 @@ variable "vsi_name" {
   type        = string
 }
 
-variable "fip_enabled" {
-  description = "This values indicates whether a floating IP is attched to it."
-  type        = bool
-  default     = false
-}
-
-variable "attached_fip" {
-  description = "The floating IP attached to the VSI."
-  type        = string
-  default     = ""
+variable "fip" {
+  description = "The object contains a boolean value which indicates whether a floating IP is attched to the VSI and if true, the concerned floating IP attached to the VSI must be provided."
+  type = object({
+    is_attached  = bool
+    attached_fip = string
+  })
+  default = {
+    is_attached  = false
+    attached_fip = ""
+  }
+  validation {
+    condition     = var.fip.is_attached ? var.fip.attached_fip != "" ? true : false : true
+    error_message = "For object fip, if 'is_attached' is true then 'attached_fip' value must not be empty."
+  }
 }

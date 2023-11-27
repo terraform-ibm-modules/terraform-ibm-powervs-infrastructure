@@ -1,4 +1,4 @@
-module "power_workspace_data_retrieval" {
+module "powervs_workspace_ds" {
   source    = "../../modules/import-powervs-vpc/powervs"
   providers = { ibm = ibm.ibm-pi }
 

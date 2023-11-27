@@ -2,10 +2,12 @@
 # Import data of management, edge and workload vpc vsis
 ######################################################################
 module "access_host" {
-  source       = "../../modules/import-powervs-vpc/vpc"
-  vsi_name     = var.access_host.vsi_name
-  fip_enabled  = true
-  attached_fip = var.access_host.floating_ip
+  source   = "../../modules/import-powervs-vpc/vpc"
+  vsi_name = var.access_host.vsi_name
+  fip = {
+    is_attached  = true
+    attached_fip = var.access_host.floating_ip
+  }
 }
 
 module "edge_vsi" {
@@ -23,10 +25,10 @@ data "ibm_tg_gateway" "tgw_ds" {
 }
 
 ######################################################################
-# ACL Rule creation
+# Create ACL rules
 ######################################################################
 
-# Creating acl rules for management vpc
+# Create acl rules for management vpc
 
 data "ibm_is_subnet" "management_subnets_ds" {
   for_each = toset(local.management_vsi_subnets)
@@ -48,7 +50,7 @@ module "management_vpc_acl_rules" {
   acl_rules             = local.managemnt_vpc_acl_rules
 }
 
-# Creating acl rules for edge vpc
+# Create acl rules for edge vpc
 
 data "ibm_is_subnet" "edge_subnets_ds" {
   for_each = toset(local.edge_vsi_subnets)
@@ -69,7 +71,7 @@ module "edge_vpc_acl_rules" {
   acl_rules             = local.edge_vpc_acl_rules
 }
 
-# Creating acl rules for workload vpc
+# Create acl rules for workload vpc
 
 data "ibm_is_subnet" "workload_subnets_ds" {
   for_each = toset(local.workload_vsi_subnets)
@@ -91,7 +93,7 @@ module "workload_vpc_acl_rules" {
 }
 
 ######################################################################
-# Security Group Rule creation for management, edge and workload vpcs
+# Create Security Group Rules for management, edge and workload VPCs
 ######################################################################
 
 module "management_sg_rules" {

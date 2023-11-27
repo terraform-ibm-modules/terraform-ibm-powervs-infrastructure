@@ -85,13 +85,13 @@ output "nfs_host_or_ip_path" {
 ##############################################################
 
 output "powervs_zone" {
-  description = "Zone where PowerVS infrastructure is created."
+  description = "Zone of existing PowerVS infrastructure."
   value       = var.powervs_zone
 }
 
 output "powervs_resource_group_name" {
   description = "IBM Cloud resource group of the existing PowerVS infrastructure."
-  value       = module.power_workspace_data_retrieval.powervs_resource_group_name
+  value       = module.powervs_workspace_ds.powervs_resource_group_name
 }
 
 output "powervs_workspace_name" {
@@ -101,16 +101,16 @@ output "powervs_workspace_name" {
 
 output "powervs_workspace_id" {
   description = "PowerVS infrastructure workspace CRN."
-  value       = module.power_workspace_data_retrieval.powervs_workspace_crn
+  value       = module.powervs_workspace_ds.powervs_workspace_crn
 }
 
 output "powervs_workspace_guid" {
   description = "PowerVS infrastructure workspace guid. The GUID of the resource instance."
-  value       = module.power_workspace_data_retrieval.powervs_workspace_guid
+  value       = module.powervs_workspace_ds.powervs_workspace_guid
 }
 
 output "powervs_ssh_public_key" {
-  description = "SSH public key name and value in created PowerVS infrastructure."
+  description = "SSH public key name and value used in existing PowerVS infrastructure."
   value = {
     "name"  = var.powervs_sshkey_name
     "value" = module.access_host.vsi_ssh_public_key[0].public_key
@@ -119,21 +119,21 @@ output "powervs_ssh_public_key" {
 
 output "powervs_management_subnet" {
   description = "Name, ID and CIDR of management private network in existing PowerVS infrastructure."
-  value       = module.power_workspace_data_retrieval.powervs_management_network_subnet
+  value       = module.powervs_workspace_ds.powervs_management_network_subnet
 }
 
 output "powervs_backup_subnet" {
   description = "Name, ID and CIDR of backup private network in existing PowerVS infrastructure."
-  value       = module.power_workspace_data_retrieval.powervs_backup_network_subnet
+  value       = module.powervs_workspace_ds.powervs_backup_network_subnet
 }
 
 output "powervs_images" {
   description = "Object containing imported PowerVS image names and image ids."
-  value       = module.power_workspace_data_retrieval.powervs_images
+  value       = module.powervs_workspace_ds.powervs_images
 }
 
 output "cloud_connection_count" {
-  description = "Number of cloud connections configured in created PowerVS infrastructure."
+  description = "Number of cloud connections configured in existing PowerVS infrastructure."
   value       = length(local.cloud_connections)
 }
 

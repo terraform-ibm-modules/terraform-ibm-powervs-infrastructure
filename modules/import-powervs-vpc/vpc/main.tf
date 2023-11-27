@@ -8,7 +8,7 @@ data "ibm_is_vpc" "vpc_ds" {
 
 locals {
   vsi_details = {
-    floating_ip            = var.fip_enabled ? var.attached_fip : null
+    floating_ip            = var.fip.is_attached ? var.fip.attached_fip : null
     id                     = data.ibm_is_instance.vsi_ds.id
     ipv4_address           = data.ibm_is_instance.vsi_ds.primary_network_interface[0].primary_ip[0].address
     secondary_ipv4_address = length(data.ibm_is_instance.vsi_ds.network_interfaces) == 0 ? null : data.ibm_is_instance.vsi_ds.network_interfaces[0].primary_ipv4_address
