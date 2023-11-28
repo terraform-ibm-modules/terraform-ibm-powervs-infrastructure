@@ -1184,6 +1184,290 @@
                             }
                         ]
                     }
+                },
+                {
+                    "label": "PowerVS Import Workspace",
+                    "name": "powervs-import-workspace",
+                    "install_type": "fullstack",
+                    "working_directory": "solutions/import-workspace",
+                    "compliance": {
+                        "authority": "scc-v3",
+                        "profiles": [
+                            {
+                                "profile_name": "IBM Cloud for Financial Services",
+                                "profile_version": "1.3.0"
+                            }
+                        ]
+                    },
+                    "configuration": [
+                        {
+                            "key": "access_host",
+                            "required": true,
+                            "custom_config": {
+                                "grouping": "deployment",
+                                "original_grouping": "deployment",
+                                "type": "json_editor"
+                            }
+                        },
+                        {
+                            "key": "proxy_host",
+                            "required": true,
+                            "custom_config": {
+                                "grouping": "deployment",
+                                "original_grouping": "deployment",
+                                "type": "json_editor"
+                            }
+                        },
+                        {
+                            "key": "workload_host",
+                            "required": true,
+                            "custom_config": {
+                                "grouping": "deployment",
+                                "original_grouping": "deployment",
+                                "type": "json_editor"
+                            }
+                        },
+                        {
+                            "key": "transit_gateway_name",
+                            "required": true
+                        },
+                        {
+                            "key": "powervs_zone",
+                            "type": "string",
+                            "required": true,
+                            "default_value": "",
+                            "options": [
+                                {
+                                    "displayname": "London 04 (lon04)",
+                                    "value": "lon04"
+                                },
+                                {
+                                    "displayname": "London 06 (lon06)",
+                                    "value": "lon06"
+                                },
+                                {
+                                    "displayname": "Frankfurt 1 (eu-de-1)",
+                                    "value": "eu-de-1"
+                                },
+                                {
+                                    "displayname": "Frankfurt 2 (eu-de-2)",
+                                    "value": "eu-de-2"
+                                },
+                                {
+                                    "displayname": "Toronto 01 (tor01)",
+                                    "value": "tor01"
+                                },
+                                {
+                                    "displayname": "Montreal 01 (mon01)",
+                                    "value": "mon01"
+                                },
+                                {
+                                    "displayname": "Osaka 21 (osa21)",
+                                    "value": "osa21"
+                                },
+                                {
+                                    "displayname": "Tokyo 04 (tok04)",
+                                    "value": "tok04"
+                                },
+                                {
+                                    "displayname": "Sydney 04 (syd04)",
+                                    "value": "syd04"
+                                },
+                                {
+                                    "displayname": "Sydney 05 (syd05)",
+                                    "value": "syd05"
+                                },
+                                {
+                                    "displayname": "Sao Paulo 01 (sao01)",
+                                    "value": "sao01"
+                                },
+                                {
+                                    "displayname": "Dallas (dallas)",
+                                    "value": "us-south"
+                                },
+                                {
+                                    "displayname": "Dallas 10 (dal10) PER",
+                                    "value": "dal10"
+                                },
+                                {
+                                    "displayname": "Dallas 12 (dal12)",
+                                    "value": "dal12"
+                                },
+                                {
+                                    "displayname": "Washington DC (us-east)",
+                                    "value": "us-east"
+                                },
+                                {
+                                    "displayname": "Washington DC 06 (wdc06) PER",
+                                    "value": "wdc06"
+                                }
+                            ],
+                            "custom_config": {}
+                        },
+                        {
+                            "key": "powervs_workspace_name",
+                            "required": true
+                        },
+                        {
+                            "key": "powervs_sshkey_name",
+                            "required": true
+                        },
+                        {
+                            "key": "powervs_management_network_name",
+                            "required": true
+                        },
+                        {
+                            "key": "powervs_backup_network_name",
+                            "required": true
+                        },
+                        {
+                            "key": "ibmcloud_api_key",
+                            "type": "multiline_secure_value",
+                            "required": true,
+                            "custom_config": {
+                                "grouping": "deployment",
+                                "original_grouping": "deployment",
+                                "type": "multiline_secure_value"
+                            }
+                        },
+                        {
+                            "key": "tags"
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "key": "prefix"
+                        },
+                        {
+                            "key": "vpc_names"
+                        },
+                        {
+                            "key": "vsi_names"
+                        },
+                        {
+                            "key": "ssh_public_key"
+                        },
+                        {
+                            "key": "transit_gateway_name"
+                        },
+                        {
+                            "key": "transit_gateway_id"
+                        },
+                        {
+                            "key": "vsi_list"
+                        },
+                        {
+                            "key": "access_host_or_ip"
+                        },
+                        {
+                            "key": "proxy_host_or_ip_port"
+                        },
+                        {
+                            "key": "dns_host_or_ip"
+                        },
+                        {
+                            "key": "ntp_host_or_ip"
+                        },
+                        {
+                            "key": "nfs_host_or_ip_path"
+                        },
+                        {
+                            "key": "powervs_zone"
+                        },
+                        {
+                            "key": "powervs_resource_group_name"
+                        },
+                        {
+                            "key": "powervs_workspace_name"
+                        },
+                        {
+                            "key": "powervs_workspace_id"
+                        },
+                        {
+                            "key": "powervs_workspace_guid"
+                        },
+                        {
+                            "key": "powervs_ssh_public_key"
+                        },
+                        {
+                            "key": "powervs_management_subnet"
+                        },
+                        {
+                            "key": "powervs_backup_subnet"
+                        },
+                        {
+                            "key": "powervs_images"
+                        },
+                        {
+                            "key": "cloud_connection_count"
+                        },
+                        {
+                            "key": "schematics_workspace_id"
+                        }
+                    ],
+                    "iam_permissions": [
+                        {
+                            "role_crns": [
+                                "crn:v1:bluemix:public:iam::::serviceRole:Manager"
+                            ],
+                            "service_name": "appid"
+                        },
+                        {
+                            "role_crns": [
+                                "crn:v1:bluemix:public:iam::::serviceRole:Manager"
+                            ],
+                            "service_name": "cloud-object-storage"
+                        },
+                        {
+                            "role_crns": [
+                                "crn:v1:bluemix:public:iam::::serviceRole:Manager"
+                            ],
+                            "service_name": "hs-crypto"
+                        },
+                        {
+                            "role_crns": [
+                                "crn:v1:bluemix:public:iam::::role:Administrator"
+                            ],
+                            "service_name": "iam-identity"
+                        },
+                        {
+                            "role_crns": [
+                                "crn:v1:bluemix:public:iam::::serviceRole:Manager"
+                            ],
+                            "service_name": "kms"
+                        },
+                        {
+                            "role_crns": [
+                                "crn:v1:bluemix:public:iam::::serviceRole:Manager",
+                                "crn:v1:bluemix:public:iam::::role:Administrator"
+                            ],
+                            "service_name": "is.vpc"
+                        },
+                        {
+                            "role_crns": [
+                                "crn:v1:bluemix:public:iam::::role:Editor"
+                            ],
+                            "service_name": "is.vpc"
+                        },
+                        {
+                            "role_crns": [
+                                "crn:v1:bluemix:public:iam::::role:Editor"
+                            ],
+                            "service_name": "transit.gateway"
+                        },
+                        {
+                            "role_crns": [
+                                "crn:v1:bluemix:public:iam::::role:Editor"
+                            ],
+                            "service_name": "directlink.connect"
+                        },
+                        {
+                            "role_crns": [
+                                "crn:v1:bluemix:public:iam::::serviceRole:Manager"
+                            ],
+                            "service_name": "power-iaas"
+                        }
+                    ]
                 }
             ]
         }
