@@ -965,10 +965,6 @@
                                     "value": "eu-de-2"
                                 },
                                 {
-                                    "displayname": "Madrid 02 (mad02)",
-                                    "value": "mad02"
-                                },
-                                {
                                     "displayname": "Toronto 01 (tor01)",
                                     "value": "tor01"
                                 },
@@ -1244,6 +1240,10 @@
                                 {
                                     "displayname": "Frankfurt 2 (eu-de-2)",
                                     "value": "eu-de-2"
+                                },
+                                {
+                                    "displayname": "Madrid 02 DC (mad02) PER",
+                                    "value": "mad02"
                                 },
                                 {
                                     "displayname": "Toronto 01 (tor01)",
