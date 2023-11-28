@@ -11,6 +11,7 @@ locals {
     "tor01"    = "ca-tor"
     "osa21"    = "jp-osa"
     "sao01"    = "br-sao"
+    "mad02"    = "eu-es"
     "mon01"    = "ca-tor"
     "us-south" = "us-south"
     "dal10"    = "us-south"

@@ -5,6 +5,7 @@ locals {
     "eu-de-1"  = "eu-de"
     "eu-de-2"  = "eu-de"
     "tor01"    = "tor"
+    "mad02"    = "mad"
     "mon01"    = "mon"
     "osa21"    = "osa"
     "tok04"    = "tok"

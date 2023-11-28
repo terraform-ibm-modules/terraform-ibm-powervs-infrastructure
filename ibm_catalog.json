@@ -97,6 +97,10 @@
                                     "value": "tor01"
                                 },
                                 {
+                                    "displayname": "Madrid 02 DC (mad02) PER",
+                                    "value": "mad02"
+                                },
+                                {
                                     "displayname": "Montreal 01 (mon01)",
                                     "value": "mon01"
                                 },
@@ -474,6 +478,10 @@
                                 {
                                     "displayname": "Toronto 01 (tor01)",
                                     "value": "tor01"
+                                },
+                                {
+                                    "displayname": "Madrid 02 DC (mad02) PER",
+                                    "value": "mad02"
                                 },
                                 {
                                     "displayname": "Montreal 01 (mon01)",
@@ -967,6 +975,10 @@
                                 {
                                     "displayname": "Toronto 01 (tor01)",
                                     "value": "tor01"
+                                },
+                                {
+                                    "displayname": "Madrid 02 DC (mad02) PER",
+                                    "value": "mad02"
                                 },
                                 {
                                     "displayname": "Montreal 01 (mon01)",
