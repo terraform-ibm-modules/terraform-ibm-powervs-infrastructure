@@ -965,6 +965,10 @@
                                     "value": "eu-de-2"
                                 },
                                 {
+                                    "displayname": "Madrid 2 (mad02)",
+                                    "value": "mad02"
+                                },
+                                {
                                     "displayname": "Toronto 01 (tor01)",
                                     "value": "tor01"
                                 },
