@@ -614,6 +614,18 @@
                             }
                         },
                         {
+                            "key": "powervs_resource_group_name",
+                            "required": true,
+                            "custom_config": {
+                                "config_constraints": {
+                                    "identifier": "rg_name"
+                                },
+                                "grouping": "deployment",
+                                "original_grouping": "deployment",
+                                "type": "resource_group"
+                            }
+                        },
+                        {
                             "key": "custom_profile_instance_boot_image",
                             "type": "string",
                             "default_value": "SLES15-SP4-SAP",
@@ -695,18 +707,6 @@
                         },
                         {
                             "key": "cloud_connection"
-                        },
-                        {
-                            "key": "powervs_resource_group_name",
-                            "default_value": "Default",
-                            "custom_config": {
-                                "config_constraints": {
-                                    "identifier": "rg_name"
-                                },
-                                "grouping": "deployment",
-                                "original_grouping": "deployment",
-                                "type": "resource_group"
-                            }
                         },
                         {
                             "key": "tags"
