@@ -105,6 +105,10 @@
                                     "value": "lon06"
                                 },
                                 {
+                                    "displayname": "Madrid 02 (mad02) PER",
+                                    "value": "mad02"
+                                },
+                                {
                                     "displayname": "Montreal 01 (mon01)",
                                     "value": "mon01"
                                 },
@@ -482,6 +486,10 @@
                                 {
                                     "displayname": "London 06 (lon06)",
                                     "value": "lon06"
+                                },
+                                {
+                                    "displayname": "Madrid 02 (mad02) PER",
+                                    "value": "mad02"
                                 },
                                 {
                                     "displayname": "Montreal 01 (mon01)",
@@ -992,6 +1000,10 @@
                                     "value": "lon06"
                                 },
                                 {
+                                    "displayname": "Madrid 02 (mad02) PER",
+                                    "value": "mad02"
+                                },
+                                {
                                     "displayname": "Montreal 01 (mon01)",
                                     "value": "mon01"
                                 },
@@ -1264,6 +1276,10 @@
                                 {
                                     "displayname": "London 06 (lon06)",
                                     "value": "lon06"
+                                },
+                                {
+                                    "displayname": "Madrid 02 (mad02) PER",
+                                    "value": "mad02"
                                 },
                                 {
                                     "displayname": "Montreal 01 (mon01)",

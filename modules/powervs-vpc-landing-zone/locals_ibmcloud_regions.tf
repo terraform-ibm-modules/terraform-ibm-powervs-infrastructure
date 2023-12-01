@@ -5,6 +5,7 @@ locals {
     "syd05"    = "au-syd"
     "eu-de-1"  = "eu-de"
     "eu-de-2"  = "eu-de"
+    "mad02"    = "eu-es"
     "lon04"    = "eu-gb"
     "lon06"    = "eu-gb"
     "tok04"    = "jp-tok"

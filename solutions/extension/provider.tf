@@ -4,6 +4,7 @@ locals {
     "lon06"    = "lon"
     "eu-de-1"  = "eu-de"
     "eu-de-2"  = "eu-de"
+    "mad02"    = "mad"
     "tor01"    = "tor"
     "mon01"    = "mon"
     "osa21"    = "osa"
