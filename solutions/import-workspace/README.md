@@ -16,7 +16,7 @@ This solution takes pre-existing VPC and PowerVS infrastructure resource details
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.3, < 1.6 |
-| <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | =1.59.0 |
+| <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | =1.58.1 |
 
 ### Modules
 
@@ -37,13 +37,13 @@ This solution takes pre-existing VPC and PowerVS infrastructure resource details
 
 | Name | Type |
 |------|------|
-| [ibm_is_network_acl.edge_acls_ds](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.59.0/docs/data-sources/is_network_acl) | data source |
-| [ibm_is_network_acl.management_acls_ds](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.59.0/docs/data-sources/is_network_acl) | data source |
-| [ibm_is_network_acl.workload_acls_ds](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.59.0/docs/data-sources/is_network_acl) | data source |
-| [ibm_is_subnet.edge_subnets_ds](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.59.0/docs/data-sources/is_subnet) | data source |
-| [ibm_is_subnet.management_subnets_ds](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.59.0/docs/data-sources/is_subnet) | data source |
-| [ibm_is_subnet.workload_subnets_ds](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.59.0/docs/data-sources/is_subnet) | data source |
-| [ibm_tg_gateway.tgw_ds](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.59.0/docs/data-sources/tg_gateway) | data source |
+| [ibm_is_network_acl.edge_acls_ds](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.58.1/docs/data-sources/is_network_acl) | data source |
+| [ibm_is_network_acl.management_acls_ds](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.58.1/docs/data-sources/is_network_acl) | data source |
+| [ibm_is_network_acl.workload_acls_ds](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.58.1/docs/data-sources/is_network_acl) | data source |
+| [ibm_is_subnet.edge_subnets_ds](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.58.1/docs/data-sources/is_subnet) | data source |
+| [ibm_is_subnet.management_subnets_ds](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.58.1/docs/data-sources/is_subnet) | data source |
+| [ibm_is_subnet.workload_subnets_ds](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.58.1/docs/data-sources/is_subnet) | data source |
+| [ibm_tg_gateway.tgw_ds](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.58.1/docs/data-sources/tg_gateway) | data source |
 
 ### Inputs
 
