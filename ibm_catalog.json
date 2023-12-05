@@ -573,16 +573,8 @@
                                     "value": "ibm_i_l"
                                 },
                                 {
-                                    "displayname": "SAP DEV (ush1-4x128,disk-500GB,RHEL8-SP6-SAP)",
+                                    "displayname": "SAP DEV (ush1-4x128,disk-750GB,RHEL8-SP6-SAP)",
                                     "value": "sap_dev"
-                                },
-                                {
-                                    "displayname": "SAP OLAP (bh1-16x1600,disk-3170GB,RHEL8-SP6-SAP)",
-                                    "value": "sap_olap"
-                                },
-                                {
-                                    "displayname": "SAP OLTP (umh-4x960,disk-2490GB,RHEL8-SP6-SAP)",
-                                    "value": "sap_oltp"
                                 }
                             ],
                             "custom_config": {}
