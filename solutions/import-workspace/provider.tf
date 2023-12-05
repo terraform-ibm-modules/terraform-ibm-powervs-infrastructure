@@ -40,17 +40,15 @@ locals {
   }
 }
 
-# There are discrepancies between the region inputs on the powervs terraform resource, and the vpc ("is") resources
 provider "ibm" {
-  alias            = "ibm-pi"
-  region           = lookup(local.ibm_powervs_zone_region_map, var.powervs_zone, null)
+  region           = lookup(local.ibm_powervs_zone_cloud_region_map, var.powervs_zone, null)
   zone             = var.powervs_zone
   ibmcloud_api_key = var.ibmcloud_api_key != null ? var.ibmcloud_api_key : null
 }
 
 provider "ibm" {
-  alias            = "ibm-is"
-  region           = lookup(local.ibm_powervs_zone_cloud_region_map, var.powervs_zone, null)
+  alias            = "ibm-pi"
+  region           = lookup(local.ibm_powervs_zone_region_map, var.powervs_zone, null)
   zone             = var.powervs_zone
   ibmcloud_api_key = var.ibmcloud_api_key != null ? var.ibmcloud_api_key : null
 }
