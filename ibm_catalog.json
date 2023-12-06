@@ -537,35 +537,35 @@
                             "required": true,
                             "options": [
                                 {
-                                    "displayname": "AIX - XS (1cpu,32GB,disk-100GB,7300-01-01)",
+                                    "displayname": "AIX - XS (1cpu,32GB,disk-100GB,7300-01-02)",
                                     "value": "aix_xs"
                                 },
                                 {
-                                    "displayname": "AIX - S (4cpu,128GB,disk-500GB,7300-01-01)",
+                                    "displayname": "AIX - S (4cpu,128GB,disk-500GB,7300-01-02)",
                                     "value": "aix_s"
                                 },
                                 {
-                                    "displayname": "AIX - M (8cpu,256GB,disk-1000GB,7300-01-01)",
+                                    "displayname": "AIX - M (8cpu,256GB,disk-1000GB,7300-01-02)",
                                     "value": "aix_m"
                                 },
                                 {
-                                    "displayname": "AIX - L (15cpu,512GB,disk-2000GB,7300-01-01)",
+                                    "displayname": "AIX - L (15cpu,512GB,disk-2000GB,7300-01-02)",
                                     "value": "aix_l"
                                 },
                                 {
-                                    "displayname": "IBM i - XS (0.25cpu,8GB,disk-100GB,IBMi-75-01-2984-2)",
+                                    "displayname": "IBM i - XS (0.25cpu,8GB,disk-100GB,IBMi-75-02-2924-1)",
                                     "value": "ibm_i_xs"
                                 },
                                 {
-                                    "displayname": "IBM i - S (1cpu,32GB,disk-500GB,IBMi-75-01-2984-2)",
+                                    "displayname": "IBM i - S (1cpu,32GB,disk-500GB,IBMi-75-02-2924-1)",
                                     "value": "ibm_i_s"
                                 },
                                 {
-                                    "displayname": "IBM i - M (2cpu,64GB,disk-1000GB,IBMi-75-01-2984-2)",
+                                    "displayname": "IBM i - M (2cpu,64GB,disk-1000GB,IBMi-75-02-2924-1)",
                                     "value": "ibm_i_m"
                                 },
                                 {
-                                    "displayname": "IBM i - L (4cpu,132GB,disk-2000GB,IBMi-75-01-2984-2)",
+                                    "displayname": "IBM i - L (4cpu,132GB,disk-2000GB,IBMi-75-02-2924-1)",
                                     "value": "ibm_i_l"
                                 },
                                 {
@@ -631,8 +631,8 @@
                                     "value": "SLES15-SP4-SAP"
                                 },
                                 {
-                                    "displayname": "AIX - 7300-01-01",
-                                    "value": "7300-01-01"
+                                    "displayname": "AIX - 7300-01-02",
+                                    "value": "7300-01-02"
                                 },
                                 {
                                     "displayname": "AIX - 7300-00-01",
@@ -643,8 +643,8 @@
                                     "value": "7200-05-03"
                                 },
                                 {
-                                    "displayname": "IBM i - IBMi-75-01-2984-2",
-                                    "value": "IBMi-75-01-2984-2"
+                                    "displayname": "IBM i - IBMi-75-02-2924-1",
+                                    "value": "IBMi-75-02-2924-1"
                                 },
                                 {
                                     "displayname": "IBM i - IBMi-75-01-2924-2",
