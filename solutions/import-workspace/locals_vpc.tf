@@ -7,9 +7,9 @@ locals {
 }
 
 locals {
-  vsi_list  = [module.access_host.vsi_details, module.edge_vsi.vsi_details, module.workload_vsi.vsi_details]
-  vpc_names = [module.access_host.vsi_details.vpc_name, module.edge_vsi.vsi_details.vpc_name, module.workload_vsi.vsi_details.vpc_name]
-  vsi_names = [module.access_host.vsi_details.name, module.edge_vsi.vsi_details.name, module.workload_vsi.vsi_details.name]
+  vsi_list  = distinct(flatten([module.access_host.vsi_details, var.access_host.vsi_name != var.proxy_host.vsi_name ? [module.edge_vsi.vsi_detail] : [], var.access_host.vsi_name != var.proxy_host.vsi_name ? [module.workload_vsi.vsi_details] : []]))
+  vpc_names = distinct([module.access_host.vsi_details.vpc_name, module.edge_vsi.vsi_details.vpc_name, module.workload_vsi.vsi_details.vpc_name])
+  vsi_names = distinct([module.access_host.vsi_details.name, module.edge_vsi.vsi_details.name, module.workload_vsi.vsi_details.name])
 }
 
 locals {
