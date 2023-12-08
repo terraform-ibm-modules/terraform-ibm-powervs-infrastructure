@@ -5,20 +5,6 @@
             "name": "management-acl",
             "rules": [
                 {
-                    "name": "allow-ibm-inbound",
-                    "action": "allow",
-                    "direction": "inbound",
-                    "source": "161.0.0.0/8",
-                    "destination": "${access_host_ip}"
-                },
-                {
-                    "name": "allow-ibm-outbound",
-                    "action": "allow",
-                    "direction": "outbound",
-                    "source": "${access_host_ip}",
-                    "destination": "161.0.0.0/8"
-                },
-                {
                     "name": "allow-ssh-inbound-schematics1",
                     "action": "allow",
                     "direction": "inbound",
@@ -568,48 +554,7 @@
                         "source_port_min": 22
                     }
                 },
-                {
-                    "name": "allow-private-net-1-inbound",
-                    "action": "allow",
-                    "direction": "inbound",
-                    "source": "10.0.0.0/8",
-                    "destination": "${access_host_ip}"
-                },
-                {
-                    "name": "allow-private-net-1-outbound",
-                    "action": "allow",
-                    "direction": "outbound",
-                    "source": "${access_host_ip}",
-                    "destination": "10.0.0.0/8"
-                },
-                {
-                    "name": "allow-private-net-2-inbound",
-                    "action": "allow",
-                    "direction": "inbound",
-                    "source": "172.16.0.0/12",
-                    "destination": "${access_host_ip}"
-                },
-                {
-                    "name": "allow-private-net-2-outbound",
-                    "action": "allow",
-                    "direction": "outbound",
-                    "source": "${access_host_ip}",
-                    "destination": "172.16.0.0/12"
-                },
-                {
-                    "name": "allow-private-net-3-inbound",
-                    "action": "allow",
-                    "direction": "inbound",
-                    "source": "192.168.0.0/16",
-                    "destination": "${access_host_ip}"
-                },
-                {
-                    "name": "allow-private-net-3-outbound",
-                    "action": "allow",
-                    "direction": "outbound",
-                    "source": "${access_host_ip}",
-                    "destination": "192.168.0.0/16"
-                },
+
                 {
                     "name": "default-inbound-deny",
                     "action": "deny",
@@ -633,20 +578,6 @@
         {
             "name": "edge-acl",
             "rules": [
-                {
-                    "action": "allow",
-                    "destination": "${inet_host_ip}",
-                    "direction": "inbound",
-                    "name": "allow-ibm-inbound",
-                    "source": "161.0.0.0/8"
-                },
-                {
-                    "action": "allow",
-                    "destination": "161.0.0.0/8",
-                    "direction": "outbound",
-                    "name": "allow-ibm-outbound",
-                    "source": "${inet_host_ip}"
-                },
                 {
                     "name": "allow-udp-dns-inbound",
                     "action": "allow",
@@ -736,48 +667,6 @@
                     }
                 },
                 {
-                    "name": "allow-private-net-1-inbound",
-                    "action": "allow",
-                    "direction": "inbound",
-                    "source": "10.0.0.0/8",
-                    "destination": "${inet_host_ip}"
-                },
-                {
-                    "name": "allow-private-net-1-outbound",
-                    "action": "allow",
-                    "direction": "outbound",
-                    "source": "${inet_host_ip}",
-                    "destination": "10.0.0.0/8"
-                },
-                {
-                    "name": "allow-private-net-2-inbound",
-                    "action": "allow",
-                    "direction": "inbound",
-                    "source": "172.16.0.0/12",
-                    "destination": "${inet_host_ip}"
-                },
-                {
-                    "name": "allow-private-net-2-outbound",
-                    "action": "allow",
-                    "direction": "outbound",
-                    "source": "${inet_host_ip}",
-                    "destination": "172.16.0.0/12"
-                },
-                {
-                    "name": "allow-private-net-3-inbound",
-                    "action": "allow",
-                    "direction": "inbound",
-                    "source": "192.168.0.0/16",
-                    "destination": "${inet_host_ip}"
-                },
-                {
-                    "name": "allow-private-net-3-outbound",
-                    "action": "allow",
-                    "direction": "outbound",
-                    "source": "${inet_host_ip}",
-                    "destination": "192.168.0.0/16"
-                },
-                {
                     "name": "default-inbound-deny",
                     "action": "deny",
                     "direction": "inbound",
@@ -801,21 +690,7 @@
             "name": "workload-acl",
             "rules": [
                 {
-                    "name": "allow-ibm-inbound",
-                    "action": "allow",
-                    "direction": "inbound",
-                    "source": "161.0.0.0/8",
-                    "destination": "${workload_host_ip}"
-                },
-                {
-                    "name": "allow-ibm-outbound",
-                    "action": "allow",
-                    "direction": "outbound",
-                    "source": "${workload_host_ip}",
-                    "destination": "161.0.0.0/8"
-                },
-                {
-                    "name": "allow-udp-dns-inbound",
+                    "name": "wrk-allow-udp-dns-inbound",
                     "action": "allow",
                     "direction": "inbound",
                     "source": "0.0.0.0/0",
@@ -826,7 +701,7 @@
                     }
                 },
                 {
-                    "name": "allow-udp-dns-outbound",
+                    "name": "wrk-allow-udp-dns-outbound",
                     "action": "allow",
                     "direction": "outbound",
                     "source": "${workload_host_ip}",
@@ -835,48 +710,6 @@
                         "port_max": 53,
                         "port_min": 53
                     }
-                },
-                {
-                    "name": "allow-private-net-1-inbound",
-                    "action": "allow",
-                    "direction": "inbound",
-                    "source": "10.0.0.0/8",
-                    "destination": "${workload_host_ip}"
-                },
-                {
-                    "name": "allow-private-net-1-outbound",
-                    "action": "allow",
-                    "direction": "outbound",
-                    "source": "${workload_host_ip}",
-                    "destination": "10.0.0.0/8"
-                },
-                {
-                    "name": "allow-private-net-2-inbound",
-                    "action": "allow",
-                    "direction": "inbound",
-                    "source": "172.16.0.0/12",
-                    "destination": "${workload_host_ip}"
-                },
-                {
-                    "name": "allow-private-net-2-outbound",
-                    "action": "allow",
-                    "direction": "outbound",
-                    "source": "${workload_host_ip}",
-                    "destination": "172.16.0.0/12"
-                },
-                {
-                    "name": "allow-private-net-3-inbound",
-                    "action": "allow",
-                    "direction": "inbound",
-                    "source": "192.168.0.0/16",
-                    "destination": "${workload_host_ip}"
-                },
-                {
-                    "name": "allow-private-net-3-outbound",
-                    "action": "allow",
-                    "direction": "outbound",
-                    "source": "${workload_host_ip}",
-                    "destination": "192.168.0.0/16"
                 },
                 {
                     "name": "default-inbound-deny",

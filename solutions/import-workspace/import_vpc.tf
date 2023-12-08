@@ -45,6 +45,7 @@ module "management_vpc_acl_rules" {
   source                = "../../modules/import-powervs-vpc/acl"
   ibm_is_network_acl_id = each.value.id
   acl_rules             = local.managemnt_vpc_acl_rules
+  skip_deny_rules       = false
 }
 
 data "ibm_is_subnet" "edge_subnets_ds" {
@@ -64,6 +65,7 @@ module "edge_vpc_acl_rules" {
   source                = "../../modules/import-powervs-vpc/acl"
   ibm_is_network_acl_id = each.value.id
   acl_rules             = local.edge_vpc_acl_rules
+  skip_deny_rules       = var.access_host.vsi_name == var.proxy_host.vsi_name ? true : false
 }
 
 data "ibm_is_subnet" "workload_subnets_ds" {
@@ -83,6 +85,7 @@ module "workload_vpc_acl_rules" {
   source                = "../../modules/import-powervs-vpc/acl"
   ibm_is_network_acl_id = each.value.id
   acl_rules             = local.workload_vpc_acl_rules
+  skip_deny_rules       = var.access_host.vsi_name == var.workload_host.vsi_name ? true : var.proxy_host.vsi_name == var.workload_host.vsi_name ? true : false
 }
 
 ######################################################################

@@ -29,3 +29,8 @@ variable "ibm_is_network_acl_id" {
   description = "An existing VPC's existing network ACL id to which rules will be added."
   type        = string
 }
+
+variable "skip_deny_rules" {
+  description = "This boolean value decides if the default deny rules should be created for the respective ACl."
+  type        = bool
+}
