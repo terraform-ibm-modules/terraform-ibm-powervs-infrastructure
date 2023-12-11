@@ -635,28 +635,28 @@
                                     "value": "7300-01-02"
                                 },
                                 {
-                                    "displayname": "AIX - 7300-00-01",
-                                    "value": "7300-00-01"
+                                    "displayname": "AIX - 7200-05-06",
+                                    "value": "7200-05-06"
                                 },
                                 {
-                                    "displayname": "AIX - 7200-05-03",
-                                    "value": "7200-05-03"
+                                    "displayname": "AIX - 7100-05-09",
+                                    "value": "7100-05-09"
                                 },
                                 {
                                     "displayname": "IBM i - IBMi-75-02-2924-1",
                                     "value": "IBMi-75-02-2924-1"
                                 },
                                 {
-                                    "displayname": "IBM i - IBMi-75-01-2924-2",
-                                    "value": "IBMi-75-01-2924-2"
+                                    "displayname": "IBM i - IBMi-75-02-2984-1",
+                                    "value": "IBMi-75-02-2984-1"
                                 },
                                 {
-                                    "displayname": "IBM i - IBMi-74-07-2984-1",
-                                    "value": "IBMi-74-07-2984-1"
+                                    "displayname": "IBM i - IBMi-74-08-2984-1",
+                                    "value": "IBMi-74-08-2984-1"
                                 },
                                 {
-                                    "displayname": "IBM i - IBMi_COR-74-07-2",
-                                    "value": "IBMi_COR-74-07-2"
+                                    "displayname": "IBM i - IBMi_COR-74-08-1",
+                                    "value": "IBMi_COR-74-08-1"
                                 },
                                 {
                                     "displayname": "SAP - RHEL8-SP6-SAP",
