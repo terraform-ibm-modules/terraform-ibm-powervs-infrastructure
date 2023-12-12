@@ -22,7 +22,7 @@ module "quickstart" {
   powervs_management_network  = var.powervs_management_network
   powervs_backup_network      = var.powervs_backup_network
   cloud_connection            = var.cloud_connection
-  powervs_image_names         = local.powervs_image_names
+  powervs_image_names         = [local.qs_tshirt_choice.image]
   tags                        = var.tags
 }
 
@@ -36,18 +36,18 @@ module "powervs_instance" {
   version   = "1.0.2"
   providers = { ibm = ibm.ibm-pi }
 
-  pi_workspace_guid       = module.quickstart.powervs_workspace_guid
-  pi_ssh_public_key_name  = module.quickstart.powervs_ssh_public_key.name
-  pi_image_id             = local.powervs_instance_boot_image_id
-  pi_networks             = local.powervs_networks
-  pi_instance_name        = "pi-qs"
-  pi_sap_profile_id       = local.powervs_instance_sap_profile_id
-  pi_server_type          = local.sap_system_creation_enabled ? null : "s922"
-  pi_number_of_processors = local.powervs_instance_cores
-  pi_memory_size          = local.powervs_instance_memory
-  pi_cpu_proc_type        = local.sap_system_creation_enabled ? null : "shared"
-  pi_storage_config       = local.powervs_instance_storage_config
+  pi_workspace_guid      = module.quickstart.powervs_workspace_guid
+  pi_ssh_public_key_name = module.quickstart.powervs_ssh_public_key.name
 
+  pi_image_id             = local.pi_instance.pi_image_id
+  pi_networks             = local.pi_instance.pi_networks
+  pi_instance_name        = local.pi_instance.pi_instance_name
+  pi_sap_profile_id       = local.pi_instance.pi_sap_profile_id
+  pi_server_type          = local.pi_instance.pi_server_type
+  pi_number_of_processors = local.pi_instance.pi_number_of_processors
+  pi_memory_size          = local.pi_instance.pi_memory_size
+  pi_cpu_proc_type        = local.pi_instance.pi_cpu_proc_type
+  pi_storage_config       = local.pi_instance.pi_storage_config
 }
 
 moved {

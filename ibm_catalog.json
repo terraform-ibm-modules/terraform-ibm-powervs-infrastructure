@@ -537,6 +537,10 @@
                             "required": true,
                             "options": [
                                 {
+                                    "displayname": "Custom (Configure in optional parameters)",
+                                    "value": "custom"
+                                },
+                                {
                                     "displayname": "AIX - XS (1cpu,32GB,disk-100GB,7300-01-02)",
                                     "value": "aix_xs"
                                 },
@@ -549,7 +553,7 @@
                                     "value": "aix_m"
                                 },
                                 {
-                                    "displayname": "AIX - L (15cpu,512GB,disk-2000GB,7300-01-02)",
+                                    "displayname": "AIX - L (14cpu,512GB,disk-2000GB,7300-01-02)",
                                     "value": "aix_l"
                                 },
                                 {
@@ -624,11 +628,11 @@
                         {
                             "key": "custom_profile_instance_boot_image",
                             "type": "string",
-                            "default_value": "SLES15-SP4-SAP",
+                            "default_value": "none",
                             "options": [
                                 {
                                     "displayname": "None",
-                                    "value": "SLES15-SP4-SAP"
+                                    "value": "none"
                                 },
                                 {
                                     "displayname": "AIX - 7300-01-02",
@@ -678,7 +682,12 @@
                             "custom_config": {}
                         },
                         {
-                            "key": "custom_profile"
+                            "key": "custom_profile",
+                            "custom_config": {
+                                "grouping": "deployment",
+                                "original_grouping": "deployment",
+                                "type": "json_editor"
+                            }
                         },
                         {
                             "key": "configure_dns_forwarder"
