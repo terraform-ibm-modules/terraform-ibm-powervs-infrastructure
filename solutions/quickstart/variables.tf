@@ -14,8 +14,8 @@ variable "tshirt_size" {
   default     = "sap_dev"
 
   validation {
-    condition     = contains(["aix_xs", "aix_s", "aix_m", "aix_l", "ibm_i_xs", "ibm_i_s", "ibm_i_m", "ibm_i_l", "sap_dev"], var.tshirt_size)
-    error_message = "Only Following DC values are supported :  aix_xs, aix_s, aix_m, aix_l, ibm_i_xs, ibm_i_s, ibm_i_m, ibm_i_l, sap_dev"
+    condition     = contains(["custom", "aix_xs", "aix_s", "aix_m", "aix_l", "ibm_i_xs", "ibm_i_s", "ibm_i_m", "ibm_i_l", "sap_dev"], var.tshirt_size)
+    error_message = "Only Following DC values are supported :  custom,aix_xs, aix_s, aix_m, aix_l, ibm_i_xs, ibm_i_s, ibm_i_m, ibm_i_l, sap_dev"
   }
 }
 
@@ -48,10 +48,10 @@ variable "ibmcloud_api_key" {
 variable "custom_profile_instance_boot_image" {
   description = "Override the t-shirt size specs of PowerVS Workspace instance by selecting an image name and providing valid 'custom_profile' optional parameter."
   type        = string
-  default     = "RHEL8-SP6-SAP"
+  default     = "none"
   validation {
-    condition     = contains(["RHEL8-SP6-SAP", "SLES15-SP4-SAP", "RHEL8-SP6-SAP-NETWEAVER", "SLES15-SP4-SAP-NETWEAVER", "IBMi-73-13-2924-1", "IBMi-75-01-2984-2", "IBMi-75-01-2924-2", "IBMi-74-07-2984-1", "IBMi_COR-74-07-2", "7300-01-01", "7300-00-01", "7200-05-03", ""], var.custom_profile_instance_boot_image)
-    error_message = "Only Following IBM catalog images are supported :  RHEL8-SP6-SAP, SLES15-SP4-SAP, RHEL8-SP6-SAP-NETWEAVER, SLES15-SP4-SAP-NETWEAVER, IBMi-75-01-2984-2, IBMi-75-01-2924-2, IBMi-74-07-2984-1, IBMi_COR-74-07-2, 7300-01-01, 7300-00-01, 7200-05-03"
+    condition     = contains(["RHEL8-SP6-SAP", "SLES15-SP4-SAP", "RHEL8-SP6-SAP-NETWEAVER", "SLES15-SP4-SAP-NETWEAVER", "7300-01-02", "7200-05-06", "7100-05-09", "IBMi-75-02-2924-1", "IBMi-75-02-2984-1", "IBMi-74-08-2984-1", "IBMi_COR-74-08-1", "none"], var.custom_profile_instance_boot_image)
+    error_message = "Only Following IBM catalog images are supported :  RHEL8-SP6-SAP, SLES15-SP4-SAP, RHEL8-SP6-SAP-NETWEAVER, SLES15-SP4-SAP-NETWEAVER, 7300-01-02, 7200-05-06, 7100-05-09, IBMi-75-02-2924-1, IBMi-75-02-2984-1, IBMi-74-08-2984-1, IBMi_COR-74-08-1, none"
   }
 }
 
@@ -61,19 +61,28 @@ variable "custom_profile" {
     sap_profile_id = string
     cores          = string
     memory         = string
-    storage        = object({ size = string, tier = string })
+    server_type    = string
+    proc_type      = string
+    storage = object({
+      size = string
+      tier = string
+    })
   })
   default = {
     "sap_profile_id" : null,
     "cores" : "",
     "memory" : "",
-    "storage" : { "size" : "", tier = "" }
-
+    "server_type" : "",
+    "proc_type" : "",
+    "storage" : {
+      "size" : "",
+      "tier" : ""
+    }
   }
 
   validation {
-    condition     = (((var.custom_profile.sap_profile_id == null || var.custom_profile.sap_profile_id == "") && ((var.custom_profile.cores == "" && var.custom_profile.memory == "") || (var.custom_profile.cores != "" && var.custom_profile.memory != ""))) || (var.custom_profile.sap_profile_id != null && (var.custom_profile.cores == "" && var.custom_profile.memory == "")))
-    error_message = "Invalid custom config. If 'sap_profile_id' is not null or empty, cores and memory should be empty."
+    condition     = (((var.custom_profile.sap_profile_id == null || var.custom_profile.sap_profile_id == "") && ((var.custom_profile.cores == "" && var.custom_profile.memory == "" && var.custom_profile.proc_type == "" && var.custom_profile.server_type == "") || (var.custom_profile.cores != "" && var.custom_profile.memory != "" && var.custom_profile.server_type != "" && var.custom_profile.proc_type != ""))) || (var.custom_profile.sap_profile_id != null && (var.custom_profile.cores == "" && var.custom_profile.memory == "" && var.custom_profile.proc_type == "" && var.custom_profile.server_type == "")))
+    error_message = "Invalid custom config. If 'sap_profile_id' is not null or empty, then cores, memory, server_type and proc_type must be empty."
   }
 }
 

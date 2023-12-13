@@ -537,35 +537,39 @@
                             "required": true,
                             "options": [
                                 {
-                                    "displayname": "AIX - XS (1cpu,32GB,disk-100GB,7300-01-01)",
+                                    "displayname": "Custom (Configure in optional parameters)",
+                                    "value": "custom"
+                                },
+                                {
+                                    "displayname": "AIX - XS (1cpu,32GB,disk-100GB,7300-01-02)",
                                     "value": "aix_xs"
                                 },
                                 {
-                                    "displayname": "AIX - S (4cpu,128GB,disk-500GB,7300-01-01)",
+                                    "displayname": "AIX - S (4cpu,128GB,disk-500GB,7300-01-02)",
                                     "value": "aix_s"
                                 },
                                 {
-                                    "displayname": "AIX - M (8cpu,256GB,disk-1000GB,7300-01-01)",
+                                    "displayname": "AIX - M (8cpu,256GB,disk-1000GB,7300-01-02)",
                                     "value": "aix_m"
                                 },
                                 {
-                                    "displayname": "AIX - L (15cpu,512GB,disk-2000GB,7300-01-01)",
+                                    "displayname": "AIX - L (14cpu,512GB,disk-2000GB,7300-01-02)",
                                     "value": "aix_l"
                                 },
                                 {
-                                    "displayname": "IBM i - XS (0.25cpu,8GB,disk-100GB,IBMi-75-01-2984-2)",
+                                    "displayname": "IBM i - XS (0.25cpu,8GB,disk-100GB,IBMi-75-02-2924-1)",
                                     "value": "ibm_i_xs"
                                 },
                                 {
-                                    "displayname": "IBM i - S (1cpu,32GB,disk-500GB,IBMi-75-01-2984-2)",
+                                    "displayname": "IBM i - S (1cpu,32GB,disk-500GB,IBMi-75-02-2924-1)",
                                     "value": "ibm_i_s"
                                 },
                                 {
-                                    "displayname": "IBM i - M (2cpu,64GB,disk-1000GB,IBMi-75-01-2984-2)",
+                                    "displayname": "IBM i - M (2cpu,64GB,disk-1000GB,IBMi-75-02-2924-1)",
                                     "value": "ibm_i_m"
                                 },
                                 {
-                                    "displayname": "IBM i - L (4cpu,132GB,disk-2000GB,IBMi-75-01-2984-2)",
+                                    "displayname": "IBM i - L (4cpu,132GB,disk-2000GB,IBMi-75-02-2924-1)",
                                     "value": "ibm_i_l"
                                 },
                                 {
@@ -624,39 +628,39 @@
                         {
                             "key": "custom_profile_instance_boot_image",
                             "type": "string",
-                            "default_value": "SLES15-SP4-SAP",
+                            "default_value": "none",
                             "options": [
                                 {
                                     "displayname": "None",
-                                    "value": "SLES15-SP4-SAP"
+                                    "value": "none"
                                 },
                                 {
-                                    "displayname": "AIX - 7300-01-01",
-                                    "value": "7300-01-01"
+                                    "displayname": "AIX - 7300-01-02",
+                                    "value": "7300-01-02"
                                 },
                                 {
-                                    "displayname": "AIX - 7300-00-01",
-                                    "value": "7300-00-01"
+                                    "displayname": "AIX - 7200-05-06",
+                                    "value": "7200-05-06"
                                 },
                                 {
-                                    "displayname": "AIX - 7200-05-03",
-                                    "value": "7200-05-03"
+                                    "displayname": "AIX - 7100-05-09",
+                                    "value": "7100-05-09"
                                 },
                                 {
-                                    "displayname": "IBM i - IBMi-75-01-2984-2",
-                                    "value": "IBMi-75-01-2984-2"
+                                    "displayname": "IBM i - IBMi-75-02-2924-1",
+                                    "value": "IBMi-75-02-2924-1"
                                 },
                                 {
-                                    "displayname": "IBM i - IBMi-75-01-2924-2",
-                                    "value": "IBMi-75-01-2924-2"
+                                    "displayname": "IBM i - IBMi-75-02-2984-1",
+                                    "value": "IBMi-75-02-2984-1"
                                 },
                                 {
-                                    "displayname": "IBM i - IBMi-74-07-2984-1",
-                                    "value": "IBMi-74-07-2984-1"
+                                    "displayname": "IBM i - IBMi-74-08-2984-1",
+                                    "value": "IBMi-74-08-2984-1"
                                 },
                                 {
-                                    "displayname": "IBM i - IBMi_COR-74-07-2",
-                                    "value": "IBMi_COR-74-07-2"
+                                    "displayname": "IBM i - IBMi_COR-74-08-1",
+                                    "value": "IBMi_COR-74-08-1"
                                 },
                                 {
                                     "displayname": "SAP - RHEL8-SP6-SAP",
@@ -678,7 +682,12 @@
                             "custom_config": {}
                         },
                         {
-                            "key": "custom_profile"
+                            "key": "custom_profile",
+                            "custom_config": {
+                                "grouping": "deployment",
+                                "original_grouping": "deployment",
+                                "type": "json_editor"
+                            }
                         },
                         {
                             "key": "configure_dns_forwarder"
