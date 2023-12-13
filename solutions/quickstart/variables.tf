@@ -71,7 +71,10 @@ variable "custom_profile" {
     "memory" : "",
     "server_type" : "",
     "proc_type" : "",
-    "storage" : { "size" : "", tier = "" }
+    "storage" : {
+      "size" : "",
+      tier : ""
+    }
   }
 
   validation {
