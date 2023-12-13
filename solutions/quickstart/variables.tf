@@ -63,7 +63,10 @@ variable "custom_profile" {
     memory         = string
     server_type    = string
     proc_type      = string
-    storage        = object({ size = string, tier = string })
+    storage = object({
+      size = string
+      tier = string
+    })
   })
   default = {
     "sap_profile_id" : null,
@@ -73,7 +76,7 @@ variable "custom_profile" {
     "proc_type" : "",
     "storage" : {
       "size" : "",
-      tier : ""
+      "tier" : ""
     }
   }
 
