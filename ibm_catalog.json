@@ -163,6 +163,7 @@
                         {
                             "key": "prefix",
                             "type": "string",
+                            "default_value": "",
                             "required": true
                         },
                         {
@@ -184,11 +185,13 @@
                         },
                         {
                             "key": "external_access_ip",
+                            "default_value": "",
                             "required": true
                         },
                         {
                             "key": "ssh_public_key",
                             "type": "multiline_secure_value",
+                            "display_name": "Multiline secure value",
                             "required": true,
                             "custom_config": {
                                 "grouping": "deployment",
@@ -199,6 +202,7 @@
                         {
                             "key": "ssh_private_key",
                             "type": "multiline_secure_value",
+                            "display_name": "Multiline secure value",
                             "required": true,
                             "custom_config": {
                                 "grouping": "deployment",
@@ -209,6 +213,7 @@
                         {
                             "key": "ibmcloud_api_key",
                             "type": "multiline_secure_value",
+                            "display_name": "Multiline secure value",
                             "required": true,
                             "custom_config": {
                                 "grouping": "deployment",
@@ -528,6 +533,7 @@
                         },
                         {
                             "key": "prefix",
+                            "default_value": "",
                             "required": true
                         },
                         {
@@ -581,12 +587,14 @@
                         },
                         {
                             "key": "external_access_ip",
+                            "default_value": "",
                             "required": true
                         },
                         {
                             "key": "ssh_public_key",
                             "required": true,
                             "type": "multiline_secure_value",
+                            "display_name": "Multiline secure value",
                             "custom_config": {
                                 "grouping": "deployment",
                                 "original_grouping": "deployment",
@@ -597,6 +605,7 @@
                             "key": "ssh_private_key",
                             "required": true,
                             "type": "multiline_secure_value",
+                            "display_name": "Multiline secure value",
                             "custom_config": {
                                 "grouping": "deployment",
                                 "original_grouping": "deployment",
@@ -606,6 +615,7 @@
                         {
                             "key": "ibmcloud_api_key",
                             "type": "multiline_secure_value",
+                            "display_name": "Multiline secure value",
                             "required": true,
                             "custom_config": {
                                 "grouping": "deployment",
@@ -616,6 +626,7 @@
                         {
                             "key": "powervs_resource_group_name",
                             "required": true,
+                            "default_value": "",
                             "custom_config": {
                                 "config_constraints": {
                                     "identifier": "rg_name"
@@ -1059,6 +1070,7 @@
                             "key": "ibmcloud_api_key",
                             "type": "multiline_secure_value",
                             "required": true,
+                            "display_name": "Multiline secure value",
                             "custom_config": {
                                 "grouping": "deployment",
                                 "original_grouping": "deployment",
@@ -1341,6 +1353,7 @@
                         {
                             "key": "ibmcloud_api_key",
                             "type": "multiline_secure_value",
+                            "display_name": "Multiline secure value",
                             "required": true,
                             "custom_config": {
                                 "grouping": "deployment",
