@@ -85,7 +85,7 @@ Creates VPC Landing Zone | Performs VPC VSI OS Config | Creates PowerVS Infrastr
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.3 |
-| <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | >=1.58.1 |
+| <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | >=1.61.0 |
 | <a name="requirement_time"></a> [time](#requirement\_time) | >= 0.9.1 |
 
 ### Modules
@@ -95,7 +95,7 @@ Creates VPC Landing Zone | Performs VPC VSI OS Config | Creates PowerVS Infrastr
 | <a name="module_landing_zone"></a> [landing\_zone](#module\_landing\_zone) | terraform-ibm-modules/landing-zone/ibm//patterns//vsi//module | 5.7.1 |
 | <a name="module_landing_zone_configure_network_services"></a> [landing\_zone\_configure\_network\_services](#module\_landing\_zone\_configure\_network\_services) | ../ansible-configure-network-services | n/a |
 | <a name="module_landing_zone_configure_proxy_server"></a> [landing\_zone\_configure\_proxy\_server](#module\_landing\_zone\_configure\_proxy\_server) | ../ansible-configure-network-services | n/a |
-| <a name="module_powervs_infra"></a> [powervs\_infra](#module\_powervs\_infra) | terraform-ibm-modules/powervs-workspace/ibm | 1.2.0 |
+| <a name="module_powervs_infra"></a> [powervs\_infra](#module\_powervs\_infra) | terraform-ibm-modules/powervs-workspace/ibm | 1.2.1 |
 
 ### Resources
 
