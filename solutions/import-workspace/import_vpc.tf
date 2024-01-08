@@ -15,9 +15,19 @@ module "edge_vsi" {
   vsi_name = var.proxy_host.vsi_name
 }
 
-module "workload_vsi" {
+module "dns_server" {
   source   = "../../modules/import-powervs-vpc/vpc"
-  vsi_name = var.workload_host.vsi_name
+  vsi_name = var.dns_server
+}
+
+module "ntp_server" {
+  source   = "../../modules/import-powervs-vpc/vpc"
+  vsi_name = var.ntp_server
+}
+
+module "nfs_server" {
+  source   = "../../modules/import-powervs-vpc/vpc"
+  vsi_name = var.nfs_server.vsi_name
 }
 
 data "ibm_tg_gateway" "tgw_ds" {
@@ -69,7 +79,7 @@ module "edge_vpc_acl_rules" {
 }
 
 data "ibm_is_subnet" "workload_subnets_ds" {
-  for_each = toset(local.workload_vsi_subnets)
+  for_each = toset(local.dns_server_vsi_subnets)
 
   identifier = each.value
 }
@@ -85,7 +95,7 @@ module "workload_vpc_acl_rules" {
   source                = "../../modules/import-powervs-vpc/acl"
   ibm_is_network_acl_id = each.value.id
   acl_rules             = local.workload_vpc_acl_rules
-  skip_deny_rules       = var.access_host.vsi_name == var.workload_host.vsi_name ? true : var.proxy_host.vsi_name == var.workload_host.vsi_name ? true : false
+  skip_deny_rules       = var.access_host.vsi_name == var.dns_server ? true : var.proxy_host.vsi_name == var.dns_server ? true : false
 }
 
 ######################################################################

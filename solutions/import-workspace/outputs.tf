@@ -67,12 +67,12 @@ output "proxy_host_or_ip_port" {
 
 output "dns_host_or_ip" {
   description = "DNS forwarder host for created PowerVS infrastructure."
-  value       = module.workload_vsi.vsi_details.ipv4_address
+  value       = module.dns_server.vsi_details.ipv4_address
 }
 
 output "ntp_host_or_ip" {
   description = "NTP host for created PowerVS infrastructure."
-  value       = module.workload_vsi.vsi_details.ipv4_address
+  value       = module.ntp_server.vsi_details.ipv4_address
 }
 
 output "nfs_host_or_ip_path" {

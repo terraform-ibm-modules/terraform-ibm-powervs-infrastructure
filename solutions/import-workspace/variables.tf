@@ -32,7 +32,19 @@ variable "proxy_host" {
   }
 }
 
-variable "workload_host" {
+variable "dns_server" {
+  description = "Name of the existing workload host VSI on which the DNS service is configured."
+  type        = string
+  default     = ""
+}
+
+variable "ntp_server" {
+  description = "Name of the existing workload host VSI on which the NTP service is configured."
+  type        = string
+  default     = ""
+}
+
+variable "nfs_server" {
   description = "Name of the existing workload host VSI name and NFS path."
   type = object({
     vsi_name = string
