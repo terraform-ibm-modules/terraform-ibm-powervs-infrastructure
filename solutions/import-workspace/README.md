@@ -16,7 +16,7 @@ This solution takes pre-existing VPC and PowerVS infrastructure resource details
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.3, < 1.6 |
-| <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | =1.60.0 |
+| <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | =1.61.0 |
 
 ### Modules
 
