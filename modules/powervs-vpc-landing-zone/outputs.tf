@@ -49,12 +49,12 @@ output "proxy_host_or_ip_port" {
 
 output "dns_host_or_ip" {
   description = "DNS forwarder host for created PowerVS infrastructure."
-  value       = local.network_services_config.dns.server_host_or_ip
+  value       = var.configure_dns_forwarder ? local.network_services_config.dns.server_host_or_ip : ""
 }
 
 output "ntp_host_or_ip" {
   description = "NTP host for created PowerVS infrastructure."
-  value       = local.network_services_config.ntp.server_host_or_ip
+  value       = var.configure_ntp_forwarder ? local.network_services_config.ntp.server_host_or_ip : ""
 }
 
 output "nfs_host_or_ip_path" {
