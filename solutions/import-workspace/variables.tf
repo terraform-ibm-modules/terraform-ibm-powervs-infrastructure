@@ -1,12 +1,11 @@
-variable "ibmcloud_api_key" {
-  description = "The IBM Cloud platform API key needed to deploy IAM enabled resources."
-  type        = string
-  sensitive   = true
-}
-
 ##############################################################
 # Parameters for VPC VSIs and Transit Gateway
 ##############################################################
+
+variable "vpc_region" {
+  description = "IBM Cloud data center location where IBM VPCs exists."
+  type        = string
+}
 
 variable "access_host" {
   description = "Name of the existing access host VSI and its floating ip."
@@ -14,10 +13,6 @@ variable "access_host" {
     vsi_name    = string
     floating_ip = string
   })
-  default = {
-    "vsi_name" : "",
-    "floating_ip" : ""
-  }
 }
 
 variable "proxy_host" {
@@ -26,38 +21,10 @@ variable "proxy_host" {
     vsi_name = string
     port     = string
   })
-  default = {
-    "vsi_name" : "",
-    "port" : ""
-  }
-}
-
-variable "dns_server" {
-  description = "Name of the existing workload host VSI on which the DNS service is configured."
-  type        = string
-  default     = ""
-}
-
-variable "ntp_server" {
-  description = "Name of the existing workload host VSI on which the NTP service is configured."
-  type        = string
-  default     = ""
-}
-
-variable "nfs_server" {
-  description = "Name of the existing workload host VSI name and NFS path."
-  type = object({
-    vsi_name = string
-    nfs_path = string
-  })
-  default = {
-    "vsi_name" : "",
-    "nfs_path" : ""
-  }
 }
 
 variable "transit_gateway_name" {
-  description = "The name of the transit gateway that connects the existing VPCs and PowerVS workspace."
+  description = "The name of the existing transit gateway that has VPCs and PowerVS workspace connected to it."
   type        = string
 }
 
@@ -88,6 +55,40 @@ variable "powervs_management_network_name" {
 variable "powervs_backup_network_name" {
   description = "Name of backup network in existing PowerVS workspace."
   type        = string
+}
+
+variable "ibmcloud_api_key" {
+  description = "The IBM Cloud platform API key needed to deploy IAM enabled resources."
+  type        = string
+  sensitive   = true
+}
+
+#####################################################
+# Optional Parameters VSI OS Management Services
+#####################################################
+
+variable "dns_server" {
+  description = "Name of the existing workload host VSI on which the DNS service is configured."
+  type        = string
+  default     = ""
+}
+
+variable "ntp_server" {
+  description = "Name of the existing workload host VSI on which the NTP service is configured."
+  type        = string
+  default     = ""
+}
+
+variable "nfs_server" {
+  description = "Name of the existing workload host VSI name and NFS path."
+  type = object({
+    vsi_name = string
+    nfs_path = string
+  })
+  default = {
+    "vsi_name" : "",
+    "nfs_path" : ""
+  }
 }
 
 ##############################################################

@@ -44,13 +44,16 @@ output "vsi_list" {
   value = [
     for virtual_server in local.vsi_list :
     {
-      floating_ip  = virtual_server.floating_ip
-      id           = virtual_server.id
-      ipv4_address = virtual_server.ipv4_address
-      name         = virtual_server.name
-      vpc_id       = virtual_server.vpc_id
-      vpc_name     = virtual_server.vpc_name
-      zone         = virtual_server.zone
+      floating_ip            = virtual_server.floating_ip
+      floating_ip_crn        = virtual_server.floating_ip_crn
+      floating_ip_id         = virtual_server.floating_ip_id
+      id                     = virtual_server.id
+      ipv4_address           = virtual_server.ipv4_address
+      name                   = virtual_server.name
+      secondary_ipv4_address = virtual_server.secondary_ipv4_address
+      vpc_id                 = virtual_server.vpc_id
+      vpc_name               = virtual_server.vpc_name
+      zone                   = virtual_server.zone
     }
   ]
 }
