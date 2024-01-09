@@ -1,42 +1,48 @@
 locals {
   ibm_powervs_zone_region_map = {
+    "syd04"   = "syd"
+    "syd05"   = "syd"
+    "sao01"   = "sao"
+    "sao04"   = "sao"
+    "tor01"   = "tor"
+    "mon01"   = "mon"
+    "eu-de-1" = "eu-de"
+    "eu-de-2" = "eu-de"
+    #"mad02"    = "mad" #not supported. Just P10 machines
+    #"mad04"    = "mad" #not supported. Just P10 machines
     "lon04"    = "lon"
     "lon06"    = "lon"
-    "eu-de-1"  = "eu-de"
-    "eu-de-2"  = "eu-de"
-    "mad02"    = "mad"
-    "tor01"    = "tor"
-    "mon01"    = "mon"
     "osa21"    = "osa"
     "tok04"    = "tok"
-    "syd04"    = "syd"
-    "syd05"    = "syd"
-    "sao01"    = "sao"
     "us-south" = "us-south"
     "dal10"    = "us-south"
     "dal12"    = "us-south"
     "us-east"  = "us-east"
     "wdc06"    = "us-east"
+    "wdc07"    = "us-east"
   }
 
   ibm_powervs_zone_cloud_region_map = {
-    "syd04"    = "au-syd"
-    "syd05"    = "au-syd"
-    "eu-de-1"  = "eu-de"
-    "eu-de-2"  = "eu-de"
-    "mad02"    = "eu-es"
+    "syd04"   = "au-syd"
+    "syd05"   = "au-syd"
+    "sao01"   = "br-sao"
+    "sao04"   = "br-sao"
+    "tor01"   = "ca-tor"
+    "mon01"   = "ca-tor"
+    "eu-de-1" = "eu-de"
+    "eu-de-2" = "eu-de"
+    #"mad02"    = "eu-es" #not supported. Just P10 machines
+    #"mad04"    = "eu-es" #not supported. Just P10 machines
     "lon04"    = "eu-gb"
     "lon06"    = "eu-gb"
-    "tok04"    = "jp-tok"
-    "tor01"    = "ca-tor"
     "osa21"    = "jp-osa"
-    "sao01"    = "br-sao"
-    "mon01"    = "ca-tor"
+    "tok04"    = "jp-tok"
     "us-south" = "us-south"
     "dal10"    = "us-south"
     "dal12"    = "us-south"
     "us-east"  = "us-east"
     "wdc06"    = "us-east"
+    "wdc07"    = "us-east"
   }
 }
 

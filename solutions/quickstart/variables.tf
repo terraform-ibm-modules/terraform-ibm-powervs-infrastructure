@@ -11,11 +11,10 @@ variable "prefix" {
 variable "tshirt_size" {
   description = "PowerVS instance profiles. These profiles can be overridden by specifying 'custom_profile_instance_boot_image' and 'custom_profile' values in optional parameters."
   type        = string
-  default     = "sap_dev"
 
   validation {
     condition     = contains(["custom", "aix_xs", "aix_s", "aix_m", "aix_l", "ibm_i_xs", "ibm_i_s", "ibm_i_m", "ibm_i_l", "sap_dev"], var.tshirt_size)
-    error_message = "Only Following DC values are supported :  custom,aix_xs, aix_s, aix_m, aix_l, ibm_i_xs, ibm_i_s, ibm_i_m, ibm_i_l, sap_dev"
+    error_message = "Only Following DC values are supported :  custom, aix_xs, aix_s, aix_m, aix_l, ibm_i_xs, ibm_i_s, ibm_i_m, ibm_i_l, sap_dev"
   }
 }
 
