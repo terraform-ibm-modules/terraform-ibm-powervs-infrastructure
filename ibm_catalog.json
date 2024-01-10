@@ -93,7 +93,7 @@
                                     "value": "eu-de-1"
                                 },
                                 {
-                                    "displayname": "Frankfurt 2 (eu-de-2)",
+                                    "displayname": "Frankfurt 2 (eu-de-2) PER",
                                     "value": "eu-de-2"
                                 },
                                 {
@@ -109,6 +109,10 @@
                                     "value": "mad02"
                                 },
                                 {
+                                    "displayname": "Madrid 04 (mad04) PER",
+                                    "value": "mad04"
+                                },
+                                {
                                     "displayname": "Montreal 01 (mon01)",
                                     "value": "mon01"
                                 },
@@ -119,6 +123,10 @@
                                 {
                                     "displayname": "Sao Paulo 01 (sao01)",
                                     "value": "sao01"
+                                },
+                                {
+                                    "displayname": "Sao Paulo 04 (sao04) PER",
+                                    "value": "sao04"
                                 },
                                 {
                                     "displayname": "Sydney 04 (syd04)",
@@ -143,6 +151,10 @@
                                 {
                                     "displayname": "Washington DC 06 (wdc06) PER",
                                     "value": "wdc06"
+                                },
+                                {
+                                    "displayname": "Washington DC 07 (wdc07) PER",
+                                    "value": "wdc07"
                                 }
                             ],
                             "custom_config": {}
@@ -481,7 +493,7 @@
                                     "value": "eu-de-1"
                                 },
                                 {
-                                    "displayname": "Frankfurt 2 (eu-de-2)",
+                                    "displayname": "Frankfurt 2 (eu-de-2) PER",
                                     "value": "eu-de-2"
                                 },
                                 {
@@ -503,6 +515,10 @@
                                 {
                                     "displayname": "Sao Paulo 01 (sao01)",
                                     "value": "sao01"
+                                },
+                                {
+                                    "displayname": "Sao Paulo 04 (sao04) PER",
+                                    "value": "sao04"
                                 },
                                 {
                                     "displayname": "Sydney 04 (syd04)",
@@ -527,6 +543,10 @@
                                 {
                                     "displayname": "Washington DC 06 (wdc06) PER",
                                     "value": "wdc06"
+                                },
+                                {
+                                    "displayname": "Washington DC 07 (wdc07) PER",
+                                    "value": "wdc07"
                                 }
                             ],
                             "custom_config": {}
@@ -996,7 +1016,7 @@
                                     "value": "eu-de-1"
                                 },
                                 {
-                                    "displayname": "Frankfurt 2 (eu-de-2)",
+                                    "displayname": "Frankfurt 2 (eu-de-2) PER",
                                     "value": "eu-de-2"
                                 },
                                 {
@@ -1012,6 +1032,10 @@
                                     "value": "mad02"
                                 },
                                 {
+                                    "displayname": "Madrid 04 (mad04) PER",
+                                    "value": "mad04"
+                                },
+                                {
                                     "displayname": "Montreal 01 (mon01)",
                                     "value": "mon01"
                                 },
@@ -1022,6 +1046,10 @@
                                 {
                                     "displayname": "Sao Paulo 01 (sao01)",
                                     "value": "sao01"
+                                },
+                                {
+                                    "displayname": "Sao Paulo 04 (sao04) PER",
+                                    "value": "sao04"
                                 },
                                 {
                                     "displayname": "Sydney 04 (syd04)",
@@ -1046,6 +1074,10 @@
                                 {
                                     "displayname": "Washington DC 06 (wdc06) PER",
                                     "value": "wdc06"
+                                },
+                                {
+                                    "displayname": "Washington DC 07 (wdc07) PER",
+                                    "value": "wdc07"
                                 }
                             ],
                             "custom_config": {}
@@ -1275,7 +1307,7 @@
                                     "value": "eu-de-1"
                                 },
                                 {
-                                    "displayname": "Frankfurt 2 (eu-de-2)",
+                                    "displayname": "Frankfurt 2 (eu-de-2) PER",
                                     "value": "eu-de-2"
                                 },
                                 {
