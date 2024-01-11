@@ -1323,6 +1323,10 @@
                                     "value": "mad02"
                                 },
                                 {
+                                    "displayname": "Madrid 04 (mad04) PER",
+                                    "value": "mad04"
+                                },
+                                {
                                     "displayname": "Montreal 01 (mon01)",
                                     "value": "mon01"
                                 },
@@ -1333,6 +1337,10 @@
                                 {
                                     "displayname": "Sao Paulo 01 (sao01)",
                                     "value": "sao01"
+                                },
+                                {
+                                    "displayname": "Sao Paulo 04 (sao04)",
+                                    "value": "sao04"
                                 },
                                 {
                                     "displayname": "Sydney 04 (syd04)",
