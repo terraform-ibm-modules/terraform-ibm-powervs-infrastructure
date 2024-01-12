@@ -30,7 +30,7 @@ This solution takes pre-existing VPC and PowerVS infrastructure resource details
 | <a name="module_management_vpc_acl_rules"></a> [management\_vpc\_acl\_rules](#module\_management\_vpc\_acl\_rules) | ../../modules/import-powervs-vpc/acl | n/a |
 | <a name="module_powervs_workspace_ds"></a> [powervs\_workspace\_ds](#module\_powervs\_workspace\_ds) | ../../modules/import-powervs-vpc/powervs | n/a |
 | <a name="module_wokload_sg_rules"></a> [wokload\_sg\_rules](#module\_wokload\_sg\_rules) | ../../modules/import-powervs-vpc/security-group | n/a |
-| <a name="module_workload_vpc_acl_rules"></a> [workload\_vpc\_acl\_rules](#module\_workload\_vpc\_acl\_rules) | ../../modules/import-powervs-vpc/acl | n/a |
+| <a name="module_dns_vpc_acl_rules"></a> [workload\_vpc\_acl\_rules](#module\_workload\_vpc\_acl\_rules) | ../../modules/import-powervs-vpc/acl | n/a |
 | <a name="module_workload_vsi"></a> [workload\_vsi](#module\_workload\_vsi) | ../../modules/import-powervs-vpc/vpc | n/a |
 
 ### Resources

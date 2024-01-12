@@ -19,8 +19,12 @@ variable "proxy_host" {
   description = "Name of the existing VSI on which proxy server is configured and proxy server port."
   type = object({
     vsi_name = string
-    port     = string
+    port     = number
   })
+  validation {
+    condition     = 0 < var.proxy_host.port && var.proxy_host.port <= 65535
+    error_message = "The entered proxy server port is invalid. Enter a port number between 1-65535."
+  }
 }
 
 variable "transit_gateway_name" {
@@ -88,6 +92,10 @@ variable "nfs_server" {
   default = {
     "vsi_name" : "",
     "nfs_path" : ""
+  }
+  validation {
+    condition     = var.nfs_server.vsi_name != "" && (var.nfs_server.nfs_path == "" || startswith(var.nfs_server.nfs_path, "/"))
+    error_message = "Provided nfs path is invalid. When the nfs server vsi name is provided, the nfs path should not be empty and it must begin with '/' character."
   }
 }
 

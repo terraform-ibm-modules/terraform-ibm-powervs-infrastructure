@@ -70,12 +70,12 @@ output "proxy_host_or_ip_port" {
 
 output "dns_host_or_ip" {
   description = "DNS forwarder host for created PowerVS infrastructure."
-  value       = module.dns_server.vsi_details.ipv4_address
+  value       = local.dns_host_ip
 }
 
 output "ntp_host_or_ip" {
   description = "NTP host for created PowerVS infrastructure."
-  value       = module.ntp_server.vsi_details.ipv4_address
+  value       = var.ntp_server != "" ? module.ntp_server[0].vsi_details.ipv4_address : ""
 }
 
 output "nfs_host_or_ip_path" {
@@ -144,3 +144,9 @@ output "schematics_workspace_id" {
   description = "ID of the IBM Cloud Schematics workspace. Returns null if not ran in Schematics."
   value       = var.IC_SCHEMATICS_WORKSPACE_ID
 }
+
+/*output "nfs_server_vsi" {
+  #value = var.nfs_server.vsi_name != "" ? 1 : 0
+  value = one(module.nfs_server[*].vsi_details)
+  #sensitive = true
+}*/

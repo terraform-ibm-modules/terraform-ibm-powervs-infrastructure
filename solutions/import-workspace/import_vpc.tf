@@ -16,16 +16,22 @@ module "edge_vsi" {
 }
 
 module "dns_server" {
+  count = var.dns_server != "" ? 1 : 0
+
   source   = "../../modules/import-powervs-vpc/vpc"
   vsi_name = var.dns_server
 }
 
 module "ntp_server" {
+  count = var.ntp_server != "" ? 1 : 0
+
   source   = "../../modules/import-powervs-vpc/vpc"
   vsi_name = var.ntp_server
 }
 
 module "nfs_server" {
+  count = var.nfs_server.vsi_name != "" ? 1 : 0
+
   source   = "../../modules/import-powervs-vpc/vpc"
   vsi_name = var.nfs_server.vsi_name
 }
@@ -89,18 +95,19 @@ data "ibm_is_network_acl" "workload_acls_ds" {
   network_acl = each.value.network_acl
 }
 
-module "workload_vpc_acl_rules" {
+module "dns_vpc_acl_rules" {
   for_each = data.ibm_is_network_acl.workload_acls_ds
 
   source                = "../../modules/import-powervs-vpc/acl"
   ibm_is_network_acl_id = each.value.id
-  acl_rules             = local.workload_vpc_acl_rules
+  acl_rules             = local.dns_vpc_acl_rules
   skip_deny_rules       = var.access_host.vsi_name == var.dns_server ? true : var.proxy_host.vsi_name == var.dns_server ? true : false
 }
 
 ######################################################################
 # Create Security Group Rules for management, edge and workload VPCs
 ######################################################################
+
 
 module "management_sg_rules" {
   for_each = toset(local.management_sgs)
@@ -119,9 +126,9 @@ module "edge_sg_rules" {
 }
 
 module "wokload_sg_rules" {
-  for_each = toset(local.workload_sgs)
+  for_each = toset(local.dns_sgs)
 
   source   = "../../modules/import-powervs-vpc/security-group"
   sg_id    = each.value
-  sg_rules = local.workload_sg_rules
+  sg_rules = local.dns_sg_rules
 }
