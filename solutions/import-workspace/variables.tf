@@ -94,7 +94,7 @@ variable "nfs_server" {
     "nfs_path" : ""
   }
   validation {
-    condition     = var.nfs_server.vsi_name != "" && (var.nfs_server.nfs_path == "" || startswith(var.nfs_server.nfs_path, "/"))
+    condition     = (var.nfs_server.vsi_name == "") || (var.nfs_server.vsi_name != "" && var.nfs_server.nfs_path != "" && startswith(var.nfs_server.nfs_path, "/"))
     error_message = "Provided nfs path is invalid. When the nfs server vsi name is provided, the nfs path should not be empty and it must begin with '/' character."
   }
 }

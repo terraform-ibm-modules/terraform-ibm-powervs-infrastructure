@@ -6,6 +6,10 @@ data "ibm_pi_images" "powervs_workspace_images_ds" {
   pi_cloud_instance_id = data.ibm_resource_instance.powervs_workspace_ds.guid
 }
 
+data "ibm_pi_cloud_connections" "cloud_connections" {
+  pi_cloud_instance_id = data.ibm_resource_instance.powervs_workspace_ds.guid
+}
+
 locals {
   pi_cloud_instance_id = data.ibm_resource_instance.powervs_workspace_ds.guid
 }

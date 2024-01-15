@@ -22,9 +22,7 @@ locals {
 }
 
 provider "ibm" {
-  region = var.vpc_region
-  #region = lookup(local.ibm_powervs_zone_cloud_region_map, var.powervs_zone, null)
-  #zone             = var.powervs_zone
+  region           = var.vpc_region
   ibmcloud_api_key = var.ibmcloud_api_key != null ? var.ibmcloud_api_key : null
 }
 

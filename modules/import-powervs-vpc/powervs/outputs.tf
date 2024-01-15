@@ -20,6 +20,11 @@ output "powervs_images" {
   }
 }
 
+output "cloud_connections_count" {
+  description = "The data of the cloud connections which attcahed to the Power Virtual Server Workspace."
+  value       = length(data.ibm_pi_cloud_connections.cloud_connections.connections)
+}
+
 output "powervs_management_network_subnet" {
   description = "Subnet details of management network in existing PowerVS infrastructure."
   value = tomap({

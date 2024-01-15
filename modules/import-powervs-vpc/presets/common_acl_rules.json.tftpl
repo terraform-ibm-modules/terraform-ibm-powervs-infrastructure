@@ -5,56 +5,56 @@
             "name": "management-acl",
             "rules": [
                 {
-                    "name": "allow-ibm-inbound",
+                    "name": "iw-allow-ibm-inbound",
                     "action": "allow",
                     "direction": "inbound",
                     "source": "161.0.0.0/8",
                     "destination": "${host_ip}"
                 },
                 {
-                    "name": "allow-ibm-outbound",
+                    "name": "iw-allow-ibm-outbound",
                     "action": "allow",
                     "direction": "outbound",
                     "source": "${host_ip}",
                     "destination": "161.0.0.0/8"
                 },
                 {
-                    "name": "allow-private-net-1-inbound",
+                    "name": "iw-allow-private-net-1-inbound",
                     "action": "allow",
                     "direction": "inbound",
                     "source": "10.0.0.0/8",
                     "destination": "${host_ip}"
                 },
                 {
-                    "name": "allow-private-net-1-outbound",
+                    "name": "iw-allow-private-net-1-outbound",
                     "action": "allow",
                     "direction": "outbound",
                     "source": "${host_ip}",
                     "destination": "10.0.0.0/8"
                 },
                 {
-                    "name": "allow-private-net-2-inbound",
+                    "name": "iw-allow-private-net-2-inbound",
                     "action": "allow",
                     "direction": "inbound",
                     "source": "172.16.0.0/12",
                     "destination": "${host_ip}"
                 },
                 {
-                    "name": "allow-private-net-2-outbound",
+                    "name": "iw-allow-private-net-2-outbound",
                     "action": "allow",
                     "direction": "outbound",
                     "source": "${host_ip}",
                     "destination": "172.16.0.0/12"
                 },
                 {
-                    "name": "allow-private-net-3-inbound",
+                    "name": "iw-allow-private-net-3-inbound",
                     "action": "allow",
                     "direction": "inbound",
                     "source": "192.168.0.0/16",
                     "destination": "${host_ip}"
                 },
                 {
-                    "name": "allow-private-net-3-outbound",
+                    "name": "iw-allow-private-net-3-outbound",
                     "action": "allow",
                     "direction": "outbound",
                     "source": "${host_ip}",

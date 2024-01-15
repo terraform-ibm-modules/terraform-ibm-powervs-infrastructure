@@ -13,8 +13,8 @@ data "ibm_is_floating_ips" "relevant_floating_ips" {
 
 locals {
   relevant_fip_data = length(data.ibm_is_floating_ips.relevant_floating_ips.floating_ips) > 0 ? [for ip in data.ibm_is_floating_ips.relevant_floating_ips.floating_ips : ip if var.fip.attached_fip == ip.address] : null
-  floating_ip_crn   = var.fip.is_attached && local.relevant_fip_data != null ? local.relevant_fip_data[0].crn : null
-  floating_ip_id    = var.fip.is_attached && local.relevant_fip_data != null ? local.relevant_fip_data[0].id : null
+  floating_ip_crn   = var.fip.is_attached && local.relevant_fip_data != null ? length(local.relevant_fip_data) != 0 ? local.relevant_fip_data[0].crn : null : null
+  floating_ip_id    = var.fip.is_attached && local.relevant_fip_data != null ? length(local.relevant_fip_data) != 0 ? local.relevant_fip_data[0].id : null : null
   vsi_details = {
     floating_ip            = var.fip.is_attached ? var.fip.attached_fip : null
     floating_ip_crn        = local.floating_ip_crn

@@ -6,7 +6,7 @@
             %{ if "${access_host_ip}" != "" && "${access_host_ip}" != null }
             {
                 "direction": "inbound",
-                "name": "allow-ibm-tcp-22-inbound",
+                "name": "iw-allow-ibm-tcp-22-inbound",
                 "source": "0.0.0.0/0",
                 "tcp": {
                     "port_max": 22,
@@ -23,7 +23,7 @@
             %{ if "${inet_host_ip}" != "" && "${inet_host_ip}" != null }
             {
                 "direction": "inbound",
-                "name": "allow-ibm-tcp-80-inbound",
+                "name": "iw-allow-ibm-tcp-80-inbound",
                 "source": "0.0.0.0/0",
                 "tcp": {
                     "port_max": 80,
@@ -32,7 +32,7 @@
             },
             {
                 "direction": "inbound",
-                "name": "allow-ibm-tcp-443-inbound",
+                "name": "iw-allow-ibm-tcp-443-inbound",
                 "source": "0.0.0.0/0",
                 "tcp": {
                     "port_max": 443,
@@ -41,7 +41,7 @@
             },
             {
                 "direction": "inbound",
-                "name": "allow-ibm-tcp-8443-inbound",
+                "name": "iw-allow-ibm-tcp-8443-inbound",
                 "source": "0.0.0.0/0",
                 "tcp": {
                     "port_max": 8443,
@@ -50,7 +50,7 @@
             },
             {
                 "direction": "inbound",
-                "name": "allow-ibm-udp-53-inbound",
+                "name": "iw-allow-ibm-udp-53-inbound",
                 "source": "0.0.0.0/0",
                 "udp": {
                     "port_min": 53,
@@ -67,7 +67,7 @@
             %{ if "${workload_host_ip}" != "" && "${workload_host_ip}" != null }
             {
                 "direction": "inbound",
-                "name": "allow-ibm-udp-53-inbound",
+                "name": "iw-allow-ibm-udp-53-inbound",
                 "source": "0.0.0.0/0",
                 "udp": {
                     "port_max": 53,
@@ -81,27 +81,27 @@
         "rules": [
             {
                 "direction": "inbound",
-                "name": "allow-ibm-inbound",
+                "name": "iw-allow-ibm-inbound",
                 "source": "161.26.0.0/16"
             },
             {
                 "direction": "inbound",
-                "name": "allow-private1-inbound",
+                "name": "iw-allow-private1-inbound",
                 "source": "10.0.0.0/8"
             },
             {
                 "direction": "inbound",
-                "name": "allow-private2-inbound",
+                "name": "iw-allow-private2-inbound",
                 "source": "172.16.0.0/12"
             },
             {
                 "direction": "inbound",
-                "name": "allow-private3-inbound",
+                "name": "iw-allow-private3-inbound",
                 "source": "192.168.0.0/16"
             },
             {
                 "direction": "outbound",
-                "name": "allow-all-outbound",
+                "name": "iw-allow-all-outbound",
                 "source": "0.0.0.0/0"
             }
         ]

@@ -137,16 +137,10 @@ output "powervs_images" {
 
 output "cloud_connection_count" {
   description = "Number of cloud connections configured in existing PowerVS infrastructure."
-  value       = length(local.cloud_connections)
+  value       = module.powervs_workspace_ds.cloud_connections_count
 }
 
 output "schematics_workspace_id" {
   description = "ID of the IBM Cloud Schematics workspace. Returns null if not ran in Schematics."
   value       = var.IC_SCHEMATICS_WORKSPACE_ID
 }
-
-/*output "nfs_server_vsi" {
-  #value = var.nfs_server.vsi_name != "" ? 1 : 0
-  value = one(module.nfs_server[*].vsi_details)
-  #sensitive = true
-}*/

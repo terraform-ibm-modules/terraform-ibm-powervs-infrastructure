@@ -943,6 +943,55 @@
                     },
                     "configuration": [
                         {
+                            "key": "vpc_region",
+                            "type": "string",
+                            "required": true,
+                            "default_value": "",
+                            "options": [
+                                {
+                                    "displayname": "au-syd",
+                                    "value": "au-syd"
+                                },
+                                {
+                                    "displayname": "br-sao",
+                                    "value": "br-sao"
+                                },
+                                {
+                                    "displayname": "ca-tor",
+                                    "value": "ca-tor"
+                                },
+                                {
+                                    "displayname": "eu-de",
+                                    "value": "eu-de"
+                                },
+                                {
+                                    "displayname": "eu-es",
+                                    "value": "eu-es"
+                                },
+                                {
+                                    "displayname": "eu-gb",
+                                    "value": "eu-gb"
+                                },
+                                {
+                                    "displayname": "jp-osa",
+                                    "value": "jp-osa"
+                                },
+                                {
+                                    "displayname": "jp-tok",
+                                    "value": "jp-tok"
+                                },
+                                {
+                                    "displayname": "us-east",
+                                    "value": "us-east"
+                                },
+                                {
+                                    "displayname": "us-south",
+                                    "value": "us-south"
+                                }
+                            ],
+                            "custom_config": {}
+                        },
+                        {
                             "key": "access_host",
                             "required": true,
                             "custom_config": {
@@ -953,15 +1002,6 @@
                         },
                         {
                             "key": "proxy_host",
-                            "required": true,
-                            "custom_config": {
-                                "grouping": "deployment",
-                                "original_grouping": "deployment",
-                                "type": "json_editor"
-                            }
-                        },
-                        {
-                            "key": "workload_host",
                             "required": true,
                             "custom_config": {
                                 "grouping": "deployment",
@@ -1075,6 +1115,20 @@
                                 "grouping": "deployment",
                                 "original_grouping": "deployment",
                                 "type": "multiline_secure_value"
+                            }
+                        },
+                        {
+                            "key": "dns_server"
+                        },
+                        {
+                            "key": "ntp_server"
+                        },
+                        {
+                            "key": "nfs_server",
+                            "custom_config": {
+                                "grouping": "deployment",
+                                "original_grouping": "deployment",
+                                "type": "json_editor"
                             }
                         },
                         {

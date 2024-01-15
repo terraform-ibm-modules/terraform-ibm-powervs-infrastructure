@@ -25,10 +25,6 @@ locals {
   vsi_names      = local.vsi_list[*].name
 }
 
-locals {
-  cloud_connections = tolist([for each in data.ibm_tg_gateway.tgw_ds.connections : each.name if each.network_type == "directlink"])
-}
-
 ####################################################
 # Locals for creating ACL rules
 ####################################################
@@ -72,5 +68,3 @@ locals {
   edge_sgs       = distinct(flatten([module.edge_vsi.vsi_ds.primary_network_interface[*].security_groups, module.edge_vsi.vsi_ds.network_interfaces[*].security_groups]))
   dns_sgs        = local.dns_server_provided ? distinct(flatten([module.dns_server[0].vsi_ds.primary_network_interface[*].security_groups, module.dns_server[0].vsi_ds.network_interfaces[*].security_groups])) : []
 }
-
-# Would just removing the ACL rules for the private networks suffice?
