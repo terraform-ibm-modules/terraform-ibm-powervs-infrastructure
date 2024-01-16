@@ -71,30 +71,30 @@ variable "ibmcloud_api_key" {
 # Optional Parameters VSI OS Management Services
 #####################################################
 
-variable "dns_server" {
-  description = "Name of the existing workload host VSI on which the DNS service is configured."
+variable "dns_server_ip" {
+  description = "IP address of the existing workload host VSI on which the DNS service is configured."
   type        = string
   default     = ""
 }
 
-variable "ntp_server" {
-  description = "Name of the existing workload host VSI on which the NTP service is configured."
+variable "ntp_server_ip" {
+  description = "IP address of the existing workload host VSI on which the NTP service is configured."
   type        = string
   default     = ""
 }
 
-variable "nfs_server" {
-  description = "Name of the existing workload host VSI name and NFS path."
+variable "nfs_server_ip_path" {
+  description = "IP address of the existing workload host VSI name and NFS path."
   type = object({
-    vsi_name = string
+    vsi_ip   = string
     nfs_path = string
   })
   default = {
-    "vsi_name" : "",
+    "vsi_ip" : "",
     "nfs_path" : ""
   }
   validation {
-    condition     = (var.nfs_server.vsi_name == "") || (var.nfs_server.vsi_name != "" && var.nfs_server.nfs_path != "" && startswith(var.nfs_server.nfs_path, "/"))
+    condition     = (var.nfs_server_ip_path.vsi_ip == "") || (var.nfs_server_ip_path.vsi_ip != "" && var.nfs_server_ip_path.nfs_path != "" && startswith(var.nfs_server_ip_path.nfs_path, "/"))
     error_message = "Provided nfs path is invalid. When the nfs server vsi name is provided, the nfs path should not be empty and it must begin with '/' character."
   }
 }

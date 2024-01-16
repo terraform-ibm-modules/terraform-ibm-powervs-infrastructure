@@ -75,7 +75,7 @@ output "dns_host_or_ip" {
 
 output "ntp_host_or_ip" {
   description = "NTP host for created PowerVS infrastructure."
-  value       = var.ntp_server != "" ? module.ntp_server[0].vsi_details.ipv4_address : ""
+  value       = var.ntp_server_ip != "" ? var.ntp_server_ip : ""
 }
 
 output "nfs_host_or_ip_path" {
