@@ -1,6 +1,21 @@
 # IBM Cloud solution for Power Virtual Server with VPC landing zone Import-Workspace Variation
 
-This solution takes pre-existing VPC and PowerVS infrastructure resource details as inputs and creates a schematics workspace. The created schematics workspace's id can be used as pre-requisite workspace to install the deployable architecture 'Power Virtual Server for SAP HANA' which will create and configure the PowerVS instances for SAP on top of the existing infrastructure.
+This solution helps to install the deployable architecture 'Power Virtual Server for SAP HANA' on top of a pre-existing VPC and Power Virtual Server landscape. 'Power Virtual Server for SAP HANA' automation requires a schematics workspace id for installation. The 'import-workspace' solution creates a schematics workspace by taking pre-existing VPC and PowerVS infrastructure resource details as inputs. The ID of this schematics workspace will be the pre-requisite workspace id required by 'Power Virtual Server for SAP HANA' to create and configure the PowerVS instances for SAP on top of the existing infrastructure.
+
+### Pre-requisites:
+The pre-existing infrastructure must meet the following conditions to use the 'import-workspace' solution to create a schematics workspace:
+- **VPC side**
+    - Pre-existing VPC or VPCs with virtual servers instances, ACL/ACLs, and Security Groups.
+    - Pre-existing access host(jump server) that can access and manage other concerned servers(proxy, NTP, NFS, and DNS servers) in the infrastructure.
+    - Pre-existing proxy server host which is already configured and has access to the internet.
+    - Pre-existing Transit Gateway.
+    - The concerned VPC/VPCs must be attached to the above Transit Gateway.
+    - The necessary ACL and security group rules are created for the appropriate accesses to and from the proxy host, DNS, NTP, NFS, and Power virtual server instances.
+- **Power Virtual Server Workspace side**
+    - Pre-existing Power Virtual Server Workspace with a management and a backup subnets.
+    - Power Virtual Server Workspace/Cloud Connections must be attached to above Transit Gateway.
+    - The access host/jump host on VPC side and the Power Virtual Server Workspace must use the same SSH keys.
+    - The necessary ACLs and security group rules are created for the host/jump host to access and configure the Power virtual server instances.
 
 
 ### Notes:
