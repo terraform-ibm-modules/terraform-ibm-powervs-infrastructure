@@ -28,7 +28,7 @@ related_links:
     url: 'https://cloud.ibm.com/docs/deployable-reference-architectures?topic=deployable-reference-architectures-vsi-ra'
     description: 'Reference architecture for "Secure infrastructure on VPC for regulated industries" as standard variation'
 
-use-case: ITServiceManagement
+use-case: IT Service Management
 
 industry: Technology
 
@@ -48,25 +48,25 @@ content-type: reference-architecture
 {: toc-compliance=""}
 {: toc-version="4.2.0"}
 
-Quickstart deployment of the Power Virtual Server with VPC landing zone creates VPC services , a Power Virtual Server workspace and interconnects them. It also deploys a Power Virtual Server of chosen T-shirt size or custom configuration. Supported Os are Aix, IBM i and Linux images.
+Quickstart deployment of the Power Virtual Server with VPC landing zone creates VPC services, a Power Virtual Server workspace, and interconnects them. It also deploys a Power Virtual Server of chosen T-shirt size or custom configuration. Supported Os are Aix, IBM i, and Linux images.
 
 A proxy service for public internet access from the PowerVS workspace is configured. You can optionally configure some management components on VPC (such as an NFS server, NTP forwarder, and DNS forwarder).
 
-## Architecture diagram
+## Architecture Diagram
 {: #full-architecture-diagram}
 
-![Architecture diagram for 'Power Virtual Server with VPC landing zone' - variation 'Quickstart'.](deploy-arch-ibm-pvs-inf-quickstart.svg "Architecture diagram"){: caption="Figure 1. Single-zone PowerVS workspace accessible over secure landing zone" caption-side="bottom"}{: external download="deploy-arch-ibm-pvs-inf-quickstart.svg"}
+![Architecture Diagram for Power Virtual Server with VPC Landing Zone - Variation Quickstart](deploy-arch-ibm-pvs-inf-quickstart.svg "Architecture Diagram"){: caption="Figure 1. Single-zone PowerVS workspace accessible over secure landing zone" caption-side="bottom"}{: external download="deploy-arch-ibm-pvs-inf-quickstart.svg"}
 
-## Design requirements
+## Design Requirements
 {: #full-design-requirements}
-![Design requirements for 'Power Virtual Server with VPC landing zone' - variation 'Quickstart'.](heat-map-deploy-arch-ibm-pvs-inf-quickstart.svg "Design requirements"){: caption="Figure 2. Scope of the solution requirements" caption-side="bottom"}
+![Design Requirements for 'Power Virtual Server with VPC Landing Zone' - Variation 'Quickstart'](heat-map-deploy-arch-ibm-pvs-inf-quickstart.svg "Design Requirements"){: caption="Figure 2. Scope of the Solution Requirements" caption-side="bottom"}
 
 IBM Cloud® Power Virtual Servers (PowerVS) is a public cloud offering that an enterprise can use to establish its own private IBM Power computing environment on shared public cloud infrastructure. PowerVS is logically isolated from all other public cloud tenants and infrastructure components, creating a private, secure place on the public cloud. This deployable architecture provides a framework to build a PowerVS offering according to the best practices and requirements from the IBM Cloud.
 
 ## Components
 {: #full-components}
 
-### VPC architecture decisions
+### VPC Architecture Decisions
 {: #full-vpc-components-arch}
 
 | Requirement | Component | Choice | Alternative choice |
