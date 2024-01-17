@@ -446,10 +446,10 @@
                             {
                                 "diagram": {
                                     "caption": "Power Virtual Server with VPC landing zone 'full-stack' variation",
-                                    "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/iw_v2/reference-architectures/import-workspace/deploy-arch-ibm-pvs-inf-import-workspace.svg",
+                                    "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/main/reference-architectures/full-stack/deploy-arch-ibm-pvs-inf-full-stack.svg",
                                     "type": "image/svg+xml"
                                 },
-                                "description": "The Power Virtual Server with VPC landing zone as variation 'Create a new architecture' - 'import-workspace' imports existing VPC services and interconneted Power Virtual Server workspace.\n \nRequired and optional management components are configured."
+                                "description": "The Power Virtual Server with VPC landing zone as variation 'Create a new architecture' deploys VPC services and a Power Virtual Server workspace and interconnects them.\n \nRequired and optional management components are configured."
                             }
                         ]
                     }
@@ -947,70 +947,13 @@
                     }
                 },
                 {
-                    "label": "PowerVS Import Workspace",
+                    "label": "Import PowerVS Workspace",
                     "name": "powervs-import-workspace",
                     "install_type": "fullstack",
                     "index": 3,
                     "working_directory": "solutions/import-workspace",
-                    "compliance": {
-                        "authority": "scc-v3",
-                        "profiles": [
-                            {
-                                "profile_name": "IBM Cloud for Financial Services",
-                                "profile_version": "1.3.0"
-                            }
-                        ]
-                    },
+                    "compliance": {},
                     "configuration": [
-                        {
-                            "key": "vpc_region",
-                            "type": "string",
-                            "required": true,
-                            "default_value": "",
-                            "options": [
-                                {
-                                    "displayname": "au-syd",
-                                    "value": "au-syd"
-                                },
-                                {
-                                    "displayname": "br-sao",
-                                    "value": "br-sao"
-                                },
-                                {
-                                    "displayname": "ca-tor",
-                                    "value": "ca-tor"
-                                },
-                                {
-                                    "displayname": "eu-de",
-                                    "value": "eu-de"
-                                },
-                                {
-                                    "displayname": "eu-es",
-                                    "value": "eu-es"
-                                },
-                                {
-                                    "displayname": "eu-gb",
-                                    "value": "eu-gb"
-                                },
-                                {
-                                    "displayname": "jp-osa",
-                                    "value": "jp-osa"
-                                },
-                                {
-                                    "displayname": "jp-tok",
-                                    "value": "jp-tok"
-                                },
-                                {
-                                    "displayname": "us-east",
-                                    "value": "us-east"
-                                },
-                                {
-                                    "displayname": "us-south",
-                                    "value": "us-south"
-                                }
-                            ],
-                            "custom_config": {}
-                        },
                         {
                             "key": "access_host",
                             "required": true,
@@ -1289,16 +1232,18 @@
                             "service_name": "power-iaas"
                         }
                     ],
-                    "diagrams": [
-                        {
-                            "diagram": {
-                                "caption": "Power Virtual Server with VPC landing zone 'full-stack' variation",
-                                "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/main/reference-architectures/full-stack/deploy-arch-ibm-pvs-inf-full-stack.svg",
-                                "type": "image/svg+xml"
-                            },
-                            "description": "The Power Virtual Server with VPC landing zone as variation 'Create a new architecture' deploys VPC services and a Power Virtual Server workspace and interconnects them.\n \nRequired and optional management components are configured."
-                        }
-                    ]
+                    "architecture": {
+                        "diagrams": [
+                            {
+                                "diagram": {
+                                    "caption": "Power Virtual Server with VPC landing zone 'import-workspace' variation",
+                                    "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/iw_v2/reference-architectures/import-workspace/deploy-arch-ibm-pvs-inf-import-workspace.svg",
+                                    "type": "image/svg+xml"
+                                },
+                                "description": "The Power Virtual Server with VPC landing zone as variation 'Create a new architecture' - 'import-workspace' imports existing VPC services and interconneted Power Virtual Server workspace.\n \nRequired and optional management components are configured."
+                            }
+                        ]
+                    }
                 },
                 {
                     "label": "PowerVS Workspace",

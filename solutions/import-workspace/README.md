@@ -1,22 +1,30 @@
 # IBM Cloud solution for Power Virtual Server with VPC landing zone Import-Workspace Variation
 
-This solution helps to install the deployable architecture 'Power Virtual Server for SAP HANA' on top of a pre-existing VPC and Power Virtual Server landscape. 'Power Virtual Server for SAP HANA' automation requires a schematics workspace id for installation. The 'import-workspace' solution creates a schematics workspace by taking pre-existing VPC and PowerVS infrastructure resource details as inputs. The ID of this schematics workspace will be the pre-requisite workspace id required by 'Power Virtual Server for SAP HANA' to create and configure the PowerVS instances for SAP on top of the existing infrastructure.
+This solution helps to install the deployable architecture ['Power Virtual Server for SAP HANA'](https://cloud.ibm.com/catalog/architecture/deploy-arch-ibm-pvs-sap-9aa6135e-75d5-467e-9f4a-ac2a21c069b8-global) on top of a pre-existing Power Virtual Server(PowerVS) landscape. 'Power Virtual Server for SAP HANA' automation requires a schematics workspace id for installation. The 'import-workspace' solution creates a schematics workspace by taking pre-existing VPC and PowerVS infrastructure resource details as inputs. The ID of this schematics workspace will be the pre-requisite workspace id required by 'Power Virtual Server for SAP HANA' to create and configure the PowerVS instances for SAP on top of the existing infrastructure.
 
 ### Pre-requisites:
 The pre-existing infrastructure must meet the following conditions to use the 'import-workspace' solution to create a schematics workspace:
-- **VPC side**
-    - Pre-existing VPC or VPCs with virtual servers instances, ACL/ACLs, and Security Groups.
-    - Pre-existing access host(jump server) that can access and manage other concerned servers(proxy, NTP, NFS, and DNS servers) in the infrastructure.
-    - Pre-existing proxy server host which is already configured and has access to the internet.
-    - Pre-existing Transit Gateway.
-    - The concerned VPC/VPCs must be attached to the above Transit Gateway.
-    - The necessary ACL and security group rules are created for the appropriate accesses to and from the proxy host, DNS, NTP, NFS, and Power virtual server instances.
+- **Virtual Private Cloud(VPC) side**
+    - Existing VPC or VPCs with virtual servers instances, ACL/ACLs, and Security Groups.
+    - Existing access host(jump server) which is an intel based virtual server instance that can access Power virtual server instances.
+    - Existing Transit Gateway.
+    - The VPC in which the jump host exists must be attached to the Transit Gateway.
+    - The necessary ACLs and security group rules for VPC in which the access host(jump server) exists must allow SSH login to the Power virtual server instances which would be created using ['Power Virtual Server for SAP HANA'](https://cloud.ibm.com/catalog/architecture/deploy-arch-ibm-pvs-sap-9aa6135e-75d5-467e-9f4a-ac2a21c069b8-global) automation.
 - **Power Virtual Server Workspace side**
-    - Pre-existing Power Virtual Server Workspace with a management and a backup subnets.
+    - Existing Power Virtual Server Workspace with at-least two private subnets.
     - Power Virtual Server Workspace/Cloud Connections must be attached to above Transit Gateway.
-    - The access host/jump host on VPC side and the Power Virtual Server Workspace must use the same SSH keys.
-    - The necessary ACLs and security group rules are created for the host/jump host to access and configure the Power virtual server instances.
+    - SSH key pairs used to login to access host/jump host(intel based virtual server instance) on VPC side should match to the existing SSH key used in PowerVS Workspace.
+- **Mandatory Management Network Services**
+    - Existing Proxy server ip and port required to configure the internet access required for PowerVS instances.
+- **Optional Management Network Services**
+    - Existing DNS server ip for the PowerVS instances
+    - Existing NTP server ip for the PowerVS instances
+    - Existing NFS server ip and path for the PowerVS instances
+    - If the above parameters are provided, then it must be made sure IPs are reachable on Power virtual server instances which would be created using ['Power Virtual Server for SAP HANA'](https://cloud.ibm.com/catalog/architecture/deploy-arch-ibm-pvs-sap-9aa6135e-75d5-467e-9f4a-ac2a21c069b8-global) automation.
 
+#### Resources Created:
+1. ACL rules for IBM Cloud Schematics are created for the VPC subnets in which access host(jump server) exists.
+2. Schematics workspace required by 'Power Virtual Server for SAP HANA' to create and configure the PowerVS instances for SAP on top of the existing infrastructure.
 
 ### Notes:
 

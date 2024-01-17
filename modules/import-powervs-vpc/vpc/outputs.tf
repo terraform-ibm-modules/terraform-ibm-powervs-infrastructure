@@ -1,11 +1,11 @@
-output "vsi_details" {
-  description = "VSI Information."
-  value       = local.vsi_details
-}
-
 output "vsi_ds" {
   description = "The retrieved VSI data."
   value       = data.ibm_is_instance.vsi_ds
+}
+
+output "vsi_primary_ip" {
+  description = "The VSI IP address."
+  value       = data.ibm_is_instance.vsi_ds.primary_network_interface[0].primary_ip[0].address
 }
 
 output "vsi_ssh_public_key" {

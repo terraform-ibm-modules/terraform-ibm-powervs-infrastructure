@@ -2,12 +2,8 @@
 # Locals for outputs
 ####################################################
 locals {
-  dns_server_provided = var.dns_server_ip != ""
-  nfs_server_provided = var.nfs_server_ip_path.vsi_ip != ""
-
-  proxy_host_or_ip_port  = join(":", [var.proxy_host.vsi_ip, var.proxy_host.port])
-  nfs_host_or_ip_path    = local.nfs_server_provided ? join(":", [var.nfs_server_ip_path.vsi_ip, var.nfs_server_ip_path.nfs_path]) : ""
-  dns_host_ip            = local.dns_server_provided ? var.dns_server_ip : ""
+  proxy_host_ip_port     = join(":", [var.proxy_server_ip_port.vsi_ip, var.proxy_server_ip_port.port])
+  nfs_host_or_ip_path    = var.nfs_server_ip_path.vsi_ip != "" ? join(":", [var.nfs_server_ip_path.vsi_ip, var.nfs_server_ip_path.nfs_path]) : ""
   cloud_connection_count = length([for connection in data.ibm_tg_gateway.tgw_ds.connections : connection if connection.network_type == "directlink"])
 }
 
@@ -16,7 +12,7 @@ locals {
 ####################################################
 
 locals {
-  acl_preset          = templatefile("${path.module}/../../modules/import-powervs-vpc/presets/vpc_acl_rules.json.tftpl", { access_host_ip = module.access_host.vsi_details.ipv4_address, inet_host_ip = "", workload_host_ip = "" })
+  acl_preset          = templatefile("${path.module}/../../modules/import-powervs-vpc/presets/vpc_acl_rules.json.tftpl", { access_host_ip = module.access_host.vsi_primary_ip })
   imported_acl_preset = jsondecode(local.acl_preset)
 
   # access control list rules from presets
@@ -30,7 +26,7 @@ locals {
 ####################################################
 
 locals {
-  sg_preset          = templatefile("${path.module}/../../modules/import-powervs-vpc/presets/vpc_sg_rules.json.tftpl", { access_host_ip = module.access_host.vsi_details.ipv4_address, inet_host_ip = "", workload_host_ip = "" })
+  sg_preset          = templatefile("${path.module}/../../modules/import-powervs-vpc/presets/vpc_sg_rules.json.tftpl", { access_host_ip = module.access_host.vsi_primary_ip })
   imported_sg_preset = jsondecode(local.sg_preset)
 
   # security rules from presets

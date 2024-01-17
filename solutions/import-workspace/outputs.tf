@@ -29,12 +29,12 @@ output "access_host_or_ip" {
 
 output "proxy_host_or_ip_port" {
   description = "Proxy host:port for created PowerVS infrastructure."
-  value       = local.proxy_host_or_ip_port
+  value       = local.proxy_host_ip_port
 }
 
 output "dns_host_or_ip" {
   description = "DNS forwarder host for created PowerVS infrastructure."
-  value       = local.dns_host_ip
+  value       = var.dns_server_ip
 }
 
 output "ntp_host_or_ip" {

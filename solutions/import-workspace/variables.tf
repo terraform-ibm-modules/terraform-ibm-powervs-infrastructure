@@ -2,27 +2,22 @@
 # Parameters for VPC VSIs and Transit Gateway
 ##############################################################
 
-variable "vpc_region" {
-  description = "IBM Cloud data center location where IBM VPCs exists."
-  type        = string
-}
-
 variable "access_host" {
-  description = "Name of the existing access host VSI and its floating ip."
+  description = "Name of the existing access host VSI and its floating ip. Acls will be added to allow schematics IPs to the corresponding VPC."
   type = object({
     vsi_name    = string
     floating_ip = string
   })
 }
 
-variable "proxy_host" {
-  description = "IP address of the existing VSI on which proxy server is configured and proxy server port."
+variable "proxy_server_ip_port" {
+  description = "Proxy Server IP and port. This will be required to configure internet access for PowerVS instances."
   type = object({
     vsi_ip = string
     port   = number
   })
   validation {
-    condition     = 0 < var.proxy_host.port && var.proxy_host.port <= 65535
+    condition     = 0 < var.proxy_server_ip_port.port && var.proxy_server_ip_port.port <= 65535
     error_message = "The entered proxy server port is invalid. Enter a port number between 1-65535."
   }
 }
@@ -52,12 +47,12 @@ variable "powervs_sshkey_name" {
 }
 
 variable "powervs_management_network_name" {
-  description = "Name of management network in existing PowerVS workspace."
+  description = "Name of the subnet used for management network in existing PowerVS workspace."
   type        = string
 }
 
 variable "powervs_backup_network_name" {
-  description = "Name of backup network in existing PowerVS workspace."
+  description = "Name of the subnet used for backup network in existing PowerVS workspace."
   type        = string
 }
 
@@ -72,19 +67,19 @@ variable "ibmcloud_api_key" {
 #####################################################
 
 variable "dns_server_ip" {
-  description = "IP address of the existing workload host VSI on which the DNS service is configured."
+  description = "DNS server IP address."
   type        = string
   default     = ""
 }
 
 variable "ntp_server_ip" {
-  description = "IP address of the existing workload host VSI on which the NTP service is configured."
+  description = "NTP server IP address."
   type        = string
   default     = ""
 }
 
 variable "nfs_server_ip_path" {
-  description = "IP address of the existing workload host VSI name and NFS path."
+  description = "NFS server IP address and Path."
   type = object({
     vsi_ip   = string
     nfs_path = string

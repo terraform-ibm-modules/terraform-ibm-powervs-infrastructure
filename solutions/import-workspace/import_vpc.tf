@@ -1,5 +1,5 @@
 ######################################################################
-# Import data of management and edge vpc vsis
+# Import data of access host(jump host)
 ######################################################################
 module "access_host" {
   source   = "../../modules/import-powervs-vpc/vpc"
