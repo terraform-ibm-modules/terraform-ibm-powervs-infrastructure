@@ -16,10 +16,10 @@ variable "access_host" {
 }
 
 variable "proxy_host" {
-  description = "Name of the existing VSI on which proxy server is configured and proxy server port."
+  description = "IP address of the existing VSI on which proxy server is configured and proxy server port."
   type = object({
-    vsi_name = string
-    port     = number
+    vsi_ip = string
+    port   = number
   })
   validation {
     condition     = 0 < var.proxy_host.port && var.proxy_host.port <= 65535

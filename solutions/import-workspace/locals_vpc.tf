@@ -5,15 +5,10 @@ locals {
   dns_server_provided = var.dns_server_ip != ""
   nfs_server_provided = var.nfs_server_ip_path.vsi_ip != ""
 
-  proxy_host_or_ip_port = join(":", [module.edge_vsi.vsi_details.ipv4_address, var.proxy_host.port])
-  nfs_host_or_ip_path   = local.nfs_server_provided ? join(":", [var.nfs_server_ip_path.vsi_ip, var.nfs_server_ip_path.nfs_path]) : ""
-  dns_host_ip           = local.dns_server_provided ? var.dns_server_ip : ""
-}
-
-locals {
-  vsi_list  = flatten([[module.access_host.vsi_details], module.access_host.vsi_details.name != module.edge_vsi.vsi_details.name ? [module.edge_vsi.vsi_details] : []])
-  vpc_names = local.vsi_list[*].vpc_name
-  vsi_names = local.vsi_list[*].name
+  proxy_host_or_ip_port  = join(":", [var.proxy_host.vsi_ip, var.proxy_host.port])
+  nfs_host_or_ip_path    = local.nfs_server_provided ? join(":", [var.nfs_server_ip_path.vsi_ip, var.nfs_server_ip_path.nfs_path]) : ""
+  dns_host_ip            = local.dns_server_provided ? var.dns_server_ip : ""
+  cloud_connection_count = length([for connection in data.ibm_tg_gateway.tgw_ds.connections : connection if connection.network_type == "directlink"])
 }
 
 ####################################################

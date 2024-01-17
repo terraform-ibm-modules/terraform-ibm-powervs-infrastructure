@@ -10,11 +10,6 @@ module "access_host" {
   }
 }
 
-module "edge_vsi" {
-  source   = "../../modules/import-powervs-vpc/vpc"
-  vsi_name = var.proxy_host.vsi_name
-}
-
 data "ibm_tg_gateway" "tgw_ds" {
   name = var.transit_gateway_name
 }
