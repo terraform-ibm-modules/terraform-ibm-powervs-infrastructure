@@ -1123,7 +1123,7 @@
                             "custom_config": {}
                         },
                         {
-                            "key": "powervs_workspace_name",
+                            "key": "powervs_workspace_guid",
                             "required": true
                         },
                         {
@@ -1150,13 +1150,13 @@
                             }
                         },
                         {
-                            "key": "dns_server"
+                            "key": "dns_server_ip"
                         },
                         {
-                            "key": "ntp_server"
+                            "key": "ntp_server_ip"
                         },
                         {
-                            "key": "nfs_server",
+                            "key": "nfs_server_ip_path",
                             "custom_config": {
                                 "grouping": "deployment",
                                 "original_grouping": "deployment",
@@ -1172,12 +1172,6 @@
                             "key": "prefix"
                         },
                         {
-                            "key": "vpc_names"
-                        },
-                        {
-                            "key": "vsi_names"
-                        },
-                        {
                             "key": "ssh_public_key"
                         },
                         {
@@ -1185,9 +1179,6 @@
                         },
                         {
                             "key": "transit_gateway_id"
-                        },
-                        {
-                            "key": "vsi_list"
                         },
                         {
                             "key": "access_host_or_ip"
@@ -1206,9 +1197,6 @@
                         },
                         {
                             "key": "powervs_zone"
-                        },
-                        {
-                            "key": "powervs_resource_group_name"
                         },
                         {
                             "key": "powervs_workspace_name"
