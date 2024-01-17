@@ -1,5 +1,10 @@
+output "powervs_workspace_name" {
+  description = "The name of the PowerVS workspace."
+  value       = data.ibm_pi_workspace.powervs_workspace.pi_workspace_name
+}
+
 output "powervs_workspace_guid" {
-  description = "The GUID of PowerVS workspace"
+  description = "The GUID of PowerVS workspace."
   value       = data.ibm_resource_instance.powervs_workspace_ds.guid
 }
 

@@ -1,4 +1,4 @@
-variable "pi_workspace_name" {
+variable "pi_workspace_guid" {
   description = "An existing PowerVS infrastructure workspace name."
   type        = string
 }

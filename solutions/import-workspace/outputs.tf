@@ -99,7 +99,7 @@ output "powervs_resource_group_name" {
 
 output "powervs_workspace_name" {
   description = "PowerVS infrastructure workspace name."
-  value       = var.powervs_workspace_name
+  value       = module.powervs_workspace_ds.powervs_workspace_name
 }
 
 output "powervs_workspace_id" {
