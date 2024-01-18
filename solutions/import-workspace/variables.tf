@@ -13,8 +13,8 @@ variable "access_host" {
 variable "proxy_server_ip_port" {
   description = "Existing Proxy Server IP and port. This will be required to configure internet access for PowerVS instances."
   type = object({
-    vsi_ip = string
-    port   = number
+    ip   = string
+    port = number
   })
   validation {
     condition     = 0 < var.proxy_server_ip_port.port && var.proxy_server_ip_port.port <= 65535
@@ -79,17 +79,17 @@ variable "ntp_server_ip" {
 }
 
 variable "nfs_server_ip_path" {
-  description = "NFS server IP address and Path. If the NFS server VSI name is provided, the nfs path should not be empty and must begin with '/' character. For example: nfs_server_ip_path = {\"vsi_ip\"   = \"10.20.10.4\", \"nfs_path\" = \"/nfs\"}"
+  description = "NFS server IP address and Path. If the NFS server VSI name is provided, the nfs path should not be empty and must begin with '/' character. For example: nfs_server_ip_path = {\"ip\"   = \"10.20.10.4\", \"nfs_path\" = \"/nfs\"}"
   type = object({
-    vsi_ip   = string
+    ip       = string
     nfs_path = string
   })
   default = {
-    "vsi_ip" : "",
+    "ip" : "",
     "nfs_path" : ""
   }
   validation {
-    condition     = (var.nfs_server_ip_path.vsi_ip == "") || (var.nfs_server_ip_path.vsi_ip != "" && var.nfs_server_ip_path.nfs_path != "" && startswith(var.nfs_server_ip_path.nfs_path, "/"))
+    condition     = (var.nfs_server_ip_path.ip == "") || (var.nfs_server_ip_path.ip != "" && var.nfs_server_ip_path.nfs_path != "" && startswith(var.nfs_server_ip_path.nfs_path, "/"))
     error_message = "Provided nfs path is invalid. When the NFS server VSI name is provided, the nfs path should not be empty and it must begin with '/' character."
   }
 }

@@ -1,13 +1,4 @@
 ####################################################
-# Locals for outputs
-####################################################
-locals {
-  proxy_host_ip_port     = join(":", [var.proxy_server_ip_port.vsi_ip, var.proxy_server_ip_port.port])
-  nfs_host_or_ip_path    = var.nfs_server_ip_path.vsi_ip != "" ? join(":", [var.nfs_server_ip_path.vsi_ip, var.nfs_server_ip_path.nfs_path]) : ""
-  cloud_connection_count = length([for connection in data.ibm_tg_gateway.tgw_ds.connections : connection if connection.network_type == "directlink"])
-}
-
-####################################################
 # Locals for creating ACL rules
 ####################################################
 
@@ -33,4 +24,13 @@ locals {
   managemnt_sg_rules = flatten([local.imported_sg_preset.management_sg.rules[*]])
   # list of security groups from each VSI
   management_sgs = distinct(flatten([module.access_host.vsi_ds.primary_network_interface[*].security_groups, module.access_host.vsi_ds.network_interfaces[*].security_groups]))
+}
+
+####################################################
+# Locals for outputs
+####################################################
+locals {
+  proxy_host_ip_port     = join(":", [var.proxy_server_ip_port.ip, var.proxy_server_ip_port.port])
+  nfs_host_or_ip_path    = var.nfs_server_ip_path.ip != "" ? join(":", [var.nfs_server_ip_path.ip, var.nfs_server_ip_path.nfs_path]) : ""
+  cloud_connection_count = length([for connection in data.ibm_tg_gateway.tgw_ds.connections : connection if connection.network_type == "directlink"])
 }

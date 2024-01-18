@@ -967,7 +967,7 @@
                         {
                             "key": "proxy_server_ip_port",
                             "required": true,
-                            "default_value": "{\"vsi_ip\":\"\",\"port\":\"\"}",
+                            "default_value": "{\"ip\":\"\",\"port\":\"\"}",
                             "custom_config": {
                                 "grouping": "deployment",
                                 "original_grouping": "deployment",
