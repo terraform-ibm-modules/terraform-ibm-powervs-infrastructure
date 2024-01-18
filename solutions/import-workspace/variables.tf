@@ -11,7 +11,7 @@ variable "access_host" {
 }
 
 variable "proxy_server_ip_port" {
-  description = "Proxy Server IP and port. This will be required to configure internet access for PowerVS instances."
+  description = "Existing Proxy Server IP and port. This will be required to configure internet access for PowerVS instances."
   type = object({
     vsi_ip = string
     port   = number
@@ -47,12 +47,12 @@ variable "powervs_sshkey_name" {
 }
 
 variable "powervs_management_network_name" {
-  description = "Name of the subnet used for management network in existing PowerVS workspace."
+  description = "Name of the existing subnet used for management network in existing PowerVS workspace."
   type        = string
 }
 
 variable "powervs_backup_network_name" {
-  description = "Name of the subnet used for backup network in existing PowerVS workspace."
+  description = "Name of the existing subnet used for backup network in existing PowerVS workspace."
   type        = string
 }
 

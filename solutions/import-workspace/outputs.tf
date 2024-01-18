@@ -23,27 +23,27 @@ output "transit_gateway_id" {
   value       = data.ibm_tg_gateway.tgw_ds.id
 }
 output "access_host_or_ip" {
-  description = "Access host(jump/bastion) for created PowerVS infrastructure."
+  description = "Access host(jump/bastion) for existing PowerVS infrastructure."
   value       = var.access_host.floating_ip
 }
 
 output "proxy_host_or_ip_port" {
-  description = "Proxy host:port for created PowerVS infrastructure."
+  description = "Proxy host:port for existing PowerVS infrastructure."
   value       = local.proxy_host_ip_port
 }
 
 output "dns_host_or_ip" {
-  description = "DNS forwarder host for created PowerVS infrastructure."
+  description = "DNS forwarder host for existing PowerVS infrastructure."
   value       = var.dns_server_ip
 }
 
 output "ntp_host_or_ip" {
-  description = "NTP host for created PowerVS infrastructure."
+  description = "NTP host for existing PowerVS infrastructure."
   value       = var.ntp_server_ip != "" ? var.ntp_server_ip : ""
 }
 
 output "nfs_host_or_ip_path" {
-  description = "NFS host for created PowerVS infrastructure."
+  description = "NFS host for existing PowerVS infrastructure."
   value       = local.nfs_host_or_ip_path
 }
 
