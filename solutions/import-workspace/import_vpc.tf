@@ -4,10 +4,6 @@
 module "access_host" {
   source   = "../../modules/import-powervs-vpc/vpc"
   vsi_name = var.access_host.vsi_name
-  fip = {
-    is_attached  = true
-    attached_fip = var.access_host.floating_ip
-  }
 }
 
 data "ibm_tg_gateway" "tgw_ds" {
