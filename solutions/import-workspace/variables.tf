@@ -79,7 +79,7 @@ variable "ntp_server_ip" {
 }
 
 variable "nfs_server_ip_path" {
-  description = "NFS server IP address and Path."
+  description = "NFS server IP address and Path. If the NFS server VSI name is provided, the nfs path should not be empty and must begin with '/' character. For example: nfs_server_ip_path = {\"vsi_ip\"   = \"10.20.10.4\", \"nfs_path\" = \"/nfs\"}"
   type = object({
     vsi_ip   = string
     nfs_path = string
@@ -90,7 +90,7 @@ variable "nfs_server_ip_path" {
   }
   validation {
     condition     = (var.nfs_server_ip_path.vsi_ip == "") || (var.nfs_server_ip_path.vsi_ip != "" && var.nfs_server_ip_path.nfs_path != "" && startswith(var.nfs_server_ip_path.nfs_path, "/"))
-    error_message = "Provided nfs path is invalid. When the nfs server vsi name is provided, the nfs path should not be empty and it must begin with '/' character."
+    error_message = "Provided nfs path is invalid. When the NFS server VSI name is provided, the nfs path should not be empty and it must begin with '/' character."
   }
 }
 
