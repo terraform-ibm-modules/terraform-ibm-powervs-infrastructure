@@ -50,6 +50,7 @@ resource "ibm_is_network_acl_rule" "network_acl_rules" {
 }
 
 resource "ibm_is_network_acl_rule" "deny_all_outbound" {
+  count      = var.skip_deny_rules == true ? 0 : 1
   depends_on = [resource.ibm_is_network_acl_rule.network_acl_rules]
 
   network_acl = var.ibm_is_network_acl_id
@@ -60,6 +61,7 @@ resource "ibm_is_network_acl_rule" "deny_all_outbound" {
   direction   = "outbound"
 }
 resource "ibm_is_network_acl_rule" "deny_all_inbound" {
+  count      = var.skip_deny_rules == true ? 0 : 1
   depends_on = [resource.ibm_is_network_acl_rule.network_acl_rules]
 
   network_acl = var.ibm_is_network_acl_id

@@ -1,51 +1,29 @@
-variable "ibmcloud_api_key" {
-  description = "The IBM Cloud platform API key needed to deploy IAM enabled resources."
-  type        = string
-  sensitive   = true
-}
-
 ##############################################################
 # Parameters for VPC VSIs and Transit Gateway
 ##############################################################
 
 variable "access_host" {
-  description = "Name of the existing access host VSI and its floating ip."
+  description = "Name of the existing access host VSI and its floating ip. Acls will be added to allow schematics IPs to the corresponding VPC."
   type = object({
     vsi_name    = string
     floating_ip = string
   })
-  default = {
-    "vsi_name" : "",
-    "floating_ip" : ""
-  }
 }
 
-variable "proxy_host" {
-  description = "Name of the existing VSI on which proxy server is configured and proxy server port."
+variable "proxy_server_ip_port" {
+  description = "Existing Proxy Server IP and port. This will be required to configure internet access for PowerVS instances."
   type = object({
-    vsi_name = string
-    port     = string
+    ip   = string
+    port = number
   })
-  default = {
-    "vsi_name" : "",
-    "port" : ""
-  }
-}
-
-variable "workload_host" {
-  description = "Name of the existing workload host VSI name and NFS path."
-  type = object({
-    vsi_name = string
-    nfs_path = string
-  })
-  default = {
-    "vsi_name" : "",
-    "nfs_path" : ""
+  validation {
+    condition     = 0 < var.proxy_server_ip_port.port && var.proxy_server_ip_port.port <= 65535
+    error_message = "The entered proxy server port is invalid. Enter a port number between 1-65535."
   }
 }
 
 variable "transit_gateway_name" {
-  description = "The name of the transit gateway that connects the existing VPCs and PowerVS workspace."
+  description = "The name of the existing transit gateway that has VPCs and PowerVS workspace connected to it."
   type        = string
 }
 
@@ -58,7 +36,7 @@ variable "powervs_zone" {
   type        = string
 }
 
-variable "powervs_workspace_name" {
+variable "powervs_workspace_guid" {
   description = "Name of the existing PowerVS workspace."
   type        = string
 }
@@ -69,13 +47,51 @@ variable "powervs_sshkey_name" {
 }
 
 variable "powervs_management_network_name" {
-  description = "Name of management network in existing PowerVS workspace."
+  description = "Name of the existing subnet used for management network in existing PowerVS workspace."
   type        = string
 }
 
 variable "powervs_backup_network_name" {
-  description = "Name of backup network in existing PowerVS workspace."
+  description = "Name of the existing subnet used for backup network in existing PowerVS workspace."
   type        = string
+}
+
+variable "ibmcloud_api_key" {
+  description = "The IBM Cloud platform API key needed to deploy IAM enabled resources."
+  type        = string
+  sensitive   = true
+}
+
+#####################################################
+# Optional Parameters VSI OS Management Services
+#####################################################
+
+variable "dns_server_ip" {
+  description = "DNS server IP address."
+  type        = string
+  default     = ""
+}
+
+variable "ntp_server_ip" {
+  description = "NTP server IP address."
+  type        = string
+  default     = ""
+}
+
+variable "nfs_server_ip_path" {
+  description = "NFS server IP address and Path. If the NFS server VSI name is provided, the nfs path should not be empty and must begin with '/' character. For example: nfs_server_ip_path = {\"ip\"   = \"10.20.10.4\", \"nfs_path\" = \"/nfs\"}"
+  type = object({
+    ip       = string
+    nfs_path = string
+  })
+  default = {
+    "ip" : "",
+    "nfs_path" : ""
+  }
+  validation {
+    condition     = (var.nfs_server_ip_path.ip == "") || (var.nfs_server_ip_path.ip != "" && var.nfs_server_ip_path.nfs_path != "" && startswith(var.nfs_server_ip_path.nfs_path, "/"))
+    error_message = "Provided nfs path is invalid. When the NFS server VSI name is provided, the nfs path should not be empty and it must begin with '/' character."
+  }
 }
 
 ##############################################################
