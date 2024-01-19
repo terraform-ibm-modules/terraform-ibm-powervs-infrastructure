@@ -17,9 +17,9 @@ The pre-existing infrastructure must meet the following conditions to use the 'i
 - **Mandatory Management Network Services**
     - Existing Proxy server ip and port required to configure the internet access required for PowerVS instances.
 - **Optional Management Network Services**
-    - Existing DNS server ip for the PowerVS instances
-    - Existing NTP server ip for the PowerVS instances
-    - Existing NFS server ip and path for the PowerVS instances
+    - Existing DNS server ip for the PowerVS instances.
+    - Existing NTP server ip for the PowerVS instances.
+    - Existing NFS server ip and path for the PowerVS instances.
     - If the above parameters are provided, then it must be made sure IPs are reachable on Power virtual server instances which would be created using ['Power Virtual Server for SAP HANA'](https://cloud.ibm.com/catalog/architecture/deploy-arch-ibm-pvs-sap-9aa6135e-75d5-467e-9f4a-ac2a21c069b8-global) automation.
 
 #### Resources Created:
