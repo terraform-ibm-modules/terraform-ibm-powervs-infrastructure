@@ -22,7 +22,7 @@ The pre-existing infrastructure must meet the following conditions to use the 'i
     - Existing NFS server ip and path for the PowerVS instances.
     - If the above parameters are provided, then it must be made sure IPs are reachable on Power virtual server instances which would be created using ['Power Virtual Server for SAP HANA'](https://cloud.ibm.com/catalog/architecture/deploy-arch-ibm-pvs-sap-9aa6135e-75d5-467e-9f4a-ac2a21c069b8-global) automation.
 
-NOTE: IBM Cloud has a quota of 100 ACL rules per ACL. The 'Import-Workspace' variation will create 52 new ACL rules for providing schematics servers access to the access host(this access is required for 'Power Virtual Server for SAP HANA' automation). Please ensure the concerned ACL can take in new ACL rules without exceeding the quota of 100 so the deployment will be successful.
+**NOTE:** IBM Cloud has a quota of 100 ACL rules per ACL. The 'Import-Workspace' variation will create 52 new ACL rules for providing schematics servers access to the access host(this access is required for 'Power Virtual Server for SAP HANA' automation). Please ensure the concerned ACL can take in new ACL rules without exceeding the quota of 100 so the deployment will be successful.
 
 #### Resources Created:
 1. ACL rules for IBM Cloud Schematics are created for the VPC subnets in which access host(jump server) exists.
