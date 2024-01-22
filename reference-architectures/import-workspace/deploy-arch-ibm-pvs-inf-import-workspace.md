@@ -53,4 +53,4 @@ This solution helps to install the deployable architecture ['Power Virtual Serve
 ## Architecture diagram
 {: #iw-architecture-diagram}
 
-![Architecture diagram for 'Power Virtual Server with VPC landing zone' - variation 'Import PowerVS Workspace'.](deploy-arch-ibm-pvs-inf-extension.svg "Architecture diagram"){: caption="Figure 1. Single-zone PowerVS workspace accessible over secure landing zone" caption-side="bottom"}{: external download="deploy-arch-ibm-pvs-inf-extension.svg"}
+![Architecture diagram for 'Power Virtual Server with VPC landing zone' - variation 'Import PowerVS Workspace'.](deploy-arch-ibm-pvs-inf-import-workspace.svg "Architecture diagram"){: caption="Figure 1. Power Virtual Server with VPC landing zone 'import-workspace' variation" caption-side="bottom"}{: external download="deploy-arch-ibm-pvs-inf-import-workspace.svg"}
