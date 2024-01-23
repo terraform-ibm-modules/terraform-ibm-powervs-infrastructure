@@ -23,12 +23,7 @@ docs: https://cloud.ibm.com/docs/powervs-vpc
 
 image_source: https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/blob/main/reference-architectures/quickstart/deploy-arch-ibm-pvs-inf-quickstart.svg
 
-related_links:
-  - title: 'Reference architecture for "Secure infrastructure on VPC for regulated industries" as standard variation'
-    url: 'https://cloud.ibm.com/docs/deployable-reference-architectures?topic=deployable-reference-architectures-vsi-ra'
-    description: 'Reference architecture for "Secure infrastructure on VPC for regulated industries" as standard variation'
-
-use-case: IT Service Management
+use-case: ITServiceManagement
 
 industry: Technology
 

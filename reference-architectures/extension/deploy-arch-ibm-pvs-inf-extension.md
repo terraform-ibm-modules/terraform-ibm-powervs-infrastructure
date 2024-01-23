@@ -21,14 +21,6 @@ docs: https://cloud.ibm.com/docs/powervs-vpc
 
 image_source: https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/reference-architectures/extension/deploy-arch-ibm-pvs-inf-extension.svg
 
-related_links:
-  - title: 'SAP in IBM Cloud documentation'
-    url: 'https://cloud.ibm.com/docs/sap'
-    description: 'SAP in IBM Cloud documentation.'
-  - title: 'Reference Architecture for VPC landing zone'
-    url: 'https://cloud.ibm.com/docs/deployable-reference-architectures?topic=deployable-reference-architectures-vsi-ra'
-    description: 'Reference Architecture for Red Hat OpenShift Container Platform on VPC landing zone'
-
 use-case: ITServiceManagement
 
 industry: Technology
@@ -51,10 +43,10 @@ content-type: reference-architecture
 
 The Power Virtual Server with VPC landing zone as variation 'Extend Power Virtual Server with VPC landing zone' creates an additional Power Virtual Server workspace and connects it with the already created Power Virtual Server with VPC landing zone. It builds on the existing Power Virtual Server with VPC landing zone deployed as a variation 'Create a new architecture'.
 
-## Architecture diagram
+## Architecture Diagram
 {: #ext-architecture-diagram}
 
-## Design requirements
+## Design Requirements
 {: #ext-design-requirements}
 
 ![Design requirements for 'Power Virtual Server with VPC Landing Zone' - Variation 'PowerVS Workspace'](heat-map-deploy-arch-ibm-pvs-inf-extension.svg "Design requirements"){: caption="Figure 2. Scope of the Solution Requirements" caption-side="bottom"}
@@ -64,7 +56,7 @@ IBM Cloud® Power Virtual Servers (PowerVS) is a public cloud offering that an e
 ## Components
 {: #ext-components}
 
-### VPC architecture decisions
+### VPC Architecture Decisions
 {: #ext-vpc-components-arch}
 
 | Requirement | Component | Choice | Alternative choice |
