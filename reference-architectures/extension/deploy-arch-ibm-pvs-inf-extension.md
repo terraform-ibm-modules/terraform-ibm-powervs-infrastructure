@@ -22,7 +22,7 @@ docs: https://cloud.ibm.com/docs/powervs-vpc
 image_source: https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/reference-architectures/extension/deploy-arch-ibm-pvs-inf-extension.svg
 
 related_links:
-  - title: 'SAP in IBM Cloud Documentation'
+  - title: 'SAP in IBM Cloud documentation'
     url: 'https://cloud.ibm.com/docs/sap'
     description: 'SAP in IBM Cloud Documentation.'
   - title: 'Reference Architecture for "Secure Infrastructure on VPC for Regulated Industries" as Standard Variation'
