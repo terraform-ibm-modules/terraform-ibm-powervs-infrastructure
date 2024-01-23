@@ -13,7 +13,7 @@ It provisions the following infrastructure on top of the deployed Full Stack sol
 
 
 ### Notes:
-- Please ensure that you are selecting a PowerVS zone different from the one used for the prerequisite infrastructure.
+- Make sure that you select a PowerVS zone that is different from the one used for the prerequisite infrastructure.
 - This solution requires a schematics workspace ID as input.
 - The catalog image names to be imported into the infrastructure can be found [here](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/blob/main/solutions/full-stack/docs/catalog_image_names.md)
 
