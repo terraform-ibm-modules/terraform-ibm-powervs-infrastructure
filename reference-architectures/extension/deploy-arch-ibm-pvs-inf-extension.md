@@ -24,8 +24,8 @@ image_source: https://github.com/terraform-ibm-modules/terraform-ibm-powervs-inf
 related_links:
   - title: 'SAP in IBM Cloud documentation'
     url: 'https://cloud.ibm.com/docs/sap'
-    description: 'SAP in IBM Cloud Documentation.'
-  - title: 'Reference Architecture for "Secure Infrastructure on VPC for Regulated Industries" as Standard Variation'
+    description: 'SAP in IBM Cloud documentation.'
+  - title: 'Reference Architecture for VPC landing zone'
     url: 'https://cloud.ibm.com/docs/deployable-reference-architectures?topic=deployable-reference-architectures-vsi-ra'
     description: 'Reference Architecture for "Secure Infrastructure on VPC for Regulated Industries" as Standard Variation'
 
