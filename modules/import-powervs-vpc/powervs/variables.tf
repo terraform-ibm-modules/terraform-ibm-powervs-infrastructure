@@ -1,5 +1,5 @@
-variable "pi_workspace_name" {
-  description = "An existing PowerVS infrastructure workspace name."
+variable "pi_workspace_guid" {
+  description = "An existing PowerVS infrastructure workspace GUID."
   type        = string
 }
 

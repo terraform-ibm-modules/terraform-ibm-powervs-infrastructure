@@ -7,22 +7,6 @@ output "prefix" {
 # VPC Landing Zone Values
 ##############################################################
 
-output "vpc_names" {
-  description = "A list of the names of the VPC."
-  value = [
-    for vpc_name in local.vpc_names :
-    vpc_name
-  ]
-}
-
-output "vsi_names" {
-  description = "A list of the vsis names provisioned within the VPCs."
-  value = [
-    for vsi_name in local.vsi_names :
-    vsi_name
-  ]
-}
-
 output "ssh_public_key" {
   description = "The string value of the ssh public key used when deploying VPC"
   value       = module.access_host.vsi_ssh_public_key[0].public_key
@@ -38,45 +22,28 @@ output "transit_gateway_id" {
   description = "The ID of transit gateway."
   value       = data.ibm_tg_gateway.tgw_ds.id
 }
-
-output "vsi_list" {
-  description = "A list of VSI with name, id, floating IP, primary ipv4 address, secondary ipv4 address, VPC name, and zone."
-  value = [
-    for virtual_server in local.vsi_list :
-    {
-      floating_ip  = virtual_server.floating_ip
-      id           = virtual_server.id
-      ipv4_address = virtual_server.ipv4_address
-      name         = virtual_server.name
-      vpc_id       = virtual_server.vpc_id
-      vpc_name     = virtual_server.vpc_name
-      zone         = virtual_server.zone
-    }
-  ]
-}
-
 output "access_host_or_ip" {
-  description = "Access host(jump/bastion) for created PowerVS infrastructure."
+  description = "Access host(jump/bastion) for existing PowerVS infrastructure."
   value       = var.access_host.floating_ip
 }
 
 output "proxy_host_or_ip_port" {
-  description = "Proxy host:port for created PowerVS infrastructure."
-  value       = local.proxy_host_or_ip_port
+  description = "Proxy host:port for existing PowerVS infrastructure."
+  value       = local.proxy_host_ip_port
 }
 
 output "dns_host_or_ip" {
-  description = "DNS forwarder host for created PowerVS infrastructure."
-  value       = module.workload_vsi.vsi_details.ipv4_address
+  description = "DNS forwarder host for existing PowerVS infrastructure."
+  value       = var.dns_server_ip
 }
 
 output "ntp_host_or_ip" {
-  description = "NTP host for created PowerVS infrastructure."
-  value       = module.workload_vsi.vsi_details.ipv4_address
+  description = "NTP host for existing PowerVS infrastructure."
+  value       = var.ntp_server_ip != "" ? var.ntp_server_ip : ""
 }
 
 output "nfs_host_or_ip_path" {
-  description = "NFS host for created PowerVS infrastructure."
+  description = "NFS host for existing PowerVS infrastructure."
   value       = local.nfs_host_or_ip_path
 }
 
@@ -89,14 +56,9 @@ output "powervs_zone" {
   value       = var.powervs_zone
 }
 
-output "powervs_resource_group_name" {
-  description = "IBM Cloud resource group of the existing PowerVS infrastructure."
-  value       = module.powervs_workspace_ds.powervs_resource_group_name
-}
-
 output "powervs_workspace_name" {
   description = "PowerVS infrastructure workspace name."
-  value       = var.powervs_workspace_name
+  value       = module.powervs_workspace_ds.powervs_workspace_name
 }
 
 output "powervs_workspace_id" {
@@ -106,7 +68,7 @@ output "powervs_workspace_id" {
 
 output "powervs_workspace_guid" {
   description = "PowerVS infrastructure workspace guid. The GUID of the resource instance."
-  value       = module.powervs_workspace_ds.powervs_workspace_guid
+  value       = var.powervs_workspace_guid
 }
 
 output "powervs_ssh_public_key" {
@@ -134,7 +96,7 @@ output "powervs_images" {
 
 output "cloud_connection_count" {
   description = "Number of cloud connections configured in existing PowerVS infrastructure."
-  value       = length(local.cloud_connections)
+  value       = local.cloud_connection_count
 }
 
 output "schematics_workspace_id" {

@@ -947,24 +947,17 @@
                     }
                 },
                 {
-                    "label": "PowerVS Import Workspace",
+                    "label": "Import PowerVS Workspace",
                     "name": "powervs-import-workspace",
                     "install_type": "fullstack",
                     "index": 3,
                     "working_directory": "solutions/import-workspace",
-                    "compliance": {
-                        "authority": "scc-v3",
-                        "profiles": [
-                            {
-                                "profile_name": "IBM Cloud for Financial Services",
-                                "profile_version": "1.3.0"
-                            }
-                        ]
-                    },
+                    "compliance": {},
                     "configuration": [
                         {
                             "key": "access_host",
                             "required": true,
+                            "default_value": "{\"vsi_name\":\"\",\"floating_ip\":\"\"}",
                             "custom_config": {
                                 "grouping": "deployment",
                                 "original_grouping": "deployment",
@@ -972,17 +965,9 @@
                             }
                         },
                         {
-                            "key": "proxy_host",
+                            "key": "proxy_server_ip_port",
                             "required": true,
-                            "custom_config": {
-                                "grouping": "deployment",
-                                "original_grouping": "deployment",
-                                "type": "json_editor"
-                            }
-                        },
-                        {
-                            "key": "workload_host",
-                            "required": true,
+                            "default_value": "{\"ip\":\"\",\"port\":\"\"}",
                             "custom_config": {
                                 "grouping": "deployment",
                                 "original_grouping": "deployment",
@@ -991,6 +976,7 @@
                         },
                         {
                             "key": "transit_gateway_name",
+                            "default_value": "",
                             "required": true
                         },
                         {
@@ -1083,19 +1069,23 @@
                             "custom_config": {}
                         },
                         {
-                            "key": "powervs_workspace_name",
+                            "key": "powervs_workspace_guid",
+                            "default_value": "",
                             "required": true
                         },
                         {
                             "key": "powervs_sshkey_name",
+                            "default_value": "",
                             "required": true
                         },
                         {
                             "key": "powervs_management_network_name",
+                            "default_value": "",
                             "required": true
                         },
                         {
                             "key": "powervs_backup_network_name",
+                            "default_value": "",
                             "required": true
                         },
                         {
@@ -1110,18 +1100,26 @@
                             }
                         },
                         {
+                            "key": "dns_server_ip"
+                        },
+                        {
+                            "key": "ntp_server_ip"
+                        },
+                        {
+                            "key": "nfs_server_ip_path",
+                            "custom_config": {
+                                "grouping": "deployment",
+                                "original_grouping": "deployment",
+                                "type": "json_editor"
+                            }
+                        },
+                        {
                             "key": "tags"
                         }
                     ],
                     "outputs": [
                         {
                             "key": "prefix"
-                        },
-                        {
-                            "key": "vpc_names"
-                        },
-                        {
-                            "key": "vsi_names"
                         },
                         {
                             "key": "ssh_public_key"
@@ -1131,9 +1129,6 @@
                         },
                         {
                             "key": "transit_gateway_id"
-                        },
-                        {
-                            "key": "vsi_list"
                         },
                         {
                             "key": "access_host_or_ip"
@@ -1152,9 +1147,6 @@
                         },
                         {
                             "key": "powervs_zone"
-                        },
-                        {
-                            "key": "powervs_resource_group_name"
                         },
                         {
                             "key": "powervs_workspace_name"
@@ -1246,7 +1238,19 @@
                             ],
                             "service_name": "power-iaas"
                         }
-                    ]
+                    ],
+                    "architecture": {
+                        "diagrams": [
+                            {
+                                "diagram": {
+                                    "caption": "Power Virtual Server with VPC landing zone 'import-workspace' variation",
+                                    "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/main/reference-architectures/import-workspace/deploy-arch-ibm-pvs-inf-import-workspace.svg",
+                                    "type": "image/svg+xml"
+                                },
+                                "description": "This solution helps to install the deployable architecture 'Power Virtual Server for SAP HANA' on top of a pre-existing Power Virtual Server(PowerVS) landscape. 'Power Virtual Server for SAP HANA' automation requires a schematics workspace id for installation. The 'import-workspace' solution creates a schematics workspace by taking pre-existing VPC and PowerVS infrastructure resource details as inputs. The ID of this schematics workspace will be the pre-requisite workspace id required by 'Power Virtual Server for SAP HANA' to create and configure the PowerVS instances for SAP on top of the existing infrastructure.\n \nRequired and optional management components are configured."
+                            }
+                        ]
+                    }
                 },
                 {
                     "label": "PowerVS Workspace",
