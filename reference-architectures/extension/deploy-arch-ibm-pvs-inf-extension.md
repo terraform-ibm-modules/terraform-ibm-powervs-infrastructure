@@ -27,7 +27,7 @@ related_links:
     description: 'SAP in IBM Cloud documentation.'
   - title: 'Reference Architecture for VPC landing zone'
     url: 'https://cloud.ibm.com/docs/deployable-reference-architectures?topic=deployable-reference-architectures-vsi-ra'
-    description: 'Reference Architecture for "Secure Infrastructure on VPC for Regulated Industries" as Standard Variation'
+    description: 'Reference Architecture for Red Hat OpenShift Container Platform on VPC landing zone'
 
 use-case: ITServiceManagement
 
