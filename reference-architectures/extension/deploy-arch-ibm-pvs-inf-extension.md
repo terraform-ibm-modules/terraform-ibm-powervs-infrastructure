@@ -54,7 +54,7 @@ The Power Virtual Server with VPC landing zone as variation 'Extend Power Virtua
 ## Architecture diagram
 {: #ext-architecture-diagram}
 
-## Design Requirements
+## Design requirements
 {: #ext-design-requirements}
 
 ![Design Requirements for 'Power Virtual Server with VPC Landing Zone' - Variation 'PowerVS Workspace'](heat-map-deploy-arch-ibm-pvs-inf-extension.svg "Design Requirements"){: caption="Figure 2. Scope of the Solution Requirements" caption-side="bottom"}
