@@ -57,7 +57,7 @@ The Power Virtual Server with VPC landing zone as variation 'Extend Power Virtua
 ## Design requirements
 {: #ext-design-requirements}
 
-![Design Requirements for 'Power Virtual Server with VPC Landing Zone' - Variation 'PowerVS Workspace'](heat-map-deploy-arch-ibm-pvs-inf-extension.svg "Design Requirements"){: caption="Figure 2. Scope of the Solution Requirements" caption-side="bottom"}
+![Design requirements for 'Power Virtual Server with VPC Landing Zone' - Variation 'PowerVS Workspace'](heat-map-deploy-arch-ibm-pvs-inf-extension.svg "Design requirements"){: caption="Figure 2. Scope of the Solution Requirements" caption-side="bottom"}
 
 IBM Cloud® Power Virtual Servers (PowerVS) is a public cloud offering that an enterprise can use to establish its own private IBM Power computing environment on shared public cloud infrastructure. PowerVS is logically isolated from all other public cloud tenants and infrastructure components, creating a private, secure place on the public cloud. This deployable architecture provides a framework to build a PowerVS offering according to the best practices and requirements from the IBM Cloud.
 
