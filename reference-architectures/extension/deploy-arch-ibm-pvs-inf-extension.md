@@ -64,7 +64,7 @@ IBM Cloud® Power Virtual Servers (PowerVS) is a public cloud offering that an e
 ## Components
 {: #ext-components}
 
-### VPC Architecture Decisions
+### VPC architecture decisions
 {: #ext-vpc-components-arch}
 
 | Requirement | Component | Choice | Alternative choice |
