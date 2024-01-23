@@ -51,7 +51,7 @@ content-type: reference-architecture
 
 The Power Virtual Server with VPC landing zone as variation 'Extend Power Virtual Server with VPC landing zone' creates an additional Power Virtual Server workspace and connects it with the already created Power Virtual Server with VPC landing zone. It builds on the existing Power Virtual Server with VPC landing zone deployed as a variation 'Create a new architecture'.
 
-## Architecture Diagram
+## Architecture diagram
 {: #ext-architecture-diagram}
 
 ## Design Requirements
