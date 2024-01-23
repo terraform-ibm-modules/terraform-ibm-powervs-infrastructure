@@ -74,5 +74,5 @@ You need the following permissions to run this module.
 
 You can report issues and request features for this module in GitHub issues in the module repository. See [Report an issue or request a feature](https://github.com/terraform-ibm-modules/.github/blob/main/.github/SUPPORT.md).
 
-To set up your local development environment, see [Local Development Setup](https://terraform-ibm-modules.github.io/documentation/#/local-dev-setup) in the project documentation.
+To set up your local development environment, see [Local development setup](https://terraform-ibm-modules.github.io/documentation/#/local-dev-setup) in the project documentation.
 <!-- END CONTRIBUTING HOOK -->
