@@ -1240,6 +1240,28 @@
                         }
                     ],
                     "architecture": {
+                        "features": [
+                            {
+                                "description": "Not created",
+                                "title": "Power Virtual Server Instance"
+                            },
+                            {
+                                "description": "0",
+                                "title": "Number of VPCs"
+                            },
+                            {
+                                "description": "0",
+                                "title": "Number of Intel VSIs"
+                            },
+                            {
+                                "description": "0",
+                                "title": "Power Virtual Server Workspace"
+                            },
+                            {
+                                "description": "Yes",
+                                "title": "Schematics ACLs are inserted into existing Jump Hosts VPC"
+                            }
+                        ],
                         "diagrams": [
                             {
                                 "diagram": {

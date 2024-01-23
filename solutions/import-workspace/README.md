@@ -22,6 +22,8 @@ The pre-existing infrastructure must meet the following conditions to use the 'i
     - Existing NFS server ip and path for the PowerVS instances.
     - If the above parameters are provided, then it must be made sure IPs are reachable on Power virtual server instances which would be created using ['Power Virtual Server for SAP HANA'](https://cloud.ibm.com/catalog/architecture/deploy-arch-ibm-pvs-sap-9aa6135e-75d5-467e-9f4a-ac2a21c069b8-global) automation.
 
+**NOTE:** IBM Cloud has a quota of 100 ACL rules per ACL. The 'Import-Workspace' variation will create 52 new ACL rules for providing schematics servers access to the access host(this access is required for 'Power Virtual Server for SAP HANA' automation). Please ensure the concerned ACL can take in new ACL rules without exceeding the quota of 100 so the deployment will be successful.
+
 #### Resources Created:
 1. ACL rules for IBM Cloud Schematics are created for the VPC subnets in which access host(jump server) exists.
 2. Schematics workspace required by 'Power Virtual Server for SAP HANA' to create and configure the PowerVS instances for SAP on top of the existing infrastructure.
@@ -31,3 +33,6 @@ The pre-existing infrastructure must meet the following conditions to use the 'i
 | Variation  | Available on IBM Catalog  |  Requires Schematics Workspace ID | Imports VPC Landing Zone | Imports VPC VSI OS Config | Imports PowerVS Infrastructure | Imports PowerVS Instance | Performs PowerVS OS Config |
 | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
 | [Import-Workspace](./)  | :heavy_check_mark:  | N/A  | N/A  | N/A  |  N/A  | N/A | N/A |
+
+## Architecture diagram
+![import-workspace-variation](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/blob/main/reference-architectures/import-workspace/deploy-arch-ibm-pvs-inf-import-workspace.svg)
