@@ -47,21 +47,21 @@ Quickstart deployment of the Power Virtual Server with VPC landing zone creates 
 
 A proxy service for public internet access from the PowerVS workspace is configured. You can optionally configure some management components on VPC (such as an NFS server, NTP forwarder, and DNS forwarder).
 
-## Architecture Diagram
+## Architecture diagram
 {: #full-architecture-diagram}
 
 ![Architecture Diagram for Power Virtual Server with VPC Landing Zone - Variation Quickstart](deploy-arch-ibm-pvs-inf-quickstart.svg "Architecture Diagram"){: caption="Figure 1. Single-zone PowerVS workspace accessible over secure landing zone" caption-side="bottom"}{: external download="deploy-arch-ibm-pvs-inf-quickstart.svg"}
 
-## Design Requirements
+## Design requirements
 {: #full-design-requirements}
-![Design Requirements for 'Power Virtual Server with VPC Landing Zone' - Variation 'Quickstart'](heat-map-deploy-arch-ibm-pvs-inf-quickstart.svg "Design Requirements"){: caption="Figure 2. Scope of the Solution Requirements" caption-side="bottom"}
+![Design requirements for 'Power Virtual Server with VPC landing zone' - variation 'Quickstart'](heat-map-deploy-arch-ibm-pvs-inf-quickstart.svg "Design Requirements"){: caption="Figure 2. Scope of the solution requirements" caption-side="bottom"}
 
 IBM Cloud® Power Virtual Servers (PowerVS) is a public cloud offering that an enterprise can use to establish its own private IBM Power computing environment on shared public cloud infrastructure. PowerVS is logically isolated from all other public cloud tenants and infrastructure components, creating a private, secure place on the public cloud. This deployable architecture provides a framework to build a PowerVS offering according to the best practices and requirements from the IBM Cloud.
 
 ## Components
 {: #full-components}
 
-### VPC Architecture Decisions
+### VPC architecture decisions
 {: #full-vpc-components-arch}
 
 | Requirement | Component | Choice | Alternative choice |

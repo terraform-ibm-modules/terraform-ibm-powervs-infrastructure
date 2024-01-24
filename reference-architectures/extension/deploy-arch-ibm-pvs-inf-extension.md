@@ -43,20 +43,20 @@ content-type: reference-architecture
 
 The Power Virtual Server with VPC landing zone as variation 'Extend Power Virtual Server with VPC landing zone' creates an additional Power Virtual Server workspace and connects it with the already created Power Virtual Server with VPC landing zone. It builds on the existing Power Virtual Server with VPC landing zone deployed as a variation 'Create a new architecture'.
 
-## Architecture Diagram
+## Architecture diagram
 {: #ext-architecture-diagram}
 
-## Design Requirements
+## Design requirements
 {: #ext-design-requirements}
 
-![Design requirements for 'Power Virtual Server with VPC Landing Zone' - Variation 'PowerVS Workspace'](heat-map-deploy-arch-ibm-pvs-inf-extension.svg "Design requirements"){: caption="Figure 2. Scope of the Solution Requirements" caption-side="bottom"}
+![Design requirements for 'Power Virtual Server with VPC landing zone' - variation 'PowerVS Workspace'](heat-map-deploy-arch-ibm-pvs-inf-extension.svg "Design requirements"){: caption="Figure 2. Scope of the solution requirements" caption-side="bottom"}
 
 IBM Cloud® Power Virtual Servers (PowerVS) is a public cloud offering that an enterprise can use to establish its own private IBM Power computing environment on shared public cloud infrastructure. PowerVS is logically isolated from all other public cloud tenants and infrastructure components, creating a private, secure place on the public cloud. This deployable architecture provides a framework to build a PowerVS offering according to the best practices and requirements from the IBM Cloud.
 
 ## Components
 {: #ext-components}
 
-### VPC Architecture Decisions
+### VPC architecture decisions
 {: #ext-vpc-components-arch}
 
 | Requirement | Component | Choice | Alternative choice |
