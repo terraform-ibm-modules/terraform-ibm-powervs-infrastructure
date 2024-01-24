@@ -50,7 +50,7 @@ A proxy service for public internet access from the PowerVS workspace is configu
 ## Architecture diagram
 {: #full-architecture-diagram}
 
-![Architecture Diagram for Power Virtual Server with VPC Landing Zone - Variation PowerVS Workspace](deploy-arch-ibm-pvs-inf-full-stack.svg "Architecture Diagram"){: caption="Figure 1. Single-zone PowerVS workspace accessible over secure landing zone" caption-side="bottom"}{: external download="deploy-arch-ibm-pvs-inf-full-stack.svg"}
+![Architecture diagram for 'Power Virtual Server with VPC landing zone' - variation 'PowerVS workspace'](deploy-arch-ibm-pvs-inf-full-stack.svg "Architecture diagram"){: caption="Figure 1. Single-zone PowerVS workspace accessible over secure landing zone" caption-side="bottom"}{: external download="deploy-arch-ibm-pvs-inf-full-stack.svg"}
 
 ## Design requirements
 {: #full-design-requirements}
