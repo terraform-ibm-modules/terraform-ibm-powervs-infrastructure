@@ -54,8 +54,7 @@ A proxy service for public internet access from the PowerVS workspace is configu
 
 ## Design requirements
 {: #full-design-requirements}
-
-![Design requirements for 'Power Virtual Server with VPC landing zone' - variation 'PowerVS Workspace'](heat-map-deploy-arch-ibm-pvs-inf-full-stack.svg "Design Requirements"){: caption="Figure 2. Scope of the solution requirements" caption-side="bottom"}
+![Design requirements for 'Power Virtual Server with VPC landing zone' - variation 'PowerVS workspace'.](heat-map-deploy-arch-ibm-pvs-inf-full-stack.svg "Design requirements"){: caption="Figure 2. Scope of the solution requirements" caption-side="bottom"}
 
 IBM Cloud® Power Virtual Servers (PowerVS) is a public cloud offering that an enterprise can use to establish its own private IBM Power computing environment on shared public cloud infrastructure. PowerVS is logically isolated from all other public cloud tenants and infrastructure components, creating a private, secure place on the public cloud. This deployable architecture provides a framework to build a PowerVS offering according to the best practices and requirements from the IBM Cloud.
 

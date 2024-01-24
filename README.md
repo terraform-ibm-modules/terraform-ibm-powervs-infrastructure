@@ -27,7 +27,7 @@ Three solutions are offered:
 - It creates the ACL and security group rules necessary for management services (NTP, NFS, DNS, and proxy server) and schematics engine access.
     - This solution is typically used for converting an existing Power Virtual Server landscape to a Schematics workspace.
 
-## Reference Architectures
+## Reference architectures
 - [PowerVS Full-Stack Variation](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/tree/main/reference-architectures/full-stack/deploy-arch-ibm-pvs-inf-full-stack.md)
 - [PowerVS Extension Variation](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/tree/main/reference-architectures/extension/deploy-arch-ibm-pvs-inf-extension.md)
 - [PowerVS Quickstart Variation](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/tree/main/reference-architectures/quickstart/deploy-arch-ibm-pvs-inf-quickstart.md)
