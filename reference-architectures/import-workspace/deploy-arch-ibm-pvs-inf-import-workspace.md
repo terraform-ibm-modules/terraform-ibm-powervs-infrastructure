@@ -21,14 +21,6 @@ docs: https://cloud.ibm.com/docs/powervs-vpc
 
 image_source: https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/blob/main/reference-architectures/reference-architectures/import-workspace/deploy-arch-ibm-pvs-inf-import-workspace.svg
 
-related_links:
-  - title: 'SAP in IBM Cloud documentation'
-    url: 'https://cloud.ibm.com/docs/sap'
-    description: 'SAP in IBM Cloud documentation.'
-  - title: 'Reference architecture for "Secure infrastructure on VPC for regulated industries" as standard variation'
-    url: 'https://cloud.ibm.com/docs/deployable-reference-architectures?topic=deployable-reference-architectures-vsi-ra'
-    description: 'Reference architecture for "Secure infrastructure on VPC for regulated industries" as standard variation'
-
 use-case: ITServiceManagement
 
 industry: Technology
