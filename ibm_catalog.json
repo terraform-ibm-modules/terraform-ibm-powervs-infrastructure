@@ -121,7 +121,7 @@
                                     "value": "osa21"
                                 },
                                 {
-                                    "displayname": "Sao Paulo 01 (sao01)",
+                                    "displayname": "Sao Paulo 01 (sao01) PER",
                                     "value": "sao01"
                                 },
                                 {
@@ -513,7 +513,7 @@
                                     "value": "osa21"
                                 },
                                 {
-                                    "displayname": "Sao Paulo 01 (sao01)",
+                                    "displayname": "Sao Paulo 01 (sao01) PER",
                                     "value": "sao01"
                                 },
                                 {
@@ -1030,7 +1030,7 @@
                                     "value": "osa21"
                                 },
                                 {
-                                    "displayname": "Sao Paulo 01 (sao01)",
+                                    "displayname": "Sao Paulo 01 (sao01) PER",
                                     "value": "sao01"
                                 },
                                 {
@@ -1361,11 +1361,11 @@
                                     "value": "osa21"
                                 },
                                 {
-                                    "displayname": "Sao Paulo 01 (sao01)",
+                                    "displayname": "Sao Paulo 01 (sao01) PER",
                                     "value": "sao01"
                                 },
                                 {
-                                    "displayname": "Sao Paulo 04 (sao04)",
+                                    "displayname": "Sao Paulo 04 (sao04) PER",
                                     "value": "sao04"
                                 },
                                 {
@@ -1391,6 +1391,10 @@
                                 {
                                     "displayname": "Washington DC 06 (wdc06) PER",
                                     "value": "wdc06"
+                                },
+                                {
+                                    "displayname": "Washington DC 07 (wdc07) PER",
+                                    "value": "wdc07"
                                 }
                             ],
                             "custom_config": {}
