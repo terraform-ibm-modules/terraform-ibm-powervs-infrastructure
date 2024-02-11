@@ -41,7 +41,7 @@ func setupOptions(t *testing.T, prefix string) *testhelper.TestOptions {
 		Prefix:             prefix,
 		ResourceGroup:      resourceGroup,
 		Region:             "us-south", // specify default region to skip best choice query
-		DefaultRegion:      "us-south",
+		DefaultRegion:      "dal10",
 		BestRegionYAMLPath: "./common-go-assets/cloudinfo-region-power-prefs.yaml", // specific to powervs zones
 		// temporary workaround for BSS backend issue
 		ImplicitDestroy: []string{
