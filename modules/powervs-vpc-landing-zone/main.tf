@@ -20,7 +20,6 @@ module "ansible_configure_network_services" {
   target_server_ip        = local.inet_svs_ip
   ssh_private_key         = var.ssh_private_key
   network_services_config = local.network_services_config
-  vsi_list                = module.landing_zone.vsi_list
 }
 
 #####################################################

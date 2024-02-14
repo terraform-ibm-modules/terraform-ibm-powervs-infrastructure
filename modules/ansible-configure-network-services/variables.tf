@@ -19,9 +19,3 @@ variable "network_services_config" {
   type        = any
   default     = {}
 }
-
-variable "vsi_list" {
-  description = "A list of VSI with name, id, zone, and primary ipv4 address, VPC Name, and floating IP."
-  type        = list(any)
-  default     = []
-}

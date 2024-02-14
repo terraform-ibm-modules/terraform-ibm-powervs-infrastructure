@@ -36,7 +36,7 @@ resource "terraform_data" "ansible_host" {
   provisioner "remote-exec" {
     inline = [
       "chmod +x ${local.dst_install_ansible_path}",
-      "${local.dst_install_ansible_path}",
+      local.dst_install_ansible_path,
     ]
   }
 }
