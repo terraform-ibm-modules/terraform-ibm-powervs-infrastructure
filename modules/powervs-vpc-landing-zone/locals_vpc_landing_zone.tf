@@ -15,9 +15,9 @@ locals {
   nfs_volume_size         = local.nfs_enable ? var.nfs_server_config.size : 0
 
   vsi_images = {
-    "1VPC_RHEL" = "ibm-redhat-8-6-amd64-sap-applications-4"
-    "3VPC_RHEL" = "ibm-redhat-8-6-amd64-sap-applications-4"
-    "3VPC_SLES" = "ibm-sles-15-4-amd64-sap-applications-6"
+    "1VPC_RHEL" = "ibm-redhat-9-2-amd64-sap-applications-1"
+    "3VPC_RHEL" = "ibm-redhat-9-2-amd64-sap-applications-1"
+    "3VPC_SLES" = "ibm-sles-15-5-amd64-sap-applications-1"
   }
 
   landing_zone_preset = {

@@ -20,14 +20,8 @@ variable "network_services_config" {
   default     = {}
 }
 
-variable "perform_proxy_client_setup" {
-  description = "Configures a Vm/Lpar to have internet access by setting proxy on it."
-  type = object(
-    {
-      squid_client_ips = list(string)
-      squid_server_ip  = string
-      squid_port       = string
-      no_proxy_hosts   = string
-    }
-  )
+variable "vsi_list" {
+  description = "A list of VSI with name, id, zone, and primary ipv4 address, VPC Name, and floating IP."
+  type        = list(any)
+  default     = []
 }

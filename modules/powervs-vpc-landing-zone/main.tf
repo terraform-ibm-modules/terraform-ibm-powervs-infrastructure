@@ -1,6 +1,6 @@
-#############################
+#####################################################
 # Landing Zone module
-#############################
+#####################################################
 
 module "landing_zone" {
   source    = "terraform-ibm-modules/landing-zone/ibm//patterns//vsi//module"
@@ -13,33 +13,14 @@ module "landing_zone" {
   override_json_string = local.override_json_string
 }
 
-module "landing_zone_configure_proxy_server" {
+module "ansible_configure_network_services" {
   source = "../ansible-configure-network-services"
-  count  = local.private_svs_vsi_exists ? 1 : 0
 
-  access_host_or_ip          = local.access_host_or_ip
-  target_server_ip           = local.inet_svs_ip
-  ssh_private_key            = var.ssh_private_key
-  network_services_config    = local.squid_config
-  perform_proxy_client_setup = null
-}
-
-resource "time_sleep" "wait_for_squid_setup_to_complete" {
-  depends_on = [module.landing_zone_configure_proxy_server]
-  count      = local.private_svs_vsi_exists ? 1 : 0
-
-  create_duration = "120s"
-}
-
-module "landing_zone_configure_network_services" {
-  source     = "../ansible-configure-network-services"
-  depends_on = [time_sleep.wait_for_squid_setup_to_complete]
-
-  access_host_or_ip          = local.access_host_or_ip
-  target_server_ip           = local.private_svs_vsi_exists ? local.private_svs_ip : local.inet_svs_ip
-  ssh_private_key            = var.ssh_private_key
-  network_services_config    = local.network_services_config
-  perform_proxy_client_setup = local.private_svs_vsi_exists ? local.perform_proxy_client_setup : null
+  access_host_or_ip       = local.access_host_or_ip
+  target_server_ip        = local.inet_svs_ip
+  ssh_private_key         = var.ssh_private_key
+  network_services_config = local.network_services_config
+  vsi_list                = module.landing_zone.vsi_list
 }
 
 #####################################################
