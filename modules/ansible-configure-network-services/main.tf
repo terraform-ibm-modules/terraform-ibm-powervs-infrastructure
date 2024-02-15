@@ -127,7 +127,7 @@ resource "terraform_data" "execute_ansible_role" {
     destination = local.dst_configure_network_services_file_path
   }
 
-  # Execute script: configure_network_services.sh
+  # Execute script: configure_network_services.sh which calls ansible playbook and executes the tasks
   provisioner "remote-exec" {
     inline = ["chmod +x ${local.dst_configure_network_services_file_path}", local.dst_configure_network_services_file_path]
   }
