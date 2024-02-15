@@ -4,14 +4,14 @@ locals {
   dst_files_dir             = "/root/terraform_files"
 }
 
+########################################################################################
+# 1. Execute shell script to install ansible packages
+########################################################################################
+
 locals {
   src_install_ansible_tpl_path = "${local.src_shell_templates_dir}/install_ansible.sh"
   dst_install_ansible_path     = "${local.dst_files_dir}/install_ansible.sh"
 }
-
-########################################################################################
-# 1. Execute shell script to install ansible packages
-########################################################################################
 
 resource "terraform_data" "ansible_host" {
 
