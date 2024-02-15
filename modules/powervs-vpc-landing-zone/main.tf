@@ -13,11 +13,15 @@ module "landing_zone" {
   override_json_string = local.override_json_string
 }
 
+#####################################################
+# Ansible Host module setup and execution
+#####################################################
+
 module "ansible_configure_network_services" {
   source = "../ansible-configure-network-services"
 
   access_host_or_ip       = local.access_host_or_ip
-  target_server_ip        = local.inet_svs_ip
+  ansible_host_or_ip      = local.inet_svs_ip
   ssh_private_key         = var.ssh_private_key
   network_services_config = local.network_services_config
 }

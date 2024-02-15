@@ -29,11 +29,12 @@ locals {
     }
 
     proxy_client = {
-      "enable"            = local.private_svs_vsi_exists ? true : false
-      "server_host_or_ip" = local.private_svs_vsi_exists ? local.private_svs_ip : ""
-      "squid_server_ip"   = local.inet_svs_ip
-      "squid_port"        = "3128"
-      "no_proxy_hosts"    = "161.0.0.0/8"
+      "enable"               = local.private_svs_vsi_exists ? true : false
+      "server_host_or_ip"    = local.private_svs_vsi_exists ? local.private_svs_ip : ""
+      "squid_server_ip"      = local.inet_svs_ip
+      "squid_port"           = "3128"
+      "squid_server_ip_port" = "${local.inet_svs_ip}:3128"
+      "no_proxy_hosts"       = "161.0.0.0/8"
     }
   }
 

@@ -9,13 +9,17 @@ locals {
   dst_install_ansible_path     = "${local.dst_files_dir}/install_ansible.sh"
 }
 
+########################################################################################
+# 1. Execute shell script to install ansible packages
+########################################################################################
+
 resource "terraform_data" "ansible_host" {
 
   connection {
     type         = "ssh"
     user         = "root"
     bastion_host = var.access_host_or_ip
-    host         = var.target_server_ip
+    host         = var.ansible_host_or_ip
     private_key  = var.ssh_private_key
     agent        = false
     timeout      = "5m"
@@ -65,7 +69,7 @@ resource "terraform_data" "execute_ansible_role" {
     type         = "ssh"
     user         = "root"
     bastion_host = var.access_host_or_ip
-    host         = var.target_server_ip
+    host         = var.ansible_host_or_ip
     private_key  = var.ssh_private_key
     agent        = false
     timeout      = "5m"

@@ -45,10 +45,10 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_access_host_or_ip"></a> [access\_host\_or\_ip](#input\_access\_host\_or\_ip) | Jump/Bastion server public IP address to reach the target/server\_host ip to configure the DNS,NTP,NFS,SQUID services. | `string` | n/a | yes |
+| <a name="input_access_host_or_ip"></a> [access\_host\_or\_ip](#input\_access\_host\_or\_ip) | Jump/Bastion server public IP address to reach the ansible host which has private IP. | `string` | n/a | yes |
+| <a name="input_ansible_host_or_ip"></a> [ansible\_host\_or\_ip](#input\_ansible\_host\_or\_ip) | Private IP of virtual server instance on which ansible will be installed and configured to act as central ansible node. | `string` | n/a | yes |
 | <a name="input_network_services_config"></a> [network\_services\_config](#input\_network\_services\_config) | An object which contains configuration for NFS, NTP, DNS, Squid Services. | `any` | `{}` | no |
-| <a name="input_ssh_private_key"></a> [ssh\_private\_key](#input\_ssh\_private\_key) | Private SSH key used to login to IBM PowerVS instances.Entered data must be in heredoc strings format (https://www.terraform.io/language/expressions/strings#heredoc-strings). The key is not uploaded or stored. | `string` | n/a | yes |
-| <a name="input_target_server_ip"></a> [target\_server\_ip](#input\_target\_server\_ip) | Target/server\_host ip on which the DNS,NTP,NFS,SQUID services will be configured. | `string` | n/a | yes |
+| <a name="input_ssh_private_key"></a> [ssh\_private\_key](#input\_ssh\_private\_key) | Private SSH key used to login to jump/bastion server and also the ansible host .Entered data must be in heredoc strings format (https://www.terraform.io/language/expressions/strings#heredoc-strings). This key will be written temprarily on ansible host and deleted after execution. | `string` | n/a | yes |
 
 ### Outputs
 
