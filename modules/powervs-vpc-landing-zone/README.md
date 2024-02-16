@@ -91,9 +91,9 @@ Creates VPC Landing Zone | Performs VPC VSI OS Config | Creates PowerVS Infrastr
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_ansible_configure_network_services"></a> [ansible\_configure\_network\_services](#module\_ansible\_configure\_network\_services) | ../ansible-configure-network-services | n/a |
+| <a name="module_configure_network_services"></a> [configure\_network\_services](#module\_configure\_network\_services) | ../ansible | n/a |
 | <a name="module_landing_zone"></a> [landing\_zone](#module\_landing\_zone) | terraform-ibm-modules/landing-zone/ibm//patterns//vsi//module | 5.15.1 |
-| <a name="module_powervs_infra"></a> [powervs\_infra](#module\_powervs\_infra) | terraform-ibm-modules/powervs-workspace/ibm | 1.7.1 |
+| <a name="module_powervs_infra"></a> [powervs\_infra](#module\_powervs\_infra) | terraform-ibm-modules/powervs-workspace/ibm | 1.7.2 |
 
 ### Resources
 

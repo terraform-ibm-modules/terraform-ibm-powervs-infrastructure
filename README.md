@@ -44,7 +44,7 @@ Three solutions are offered:
 ## Overview
 * [terraform-ibm-powervs-infrastructure](#terraform-ibm-powervs-infrastructure)
 * [Submodules](./modules)
-    * [ansible-configure-network-services](./modules/ansible-configure-network-services)
+    * [ansible](./modules/ansible)
     * [powervs-vpc-landing-zone](./modules/powervs-vpc-landing-zone)
 * [Contributing](#contributing)
 <!-- END OVERVIEW HOOK -->
