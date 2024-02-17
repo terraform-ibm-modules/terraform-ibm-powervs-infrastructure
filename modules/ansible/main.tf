@@ -1,8 +1,9 @@
 locals {
   src_ansible_templates_dir = "${path.module}/templates-ansible"
+  src_shell_templates_dir   = "${path.module}/templates-shell"
   dst_files_dir             = "/root/terraform_files"
 
-  src_script_tftpl_path    = "${local.src_ansible_templates_dir}/${var.src_script_template_name}"
+  src_script_tftpl_path    = "${local.src_shell_templates_dir}/${var.src_script_template_name}"
   dst_script_file_path     = "${local.dst_files_dir}/${var.dst_script_file_name}"
   src_playbook_tftpl_path  = "${local.src_ansible_templates_dir}/${var.src_playbook_template_name}"
   dst_playbook_file_path   = "${local.dst_files_dir}/${var.dst_playbook_file_name}"
@@ -34,7 +35,7 @@ resource "terraform_data" "setup_ansible_host" {
 
   # Copy install_ansible.sh shell file to ansible host
   provisioner "file" {
-    source      = "${path.module}/templates-shell/install_ansible.sh"
+    source      = "${local.src_shell_templates_dir}/install_ansible.sh"
     destination = "${local.dst_files_dir}/install_ansible.sh"
   }
 

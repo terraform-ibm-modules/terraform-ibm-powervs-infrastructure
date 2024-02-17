@@ -49,18 +49,3 @@ module "powervs_instance" {
   pi_cpu_proc_type        = local.pi_instance.pi_cpu_proc_type
   pi_storage_config       = local.pi_instance.pi_storage_config
 }
-
-moved {
-  from = module.landing_zone
-  to   = module.quickstart.module.landing_zone
-}
-
-moved {
-  from = module.powervs_infra
-  to   = module.quickstart.module.powervs_infra
-}
-
-moved {
-  from = module.demo_pi_instance
-  to   = module.powervs_instance
-}

@@ -111,10 +111,10 @@ if [ "$OS_DETECTED" == "RHEL" ]; then
   fi
 
   # Download and install collections from ansible-galaxy
-  ansible-galaxy collection install ibm.power_linux_sap:1.1.4 -f
+  ansible-galaxy collection install ibm.power_linux_sap:1.1.5 -f
+  ansible-galaxy collection install community.general:8.3.0 -f
   ansible-galaxy collection install ansible.utils
   ansible-galaxy collection install ansible.posix
-  ansible-galaxy collection install community.general
 
   ##### yum Install expect ####
   echo "Installing expect package using yum"
