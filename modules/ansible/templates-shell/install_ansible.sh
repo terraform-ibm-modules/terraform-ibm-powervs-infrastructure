@@ -1,128 +1,103 @@
 #!/bin/bash
 ############################################################
-# Install and configures ansible                           #
+# Start functions                                          #
 ############################################################
 
-############################################################
-# Check OS Distribution                                    #
-############################################################
-
-if [ -f /etc/SuSE-release ]; then
-  OS_DETECTED=SLES
-  #  echo "Executing command: cat /etc/SuSE-release"
-  echo -e "Detected OS: $OS_DETECTED \n" # "$(cat /etc/SuSE-release)"
-fi
-
-if grep --quiet "SUSE Linux Enterprise Server" /etc/os-release; then
-  OS_DETECTED=SLES
-  #  echo "Executing command: cat /etc/os-release"
-  echo -e "Detected OS: $OS_DETECTED \n" # "$(cat /etc/os-release)"
-fi
-
-if [ -f /etc/redhat-release ]; then
-  OS_DETECTED=RHEL
-  #  echo "Executing command: cat /etc/redhat-release"
-  echo -e "Detected OS: $OS_DETECTED \n" #"$(cat /etc/redhat-release)"
-fi
-
-############################################################
-# Helper functions                                         #
-############################################################
-
-subscription_mgr_check_process() {
-  ##### Check for subscription-manager process
-  echo "Sleeping 60 seconds for all subscription-manager process to finish."
-  sleep 60
-  SUBS_MANAGER_PID="$(pgrep -f subscription-manager)"
-  if [ ! -z "$SUBS_MANAGER_PID" ]; then
-    echo "A subscription-manager PID process with PID $SUBS_MANAGER_PID is still running, waiting for it to finish. Max Timeout 180 seconds."
-    timeout 180 tail --pid=$SUBS_MANAGER_PID -f /dev/null
+main::get_os_version() {
+  if grep -q "Red Hat" /etc/os-release; then
+    readonly LINUX_DISTRO="RHEL"
+  else
+    main::log_error "Unsupported Linux distribution. Only RHEL is supported."
   fi
-  ###### Check for running zypper process
-  YUM_PID="$(pidof yum)"
-  if [ ! -z "$YUM_PID" ]; then
-    echo " A yum process with PID $YUM_PID is still running, waiting for it to finish. Max Timeout 180 seconds."
-    timeout 180 tail --pid=$YUM_PID -f /dev/null
-  fi
+  readonly LINUX_VERSION=$(grep VERSION_ID /etc/os-release | awk -F '\"' '{ print $2 }')
 }
 
-suseconnect_check_process() {
-
-  ##### Check for SUSEConnect process
-  echo "Sleeping 60 seconds for all SUSEConnect process to finish."
-  sleep 60
-  SUSECONNECT_PID="$(pgrep SUSEConnect)"
-  if [ ! -z "$SUSECONNECT_PID" ]; then
-    echo "A SUSEConnect PID process with PID $SUSECONNECT_PID is still running, waiting for it to finish. Max Timeout 180 seconds."
-    timeout 180 tail --pid=$SUSECONNECT_PID -f /dev/null
-  fi
-  ###### Check for running zypper process
-  ZYPPER_PID="$(pidof zypper)"
-  if [ ! -z "$ZYPPER_PID" ]; then
-    echo " A zypper process with PID $ZYPPER_PID is still running, waiting for it to finish. Max Timeout 180 seconds."
-    timeout 180 tail --pid=$ZYPPER_PID -f /dev/null
-  fi
+main::log_info() {
+  local log_entry=${1}
+  echo "INFO - ${log_entry}"
 }
 
-############################################################
-# SLES : Install Packages                                  #
-############################################################
-
-if [ "$OS_DETECTED" == "SLES" ]; then
-
-  VERSION_ID=$(grep VERSION_ID /etc/os-release | awk -F= '{ print $NF }' | sed 's/\"//g')
-  ARCH=$(uname -p)
-  suseconnect_check_process
-
-  ##### Activate SuSE packages ####
-  zypper --gpg-auto-import-keys ref >/dev/null
-  SUSEConnect -p PackageHub/$VERSION_ID/$ARCH >/dev/null
-  zypper --gpg-auto-import-keys ref >/dev/null
-  SUSEConnect -p sle-module-server-applications/$VERSION_ID/$ARCH >/dev/null
-  zypper --gpg-auto-import-keys ref >/dev/null
-  SUSEConnect -p sle-module-public-cloud/$VERSION_ID/$ARCH >/dev/null
-  zypper --gpg-auto-import-keys ref >/dev/null
-
-  ##### zypper install ansible #####
-  echo "Installing ansible package using zypper"
-  zypper install -y ansible >/dev/null
-  if ! which ansible >/dev/null; then
-    echo "ansible installation failed, exiting"
+main::log_error() {
+  local log_entry=${1}
+  echo "ERROR - Deployment exited - ${log_entry}"
+  if [[ -n "${on_error}" ]]; then
     exit 1
+  else
+    exit 0
   fi
+}
 
-  echo "All packages are installed successfully"
-fi
+main::subscription_mgr_check_process() {
+
+  ## check for subscription-manager process
+  main::log_info "Sleeping 30 seconds for all subscription-manager process to finish."
+  sleep 30
+
+  ## check if zypper is still running
+  while pgrep subscription-manager; do
+    main::log_info "--- subscription-manager is still running. Waiting 10 seconds before attempting to continue"
+    sleep 10s
+  done
+
+  ## check if zypper is still running
+  while pgrep zypper; do
+    main::log_info "--- zypper is still running. Waiting 10 seconds before attempting to continue"
+    sleep 10s
+  done
+
+}
 
 ############################################################
 # RHEL : Install Packages                                  #
 ############################################################
+main::install_packages() {
 
-if [ "$OS_DETECTED" == "RHEL" ]; then
+  if [[ ${LINUX_DISTRO} = "RHEL" ]]; then
 
-  subscription_mgr_check_process
+    main::subscription_mgr_check_process
 
-  ##### yum Install ansible-core ####
-  echo "Installing ansible using yum"
-  yum install -y ansible-core
-  if ! which ansible >/dev/null; then
-    echo "ansible installation failed, exiting"
-    exit 1
+    ## Install packages
+    local rhel_packages="ansible-core expect"
+
+    for package in $rhel_packages; do
+      local count=0
+      local max_count=3
+      while ! yum -y install "${package}"; do
+        count=$((count + 1))
+        sleep 3
+        if [[ ${count} -gt ${max_count} ]]; then
+          main::log_error "Failed to install ${package}"
+          break
+        fi
+      done
+    done
+
+    ## Download and install collections from ansible-galaxy
+    local galaxy_collections="ibm.power_linux_sap:1.1.5 fedora.linux_system_roles:1.73.2 ansible.utils:3.1.0 community.sap_install:1.4.0"
+
+    for collection in $galaxy_collections; do
+      local count=0
+      local max_count=3
+      while ! ansible-galaxy collection install "${collection}" -f; do
+        count=$((count + 1))
+        sleep 3
+        if [[ ${count} -gt ${max_count} ]]; then
+          main::log_error "Failed to install ansible galaxy collection ${collection}"
+          break
+        fi
+      done
+    done
+
+    # Update OS
+    main::log_info 'Updating OS'
+    if ! yum update -y; then
+      main::log_warning 'OS Update failed'
+    fi
+
+    main::log_info "All packages installed successfully"
   fi
 
-  # Download and install collections from ansible-galaxy
-  ansible-galaxy collection install ibm.power_linux_sap:1.1.5 -f
-  ansible-galaxy collection install fedora.linux_system_roles:1.73.2 -f
-  ansible-galaxy collection install ansible.utils:3.1.0 -f
-  ansible-galaxy collection install community.sap_install:1.4.0 -f
+}
 
-  ##### yum Install expect ####
-  echo "Installing expect package using yum"
-  yum install -y expect >/dev/null 2>/dev/null
-  if ! which unbuffer >/dev/null; then
-    echo "expect installation failed, exiting"
-    exit 1
-  fi
-
-  echo "All packages are installed successfully"
-fi
+main::get_os_version
+main::install_packages
