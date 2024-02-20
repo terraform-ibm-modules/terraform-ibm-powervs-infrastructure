@@ -33,6 +33,7 @@
   roles:
   - { role: ibm.power_linux_sap.powervs_install_services, when: server_config!= "" }
 
+
 - name: Ansible play to install ntp server either on inet-svs vsi or private-svs vsi
   hosts: ntp
   vars:
