@@ -1,6 +1,17 @@
 #!/bin/bash
 ############################################################
-# Start functions                                          #
+# OS_Support: RHEL only                                    #
+# This bash script performs                                #
+# - installation of packages                               #
+# - ansible galaxy collections.                            #
+# - updates the OS                                         #
+############################################################
+
+GLOBAL_RHEL_PACKAGES="rhel-system-roles rhel-system-roles-sap expect"
+GLOBAL_GALAXY_COLLLECTIONS="ibm.power_linux_sap:1.1.5 ansible.posix:1.5.4 community.general:8.4.0"
+
+############################################################
+# Start functions
 ############################################################
 
 main::get_os_version() {
@@ -9,7 +20,7 @@ main::get_os_version() {
   else
     main::log_error "Unsupported Linux distribution. Only RHEL is supported."
   fi
-  readonly LINUX_VERSION=$(grep VERSION_ID /etc/os-release | awk -F '\"' '{ print $2 }')
+  #readonly LINUX_VERSION=$(grep VERSION_ID /etc/os-release | awk -F '\"' '{ print $2 }')
 }
 
 main::log_info() {
@@ -56,13 +67,14 @@ main::install_packages() {
 
     main::subscription_mgr_check_process
 
-    ## Install packages
-    local rhel_packages="ansible-core expect"
+    ## enable repository for RHEL sap roles
+    subscription-manager repos --enable=rhel-$(rpm -E %rhel)-for-$(uname -m)-sap-solutions-rpms
 
-    for package in $rhel_packages; do
+    ## Install packages
+    for package in $GLOBAL_RHEL_PACKAGES; do
       local count=0
       local max_count=3
-      while ! yum -y install "${package}"; do
+      while ! dnf -y install "${package}"; do
         count=$((count + 1))
         sleep 3
         if [[ ${count} -gt ${max_count} ]]; then
@@ -73,9 +85,8 @@ main::install_packages() {
     done
 
     ## Download and install collections from ansible-galaxy
-    local galaxy_collections="ibm.power_linux_sap:1.1.5 fedora.linux_system_roles:1.73.2 ansible.utils:3.1.0 community.sap_install:1.4.0"
 
-    for collection in $galaxy_collections; do
+    for collection in $GLOBAL_GALAXY_COLLLECTIONS; do
       local count=0
       local max_count=3
       while ! ansible-galaxy collection install "${collection}" -f; do
