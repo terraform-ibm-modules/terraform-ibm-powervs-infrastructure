@@ -31,28 +31,17 @@ main::log_info() {
 main::log_error() {
   local log_entry=${1}
   echo "ERROR - Deployment exited - ${log_entry}"
-  if [[ -n "${on_error}" ]]; then
-    exit 1
-  else
-    exit 0
-  fi
+  exit 1
 }
 
 main::subscription_mgr_check_process() {
 
-  ## check for subscription-manager process
   main::log_info "Sleeping 30 seconds for all subscription-manager process to finish."
   sleep 30
 
-  ## check if zypper is still running
+  ## check if subscription-manager is still running
   while pgrep subscription-manager; do
     main::log_info "--- subscription-manager is still running. Waiting 10 seconds before attempting to continue"
-    sleep 10s
-  done
-
-  ## check if zypper is still running
-  while pgrep zypper; do
-    main::log_info "--- zypper is still running. Waiting 10 seconds before attempting to continue"
     sleep 10s
   done
 
@@ -110,5 +99,8 @@ main::install_packages() {
 
 }
 
+############################################################
+# Main start here                                          #
+############################################################
 main::get_os_version
 main::install_packages
