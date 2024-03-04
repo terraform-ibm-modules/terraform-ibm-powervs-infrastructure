@@ -14,7 +14,8 @@
     "transit_gateway_connections": [
         "management",
         "workload",
-        "edge"
+        "edge",
+        "vpn"
     ],
     "wait_till": "IngressReady",
     "virtual_private_endpoints": [
@@ -147,17 +148,68 @@
             "use_prefix": true
         }
     ],
-    "secrets_manager": {
-        "kms_key_name": null,
-        "name": null,
-        "resource_group": null,
-        "use_secrets_manager": false
-    },
     "network_cidr": "10.0.0.0/8",
     "vpcs": [
         {
+            "prefix": "vpn",
+            "resource_group": "slz-management-rg",
+            "flow_logs_bucket_name": null,
+            "subnets": {
+                "zone-1": [
+                    {
+                        "name": "vpn-zone-1",
+                        "cidr": "10.10.30.0/24",
+                        "public_gateway": false,
+                        "acl_name": "vpn-acl"
+                    }
+                ],
+                "zone-2": null,
+                "zone-3": null
+            },
+            "use_public_gateways": {
+                "zone-1": false,
+                "zone-2": false,
+                "zone-3": false
+            },
+            "address_prefixes": {
+                "zone-1": [],
+                "zone-2": [],
+                "zone-3": []
+            },
+            "default_security_group_rules": [
+                {
+                    "name": "vpn-all-inbound",
+                    "direction":  "inbound",
+                    "remote"  : "0.0.0.0/0"
+                }
+            ],
+            "clean_default_sg_acl": false,
+            "network_acls": [
+                {
+                    "name": "vpn-acl",
+                    "rules": [
+                        {
+                            "action": "allow",
+                            "destination": "0.0.0.0/0",
+                            "direction": "inbound",
+                            "name": "allow-vpn-inbound",
+                            "source": "0.0.0.0/0"
+                        },
+                        {
+                            "action": "allow",
+                            "destination": "0.0.0.0/0",
+                            "direction": "outbound",
+                            "name": "allow-vpn-outbound",
+                            "source": "0.0.0.0/0"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
             "prefix": "management",
             "resource_group": "slz-management-rg",
+            "flow_logs_bucket_name": null,
             "subnets": {
                 "zone-1": [
                     {
@@ -169,12 +221,6 @@
                     {
                         "name": "vpe-zone-1",
                         "cidr": "10.10.20.0/24",
-                        "public_gateway": false,
-                        "acl_name": "management-acl"
-                    },
-                    {
-                        "name": "vpn-zone-1",
-                        "cidr": "10.10.30.0/24",
                         "public_gateway": false,
                         "acl_name": "management-acl"
                     }
@@ -194,7 +240,6 @@
             },
             "default_security_group_rules": [],
             "clean_default_sg_acl": true,
-            "flow_logs_bucket_name": null,
             "network_acls": [
                 {
                     "name": "management-acl",
@@ -850,6 +895,7 @@
         {
             "prefix": "edge",
             "resource_group": "slz-edge-rg",
+            "flow_logs_bucket_name": null,
             "subnets": {
                 "zone-1": [
                     {
@@ -880,7 +926,6 @@
             },
             "default_security_group_rules": [],
             "clean_default_sg_acl": true,
-            "flow_logs_bucket_name": null,
             "network_acls": [
                 {
                     "name": "edge-acl",
@@ -1050,6 +1095,7 @@
         {
             "prefix": "workload",
             "resource_group": "slz-workload-rg",
+            "flow_logs_bucket_name": null,
             "subnets": {
                 "zone-1": [
                     {
@@ -1080,7 +1126,6 @@
             },
             "default_security_group_rules": [],
             "clean_default_sg_acl": true,
-            "flow_logs_bucket_name": null,
             "network_acls": [
                 {
                     "name": "workload-acl",

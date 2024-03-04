@@ -115,17 +115,12 @@
             "use_prefix": true
         }
     ],
-    "secrets_manager": {
-        "kms_key_name": null,
-        "name": null,
-        "resource_group": null,
-        "use_secrets_manager": false
-    },
     "network_cidr": "10.0.0.0/8",
     "vpcs": [
         {
             "prefix": "edge",
             "resource_group": "slz-edge-rg",
+            "flow_logs_bucket_name": null,
             "subnets": {
                 "zone-1": [
                     {
@@ -162,7 +157,6 @@
             },
             "default_security_group_rules": [],
             "clean_default_sg_acl": true,
-            "flow_logs_bucket_name": null,
             "network_acls": [
                 {
                     "name": "edge-acl",

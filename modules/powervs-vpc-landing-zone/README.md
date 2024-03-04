@@ -92,6 +92,7 @@ Creates VPC Landing Zone | Performs VPC VSI OS Config | Creates PowerVS Infrastr
 
 | Name | Source | Version |
 |------|--------|---------|
+| <a name="module_client_to_site_vpn"></a> [client\_to\_site\_vpn](#module\_client\_to\_site\_vpn) | terraform-ibm-modules/client-to-site-vpn/ibm | 1.7.1 |
 | <a name="module_landing_zone"></a> [landing\_zone](#module\_landing\_zone) | terraform-ibm-modules/landing-zone/ibm//patterns//vsi//module | 5.15.2 |
 | <a name="module_landing_zone_configure_network_services"></a> [landing\_zone\_configure\_network\_services](#module\_landing\_zone\_configure\_network\_services) | ../ansible-configure-network-services | n/a |
 | <a name="module_landing_zone_configure_proxy_server"></a> [landing\_zone\_configure\_proxy\_server](#module\_landing\_zone\_configure\_proxy\_server) | ../ansible-configure-network-services | n/a |
@@ -101,6 +102,8 @@ Creates VPC Landing Zone | Performs VPC VSI OS Config | Creates PowerVS Infrastr
 
 | Name | Type |
 |------|------|
+| [ibm_is_vpc_address_prefix.client_prefix](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/is_vpc_address_prefix) | resource |
+| [ibm_is_vpc_routing_table.transit](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/is_vpc_routing_table) | resource |
 | [time_sleep.wait_for_squid_setup_to_complete](https://registry.terraform.io/providers/hashicorp/time/latest/docs/resources/sleep) | resource |
 
 ### Inputs
