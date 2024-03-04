@@ -32,6 +32,8 @@ module "client_to_site_vpn" {
   secrets_manager_id            = "6927be76-a22b-4d82-9935-d43e10c6d094"
   server_cert_crn               = "crn:v1:bluemix:public:secrets-manager:eu-de:a/f45b53887765473bb366c7001d40c728:6927be76-a22b-4d82-9935-d43e10c6d094:secret:1ca5a0ac-d723-a73c-2ffe-ae9c1de3ec5d"
   vpn_client_access_group_users = ["suraj.bharadwaj@ibm.com"]
+
+  # handle based on mgmt_net and bkp_net
   vpn_server_routes = {
     "vpc-vsis" = {
       destination = "10.0.0.0/8"
@@ -60,7 +62,7 @@ resource "ibm_is_vpc_address_prefix" "client_prefix" {
   name = "${var.prefix}-prefix-vpn-client"
   vpc  = [for vpc in module.landing_zone.vpc_data : vpc.vpc_id if vpc.vpc_name == "${var.prefix}-vpn-vpc"][0]
 
-  #input frm user
+  #input from user
   cidr = "192.168.0.0/16"
 }
 
