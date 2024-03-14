@@ -22,12 +22,6 @@ variable "landing_zone_configuration" {
     error_message = "Provided value must be one of  ['3VPC_RHEL', '3VPC_SLES', '1VPC_RHEL'] only."
   }
 }
-
-variable "external_access_ip" {
-  description = "Specify the IP address or CIDR to login through SSH to the environment after deployment. Access to this environment will be allowed only from this IP address."
-  type        = string
-}
-
 variable "ssh_public_key" {
   description = "Public SSH Key for VSI creation. Must be an RSA key with a key size of either 2048 bits or 4096 bits (recommended). Must be a valid SSH key that does not already exist in the deployment region."
   type        = string
@@ -39,9 +33,33 @@ variable "ssh_private_key" {
   sensitive   = true
 }
 
+variable "client_to_site_vpn" {
+  description = "VPN configuration - the client ip pool, instance id of the secrets manager, VPN server certificate and list VPN client users to access the VPC and PowerVS virtual servers."
+  type = object({
+    enable                        = bool
+    client_ip_pool                = string
+    secrets_manager_id            = string
+    server_cert_crn               = string
+    vpn_client_access_group_users = list(string)
+  })
+  default = {
+    enable                        = false
+    client_ip_pool                = ""
+    secrets_manager_id            = ""
+    server_cert_crn               = ""
+    vpn_client_access_group_users = []
+  }
+}
+
 #####################################################
 # Optional Parameters VSI OS Management Services
 #####################################################
+
+variable "external_access_ip" {
+  description = "Specify the IP address or CIDR to login through SSH to the environment after deployment. Access to this environment will be allowed only from this IP address."
+  type        = string
+  default     = null
+}
 
 variable "configure_dns_forwarder" {
   description = "Specify if DNS forwarder will be configured. This will allow you to use central DNS servers (e.g. IBM Cloud DNS servers) sitting outside of the created IBM PowerVS infrastructure. If yes, ensure 'dns_forwarder_config' optional variable is set properly. DNS forwarder will be installed on the private-svs-1 vsi if exists else on inet-svs-1 vsi."

@@ -223,6 +223,10 @@
                             }
                         },
                         {
+                            "key": "client_to_site_vpn",
+                            "required": true
+                        },
+                        {
                             "key": "ibmcloud_api_key",
                             "type": "multiline_secure_value",
                             "display_name": "Multiline secure value",
@@ -631,6 +635,10 @@
                                 "original_grouping": "deployment",
                                 "type": "multiline_secure_value"
                             }
+                        },
+                        {
+                            "key": "client_to_site_vpn",
+                            "required": true
                         },
                         {
                             "key": "ibmcloud_api_key",

@@ -28,18 +28,12 @@ module "client_to_site_vpn" {
   subnet_ids        = [for subnet in module.landing_zone.subnet_data : subnet.id if subnet.name == "${var.prefix}-vpn-vpn-zone-1"]
 
   # inputs from user
-  client_ip_pool                = "192.168.0.0/16"
-  secrets_manager_id            = "6927be76-a22b-4d82-9935-d43e10c6d094"
-  server_cert_crn               = "crn:v1:bluemix:public:secrets-manager:eu-de:a/f45b53887765473bb366c7001d40c728:6927be76-a22b-4d82-9935-d43e10c6d094:secret:1ca5a0ac-d723-a73c-2ffe-ae9c1de3ec5d"
-  vpn_client_access_group_users = ["suraj.bharadwaj@ibm.com"]
+  client_ip_pool                = var.client_to_site_vpn.client_ip_pool
+  secrets_manager_id            = var.client_to_site_vpn.secrets_manager_id
+  server_cert_crn               = var.client_to_site_vpn.server_cert_crn
+  vpn_client_access_group_users = var.client_to_site_vpn.vpn_client_access_group_users
 
-  # handle based on mgmt_net and bkp_net
-  vpn_server_routes = {
-    "vpc-vsis" = {
-      destination = "10.0.0.0/8"
-      action      = "deliver"
-    }
-  }
+  vpn_server_routes = local.vpn_server_routes
 }
 
 # Allows VPN Server <=> Transit Gateway traffic
@@ -63,7 +57,7 @@ resource "ibm_is_vpc_address_prefix" "client_prefix" {
   vpc  = [for vpc in module.landing_zone.vpc_data : vpc.vpc_id if vpc.vpc_name == "${var.prefix}-vpn-vpc"][0]
 
   #input from user
-  cidr = "192.168.0.0/16"
+  cidr = var.client_to_site_vpn.client_ip_pool
 }
 
 #####################################################
