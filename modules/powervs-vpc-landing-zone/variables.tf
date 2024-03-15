@@ -57,7 +57,7 @@ variable "client_to_site_vpn" {
 #####################################################
 
 variable "external_access_ip" {
-  description = "Specify the IP address or CIDR to login through SSH to the environment after deployment. Access to this environment will be allowed only from this IP address."
+  description = "Specify the source IP address or CIDR for login through SSH to the environment after deployment. Access to the environment will be allowed only from this IP address."
   type        = string
   default     = null
 }
