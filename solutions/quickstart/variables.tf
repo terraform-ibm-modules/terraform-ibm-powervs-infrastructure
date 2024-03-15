@@ -30,7 +30,7 @@ variable "ssh_private_key" {
 }
 
 variable "client_to_site_vpn" {
-  description = "VPN configuration - the client ip pool, instance id of the secrets manager, VPN server certificate and list VPN client users to access the VPC and PowerVS virtual servers."
+  description = "VPN configuration - the client ip pool, instance id of the secrets manager, CRN of the VPN server certificate in secrets manager and list of VPN client users to access the environment."
   type = object({
     enable                        = bool
     client_ip_pool                = string
@@ -38,9 +38,10 @@ variable "client_to_site_vpn" {
     server_cert_crn               = string
     vpn_client_access_group_users = list(string)
   })
+
   default = {
     "enable" : false,
-    "client_ip_pool" : "",
+    "client_ip_pool" : "192.168.0.0/16",
     "secrets_manager_id" : "",
     "server_cert_crn" : "",
     "vpn_client_access_group_users" : []
