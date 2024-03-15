@@ -43,7 +43,7 @@ locals {
 ###########################################
 # Locals for verifying and extracting IPs
 # from landing zone outputs to configure OS
-##########################################ä
+###########################################
 
 locals {
 
@@ -69,4 +69,37 @@ locals {
   validate_1vpc_json_msg = "Wrong JSON preset used. Please use one of the JSON preset supported for Power."
   # tflint-ignore: terraform_unused_declarations
   validate_1vpc_json_chk = regex("^${local.validate_1vpc_json_msg}$", (local.valid_1vpc_json_used ? local.validate_1vpc_json_msg : ""))
+}
+
+###########################################
+# Locals for VPN config
+###########################################
+
+locals {
+  default_server_routes = {
+    "vpc-vsis" = {
+      destination = "10.0.0.0/8"
+      action      = "deliver"
+    }
+  }
+  powervs_server_routes = [
+    {
+      route_name  = "mgmt_net"
+      destination = var.powervs_management_network.cidr
+      action      = "deliver"
+    },
+    {
+      route_name  = "bkp_net"
+      destination = var.powervs_backup_network.cidr
+      action      = "deliver"
+    }
+  ]
+  vpn_server_routes = merge(local.default_server_routes, tomap({
+    for instance in local.powervs_server_routes :
+    instance.route_name => {
+      destination = instance.destination
+      action      = instance.action
+    }
+    if !startswith(instance.destination, "10.")
+  }))
 }
