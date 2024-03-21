@@ -1,6 +1,6 @@
 {
   "ibmcloud_api_key": $VALIDATION_APIKEY,
-  "powervs_zone": "tor01",
+  "powervs_zone": "sao04",
   "prefix": $PREFIX,
   "tshirt_size": "aix_xs",
   "external_access_ip": "0.0.0.0/0",
