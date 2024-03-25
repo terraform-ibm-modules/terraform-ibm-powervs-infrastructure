@@ -35,13 +35,13 @@ This example sets up the following infrastructure:
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.3, < 1.7 |
-| <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | =1.62.0 |
+| <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | =1.63.0 |
 
 ### Modules
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_powervs_instance"></a> [powervs\_instance](#module\_powervs\_instance) | terraform-ibm-modules/powervs-instance/ibm | 1.0.2 |
+| <a name="module_powervs_instance"></a> [powervs\_instance](#module\_powervs\_instance) | terraform-ibm-modules/powervs-instance/ibm | 1.1.0 |
 | <a name="module_quickstart"></a> [quickstart](#module\_quickstart) | ../../modules/powervs-vpc-landing-zone | n/a |
 
 ### Resources
