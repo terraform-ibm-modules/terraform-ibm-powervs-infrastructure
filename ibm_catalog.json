@@ -37,7 +37,7 @@
             ],
             "short_description": "Build a IBM Cloud® Power Virtual Servers (PowerVS) offering according to the best practices and requirements from the IBM Cloud.",
             "long_description": "IBM Cloud® Power Virtual Servers (PowerVS) is a public cloud offering that an enterprise can use to establish its own private IBM Power computing environment on shared public cloud infrastructure. PowerVS is logically isolated from all other public cloud tenants and infrastructure components, creating a private, secure place on the public cloud. This deployable architecture provides a framework to build a PowerVS offering according to the best practices and requirements from the IBM Cloud.",
-            "offering_docs_url": "https://cloud.ibm.com/docs/powervs-vpc?topic=powervs-vpc-powervs-automation-overview",
+            "offering_docs_url": "https://cloud.ibm.com/docs/powervs-vpc?topic=powervs-vpc-automation-solution-overview",
             "offering_icon_url": "data:image/svg+xml;base64,PHN2ZyBpZD0iUG93ZXJJbmZyYXN0cnVjdHVyZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmlld0JveD0iMCAwIDMyIDMyIj48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9Inc2aHpjbXV6amEiIHgxPSItMTg1NS4yMDgiIHkxPSItMjUwMi41NjMiIHgyPSItMTg1NS4yMDgiIHkyPSItMjUyMi4xNzkiIGdyYWRpZW50VHJhbnNmb3JtPSJtYXRyaXgoMS4wNiAwIDAgLS40OTEgMTk3My42NzYgLTEyMjcuMjkzKSIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiPjxzdG9wIG9mZnNldD0iMCIvPjxzdG9wIG9mZnNldD0iLjgiIHN0b3Atb3BhY2l0eT0iMCIvPjwvbGluZWFyR3JhZGllbnQ+PGxpbmVhckdyYWRpZW50IGlkPSI2dmZkbzMxaXNiIiB4MT0iMzI4LjUwMiIgeTE9Ii02NzY1LjY0NyIgeDI9IjMyOC41MDIiIHkyPSItNjc4NS4yNjMiIGdyYWRpZW50VHJhbnNmb3JtPSJtYXRyaXgoMS4wNiAwIDAgLjUxNSAtMzM5Ljk2NiAzNTEzLjI1KSIgeGxpbms6aHJlZj0iI3c2aHpjbXV6amEiLz48bGluZWFyR3JhZGllbnQgaWQ9ImJ0eDNhMG9vZ2MiIHgxPSItOTUzLjI2NiIgeTE9Ii0yODI4LjY1OSIgeDI9Ii05NTMuMjY2IiB5Mj0iLTI4MzguNTMzIiBncmFkaWVudFRyYW5zZm9ybT0ibWF0cml4KDEuMDYgMCAwIC0uNjY5IDEwMzcuMjE4IC0xODc2LjQzOSkiIHhsaW5rOmhyZWY9IiN3Nmh6Y211emphIi8+PGxpbmVhckdyYWRpZW50IGlkPSI2NmhzYWNybDVkIiB4MT0iLTE5MjMuMjUiIHkxPSItMjYyMC4yOSIgeDI9Ii0xOTIzLjI1IiB5Mj0iLTI2MjcuODg0IiBncmFkaWVudFRyYW5zZm9ybT0ibWF0cml4KDEuMDYgMCAwIC42NjkgMjA0OC4wOTEgMTc4Mi4zNjQpIiB4bGluazpocmVmPSIjdzZoemNtdXpqYSIvPjxsaW5lYXJHcmFkaWVudCBpZD0idXp2YXRxaGhwZSIgeDE9Ii0xOTE1LjgwMiIgeTE9Ii0zMTkxLjI5NCIgeDI9Ii0xOTE1LjgwMiIgeTI9Ii0zMTk4Ljg4OSIgZ3JhZGllbnRUcmFuc2Zvcm09Im1hdHJpeCgxLjA2IDAgMCAuNjY5IDIwNDMuNDggMjE0MS4xMjgpIiB4bGluazpocmVmPSIjdzZoemNtdXpqYSIvPjxsaW5lYXJHcmFkaWVudCBpZD0iZTFxMWF3ZXJxZyIgeDE9IjAiIHkxPSIzMiIgeDI9IjMyIiB5Mj0iMCIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiPjxzdG9wIG9mZnNldD0iLjEiIHN0b3AtY29sb3I9IiMwOGJkYmEiLz48c3RvcCBvZmZzZXQ9Ii45IiBzdG9wLWNvbG9yPSIjMGY2MmZlIi8+PC9saW5lYXJHcmFkaWVudD48bWFzayBpZD0idnZmcnV4eXl1ZiIgeD0iMCIgeT0iMCIgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiBtYXNrVW5pdHM9InVzZXJTcGFjZU9uVXNlIj48cGF0aCBkPSJNMTUuOTgyIDMwYy03LjcyIDAtMTQtNi4yOC0xNC0xNHM2LjI4MS0xNCAxNC0xNCAxNCA2LjI4IDE0IDE0LTYuMjggMTQtMTQgMTR6bTAtMjZjLTYuNjE3IDAtMTIgNS4zODMtMTIgMTJzNS4zODMgMTIgMTIgMTIgMTItNS4zODMgMTItMTItNS4zODMtMTItMTItMTJ6IiBzdHlsZT0iZmlsbDojZmZmIi8+PHBhdGggZD0iTTMwLjY5MSAzMC43MDhIMTEuNzI5bDMtOC43MDggMTAuNDY1LjAxMSA1LjU3Ny0uMDIxLS4wOCA4LjcxOHpNNi45ODIgMjBsLTYgNS40OTRWNi44MDdsNiA1LjAxNVYyMHpNMTYuMDAzIDFoMTQuOTk5djEzLjAzMkgxNi4wMDN6Ii8+PHBhdGggdHJhbnNmb3JtPSJyb3RhdGUoLTEzNSA3Ljk0MyA2Ljc4NykiIHN0eWxlPSJmaWxsOnVybCgjdzZoemNtdXpqYSkiIGQ9Ik00Ljc2NCAxLjk3aDYuMzU3djkuNjM1SDQuNzY0eiIvPjxwYXRoIHRyYW5zZm9ybT0icm90YXRlKDEzNSA4LjEwNiAyNS4zNDQpIiBzdHlsZT0iZmlsbDp1cmwoIzZ2ZmRvMzFpc2IpIiBkPSJNNC45MjggMjAuMjk1aDYuMzU3djEwLjA5OEg0LjkyOHoiLz48cGF0aCB0cmFuc2Zvcm09InJvdGF0ZSgxODAgMjcuMTYxIDE4Ljg2MykiIHN0eWxlPSJmaWxsOnVybCgjYnR4M2Ewb29nYykiIGQ9Ik0yMy45ODIgMTUuNTYxaDYuMzU3djYuNjA0aC02LjM1N3oiLz48cGF0aCB0cmFuc2Zvcm09InJvdGF0ZSgtNzAuNzkgMTAuMjYyIDI3LjE5NSkiIHN0eWxlPSJmaWxsOnVybCgjNjZoc2Fjcmw1ZCkiIGQ9Ik03LjA4NCAyNC42NTVoNi4zNTd2NS4wOEg3LjA4NHoiLz48cGF0aCBkPSJNOC45ODIgMjAuOThoLTZjLTEuMTAzIDAtMi0uODk3LTItMnYtNmMwLTEuMTAzLjg5Ny0yIDItMmg2YzEuMTAzIDAgMiAuODk3IDIgMnY2YzAgMS4xMDMtLjg5NyAyLTIgMnptLTYtOHY2aDYuMDAxdi02SDIuOTgyeiIgc3R5bGU9ImZpbGw6I2ZmZiIvPjxwYXRoIHRyYW5zZm9ybT0icm90YXRlKC05MCAxMy41NDMgNC4wMzIpIiBzdHlsZT0iZmlsbDp1cmwoI3V6dmF0cWhocGUpIiBkPSJNMTAuMzY0IDEuNDkyaDYuMzU3djUuMDhoLTYuMzU3eiIvPjxwYXRoIGQ9Ik0yNy4zMDQgNy4xMzRjMC0uMzctLjA2Ny0uNzIxLS4xNjEtMS4wNjJMMjkgNWwtMS0xLjczMi0xLjg0NyAxLjA2NmEzLjk5MSAzLjk5MSAwIDAgMC0xLjg0OS0xLjA1OFYxLjEzNGgtMnYyLjE0MmEzLjk5MSAzLjk5MSAwIDAgMC0xLjg0OSAxLjA1OGwtMS44NDctMS4wNjYtMSAxLjczMiAxLjg1NyAxLjA3MmMtLjA5NC4zNC0uMTYxLjY5Mi0uMTYxIDEuMDYycy4wNjcuNzIxLjE2MSAxLjA2MmwtMS44NTcgMS4wNzIgMSAxLjczMiAxLjg0Ny0xLjA2NmMuNS41MDkgMS4xMzguODczIDEuODQ5IDEuMDU4djIuMTQyaDJ2LTIuMTQyYTMuOTkxIDMuOTkxIDAgMCAwIDEuODQ5LTEuMDU4TDI4IDExbDEtMS43MzItMS44NTctMS4wNzJjLjA5NC0uMzQuMTYxLS42OTIuMTYxLTEuMDYyem0tNCAyYy0xLjEwMyAwLTItLjg5Ny0yLTJzLjg5Ny0yIDItMiAyIC44OTcgMiAyLS44OTcgMi0yIDJ6IiBzdHlsZT0iZmlsbDojZmZmIi8+PC9tYXNrPjwvZGVmcz48ZyBzdHlsZT0ibWFzazp1cmwoI3Z2ZnJ1eHl5dWYpIj48cGF0aCBzdHlsZT0iZmlsbDp1cmwoI2UxcTFhd2VycWcpIiBkPSJNMCAwaDMydjMySDB6Ii8+PC9nPjxwYXRoIGQ9Ik0yOS4wMDIgMzFoLTEzYy0xLjEwMyAwLTItLjg5Ny0yLTJ2LTRjMC0xLjEwMy44OTctMiAyLTJoMTNjMS4xMDMgMCAyIC44OTcgMiAydjRjMCAxLjEwMy0uODk3IDItMiAyem0tMTMtNnY0aDEzLjAwMXYtNEgxNi4wMDJ6IiBzdHlsZT0iZmlsbDojMDAxZDZjIi8+PGNpcmNsZSBjeD0iMTkuMDAyIiBjeT0iMjciIHI9IjEiIHN0eWxlPSJmaWxsOiMwMDFkNmMiLz48L3N2Zz4=",
             "features": [
                 {
@@ -133,7 +133,7 @@
                                     "value": "syd04"
                                 },
                                 {
-                                    "displayname": "Sydney 05 (syd05)",
+                                    "displayname": "Sydney 05 (syd05) PER",
                                     "value": "syd05"
                                 },
                                 {
@@ -525,7 +525,7 @@
                                     "value": "syd04"
                                 },
                                 {
-                                    "displayname": "Sydney 05 (syd05)",
+                                    "displayname": "Sydney 05 (syd05) PER",
                                     "value": "syd05"
                                 },
                                 {
@@ -583,19 +583,19 @@
                                     "value": "aix_l"
                                 },
                                 {
-                                    "displayname": "IBM i - XS (0.25cpu,8GB,disk-100GB,IBMi-75-02-2924-1)",
+                                    "displayname": "IBM i - XS (0.25cpu,8GB,disk-100GB,IBMi-75-03-2924-1)",
                                     "value": "ibm_i_xs"
                                 },
                                 {
-                                    "displayname": "IBM i - S (1cpu,32GB,disk-500GB,IBMi-75-02-2924-1)",
+                                    "displayname": "IBM i - S (1cpu,32GB,disk-500GB,IBMi-75-03-2924-1)",
                                     "value": "ibm_i_s"
                                 },
                                 {
-                                    "displayname": "IBM i - M (2cpu,64GB,disk-1000GB,IBMi-75-02-2924-1)",
+                                    "displayname": "IBM i - M (2cpu,64GB,disk-1000GB,IBMi-75-03-2924-1)",
                                     "value": "ibm_i_m"
                                 },
                                 {
-                                    "displayname": "IBM i - L (4cpu,132GB,disk-2000GB,IBMi-75-02-2924-1)",
+                                    "displayname": "IBM i - L (4cpu,132GB,disk-2000GB,IBMi-75-03-2924-1)",
                                     "value": "ibm_i_l"
                                 },
                                 {
@@ -678,12 +678,12 @@
                                     "value": "7100-05-09"
                                 },
                                 {
-                                    "displayname": "IBM i - IBMi-75-02-2924-1",
-                                    "value": "IBMi-75-02-2924-1"
+                                    "displayname": "IBM i - IBMi-75-03-2924-1",
+                                    "value": "IBMi-75-03-2924-1"
                                 },
                                 {
-                                    "displayname": "IBM i - IBMi-75-02-2984-1",
-                                    "value": "IBMi-75-02-2984-1"
+                                    "displayname": "IBM i - IBMi-75-03-2984-1",
+                                    "value": "IBMi-75-03-2984-1"
                                 },
                                 {
                                     "displayname": "IBM i - IBMi-74-08-2984-1",
@@ -1042,7 +1042,7 @@
                                     "value": "syd04"
                                 },
                                 {
-                                    "displayname": "Sydney 05 (syd05)",
+                                    "displayname": "Sydney 05 (syd05) PER",
                                     "value": "syd05"
                                 },
                                 {
@@ -1373,7 +1373,7 @@
                                     "value": "syd04"
                                 },
                                 {
-                                    "displayname": "Sydney 05 (syd05)",
+                                    "displayname": "Sydney 05 (syd05) PER",
                                     "value": "syd05"
                                 },
                                 {
