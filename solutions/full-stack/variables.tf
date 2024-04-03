@@ -24,7 +24,7 @@ variable "landing_zone_configuration" {
 }
 
 variable "external_access_ip" {
-  description = "Specify the IP address or CIDR to login through SSH to the environment after deployment. Access to this environment will be allowed only from this IP address."
+  description = "Specify the source IP address or CIDR for login through SSH to the environment after deployment. Access to the environment will be allowed only from this IP address."
   type        = string
 }
 
@@ -142,7 +142,7 @@ variable "cloud_connection" {
 variable "powervs_image_names" {
   description = "List of Images to be imported into cloud account from catalog images. Supported values can be found [here](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/blob/main/solutions/full-stack/docs/catalog_image_names.md)"
   type        = list(string)
-  default     = ["IBMi-75-02-2924-1", "IBMi-75-02-2984-1", "7300-01-02", "7200-05-06", "SLES15-SP4-SAP", "SLES15-SP4-SAP-NETWEAVER", "RHEL8-SP6-SAP", "RHEL8-SP6-SAP-NETWEAVER"]
+  default     = ["IBMi-75-03-2924-1", "IBMi-75-03-2984-1", "7300-01-02", "7200-05-06", "SLES15-SP4-SAP", "SLES15-SP4-SAP-NETWEAVER", "RHEL8-SP6-SAP", "RHEL8-SP6-SAP-NETWEAVER"]
 }
 
 variable "tags" {
