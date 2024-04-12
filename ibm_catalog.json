@@ -567,19 +567,19 @@
                                     "value": "custom"
                                 },
                                 {
-                                    "displayname": "AIX - XS (1cpu,32GB,disk-100GB,7300-01-02)",
+                                    "displayname": "AIX - XS (1cpu,32GB,disk-100GB,7300-01-01)",
                                     "value": "aix_xs"
                                 },
                                 {
-                                    "displayname": "AIX - S (4cpu,128GB,disk-500GB,7300-01-02)",
+                                    "displayname": "AIX - S (4cpu,128GB,disk-500GB,7300-01-01)",
                                     "value": "aix_s"
                                 },
                                 {
-                                    "displayname": "AIX - M (8cpu,256GB,disk-1000GB,7300-01-02)",
+                                    "displayname": "AIX - M (8cpu,256GB,disk-1000GB,7300-01-01)",
                                     "value": "aix_m"
                                 },
                                 {
-                                    "displayname": "AIX - L (14cpu,512GB,disk-2000GB,7300-01-02)",
+                                    "displayname": "AIX - L (14cpu,512GB,disk-2000GB,7300-01-01)",
                                     "value": "aix_l"
                                 },
                                 {
@@ -666,12 +666,12 @@
                                     "value": "none"
                                 },
                                 {
-                                    "displayname": "AIX - 7300-01-02",
-                                    "value": "7300-01-02"
+                                    "displayname": "AIX - 7300-01-01",
+                                    "value": "7300-01-01"
                                 },
                                 {
-                                    "displayname": "AIX - 7200-05-06",
-                                    "value": "7200-05-06"
+                                    "displayname": "AIX - 7200-05-07",
+                                    "value": "7200-05-07"
                                 },
                                 {
                                     "displayname": "AIX - 7100-05-09",
@@ -686,12 +686,12 @@
                                     "value": "IBMi-75-03-2984-1"
                                 },
                                 {
-                                    "displayname": "IBM i - IBMi-74-08-2984-1",
-                                    "value": "IBMi-74-08-2984-1"
+                                    "displayname": "IBM i - IBMi-74-09-2984-1",
+                                    "value": "IBMi-74-09-2984-1"
                                 },
                                 {
-                                    "displayname": "IBM i - IBMi_COR-74-08-1",
-                                    "value": "IBMi_COR-74-08-1"
+                                    "displayname": "IBM i - IBMi_COR-74-09-1",
+                                    "value": "IBMi_COR-74-09-1"
                                 },
                                 {
                                     "displayname": "SAP - RHEL8-SP6-SAP",
