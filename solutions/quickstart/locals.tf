@@ -4,10 +4,10 @@
 
 locals {
   ibm_powervs_quickstart_tshirt_sizes = {
-    "aix_xs"   = { "sap_profile_id" = null, "server_type" = "s922", "proc_type" = "shared", "cores" = "1", "memory" = "32", "storage" = "100", "tier" = "tier3", "image" = "7300-01-02" }
-    "aix_s"    = { "sap_profile_id" = null, "server_type" = "s922", "proc_type" = "shared", "cores" = "4", "memory" = "128", "storage" = "500", "tier" = "tier3", "image" = "7300-01-02" }
-    "aix_m"    = { "sap_profile_id" = null, "server_type" = "s922", "proc_type" = "shared", "cores" = "8", "memory" = "256", "storage" = "1000", "tier" = "tier3", "image" = "7300-01-02" }
-    "aix_l"    = { "sap_profile_id" = null, "server_type" = "s922", "proc_type" = "shared", "cores" = "14", "memory" = "512", "storage" = "2000", "tier" = "tier3", "image" = "7300-01-02" }
+    "aix_xs"   = { "sap_profile_id" = null, "server_type" = "s922", "proc_type" = "shared", "cores" = "1", "memory" = "32", "storage" = "100", "tier" = "tier3", "image" = "7300-01-01" }
+    "aix_s"    = { "sap_profile_id" = null, "server_type" = "s922", "proc_type" = "shared", "cores" = "4", "memory" = "128", "storage" = "500", "tier" = "tier3", "image" = "7300-01-01" }
+    "aix_m"    = { "sap_profile_id" = null, "server_type" = "s922", "proc_type" = "shared", "cores" = "8", "memory" = "256", "storage" = "1000", "tier" = "tier3", "image" = "7300-01-01" }
+    "aix_l"    = { "sap_profile_id" = null, "server_type" = "s922", "proc_type" = "shared", "cores" = "14", "memory" = "512", "storage" = "2000", "tier" = "tier3", "image" = "7300-01-01" }
     "ibm_i_xs" = { "sap_profile_id" = null, "server_type" = "s922", "proc_type" = "shared", "cores" = "0.25", "memory" = "8", "storage" = "100", "tier" = "tier3", "image" = "IBMi-75-03-2924-1" }
     "ibm_i_s"  = { "sap_profile_id" = null, "server_type" = "s922", "proc_type" = "shared", "cores" = "1", "memory" = "32", "storage" = "500", "tier" = "tier3", "image" = "IBMi-75-03-2924-1" }
     "ibm_i_m"  = { "sap_profile_id" = null, "server_type" = "s922", "proc_type" = "shared", "cores" = "2", "memory" = "64", "storage" = "1000", "tier" = "tier3", "image" = "IBMi-75-03-2924-1" }

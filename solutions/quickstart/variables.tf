@@ -49,8 +49,8 @@ variable "custom_profile_instance_boot_image" {
   type        = string
   default     = "none"
   validation {
-    condition     = contains(["RHEL8-SP6-SAP", "SLES15-SP4-SAP", "RHEL8-SP6-SAP-NETWEAVER", "SLES15-SP4-SAP-NETWEAVER", "7300-01-02", "7200-05-06", "7100-05-09", "IBMi-75-03-2924-1", "IBMi-75-03-2984-1", "IBMi-74-08-2984-1", "IBMi_COR-74-08-1", "none"], var.custom_profile_instance_boot_image)
-    error_message = "Only Following IBM catalog images are supported :  RHEL8-SP6-SAP, SLES15-SP4-SAP, RHEL8-SP6-SAP-NETWEAVER, SLES15-SP4-SAP-NETWEAVER, 7300-01-02, 7200-05-06, 7100-05-09, IBMi-75-03-2924-1, IBMi-75-03-2984-1, IBMi-74-08-2984-1, IBMi_COR-74-08-1, none"
+    condition     = contains(["RHEL8-SP6-SAP", "SLES15-SP4-SAP", "RHEL8-SP6-SAP-NETWEAVER", "SLES15-SP4-SAP-NETWEAVER", "7300-01-01", "7200-05-07", "7100-05-09", "IBMi-75-03-2924-1", "IBMi-75-03-2984-1", "IBMi-74-09-2984-1", "IBMi_COR-74-09-1", "none"], var.custom_profile_instance_boot_image)
+    error_message = "Only Following IBM catalog images are supported :  RHEL8-SP6-SAP, SLES15-SP4-SAP, RHEL8-SP6-SAP-NETWEAVER, SLES15-SP4-SAP-NETWEAVER, 7300-01-01, 7200-05-07, 7100-05-09, IBMi-75-03-2924-1, IBMi-75-03-2984-1, IBMi-74-09-2984-1, IBMi_COR-74-09-1, none"
   }
 }
 
