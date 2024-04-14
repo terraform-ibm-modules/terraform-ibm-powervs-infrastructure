@@ -1,7 +1,7 @@
 ---
 copyright:
   years: 2024
-lastupdated: "2024-04-05"
+lastupdated: "2024-04-14"
 
 keywords:
 
@@ -11,7 +11,7 @@ authors:
   - name: Arnold Beilmann
   - name: Stafania Saju
 
-version: v4.9.0
+version: v4.9.1
 
 production: true
 
@@ -38,7 +38,7 @@ content-type: reference-architecture
 {: toc-industry="Technology"}
 {: toc-use-case="ITServiceManagement"}
 {: toc-compliance="SAPCertified"}
-{: toc-version="4.9.0"}
+{: toc-version="4.9.1"}
 
 This solution helps to install the deployable architecture ['Power Virtual Server for SAP HANA'](https://cloud.ibm.com/catalog/architecture/deploy-arch-ibm-pvs-sap-9aa6135e-75d5-467e-9f4a-ac2a21c069b8-global) on top of a pre-existing Power Virtual Server(PowerVS) landscape. 'Power Virtual Server for SAP HANA' automation requires a schematics workspace id for installation. The 'import-workspace' solution creates a schematics workspace by taking pre-existing VPC and PowerVS infrastructure resource details as inputs. The ID of this schematics workspace will be the pre-requisite workspace id required by 'Power Virtual Server for SAP HANA' to create and configure the PowerVS instances for SAP on top of the existing infrastructure.
 

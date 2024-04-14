@@ -37,7 +37,7 @@ variable "powervs_zone" {
 }
 
 variable "powervs_workspace_guid" {
-  description = "Name of the existing PowerVS workspace."
+  description = "GUID of the existing PowerVS workspace."
   type        = string
 }
 
