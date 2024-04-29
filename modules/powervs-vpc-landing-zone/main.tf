@@ -58,6 +58,31 @@ resource "ibm_is_vpc_address_prefix" "client_prefix" {
   cidr = var.client_to_site_vpn.client_ip_pool
 }
 
+resource "ibm_is_share" "nfs" {
+  provider = ibm.ibm-is
+
+  name                = "nfs"
+  size                = 1000
+  profile             = "dp2"
+  access_control_mode = "security_group"
+  iops                = 5000
+  zone                = "${lookup(local.ibm_powervs_zone_cloud_region_map, var.powervs_zone, null)}-1"
+}
+
+resource "ibm_is_share_mount_target" "nfs" {
+  provider = ibm.ibm-is
+
+  share = ibm_is_share.nfs.id
+  name  = "nfs"
+  virtual_network_interface {
+    name            = "nfs"
+    resource_group  = module.landing_zone.resource_group_data["slz-workload-rg"]
+    subnet          = [for subnet in module.landing_zone.subnet_data : subnet.id if subnet.name == "${var.prefix}-edge-vsi-workload-zone-1"][0]
+    security_groups = [for security_group in module.landing_zone.vpc_data[0].vpc_data.security_group : security_group.group_id if security_group.group_name == "workload-sg"]
+  }
+
+}
+
 #####################################################
 # PowerVS Workspace Module
 #####################################################

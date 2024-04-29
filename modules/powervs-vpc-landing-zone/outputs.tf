@@ -37,6 +37,16 @@ output "vsi_list" {
   value       = module.landing_zone.vsi_list
 }
 
+output "vpc_data" {
+  description = "List of VPC data."
+  value       = module.landing_zone.vpc_data
+}
+
+output "resource_group_data" {
+  description = "List of resource groups data used within landing zone."
+  value       = module.landing_zone.resource_group_data
+}
+
 output "access_host_or_ip" {
   description = "Access host(jump/bastion) for created PowerVS infrastructure."
   value       = local.access_host_or_ip
