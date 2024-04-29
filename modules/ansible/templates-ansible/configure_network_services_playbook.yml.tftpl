@@ -1,0 +1,52 @@
+# ------------------------------------------------------------------------
+# This playbook uses the ibm.power_linux_sap collection. This collection is
+# available on ansible galaxy
+# https://galaxy.ansible.com/ui/repo/published/ibm/power_linux_sap/ and can
+# be installed using 'ansible-galaxy collection install ibm.power_linux_sap'
+# ------------------------------------------------------------------------
+
+---
+
+- name: Ansible play to install squid on inet-svs vsi in edge vpc
+  hosts: squid
+  vars:
+    server_config: ${squid_config}
+
+  roles:
+  - { role: ibm.power_linux_sap.powervs_install_services, when: server_config!= "" }
+
+
+- name: Ansible play to configure proxy client on private-svs vsi in workload vpc
+  hosts: proxy_client
+  vars:
+    client_config: ${proxy_client_config}
+
+  roles:
+  - { role: ibm.power_linux_sap.powervs_client_enable_services, when: client_config!= "" }
+
+
+- name: Ansible play to install DNS either on inet-svs vsi or private-svs vsi
+  hosts: dns
+  vars:
+    server_config: ${dns_config}
+
+  roles:
+  - { role: ibm.power_linux_sap.powervs_install_services, when: server_config!= "" }
+
+
+- name: Ansible play to install ntp server either on inet-svs vsi or private-svs vsi
+  hosts: ntp
+  vars:
+    server_config: ${ntp_config}
+
+  roles:
+  - { role: ibm.power_linux_sap.powervs_install_services, when: server_config!= "" }
+
+
+- name: Ansible play to install nfs server either on inet-svs vsi or private-svs vsi
+  hosts: nfs
+  vars:
+    server_config: ${nfs_config}
+
+  roles:
+  - { role: ibm.power_linux_sap.powervs_install_services, when: server_config!= "" }

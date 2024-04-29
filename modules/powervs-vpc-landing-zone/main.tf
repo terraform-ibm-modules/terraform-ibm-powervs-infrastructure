@@ -13,33 +13,49 @@ module "landing_zone" {
   override_json_string = local.override_json_string
 }
 
-module "landing_zone_configure_proxy_server" {
-  source = "../ansible-configure-network-services"
-  count  = local.private_svs_vsi_exists ? 1 : 0
+#####################################################
+# VPN Client to Site module
+#####################################################
 
-  access_host_or_ip          = local.access_host_or_ip
-  target_server_ip           = local.inet_svs_ip
-  ssh_private_key            = var.ssh_private_key
-  network_services_config    = local.squid_config
-  perform_proxy_client_setup = null
+module "client_to_site_vpn" {
+  source    = "terraform-ibm-modules/client-to-site-vpn/ibm"
+  version   = "1.7.1"
+  providers = { ibm = ibm.ibm-is }
+
+  count = var.client_to_site_vpn.enable ? 1 : 0
+
+  vpn_gateway_name              = "${var.prefix}-vpc-pvs-vpn"
+  resource_group_id             = module.landing_zone.resource_group_data["slz-edge-rg"]
+  access_group_name             = "${var.prefix}-client-to-site-vpn-access-group"
+  subnet_ids                    = [for subnet in module.landing_zone.subnet_data : subnet.id if subnet.name == "${var.prefix}-edge-vpn-zone-1"]
+  client_ip_pool                = var.client_to_site_vpn.client_ip_pool
+  secrets_manager_id            = var.client_to_site_vpn.secrets_manager_id
+  server_cert_crn               = var.client_to_site_vpn.server_cert_crn
+  vpn_client_access_group_users = var.client_to_site_vpn.vpn_client_access_group_users
+  vpn_server_routes             = local.vpn_server_routes
 }
 
-resource "time_sleep" "wait_for_squid_setup_to_complete" {
-  depends_on = [module.landing_zone_configure_proxy_server]
-  count      = local.private_svs_vsi_exists ? 1 : 0
+# Allows VPN Server <=> Transit Gateway traffic
+resource "ibm_is_vpc_routing_table" "transit" {
+  provider = ibm.ibm-is
+  count    = var.client_to_site_vpn.enable ? 1 : 0
 
-  create_duration = "120s"
+  vpc                              = [for vpc in module.landing_zone.vpc_data : vpc.vpc_id if vpc.vpc_name == "${var.prefix}-edge-vpc"][0]
+  name                             = "${var.prefix}-route-table-vpn-server-transit"
+  route_transit_gateway_ingress    = true
+  accept_routes_from_resource_type = ["vpn_server"]
 }
 
-module "landing_zone_configure_network_services" {
-  source     = "../ansible-configure-network-services"
-  depends_on = [time_sleep.wait_for_squid_setup_to_complete]
+# Allows VPN Clients <=> Transit Gateway traffic
+resource "ibm_is_vpc_address_prefix" "client_prefix" {
+  provider   = ibm.ibm-is
+  count      = var.client_to_site_vpn.enable ? 1 : 0
+  depends_on = [module.landing_zone, module.client_to_site_vpn]
 
-  access_host_or_ip          = local.access_host_or_ip
-  target_server_ip           = local.private_svs_vsi_exists ? local.private_svs_ip : local.inet_svs_ip
-  ssh_private_key            = var.ssh_private_key
-  network_services_config    = local.network_services_config
-  perform_proxy_client_setup = local.private_svs_vsi_exists ? local.perform_proxy_client_setup : null
+  zone = "${lookup(local.ibm_powervs_zone_cloud_region_map, var.powervs_zone, null)}-1"
+  name = "${var.prefix}-prefix-vpn-client"
+  vpc  = [for vpc in module.landing_zone.vpc_data : vpc.vpc_id if vpc.vpc_name == "${var.prefix}-edge-vpc"][0]
+  cidr = var.client_to_site_vpn.client_ip_pool
 }
 
 #####################################################
@@ -61,4 +77,26 @@ module "powervs_infra" {
   pi_transit_gateway_connection = { "enable" : true, "transit_gateway_id" : module.landing_zone.transit_gateway_data.id }
   pi_tags                       = var.tags
   pi_image_names                = var.powervs_image_names
+}
+
+
+#####################################################
+# Ansible Host module setup and execution
+#####################################################
+
+module "configure_network_services" {
+  source = "../ansible"
+
+  bastion_host_ip    = local.access_host_or_ip
+  ansible_host_or_ip = local.inet_svs_ip
+  ssh_private_key    = var.ssh_private_key
+
+  src_script_template_name    = "ansible_exec.sh.tftpl"
+  dst_script_file_name        = "configure_network_services.sh"
+  src_playbook_template_name  = "configure_network_services_playbook.yml.tftpl"
+  dst_playbook_file_name      = "configure_network_services_playbook.yml"
+  playbook_template_vars      = local.playbook_template_vars
+  src_inventory_template_name = "configure_network_services_inventory.tftpl"
+  dst_inventory_file_name     = "configure_network_services_inventory"
+  inventory_template_vars     = local.inventory_template_vars
 }

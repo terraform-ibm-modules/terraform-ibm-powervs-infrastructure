@@ -13,16 +13,6 @@ variable "prefix" {
   type        = string
 }
 
-variable "landing_zone_configuration" {
-  description = "VPC landing zone configuration. Provided value must be one of ['3VPC_RHEL', '3VPC_SLES', '1VPC_RHEL'] only."
-  type        = string
-
-  validation {
-    condition     = contains(["3VPC_RHEL", "3VPC_SLES", "1VPC_RHEL"], var.landing_zone_configuration)
-    error_message = "Provided value must be one of  ['3VPC_RHEL', '3VPC_SLES', '1VPC_RHEL'] only."
-  }
-}
-
 variable "external_access_ip" {
   description = "Specify the source IP address or CIDR for login through SSH to the environment after deployment. Access to the environment will be allowed only from this IP address."
   type        = string
@@ -37,6 +27,25 @@ variable "ssh_private_key" {
   description = "Private SSH key (RSA format) used to login to IBM PowerVS instances. Should match to public SSH key referenced by 'ssh_public_key'. Entered data must be in [heredoc strings format](https://www.terraform.io/language/expressions/strings#heredoc-strings). The key is not uploaded or stored. For more information about SSH keys, see [SSH keys](https://cloud.ibm.com/docs/vpc?topic=vpc-ssh-keys)."
   type        = string
   sensitive   = true
+}
+
+variable "client_to_site_vpn" {
+  description = "VPN configuration - the client ip pool, exisiting instance id(guid) of the secrets manager, CRN of the uploaded VPN server certificate in secrets manager and list of users email ids to access the environment."
+  type = object({
+    enable                        = bool
+    client_ip_pool                = string
+    secrets_manager_id            = string
+    server_cert_crn               = string
+    vpn_client_access_group_users = list(string)
+  })
+
+  default = {
+    enable                        = false
+    client_ip_pool                = "192.168.0.0/16"
+    secrets_manager_id            = ""
+    server_cert_crn               = ""
+    vpn_client_access_group_users = [""]
+  }
 }
 
 #####################################################
@@ -55,12 +64,6 @@ variable "configure_ntp_forwarder" {
   default     = false
 }
 
-variable "configure_nfs_server" {
-  description = "Specify if NFS server will be configured. This will allow you easily to share files between PowerVS instances (e.g., SAP installation files). NFS server will be installed on the private-svs vsi. If yes, ensure 'nfs_server_config' optional variable is set properly below. Default value is '1TB' which will be mounted on '/nfs'."
-  type        = bool
-  default     = false
-}
-
 variable "dns_forwarder_config" {
   description = "Configuration for the DNS forwarder to a DNS service that is not reachable directly from PowerVS."
   type = object({
@@ -70,24 +73,6 @@ variable "dns_forwarder_config" {
     "dns_servers" : "161.26.0.7; 161.26.0.8; 9.9.9.9;"
   }
 }
-
-variable "nfs_server_config" {
-  description = "Configuration for the NFS server. 'size' is in GB, 'mount_path' defines the mount point on os. Set 'configure_nfs_server' to false to ignore creating volume."
-  type = object({
-    size       = number
-    mount_path = string
-  })
-
-  validation {
-    condition     = var.nfs_server_config != null ? (var.nfs_server_config.mount_path == null || var.nfs_server_config.mount_path == "" || can(regex("/[A-Za-z]+", var.nfs_server_config.mount_path))) : true
-    error_message = "The 'mount_path' attribute must begin with '/' and can contain only characters."
-  }
-  default = {
-    "size" : 1000,
-    "mount_path" : "/nfs"
-  }
-}
-
 
 #####################################################
 # Optional Parameters PowerVS Workspace

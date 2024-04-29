@@ -10,9 +10,5 @@ terraform {
       version               = ">=1.62.0"
       configuration_aliases = [ibm.ibm-is, ibm.ibm-pi]
     }
-    time = {
-      source  = "hashicorp/time"
-      version = ">= 0.9.1"
-    }
   }
 }

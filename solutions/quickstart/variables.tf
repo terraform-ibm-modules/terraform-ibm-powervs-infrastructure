@@ -97,12 +97,6 @@ variable "configure_ntp_forwarder" {
   default     = true
 }
 
-variable "configure_nfs_server" {
-  description = "Specify if NFS server will be configured. This will allow you easily to share files between PowerVS instances (e.g., SAP installation files). NFS server will be installed on the inet-svs vsi. If yes, ensure 'nfs_server_config' optional variable is set properly below. Default value is 1TB which will be mounted on /nfs."
-  type        = bool
-  default     = true
-}
-
 variable "dns_forwarder_config" {
   description = "Configuration for the DNS forwarder to a DNS service that is not reachable directly from PowerVS."
   type = object({
@@ -111,19 +105,6 @@ variable "dns_forwarder_config" {
 
   default = {
     "dns_servers" : "161.26.0.7; 161.26.0.8; 9.9.9.9;"
-  }
-}
-
-variable "nfs_server_config" {
-  description = "Configuration for the NFS server. 'size' is in GB, 'mount_path' defines the mount point on os. Set 'configure_nfs_server' to false to ignore creating volume."
-  type = object({
-    size       = number
-    mount_path = string
-  })
-
-  default = {
-    "size" : 1000,
-    "mount_path" : "/nfs"
   }
 }
 
