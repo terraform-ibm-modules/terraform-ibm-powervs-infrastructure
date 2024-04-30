@@ -89,7 +89,7 @@ resource "ibm_is_share_mount_target" "nfs" {
 
 module "powervs_infra" {
   source    = "terraform-ibm-modules/powervs-workspace/ibm"
-  version   = "1.11.0"
+  version   = "1.12.0"
   providers = { ibm = ibm.ibm-pi }
 
   pi_zone                       = var.powervs_zone

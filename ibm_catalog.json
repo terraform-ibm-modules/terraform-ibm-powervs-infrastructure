@@ -129,7 +129,7 @@
                                     "value": "sao04"
                                 },
                                 {
-                                    "displayname": "Sydney 04 (syd04)",
+                                    "displayname": "Sydney 04 (syd04) PER",
                                     "value": "syd04"
                                 },
                                 {
@@ -521,7 +521,7 @@
                                     "value": "sao04"
                                 },
                                 {
-                                    "displayname": "Sydney 04 (syd04)",
+                                    "displayname": "Sydney 04 (syd04) PER",
                                     "value": "syd04"
                                 },
                                 {
@@ -567,19 +567,19 @@
                                     "value": "custom"
                                 },
                                 {
-                                    "displayname": "AIX - XS (1cpu,32GB,disk-100GB,7300-01-01)",
+                                    "displayname": "AIX - XS (1cpu,32GB,disk-100GB,7300-02-01)",
                                     "value": "aix_xs"
                                 },
                                 {
-                                    "displayname": "AIX - S (4cpu,128GB,disk-500GB,7300-01-01)",
+                                    "displayname": "AIX - S (4cpu,128GB,disk-500GB,7300-02-01)",
                                     "value": "aix_s"
                                 },
                                 {
-                                    "displayname": "AIX - M (8cpu,256GB,disk-1000GB,7300-01-01)",
+                                    "displayname": "AIX - M (8cpu,256GB,disk-1000GB,7300-02-01)",
                                     "value": "aix_m"
                                 },
                                 {
-                                    "displayname": "AIX - L (14cpu,512GB,disk-2000GB,7300-01-01)",
+                                    "displayname": "AIX - L (14cpu,512GB,disk-2000GB,7300-02-01)",
                                     "value": "aix_l"
                                 },
                                 {
@@ -666,8 +666,8 @@
                                     "value": "none"
                                 },
                                 {
-                                    "displayname": "AIX - 7300-01-01",
-                                    "value": "7300-01-01"
+                                    "displayname": "AIX - 7300-02-01",
+                                    "value": "7300-02-01"
                                 },
                                 {
                                     "displayname": "AIX - 7200-05-07",
@@ -1038,7 +1038,7 @@
                                     "value": "sao04"
                                 },
                                 {
-                                    "displayname": "Sydney 04 (syd04)",
+                                    "displayname": "Sydney 04 (syd04) PER",
                                     "value": "syd04"
                                 },
                                 {
@@ -1369,7 +1369,7 @@
                                     "value": "sao04"
                                 },
                                 {
-                                    "displayname": "Sydney 04 (syd04)",
+                                    "displayname": "Sydney 04 (syd04) PER",
                                     "value": "syd04"
                                 },
                                 {
