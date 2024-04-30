@@ -1,0 +1,17 @@
+{
+    "ibmcloud_api_key": $VALIDATION_APIKEY,
+    "access_host": {
+        "vsi_name": "val-gha-vsi",
+        "floating_ip": "149.81.6.27"
+    },
+    "proxy_server_ip_port": {
+        "ip": "10.30.10.4",
+        "port": 3128
+    },
+    "transit_gateway_name": "val-gha-transit-gateway",
+    "powervs_zone": "eu-de-1",
+    "powervs_workspace_guid": "4566c5e9-1b92-4484-8598-e0c8da943283",
+    "powervs_sshkey_name": "val-ssh-key",
+    "powervs_management_network_name": "mgmt_net",
+    "powervs_backup_network_name": "bkp_net"
+}
