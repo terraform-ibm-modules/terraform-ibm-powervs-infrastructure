@@ -1,7 +1,7 @@
 ---
 copyright:
   years: 2024
-lastupdated: "2024-04-14"
+lastupdated: "2024-05-01"
 
 keywords:
 
@@ -11,7 +11,7 @@ authors:
   - name: Arnold Beilmann
   - name: Suraj Bharadwaj
 
-version: v4.9.1
+version: v4.10.0
 
 # Whether the reference architecture is published to Cloud Docs production.
 # When set to false, the file is available only in staging. Default is false.
@@ -41,7 +41,7 @@ content-type: reference-architecture
 {: toc-industry="Technology"}
 {: toc-use-case="ITServiceManagement"}
 {: toc-compliance="SAPCertified"}
-{: toc-version="4.9.1"}
+{: toc-version="4.10.0"}
 
 The PowerVS workspace deployment of the Power Virtual Server with VPC landing zone creates VPC services and a Power Virtual Server workspace and interconnects them.
 
