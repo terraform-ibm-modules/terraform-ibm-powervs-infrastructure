@@ -698,16 +698,32 @@
                                     "value": "IBMi_COR-74-09-1"
                                 },
                                 {
-                                    "displayname": "SAP - RHEL8-SP6-SAP",
-                                    "value": "RHEL8-SP6-SAP"
+                                    "displayname": "SAP - RHEL9-SP2-SAP",
+                                    "value": "RHEL9-SP2-SAP"
+                                },
+                                {
+                                    "displayname": "SAP - RHEL9-SP2-SAP-NETWEAVER",
+                                    "value": "RHEL9-SP2-SAP-NETWEAVER"
+                                },
+                                {
+                                    "displayname": "SAP - RHEL8-SP8-SAP",
+                                    "value": "RHEL8-SP8-SAP"
+                                },
+                                {
+                                    "displayname": "SAP - RHEL8-SP8-SAP-NETWEAVER",
+                                    "value": "RHEL8-SP8-SAP-NETWEAVER"
+                                },
+                                {
+                                    "displayname": "SAP - SLES15-SP5-SAP",
+                                    "value": "SLES15-SP5-SAP"
+                                },
+                                {
+                                    "displayname": "SAP - SLES15-SP5-SAP-NETWEAVER",
+                                    "value": "SLES15-SP5-SAP-NETWEAVER"
                                 },
                                 {
                                     "displayname": "SAP - SLES15-SP4-SAP",
                                     "value": "SLES15-SP4-SAP"
-                                },
-                                {
-                                    "displayname": "SAP - RHEL8-SP6-SAP-NETWEAVER",
-                                    "value": "RHEL8-SP6-SAP-NETWEAVER"
                                 },
                                 {
                                     "displayname": "SAP - SLES15-SP4-SAP-NETWEAVER",
