@@ -34,6 +34,25 @@ variable "ssh_private_key" {
   sensitive   = true
 }
 
+variable "client_to_site_vpn" {
+  description = "VPN configuration - the client ip pool, exisiting instance id(guid) of the secrets manager, CRN of the uploaded VPN server certificate in secrets manager and list of users email ids to access the environment."
+  type = object({
+    enable                        = bool
+    client_ip_pool                = string
+    secrets_manager_id            = string
+    server_cert_crn               = string
+    vpn_client_access_group_users = list(string)
+  })
+
+  default = {
+    enable                        = false
+    client_ip_pool                = "192.168.0.0/16"
+    secrets_manager_id            = ""
+    server_cert_crn               = ""
+    vpn_client_access_group_users = [""]
+  }
+}
+
 variable "ibmcloud_api_key" {
   description = "The IBM Cloud platform API key needed to deploy IAM enabled resources."
   type        = string
@@ -97,6 +116,12 @@ variable "configure_ntp_forwarder" {
   default     = true
 }
 
+variable "configure_nfs_server" {
+  description = "Specify if NFS server will be configured. This will allow you easily to share files between PowerVS instances (e.g., SAP installation files). NFS server will be installed on the network-services vsi. If yes, ensure 'nfs_server_config' optional variable is set properly below. Default value is 1TB which will be mounted on /nfs."
+  type        = bool
+  default     = true
+}
+
 variable "dns_forwarder_config" {
   description = "Configuration for the DNS forwarder to a DNS service that is not reachable directly from PowerVS."
   type = object({
@@ -105,6 +130,25 @@ variable "dns_forwarder_config" {
 
   default = {
     "dns_servers" : "161.26.0.7; 161.26.0.8; 9.9.9.9;"
+  }
+}
+
+variable "nfs_server_config" {
+  description = "Configuration for the NFS server. 'size' is in GB, 'iops' is maximum input/output operation performance bandwidth per second, 'mount_path' defines the mount point on os. Set 'configure_nfs_server' to false to ignore creating volume."
+  type = object({
+    size       = number
+    iops       = number
+    mount_path = string
+  })
+
+  validation {
+    condition     = var.nfs_server_config != null ? (var.nfs_server_config.mount_path == null || var.nfs_server_config.mount_path == "" || can(regex("/[A-Za-z]+", var.nfs_server_config.mount_path))) : true
+    error_message = "The 'mount_path' attribute must begin with '/' and can contain only characters."
+  }
+  default = {
+    "size" : 200,
+    "iops" : 600,
+    "mount_path" : "/nfs"
   }
 }
 

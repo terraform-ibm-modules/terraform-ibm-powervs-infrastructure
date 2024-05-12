@@ -94,7 +94,7 @@ variable "nfs_server_config" {
   }
   default = {
     "size" : 200,
-    "iops" : 2000,
+    "iops" : 600,
     "mount_path" : "/nfs"
   }
 }

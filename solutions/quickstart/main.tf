@@ -12,9 +12,12 @@ module "quickstart" {
   external_access_ip          = var.external_access_ip
   ssh_public_key              = var.ssh_public_key
   ssh_private_key             = var.ssh_private_key
+  client_to_site_vpn          = var.client_to_site_vpn
   configure_dns_forwarder     = var.configure_dns_forwarder
   configure_ntp_forwarder     = var.configure_ntp_forwarder
+  configure_nfs_server        = var.configure_nfs_server
   dns_forwarder_config        = var.dns_forwarder_config
+  nfs_server_config           = var.nfs_server_config
   powervs_resource_group_name = var.powervs_resource_group_name
   powervs_management_network  = var.powervs_management_network
   powervs_backup_network      = var.powervs_backup_network
@@ -46,19 +49,4 @@ module "powervs_instance" {
   pi_cpu_proc_type           = local.pi_instance.pi_cpu_proc_type
   pi_boot_image_storage_tier = "tier3"
   pi_storage_config          = local.pi_instance.pi_storage_config
-}
-
-moved {
-  from = module.landing_zone
-  to   = module.quickstart.module.landing_zone
-}
-
-moved {
-  from = module.powervs_infra
-  to   = module.quickstart.module.powervs_infra
-}
-
-moved {
-  from = module.demo_pi_instance
-  to   = module.powervs_instance
 }

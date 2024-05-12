@@ -42,7 +42,7 @@
             "features": [
                 {
                     "description": "VPC services (landing zone)",
-                    "title": "Management, Edge and Workload VPC services are created using VSI on VPC landing zone presets."
+                    "title": "Edge VPC services are created using VSI on VPC landing zone presets."
                 },
                 {
                     "description": "Power Virtual Server workspaces",
@@ -50,7 +50,7 @@
                 },
                 {
                     "description": "Network management services",
-                    "title": "Bastion host (in management VPC), internet proxy based on SQUID (in edge VPC), NTP forwarder, DNS forwarder & NFS server (in workload VPC)."
+                    "title": "Bastion host, internet proxy based on SQUID, NTP forwarder, DNS forwarder & NFS as a service."
                 }
             ],
             "flavors": [
@@ -179,23 +179,6 @@
                             "required": true
                         },
                         {
-                            "key": "landing_zone_configuration",
-                            "type": "string",
-                            "required": true,
-                            "default_value": "",
-                            "options": [
-                                {
-                                    "displayname": "3 VPCs (with RHEL instances)",
-                                    "value": "3VPC_RHEL"
-                                },
-                                {
-                                    "displayname": "3 VPCs (with SLES instances)",
-                                    "value": "3VPC_SLES"
-                                }
-                            ],
-                            "custom_config": {}
-                        },
-                        {
                             "key": "external_access_ip",
                             "default_value": "",
                             "required": true
@@ -221,6 +204,10 @@
                                 "original_grouping": "deployment",
                                 "type": "multiline_secure_value"
                             }
+                        },
+                        {
+                            "key": "client_to_site_vpn",
+                            "required": true
                         },
                         {
                             "key": "ibmcloud_api_key",
@@ -407,22 +394,18 @@
                             },
                             {
                                 "title": "Number of VPCs",
-                                "description": "3"
+                                "description": "1"
                             },
                             {
                                 "title": "Number of Intel VSIs",
-                                "description": "3"
+                                "description": "2"
                             },
                             {
                                 "title": "Separate VPC for management",
                                 "description": "Yes"
                             },
                             {
-                                "title": "Separate VPC for Internet Services",
-                                "description": "Yes"
-                            },
-                            {
-                                "title": "Separate VPC for Private Services",
+                                "title": "Separate VPC for Network Services",
                                 "description": "Yes"
                             },
                             {
@@ -439,7 +422,7 @@
                             },
                             {
                                 "title": "Additional management configurations on VPC",
-                                "description": "NFS server, NTP forwarder, and DNS forwarder reachable from PowerVS Workspace"
+                                "description": "NFS as service, NTP forwarder, and DNS forwarder reachable from PowerVS Workspace"
                             }
                         ],
                         "diagrams": [
@@ -612,6 +595,10 @@
                         {
                             "key": "external_access_ip",
                             "default_value": "",
+                            "required": true
+                        },
+                        {
+                            "key": "client_to_site_vpn",
                             "required": true
                         },
                         {
@@ -923,19 +910,15 @@
                             },
                             {
                                 "title": "Number of Intel VSIs",
-                                "description": "1"
+                                "description": "2"
                             },
                             {
                                 "title": "Separate VPC for management",
-                                "description": "No"
+                                "description": "Yes"
                             },
                             {
-                                "title": "Separate VPC for Internet Services",
-                                "description": "No"
-                            },
-                            {
-                                "title": "Separate VPC for Private Services",
-                                "description": "No"
+                                "title": "Separate VPC for Network Services",
+                                "description": "Yes"
                             },
                             {
                                 "title": "Increases security with Key Management",
