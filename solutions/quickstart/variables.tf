@@ -13,8 +13,8 @@ variable "tshirt_size" {
   type        = string
 
   validation {
-    condition     = contains(["custom", "aix_xs", "aix_s", "aix_m", "aix_l", "ibm_i_xs", "ibm_i_s", "ibm_i_m", "ibm_i_l", "sap_dev"], var.tshirt_size)
-    error_message = "Only Following DC values are supported :  custom, aix_xs, aix_s, aix_m, aix_l, ibm_i_xs, ibm_i_s, ibm_i_m, ibm_i_l, sap_dev"
+    condition     = contains(["custom", "aix_xs", "aix_s", "aix_m", "aix_l", "ibm_i_xs", "ibm_i_s", "ibm_i_m", "ibm_i_l", "sap_dev_rhel", "sap_dev_sles"], var.tshirt_size)
+    error_message = "Only Following DC values are supported :  custom, aix_xs, aix_s, aix_m, aix_l, ibm_i_xs, ibm_i_s, ibm_i_m, ibm_i_l, sap_dev_rhel, sap_dev_sles"
   }
 }
 
@@ -49,8 +49,8 @@ variable "custom_profile_instance_boot_image" {
   type        = string
   default     = "none"
   validation {
-    condition     = contains(["RHEL8-SP6-SAP", "SLES15-SP4-SAP", "RHEL8-SP6-SAP-NETWEAVER", "SLES15-SP4-SAP-NETWEAVER", "7300-02-01", "7200-05-07", "7100-05-09", "IBMi-75-03-2924-1", "IBMi-75-03-2984-1", "IBMi-74-09-2984-1", "IBMi_COR-74-09-1", "none"], var.custom_profile_instance_boot_image)
-    error_message = "Only Following IBM catalog images are supported :  RHEL8-SP6-SAP, SLES15-SP4-SAP, RHEL8-SP6-SAP-NETWEAVER, SLES15-SP4-SAP-NETWEAVER, 7300-02-01, 7200-05-07, 7100-05-09, IBMi-75-03-2924-1, IBMi-75-03-2984-1, IBMi-74-09-2984-1, IBMi_COR-74-09-1, none"
+    condition     = contains(["RHEL9-SP2-SAP", "RHEL8-SP8-SAP", "RHEL9-SP2-SAP-NETWEAVER", "RHEL8-SP8-SAP-NETWEAVER", "SLES15-SP5-SAP", "SLES15-SP4-SAP", "SLES15-SP5-SAP-NETWEAVER", "SLES15-SP4-SAP-NETWEAVER", "7300-02-01", "7200-05-07", "7100-05-09", "IBMi-75-03-2924-1", "IBMi-75-03-2984-1", "IBMi-74-09-2984-1", "IBMi_COR-74-09-1", "none"], var.custom_profile_instance_boot_image)
+    error_message = "Only Following IBM catalog images are supported :  RHEL9-SP2-SAP, RHEL9-SP2-SAP-NETWEAVER, RHEL8-SP8-SAP, RHEL8-SP8-SAP-NETWEAVER, SLES15-SP5-SAP, SLES15-SP4-SAP,  SLES15-SP5-SAP-NETWEAVER, SLES15-SP4-SAP-NETWEAVER, 7300-02-01, 7200-05-07, 7100-05-09, IBMi-75-03-2924-1, IBMi-75-03-2984-1, IBMi-74-09-2984-1, IBMi_COR-74-09-1, none"
   }
 }
 
