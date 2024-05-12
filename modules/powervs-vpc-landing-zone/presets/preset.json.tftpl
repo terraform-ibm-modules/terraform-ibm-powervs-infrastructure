@@ -9,11 +9,6 @@
             "name": "slz-edge-rg",
             "create": true,
             "use_prefix": true
-        },
-        {
-            "name": "slz-workload-rg",
-            "create": true,
-            "use_prefix": true
         }
     ],
     "key_management": {
@@ -53,21 +48,6 @@
         "edge"
     ],
     "wait_till": "IngressReady",
-    "virtual_private_endpoints": [
-        {
-            "service_name": "cos",
-            "service_type": "cloud-object-storage",
-            "resource_group": "slz-service-rg",
-            "vpcs": [
-                {
-                    "name": "edge",
-                    "subnets": [
-                        "vpe-zone-1"
-                    ]
-                }
-            ]
-        }
-    ],
     "service_endpoints": "private",
     "security_groups": [],
     "vpn_gateways": [],
@@ -171,9 +151,9 @@
                         "acl_name": "acl"
                     },
                     {
-                        "name": "vsi-workload-zone-1",
+                        "name": "vsi-edge-zone-1",
                         "cidr": "10.30.20.0/24",
-                        "public_gateway": false,
+                        "public_gateway": true,
                         "acl_name": "acl"
                     },
                     {
@@ -193,7 +173,7 @@
                 "zone-3": null
             },
             "use_public_gateways": {
-                "zone-1": false,
+                "zone-1": true,
                 "zone-2": false,
                 "zone-3": false
             }
@@ -208,13 +188,9 @@
             "resource_group": "slz-edge-rg",
             "enable_floating_ip": true,
             "boot_volume_encryption_key_name": "slz-vsi-volume-key",
-            "ssh_keys": [
-                "ssh-key"
-            ],
+            "ssh_keys": ["ssh-key"],
             "vsi_per_subnet": 1,
-            "subnet_names": [
-                "vsi-management-zone-1"
-            ],
+            "subnet_names": ["vsi-management-zone-1"],
             "block_storage_volumes": [],
             "security_group": {
                 "name": "management-sg",
@@ -228,17 +204,29 @@
                     {
                         "name": "allow-private1-inbound",
                         "direction": "inbound",
-                        "source": "10.0.0.0/8"
+                        "source": "10.0.0.0/8",
+                        "tcp": {
+                            "port_max": 22,
+                            "port_min": 22
+                        }
                     },
                     {
                         "name": "allow-private2-inbound",
                         "direction": "inbound",
-                        "source": "172.16.0.0/12"
+                        "source": "172.16.0.0/12",
+                        "tcp": {
+                            "port_max": 22,
+                            "port_min": 22
+                        }
                     },
                     {
                         "name": "allow-private3-inbound",
                         "direction": "inbound",
-                        "source": "192.168.0.0/16"
+                        "source": "192.168.0.0/16",
+                        "tcp": {
+                            "port_max": 22,
+                            "port_min": 22
+                        }
                     },
                     {
                         "name": "allow-ssh-inbound-schematics1",
@@ -485,23 +473,19 @@
             }
         },
         {
-            "name": "private-svs",
+            "name": "network-services",
             "image_name": "${vsi_image}",
             "machine_type": "cx2-2x4",
             "vpc_name": "edge",
-            "resource_group": "slz-workload-rg",
+            "resource_group": "slz-edge-rg",
             "enable_floating_ip": false,
             "boot_volume_encryption_key_name": "slz-vsi-volume-key",
-            "ssh_keys": [
-                "ssh-key"
-            ],
+            "ssh_keys": ["ssh-key"],
             "vsi_per_subnet": 1,
-            "subnet_names": [
-                "vsi-workload-zone-1"
-            ],
+            "subnet_names": ["vsi-edge-zone-1"],
             "block_storage_volumes": [],
             "security_group": {
-                "name": "workload-sg",
+                "name": "network-services-sg",
                 "vpc_name": "egde",
                 "rules": [
                     {
@@ -531,6 +515,21 @@
                     }
                 ]
             }
+        }
+    ],
+    "virtual_private_endpoints": [
+        {
+            "service_name": "cos",
+            "service_type": "cloud-object-storage",
+            "resource_group": "slz-service-rg",
+            "vpcs": [
+                {
+                    "name": "edge",
+                    "subnets": [
+                        "vpe-zone-1"
+                    ]
+                }
+            ]
         }
     ]
 }

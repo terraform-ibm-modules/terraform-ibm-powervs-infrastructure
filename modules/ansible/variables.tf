@@ -38,18 +38,3 @@ variable "playbook_template_vars" {
   description = "Map values for the ansible playbook template."
   type        = map(any)
 }
-
-variable "src_inventory_template_name" {
-  description = "Name of the inventory template file located within the 'templates-ansible' directory."
-  type        = string
-}
-
-variable "dst_inventory_file_name" {
-  description = "Name for the inventory file to be generated on the Ansible host."
-  type        = string
-}
-
-variable "inventory_template_vars" {
-  description = "Map values for the inventory template."
-  type        = map(any)
-}

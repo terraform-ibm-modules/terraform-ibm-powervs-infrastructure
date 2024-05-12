@@ -59,13 +59,19 @@ variable "ibmcloud_api_key" {
 #####################################################
 
 variable "configure_dns_forwarder" {
-  description = "Specify if DNS forwarder will be configured. This will allow you to use central DNS servers (e.g. IBM Cloud DNS servers) sitting outside of the created IBM PowerVS infrastructure. If yes, ensure 'dns_forwarder_config' optional variable is set properly. DNS forwarder will be installed on the private-svs vsi."
+  description = "Specify if DNS forwarder will be configured. This will allow you to use central DNS servers (e.g. IBM Cloud DNS servers) sitting outside of the created IBM PowerVS infrastructure. If yes, ensure 'dns_forwarder_config' optional variable is set properly. DNS forwarder will be installed on the network-services vsi."
   type        = bool
   default     = true
 }
 
 variable "configure_ntp_forwarder" {
-  description = "Specify if NTP forwarder will be configured. This will allow you to synchronize time between IBM PowerVS instances. NTP forwarder will be installed on the private-svs vsi."
+  description = "Specify if NTP forwarder will be configured. This will allow you to synchronize time between IBM PowerVS instances. NTP forwarder will be installed on the network-services vsi."
+  type        = bool
+  default     = true
+}
+
+variable "configure_nfs_server" {
+  description = "Specify if NFS server will be configured. This will allow you easily to share files between PowerVS instances (e.g., SAP installation files). NFS server will be installed on the network-services vsi. If yes, ensure 'nfs_server_config' optional variable is set properly below. Default value is 1TB which will be mounted on /nfs."
   type        = bool
   default     = true
 }
@@ -78,6 +84,25 @@ variable "dns_forwarder_config" {
 
   default = {
     "dns_servers" : "161.26.0.7; 161.26.0.8; 9.9.9.9;"
+  }
+}
+
+variable "nfs_server_config" {
+  description = "Configuration for the NFS server. 'size' is in GB, 'iops' is maximum input/output operation performance bandwidth per second, 'mount_path' defines the mount point on os. Set 'configure_nfs_server' to false to ignore creating volume."
+  type = object({
+    size       = number
+    iops       = number
+    mount_path = string
+  })
+
+  validation {
+    condition     = var.nfs_server_config != null ? (var.nfs_server_config.mount_path == null || var.nfs_server_config.mount_path == "" || can(regex("/[A-Za-z]+", var.nfs_server_config.mount_path))) : true
+    error_message = "The 'mount_path' attribute must begin with '/' and can contain only characters."
+  }
+  default = {
+    "size" : 200,
+    "iops" : 2000,
+    "mount_path" : "/nfs"
   }
 }
 

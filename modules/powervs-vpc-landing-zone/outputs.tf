@@ -54,22 +54,22 @@ output "access_host_or_ip" {
 
 output "proxy_host_or_ip_port" {
   description = "Proxy host:port for created PowerVS infrastructure."
-  value       = "${local.network_services_config.squid.server_host_or_ip}:${local.network_services_config.squid.squid_port}"
+  value       = "${local.network_services_ip}:${local.network_services_config.squid.squid_port}"
 }
 
 output "dns_host_or_ip" {
   description = "DNS forwarder host for created PowerVS infrastructure."
-  value       = var.configure_dns_forwarder ? local.network_services_config.dns.server_host_or_ip : ""
+  value       = var.configure_dns_forwarder ? local.network_services_ip : ""
 }
 
 output "ntp_host_or_ip" {
   description = "NTP host for created PowerVS infrastructure."
-  value       = var.configure_ntp_forwarder ? local.network_services_config.ntp.server_host_or_ip : ""
+  value       = var.configure_ntp_forwarder ? local.network_services_ip : ""
 }
 
 output "nfs_host_or_ip_path" {
   description = "NFS host for created PowerVS infrastructure."
-  value       = ""
+  value       = var.configure_nfs_server ? module.vpc_file_share_alb[0].nfs_host_or_ip_path : ""
 }
 
 

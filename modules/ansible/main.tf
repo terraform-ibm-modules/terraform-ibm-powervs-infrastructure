@@ -3,13 +3,10 @@ locals {
   src_shell_templates_dir   = "${path.module}/templates-shell"
   dst_files_dir             = "/root/terraform_files"
 
-  src_script_tftpl_path    = "${local.src_shell_templates_dir}/${var.src_script_template_name}"
-  dst_script_file_path     = "${local.dst_files_dir}/${var.dst_script_file_name}"
-  src_playbook_tftpl_path  = "${local.src_ansible_templates_dir}/${var.src_playbook_template_name}"
-  dst_playbook_file_path   = "${local.dst_files_dir}/${var.dst_playbook_file_name}"
-  src_inventory_tftpl_path = "${local.src_ansible_templates_dir}/${var.src_inventory_template_name}"
-  dst_inventory_file_path  = "${local.dst_files_dir}/${var.dst_inventory_file_name}"
-
+  src_script_tftpl_path   = "${local.src_shell_templates_dir}/${var.src_script_template_name}"
+  dst_script_file_path    = "${local.dst_files_dir}/${var.dst_script_file_name}"
+  src_playbook_tftpl_path = "${local.src_ansible_templates_dir}/${var.src_playbook_template_name}"
+  dst_playbook_file_path  = "${local.dst_files_dir}/${var.dst_playbook_file_name}"
 }
 
 ##############################################################
@@ -49,6 +46,7 @@ resource "terraform_data" "setup_ansible_host" {
 }
 
 
+
 ##############################################################
 # 2. Execute ansible playbooks
 ##############################################################
@@ -83,32 +81,15 @@ resource "terraform_data" "execute_playbooks" {
     destination = local.dst_playbook_file_path
   }
 
-  # Copy and create ansible inventory template file on ansible host
-  provisioner "file" {
-    content     = templatefile(local.src_inventory_tftpl_path, var.inventory_template_vars)
-    destination = local.dst_inventory_file_path
-  }
-
   # Copy and create ansible shell template file which will trigger the playbook on ansible host
   provisioner "file" {
     content = templatefile(local.src_script_tftpl_path,
       {
         "ansible_playbook_file" : local.dst_playbook_file_path,
         "ansible_log_path" : local.dst_files_dir,
-        "ssh_private_key" : var.ssh_private_key,
-        "ansible_inventory" : local.dst_inventory_file_path
+        "ssh_private_key" : var.ssh_private_key
     })
     destination = local.dst_script_file_path
-  }
-
-  # Write ssh üser's ssh private key
-  provisioner "remote-exec" {
-    inline = [
-      "mkdir -p /root/.ssh/",
-      "chmod 700 /root/.ssh",
-      "echo '${var.ssh_private_key}' >/root/.ssh/id_rsa",
-      "chmod 600 /root/.ssh/id_rsa",
-    ]
   }
 
   # Execute bash shell script to run ansible playbooks
@@ -116,6 +97,7 @@ resource "terraform_data" "execute_playbooks" {
     inline = [
       "chmod +x ${local.dst_script_file_path}",
       local.dst_script_file_path,
+      "shutdown -r +1"
     ]
   }
 }

@@ -1,5 +1,5 @@
 #####################################################
-# IBM Cloud PowerVS workspace Module
+# PowerVS with VPC landing zone module
 #####################################################
 
 terraform {
@@ -7,7 +7,7 @@ terraform {
   required_providers {
     ibm = {
       source  = "IBM-Cloud/ibm"
-      version = ">=1.62.1"
+      version = ">=1.62.0"
     }
   }
 }

@@ -37,11 +37,6 @@ output "vsi_list" {
   value       = module.fullstack.vsi_list
 }
 
-output "vpc_data" {
-  description = "List of VPC data."
-  value       = module.fullstack.vpc_data
-}
-
 output "resource_group_data" {
   description = "List of resource groups data used within landing zone."
   value       = module.fullstack.resource_group_data
