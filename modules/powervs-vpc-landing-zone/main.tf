@@ -14,7 +14,7 @@ module "landing_zone" {
 }
 
 #####################################################
-# File share for NFS and application Load Balancer
+# File share for NFS and Application Load Balancer
 #####################################################
 
 module "vpc_file_share_alb" {
@@ -48,7 +48,7 @@ module "powervs_infra" {
   pi_zone                       = var.powervs_zone
   pi_resource_group_name        = var.powervs_resource_group_name
   pi_workspace_name             = "${var.prefix}-${var.powervs_zone}-power-workspace"
-  pi_ssh_public_key             = { "name" = "${var.prefix}-${var.powervs_zone}-pcs-ssh-key", value = var.ssh_public_key }
+  pi_ssh_public_key             = { "name" = "${var.prefix}-${var.powervs_zone}-pvs-ssh-key", value = var.ssh_public_key }
   pi_cloud_connection           = var.cloud_connection
   pi_private_subnet_1           = var.powervs_management_network
   pi_private_subnet_2           = var.powervs_backup_network
@@ -62,6 +62,21 @@ module "powervs_infra" {
 # Ansible Host module setup and execution
 #####################################################
 
+locals {
+  network_services_config = {
+    squid = {
+      "enable"     = true
+      "squid_port" = "3128"
+    }
+    dns = merge(var.dns_forwarder_config, {
+      "enable" = var.configure_dns_forwarder
+    })
+    ntp = {
+      "enable" = var.configure_ntp_forwarder
+    }
+  }
+}
+
 module "configure_network_services" {
   source = "../ansible"
 
@@ -73,5 +88,12 @@ module "configure_network_services" {
   dst_script_file_name       = "configure_network_services.sh"
   src_playbook_template_name = "configure_network_services_playbook.yml.tftpl"
   dst_playbook_file_name     = "configure_network_services_playbook.yml"
-  playbook_template_vars     = local.playbook_template_vars
+  playbook_template_vars = {
+    "server_config" : jsonencode(
+      { "squid" : local.network_services_config.squid,
+        "dns" : local.network_services_config.dns,
+        "ntp" : local.network_services_config.ntp
+      }
+    )
+  }
 }

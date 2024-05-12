@@ -28,32 +28,3 @@ locals {
   validate_json_chk = regex("^${local.validate_json_msg}$", (local.valid_json_used ? local.validate_json_msg : ""))
 
 }
-
-#####################################################
-# VPC VSI Management Services OS configuration
-#####################################################
-
-locals {
-
-  network_services_config = {
-    squid = {
-      "enable"     = true
-      "squid_port" = "3128"
-    }
-    dns = merge(var.dns_forwarder_config, {
-      "enable" = var.configure_dns_forwarder
-    })
-    ntp = {
-      "enable" = var.configure_ntp_forwarder
-    }
-  }
-
-  playbook_template_vars = {
-    "server_config" : jsonencode(
-      { "squid" : local.network_services_config.squid,
-        "dns" : local.network_services_config.dns,
-        "ntp" : local.network_services_config.ntp
-      }
-    )
-  }
-}
