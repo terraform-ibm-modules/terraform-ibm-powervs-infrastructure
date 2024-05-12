@@ -10,7 +10,7 @@ output "powervs_workspace_id" {
 
 output "powervs_workspace_crn" {
   description = "PowerVS infrastructure workspace CRN."
-  value       = data.ibm_pi_workspace.powervs_workspace_ds.pi_workspace_details.crn
+  value       = data.ibm_pi_workspace.powervs_workspace_ds.pi_workspace_details[0].crn
 }
 
 
