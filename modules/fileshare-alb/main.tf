@@ -46,7 +46,6 @@ resource "ibm_is_lb_pool" "nfs_backend_pool" {
   health_retries      = 2
   health_timeout      = 2
   health_monitor_port = 2049
-
 }
 
 resource "ibm_is_lb_pool_member" "nfs_backend_pool_member" {
