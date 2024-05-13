@@ -3,16 +3,12 @@
 ## IBM Power Virtual Server with VPC Landing Zone
 
 This module provisions the following resources in IBM Cloud:
-- A **VPC Infrastructure** based on the value passed to 'var.landing_zone_configuration' with the following components:
-    -  **landing_zone_configuration = 3VPC_RHEL or 3VPC_SLES**
+- A **VPC Infrastructure** with the following components:
+    - Provisions 1 VPC with two VSIs - one management (jump/bastion) VSI and one network-services VSI(configured as a squid proxy server, NTP, DNS server) using [this preset](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/blob/main/modules/powervs-vpc-landing-zone/presets/preset.json.tftpl).
+    - Installs and configures the Squid Proxy, DNS Forwarder, NTP forwarder on hosts, and sets the host as the server for the SQUID, NTP, and DNS services by using Ansible Galaxy collection roles [ibm.power_linux_sap collection](https://galaxy.ansible.com/ui/repo/published/ibm/power_linux_sap/).
+    - File storage shares (NFS as a Service) is created and an application load balancer is created to map the NFS IPs which can then be used by PowerVS Lpars to mount.
+    - Client to site VPN is created optionally.
 
-        - Provisions three VPCs with one VSI in each VPC - one management (jump/bastion) VSI, one inet-svs VSI configured as a squid proxy server, and one private-svs VSI (configured as NFS, NTP, DNS server) using [this preset](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/blob/main/modules/powervs-vpc-landing-zone/presets/3vpc.preset.json.tftpl).
-        - Installs and configures the Squid Proxy, DNS Forwarder, NTP forwarder, and NFS on hosts, and sets the host as the server for the NTP, NFS, and DNS services by using Ansible Galaxy collection roles [ibm.power_linux_sap collection](https://galaxy.ansible.com/ui/repo/published/ibm/power_linux_sap/).
-
-    -  **landing_zone_configuration = 1VPC_RHEL**
-
-        - One VPC with one VSI for management (jump/bastion) using [this preset](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/blob/main/modules/powervs-vpc-landing-zone/presets/1vpc.preset.json.tftpl).
-        - Installation and configuration of Squid Proxy, DNS Forwarder, NTP forwarder, and NFS on the bastion host, and sets the host as the server for the NTP, NFS, and DNS services using Ansible Galaxy collection roles [ibm.power_linux_sap collection](https://galaxy.ansible.com/ui/repo/published/ibm/power_linux_sap/)
 
 - **A Power Virtual Server workspace**  with the following network topology:
     - Creates two private networks: a management network and a backup network.
@@ -47,11 +43,11 @@ module "fullstack" {
   providers = { ibm.ibm-is = ibm.ibm-is, ibm.ibm-pi = ibm.ibm-pi }
 
   powervs_zone                = var.powervs_zone
-  landing_zone_configuration  = var.landing_zone_configuration
   prefix                      = var.prefix
   external_access_ip          = var.external_access_ip
   ssh_public_key              = var.ssh_public_key
   ssh_private_key             = var.ssh_private_key
+  client_to_site_vpn          = var.client_to_site_vpn           #(optional.  default check vars)
   configure_dns_forwarder     = var.configure_dns_forwarder      #(optional,  default false)
   configure_ntp_forwarder     = var.configure_ntp_forwarder      #(optional,  default false)
   configure_nfs_server        = var.configure_nfs_server         #(optional.  default false)
