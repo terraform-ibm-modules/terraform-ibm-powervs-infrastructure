@@ -1,5 +1,5 @@
 #####################################################
-# VPC Landing Zone module
+# Module: VPC Landing Zone module
 #####################################################
 
 module "landing_zone" {
@@ -13,12 +13,12 @@ module "landing_zone" {
   override_json_string = local.override_json_string
 }
 
-#####################################################
-# File share for NFS and Application Load Balancer
-#####################################################
+###########################################################
+# Module: File share for NFS and Application Load Balancer
+###########################################################
 
 module "vpc_file_share_alb" {
-  source    = "../fileshare-alb"
+  source    = "./submodules/fileshare-alb"
   providers = { ibm = ibm.ibm-is }
   count     = var.configure_nfs_server ? 1 : 0
 
@@ -36,9 +36,9 @@ module "vpc_file_share_alb" {
 
 }
 
-#####################################################
-# PowerVS Workspace Module
-#####################################################
+###########################################################
+# Module: PowerVS Workspace
+###########################################################
 
 module "powervs_infra" {
   source    = "terraform-ibm-modules/powervs-workspace/ibm"
@@ -58,9 +58,9 @@ module "powervs_infra" {
 }
 
 
-#####################################################
-# Ansible Host module setup and execution
-#####################################################
+###########################################################
+# Module: Ansible Host setup and execution
+###########################################################
 
 locals {
   network_services_config = {
@@ -78,7 +78,7 @@ locals {
 }
 
 module "configure_network_services" {
-  source = "../ansible"
+  source = "./submodules/ansible"
 
   bastion_host_ip    = local.access_host_or_ip
   ansible_host_or_ip = local.network_services_ip

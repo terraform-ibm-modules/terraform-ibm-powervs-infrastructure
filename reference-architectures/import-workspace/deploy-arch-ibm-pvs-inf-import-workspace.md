@@ -2,32 +2,20 @@
 copyright:
   years: 2024
 lastupdated: "2024-05-10"
-
 keywords:
-
 subcollection: deployable-reference-architectures
-
 authors:
   - name: Arnold Beilmann
   - name: Stafania Saju
-
-version: v4.11.0
-
 production: true
-
 deployment-url: https://cloud.ibm.com/catalog/architecture/deploy-arch-ibm-pvs-inf-2dd486c7-b317-4aaa-907b-42671485ad96-global
-
 docs: https://cloud.ibm.com/docs/powervs-vpc
-
 image_source: https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/blob/main/reference-architectures/reference-architectures/import-workspace/deploy-arch-ibm-pvs-inf-import-workspace.svg
-
 use-case: ITServiceManagement
-
 industry: Technology
-
 compliance:
-
 content-type: reference-architecture
+version: v5.0.0
 
 ---
 

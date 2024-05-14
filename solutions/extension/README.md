@@ -8,8 +8,9 @@ It provisions the following infrastructure on top of the deployed Full Stack sol
     - Creates one or two IBM Cloud connections in a non-PER environment.
     - Attaches the private networks to the IBM Cloud connections in a non-PER environment.
     - Attaches the IBM Cloud connections to a transit gateway in a non-PER environment.
-    - Attaches the PowerVS workspace to Transit gateway in PER-enabled DC
+    - Attaches the PowerVS workspace to transit gateway in PER-enabled DC
     - Creates an SSH key.
+    - Imports cloud catalog stock images.
 
 
 ### Notes:

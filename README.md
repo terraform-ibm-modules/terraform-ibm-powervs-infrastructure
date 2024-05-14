@@ -44,7 +44,8 @@ Three solutions are offered:
 ## Overview
 * [terraform-ibm-powervs-infrastructure](#terraform-ibm-powervs-infrastructure)
 * [Submodules](./modules)
-    * [ansible](./modules/ansible)
+    * [powervs-vpc-landing-zone/subansible](./modules/powervs-vpc-landing-zone/submodules/ansible)
+    * [powervs-vpc-landing-zone/subfileshare-alb](./modules/powervs-vpc-landing-zone/submodules/fileshare-alb)
     * [powervs-vpc-landing-zone](./modules/powervs-vpc-landing-zone)
 * [Contributing](#contributing)
 <!-- END OVERVIEW HOOK -->

@@ -1,26 +1,4 @@
-# Module ansible-configure-network-services
-
-This module installs and configures the Squid Proxy, DNS Forwarder, NTP Forwarder, NFS on specified host and sets the host as server for these services using ansible galaxy collection roles [ibm.power_linux_sap collection](https://galaxy.ansible.com/ui/repo/published/ibm/power_linux_sap/).
-
-## Usage
-```hcl
-provider "ibm" {
-region           = "sao"
-zone             = "sao01"
-ibmcloud_api_key = "your api key" != null ? "your api key" : null
-}
-
-module "configure_squid" {
-
-source     = "./submodules/configure_network_services"
-access_host_or_ip          = var.access_host_or_ip
-target_server_ip           = var.target_server_ip
-ssh_private_key            = var.ssh_private_key
-service_config             = var.service_config
-perform_proxy_client_setup = var.perform_proxy_client_setup
-}
-
-```
+# Module ansible
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ### Requirements

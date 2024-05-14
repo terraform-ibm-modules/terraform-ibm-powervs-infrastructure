@@ -1,9 +1,38 @@
 #####################################################
 # VPC landing zone presets
 #####################################################
+
 locals {
-  external_access_ip   = var.external_access_ip != null && var.external_access_ip != "" ? length(regexall("/", var.external_access_ip)) > 0 ? var.external_access_ip : "${var.external_access_ip}/32" : ""
-  override_json_string = templatefile("${path.module}/presets/preset.json.tftpl", { external_access_ip = local.external_access_ip, vsi_image = "ibm-redhat-8-8-amd64-sap-applications-1" })
+  ibm_powervs_zone_cloud_region_map = {
+    "syd04"    = "au-syd"
+    "syd05"    = "au-syd"
+    "sao01"    = "br-sao"
+    "sao04"    = "br-sao"
+    "tor01"    = "ca-tor"
+    "mon01"    = "ca-tor"
+    "eu-de-1"  = "eu-de"
+    "eu-de-2"  = "eu-de"
+    "mad02"    = "eu-es"
+    "mad04"    = "eu-es"
+    "lon04"    = "eu-gb"
+    "lon06"    = "eu-gb"
+    "osa21"    = "jp-osa"
+    "tok04"    = "jp-tok"
+    "us-south" = "us-south"
+    "dal10"    = "us-south"
+    "dal12"    = "us-south"
+    "us-east"  = "us-east"
+    "wdc06"    = "us-east"
+    "wdc07"    = "us-east"
+  }
+
+  external_access_ip = var.external_access_ip != null && var.external_access_ip != "" ? length(regexall("/", var.external_access_ip)) > 0 ? var.external_access_ip : "${var.external_access_ip}/32" : ""
+  override_json_string = templatefile("${path.module}/presets/slz-preset.json.tftpl",
+    {
+      external_access_ip = local.external_access_ip,
+      vsi_image          = "ibm-redhat-8-8-amd64-sap-applications-1"
+    }
+  )
 }
 
 #####################################################

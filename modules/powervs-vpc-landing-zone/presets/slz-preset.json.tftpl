@@ -15,48 +15,58 @@
         "name": "slz-kms",
         "resource_group": "slz-service-rg",
         "use_hs_crypto": false,
+        "use_data": false,
         "keys": [
             {
                 "name": "slz-key",
                 "key_ring": "slz-slz-ring",
-                "root_key": true
+                "root_key": true,
+                "payload": null,
+                "force_delete": null,
+                "endpoint": null,
+                "iv_value": null,
+                "encrypted_nonce": null,
+                "policies": {
+                    "rotation": {
+                        "interval_month": 12
+                    }
+                }
             },
             {
                 "name": "slz-atracker-key",
                 "key_ring": "slz-slz-ring",
-                "root_key": true
+                "root_key": true,
+                "payload": null,
+                "force_delete": null,
+                "endpoint": null,
+                "iv_value": null,
+                "encrypted_nonce": null,
+                "policies": {
+                    "rotation": {
+                        "interval_month": 12
+                    }
+                }
             },
             {
                 "name": "slz-vsi-volume-key",
                 "key_ring": "slz-slz-ring",
-                "root_key": true
+                "root_key": true,
+                "payload": null,
+                "force_delete": null,
+                "endpoint": null,
+                "iv_value": null,
+                "encrypted_nonce": null,
+                "policies": {
+                    "rotation": {
+                        "interval_month": 12
+                    }
+                }
             }
         ]
     },
-    "appid": {
-        "name": "slz-appid",
-        "resource_group": "slz-service-rg",
-        "use_appid": false,
-        "use_data": false,
-        "keys": [
-            "slz-appid-key"
-        ]
-    },
-    "enable_transit_gateway": true,
-    "transit_gateway_resource_group": "slz-service-rg",
-    "transit_gateway_connections": [
-        "edge"
-    ],
     "wait_till": "IngressReady",
     "service_endpoints": "private",
-    "security_groups": [],
     "vpn_gateways": [],
-    "atracker": {
-        "collector_bucket_name": "atracker-bucket",
-        "receive_global_events": true,
-        "resource_group": "slz-service-rg",
-        "add_route": true
-    },
     "cos": [
         {
             "name": "atracker-cos",
@@ -99,13 +109,59 @@
             "keys": []
         }
     ],
+    "atracker": {
+        "collector_bucket_name": "atracker-bucket",
+        "receive_global_events": true,
+        "resource_group": "slz-service-rg",
+        "add_route": true
+    },
+    "enable_transit_gateway": true,
+    "transit_gateway_resource_group": "slz-service-rg",
+    "transit_gateway_connections": [
+        "edge"
+    ],
+    "security_groups": [
+        {
+            "name": "vpe-sg",
+            "vpc_name": "edge",
+            "resource_group": "slz-edge-rg",
+            "show": false,
+            "rules": [
+                {
+                    "direction": "inbound",
+                    "name": "allow-ibm-inbound",
+                    "source": "161.26.0.0/16"
+                },
+                {
+                    "direction": "inbound",
+                    "name": "allow-private1-inbound",
+                    "source": "10.0.0.0/8"
+                },
+                {
+                    "direction": "inbound",
+                    "name": "allow-private2-inbound",
+                    "source": "172.16.0.0/12"
+                },
+                {
+                    "direction": "inbound",
+                    "name": "allow-private3-inbound",
+                    "source": "192.168.0.0/16"
+                },
+                {
+                    "direction": "outbound",
+                    "name": "allow-all-outbound",
+                    "source": "0.0.0.0/0"
+                }
+            ]
+        }
+    ],
     "network_cidr": "10.0.0.0/8",
     "vpcs": [
         {
             "prefix": "edge",
             "resource_group": "slz-edge-rg",
             "clean_default_sg_acl": false,
-            "flow_logs_bucket_name": null,
+            "flow_logs_bucket_name": "atracker-bucket",
             "default_security_group_rules": [
                 {
                     "name": "all-inbound",
@@ -145,15 +201,15 @@
             "subnets": {
                 "zone-1": [
                     {
-                        "name": "vsi-management-zone-1",
+                        "name": "vpn-zone-1",
                         "cidr": "10.30.10.0/24",
                         "public_gateway": false,
                         "acl_name": "acl"
                     },
                     {
-                        "name": "vsi-edge-zone-1",
+                        "name": "vsi-management-zone-1",
                         "cidr": "10.30.20.0/24",
-                        "public_gateway": true,
+                        "public_gateway": false,
                         "acl_name": "acl"
                     },
                     {
@@ -163,11 +219,12 @@
                         "acl_name": "acl"
                     },
                     {
-                        "name": "vpn-zone-1",
+                        "name": "vsi-edge-zone-1",
                         "cidr": "10.30.40.0/24",
-                        "public_gateway": false,
+                        "public_gateway": true,
                         "acl_name": "acl"
                     }
+
                 ],
                 "zone-2": null,
                 "zone-3": null
@@ -525,6 +582,7 @@
             "vpcs": [
                 {
                     "name": "edge",
+                    "security_group_name": "vpe-sg",
                     "subnets": [
                         "vpe-zone-1"
                     ]

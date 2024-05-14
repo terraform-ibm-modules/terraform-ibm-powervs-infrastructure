@@ -4,19 +4,27 @@
 
 This module provisions the following resources in IBM Cloud:
 - A **VPC Infrastructure** with the following components:
-    - Provisions 1 VPC with two VSIs - one management (jump/bastion) VSI and one network-services VSI(configured as a squid proxy server, NTP, DNS server) using [this preset](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/blob/main/modules/powervs-vpc-landing-zone/presets/preset.json.tftpl).
-    - Installs and configures the Squid Proxy, DNS Forwarder, NTP forwarder on hosts, and sets the host as the server for the SQUID, NTP, and DNS services by using Ansible Galaxy collection roles [ibm.power_linux_sap collection](https://galaxy.ansible.com/ui/repo/published/ibm/power_linux_sap/).
-    - File storage shares (NFS as a Service) is created and an application load balancer is created to map the NFS IPs which can then be used by PowerVS Lpars to mount.
-    - Client to site VPN is created optionally.
+    - One VSI for one management (jump/bastion) VSI,
+    - One VSI for network-services configured as squid proxy, NTP and DNS servers(using Ansible Galaxy collection roles [ibm.power_linux_sap collection](https://galaxy.ansible.com/ui/repo/published/ibm/power_linux_sap/). This VSI also acts as central ansible execution node.
+    - [Client to site VPN server](https://cloud.ibm.com/docs/vpc?topic=vpc-vpn-client-to-site-overview)
+    - [File storage share](https://cloud.ibm.com/docs/vpc?topic=vpc-file-storage-create&interface=ui)
+    - [Application load balancer](https://cloud.ibm.com/docs/vpc?topic=vpc-load-balancers&interface=ui)
+    - IBM Cloud Object storage(COS) Virtual Private endpoint gateway(VPE)
+    - IBM Cloud Object storage(COS) Instance and buckets
+    - VPC flow logs
+    - KMS keys
+    - Activity tracker
 
+- A local **transit gateway**
 
-- **A Power Virtual Server workspace**  with the following network topology:
+- A **Power Virtual Server** workspace with the following network topology:
     - Creates two private networks: a management network and a backup network.
     - Creates one or two IBM Cloud connections in a non-PER environment.
     - Attaches the private networks to the IBM Cloud connections in a non-PER environment.
     - Attaches the IBM Cloud connections to a transit gateway in a non-PER environment.
-    - Attaches the PowerVS workspace to Transit gateway in PER-enabled DC.
+    - Attaches the PowerVS workspace to transit gateway in PER-enabled DC
     - Creates an SSH key.
+    - Imports cloud catalog stock images.
 
 - Finally, interconnects both VPC and PowerVS infrastructure.
 
@@ -88,10 +96,10 @@ Creates VPC Landing Zone | Performs VPC VSI OS Config | Creates PowerVS Infrastr
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_client_to_site_vpn"></a> [client\_to\_site\_vpn](#module\_client\_to\_site\_vpn) | terraform-ibm-modules/client-to-site-vpn/ibm | 1.7.1 |
-| <a name="module_configure_network_services"></a> [configure\_network\_services](#module\_configure\_network\_services) | ../ansible | n/a |
+| <a name="module_configure_network_services"></a> [configure\_network\_services](#module\_configure\_network\_services) | ./submodules/ansible | n/a |
 | <a name="module_landing_zone"></a> [landing\_zone](#module\_landing\_zone) | terraform-ibm-modules/landing-zone/ibm//patterns//vsi//module | 5.21.1 |
 | <a name="module_powervs_infra"></a> [powervs\_infra](#module\_powervs\_infra) | terraform-ibm-modules/powervs-workspace/ibm | 1.13.0 |
-| <a name="module_vpc_file_share_alb"></a> [vpc\_file\_share\_alb](#module\_vpc\_file\_share\_alb) | ../fileshare-alb | n/a |
+| <a name="module_vpc_file_share_alb"></a> [vpc\_file\_share\_alb](#module\_vpc\_file\_share\_alb) | ./submodules/fileshare-alb | n/a |
 
 ### Resources
 
