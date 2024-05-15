@@ -45,11 +45,11 @@ variable "client_to_site_vpn" {
   })
 
   default = {
-    enable                        = false
-    client_ip_pool                = "192.168.0.0/16"
-    secrets_manager_id            = ""
-    server_cert_crn               = ""
-    vpn_client_access_group_users = [""]
+    "enable" : false,
+    "client_ip_pool" : "192.168.0.0/16",
+    "secrets_manager_id" : "",
+    "server_cert_crn" : "",
+    "vpn_client_access_group_users" : [""]
   }
 }
 
