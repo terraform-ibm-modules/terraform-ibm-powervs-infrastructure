@@ -56,7 +56,7 @@ resource "ibm_is_lb_pool_member" "nfs_backend_pool_member" {
   target_address = split(":", ibm_is_share_mount_target.mount_target_nfs.mount_path)[0]
 }
 
-resource "ibm_is_lb_listener" "nfs_front_end_listner" {
+resource "ibm_is_lb_listener" "nfs_front_end_listener" {
 
   lb           = ibm_is_lb.file_share_alb.id
   default_pool = ibm_is_lb_pool.nfs_backend_pool.id

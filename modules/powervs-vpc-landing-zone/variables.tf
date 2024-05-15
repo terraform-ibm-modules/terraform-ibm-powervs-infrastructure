@@ -30,7 +30,7 @@ variable "ssh_private_key" {
 }
 
 variable "client_to_site_vpn" {
-  description = "VPN configuration - the client ip pool, exisiting instance id(guid) of the secrets manager, CRN of the uploaded VPN server certificate in secrets manager and list of users email ids to access the environment."
+  description = "VPN configuration - the client ip pool, existing instance id(guid) of the secrets manager, CRN of the uploaded VPN server certificate in secrets manager and list of users email ids to access the environment."
   type = object({
     enable                        = bool
     client_ip_pool                = string
@@ -53,13 +53,13 @@ variable "client_to_site_vpn" {
 #####################################################
 
 variable "configure_dns_forwarder" {
-  description = "Specify if DNS forwarder will be configured. This will allow you to use central DNS servers (e.g. IBM Cloud DNS servers) sitting outside of the created IBM PowerVS infrastructure. If yes, ensure 'dns_forwarder_config' optional variable is set properly. DNS forwarder will be installed on the network-services vsi if exists else on inet-svs-1 vsi."
+  description = "Specify if DNS forwarder will be configured. This will allow you to use central DNS servers (e.g. IBM Cloud DNS servers) sitting outside of the created IBM PowerVS infrastructure. If yes, ensure 'dns_forwarder_config' optional variable is set properly. DNS forwarder will be installed on the network-services vsi "
   type        = bool
   default     = false
 }
 
 variable "configure_ntp_forwarder" {
-  description = "Specify if NTP forwarder will be configured. This will allow you to synchronize time between IBM PowerVS instances. NTP forwarder will be installed on the network-services vsi if exists else on inet-svs-1 vsi."
+  description = "Specify if NTP forwarder will be configured. This will allow you to synchronize time between IBM PowerVS instances. NTP forwarder will be installed on the network-services vsi "
   type        = bool
   default     = false
 }

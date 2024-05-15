@@ -17,7 +17,7 @@ No modules.
 | Name | Type |
 |------|------|
 | [ibm_is_lb.file_share_alb](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/is_lb) | resource |
-| [ibm_is_lb_listener.nfs_front_end_listner](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/is_lb_listener) | resource |
+| [ibm_is_lb_listener.nfs_front_end_listener](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/is_lb_listener) | resource |
 | [ibm_is_lb_pool.nfs_backend_pool](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/is_lb_pool) | resource |
 | [ibm_is_lb_pool_member.nfs_backend_pool_member](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/is_lb_pool_member) | resource |
 | [ibm_is_share.file_share_nfs](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/is_share) | resource |
@@ -33,7 +33,7 @@ No modules.
 | <a name="input_file_share_iops"></a> [file\_share\_iops](#input\_file\_share\_iops) | The maximum input/output operation performance bandwidth per second for the file share. | `number` | n/a | yes |
 | <a name="input_file_share_mount_target_name"></a> [file\_share\_mount\_target\_name](#input\_file\_share\_mount\_target\_name) | The user-defined name for this share target. Names must be unique within the share the share target resides in. | `string` | n/a | yes |
 | <a name="input_file_share_name"></a> [file\_share\_name](#input\_file\_share\_name) | The user-defined name for this share target. Names must be unique within the share the share target resides in. | `string` | n/a | yes |
-| <a name="input_file_share_security_group_ids"></a> [file\_share\_security\_group\_ids](#input\_file\_share\_security\_group\_ids) | List of securtiy group ids to be attached. | `list(string)` | n/a | yes |
+| <a name="input_file_share_security_group_ids"></a> [file\_share\_security\_group\_ids](#input\_file\_share\_security\_group\_ids) | List of security group ids to be attached. | `list(string)` | n/a | yes |
 | <a name="input_file_share_size"></a> [file\_share\_size](#input\_file\_share\_size) | The size of the file share rounded up to the next gigabyte. | `number` | n/a | yes |
 | <a name="input_file_share_subnet_id"></a> [file\_share\_subnet\_id](#input\_file\_share\_subnet\_id) | The subnet id of the virtual network interface for the share mount target. | `string` | n/a | yes |
 | <a name="input_resource_group_id"></a> [resource\_group\_id](#input\_resource\_group\_id) | The ID of the resource group to use. | `string` | n/a | yes |

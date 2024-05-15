@@ -30,7 +30,7 @@ variable "ssh_private_key" {
 }
 
 variable "client_to_site_vpn" {
-  description = "VPN configuration - the client ip pool, exisiting instance id(guid) of the secrets manager, CRN of the uploaded VPN server certificate in secrets manager and list of users email ids to access the environment."
+  description = "VPN configuration - the client ip pool, existing instance id(guid) of the secrets manager, CRN of the uploaded VPN server certificate in secrets manager and list of users email ids to access the environment."
   type = object({
     enable                        = bool
     client_ip_pool                = string

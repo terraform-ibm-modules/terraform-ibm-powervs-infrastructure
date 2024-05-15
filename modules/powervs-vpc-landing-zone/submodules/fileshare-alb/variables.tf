@@ -34,7 +34,7 @@ variable "file_share_subnet_id" {
 }
 
 variable "file_share_security_group_ids" {
-  description = "List of securtiy group ids to be attached."
+  description = "List of security group ids to be attached."
   type        = list(string)
 }
 

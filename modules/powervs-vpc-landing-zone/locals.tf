@@ -50,7 +50,7 @@ locals {
   network_services_vsi_exists = local.key_vsi_list_exists ? contains(module.landing_zone.vsi_names, "${var.prefix}-network-services-001") ? true : false : false
   network_services_ip         = local.network_services_vsi_exists ? [for vsi in module.landing_zone.vsi_list : vsi.ipv4_address if vsi.name == "${var.prefix}-network-services-001"][0] : ""
 
-  ###### For preset floating ip and network servises vsi should exist.
+  ###### For preset floating ip and network services vsi should exist.
   valid_json_used   = local.key_floating_ip_exists && local.network_services_vsi_exists ? true : false
   validate_json_msg = "Wrong JSON preset used. Please use one of the JSON preset supported for Power."
   # tflint-ignore: terraform_unused_declarations

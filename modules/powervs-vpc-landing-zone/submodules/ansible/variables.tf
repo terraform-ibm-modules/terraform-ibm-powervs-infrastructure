@@ -9,7 +9,7 @@ variable "ansible_host_or_ip" {
 }
 
 variable "ssh_private_key" {
-  description = "Private SSH key used to login to jump/bastion server, also the ansible host and all the hosts on which tasks will be executed. Entered data must be in heredoc strings format (https://www.terraform.io/language/expressions/strings#heredoc-strings). This key will be written temprarily on ansible host and deleted after execution."
+  description = "Private SSH key used to login to jump/bastion server, also the ansible host and all the hosts on which tasks will be executed. Entered data must be in heredoc strings format (https://www.terraform.io/language/expressions/strings#heredoc-strings). This key will be written temporarily on ansible host and deleted after execution."
   type        = string
   sensitive   = true
 }
