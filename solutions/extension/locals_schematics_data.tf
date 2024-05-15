@@ -21,6 +21,7 @@ locals {
   ssh_public_key       = local.fullstack_output[0].powervs_ssh_public_key.value.value
   transit_gateway_name = local.fullstack_output[0].transit_gateway_name.value
   transit_gateway_id   = local.fullstack_output[0].transit_gateway_id.value
+  ansible_host_or_ip   = local.fullstack_output[0].ansible_host_or_ip.value
 
   access_host_or_ip_exists   = contains(keys(local.fullstack_output[0]), "access_host_or_ip") ? true : false
   access_host_or_ip          = local.access_host_or_ip_exists ? local.fullstack_output[0].access_host_or_ip.value : ""

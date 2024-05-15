@@ -62,6 +62,10 @@ output "nfs_host_or_ip_path" {
   value       = module.quickstart.nfs_host_or_ip_path
 }
 
+output "ansible_host_or_ip" {
+  description = "Central Ansible node private IP address."
+  value       = module.quickstart.ansible_host_or_ip
+}
 
 ########################################################################
 # PowerVS Infrastructure outputs

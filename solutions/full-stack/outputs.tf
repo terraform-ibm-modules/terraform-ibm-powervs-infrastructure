@@ -67,6 +67,10 @@ output "nfs_host_or_ip_path" {
   value       = module.fullstack.nfs_host_or_ip_path
 }
 
+output "ansible_host_or_ip" {
+  description = "Central Ansible node private IP address."
+  value       = module.fullstack.ansible_host_or_ip
+}
 
 ########################################################################
 # PowerVS Infrastructure outputs

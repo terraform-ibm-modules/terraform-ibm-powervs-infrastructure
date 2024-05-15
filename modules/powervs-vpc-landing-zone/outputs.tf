@@ -72,6 +72,10 @@ output "nfs_host_or_ip_path" {
   value       = var.configure_nfs_server ? module.vpc_file_share_alb[0].nfs_host_or_ip_path : ""
 }
 
+output "ansible_host_or_ip" {
+  description = "Central Ansible node private IP address"
+  value       = local.network_services_ip
+}
 
 ########################################################################
 # PowerVS Infrastructure outputs

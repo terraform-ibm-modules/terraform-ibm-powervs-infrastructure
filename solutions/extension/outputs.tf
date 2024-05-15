@@ -62,6 +62,10 @@ output "nfs_host_or_ip_path" {
   value       = local.nfs_host_or_ip != "" ? "${local.nfs_host_or_ip}:${local.nfs_path}" : ""
 }
 
+output "ansible_host_or_ip" {
+  description = "Central Ansible node private IP address."
+  value       = local.ansible_host_or_ip
+}
 
 ########################################################################
 # PowerVS Infrastructure outputs
