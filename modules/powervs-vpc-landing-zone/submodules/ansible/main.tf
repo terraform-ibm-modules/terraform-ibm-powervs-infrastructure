@@ -46,7 +46,6 @@ resource "terraform_data" "setup_ansible_host" {
 }
 
 
-
 ##############################################################
 # 2. Execute ansible playbooks
 ##############################################################
@@ -87,7 +86,6 @@ resource "terraform_data" "execute_playbooks" {
       {
         "ansible_playbook_file" : local.dst_playbook_file_path,
         "ansible_log_path" : local.dst_files_dir,
-        "ssh_private_key" : var.ssh_private_key
     })
     destination = local.dst_script_file_path
   }
