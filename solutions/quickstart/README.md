@@ -17,10 +17,7 @@ This example sets up the following infrastructure:
 
 - A **Power Virtual Server** workspace with the following network topology:
     - Creates two private networks: a management network and a backup network.
-    - Creates one or two IBM Cloud connections in a non-PER environment.
-    - Attaches the private networks to the IBM Cloud connections in a non-PER environment.
-    - Attaches the IBM Cloud connections to a transit gateway in a non-PER environment.
-    - Attaches the PowerVS workspace to transit gateway in PER-enabled DC
+    - Attaches the PowerVS workspace to transit gateway.
     - Creates an SSH key.
     - Imports cloud catalog stock images.
 
@@ -52,7 +49,7 @@ This example sets up the following infrastructure:
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_powervs_instance"></a> [powervs\_instance](#module\_powervs\_instance) | terraform-ibm-modules/powervs-instance/ibm | 1.1.0 |
+| <a name="module_powervs_instance"></a> [powervs\_instance](#module\_powervs\_instance) | git::https://github.com/terraform-ibm-modules/terraform-ibm-powervs-instance.git | ansible_host |
 | <a name="module_quickstart"></a> [quickstart](#module\_quickstart) | ../../modules/powervs-vpc-landing-zone | n/a |
 
 ### Resources
@@ -65,14 +62,13 @@ No resources.
 |------|-------------|------|---------|:--------:|
 | <a name="input_IC_SCHEMATICS_WORKSPACE_ID"></a> [IC\_SCHEMATICS\_WORKSPACE\_ID](#input\_IC\_SCHEMATICS\_WORKSPACE\_ID) | leave blank if running locally. This variable will be automatically populated if running from an IBM Cloud Schematics workspace | `string` | `""` | no |
 | <a name="input_client_to_site_vpn"></a> [client\_to\_site\_vpn](#input\_client\_to\_site\_vpn) | VPN configuration - the client ip pool, existing instance id(guid) of the secrets manager, CRN of the uploaded VPN server certificate in secrets manager and list of users email ids to access the environment. | <pre>object({<br>    enable                        = bool<br>    client_ip_pool                = string<br>    secrets_manager_id            = string<br>    server_cert_crn               = string<br>    vpn_client_access_group_users = list(string)<br>  })</pre> | <pre>{<br>  "client_ip_pool": "192.168.0.0/16",<br>  "enable": false,<br>  "secrets_manager_id": "",<br>  "server_cert_crn": "",<br>  "vpn_client_access_group_users": [<br>    ""<br>  ]<br>}</pre> | no |
-| <a name="input_cloud_connection"></a> [cloud\_connection](#input\_cloud\_connection) | Cloud connection configuration: speed (50, 100, 200, 500, 1000, 2000, 5000, 10000 Mb/s), count (1 or 2 connections), global\_routing (true or false), metered (true or false). Not applicable for DCs where PER is enabled. | <pre>object({<br>    count          = number<br>    speed          = number<br>    global_routing = bool<br>    metered        = bool<br>  })</pre> | <pre>{<br>  "count": 2,<br>  "global_routing": true,<br>  "metered": true,<br>  "speed": 5000<br>}</pre> | no |
 | <a name="input_configure_dns_forwarder"></a> [configure\_dns\_forwarder](#input\_configure\_dns\_forwarder) | Specify if DNS forwarder will be configured. This will allow you to use central DNS servers (e.g. IBM Cloud DNS servers) sitting outside of the created IBM PowerVS infrastructure. If yes, ensure 'dns\_forwarder\_config' optional variable is set properly. DNS forwarder will be installed on the network-services vsi. | `bool` | `true` | no |
-| <a name="input_configure_nfs_server"></a> [configure\_nfs\_server](#input\_configure\_nfs\_server) | Specify if NFS server will be configured. This will allow you easily to share files between PowerVS instances (e.g., SAP installation files). NFS server will be installed on the network-services vsi. If yes, ensure 'nfs\_server\_config' optional variable is set properly below. Default value is 1TB which will be mounted on /nfs. | `bool` | `true` | no |
+| <a name="input_configure_nfs_server"></a> [configure\_nfs\_server](#input\_configure\_nfs\_server) | Specify if NFS server will be configured. This will allow you easily to share files between PowerVS instances (e.g., SAP installation files). [File storage share and mount target](https://cloud.ibm.com/docs/vpc?topic=vpc-file-storage-create&interface=ui) in VPC will be created.. If yes, ensure 'nfs\_server\_config' optional variable is set properly below. Default value is '200GB' which will be mounted on specified directory in network-service vsi. | `bool` | `true` | no |
 | <a name="input_configure_ntp_forwarder"></a> [configure\_ntp\_forwarder](#input\_configure\_ntp\_forwarder) | Specify if NTP forwarder will be configured. This will allow you to synchronize time between IBM PowerVS instances. NTP forwarder will be installed on the network-services vsi. | `bool` | `true` | no |
 | <a name="input_custom_profile"></a> [custom\_profile](#input\_custom\_profile) | Overrides t-shirt profile: Custom PowerVS instance. Specify 'sap\_profile\_id' [here](https://cloud.ibm.com/docs/sap?topic=sap-hana-iaas-offerings-profiles-power-vs) or combination of 'cores' & 'memory'. Optionally volumes can be created. | <pre>object({<br>    sap_profile_id = string<br>    cores          = string<br>    memory         = string<br>    server_type    = string<br>    proc_type      = string<br>    storage = object({<br>      size = string<br>      tier = string<br>    })<br>  })</pre> | <pre>{<br>  "cores": "",<br>  "memory": "",<br>  "proc_type": "",<br>  "sap_profile_id": null,<br>  "server_type": "",<br>  "storage": {<br>    "size": "",<br>    "tier": ""<br>  }<br>}</pre> | no |
 | <a name="input_custom_profile_instance_boot_image"></a> [custom\_profile\_instance\_boot\_image](#input\_custom\_profile\_instance\_boot\_image) | Override the t-shirt size specs of PowerVS Workspace instance by selecting an image name and providing valid 'custom\_profile' optional parameter. | `string` | `"none"` | no |
 | <a name="input_dns_forwarder_config"></a> [dns\_forwarder\_config](#input\_dns\_forwarder\_config) | Configuration for the DNS forwarder to a DNS service that is not reachable directly from PowerVS. | <pre>object({<br>    dns_servers = string<br>  })</pre> | <pre>{<br>  "dns_servers": "161.26.0.7; 161.26.0.8; 9.9.9.9;"<br>}</pre> | no |
-| <a name="input_external_access_ip"></a> [external\_access\_ip](#input\_external\_access\_ip) | Specify the source IP address or CIDR for login through SSH to the environment after deployment. Access to the environment will be allowed only from this IP address. | `string` | n/a | yes |
+| <a name="input_external_access_ip"></a> [external\_access\_ip](#input\_external\_access\_ip) | Specify the source IP address or CIDR for login through SSH to the environment after deployment. Access to the environment will be allowed only from this IP address. Can be set to 'null' if you choose to use client to site vpn. | `string` | n/a | yes |
 | <a name="input_ibmcloud_api_key"></a> [ibmcloud\_api\_key](#input\_ibmcloud\_api\_key) | The IBM Cloud platform API key needed to deploy IAM enabled resources. | `string` | n/a | yes |
 | <a name="input_nfs_server_config"></a> [nfs\_server\_config](#input\_nfs\_server\_config) | Configuration for the NFS server. 'size' is in GB, 'iops' is maximum input/output operation performance bandwidth per second, 'mount\_path' defines the mount point on os. Set 'configure\_nfs\_server' to false to ignore creating volume. | <pre>object({<br>    size       = number<br>    iops       = number<br>    mount_path = string<br>  })</pre> | <pre>{<br>  "iops": 600,<br>  "mount_path": "/nfs",<br>  "size": 200<br>}</pre> | no |
 | <a name="input_powervs_backup_network"></a> [powervs\_backup\_network](#input\_powervs\_backup\_network) | Name of the IBM Cloud PowerVS backup network and CIDR to create. | <pre>object({<br>    name = string<br>    cidr = string<br>  })</pre> | <pre>{<br>  "cidr": "10.52.0.0/24",<br>  "name": "bkp_net"<br>}</pre> | no |
@@ -91,7 +87,6 @@ No resources.
 |------|-------------|
 | <a name="output_access_host_or_ip"></a> [access\_host\_or\_ip](#output\_access\_host\_or\_ip) | Access host(jump/bastion) for created PowerVS infrastructure. |
 | <a name="output_ansible_host_or_ip"></a> [ansible\_host\_or\_ip](#output\_ansible\_host\_or\_ip) | Central Ansible node private IP address. |
-| <a name="output_cloud_connection_count"></a> [cloud\_connection\_count](#output\_cloud\_connection\_count) | Number of cloud connections configured in created PowerVS infrastructure. |
 | <a name="output_dns_host_or_ip"></a> [dns\_host\_or\_ip](#output\_dns\_host\_or\_ip) | DNS forwarder host for created PowerVS infrastructure. |
 | <a name="output_nfs_host_or_ip_path"></a> [nfs\_host\_or\_ip\_path](#output\_nfs\_host\_or\_ip\_path) | NFS host for created PowerVS infrastructure. |
 | <a name="output_ntp_host_or_ip"></a> [ntp\_host\_or\_ip](#output\_ntp\_host\_or\_ip) | NTP host for created PowerVS infrastructure. |
@@ -109,6 +104,7 @@ No resources.
 | <a name="output_powervs_zone"></a> [powervs\_zone](#output\_powervs\_zone) | Zone where PowerVS infrastructure is created. |
 | <a name="output_prefix"></a> [prefix](#output\_prefix) | The prefix that is associated with all resources |
 | <a name="output_proxy_host_or_ip_port"></a> [proxy\_host\_or\_ip\_port](#output\_proxy\_host\_or\_ip\_port) | Proxy host:port for created PowerVS infrastructure. |
+| <a name="output_resource_group_data"></a> [resource\_group\_data](#output\_resource\_group\_data) | List of resource groups data used within landing zone. |
 | <a name="output_schematics_workspace_id"></a> [schematics\_workspace\_id](#output\_schematics\_workspace\_id) | ID of the IBM Cloud Schematics workspace. Returns null if not ran in Schematics. |
 | <a name="output_ssh_public_key"></a> [ssh\_public\_key](#output\_ssh\_public\_key) | The string value of the ssh public key used when deploying VPC |
 | <a name="output_transit_gateway_id"></a> [transit\_gateway\_id](#output\_transit\_gateway\_id) | The ID of transit gateway. |

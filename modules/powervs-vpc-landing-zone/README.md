@@ -64,14 +64,13 @@ module "fullstack" {
   powervs_resource_group_name = var.powervs_resource_group_name  #(optional.  default check vars)
   powervs_management_network  = var.powervs_management_network   #(optional.  default check vars)
   powervs_backup_network      = var.powervs_backup_network       #(optional.  default check vars)
-  cloud_connection            = var.cloud_connection             #(optional.  default check vars)
   powervs_image_names         = var.powervs_image_names          #(optional.  default check vars)
   tags                        = var.tags                         #(optional.  default check vars)
 }
 ```
 
 ### Notes:
-Catalog image names to be imported into infrastructure can be found [here](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/blob/main/solutions/full-stack/docs/catalog_image_names.md)
+Catalog image names to be imported into infrastructure can be found [here](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-workspace/blob/main/docs/catalog_images_list.md)
 
 Creates VPC Landing Zone | Performs VPC VSI OS Config | Creates PowerVS Infrastructure | Creates PowerVS Instance | Performs PowerVS OS Config |
 |  ------------- | ------------- | ------------- | ------------- | ------------- |
@@ -89,7 +88,7 @@ Creates VPC Landing Zone | Performs VPC VSI OS Config | Creates PowerVS Infrastr
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.3 |
-| <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | >=1.62.0 |
+| <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | >=1.65.0 |
 
 ### Modules
 
@@ -98,7 +97,7 @@ Creates VPC Landing Zone | Performs VPC VSI OS Config | Creates PowerVS Infrastr
 | <a name="module_client_to_site_vpn"></a> [client\_to\_site\_vpn](#module\_client\_to\_site\_vpn) | terraform-ibm-modules/client-to-site-vpn/ibm | 1.7.1 |
 | <a name="module_configure_network_services"></a> [configure\_network\_services](#module\_configure\_network\_services) | ./submodules/ansible | n/a |
 | <a name="module_landing_zone"></a> [landing\_zone](#module\_landing\_zone) | terraform-ibm-modules/landing-zone/ibm//patterns//vsi//module | 5.21.1 |
-| <a name="module_powervs_infra"></a> [powervs\_infra](#module\_powervs\_infra) | terraform-ibm-modules/powervs-workspace/ibm | 1.13.0 |
+| <a name="module_powervs_workspace"></a> [powervs\_workspace](#module\_powervs\_workspace) | terraform-ibm-modules/powervs-workspace/ibm | 2.0.0 |
 | <a name="module_vpc_file_share_alb"></a> [vpc\_file\_share\_alb](#module\_vpc\_file\_share\_alb) | ./submodules/fileshare-alb | n/a |
 
 ### Resources
@@ -113,15 +112,14 @@ Creates VPC Landing Zone | Performs VPC VSI OS Config | Creates PowerVS Infrastr
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_client_to_site_vpn"></a> [client\_to\_site\_vpn](#input\_client\_to\_site\_vpn) | VPN configuration - the client ip pool, existing instance id(guid) of the secrets manager, CRN of the uploaded VPN server certificate in secrets manager and list of users email ids to access the environment. | <pre>object({<br>    enable                        = bool<br>    client_ip_pool                = string<br>    secrets_manager_id            = string<br>    server_cert_crn               = string<br>    vpn_client_access_group_users = list(string)<br>  })</pre> | <pre>{<br>  "client_ip_pool": "192.168.0.0/16",<br>  "enable": false,<br>  "secrets_manager_id": "",<br>  "server_cert_crn": "",<br>  "vpn_client_access_group_users": [<br>    ""<br>  ]<br>}</pre> | no |
-| <a name="input_cloud_connection"></a> [cloud\_connection](#input\_cloud\_connection) | Cloud connection configuration: speed (50, 100, 200, 500, 1000, 2000, 5000, 10000 Mb/s), count (1 or 2 connections), global\_routing (true or false), metered (true or false). Not applicable for DCs where PER is enabled. | <pre>object({<br>    count          = number<br>    speed          = number<br>    global_routing = bool<br>    metered        = bool<br>  })</pre> | <pre>{<br>  "count": 2,<br>  "global_routing": true,<br>  "metered": true,<br>  "speed": 5000<br>}</pre> | no |
-| <a name="input_configure_dns_forwarder"></a> [configure\_dns\_forwarder](#input\_configure\_dns\_forwarder) | Specify if DNS forwarder will be configured. This will allow you to use central DNS servers (e.g. IBM Cloud DNS servers) sitting outside of the created IBM PowerVS infrastructure. If yes, ensure 'dns\_forwarder\_config' optional variable is set properly. DNS forwarder will be installed on the network-services vsi | `bool` | `false` | no |
-| <a name="input_configure_nfs_server"></a> [configure\_nfs\_server](#input\_configure\_nfs\_server) | Specify if NFS server will be configured. This will allow you easily to share files between PowerVS instances (e.g., SAP installation files). NFS server will be installed on the network-services vsi. If yes, ensure 'nfs\_server\_config' optional variable is set properly below. Default value is '200GB' which will be mounted on '/nfs'. | `bool` | `false` | no |
-| <a name="input_configure_ntp_forwarder"></a> [configure\_ntp\_forwarder](#input\_configure\_ntp\_forwarder) | Specify if NTP forwarder will be configured. This will allow you to synchronize time between IBM PowerVS instances. NTP forwarder will be installed on the network-services vsi | `bool` | `false` | no |
+| <a name="input_configure_dns_forwarder"></a> [configure\_dns\_forwarder](#input\_configure\_dns\_forwarder) | Specify if DNS forwarder will be configured. This will allow you to use central DNS servers (e.g. IBM Cloud DNS servers) sitting outside of the created IBM PowerVS infrastructure. If yes, ensure 'dns\_forwarder\_config' optional variable is set properly. DNS forwarder will be installed on the network-services vsi. | `bool` | `false` | no |
+| <a name="input_configure_nfs_server"></a> [configure\_nfs\_server](#input\_configure\_nfs\_server) | Specify if NFS server will be configured. This will allow you easily to share files between PowerVS instances (e.g., SAP installation files). [File storage share and mount target](https://cloud.ibm.com/docs/vpc?topic=vpc-file-storage-create&interface=ui) in VPC will be created.. If yes, ensure 'nfs\_server\_config' optional variable is set properly below. Default value is '200GB' which will be mounted on specified directory in network-service vsi. | `bool` | `false` | no |
+| <a name="input_configure_ntp_forwarder"></a> [configure\_ntp\_forwarder](#input\_configure\_ntp\_forwarder) | Specify if NTP forwarder will be configured. This will allow you to synchronize time between IBM PowerVS instances. NTP forwarder will be installed on the network-services vsi. | `bool` | `false` | no |
 | <a name="input_dns_forwarder_config"></a> [dns\_forwarder\_config](#input\_dns\_forwarder\_config) | Configuration for the DNS forwarder to a DNS service that is not reachable directly from PowerVS. | <pre>object({<br>    dns_servers = string<br>  })</pre> | <pre>{<br>  "dns_servers": "161.26.0.7; 161.26.0.8; 9.9.9.9;"<br>}</pre> | no |
-| <a name="input_external_access_ip"></a> [external\_access\_ip](#input\_external\_access\_ip) | Specify the source IP address or CIDR for login through SSH to the environment after deployment. Access to the environment will be allowed only from this IP address. | `string` | n/a | yes |
+| <a name="input_external_access_ip"></a> [external\_access\_ip](#input\_external\_access\_ip) | Specify the source IP address or CIDR for login through SSH to the environment after deployment. Access to the environment will be allowed only from this IP address. Can be set to 'null' if you choose to use client to site vpn. | `string` | n/a | yes |
 | <a name="input_nfs_server_config"></a> [nfs\_server\_config](#input\_nfs\_server\_config) | Configuration for the NFS server. 'size' is in GB, 'iops' is maximum input/output operation performance bandwidth per second, 'mount\_path' defines the mount point on os. Set 'configure\_nfs\_server' to false to ignore creating volume. | <pre>object({<br>    size       = number<br>    iops       = number<br>    mount_path = string<br>  })</pre> | <pre>{<br>  "iops": 600,<br>  "mount_path": "/nfs",<br>  "size": 200<br>}</pre> | no |
 | <a name="input_powervs_backup_network"></a> [powervs\_backup\_network](#input\_powervs\_backup\_network) | Name of the IBM Cloud PowerVS backup network and CIDR to create. | <pre>object({<br>    name = string<br>    cidr = string<br>  })</pre> | <pre>{<br>  "cidr": "10.52.0.0/24",<br>  "name": "bkp_net"<br>}</pre> | no |
-| <a name="input_powervs_image_names"></a> [powervs\_image\_names](#input\_powervs\_image\_names) | List of Images to be imported into cloud account from catalog images. Supported values can be found [here](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/blob/main/solutions/full-stack/docs/catalog_image_names.md) | `list(string)` | <pre>[<br>  "IBMi-75-03-2924-1",<br>  "IBMi-74-09-2984-1",<br>  "7300-00-01",<br>  "7200-05-07",<br>  "SLES15-SP5-SAP",<br>  "SLES15-SP5-SAP-NETWEAVER",<br>  "RHEL9-SP2-SAP",<br>  "RHEL9-SP2-SAP-NETWEAVER"<br>]</pre> | no |
+| <a name="input_powervs_image_names"></a> [powervs\_image\_names](#input\_powervs\_image\_names) | List of Images to be imported into cloud account from catalog images. Supported values can be found [here](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-workspace/blob/main/docs/catalog_images_list.md) | `list(string)` | <pre>[<br>  "IBMi-75-03-2924-1",<br>  "IBMi-74-09-2984-1",<br>  "7200-05-07",<br>  "7300-02-01",<br>  "SLES15-SP5-SAP",<br>  "SLES15-SP5-SAP-NETWEAVER",<br>  "RHEL9-SP2-SAP",<br>  "RHEL9-SP2-SAP-NETWEAVER"<br>]</pre> | no |
 | <a name="input_powervs_management_network"></a> [powervs\_management\_network](#input\_powervs\_management\_network) | Name of the IBM Cloud PowerVS management subnet and CIDR to create. | <pre>object({<br>    name = string<br>    cidr = string<br>  })</pre> | <pre>{<br>  "cidr": "10.51.0.0/24",<br>  "name": "mgmt_net"<br>}</pre> | no |
 | <a name="input_powervs_resource_group_name"></a> [powervs\_resource\_group\_name](#input\_powervs\_resource\_group\_name) | Existing IBM Cloud resource group name. | `string` | n/a | yes |
 | <a name="input_powervs_zone"></a> [powervs\_zone](#input\_powervs\_zone) | IBM Cloud data center location where IBM PowerVS infrastructure will be created. | `string` | n/a | yes |
@@ -136,7 +134,6 @@ Creates VPC Landing Zone | Performs VPC VSI OS Config | Creates PowerVS Infrastr
 |------|-------------|
 | <a name="output_access_host_or_ip"></a> [access\_host\_or\_ip](#output\_access\_host\_or\_ip) | Access host(jump/bastion) for created PowerVS infrastructure. |
 | <a name="output_ansible_host_or_ip"></a> [ansible\_host\_or\_ip](#output\_ansible\_host\_or\_ip) | Central Ansible node private IP address |
-| <a name="output_cloud_connection_count"></a> [cloud\_connection\_count](#output\_cloud\_connection\_count) | Number of cloud connections configured in created PowerVS infrastructure. |
 | <a name="output_dns_host_or_ip"></a> [dns\_host\_or\_ip](#output\_dns\_host\_or\_ip) | DNS forwarder host for created PowerVS infrastructure. |
 | <a name="output_nfs_host_or_ip_path"></a> [nfs\_host\_or\_ip\_path](#output\_nfs\_host\_or\_ip\_path) | NFS host for created PowerVS infrastructure. |
 | <a name="output_ntp_host_or_ip"></a> [ntp\_host\_or\_ip](#output\_ntp\_host\_or\_ip) | NTP host for created PowerVS infrastructure. |

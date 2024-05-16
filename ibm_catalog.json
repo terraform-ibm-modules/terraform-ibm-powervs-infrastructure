@@ -184,6 +184,10 @@
                             "required": true
                         },
                         {
+                            "key": "client_to_site_vpn",
+                            "required": true
+                        },
+                        {
                             "key": "ssh_public_key",
                             "type": "multiline_secure_value",
                             "display_name": "Multiline secure value",
@@ -204,10 +208,6 @@
                                 "original_grouping": "deployment",
                                 "type": "multiline_secure_value"
                             }
-                        },
-                        {
-                            "key": "client_to_site_vpn",
-                            "required": true
                         },
                         {
                             "key": "ibmcloud_api_key",
@@ -246,9 +246,6 @@
                             "key": "powervs_backup_network"
                         },
                         {
-                            "key": "cloud_connection"
-                        },
-                        {
                             "key": "tags"
                         }
                     ],
@@ -275,6 +272,9 @@
                             "key": "vsi_list"
                         },
                         {
+                            "key": "resource_group_data"
+                        },
+                        {
                             "key": "access_host_or_ip"
                         },
                         {
@@ -288,6 +288,9 @@
                         },
                         {
                             "key": "nfs_host_or_ip_path"
+                        },
+                        {
+                            "key": "ansible_host_or_ip"
                         },
                         {
                             "key": "powervs_zone"
@@ -315,9 +318,6 @@
                         },
                         {
                             "key": "powervs_images"
-                        },
-                        {
-                            "key": "cloud_connection_count"
                         },
                         {
                             "key": "schematics_workspace_id"
@@ -749,9 +749,6 @@
                             "key": "powervs_backup_network"
                         },
                         {
-                            "key": "cloud_connection"
-                        },
-                        {
                             "key": "tags"
                         }
                     ],
@@ -778,6 +775,9 @@
                             "key": "vsi_list"
                         },
                         {
+                            "key": "resource_group_data"
+                        },
+                        {
                             "key": "access_host_or_ip"
                         },
                         {
@@ -791,6 +791,9 @@
                         },
                         {
                             "key": "nfs_host_or_ip_path"
+                        },
+                        {
+                            "key": "ansible_host_or_ip"
                         },
                         {
                             "key": "powervs_zone"
@@ -818,9 +821,6 @@
                         },
                         {
                             "key": "powervs_images"
-                        },
-                        {
-                            "key": "cloud_connection_count"
                         },
                         {
                             "key": "powervs_instance_management_ip"
@@ -1173,9 +1173,6 @@
                             "key": "powervs_images"
                         },
                         {
-                            "key": "cloud_connection_count"
-                        },
-                        {
                             "key": "schematics_workspace_id"
                         }
                     ],
@@ -1439,9 +1436,6 @@
                             "required": true
                         },
                         {
-                            "key": "cloud_connection"
-                        },
-                        {
                             "key": "tags"
                         }
                     ],
@@ -1483,6 +1477,9 @@
                             "key": "nfs_host_or_ip_path"
                         },
                         {
+                            "key": "ansible_host_or_ip"
+                        },
+                        {
                             "key": "powervs_zone"
                         },
                         {
@@ -1508,9 +1505,6 @@
                         },
                         {
                             "key": "powervs_images"
-                        },
-                        {
-                            "key": "cloud_connection_count"
                         },
                         {
                             "key": "schematics_workspace_id"

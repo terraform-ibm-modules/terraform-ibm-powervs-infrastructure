@@ -4,7 +4,7 @@ variable "bastion_host_ip" {
 }
 
 variable "ansible_host_or_ip" {
-  description = "Private IP of virtual server instance on which ansible will be installed and configured to act as central ansible node."
+  description = "Private IP of virtual server instance running RHEL OS on which ansible will be installed and configured to act as central ansible node."
   type        = string
 }
 

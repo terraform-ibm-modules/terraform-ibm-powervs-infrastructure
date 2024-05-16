@@ -1,16 +1,16 @@
 locals {
-  src_ansible_templates_dir = "${path.module}/templates-ansible"
-  src_shell_templates_dir   = "${path.module}/templates-shell"
-  dst_files_dir             = "/root/terraform_files"
+  src_ansible_templates_dir  = "${path.module}/templates-ansible"
+  ansible_node_config_script = "${path.module}/ansible_node_packages.sh"
+  dst_files_dir              = "/root/terraform_files"
 
-  src_script_tftpl_path   = "${local.src_shell_templates_dir}/${var.src_script_template_name}"
+  src_script_tftpl_path   = "${local.src_ansible_templates_dir}/${var.src_script_template_name}"
   dst_script_file_path    = "${local.dst_files_dir}/${var.dst_script_file_name}"
   src_playbook_tftpl_path = "${local.src_ansible_templates_dir}/${var.src_playbook_template_name}"
   dst_playbook_file_path  = "${local.dst_files_dir}/${var.dst_playbook_file_name}"
 }
 
 ##############################################################
-# 1. Execute shell script to install and setup ansible node
+# 1. Execute shell script to install ansible roles/collections
 ##############################################################
 
 resource "terraform_data" "setup_ansible_host" {
@@ -30,17 +30,17 @@ resource "terraform_data" "setup_ansible_host" {
     inline = ["mkdir -p ${local.dst_files_dir}", "chmod 777 ${local.dst_files_dir}", ]
   }
 
-  # Copy install_ansible.sh shell file to ansible host
+  # Copy ansible_node_packages.sh shell file to ansible host
   provisioner "file" {
-    source      = "${local.src_shell_templates_dir}/install_ansible.sh"
-    destination = "${local.dst_files_dir}/install_ansible.sh"
+    source      = local.ansible_node_config_script
+    destination = "${local.dst_files_dir}/ansible_node_packages.sh"
   }
 
-  # Execute install_ansible.sh shell script to configure ansible host
+  # Execute ansible_node_packages.sh shell script to configure ansible host
   provisioner "remote-exec" {
     inline = [
-      "chmod +x ${local.dst_files_dir}/install_ansible.sh",
-      "${local.dst_files_dir}/install_ansible.sh",
+      "chmod +x ${local.dst_files_dir}/ansible_node_packages.sh",
+      "${local.dst_files_dir}/ansible_node_packages.sh",
     ]
   }
 }
@@ -57,6 +57,7 @@ resource "terraform_data" "trigger_ansible_vars" {
 resource "terraform_data" "execute_playbooks" {
 
   depends_on = [terraform_data.setup_ansible_host]
+
   connection {
     type         = "ssh"
     user         = "root"

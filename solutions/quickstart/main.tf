@@ -21,7 +21,6 @@ module "quickstart" {
   powervs_resource_group_name = var.powervs_resource_group_name
   powervs_management_network  = var.powervs_management_network
   powervs_backup_network      = var.powervs_backup_network
-  cloud_connection            = var.cloud_connection
   powervs_image_names         = [local.qs_tshirt_choice.image]
   tags                        = var.tags
 }
@@ -32,8 +31,9 @@ module "quickstart" {
 #####################################################
 
 module "powervs_instance" {
-  source    = "terraform-ibm-modules/powervs-instance/ibm"
-  version   = "1.1.0"
+  source = "git::https://github.com/terraform-ibm-modules/terraform-ibm-powervs-instance.git?ref=ansible_host"
+  #source    = "terraform-ibm-modules/powervs-instance/ibm"
+  #version   = "1.1.0"
   providers = { ibm = ibm.ibm-pi }
 
   pi_workspace_guid      = module.quickstart.powervs_workspace_guid

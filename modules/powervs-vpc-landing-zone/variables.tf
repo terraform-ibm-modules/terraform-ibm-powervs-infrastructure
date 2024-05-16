@@ -14,7 +14,7 @@ variable "prefix" {
 }
 
 variable "external_access_ip" {
-  description = "Specify the source IP address or CIDR for login through SSH to the environment after deployment. Access to the environment will be allowed only from this IP address."
+  description = "Specify the source IP address or CIDR for login through SSH to the environment after deployment. Access to the environment will be allowed only from this IP address. Can be set to 'null' if you choose to use client to site vpn."
   type        = string
 }
 
@@ -53,19 +53,19 @@ variable "client_to_site_vpn" {
 #####################################################
 
 variable "configure_dns_forwarder" {
-  description = "Specify if DNS forwarder will be configured. This will allow you to use central DNS servers (e.g. IBM Cloud DNS servers) sitting outside of the created IBM PowerVS infrastructure. If yes, ensure 'dns_forwarder_config' optional variable is set properly. DNS forwarder will be installed on the network-services vsi "
+  description = "Specify if DNS forwarder will be configured. This will allow you to use central DNS servers (e.g. IBM Cloud DNS servers) sitting outside of the created IBM PowerVS infrastructure. If yes, ensure 'dns_forwarder_config' optional variable is set properly. DNS forwarder will be installed on the network-services vsi."
   type        = bool
   default     = false
 }
 
 variable "configure_ntp_forwarder" {
-  description = "Specify if NTP forwarder will be configured. This will allow you to synchronize time between IBM PowerVS instances. NTP forwarder will be installed on the network-services vsi "
+  description = "Specify if NTP forwarder will be configured. This will allow you to synchronize time between IBM PowerVS instances. NTP forwarder will be installed on the network-services vsi."
   type        = bool
   default     = false
 }
 
 variable "configure_nfs_server" {
-  description = "Specify if NFS server will be configured. This will allow you easily to share files between PowerVS instances (e.g., SAP installation files). NFS server will be installed on the network-services vsi. If yes, ensure 'nfs_server_config' optional variable is set properly below. Default value is '200GB' which will be mounted on '/nfs'."
+  description = "Specify if NFS server will be configured. This will allow you easily to share files between PowerVS instances (e.g., SAP installation files). [File storage share and mount target](https://cloud.ibm.com/docs/vpc?topic=vpc-file-storage-create&interface=ui) in VPC will be created.. If yes, ensure 'nfs_server_config' optional variable is set properly below. Default value is '200GB' which will be mounted on specified directory in network-service vsi."
   type        = bool
   default     = false
 }
@@ -88,15 +88,17 @@ variable "nfs_server_config" {
     mount_path = string
   })
 
-  validation {
-    condition     = var.nfs_server_config != null ? (var.nfs_server_config.mount_path == null || var.nfs_server_config.mount_path == "" || can(regex("/[A-Za-z]+", var.nfs_server_config.mount_path))) : true
-    error_message = "The 'mount_path' attribute must begin with '/' and can contain only characters."
-  }
   default = {
     "size" : 200,
     "iops" : 600,
     "mount_path" : "/nfs"
   }
+
+  validation {
+    condition     = var.nfs_server_config != null ? (var.nfs_server_config.mount_path == null || var.nfs_server_config.mount_path == "" || can(regex("/[A-Za-z]+", var.nfs_server_config.mount_path))) : true
+    error_message = "The 'mount_path' attribute must begin with '/' and can contain only characters."
+  }
+
 }
 
 #####################################################
@@ -129,27 +131,10 @@ variable "powervs_backup_network" {
   }
 }
 
-variable "cloud_connection" {
-  description = "Cloud connection configuration: speed (50, 100, 200, 500, 1000, 2000, 5000, 10000 Mb/s), count (1 or 2 connections), global_routing (true or false), metered (true or false). Not applicable for DCs where PER is enabled."
-  type = object({
-    count          = number
-    speed          = number
-    global_routing = bool
-    metered        = bool
-  })
-
-  default = {
-    "count" : 2,
-    "speed" : 5000,
-    "global_routing" : true,
-    "metered" : true
-  }
-}
-
 variable "powervs_image_names" {
-  description = "List of Images to be imported into cloud account from catalog images. Supported values can be found [here](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/blob/main/solutions/full-stack/docs/catalog_image_names.md)"
+  description = "List of Images to be imported into cloud account from catalog images. Supported values can be found [here](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-workspace/blob/main/docs/catalog_images_list.md)"
   type        = list(string)
-  default     = ["IBMi-75-03-2924-1", "IBMi-74-09-2984-1", "7300-00-01", "7200-05-07", "SLES15-SP5-SAP", "SLES15-SP5-SAP-NETWEAVER", "RHEL9-SP2-SAP", "RHEL9-SP2-SAP-NETWEAVER"]
+  default     = ["IBMi-75-03-2924-1", "IBMi-74-09-2984-1", "7200-05-07", "7300-02-01", "SLES15-SP5-SAP", "SLES15-SP5-SAP-NETWEAVER", "RHEL9-SP2-SAP", "RHEL9-SP2-SAP-NETWEAVER"]
 }
 
 variable "tags" {

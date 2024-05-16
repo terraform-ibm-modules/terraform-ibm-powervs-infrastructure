@@ -23,7 +23,7 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_ansible_host_or_ip"></a> [ansible\_host\_or\_ip](#input\_ansible\_host\_or\_ip) | Private IP of virtual server instance on which ansible will be installed and configured to act as central ansible node. | `string` | n/a | yes |
+| <a name="input_ansible_host_or_ip"></a> [ansible\_host\_or\_ip](#input\_ansible\_host\_or\_ip) | Private IP of virtual server instance running RHEL OS on which ansible will be installed and configured to act as central ansible node. | `string` | n/a | yes |
 | <a name="input_bastion_host_ip"></a> [bastion\_host\_ip](#input\_bastion\_host\_ip) | Jump/Bastion server public IP address to reach the ansible host which has private IP. | `string` | n/a | yes |
 | <a name="input_dst_playbook_file_name"></a> [dst\_playbook\_file\_name](#input\_dst\_playbook\_file\_name) | Name for the playbook file to be generated on the Ansible host. | `string` | n/a | yes |
 | <a name="input_dst_script_file_name"></a> [dst\_script\_file\_name](#input\_dst\_script\_file\_name) | Name for the bash file to be generated on the Ansible host. | `string` | n/a | yes |

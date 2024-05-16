@@ -26,13 +26,11 @@ locals {
   access_host_or_ip_exists   = contains(keys(local.fullstack_output[0]), "access_host_or_ip") ? true : false
   access_host_or_ip          = local.access_host_or_ip_exists ? local.fullstack_output[0].access_host_or_ip.value : ""
   proxy_host_or_ip_exists    = contains(keys(local.fullstack_output[0]), "proxy_host_or_ip_port") && local.access_host_or_ip != "" ? true : false
-  proxy_host_or_ip           = local.proxy_host_or_ip_exists ? split(":", local.fullstack_output[0].proxy_host_or_ip_port.value)[0] : ""
-  squid_port                 = local.proxy_host_or_ip_exists ? split(":", local.fullstack_output[0].proxy_host_or_ip_port.value)[1] : ""
+  proxy_host_or_ip_port      = local.proxy_host_or_ip_exists ? local.fullstack_output[0].proxy_host_or_ip_port.value : ""
   dns_host_or_ip_exists      = contains(keys(local.fullstack_output[0]), "dns_host_or_ip") && local.access_host_or_ip != "" ? true : false
   dns_host_or_ip             = local.dns_host_or_ip_exists ? local.fullstack_output[0].dns_host_or_ip.value : ""
   nfs_host_or_ip_path_exists = contains(keys(local.fullstack_output[0]), "nfs_host_or_ip_path") && local.access_host_or_ip != "" ? true : false
-  nfs_host_or_ip             = local.nfs_host_or_ip_path_exists && local.fullstack_output[0].nfs_host_or_ip_path.value != "" ? split(":", local.fullstack_output[0].nfs_host_or_ip_path.value)[0] : ""
-  nfs_path                   = local.nfs_host_or_ip_path_exists && local.fullstack_output[0].nfs_host_or_ip_path.value != "" ? split(":", local.fullstack_output[0].nfs_host_or_ip_path.value)[1] : ""
+  nfs_host_or_ip_path        = local.nfs_host_or_ip_path_exists ? local.fullstack_output[0].nfs_host_or_ip_path.value : ""
   ntp_host_or_ip_exists      = contains(keys(local.fullstack_output[0]), "ntp_host_or_ip") && local.access_host_or_ip != "" ? true : false
   ntp_host_or_ip             = local.ntp_host_or_ip_exists ? local.fullstack_output[0].ntp_host_or_ip.value : ""
 

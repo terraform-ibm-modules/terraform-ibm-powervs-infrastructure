@@ -19,19 +19,8 @@ variable "tshirt_size" {
 }
 
 variable "external_access_ip" {
-  description = "Specify the source IP address or CIDR for login through SSH to the environment after deployment. Access to the environment will be allowed only from this IP address."
+  description = "Specify the source IP address or CIDR for login through SSH to the environment after deployment. Access to the environment will be allowed only from this IP address. Can be set to 'null' if you choose to use client to site vpn."
   type        = string
-}
-
-variable "ssh_public_key" {
-  description = "Public SSH Key for VSI creation. Must be an RSA key with a key size of either 2048 bits or 4096 bits (recommended). Must be a valid SSH key that does not already exist in the deployment region."
-  type        = string
-}
-
-variable "ssh_private_key" {
-  description = "Private SSH key (RSA format) used to login to IBM PowerVS instances. Should match to public SSH key referenced by 'ssh_public_key'. Entered data must be in [heredoc strings format](https://www.terraform.io/language/expressions/strings#heredoc-strings). The key is not uploaded or stored. For more information about SSH keys, see [SSH keys](https://cloud.ibm.com/docs/vpc?topic=vpc-ssh-keys)."
-  type        = string
-  sensitive   = true
 }
 
 variable "client_to_site_vpn" {
@@ -53,6 +42,17 @@ variable "client_to_site_vpn" {
   }
 }
 
+variable "ssh_public_key" {
+  description = "Public SSH Key for VSI creation. Must be an RSA key with a key size of either 2048 bits or 4096 bits (recommended). Must be a valid SSH key that does not already exist in the deployment region."
+  type        = string
+}
+
+variable "ssh_private_key" {
+  description = "Private SSH key (RSA format) used to login to IBM PowerVS instances. Should match to public SSH key referenced by 'ssh_public_key'. Entered data must be in [heredoc strings format](https://www.terraform.io/language/expressions/strings#heredoc-strings). The key is not uploaded or stored. For more information about SSH keys, see [SSH keys](https://cloud.ibm.com/docs/vpc?topic=vpc-ssh-keys)."
+  type        = string
+  sensitive   = true
+}
+
 variable "ibmcloud_api_key" {
   description = "The IBM Cloud platform API key needed to deploy IAM enabled resources."
   type        = string
@@ -68,8 +68,8 @@ variable "custom_profile_instance_boot_image" {
   type        = string
   default     = "none"
   validation {
-    condition     = contains(["RHEL9-SP2-SAP", "RHEL8-SP8-SAP", "RHEL9-SP2-SAP-NETWEAVER", "RHEL8-SP8-SAP-NETWEAVER", "SLES15-SP5-SAP", "SLES15-SP4-SAP", "SLES15-SP5-SAP-NETWEAVER", "SLES15-SP4-SAP-NETWEAVER", "7300-02-01", "7200-05-07", "7100-05-09", "IBMi-75-03-2924-1", "IBMi-75-03-2984-1", "IBMi-74-09-2984-1", "IBMi_COR-74-09-1", "none"], var.custom_profile_instance_boot_image)
-    error_message = "Only Following IBM catalog images are supported :  RHEL9-SP2-SAP, RHEL9-SP2-SAP-NETWEAVER, RHEL8-SP8-SAP, RHEL8-SP8-SAP-NETWEAVER, SLES15-SP5-SAP, SLES15-SP4-SAP,  SLES15-SP5-SAP-NETWEAVER, SLES15-SP4-SAP-NETWEAVER, 7300-02-01, 7200-05-07, 7100-05-09, IBMi-75-03-2924-1, IBMi-75-03-2984-1, IBMi-74-09-2984-1, IBMi_COR-74-09-1, none"
+    condition     = contains(["RHEL9-SP2-SAP", "RHEL8-SP8-SAP", "RHEL9-SP2-SAP-NETWEAVER", "RHEL8-SP8-SAP-NETWEAVER", "SLES15-SP5-SAP", "SLES15-SP4-SAP", "SLES15-SP5-SAP-NETWEAVER", "SLES15-SP4-SAP-NETWEAVER", "7300-02-01", "7200-05-07", "IBMi-75-03-2924-1", "IBMi-75-03-2984-1", "IBMi-74-09-2984-1", "IBMi_COR-74-09-1", "none"], var.custom_profile_instance_boot_image)
+    error_message = "Only Following IBM catalog images are supported :  RHEL9-SP2-SAP, RHEL9-SP2-SAP-NETWEAVER, RHEL8-SP8-SAP, RHEL8-SP8-SAP-NETWEAVER, SLES15-SP5-SAP, SLES15-SP4-SAP,  SLES15-SP5-SAP-NETWEAVER, SLES15-SP4-SAP-NETWEAVER, 7300-02-01, 7200-05-07, IBMi-75-03-2924-1, IBMi-75-03-2984-1, IBMi-74-09-2984-1, IBMi_COR-74-09-1, none"
   }
 }
 
@@ -104,6 +104,10 @@ variable "custom_profile" {
   }
 }
 
+#####################################################
+# Optional Parameters VSI OS Management Services
+#####################################################
+
 variable "configure_dns_forwarder" {
   description = "Specify if DNS forwarder will be configured. This will allow you to use central DNS servers (e.g. IBM Cloud DNS servers) sitting outside of the created IBM PowerVS infrastructure. If yes, ensure 'dns_forwarder_config' optional variable is set properly. DNS forwarder will be installed on the network-services vsi."
   type        = bool
@@ -117,7 +121,7 @@ variable "configure_ntp_forwarder" {
 }
 
 variable "configure_nfs_server" {
-  description = "Specify if NFS server will be configured. This will allow you easily to share files between PowerVS instances (e.g., SAP installation files). NFS server will be installed on the network-services vsi. If yes, ensure 'nfs_server_config' optional variable is set properly below. Default value is 1TB which will be mounted on /nfs."
+  description = "Specify if NFS server will be configured. This will allow you easily to share files between PowerVS instances (e.g., SAP installation files). [File storage share and mount target](https://cloud.ibm.com/docs/vpc?topic=vpc-file-storage-create&interface=ui) in VPC will be created.. If yes, ensure 'nfs_server_config' optional variable is set properly below. Default value is '200GB' which will be mounted on specified directory in network-service vsi."
   type        = bool
   default     = true
 }
@@ -141,16 +145,16 @@ variable "nfs_server_config" {
     mount_path = string
   })
 
-  validation {
-    condition     = var.nfs_server_config != null ? (var.nfs_server_config.mount_path == null || var.nfs_server_config.mount_path == "" || can(regex("/[A-Za-z]+", var.nfs_server_config.mount_path))) : true
-    error_message = "The 'mount_path' attribute must begin with '/' and can contain only characters."
-  }
   default = {
     "size" : 200,
     "iops" : 600,
     "mount_path" : "/nfs"
   }
 }
+
+#####################################################
+# Optional Parameters PowerVS Workspace
+#####################################################
 
 variable "powervs_management_network" {
   description = "Name of the IBM Cloud PowerVS management subnet and CIDR to create."
@@ -178,23 +182,6 @@ variable "powervs_backup_network" {
   }
 }
 
-variable "cloud_connection" {
-  description = "Cloud connection configuration: speed (50, 100, 200, 500, 1000, 2000, 5000, 10000 Mb/s), count (1 or 2 connections), global_routing (true or false), metered (true or false). Not applicable for DCs where PER is enabled."
-  type = object({
-    count          = number
-    speed          = number
-    global_routing = bool
-    metered        = bool
-  })
-
-  default = {
-    "count" : 2,
-    "speed" : 5000,
-    "global_routing" : true,
-    "metered" : true
-  }
-}
-
 variable "powervs_resource_group_name" {
   description = "Existing IBM Cloud resource group name."
   type        = string
@@ -213,7 +200,7 @@ variable "tags" {
 
 # tflint-ignore: terraform_naming_convention
 variable "IC_SCHEMATICS_WORKSPACE_ID" {
-  default     = ""
-  type        = string
   description = "leave blank if running locally. This variable will be automatically populated if running from an IBM Cloud Schematics workspace"
+  type        = string
+  default     = ""
 }

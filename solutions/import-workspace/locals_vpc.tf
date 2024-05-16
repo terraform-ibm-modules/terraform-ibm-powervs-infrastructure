@@ -30,7 +30,6 @@ locals {
 # Locals for outputs
 ####################################################
 locals {
-  proxy_host_ip_port     = join(":", [var.proxy_server_ip_port.ip, var.proxy_server_ip_port.port])
-  nfs_host_or_ip_path    = var.nfs_server_ip_path.ip != "" ? join(":", [var.nfs_server_ip_path.ip, var.nfs_server_ip_path.nfs_path]) : ""
-  cloud_connection_count = length([for connection in data.ibm_tg_gateway.tgw_ds.connections : connection if connection.network_type == "directlink"])
+  proxy_host_ip_port  = join(":", [var.proxy_server_ip_port.ip, var.proxy_server_ip_port.port])
+  nfs_host_or_ip_path = var.nfs_server_ip_path.ip != "" ? join(":", [var.nfs_server_ip_path.ip, var.nfs_server_ip_path.nfs_path]) : ""
 }

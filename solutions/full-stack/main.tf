@@ -21,7 +21,6 @@ module "fullstack" {
   powervs_resource_group_name = var.powervs_resource_group_name
   powervs_management_network  = var.powervs_management_network
   powervs_backup_network      = var.powervs_backup_network
-  cloud_connection            = var.cloud_connection
   powervs_image_names         = var.powervs_image_names
   tags                        = var.tags
 }

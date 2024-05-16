@@ -49,27 +49,10 @@ variable "ibmcloud_api_key" {
 # Optional Parameters
 #####################################################
 
-variable "cloud_connection" {
-  description = "Cloud connection configuration: speed (50, 100, 200, 500, 1000, 2000, 5000, 10000 Mb/s), count (1 or 2 connections), global_routing (true or false), metered (true or false). Not applicable for DCs where PER is enabled."
-  type = object({
-    count          = number
-    speed          = number
-    global_routing = bool
-    metered        = bool
-  })
-
-  default = {
-    "count" : 2,
-    "speed" : 5000,
-    "global_routing" : true,
-    "metered" : true
-  }
-}
-
 variable "powervs_image_names" {
-  description = "List of Images to be imported into cloud account from catalog images. Supported values can be found [here](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/blob/main/solutions/full-stack/docs/catalog_image_names.md)"
+  description = "List of Images to be imported into cloud account from catalog images. Supported values can be found [here](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-workspace/blob/main/docs/catalog_images_list.md)"
   type        = list(string)
-  default     = ["IBMi-75-03-2924-1", "IBMi-74-09-2984-1", "7300-00-01", "7200-05-07", "SLES15-SP4-SAP", "SLES15-SP4-SAP-NETWEAVER", "RHEL8-SP6-SAP", "RHEL8-SP6-SAP-NETWEAVER"]
+  default     = ["IBMi-75-03-2924-1", "IBMi-74-09-2984-1", "7200-05-07", "7300-02-01", "SLES15-SP5-SAP", "SLES15-SP5-SAP-NETWEAVER", "RHEL9-SP2-SAP", "RHEL9-SP2-SAP-NETWEAVER"]
 }
 
 variable "tags" {
