@@ -8,7 +8,7 @@
 ############################################################
 
 GLOBAL_RHEL_PACKAGES="rhel-system-roles rhel-system-roles-sap expect"
-GLOBAL_GALAXY_COLLLECTIONS="ibm.power_linux_sap:1.1.5 ansible.utils:3.1.0 ansible.posix:1.5.4 community.general:8.4.0"
+GLOBAL_GALAXY_COLLLECTIONS="ibm.power_linux_sap:2.0.0 ansible.utils:3.1.0 ansible.posix:1.5.4 community.general:8.4.0"
 
 ############################################################
 # Start functions
