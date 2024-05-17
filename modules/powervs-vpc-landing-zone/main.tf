@@ -76,7 +76,7 @@ locals {
     nfs = {
       "enable"          = var.configure_nfs_server
       "nfs_server_path" = var.configure_nfs_server ? module.vpc_file_share_alb[0].nfs_host_or_ip_path : ""
-      "nfs_client_path" = var.configure_nfs_server ? var.configure_nfs_server.mount : ""
+      "nfs_client_path" = var.configure_nfs_server ? var.nfs_server_config.mount_path : ""
       "opts"            = "sec=sys,nfsvers=4.1,nofail"
       "fstype"          = "nfs4"
     }
