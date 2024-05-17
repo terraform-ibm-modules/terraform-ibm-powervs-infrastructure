@@ -73,7 +73,15 @@ locals {
     ntp = {
       "enable" = var.configure_ntp_forwarder
     }
+    nfs = {
+      "enable"          = var.configure_nfs_server
+      "nfs_server_path" = var.configure_nfs_server ? module.vpc_file_share_alb[0].nfs_host_or_ip_path : ""
+      "nfs_client_path" = var.configure_nfs_server ? var.configure_nfs_server.mount : ""
+      "opts"            = "sec=sys,nfsvers=4.1,nofail"
+      "fstype"          = "nfs4"
+    }
   }
+
 }
 
 module "configure_network_services" {
@@ -93,8 +101,10 @@ module "configure_network_services" {
       { "squid" : local.network_services_config.squid,
         "dns" : local.network_services_config.dns,
         "ntp" : local.network_services_config.ntp
-      }
-    )
+    }),
+    "client_config" : jsonencode(
+      { "nfs" : local.network_services_config.nfs
+    })
   }
 
 }

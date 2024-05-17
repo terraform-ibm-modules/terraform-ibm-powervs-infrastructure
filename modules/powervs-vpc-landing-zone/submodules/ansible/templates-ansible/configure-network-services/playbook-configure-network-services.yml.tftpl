@@ -11,6 +11,8 @@
   hosts: localhost
   vars:
     server_config: ${server_config}
+    client_config: ${client_config}
 
   roles:
   - { role: ibm.power_linux_sap.powervs_install_services, when: server_config!= "" }
+  - { role: ibm.power_linux_sap.powervs_client_enable_services, when: client_config!= "" }
