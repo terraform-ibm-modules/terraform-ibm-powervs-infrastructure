@@ -3,6 +3,5 @@
   "powervs_zone": "eu-de-1",
   "powervs_resource_group_name": "Automation",
   "prefix": $PREFIX,
-  "landing_zone_configuration": "3VPC_RHEL",
   "external_access_ip": "0.0.0.0/0"
 }
