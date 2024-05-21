@@ -13,7 +13,7 @@ This repository contains deployable architecture solutions that help provision V
 
 Three solutions are offered:
 1. [PowerVS full-stack variation](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/tree/main/solutions/full-stack)
-    - Creates three VPCs with RHEL or SLES instances, Power Virtual Server workspace, interconnects them, and configures OS network management services (SQUID proxy, NTP, NFS, and DNS services) using Ansible Galaxy collection roles [ibm.power_linux_sap collection](https://galaxy.ansible.com/ui/repo/published/ibm/power_linux_sap/).
+    - Creates a VPC and Power Virtual Server workspace, interconnects them, and configures OS network management services (SQUID proxy, NTP, NFS, and DNS services) using Ansible Galaxy collection roles [ibm.power_linux_sap collection](https://galaxy.ansible.com/ui/repo/published/ibm/power_linux_sap/).
 2. [PowerVS extension variation](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/tree/main/solutions/extension)
     - Extends the full-stack solution by creating a new Power Virtual Server workspace in a different zone and interconnects with the previous solution.
     - This solution is typically used for **High Availability scenarios** where a single management VPC can be used to reach both PowerVS workspaces.
@@ -22,9 +22,9 @@ Three solutions are offered:
     - Additionally creates a Power Virtual Server Instance of a selected t-shirt size.
     - This solution is typically utilized for **PoCs, demos, and quick onboarding** to PowerVS Infrastructure.
 4. [PowerVS import-workspace variation](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/tree/main/solutions/import-workspace)
-- Takes information about an existing infrastructure and creates a schematics workspace.
-- The schematics workspace's ID and the outputs from it can be used to install the terraform solution 'Power Virtual Server for SAP HANA' on top of a pre-existing PowerVS infrastructure.
-- It creates the ACL and security group rules necessary for management services (NTP, NFS, DNS, and proxy server) and schematics engine access.
+    - Takes information about an existing infrastructure and creates a schematics workspace.
+    - The schematics workspace's ID and the outputs from it can be used to install the terraform solution 'Power Virtual Server for SAP HANA' on top of a pre-existing PowerVS infrastructure.
+    - It creates the ACL and security group rules necessary for management services (NTP, NFS, DNS, and proxy server) and schematics engine access.
     - This solution is typically used for converting an existing Power Virtual Server landscape to a Schematics workspace.
 
 ## Reference architectures
@@ -40,14 +40,6 @@ Three solutions are offered:
 | [Quickstart](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/tree/main/solutions/quickstart)    | :heavy_check_mark:  |   N/A  | :heavy_check_mark:| :heavy_check_mark: | :heavy_check_mark:  | :heavy_check_mark: | N/A |
 | [Import-Workspace](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/tree/main/solutions/import-workspace)    | :heavy_check_mark:  |   N/A  | N/A | N/A | N/A  | N/A | N/A |
 
-<!-- BEGIN OVERVIEW HOOK -->
-## Overview
-* [terraform-ibm-powervs-infrastructure](#terraform-ibm-powervs-infrastructure)
-* [Submodules](./modules)
-    * [ansible-configure-network-services](./modules/ansible-configure-network-services)
-    * [powervs-vpc-landing-zone](./modules/powervs-vpc-landing-zone)
-* [Contributing](#contributing)
-<!-- END OVERVIEW HOOK -->
 
 ## Required IAM access policies
 
@@ -68,7 +60,6 @@ You need the following permissions to run this module.
             - `Editor` platform access
 
 <!-- END MODULE HOOK -->
-
 <!-- BEGIN CONTRIBUTING HOOK -->
 ## Contributing
 

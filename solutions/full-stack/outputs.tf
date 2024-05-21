@@ -37,6 +37,11 @@ output "vsi_list" {
   value       = module.fullstack.vsi_list
 }
 
+output "resource_group_data" {
+  description = "List of resource groups data used within landing zone."
+  value       = module.fullstack.resource_group_data
+}
+
 output "access_host_or_ip" {
   description = "Access host(jump/bastion) for created PowerVS infrastructure."
   value       = module.fullstack.access_host_or_ip
@@ -62,6 +67,15 @@ output "nfs_host_or_ip_path" {
   value       = module.fullstack.nfs_host_or_ip_path
 }
 
+output "ansible_host_or_ip" {
+  description = "Central Ansible node private IP address."
+  value       = module.fullstack.ansible_host_or_ip
+}
+
+output "network_services_config" {
+  description = "Complete configuration of network management services."
+  value       = module.fullstack.network_services_config
+}
 
 ########################################################################
 # PowerVS Infrastructure outputs
@@ -110,11 +124,6 @@ output "powervs_backup_subnet" {
 output "powervs_images" {
   description = "Object containing imported PowerVS image names and image ids."
   value       = module.fullstack.powervs_images
-}
-
-output "cloud_connection_count" {
-  description = "Number of cloud connections configured in created PowerVS infrastructure."
-  value       = module.fullstack.cloud_connection_count
 }
 
 output "schematics_workspace_id" {

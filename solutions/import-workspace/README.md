@@ -43,7 +43,7 @@ The pre-existing infrastructure must meet the following conditions to use the 'i
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.3, < 1.7 |
-| <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | 1.65.0 |
+| <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | 1.65.1 |
 
 ### Modules
 
@@ -58,9 +58,9 @@ The pre-existing infrastructure must meet the following conditions to use the 'i
 
 | Name | Type |
 |------|------|
-| [ibm_is_network_acl.management_acls_ds](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.65.0/docs/data-sources/is_network_acl) | data source |
-| [ibm_is_subnet.management_subnets_ds](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.65.0/docs/data-sources/is_subnet) | data source |
-| [ibm_tg_gateway.tgw_ds](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.65.0/docs/data-sources/tg_gateway) | data source |
+| [ibm_is_network_acl.management_acls_ds](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.65.1/docs/data-sources/is_network_acl) | data source |
+| [ibm_is_subnet.management_subnets_ds](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.65.1/docs/data-sources/is_subnet) | data source |
+| [ibm_tg_gateway.tgw_ds](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.65.1/docs/data-sources/tg_gateway) | data source |
 
 ### Inputs
 
@@ -85,7 +85,6 @@ The pre-existing infrastructure must meet the following conditions to use the 'i
 | Name | Description |
 |------|-------------|
 | <a name="output_access_host_or_ip"></a> [access\_host\_or\_ip](#output\_access\_host\_or\_ip) | Access host(jump/bastion) for existing PowerVS infrastructure. |
-| <a name="output_cloud_connection_count"></a> [cloud\_connection\_count](#output\_cloud\_connection\_count) | Number of cloud connections configured in existing PowerVS infrastructure. |
 | <a name="output_dns_host_or_ip"></a> [dns\_host\_or\_ip](#output\_dns\_host\_or\_ip) | DNS forwarder host for existing PowerVS infrastructure. |
 | <a name="output_nfs_host_or_ip_path"></a> [nfs\_host\_or\_ip\_path](#output\_nfs\_host\_or\_ip\_path) | NFS host for existing PowerVS infrastructure. |
 | <a name="output_ntp_host_or_ip"></a> [ntp\_host\_or\_ip](#output\_ntp\_host\_or\_ip) | NTP host for existing PowerVS infrastructure. |

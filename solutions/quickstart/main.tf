@@ -8,11 +8,11 @@ module "quickstart" {
   providers = { ibm.ibm-is = ibm.ibm-is, ibm.ibm-pi = ibm.ibm-pi }
 
   powervs_zone                = var.powervs_zone
-  landing_zone_configuration  = "1VPC_RHEL"
   prefix                      = var.prefix
   external_access_ip          = var.external_access_ip
   ssh_public_key              = var.ssh_public_key
   ssh_private_key             = var.ssh_private_key
+  client_to_site_vpn          = var.client_to_site_vpn
   configure_dns_forwarder     = var.configure_dns_forwarder
   configure_ntp_forwarder     = var.configure_ntp_forwarder
   configure_nfs_server        = var.configure_nfs_server
@@ -21,7 +21,6 @@ module "quickstart" {
   powervs_resource_group_name = var.powervs_resource_group_name
   powervs_management_network  = var.powervs_management_network
   powervs_backup_network      = var.powervs_backup_network
-  cloud_connection            = var.cloud_connection
   powervs_image_names         = [local.qs_tshirt_choice.image]
   tags                        = var.tags
 }
@@ -33,7 +32,7 @@ module "quickstart" {
 
 module "powervs_instance" {
   source    = "terraform-ibm-modules/powervs-instance/ibm"
-  version   = "1.1.0"
+  version   = "2.0.0"
   providers = { ibm = ibm.ibm-pi }
 
   pi_workspace_guid      = module.quickstart.powervs_workspace_guid
@@ -49,19 +48,4 @@ module "powervs_instance" {
   pi_cpu_proc_type           = local.pi_instance.pi_cpu_proc_type
   pi_boot_image_storage_tier = "tier3"
   pi_storage_config          = local.pi_instance.pi_storage_config
-}
-
-moved {
-  from = module.landing_zone
-  to   = module.quickstart.module.landing_zone
-}
-
-moved {
-  from = module.powervs_infra
-  to   = module.quickstart.module.powervs_infra
-}
-
-moved {
-  from = module.demo_pi_instance
-  to   = module.powervs_instance
 }

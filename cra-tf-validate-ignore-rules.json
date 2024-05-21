@@ -11,6 +11,18 @@
             "description": "Check whether Flow Logs for VPC are enabled",
             "ignore_reason": "In order for this rule to pass, Context Based Restrictions (CBRs) support needs to be added to the module (tracking in https://github.ibm.com/GoldenEye/issues/issues/5626). Even after that is added, there is still a dependency on SCC to support scanning for CBR rules. SCC CBR support is being tracked in https://github.ibm.com/project-fortress/pm/issues/11800.",
             "is_valid": true
+        },
+        {
+            "scc_rule_id": "rule-8c923215-afdc-41b1-886c-64ce78741f8c",
+            "description": "Check whether Application Load Balancer for VPC has health check configured when created",
+            "ignore_reason": "In order for this rule to pass, Context Based Restrictions (CBRs) support needs to be added to the module (tracking in https://github.ibm.com/GoldenEye/issues/issues/5626). Even after that is added, there is still a dependency on SCC to support scanning for CBR rules. SCC CBR support is being tracked in https://github.ibm.com/project-fortress/pm/issues/11800.",
+            "is_valid": true
+        },
+        {
+            "scc_rule_id": "rule-65b61a0f-ffdb-41ba-873d-ad329e7fc0ee",
+            "description": "Check whether Application Load Balancer for VPC is configured to convert HTTP client requests to HTTPS",
+            "ignore_reason": "In order for this rule to pass, Context Based Restrictions (CBRs) support needs to be added to the module (tracking in https://github.ibm.com/GoldenEye/issues/issues/5626). Even after that is added, there is still a dependency on SCC to support scanning for CBR rules. SCC CBR support is being tracked in https://github.ibm.com/project-fortress/pm/issues/11800.",
+            "is_valid": true
         }
     ]
 }

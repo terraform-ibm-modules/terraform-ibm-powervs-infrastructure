@@ -42,7 +42,7 @@
             "features": [
                 {
                     "description": "VPC services (landing zone)",
-                    "title": "Management, Edge and Workload VPC services are created using VSI on VPC landing zone presets."
+                    "title": "Edge VPC services are created using VSI on VPC landing zone presets."
                 },
                 {
                     "description": "Power Virtual Server workspaces",
@@ -50,7 +50,7 @@
                 },
                 {
                     "description": "Network management services",
-                    "title": "Bastion host (in management VPC), internet proxy based on SQUID (in edge VPC), NTP forwarder, DNS forwarder & NFS server (in workload VPC)."
+                    "title": "Bastion host, internet proxy based on SQUID, NTP forwarder, DNS forwarder & NFS as a service."
                 }
             ],
             "flavors": [
@@ -179,25 +179,12 @@
                             "required": true
                         },
                         {
-                            "key": "landing_zone_configuration",
-                            "type": "string",
-                            "required": true,
-                            "default_value": "",
-                            "options": [
-                                {
-                                    "displayname": "3 VPCs (with RHEL instances)",
-                                    "value": "3VPC_RHEL"
-                                },
-                                {
-                                    "displayname": "3 VPCs (with SLES instances)",
-                                    "value": "3VPC_SLES"
-                                }
-                            ],
-                            "custom_config": {}
-                        },
-                        {
                             "key": "external_access_ip",
                             "default_value": "",
+                            "required": true
+                        },
+                        {
+                            "key": "client_to_site_vpn",
                             "required": true
                         },
                         {
@@ -259,9 +246,6 @@
                             "key": "powervs_backup_network"
                         },
                         {
-                            "key": "cloud_connection"
-                        },
-                        {
                             "key": "tags"
                         }
                     ],
@@ -288,6 +272,9 @@
                             "key": "vsi_list"
                         },
                         {
+                            "key": "resource_group_data"
+                        },
+                        {
                             "key": "access_host_or_ip"
                         },
                         {
@@ -301,6 +288,12 @@
                         },
                         {
                             "key": "nfs_host_or_ip_path"
+                        },
+                        {
+                            "key": "ansible_host_or_ip"
+                        },
+                        {
+                            "key": "network_services_config"
                         },
                         {
                             "key": "powervs_zone"
@@ -328,9 +321,6 @@
                         },
                         {
                             "key": "powervs_images"
-                        },
-                        {
-                            "key": "cloud_connection_count"
                         },
                         {
                             "key": "schematics_workspace_id"
@@ -407,22 +397,18 @@
                             },
                             {
                                 "title": "Number of VPCs",
-                                "description": "3"
+                                "description": "1"
                             },
                             {
                                 "title": "Number of Intel VSIs",
-                                "description": "3"
+                                "description": "2"
                             },
                             {
                                 "title": "Separate VPC for management",
                                 "description": "Yes"
                             },
                             {
-                                "title": "Separate VPC for Internet Services",
-                                "description": "Yes"
-                            },
-                            {
-                                "title": "Separate VPC for Private Services",
+                                "title": "Separate VPC for Network Services",
                                 "description": "Yes"
                             },
                             {
@@ -439,7 +425,7 @@
                             },
                             {
                                 "title": "Additional management configurations on VPC",
-                                "description": "NFS server, NTP forwarder, and DNS forwarder reachable from PowerVS Workspace"
+                                "description": "NFS as service, NTP forwarder, and DNS forwarder reachable from PowerVS Workspace"
                             }
                         ],
                         "diagrams": [
@@ -615,6 +601,10 @@
                             "required": true
                         },
                         {
+                            "key": "client_to_site_vpn",
+                            "required": true
+                        },
+                        {
                             "key": "ssh_public_key",
                             "required": true,
                             "type": "multiline_secure_value",
@@ -762,9 +752,6 @@
                             "key": "powervs_backup_network"
                         },
                         {
-                            "key": "cloud_connection"
-                        },
-                        {
                             "key": "tags"
                         }
                     ],
@@ -791,6 +778,9 @@
                             "key": "vsi_list"
                         },
                         {
+                            "key": "resource_group_data"
+                        },
+                        {
                             "key": "access_host_or_ip"
                         },
                         {
@@ -804,6 +794,12 @@
                         },
                         {
                             "key": "nfs_host_or_ip_path"
+                        },
+                        {
+                            "key": "ansible_host_or_ip"
+                        },
+                        {
+                            "key": "network_services_config"
                         },
                         {
                             "key": "powervs_zone"
@@ -831,9 +827,6 @@
                         },
                         {
                             "key": "powervs_images"
-                        },
-                        {
-                            "key": "cloud_connection_count"
                         },
                         {
                             "key": "powervs_instance_management_ip"
@@ -923,19 +916,15 @@
                             },
                             {
                                 "title": "Number of Intel VSIs",
-                                "description": "1"
+                                "description": "2"
                             },
                             {
                                 "title": "Separate VPC for management",
-                                "description": "No"
+                                "description": "Yes"
                             },
                             {
-                                "title": "Separate VPC for Internet Services",
-                                "description": "No"
-                            },
-                            {
-                                "title": "Separate VPC for Private Services",
-                                "description": "No"
+                                "title": "Separate VPC for Network Services",
+                                "description": "Yes"
                             },
                             {
                                 "title": "Increases security with Key Management",
@@ -1188,9 +1177,6 @@
                         },
                         {
                             "key": "powervs_images"
-                        },
-                        {
-                            "key": "cloud_connection_count"
                         },
                         {
                             "key": "schematics_workspace_id"
@@ -1456,9 +1442,6 @@
                             "required": true
                         },
                         {
-                            "key": "cloud_connection"
-                        },
-                        {
                             "key": "tags"
                         }
                     ],
@@ -1500,6 +1483,12 @@
                             "key": "nfs_host_or_ip_path"
                         },
                         {
+                            "key": "ansible_host_or_ip"
+                        },
+                        {
+                            "key": "network_services_config"
+                        },
+                        {
                             "key": "powervs_zone"
                         },
                         {
@@ -1525,9 +1514,6 @@
                         },
                         {
                             "key": "powervs_images"
-                        },
-                        {
-                            "key": "cloud_connection_count"
                         },
                         {
                             "key": "schematics_workspace_id"

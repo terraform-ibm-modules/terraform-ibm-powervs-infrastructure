@@ -37,6 +37,16 @@ output "vsi_list" {
   value       = module.landing_zone.vsi_list
 }
 
+output "vpc_data" {
+  description = "List of VPC data."
+  value       = module.landing_zone.vpc_data
+}
+
+output "resource_group_data" {
+  description = "List of resource groups data used within landing zone."
+  value       = module.landing_zone.resource_group_data
+}
+
 output "access_host_or_ip" {
   description = "Access host(jump/bastion) for created PowerVS infrastructure."
   value       = local.access_host_or_ip
@@ -44,24 +54,33 @@ output "access_host_or_ip" {
 
 output "proxy_host_or_ip_port" {
   description = "Proxy host:port for created PowerVS infrastructure."
-  value       = "${local.squid_config.squid.server_host_or_ip}:${local.squid_config.squid.squid_port}"
+  value       = "${local.network_services_vsi_ip}:${local.network_services_config.squid.squid_port}"
 }
 
 output "dns_host_or_ip" {
   description = "DNS forwarder host for created PowerVS infrastructure."
-  value       = var.configure_dns_forwarder ? local.network_services_config.dns.server_host_or_ip : ""
+  value       = var.configure_dns_forwarder ? local.network_services_vsi_ip : ""
 }
 
 output "ntp_host_or_ip" {
   description = "NTP host for created PowerVS infrastructure."
-  value       = var.configure_ntp_forwarder ? local.network_services_config.ntp.server_host_or_ip : ""
+  value       = var.configure_ntp_forwarder ? local.network_services_vsi_ip : ""
 }
 
 output "nfs_host_or_ip_path" {
   description = "NFS host for created PowerVS infrastructure."
-  value       = local.valid_nfs_config && var.configure_nfs_server ? "${local.network_services_config.nfs.server_host_or_ip}:${local.network_services_config.nfs.nfs_file_system[0].mount_path}" : ""
+  value       = var.configure_nfs_server ? module.vpc_file_share_alb[0].nfs_host_or_ip_path : ""
 }
 
+output "ansible_host_or_ip" {
+  description = "Central Ansible node private IP address."
+  value       = local.network_services_vsi_ip
+}
+
+output "network_services_config" {
+  description = "Complete configuration of network management services."
+  value       = local.network_services_config
+}
 
 ########################################################################
 # PowerVS Infrastructure outputs
@@ -79,40 +98,35 @@ output "powervs_resource_group_name" {
 
 output "powervs_workspace_name" {
   description = "PowerVS infrastructure workspace name."
-  value       = module.powervs_infra.pi_workspace_name
+  value       = module.powervs_workspace.pi_workspace_name
 }
 
 output "powervs_workspace_id" {
   description = "PowerVS infrastructure workspace id. The unique identifier of the new resource instance."
-  value       = module.powervs_infra.pi_workspace_id
+  value       = module.powervs_workspace.pi_workspace_id
 }
 
 output "powervs_workspace_guid" {
   description = "PowerVS infrastructure workspace guid. The GUID of the resource instance."
-  value       = module.powervs_infra.pi_workspace_guid
+  value       = module.powervs_workspace.pi_workspace_guid
 }
 
 output "powervs_ssh_public_key" {
   description = "SSH public key name and value in created PowerVS infrastructure."
-  value       = module.powervs_infra.pi_ssh_public_key
+  value       = module.powervs_workspace.pi_ssh_public_key
 }
 
 output "powervs_management_subnet" {
   description = "Name, ID and CIDR of management private network in created PowerVS infrastructure."
-  value       = module.powervs_infra.pi_private_subnet_1
+  value       = module.powervs_workspace.pi_private_subnet_1
 }
 
 output "powervs_backup_subnet" {
   description = "Name, ID and CIDR of backup private network in created PowerVS infrastructure."
-  value       = module.powervs_infra.pi_private_subnet_2
+  value       = module.powervs_workspace.pi_private_subnet_2
 }
 
 output "powervs_images" {
   description = "Object containing imported PowerVS image names and image ids."
-  value       = module.powervs_infra.pi_images
-}
-
-output "cloud_connection_count" {
-  description = "Number of cloud connections configured in created PowerVS infrastructure."
-  value       = module.powervs_infra.pi_cloud_connection_count
+  value       = module.powervs_workspace.pi_images
 }

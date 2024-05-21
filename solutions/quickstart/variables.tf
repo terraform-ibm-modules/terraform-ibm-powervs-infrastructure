@@ -19,8 +19,27 @@ variable "tshirt_size" {
 }
 
 variable "external_access_ip" {
-  description = "Specify the source IP address or CIDR for login through SSH to the environment after deployment. Access to the environment will be allowed only from this IP address."
+  description = "Specify the source IP address or CIDR for login through SSH to the environment after deployment. Access to the environment will be allowed only from this IP address. Can be set to 'null' if you choose to use client to site vpn."
   type        = string
+}
+
+variable "client_to_site_vpn" {
+  description = "VPN configuration - the client ip pool, existing instance id(guid) of the secrets manager, CRN of the uploaded VPN server certificate in secrets manager and list of users email ids to access the environment."
+  type = object({
+    enable                        = bool
+    client_ip_pool                = string
+    secrets_manager_id            = string
+    server_cert_crn               = string
+    vpn_client_access_group_users = list(string)
+  })
+
+  default = {
+    "enable" : false,
+    "client_ip_pool" : "192.168.0.0/16",
+    "secrets_manager_id" : "",
+    "server_cert_crn" : "",
+    "vpn_client_access_group_users" : [""]
+  }
 }
 
 variable "ssh_public_key" {
@@ -49,8 +68,8 @@ variable "custom_profile_instance_boot_image" {
   type        = string
   default     = "none"
   validation {
-    condition     = contains(["RHEL9-SP2-SAP", "RHEL8-SP8-SAP", "RHEL9-SP2-SAP-NETWEAVER", "RHEL8-SP8-SAP-NETWEAVER", "SLES15-SP5-SAP", "SLES15-SP4-SAP", "SLES15-SP5-SAP-NETWEAVER", "SLES15-SP4-SAP-NETWEAVER", "7300-02-01", "7200-05-07", "7100-05-09", "IBMi-75-03-2924-1", "IBMi-75-03-2984-1", "IBMi-74-09-2984-1", "IBMi_COR-74-09-1", "none"], var.custom_profile_instance_boot_image)
-    error_message = "Only Following IBM catalog images are supported :  RHEL9-SP2-SAP, RHEL9-SP2-SAP-NETWEAVER, RHEL8-SP8-SAP, RHEL8-SP8-SAP-NETWEAVER, SLES15-SP5-SAP, SLES15-SP4-SAP,  SLES15-SP5-SAP-NETWEAVER, SLES15-SP4-SAP-NETWEAVER, 7300-02-01, 7200-05-07, 7100-05-09, IBMi-75-03-2924-1, IBMi-75-03-2984-1, IBMi-74-09-2984-1, IBMi_COR-74-09-1, none"
+    condition     = contains(["RHEL9-SP2-SAP", "RHEL8-SP8-SAP", "RHEL9-SP2-SAP-NETWEAVER", "RHEL8-SP8-SAP-NETWEAVER", "SLES15-SP5-SAP", "SLES15-SP4-SAP", "SLES15-SP5-SAP-NETWEAVER", "SLES15-SP4-SAP-NETWEAVER", "7300-02-01", "7200-05-07", "IBMi-75-03-2924-1", "IBMi-75-03-2984-1", "IBMi-74-09-2984-1", "IBMi_COR-74-09-1", "none"], var.custom_profile_instance_boot_image)
+    error_message = "Only Following IBM catalog images are supported :  RHEL9-SP2-SAP, RHEL9-SP2-SAP-NETWEAVER, RHEL8-SP8-SAP, RHEL8-SP8-SAP-NETWEAVER, SLES15-SP5-SAP, SLES15-SP4-SAP,  SLES15-SP5-SAP-NETWEAVER, SLES15-SP4-SAP-NETWEAVER, 7300-02-01, 7200-05-07, IBMi-75-03-2924-1, IBMi-75-03-2984-1, IBMi-74-09-2984-1, IBMi_COR-74-09-1, none"
   }
 }
 
@@ -85,20 +104,24 @@ variable "custom_profile" {
   }
 }
 
+#####################################################
+# Optional Parameters VSI OS Management Services
+#####################################################
+
 variable "configure_dns_forwarder" {
-  description = "Specify if DNS forwarder will be configured. This will allow you to use central DNS servers (e.g. IBM Cloud DNS servers) sitting outside of the created IBM PowerVS infrastructure. If yes, ensure 'dns_forwarder_config' optional variable is set properly. DNS forwarder will be installed on the inet-svs vsi."
+  description = "Specify if DNS forwarder will be configured. This will allow you to use central DNS servers (e.g. IBM Cloud DNS servers) sitting outside of the created IBM PowerVS infrastructure. If yes, ensure 'dns_forwarder_config' optional variable is set properly. DNS forwarder will be installed on the network-services vsi."
   type        = bool
   default     = true
 }
 
 variable "configure_ntp_forwarder" {
-  description = "Specify if NTP forwarder will be configured. This will allow you to synchronize time between IBM PowerVS instances. NTP forwarder will be installed on the inet-svs vsi."
+  description = "Specify if NTP forwarder will be configured. This will allow you to synchronize time between IBM PowerVS instances. NTP forwarder will be installed on the network-services vsi."
   type        = bool
   default     = true
 }
 
 variable "configure_nfs_server" {
-  description = "Specify if NFS server will be configured. This will allow you easily to share files between PowerVS instances (e.g., SAP installation files). NFS server will be installed on the inet-svs vsi. If yes, ensure 'nfs_server_config' optional variable is set properly below. Default value is 1TB which will be mounted on /nfs."
+  description = "Specify if NFS server will be configured. This will allow you easily to share files between PowerVS instances (e.g., SAP installation files). [File storage share and mount target](https://cloud.ibm.com/docs/vpc?topic=vpc-file-storage-create&interface=ui) in VPC will be created.. If yes, ensure 'nfs_server_config' optional variable is set properly below. Default value is '200GB' which will be mounted on specified directory in network-service vsi."
   type        = bool
   default     = true
 }
@@ -115,17 +138,23 @@ variable "dns_forwarder_config" {
 }
 
 variable "nfs_server_config" {
-  description = "Configuration for the NFS server. 'size' is in GB, 'mount_path' defines the mount point on os. Set 'configure_nfs_server' to false to ignore creating volume."
+  description = "Configuration for the NFS server. 'size' is in GB, 'iops' is maximum input/output operation performance bandwidth per second, 'mount_path' defines the target mount point on os. Set 'configure_nfs_server' to false to ignore creating file storage share."
   type = object({
     size       = number
+    iops       = number
     mount_path = string
   })
 
   default = {
-    "size" : 1000,
+    "size" : 200,
+    "iops" : 600,
     "mount_path" : "/nfs"
   }
 }
+
+#####################################################
+# Optional Parameters PowerVS Workspace
+#####################################################
 
 variable "powervs_management_network" {
   description = "Name of the IBM Cloud PowerVS management subnet and CIDR to create."
@@ -153,23 +182,6 @@ variable "powervs_backup_network" {
   }
 }
 
-variable "cloud_connection" {
-  description = "Cloud connection configuration: speed (50, 100, 200, 500, 1000, 2000, 5000, 10000 Mb/s), count (1 or 2 connections), global_routing (true or false), metered (true or false). Not applicable for DCs where PER is enabled."
-  type = object({
-    count          = number
-    speed          = number
-    global_routing = bool
-    metered        = bool
-  })
-
-  default = {
-    "count" : 2,
-    "speed" : 5000,
-    "global_routing" : true,
-    "metered" : true
-  }
-}
-
 variable "powervs_resource_group_name" {
   description = "Existing IBM Cloud resource group name."
   type        = string
@@ -188,7 +200,7 @@ variable "tags" {
 
 # tflint-ignore: terraform_naming_convention
 variable "IC_SCHEMATICS_WORKSPACE_ID" {
-  default     = ""
-  type        = string
   description = "leave blank if running locally. This variable will be automatically populated if running from an IBM Cloud Schematics workspace"
+  type        = string
+  default     = ""
 }

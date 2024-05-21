@@ -44,7 +44,7 @@ output "access_host_or_ip" {
 
 output "proxy_host_or_ip_port" {
   description = "Proxy host:port for created PowerVS infrastructure."
-  value       = "${local.proxy_host_or_ip}:${local.squid_port}"
+  value       = local.proxy_host_or_ip_port
 }
 
 output "dns_host_or_ip" {
@@ -59,9 +59,18 @@ output "ntp_host_or_ip" {
 
 output "nfs_host_or_ip_path" {
   description = "NFS host for created PowerVS infrastructure."
-  value       = local.nfs_host_or_ip != "" ? "${local.nfs_host_or_ip}:${local.nfs_path}" : ""
+  value       = local.nfs_host_or_ip_path
 }
 
+output "ansible_host_or_ip" {
+  description = "Central Ansible node private IP address."
+  value       = local.ansible_host_or_ip
+}
+
+output "network_services_config" {
+  description = "Complete configuration of network management services."
+  value       = local.network_services_config
+}
 
 ########################################################################
 # PowerVS Infrastructure outputs
@@ -84,37 +93,32 @@ output "powervs_workspace_name" {
 
 output "powervs_workspace_id" {
   description = "PowerVS infrastructure workspace id. The unique identifier of the new resource instance."
-  value       = module.powervs_infra.pi_workspace_id
+  value       = module.powervs_workspace.pi_workspace_id
 }
 
 output "powervs_workspace_guid" {
   description = "PowerVS infrastructure workspace guid. The GUID of the resource instance."
-  value       = module.powervs_infra.pi_workspace_guid
+  value       = module.powervs_workspace.pi_workspace_guid
 }
 
 output "powervs_ssh_public_key" {
   description = "SSH public key name and value in created PowerVS infrastructure."
-  value       = module.powervs_infra.pi_ssh_public_key
+  value       = module.powervs_workspace.pi_ssh_public_key
 }
 
 output "powervs_management_subnet" {
   description = "Name, ID and CIDR of management private network in created PowerVS infrastructure."
-  value       = module.powervs_infra.pi_private_subnet_1
+  value       = module.powervs_workspace.pi_private_subnet_1
 }
 
 output "powervs_backup_subnet" {
   description = "Name, ID and CIDR of backup private network in created PowerVS infrastructure."
-  value       = module.powervs_infra.pi_private_subnet_2
+  value       = module.powervs_workspace.pi_private_subnet_2
 }
 
 output "powervs_images" {
   description = "Object containing imported PowerVS image names and image ids."
-  value       = module.powervs_infra.pi_images
-}
-
-output "cloud_connection_count" {
-  description = "Number of cloud connections configured in created PowerVS infrastructure."
-  value       = module.powervs_infra.pi_cloud_connection_count
+  value       = module.powervs_workspace.pi_images
 }
 
 output "schematics_workspace_id" {

@@ -7,7 +7,7 @@ locals {
   imported_acl_preset = jsondecode(local.acl_preset)
 
   # access control list rules from presets
-  managemnt_vpc_acl_rules = flatten([local.imported_acl_preset.management_acl[0].rules[*]])
+  management_vpc_acl_rules = flatten([local.imported_acl_preset.management_acl[0].rules[*]])
   # list of subnets from each vpc
   management_vsi_subnets = flatten([module.access_host.vsi_ds.primary_network_interface[*].subnet, module.access_host.vsi_ds.network_interfaces[*].subnet])
 }
@@ -21,7 +21,7 @@ locals {
   imported_sg_preset = jsondecode(local.sg_preset)
 
   # security rules from presets
-  managemnt_sg_rules = flatten([local.imported_sg_preset.management_sg.rules[*]])
+  management_sg_rules = flatten([local.imported_sg_preset.management_sg.rules[*]])
   # list of security groups from each VSI
   management_sgs = distinct(flatten([module.access_host.vsi_ds.primary_network_interface[*].security_groups, module.access_host.vsi_ds.network_interfaces[*].security_groups]))
 }
@@ -30,7 +30,6 @@ locals {
 # Locals for outputs
 ####################################################
 locals {
-  proxy_host_ip_port     = join(":", [var.proxy_server_ip_port.ip, var.proxy_server_ip_port.port])
-  nfs_host_or_ip_path    = var.nfs_server_ip_path.ip != "" ? join(":", [var.nfs_server_ip_path.ip, var.nfs_server_ip_path.nfs_path]) : ""
-  cloud_connection_count = length([for connection in data.ibm_tg_gateway.tgw_ds.connections : connection if connection.network_type == "directlink"])
+  proxy_host_ip_port  = join(":", [var.proxy_server_ip_port.ip, var.proxy_server_ip_port.port])
+  nfs_host_or_ip_path = var.nfs_server_ip_path.ip != "" ? join(":", [var.nfs_server_ip_path.ip, var.nfs_server_ip_path.nfs_path]) : ""
 }
