@@ -4,5 +4,7 @@
   "prefix": $PREFIX,
   "tshirt_size": "aix_xs",
   "external_access_ip": "0.0.0.0/0",
-  "powervs_resource_group_name": "Automation"
+  "powervs_resource_group_name": "Automation",
+  "ssh_public_key": $SSH_PUB_KEY,
+  "ssh_private_key": $SSH_PRV_KEY
 }
