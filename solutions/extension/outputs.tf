@@ -67,6 +67,11 @@ output "ansible_host_or_ip" {
   value       = local.ansible_host_or_ip
 }
 
+output "network_services_config" {
+  description = "Complete configuration of network management services."
+  value       = local.network_services_config
+}
+
 ########################################################################
 # PowerVS Infrastructure outputs
 ########################################################################

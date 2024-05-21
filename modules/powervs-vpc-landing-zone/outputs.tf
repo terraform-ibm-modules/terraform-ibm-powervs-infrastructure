@@ -73,8 +73,13 @@ output "nfs_host_or_ip_path" {
 }
 
 output "ansible_host_or_ip" {
-  description = "Central Ansible node private IP address"
+  description = "Central Ansible node private IP address."
   value       = local.network_services_vsi_ip
+}
+
+output "network_services_config" {
+  description = "Complete configuration of network management services."
+  value       = local.network_services_config
 }
 
 ########################################################################

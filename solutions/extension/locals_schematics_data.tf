@@ -33,6 +33,7 @@ locals {
   nfs_host_or_ip_path        = local.nfs_host_or_ip_path_exists ? local.fullstack_output[0].nfs_host_or_ip_path.value : ""
   ntp_host_or_ip_exists      = contains(keys(local.fullstack_output[0]), "ntp_host_or_ip") && local.access_host_or_ip != "" ? true : false
   ntp_host_or_ip             = local.ntp_host_or_ip_exists ? local.fullstack_output[0].ntp_host_or_ip.value : ""
+  network_services_config    = local.fullstack_output[0].network_services_config.value
 
   valid_powervs_zone_used   = local.fullstack_output[0].powervs_zone != var.powervs_zone ? true : false
   validate_powervs_zone_msg = "A Power workspace already exists in the provided PowerVS zone. Please use a different zone."

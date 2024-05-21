@@ -72,6 +72,11 @@ output "ansible_host_or_ip" {
   value       = module.fullstack.ansible_host_or_ip
 }
 
+output "network_services_config" {
+  description = "Complete configuration of network management services."
+  value       = module.fullstack.network_services_config
+}
+
 ########################################################################
 # PowerVS Infrastructure outputs
 ########################################################################

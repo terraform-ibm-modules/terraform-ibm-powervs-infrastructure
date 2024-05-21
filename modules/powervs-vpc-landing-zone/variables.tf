@@ -81,7 +81,7 @@ variable "dns_forwarder_config" {
 }
 
 variable "nfs_server_config" {
-  description = "Configuration for the NFS server. 'size' is in GB, 'iops' is maximum input/output operation performance bandwidth per second, 'mount_path' defines the mount point on os. Set 'configure_nfs_server' to false to ignore creating volume."
+  description = "Configuration for the NFS server. 'size' is in GB, 'iops' is maximum input/output operation performance bandwidth per second, 'mount_path' defines the target mount point on os. Set 'configure_nfs_server' to false to ignore creating file storage share."
   type = object({
     size       = number
     iops       = number
