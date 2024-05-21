@@ -293,6 +293,9 @@
                             "key": "ansible_host_or_ip"
                         },
                         {
+                            "key": "network_services_config"
+                        },
+                        {
                             "key": "powervs_zone"
                         },
                         {
@@ -794,6 +797,9 @@
                         },
                         {
                             "key": "ansible_host_or_ip"
+                        },
+                        {
+                            "key": "network_services_config"
                         },
                         {
                             "key": "powervs_zone"
@@ -1478,6 +1484,9 @@
                         },
                         {
                             "key": "ansible_host_or_ip"
+                        },
+                        {
+                            "key": "network_services_config"
                         },
                         {
                             "key": "powervs_zone"

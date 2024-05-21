@@ -31,9 +31,8 @@ module "quickstart" {
 #####################################################
 
 module "powervs_instance" {
-  source = "git::https://github.com/terraform-ibm-modules/terraform-ibm-powervs-instance.git?ref=ansible_host"
-  #source    = "terraform-ibm-modules/powervs-instance/ibm"
-  #version   = "1.1.0"
+  source    = "terraform-ibm-modules/powervs-instance/ibm"
+  version   = "2.0.0"
   providers = { ibm = ibm.ibm-pi }
 
   pi_workspace_guid      = module.quickstart.powervs_workspace_guid

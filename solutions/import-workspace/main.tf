@@ -51,7 +51,7 @@ module "management_vpc_acl_rules" {
 
   source                = "../../modules/import-powervs-vpc/acl"
   ibm_is_network_acl_id = each.value.id
-  acl_rules             = local.managemnt_vpc_acl_rules
+  acl_rules             = local.management_vpc_acl_rules
   skip_deny_rules       = false
 }
 
@@ -60,5 +60,5 @@ module "management_sg_rules" {
 
   source   = "../../modules/import-powervs-vpc/security-group"
   sg_id    = each.value
-  sg_rules = local.managemnt_sg_rules
+  sg_rules = local.management_sg_rules
 }

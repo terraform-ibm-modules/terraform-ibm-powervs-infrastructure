@@ -40,15 +40,6 @@ Three solutions are offered:
 | [Quickstart](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/tree/main/solutions/quickstart)    | :heavy_check_mark:  |   N/A  | :heavy_check_mark:| :heavy_check_mark: | :heavy_check_mark:  | :heavy_check_mark: | N/A |
 | [Import-Workspace](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/tree/main/solutions/import-workspace)    | :heavy_check_mark:  |   N/A  | N/A | N/A | N/A  | N/A | N/A |
 
-<!-- BEGIN OVERVIEW HOOK -->
-## Overview
-* [terraform-ibm-powervs-infrastructure](#terraform-ibm-powervs-infrastructure)
-* [Submodules](./modules)
-    * [powervs-vpc-landing-zone/subansible](./modules/powervs-vpc-landing-zone/submodules/ansible)
-    * [powervs-vpc-landing-zone/subfileshare-alb](./modules/powervs-vpc-landing-zone/submodules/fileshare-alb)
-    * [powervs-vpc-landing-zone](./modules/powervs-vpc-landing-zone)
-* [Contributing](#contributing)
-<!-- END OVERVIEW HOOK -->
 
 ## Required IAM access policies
 
@@ -69,7 +60,6 @@ You need the following permissions to run this module.
             - `Editor` platform access
 
 <!-- END MODULE HOOK -->
-
 <!-- BEGIN CONTRIBUTING HOOK -->
 ## Contributing
 

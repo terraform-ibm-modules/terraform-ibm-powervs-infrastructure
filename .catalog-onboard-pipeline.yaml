@@ -9,14 +9,12 @@ offerings:
       - name: powervs-workspace
         mark_ready: false
         install_type: fullstack
-        pre_validation: "tests/scripts/pre-validation-key-generation.sh solutions/full-stack"
         scc:
           instance_id: d9f6ba0c-dd0e-4348-a834-6002b675fe40
           region: us-south
       - name: powervs-quickstart
         mark_ready: false
         install_type: fullstack
-        pre_validation: "tests/scripts/pre-validation-key-generation.sh solutions/quickstart"
         scc:
           instance_id: d9f6ba0c-dd0e-4348-a834-6002b675fe40
           region: us-south
