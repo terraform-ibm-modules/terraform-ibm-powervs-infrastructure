@@ -7,7 +7,7 @@ subcollection: deployable-reference-architectures
 authors:
   - name: Arnold Beilmann
   - name: Stafania Saju
-production: true
+production: false
 deployment-url: https://cloud.ibm.com/catalog/architecture/deploy-arch-ibm-pvs-inf-2dd486c7-b317-4aaa-907b-42671485ad96-global
 docs: https://cloud.ibm.com/docs/powervs-vpc
 image_source: https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/blob/main/reference-architectures/reference-architectures/import-workspace/deploy-arch-ibm-pvs-inf-import-workspace.svg
