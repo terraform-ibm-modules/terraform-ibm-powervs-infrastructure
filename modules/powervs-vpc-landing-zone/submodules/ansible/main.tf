@@ -95,8 +95,7 @@ resource "terraform_data" "execute_playbooks" {
   provisioner "remote-exec" {
     inline = [
       "chmod +x ${local.dst_script_file_path}",
-      local.dst_script_file_path,
-      "shutdown -r +1"
+      local.dst_script_file_path
     ]
   }
 }
