@@ -98,11 +98,4 @@ resource "terraform_data" "execute_playbooks" {
       local.dst_script_file_path
     ]
   }
-
-  # Reboot OS
-  provisioner "remote-exec" {
-    inline = [
-      "shutdown -r +1"
-    ]
-  }
 }
