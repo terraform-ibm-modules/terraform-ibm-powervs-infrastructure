@@ -85,7 +85,8 @@ locals {
 }
 
 module "configure_network_services" {
-  source = "./submodules/ansible"
+  source     = "./submodules/ansible"
+  depends_on = [module.vpc_file_share_alb]
 
   bastion_host_ip    = local.access_host_or_ip
   ansible_host_or_ip = local.network_services_vsi_ip

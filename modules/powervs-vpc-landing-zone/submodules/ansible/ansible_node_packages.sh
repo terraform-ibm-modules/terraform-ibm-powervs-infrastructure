@@ -4,7 +4,7 @@
 # This bash script performs                                #
 # - installation of packages                               #
 # - ansible galaxy collections.                            #
-# - updates the OS                                         #
+#                                                          #
 ############################################################
 
 GLOBAL_RHEL_PACKAGES="rhel-system-roles rhel-system-roles-sap expect"
@@ -89,12 +89,6 @@ main::install_packages() {
         fi
       done
     done
-
-    # Update OS
-    main::log_info 'Updating OS'
-    if ! yum update -y; then
-      main::log_warning 'OS Update failed'
-    fi
 
     main::log_info "All packages installed successfully"
   fi
