@@ -15,7 +15,7 @@ use-case: ITServiceManagement
 industry: Technology
 compliance:
 content-type: reference-architecture
-version: v5.0.0
+version: v5.0.1
 
 ---
 
