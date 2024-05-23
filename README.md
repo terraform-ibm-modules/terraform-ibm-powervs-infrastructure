@@ -1,5 +1,3 @@
-<!-- BEGIN MODULE HOOK -->
-
 # IBM Power Virtual Server with VPC Landing Zone
 
 [![Graduated (Supported)](https://img.shields.io/badge/status-Graduated%20(Supported)-brightgreen?style=plastic)](https://terraform-ibm-modules.github.io/documentation/#/badge-status)
@@ -59,7 +57,16 @@ You need the following permissions to run this module.
         - **Direct Link** service
             - `Editor` platform access
 
-<!-- END MODULE HOOK -->
+<!-- BEGIN OVERVIEW HOOK -->
+## Overview
+* [terraform-ibm-powervs-infrastructure](#terraform-ibm-powervs-infrastructure)
+* [Submodules](./modules)
+    * [powervs-vpc-landing-zone/subansible](./modules/powervs-vpc-landing-zone/submodules/ansible)
+    * [powervs-vpc-landing-zone/subfileshare-alb](./modules/powervs-vpc-landing-zone/submodules/fileshare-alb)
+    * [powervs-vpc-landing-zone](./modules/powervs-vpc-landing-zone)
+* [Contributing](#contributing)
+<!-- END OVERVIEW HOOK -->
+
 <!-- BEGIN CONTRIBUTING HOOK -->
 ## Contributing
 
