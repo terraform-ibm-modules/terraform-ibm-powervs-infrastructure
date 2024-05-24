@@ -63,7 +63,7 @@ provider "ibm" {
 
 provider "ibm" {
   alias            = "ibm-sm"
-  region           = lookup(local.ibm_powervs_zone_cloud_region_map, var.powervs_zone, null)
+  region           = var.existing_sm_instance_region == null ? lookup(local.ibm_powervs_zone_cloud_region_map, var.powervs_zone, null) : var.existing_sm_instance_region
   zone             = var.powervs_zone
   ibmcloud_api_key = var.ibmcloud_api_key != null ? var.ibmcloud_api_key : null
 }
