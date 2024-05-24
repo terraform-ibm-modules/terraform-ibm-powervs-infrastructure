@@ -247,6 +247,26 @@
                         },
                         {
                             "key": "tags"
+                        },
+                        {
+                            "key": "sm_service_plan"
+                        },
+                        {
+                            "key": "existing_sm_instance_guid"
+                        },
+                        {
+                            "key": "existing_sm_instance_region",
+                            "custom_config": {
+                                "config_constraints": {
+                                    "generationType": "2"
+                                },
+                                "grouping": "deployment",
+                                "original_grouping": "deployment",
+                                "type": "vpc_region"
+                            }
+                        },
+                        {
+                            "key": "certificate_template_name"
                         }
                     ],
                     "outputs": [
@@ -753,6 +773,26 @@
                         },
                         {
                             "key": "tags"
+                        },
+                        {
+                            "key": "sm_service_plan"
+                        },
+                        {
+                            "key": "existing_sm_instance_guid"
+                        },
+                        {
+                            "key": "existing_sm_instance_region",
+                            "custom_config": {
+                                "config_constraints": {
+                                    "generationType": "2"
+                                },
+                                "grouping": "deployment",
+                                "original_grouping": "deployment",
+                                "type": "vpc_region"
+                            }
+                        },
+                        {
+                            "key": "certificate_template_name"
                         }
                     ],
                     "outputs": [
