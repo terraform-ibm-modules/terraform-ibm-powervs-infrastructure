@@ -256,14 +256,51 @@
                         },
                         {
                             "key": "existing_sm_instance_region",
-                            "custom_config": {
-                                "config_constraints": {
-                                    "generationType": "2"
+                            "type": "string",
+                            "default_value": "null",
+                            "options": [
+                                {
+                                    "displayname": "Null",
+                                    "value": "null"
                                 },
-                                "grouping": "deployment",
-                                "original_grouping": "deployment",
-                                "type": "vpc_region"
-                            }
+                                {
+                                    "displayname": "au-syd",
+                                    "value": "au-syd"
+                                },
+                                {
+                                    "displayname": "br-sao",
+                                    "value": "br-sao"
+                                },
+                                {
+                                    "displayname": "ca-tor",
+                                    "value": "ca-tor"
+                                },
+                                {
+                                    "displayname": "eu-de",
+                                    "value": "eu-es"
+                                },
+                                {
+                                    "displayname": "eu-gb",
+                                    "value": "eu-gb"
+                                },
+                                {
+                                    "displayname": "jp-osa",
+                                    "value": "jp-osa"
+                                },
+                                {
+                                    "displayname": "jp-tok",
+                                    "value": "jp-tok"
+                                },
+                                {
+                                    "displayname": "us-east",
+                                    "value": "us-east"
+                                },
+                                {
+                                    "displayname": "us-south",
+                                    "value": "us-south"
+                                }
+                            ],
+                            "custom_config": {}
                         },
                         {
                             "key": "certificate_template_name"
@@ -782,14 +819,51 @@
                         },
                         {
                             "key": "existing_sm_instance_region",
-                            "custom_config": {
-                                "config_constraints": {
-                                    "generationType": "2"
+                            "type": "string",
+                            "default_value": "null",
+                            "options": [
+                                {
+                                    "displayname": "Null",
+                                    "value": "null"
                                 },
-                                "grouping": "deployment",
-                                "original_grouping": "deployment",
-                                "type": "vpc_region"
-                            }
+                                {
+                                    "displayname": "au-syd",
+                                    "value": "au-syd"
+                                },
+                                {
+                                    "displayname": "br-sao",
+                                    "value": "br-sao"
+                                },
+                                {
+                                    "displayname": "ca-tor",
+                                    "value": "ca-tor"
+                                },
+                                {
+                                    "displayname": "eu-de",
+                                    "value": "eu-es"
+                                },
+                                {
+                                    "displayname": "eu-gb",
+                                    "value": "eu-gb"
+                                },
+                                {
+                                    "displayname": "jp-osa",
+                                    "value": "jp-osa"
+                                },
+                                {
+                                    "displayname": "jp-tok",
+                                    "value": "jp-tok"
+                                },
+                                {
+                                    "displayname": "us-east",
+                                    "value": "us-east"
+                                },
+                                {
+                                    "displayname": "us-south",
+                                    "value": "us-south"
+                                }
+                            ],
+                            "custom_config": {}
                         },
                         {
                             "key": "certificate_template_name"
