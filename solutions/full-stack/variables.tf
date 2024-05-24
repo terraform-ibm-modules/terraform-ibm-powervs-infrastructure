@@ -19,20 +19,16 @@ variable "external_access_ip" {
 }
 
 variable "client_to_site_vpn" {
-  description = "VPN configuration - the client ip pool, existing instance id(guid) of the secrets manager, CRN of the uploaded VPN server certificate in secrets manager and list of users email ids to access the environment."
+  description = "VPN configuration - the client ip pool and list of users email ids to access the environment. If enabled, then a Secret Manager instance is also provisioned with certificates generated. See optional parameters to reuse existing certificate from secrets manager instance."
   type = object({
     enable                        = bool
     client_ip_pool                = string
-    secrets_manager_id            = string
-    server_cert_crn               = string
     vpn_client_access_group_users = list(string)
   })
 
   default = {
-    "enable" : false,
+    "enable" : true,
     "client_ip_pool" : "192.168.0.0/16",
-    "secrets_manager_id" : "",
-    "server_cert_crn" : "",
     "vpn_client_access_group_users" : [""]
   }
 }
@@ -142,6 +138,34 @@ variable "tags" {
   description = "List of tag names for the IBM Cloud PowerVS workspace"
   type        = list(string)
   default     = []
+}
+
+#####################################################
+# Optional Parameters Secret Manager
+#####################################################
+
+variable "sm_service_plan" {
+  type        = string
+  description = "The service/pricing plan to use when provisioning a new Secrets Manager instance. Allowed values: `standard` and `trial`. Only used if `existing_sm_instance_guid` is set to null."
+  default     = "standard"
+}
+
+variable "existing_sm_instance_guid" {
+  type        = string
+  description = "An existing Secrets Manager GUID. The existing Secret Manager instance must have private certificate engine configured. If not provided an new instance will be provisioned."
+  default     = null
+}
+
+variable "existing_sm_instance_region" {
+  type        = string
+  description = "Required if value is passed into `var.existing_sm_instance_guid`."
+  default     = null
+}
+
+variable "certificate_template_name" {
+  type        = string
+  description = "The name of the Certificate Template to create for a private_cert secret engine. When `var.existing_sm_instance_guid` is not null, then it has to be the existing template name that exists in the private cert engine."
+  default     = "my-template"
 }
 
 #############################################################################

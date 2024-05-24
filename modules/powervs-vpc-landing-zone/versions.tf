@@ -8,7 +8,7 @@ terraform {
     ibm = {
       source                = "IBM-Cloud/ibm"
       version               = ">=1.65.0"
-      configuration_aliases = [ibm.ibm-is, ibm.ibm-pi]
+      configuration_aliases = [ibm.ibm-is, ibm.ibm-pi, ibm.ibm-sm]
     }
   }
 }
