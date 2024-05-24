@@ -67,6 +67,10 @@ module "fullstack" {
   powervs_backup_network      = var.powervs_backup_network       #(optional.  default check vars)
   powervs_image_names         = var.powervs_image_names          #(optional.  default check vars)
   tags                        = var.tags                         #(optional.  default check vars)
+  sm_service_plan             = var.sm_service_plan
+  existing_sm_instance_guid   = var.existing_sm_instance_guid    #(optional.  default check vars)
+  existing_sm_instance_region = var.existing_sm_instance_region  #(optional.  default check vars)
+  certificate_template_name   = var.certificate_template_name    #(optional.  default check vars)
 }
 ```
 
