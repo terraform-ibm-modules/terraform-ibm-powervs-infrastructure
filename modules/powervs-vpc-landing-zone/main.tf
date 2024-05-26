@@ -4,7 +4,7 @@
 
 module "landing_zone" {
   source    = "terraform-ibm-modules/landing-zone/ibm//patterns//vsi//module"
-  version   = "5.22.1"
+  version   = "5.23.0"
   providers = { ibm = ibm.ibm-is }
 
   ssh_public_key       = var.ssh_public_key
@@ -27,7 +27,7 @@ module "vpc_file_share_alb" {
   file_share_name               = "${var.prefix}-file-share-nfs"
   file_share_size               = var.nfs_server_config.size
   file_share_iops               = var.nfs_server_config.iops
-  file_share_mount_target_name  = "nfs"
+  file_share_mount_target_name  = "${var.prefix}-nfs"
   file_share_subnet_id          = [for subnet in module.landing_zone.subnet_data : subnet.id if subnet.name == "${var.prefix}-edge-vsi-edge-zone-1"][0]
   file_share_security_group_ids = [for security_group in module.landing_zone.vpc_data[0].vpc_data.security_group : security_group.group_id if security_group.group_name == "network-services-sg"]
   alb_name                      = "${var.prefix}-file-share-alb"
