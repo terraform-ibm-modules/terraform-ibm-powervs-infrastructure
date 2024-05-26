@@ -7,7 +7,7 @@ subcollection: deployable-reference-architectures
 authors:
   - name: Arnold Beilmann
   - name: Suraj Bharadwaj
-production: false
+production: true
 deployment-url: https://cloud.ibm.com/catalog/architecture/deploy-arch-ibm-pvs-inf-2dd486c7-b317-4aaa-907b-42671485ad96-global
 docs: https://cloud.ibm.com/docs/powervs-vpc
 image_source: https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/reference-architectures/extension/deploy-arch-ibm-pvs-inf-extension.svg
