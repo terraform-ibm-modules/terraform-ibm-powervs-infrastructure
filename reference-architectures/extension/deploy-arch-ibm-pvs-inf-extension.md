@@ -1,7 +1,7 @@
 ---
 copyright:
   years: 2024
-lastupdated: "2024-05-24"
+lastupdated: "2024-05-26"
 keywords:
 subcollection: deployable-reference-architectures
 authors:
@@ -15,7 +15,7 @@ use-case: ITServiceManagement
 industry: Technology
 compliance: SAPCertified
 content-type: reference-architecture
-version: v5.1.1
+version: v5.1.2
 
 ---
 
@@ -27,7 +27,7 @@ version: v5.1.1
 {: toc-industry="Technology"}
 {: toc-use-case="ITServiceManagement"}
 {: toc-compliance="SAPCertified"}
-{: toc-version="5.1.1"}
+{: toc-version="5.1.2"}
 
 The Power Virtual Server with VPC landing zone as variation 'Extend Power Virtual Server with VPC landing zone' creates an additional Power Virtual Server workspace and connects it with the already created Power Virtual Server with VPC landing zone. It builds on the existing Power Virtual Server with VPC landing zone deployed as a variation 'Create a new architecture'.
 

@@ -1,7 +1,7 @@
 ---
 copyright:
   years: 2024
-lastupdated: "2024-05-24"
+lastupdated: "2024-05-26"
 keywords:
 subcollection: deployable-reference-architectures
 authors:
@@ -16,7 +16,7 @@ use-case: ITServiceManagement
 industry: Technology
 compliance:
 content-type: reference-architecture
-version: v5.1.1
+version: v5.1.2
 
 ---
 
@@ -28,7 +28,7 @@ version: v5.1.1
 {: toc-industry="Technology"}
 {: toc-use-case="ITServiceManagement"}
 {: toc-compliance=""}
-{: toc-version="5.1.1"}
+{: toc-version="5.1.2"}
 
 Quickstart deployment of the Power Virtual Server with VPC landing zone creates VPC services, a Power Virtual Server workspace, and interconnects them. It also deploys a Power Virtual Server of chosen T-shirt size or custom configuration. Supported Os are Aix, IBM i, and Linux images.
 

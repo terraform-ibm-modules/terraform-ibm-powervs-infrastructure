@@ -1,7 +1,7 @@
 ---
 copyright:
   years: 2024
-lastupdated: "2024-05-24"
+lastupdated: "2024-05-26"
 keywords:
 subcollection: deployable-reference-architectures
 authors:
@@ -15,7 +15,7 @@ use-case: ITServiceManagement
 industry: Technology
 compliance:
 content-type: reference-architecture
-version: v5.1.1
+version: v5.1.2
 
 ---
 

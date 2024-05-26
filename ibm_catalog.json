@@ -257,11 +257,11 @@
                         {
                             "key": "existing_sm_instance_region",
                             "type": "string",
-                            "default_value": "null",
+                            "default_value": "__NULL__",
                             "options": [
                                 {
                                     "displayname": "Null",
-                                    "value": "null"
+                                    "value": "__NULL__"
                                 },
                                 {
                                     "displayname": "au-syd",
@@ -820,11 +820,11 @@
                         {
                             "key": "existing_sm_instance_region",
                             "type": "string",
-                            "default_value": "null",
+                            "default_value": "__NULL__",
                             "options": [
                                 {
                                     "displayname": "Null",
-                                    "value": "null"
+                                    "value": "__NULL__"
                                 },
                                 {
                                     "displayname": "au-syd",
