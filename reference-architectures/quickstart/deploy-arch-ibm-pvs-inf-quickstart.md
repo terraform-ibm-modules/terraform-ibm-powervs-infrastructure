@@ -14,9 +14,9 @@ docs: https://cloud.ibm.com/docs/powervs-vpc
 image_source: https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/blob/main/reference-architectures/quickstart/deploy-arch-ibm-pvs-inf-quickstart.svg
 use-case: ITServiceManagement
 industry: Technology
-compliance:
 content-type: reference-architecture
 version: v5.1.2
+compliance:
 
 ---
 
