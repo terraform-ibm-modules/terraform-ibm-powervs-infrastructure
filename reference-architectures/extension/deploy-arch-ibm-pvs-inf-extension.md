@@ -13,9 +13,9 @@ docs: https://cloud.ibm.com/docs/powervs-vpc
 image_source: https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/reference-architectures/extension/deploy-arch-ibm-pvs-inf-extension.svg
 use-case: ITServiceManagement
 industry: Technology
-compliance: SAPCertified
 content-type: reference-architecture
 version: v5.1.2
+compliance: SAPCertified
 
 ---
 
