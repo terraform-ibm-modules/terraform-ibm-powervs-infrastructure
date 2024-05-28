@@ -608,7 +608,7 @@
                                 {
                                     "displayname": "Custom (Configure in optional parameters)",
                                     "value": {
-                                        "tshirt_size": "custome",
+                                        "tshirt_size": "custom",
                                         "image": ""
                                     }
                                 },
@@ -687,7 +687,7 @@
                         },
                         {
                             "key": "external_access_ip",
-                            "default_value": "",
+                            "default_value": "__NULL__",
                             "required": true
                         },
                         {
@@ -772,6 +772,18 @@
                                 {
                                     "displayname": "IBM i - IBMi_COR-74-09-1",
                                     "value": "IBMi_COR-74-09-1"
+                                },
+                                {
+                                    "displayname": "Linux - RHEL9-SP2",
+                                    "value": "RHEL9-SP2"
+                                },
+                                {
+                                    "displayname": "Linux - RHEL8-SP8",
+                                    "value": "RHEL8-SP28"
+                                },
+                                {
+                                    "displayname": "Linux - SLES15-SP5",
+                                    "value": "SLES15-SP5"
                                 },
                                 {
                                     "displayname": "SAP - RHEL9-SP2-SAP",
