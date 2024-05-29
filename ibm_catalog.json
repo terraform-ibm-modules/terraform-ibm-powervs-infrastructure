@@ -180,7 +180,7 @@
                         },
                         {
                             "key": "external_access_ip",
-                            "default_value": "",
+                            "default_value": "__NULL__",
                             "required": true
                         },
                         {
