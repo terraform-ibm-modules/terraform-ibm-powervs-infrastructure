@@ -36,7 +36,7 @@ module "quickstart" {
 
 module "powervs_instance" {
   source    = "terraform-ibm-modules/powervs-instance/ibm"
-  version   = "2.0.0"
+  version   = "2.0.1"
   providers = { ibm = ibm.ibm-pi }
 
   pi_workspace_guid      = module.quickstart.powervs_workspace_guid

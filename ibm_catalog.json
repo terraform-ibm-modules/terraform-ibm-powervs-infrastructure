@@ -77,71 +77,71 @@
                             "default_value": "",
                             "options": [
                                 {
-                                    "displayname": "Dallas (dallas) PER",
+                                    "displayname": "Dallas (dallas)",
                                     "value": "us-south"
                                 },
                                 {
-                                    "displayname": "Dallas 10 (dal10) PER",
+                                    "displayname": "Dallas 10 (dal10)",
                                     "value": "dal10"
                                 },
                                 {
-                                    "displayname": "Dallas 12 (dal12) PER",
+                                    "displayname": "Dallas 12 (dal12)",
                                     "value": "dal12"
                                 },
                                 {
-                                    "displayname": "Frankfurt 1 (eu-de-1) PER",
+                                    "displayname": "Frankfurt 1 (eu-de-1)",
                                     "value": "eu-de-1"
                                 },
                                 {
-                                    "displayname": "Frankfurt 2 (eu-de-2) PER",
+                                    "displayname": "Frankfurt 2 (eu-de-2)",
                                     "value": "eu-de-2"
                                 },
                                 {
-                                    "displayname": "London 04 (lon04)",
+                                    "displayname": "London 04 (lon04) Non-PER",
                                     "value": "lon04"
                                 },
                                 {
-                                    "displayname": "London 06 (lon06) PER",
+                                    "displayname": "London 06 (lon06)",
                                     "value": "lon06"
                                 },
                                 {
-                                    "displayname": "Madrid 02 (mad02) PER",
+                                    "displayname": "Madrid 02 (mad02)",
                                     "value": "mad02"
                                 },
                                 {
-                                    "displayname": "Madrid 04 (mad04) PER",
+                                    "displayname": "Madrid 04 (mad04)",
                                     "value": "mad04"
                                 },
                                 {
-                                    "displayname": "Montreal 01 (mon01)",
+                                    "displayname": "Montreal 01 (mon01) Non-PER",
                                     "value": "mon01"
                                 },
                                 {
-                                    "displayname": "Osaka 21 (osa21) PER",
+                                    "displayname": "Osaka 21 (osa21)",
                                     "value": "osa21"
                                 },
                                 {
-                                    "displayname": "Sao Paulo 01 (sao01) PER",
+                                    "displayname": "Sao Paulo 01 (sao01)",
                                     "value": "sao01"
                                 },
                                 {
-                                    "displayname": "Sao Paulo 04 (sao04) PER",
+                                    "displayname": "Sao Paulo 04 (sao04)",
                                     "value": "sao04"
                                 },
                                 {
-                                    "displayname": "Sydney 04 (syd04) PER",
+                                    "displayname": "Sydney 04 (syd04)",
                                     "value": "syd04"
                                 },
                                 {
-                                    "displayname": "Sydney 05 (syd05) PER",
+                                    "displayname": "Sydney 05 (syd05)",
                                     "value": "syd05"
                                 },
                                 {
-                                    "displayname": "Tokyo 04 (tok04) PER",
+                                    "displayname": "Tokyo 04 (tok04)",
                                     "value": "tok04"
                                 },
                                 {
-                                    "displayname": "Toronto 01 (tor01) PER",
+                                    "displayname": "Toronto 01 (tor01)",
                                     "value": "tor01"
                                 },
                                 {
@@ -149,11 +149,11 @@
                                     "value": "us-east"
                                 },
                                 {
-                                    "displayname": "Washington DC 06 (wdc06) PER",
+                                    "displayname": "Washington DC 06 (wdc06)",
                                     "value": "wdc06"
                                 },
                                 {
-                                    "displayname": "Washington DC 07 (wdc07) PER",
+                                    "displayname": "Washington DC 07 (wdc07)",
                                     "value": "wdc07"
                                 }
                             ],
@@ -520,63 +520,63 @@
                             "required": true,
                             "options": [
                                 {
-                                    "displayname": "Dallas (dallas) PER",
+                                    "displayname": "Dallas (dallas)",
                                     "value": "us-south"
                                 },
                                 {
-                                    "displayname": "Dallas 10 (dal10) PER",
+                                    "displayname": "Dallas 10 (dal10)",
                                     "value": "dal10"
                                 },
                                 {
-                                    "displayname": "Dallas 12 (dal12) PER",
+                                    "displayname": "Dallas 12 (dal12)",
                                     "value": "dal12"
                                 },
                                 {
-                                    "displayname": "Frankfurt 1 (eu-de-1) PER",
+                                    "displayname": "Frankfurt 1 (eu-de-1)",
                                     "value": "eu-de-1"
                                 },
                                 {
-                                    "displayname": "Frankfurt 2 (eu-de-2) PER",
+                                    "displayname": "Frankfurt 2 (eu-de-2)",
                                     "value": "eu-de-2"
                                 },
                                 {
-                                    "displayname": "London 04 (lon04)",
+                                    "displayname": "London 04 (lon04) Non-PER",
                                     "value": "lon04"
                                 },
                                 {
-                                    "displayname": "London 06 (lon06) PER",
+                                    "displayname": "London 06 (lon06)",
                                     "value": "lon06"
                                 },
                                 {
-                                    "displayname": "Montreal 01 (mon01)",
+                                    "displayname": "Montreal 01 (mon01) Non-PER",
                                     "value": "mon01"
                                 },
                                 {
-                                    "displayname": "Osaka 21 (osa21) PER",
+                                    "displayname": "Osaka 21 (osa21)",
                                     "value": "osa21"
                                 },
                                 {
-                                    "displayname": "Sao Paulo 01 (sao01) PER",
+                                    "displayname": "Sao Paulo 01 (sao01)",
                                     "value": "sao01"
                                 },
                                 {
-                                    "displayname": "Sao Paulo 04 (sao04) PER",
+                                    "displayname": "Sao Paulo 04 (sao04)",
                                     "value": "sao04"
                                 },
                                 {
-                                    "displayname": "Sydney 04 (syd04) PER",
+                                    "displayname": "Sydney 04 (syd04)",
                                     "value": "syd04"
                                 },
                                 {
-                                    "displayname": "Sydney 05 (syd05) PER",
+                                    "displayname": "Sydney 05 (syd05)",
                                     "value": "syd05"
                                 },
                                 {
-                                    "displayname": "Tokyo 04 (tok04) PER",
+                                    "displayname": "Tokyo 04 (tok04)",
                                     "value": "tok04"
                                 },
                                 {
-                                    "displayname": "Toronto 01 (tor01) PER",
+                                    "displayname": "Toronto 01 (tor01)",
                                     "value": "tor01"
                                 },
                                 {
@@ -584,11 +584,11 @@
                                     "value": "us-east"
                                 },
                                 {
-                                    "displayname": "Washington DC 06 (wdc06) PER",
+                                    "displayname": "Washington DC 06 (wdc06)",
                                     "value": "wdc06"
                                 },
                                 {
-                                    "displayname": "Washington DC 07 (wdc07) PER",
+                                    "displayname": "Washington DC 07 (wdc07)",
                                     "value": "wdc07"
                                 }
                             ],
@@ -1150,71 +1150,71 @@
                             "default_value": "",
                             "options": [
                                 {
-                                    "displayname": "Dallas (dallas) PER",
+                                    "displayname": "Dallas (dallas)",
                                     "value": "us-south"
                                 },
                                 {
-                                    "displayname": "Dallas 10 (dal10) PER",
+                                    "displayname": "Dallas 10 (dal10)",
                                     "value": "dal10"
                                 },
                                 {
-                                    "displayname": "Dallas 12 (dal12) PER",
+                                    "displayname": "Dallas 12 (dal12)",
                                     "value": "dal12"
                                 },
                                 {
-                                    "displayname": "Frankfurt 1 (eu-de-1) PER",
+                                    "displayname": "Frankfurt 1 (eu-de-1)",
                                     "value": "eu-de-1"
                                 },
                                 {
-                                    "displayname": "Frankfurt 2 (eu-de-2) PER",
+                                    "displayname": "Frankfurt 2 (eu-de-2)",
                                     "value": "eu-de-2"
                                 },
                                 {
-                                    "displayname": "London 04 (lon04)",
+                                    "displayname": "London 04 (lon04) Non-PER",
                                     "value": "lon04"
                                 },
                                 {
-                                    "displayname": "London 06 (lon06) PER",
+                                    "displayname": "London 06 (lon06)",
                                     "value": "lon06"
                                 },
                                 {
-                                    "displayname": "Madrid 02 (mad02) PER",
+                                    "displayname": "Madrid 02 (mad02)",
                                     "value": "mad02"
                                 },
                                 {
-                                    "displayname": "Madrid 04 (mad04) PER",
+                                    "displayname": "Madrid 04 (mad04)",
                                     "value": "mad04"
                                 },
                                 {
-                                    "displayname": "Montreal 01 (mon01)",
+                                    "displayname": "Montreal 01 (mon01) Non-PER",
                                     "value": "mon01"
                                 },
                                 {
-                                    "displayname": "Osaka 21 (osa21) PER",
+                                    "displayname": "Osaka 21 (osa21)",
                                     "value": "osa21"
                                 },
                                 {
-                                    "displayname": "Sao Paulo 01 (sao01) PER",
+                                    "displayname": "Sao Paulo 01 (sao01)",
                                     "value": "sao01"
                                 },
                                 {
-                                    "displayname": "Sao Paulo 04 (sao04) PER",
+                                    "displayname": "Sao Paulo 04 (sao04)",
                                     "value": "sao04"
                                 },
                                 {
-                                    "displayname": "Sydney 04 (syd04) PER",
+                                    "displayname": "Sydney 04 (syd04)",
                                     "value": "syd04"
                                 },
                                 {
-                                    "displayname": "Sydney 05 (syd05) PER",
+                                    "displayname": "Sydney 05 (syd05)",
                                     "value": "syd05"
                                 },
                                 {
-                                    "displayname": "Tokyo 04 (tok04) PER",
+                                    "displayname": "Tokyo 04 (tok04)",
                                     "value": "tok04"
                                 },
                                 {
-                                    "displayname": "Toronto 01 (tor01) PER",
+                                    "displayname": "Toronto 01 (tor01)",
                                     "value": "tor01"
                                 },
                                 {
@@ -1222,11 +1222,11 @@
                                     "value": "us-east"
                                 },
                                 {
-                                    "displayname": "Washington DC 06 (wdc06) PER",
+                                    "displayname": "Washington DC 06 (wdc06)",
                                     "value": "wdc06"
                                 },
                                 {
-                                    "displayname": "Washington DC 07 (wdc07) PER",
+                                    "displayname": "Washington DC 07 (wdc07)",
                                     "value": "wdc07"
                                 }
                             ],
@@ -1478,71 +1478,71 @@
                             "default_value": "",
                             "options": [
                                 {
-                                    "displayname": "Dallas (dallas) PER",
+                                    "displayname": "Dallas (dallas)",
                                     "value": "us-south"
                                 },
                                 {
-                                    "displayname": "Dallas 10 (dal10) PER",
+                                    "displayname": "Dallas 10 (dal10)",
                                     "value": "dal10"
                                 },
                                 {
-                                    "displayname": "Dallas 12 (dal12) PER",
+                                    "displayname": "Dallas 12 (dal12)",
                                     "value": "dal12"
                                 },
                                 {
-                                    "displayname": "Frankfurt 1 (eu-de-1) PER",
+                                    "displayname": "Frankfurt 1 (eu-de-1)",
                                     "value": "eu-de-1"
                                 },
                                 {
-                                    "displayname": "Frankfurt 2 (eu-de-2) PER",
+                                    "displayname": "Frankfurt 2 (eu-de-2)",
                                     "value": "eu-de-2"
                                 },
                                 {
-                                    "displayname": "London 04 (lon04)",
+                                    "displayname": "London 04 (lon04) Non-PER",
                                     "value": "lon04"
                                 },
                                 {
-                                    "displayname": "London 06 (lon06) PER",
+                                    "displayname": "London 06 (lon06)",
                                     "value": "lon06"
                                 },
                                 {
-                                    "displayname": "Madrid 02 (mad02) PER",
+                                    "displayname": "Madrid 02 (mad02)",
                                     "value": "mad02"
                                 },
                                 {
-                                    "displayname": "Madrid 04 (mad04) PER",
+                                    "displayname": "Madrid 04 (mad04)",
                                     "value": "mad04"
                                 },
                                 {
-                                    "displayname": "Montreal 01 (mon01)",
+                                    "displayname": "Montreal 01 (mon01) Non-PER",
                                     "value": "mon01"
                                 },
                                 {
-                                    "displayname": "Osaka 21 (osa21) PER",
+                                    "displayname": "Osaka 21 (osa21)",
                                     "value": "osa21"
                                 },
                                 {
-                                    "displayname": "Sao Paulo 01 (sao01) PER",
+                                    "displayname": "Sao Paulo 01 (sao01)",
                                     "value": "sao01"
                                 },
                                 {
-                                    "displayname": "Sao Paulo 04 (sao04) PER",
+                                    "displayname": "Sao Paulo 04 (sao04)",
                                     "value": "sao04"
                                 },
                                 {
-                                    "displayname": "Sydney 04 (syd04) PER",
+                                    "displayname": "Sydney 04 (syd04)",
                                     "value": "syd04"
                                 },
                                 {
-                                    "displayname": "Sydney 05 (syd05) PER",
+                                    "displayname": "Sydney 05 (syd05)",
                                     "value": "syd05"
                                 },
                                 {
-                                    "displayname": "Tokyo 04 (tok04) PER",
+                                    "displayname": "Tokyo 04 (tok04)",
                                     "value": "tok04"
                                 },
                                 {
-                                    "displayname": "Toronto 01 (tor01) PER",
+                                    "displayname": "Toronto 01 (tor01)",
                                     "value": "tor01"
                                 },
                                 {
@@ -1550,11 +1550,11 @@
                                     "value": "us-east"
                                 },
                                 {
-                                    "displayname": "Washington DC 06 (wdc06) PER",
+                                    "displayname": "Washington DC 06 (wdc06)",
                                     "value": "wdc06"
                                 },
                                 {
-                                    "displayname": "Washington DC 07 (wdc07) PER",
+                                    "displayname": "Washington DC 07 (wdc07)",
                                     "value": "wdc07"
                                 }
                             ],
