@@ -13,4 +13,4 @@ jobs:
     with:
       craSCCv2: true
       craConfigYamlFile: "cra-config.yaml"
-      tfswitchDir: "solutions/full-stack"
+      tfswitchDir: "solutions/standard"
