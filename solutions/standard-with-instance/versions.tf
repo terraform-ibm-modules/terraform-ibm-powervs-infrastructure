@@ -1,5 +1,5 @@
 #####################################################
-# PowerVS quickstart solution
+# PowerVS Standard with Instance solution
 #####################################################
 
 terraform {

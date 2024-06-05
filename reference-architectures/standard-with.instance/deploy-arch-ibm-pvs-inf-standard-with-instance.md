@@ -1,54 +1,55 @@
 ---
 copyright:
   years: 2024
-lastupdated: "2024-05-31"
+lastupdated: "2024-06-05"
 keywords:
 subcollection: deployable-reference-architectures
 authors:
   - name: Arnold Beilmann
   - name: Suraj Bharadwaj
+  - name: Stafania Saju
 production: true
 deployment-url: https://cloud.ibm.com/catalog/architecture/deploy-arch-ibm-pvs-inf-2dd486c7-b317-4aaa-907b-42671485ad96-global
 docs: https://cloud.ibm.com/docs/powervs-vpc
-image_source: https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/reference-architectures/full-stack/deploy-arch-ibm-pvs-inf-full-stack.svg
+image_source: https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/blob/main/reference-architectures/standard-with-instance/deploy-arch-ibm-pvs-inf-standard-with-instance.svg
 use-case: ITServiceManagement
 industry: Technology
 content-type: reference-architecture
-version: v5.1.4
-compliance: SAPCertified
+version: v5.2.0
+compliance:
 
 ---
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Power Virtual Server with VPC landing zone - as PowerVS workspace deployment
-{: #deploy-arch-ibm-pvs-inf-full-stack}
+# Power Virtual Server with VPC landing zone - 'Standard with Instance Variation'
+{: #deploy-arch-ibm-pvs-inf-standard-with-instance}
 {: toc-content-type="reference-architecture"}
 {: toc-industry="Technology"}
 {: toc-use-case="ITServiceManagement"}
-{: toc-compliance="SAPCertified"}
-{: toc-version="5.1.4"}
+{: toc-compliance=""}
+{: toc-version="5.2.0"}
 
-The PowerVS workspace deployment of the Power Virtual Server with VPC landing zone creates VPC services and a Power Virtual Server workspace and interconnects them.
+Standard with Instance deployment of the Power Virtual Server with VPC landing zone creates VPC services, a Power Virtual Server workspace, and interconnects them. It also deploys a Power Virtual Server of chosen T-shirt size or custom configuration. Supported Os are Aix, IBM i, and Linux images.
 
 A proxy service for public internet access from the PowerVS workspace is configured. You can optionally configure some management components on VPC (such as an NFS service, NTP forwarder, and DNS forwarder).
 
 ## Architecture diagram
-{: #fullstack-architecture-diagram}
+{: #standard-with-instance-architecture-diagram}
 
-![Architecture diagram for 'Power Virtual Server with VPC landing zone' - variation 'PowerVS workspace'](deploy-arch-ibm-pvs-inf-full-stack.svg "Architecture diagram"){: caption="Figure 1. Single-zone PowerVS workspace accessible over secure landing zone" caption-side="bottom"}{: external download="deploy-arch-ibm-pvs-inf-full-stack.svg"}
+![Architecture diagram for 'Power Virtual Server with VPC landing zone' - variation 'Standard with Instance'.](deploy-arch-ibm-pvs-inf-standard-with-instance.svg "Architecture diagram"){: caption="Figure 1. Single-zone PowerVS workspace accessible over secure landing zone" caption-side="bottom"}{: external download="deploy-arch-ibm-pvs-inf-standard-with-instance.svg"}
 
 ## Design requirements
-{: #fullstack-design-requirements}
-![Design requirements for 'Power Virtual Server with VPC landing zone' - variation 'PowerVS workspace'.](heat-map-deploy-arch-ibm-pvs-inf-full-stack.svg "Design requirements"){: caption="Figure 2. Scope of the solution requirements" caption-side="bottom"}
+{: #standard-with-instance-design-requirements}
+![Design requirements for 'Power Virtual Server with VPC landing zone' - variation 'Standard with Instance'](heat-map-deploy-arch-ibm-pvs-inf-standard-with-instance.svg "Design requirements"){: caption="Figure 2. Scope of the solution requirements" caption-side="bottom"}
 
 IBM Cloud® Power Virtual Servers (PowerVS) is a public cloud offering that an enterprise can use to establish its own private IBM Power computing environment on shared public cloud infrastructure. PowerVS is logically isolated from all other public cloud tenants and infrastructure components, creating a private, secure place on the public cloud. This deployable architecture provides a framework to build a PowerVS offering according to the best practices and requirements from the IBM Cloud.
 
 ## Components
-{: #fullstack-components}
+{: #standard-with-instance-components}
 
 ### VPC architecture decisions
-{: #fullstack-vpc-components-arch}
+{: #standard-with-instance-vpc-components-arch}
 
 | Requirement | Component | Choice | Alternative choice |
 |-------------|-----------|--------------------|--------------------|
@@ -62,7 +63,7 @@ IBM Cloud® Power Virtual Servers (PowerVS) is a public cloud offering that an e
 {: caption="Table 1. VPC architecture decisions" caption-side="bottom"}
 
 ### PowerVS workspace architecture decisions
-{: #fullstack-pvs-components-workspace}
+{: #standard-with-instance-pvs-components-workspace}
 
 | Requirement | Component | Choice | Alternative choice |
 |-------------|-----------|--------------------|--------------------|
@@ -74,7 +75,7 @@ IBM Cloud® Power Virtual Servers (PowerVS) is a public cloud offering that an e
 {: caption="Table 2. PowerVS workspace architecture decisions" caption-side="bottom"}
 
 ### PowerVS management services architecture decisions
-{: #fullstack-pvs-components-mgmt}
+{: #standard-with-instance-pvs-components-mgmt}
 
 | Requirement | Component | Choice | Alternative choice |
 |-------------|-----------|--------------------|--------------------|
@@ -85,31 +86,30 @@ IBM Cloud® Power Virtual Servers (PowerVS) is a public cloud offering that an e
 {: caption="Table 3. PowerVS management services architecture decisions" caption-side="bottom"}
 
 ### Network security architecture decisions
-{: #fullstack-net-sec}
+{: #standard-with-instance-net-sec}
 
 | Requirement | Component | Choice | Alternative choice |
 |-------------|-----------|--------------------|--------------------|
 |* Preload VPN configuration to simplify VPN setup|VPNs|VPN configuration is the responsibility of the customer. Automation creates a client to site VPN server||
 |* Enable floating IP on bastion host to execute deployment|Floating IPs on bastion host in management VPC|Use floating IP on bastion host from IBM Schematics to complete deployment||
 |* Isolate management VSI and allow only a limited number of network connections  \n * All other connections from or to management VPC are forbidden|Security group rules for management VSI|Open following ports by default: 22 (for limited number of IPs).  \n All ports to PowerVS workspace are open.  \n All ports to other VPCs are open.|More ports might be opened in preset or added manually after deployment|
-|* Isolate network services VSI, VPEs and NFaaS |Security group rules in edge VPC|Separate security groups are created for each component and only certain IPs or Ports are allowed. |More ports might be opened in preset or added manually after deployment|
+|* Isolate network services VSI, VPEs and NFSaaS |Security group rules in edge VPC|Separate security groups are created for each component and only certain IPs or Ports are allowed. |More ports might be opened in preset or added manually after deployment|
 {: caption="Table 4. Network security architecture decisions" caption-side="bottom"}
 
+### PowerVS instance - architecture decisions
+{: #standard-with-instance-pvs-components}
+
+| Requirement | Component | Choice | Alternative choice |
+|-------------|-----------|--------------------|--------------------|
+|* Deploy PowerVS instance for POC or demo purposes  \n * Use pre-defined t-shirt sizes with regards to memory, cpu, OS and storage | PowerVS instance | * Attach all required storage filesystems  \n * Attach networks for management and backup  \n * Connect instance with infrastructure management services like DNS, NTP, NFS  | * Allow customer to specify memory, cpu, OS, storage and additional parameters \n * OS configuration is the responsibility of the customer |
+{: caption="Table 5. PowerVS workspace architecture decisions" caption-side="bottom"}
+
+
 ### Key and password management architecture decisions
-{: #fullstack-key-pw}
+{: #standard-with-instance-key-pw}
 
 | Requirement | Component | Choice | Alternative choice |
 |-------------|-----------|--------------------|--------------------|
 |* Use public/private SSH key to access virtual server instances by using SSH  \n * Use SSH proxy to log in to all virtual server instances by using the bastion host  \n * Do not store private ssh key on any virtual instances, also not on the bastion host  \n * Do not allow any other SSH login methods except the one with specified private/public SSH key pair|Public SSH key - provided by customer. Private SSH key - provided by customer.|Ask customer to specify the keys. Accept the input as secure parameter or as reference to the key stored in IBM Cloud Secure Storage Manager. Do not print SSH keys in any log files. Do not persist private SSH key.|                    |
 |* Use public/private SSH key to access virtual server instances by using SSH  \n * Use SSH proxy to log in to all virtual server instances by using the private IPS of instances using a VPN client  \n * Do not store private ssh key on any virtual instances  \n * Do not allow any other SSH login methods except the one with specified private/public SSH key pair|Public SSH key - provided by customer. Private SSH key - provided by customer.|Ask customer to specify the keys. Accept the input as secure parameter or as reference to the key stored in IBM Cloud Secure Storage Manager. Do not print SSH keys in any log files. Do not persist private SSH key.|                    |
 {: caption="Table 5. Key and passwords management architecture decisions" caption-side="bottom"}
-
-## Compliance
-{: #fullstack-compliance}
-
-This reference architecture is certified for SAP deployments.
-
-## Next steps
-{: #fullstack-next-steps}
-
-Install the SAP on Power deployable architecture on this infrastructure.

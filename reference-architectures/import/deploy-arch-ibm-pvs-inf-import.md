@@ -1,7 +1,7 @@
 ---
 copyright:
   years: 2024
-lastupdated: "2024-05-31"
+lastupdated: "2024-06-05"
 keywords:
 subcollection: deployable-reference-architectures
 authors:
@@ -10,18 +10,18 @@ authors:
 production: true
 deployment-url: https://cloud.ibm.com/catalog/architecture/deploy-arch-ibm-pvs-inf-2dd486c7-b317-4aaa-907b-42671485ad96-global
 docs: https://cloud.ibm.com/docs/powervs-vpc
-image_source: https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/blob/main/reference-architectures/reference-architectures/import-workspace/deploy-arch-ibm-pvs-inf-import-workspace.svg
+image_source: https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/blob/main/reference-architectures/reference-architectures/import-workspace/deploy-arch-ibm-pvs-inf-import.svg
 use-case: ITServiceManagement
 industry: Technology
 compliance:
 content-type: reference-architecture
-version: v5.1.4
+version: v5.2.0
 
 ---
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Power Virtual Server with VPC landing zone - as 'Import PowerVS Workspace' deployment
+# Power Virtual Server with VPC landing zone - as 'Import' deployment
 {: toc-content-type="reference-architecture"}
 {: toc-industry="Technology"}
 {: toc-use-case="ITServiceManagement"}
@@ -33,4 +33,4 @@ This solution helps to install the deployable architecture ['Power Virtual Serve
 ## Architecture diagram
 {: #iw-architecture-diagram}
 
-![Architecture diagram for 'Power Virtual Server with VPC landing zone' - variation 'Import PowerVS Workspace'.](deploy-arch-ibm-pvs-inf-import-workspace.svg "Architecture diagram"){: caption="Figure 1. Power Virtual Server with VPC landing zone 'import-workspace' variation" caption-side="bottom"}{: external download="deploy-arch-ibm-pvs-inf-import-workspace.svg"}
+![Architecture diagram for 'Power Virtual Server with VPC landing zone' - variation 'Import'.](deploy-arch-ibm-pvs-inf-import.svg "Architecture diagram"){: caption="Figure 1. Power Virtual Server with VPC landing zone 'import-workspace' variation" caption-side="bottom"}{: external download="deploy-arch-ibm-pvs-inf-import.svg"}

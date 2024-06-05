@@ -14,7 +14,7 @@ import (
 
 // Use existing resource group
 const resourceGroup = "geretain-test-resources"
-const defaultExampleTerraformDir = "solutions/full-stack"
+const defaultExampleTerraformDir = "solutions/standard"
 
 var sharedInfoSvc *cloudinfo.CloudInfoService
 
@@ -45,7 +45,7 @@ func setupOptions(t *testing.T, prefix string) *testhelper.TestOptions {
 		BestRegionYAMLPath: "./common-go-assets/cloudinfo-region-power-prefs.yaml", // specific to powervs zones
 		// temporary workaround for BSS backend issue
 		ImplicitDestroy: []string{
-			"module.fullstack.module.landing_zone.module.landing_zone.ibm_resource_group.resource_groups",
+			"module.standard.module.landing_zone.module.landing_zone.ibm_resource_group.resource_groups",
 		},
 	})
 
