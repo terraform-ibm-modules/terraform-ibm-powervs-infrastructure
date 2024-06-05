@@ -1,9 +1,9 @@
 # IBM Cloud solution for Power Virtual Server with VPC landing zone Import Variation
 
-This solution helps to install the deployable architecture ['Power Virtual Server for SAP HANA'](https://cloud.ibm.com/catalog/architecture/deploy-arch-ibm-pvs-sap-9aa6135e-75d5-467e-9f4a-ac2a21c069b8-global) on top of a pre-existing Power Virtual Server(PowerVS) landscape. 'Power Virtual Server for SAP HANA' automation requires a schematics workspace id for installation. The 'import-workspace' solution creates a schematics workspace by taking pre-existing VPC and PowerVS infrastructure resource details as inputs. The ID of this schematics workspace will be the pre-requisite workspace id required by 'Power Virtual Server for SAP HANA' to create and configure the PowerVS instances for SAP on top of the existing infrastructure.
+This solution helps to install the deployable architecture ['Power Virtual Server for SAP HANA'](https://cloud.ibm.com/catalog/architecture/deploy-arch-ibm-pvs-sap-9aa6135e-75d5-467e-9f4a-ac2a21c069b8-global) on top of a pre-existing Power Virtual Server(PowerVS) landscape. 'Power Virtual Server for SAP HANA' automation requires a schematics workspace id for installation. The 'Import' solution creates a schematics workspace by taking pre-existing VPC and PowerVS infrastructure resource details as inputs. The ID of this schematics workspace will be the pre-requisite workspace id required by 'Power Virtual Server for SAP HANA' to create and configure the PowerVS instances for SAP on top of the existing infrastructure.
 
 ### Pre-requisites:
-The pre-existing infrastructure must meet the following conditions to use the 'import-workspace' solution to create a schematics workspace:
+The pre-existing infrastructure must meet the following conditions to use the 'Import' solution to create a schematics workspace:
 - **Virtual Private Cloud(VPC) side**
     - Existing VPC or VPCs with virtual servers instances, ACL/ACLs, and Security Groups.
     - Existing access host(jump server) which is an intel based virtual server instance that can access Power virtual server instances.
@@ -22,7 +22,7 @@ The pre-existing infrastructure must meet the following conditions to use the 'i
     - Existing NFS server ip and path for the PowerVS instances.
     - If the above parameters are provided, then it must be made sure IPs are reachable on Power virtual server instances which would be created using ['Power Virtual Server for SAP HANA'](https://cloud.ibm.com/catalog/architecture/deploy-arch-ibm-pvs-sap-9aa6135e-75d5-467e-9f4a-ac2a21c069b8-global) automation.
 
-**NOTE:** IBM Cloud has a quota of 100 ACL rules per ACL. The 'Import-Workspace' variation will create 52 new ACL rules for providing schematics servers access to the access host(this access is required for 'Power Virtual Server for SAP HANA' automation). Please ensure the concerned ACL can take in new ACL rules without exceeding the quota of 100 so the deployment will be successful.
+**NOTE:** IBM Cloud has a quota of 100 ACL rules per ACL. The 'Import' variation will create 52 new ACL rules for providing schematics servers access to the access host(this access is required for 'Power Virtual Server for SAP HANA' automation). Please ensure the concerned ACL can take in new ACL rules without exceeding the quota of 100 so the deployment will be successful.
 
 #### Resources Created:
 1. ACL rules for IBM Cloud Schematics are created for the VPC subnets in which access host(jump server) exists.
@@ -32,10 +32,10 @@ The pre-existing infrastructure must meet the following conditions to use the 'i
 
 | Variation  | Available on IBM Catalog  |  Requires Schematics Workspace ID | Imports VPC Landing Zone | Imports VPC VSI OS Config | Imports PowerVS Infrastructure | Imports PowerVS Instance | Performs PowerVS OS Config |
 | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
-| [Import-Workspace](./)  | :heavy_check_mark:  | N/A  | N/A  | N/A  |  N/A  | N/A | N/A |
+| [Import](./)  | :heavy_check_mark:  | N/A  | N/A  | N/A  |  N/A  | N/A | N/A |
 
 ## Architecture diagram
-![import-workspace-variation](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/blob/main/reference-architectures/import-workspace/deploy-arch-ibm-pvs-inf-import.svg)
+![import Variation](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/blob/main/reference-architectures/import/deploy-arch-ibm-pvs-inf-import.svg)
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ### Requirements
