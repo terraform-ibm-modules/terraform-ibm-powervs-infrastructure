@@ -499,10 +499,10 @@
                 },
                 {
                     "label": "Quickstart",
-                    "name": "standard-with-instance",
+                    "name": "standard-plus-vsi",
                     "install_type": "fullstack",
                     "index": 2,
-                    "working_directory": "solutions/standard-with-instance",
+                    "working_directory": "solutions/standard-plus-vsi",
                     "compliance": {
                         "authority": "scc-v3",
                         "profiles": [
@@ -1102,7 +1102,7 @@
                             {
                                 "diagram": {
                                     "caption": "Power Virtual Server with VPC landing zone 'Quickstart' variation",
-                                    "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/main/reference-architectures/standard-with-instance/deploy-arch-ibm-pvs-inf-standard-with-instance.svg",
+                                    "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/main/reference-architectures/standard-plus-vsi/deploy-arch-ibm-pvs-inf-standard-plus-vsi.svg",
                                     "type": "image/svg+xml"
                                 },
                                 "description": "The Power Virtual Server with VPC landing zone as 'Quickstart' variation of 'Create a new architecture' option deploys VPC services and a Power Virtual Server workspace and interconnects them. It also creates one Power virtual server instance of chosen t-shirt size or custom configuration.\n \nRequired and optional management components are configured."
@@ -1446,7 +1446,7 @@
                         {
                             "flavors": [
                                 "standard",
-                                "standard-with-instance"
+                                "standard-plus-vsi"
                             ],
                             "install_type": "fullstack",
                             "catalogID": "1082e7d2-5e2f-0a11-a3bc-f88a8e1931fc",

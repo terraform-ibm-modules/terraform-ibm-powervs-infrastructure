@@ -11,7 +11,7 @@ authors:
 production: true
 deployment-url: https://cloud.ibm.com/catalog/architecture/deploy-arch-ibm-pvs-inf-2dd486c7-b317-4aaa-907b-42671485ad96-global
 docs: https://cloud.ibm.com/docs/powervs-vpc
-image_source: https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/blob/main/reference-architectures/standard-with-instance/deploy-arch-ibm-pvs-inf-standard-with-instance.svg
+image_source: https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/blob/main/reference-architectures/standard-plus-vsi/deploy-arch-ibm-pvs-inf-standard-plus-vsi.svg
 use-case: ITServiceManagement
 industry: Technology
 content-type: reference-architecture
@@ -23,7 +23,7 @@ compliance:
 {{site.data.keyword.attribute-definition-list}}
 
 # Power Virtual Server with VPC landing zone - 'Quickstart Variation'
-{: #deploy-arch-ibm-pvs-inf-standard-with-instance}
+{: #deploy-arch-ibm-pvs-inf-standard-plus-vsi}
 {: toc-content-type="reference-architecture"}
 {: toc-industry="Technology"}
 {: toc-use-case="ITServiceManagement"}
@@ -35,21 +35,21 @@ Quickstart deployment of the Power Virtual Server with VPC landing zone creates 
 A proxy service for public internet access from the PowerVS workspace is configured. You can optionally configure some management components on VPC (such as an NFS service, NTP forwarder, and DNS forwarder).
 
 ## Architecture diagram
-{: #standard-with-instance-architecture-diagram}
+{: #standard-plus-vsi-architecture-diagram}
 
-![Architecture diagram for 'Power Virtual Server with VPC landing zone' - variation 'Quickstart'.](deploy-arch-ibm-pvs-inf-standard-with-instance.svg "Architecture diagram"){: caption="Figure 1. Single-zone PowerVS workspace accessible over secure landing zone" caption-side="bottom"}{: external download="deploy-arch-ibm-pvs-inf-standard-with-instance.svg"}
+![Architecture diagram for 'Power Virtual Server with VPC landing zone' - variation 'Quickstart'.](deploy-arch-ibm-pvs-inf-standard-plus-vsi.svg "Architecture diagram"){: caption="Figure 1. Single-zone PowerVS workspace accessible over secure landing zone" caption-side="bottom"}{: external download="deploy-arch-ibm-pvs-inf-standard-plus-vsi.svg"}
 
 ## Design requirements
-{: #standard-with-instance-design-requirements}
-![Design requirements for 'Power Virtual Server with VPC landing zone' - variation 'Quickstart'](heat-map-deploy-arch-ibm-pvs-inf-standard-with-instance.svg "Design requirements"){: caption="Figure 2. Scope of the solution requirements" caption-side="bottom"}
+{: #standard-plus-vsi-design-requirements}
+![Design requirements for 'Power Virtual Server with VPC landing zone' - variation 'Quickstart'](heat-map-deploy-arch-ibm-pvs-inf-standard-plus-vsi.svg "Design requirements"){: caption="Figure 2. Scope of the solution requirements" caption-side="bottom"}
 
 IBM Cloud® Power Virtual Servers (PowerVS) is a public cloud offering that an enterprise can use to establish its own private IBM Power computing environment on shared public cloud infrastructure. PowerVS is logically isolated from all other public cloud tenants and infrastructure components, creating a private, secure place on the public cloud. This deployable architecture provides a framework to build a PowerVS offering according to the best practices and requirements from the IBM Cloud.
 
 ## Components
-{: #standard-with-instance-components}
+{: #standard-plus-vsi-components}
 
 ### VPC architecture decisions
-{: #standard-with-instance-vpc-components-arch}
+{: #standard-plus-vsi-vpc-components-arch}
 
 | Requirement | Component | Choice | Alternative choice |
 |-------------|-----------|--------------------|--------------------|
@@ -63,7 +63,7 @@ IBM Cloud® Power Virtual Servers (PowerVS) is a public cloud offering that an e
 {: caption="Table 1. VPC architecture decisions" caption-side="bottom"}
 
 ### PowerVS workspace architecture decisions
-{: #standard-with-instance-pvs-components-workspace}
+{: #standard-plus-vsi-pvs-components-workspace}
 
 | Requirement | Component | Choice | Alternative choice |
 |-------------|-----------|--------------------|--------------------|
@@ -75,7 +75,7 @@ IBM Cloud® Power Virtual Servers (PowerVS) is a public cloud offering that an e
 {: caption="Table 2. PowerVS workspace architecture decisions" caption-side="bottom"}
 
 ### PowerVS management services architecture decisions
-{: #standard-with-instance-pvs-components-mgmt}
+{: #standard-plus-vsi-pvs-components-mgmt}
 
 | Requirement | Component | Choice | Alternative choice |
 |-------------|-----------|--------------------|--------------------|
@@ -86,7 +86,7 @@ IBM Cloud® Power Virtual Servers (PowerVS) is a public cloud offering that an e
 {: caption="Table 3. PowerVS management services architecture decisions" caption-side="bottom"}
 
 ### Network security architecture decisions
-{: #standard-with-instance-net-sec}
+{: #standard-plus-vsi-net-sec}
 
 | Requirement | Component | Choice | Alternative choice |
 |-------------|-----------|--------------------|--------------------|
@@ -97,7 +97,7 @@ IBM Cloud® Power Virtual Servers (PowerVS) is a public cloud offering that an e
 {: caption="Table 4. Network security architecture decisions" caption-side="bottom"}
 
 ### PowerVS instance - architecture decisions
-{: #standard-with-instance-pvs-components}
+{: #standard-plus-vsi-pvs-components}
 
 | Requirement | Component | Choice | Alternative choice |
 |-------------|-----------|--------------------|--------------------|
@@ -106,7 +106,7 @@ IBM Cloud® Power Virtual Servers (PowerVS) is a public cloud offering that an e
 
 
 ### Key and password management architecture decisions
-{: #standard-with-instance-key-pw}
+{: #standard-plus-vsi-key-pw}
 
 | Requirement | Component | Choice | Alternative choice |
 |-------------|-----------|--------------------|--------------------|
