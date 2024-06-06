@@ -1,7 +1,7 @@
 ---
 copyright:
   years: 2024
-lastupdated: "2024-05-31"
+lastupdated: "2024-06-05"
 keywords:
 subcollection: deployable-reference-architectures
 authors:
@@ -11,45 +11,45 @@ authors:
 production: true
 deployment-url: https://cloud.ibm.com/catalog/architecture/deploy-arch-ibm-pvs-inf-2dd486c7-b317-4aaa-907b-42671485ad96-global
 docs: https://cloud.ibm.com/docs/powervs-vpc
-image_source: https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/blob/main/reference-architectures/quickstart/deploy-arch-ibm-pvs-inf-quickstart.svg
+image_source: https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/blob/main/reference-architectures/standard-plus-vsi/deploy-arch-ibm-pvs-inf-standard-plus-vsi.svg
 use-case: ITServiceManagement
 industry: Technology
 content-type: reference-architecture
-version: v5.1.4
+version: v5.2.0
 compliance:
 
 ---
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Power Virtual Server with VPC landing zone - as quickstart deployment
-{: #deploy-arch-ibm-pvs-inf-quickstart}
+# Power Virtual Server with VPC landing zone - 'Quickstart Variation'
+{: #deploy-arch-ibm-pvs-inf-standard-plus-vsi}
 {: toc-content-type="reference-architecture"}
 {: toc-industry="Technology"}
 {: toc-use-case="ITServiceManagement"}
 {: toc-compliance=""}
-{: toc-version="5.1.4"}
+{: toc-version="5.2.0"}
 
 Quickstart deployment of the Power Virtual Server with VPC landing zone creates VPC services, a Power Virtual Server workspace, and interconnects them. It also deploys a Power Virtual Server of chosen T-shirt size or custom configuration. Supported Os are Aix, IBM i, and Linux images.
 
 A proxy service for public internet access from the PowerVS workspace is configured. You can optionally configure some management components on VPC (such as an NFS service, NTP forwarder, and DNS forwarder).
 
 ## Architecture diagram
-{: #quickstart-architecture-diagram}
+{: #standard-plus-vsi-architecture-diagram}
 
-![Architecture diagram for 'Power Virtual Server with VPC landing zone' - variation 'Quickstart'.](deploy-arch-ibm-pvs-inf-quickstart.svg "Architecture diagram"){: caption="Figure 1. Single-zone PowerVS workspace accessible over secure landing zone" caption-side="bottom"}{: external download="deploy-arch-ibm-pvs-inf-quickstart.svg"}
+![Architecture diagram for 'Power Virtual Server with VPC landing zone' - variation 'Quickstart'.](deploy-arch-ibm-pvs-inf-standard-plus-vsi.svg "Architecture diagram"){: caption="Figure 1. Single-zone PowerVS workspace accessible over secure landing zone" caption-side="bottom"}{: external download="deploy-arch-ibm-pvs-inf-standard-plus-vsi.svg"}
 
 ## Design requirements
-{: #quickstart-design-requirements}
-![Design requirements for 'Power Virtual Server with VPC landing zone' - variation 'Quickstart'](heat-map-deploy-arch-ibm-pvs-inf-quickstart.svg "Design requirements"){: caption="Figure 2. Scope of the solution requirements" caption-side="bottom"}
+{: #standard-plus-vsi-design-requirements}
+![Design requirements for 'Power Virtual Server with VPC landing zone' - variation 'Quickstart'](heat-map-deploy-arch-ibm-pvs-inf-standard-plus-vsi.svg "Design requirements"){: caption="Figure 2. Scope of the solution requirements" caption-side="bottom"}
 
 IBM Cloud® Power Virtual Servers (PowerVS) is a public cloud offering that an enterprise can use to establish its own private IBM Power computing environment on shared public cloud infrastructure. PowerVS is logically isolated from all other public cloud tenants and infrastructure components, creating a private, secure place on the public cloud. This deployable architecture provides a framework to build a PowerVS offering according to the best practices and requirements from the IBM Cloud.
 
 ## Components
-{: #quickstart-components}
+{: #standard-plus-vsi-components}
 
 ### VPC architecture decisions
-{: #quickstart-vpc-components-arch}
+{: #standard-plus-vsi-vpc-components-arch}
 
 | Requirement | Component | Choice | Alternative choice |
 |-------------|-----------|--------------------|--------------------|
@@ -63,7 +63,7 @@ IBM Cloud® Power Virtual Servers (PowerVS) is a public cloud offering that an e
 {: caption="Table 1. VPC architecture decisions" caption-side="bottom"}
 
 ### PowerVS workspace architecture decisions
-{: #quickstart-pvs-components-workspace}
+{: #standard-plus-vsi-pvs-components-workspace}
 
 | Requirement | Component | Choice | Alternative choice |
 |-------------|-----------|--------------------|--------------------|
@@ -75,7 +75,7 @@ IBM Cloud® Power Virtual Servers (PowerVS) is a public cloud offering that an e
 {: caption="Table 2. PowerVS workspace architecture decisions" caption-side="bottom"}
 
 ### PowerVS management services architecture decisions
-{: #quickstart-pvs-components-mgmt}
+{: #standard-plus-vsi-pvs-components-mgmt}
 
 | Requirement | Component | Choice | Alternative choice |
 |-------------|-----------|--------------------|--------------------|
@@ -86,7 +86,7 @@ IBM Cloud® Power Virtual Servers (PowerVS) is a public cloud offering that an e
 {: caption="Table 3. PowerVS management services architecture decisions" caption-side="bottom"}
 
 ### Network security architecture decisions
-{: #quickstart-net-sec}
+{: #standard-plus-vsi-net-sec}
 
 | Requirement | Component | Choice | Alternative choice |
 |-------------|-----------|--------------------|--------------------|
@@ -97,7 +97,7 @@ IBM Cloud® Power Virtual Servers (PowerVS) is a public cloud offering that an e
 {: caption="Table 4. Network security architecture decisions" caption-side="bottom"}
 
 ### PowerVS instance - architecture decisions
-{: #quickstart-pvs-components}
+{: #standard-plus-vsi-pvs-components}
 
 | Requirement | Component | Choice | Alternative choice |
 |-------------|-----------|--------------------|--------------------|
@@ -106,7 +106,7 @@ IBM Cloud® Power Virtual Servers (PowerVS) is a public cloud offering that an e
 
 
 ### Key and password management architecture decisions
-{: #quickstart-key-pw}
+{: #standard-plus-vsi-key-pw}
 
 | Requirement | Component | Choice | Alternative choice |
 |-------------|-----------|--------------------|--------------------|

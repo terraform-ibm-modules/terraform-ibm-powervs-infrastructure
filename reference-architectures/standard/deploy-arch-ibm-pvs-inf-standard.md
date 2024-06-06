@@ -1,7 +1,7 @@
 ---
 copyright:
   years: 2024
-lastupdated: "2024-05-31"
+lastupdated: "2024-06-05"
 keywords:
 subcollection: deployable-reference-architectures
 authors:
@@ -10,45 +10,45 @@ authors:
 production: true
 deployment-url: https://cloud.ibm.com/catalog/architecture/deploy-arch-ibm-pvs-inf-2dd486c7-b317-4aaa-907b-42671485ad96-global
 docs: https://cloud.ibm.com/docs/powervs-vpc
-image_source: https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/reference-architectures/full-stack/deploy-arch-ibm-pvs-inf-full-stack.svg
+image_source: https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/reference-architectures/standard/deploy-arch-ibm-pvs-inf-standard.svg
 use-case: ITServiceManagement
 industry: Technology
 content-type: reference-architecture
-version: v5.1.4
+version: v5.2.0
 compliance: SAPCertified
 
 ---
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Power Virtual Server with VPC landing zone - as PowerVS workspace deployment
-{: #deploy-arch-ibm-pvs-inf-full-stack}
+# Power Virtual Server with VPC landing zone - 'Standard Variation'
+{: #deploy-arch-ibm-pvs-inf-standard}
 {: toc-content-type="reference-architecture"}
 {: toc-industry="Technology"}
 {: toc-use-case="ITServiceManagement"}
 {: toc-compliance="SAPCertified"}
-{: toc-version="5.1.4"}
+{: toc-version="5.2.0"}
 
-The PowerVS workspace deployment of the Power Virtual Server with VPC landing zone creates VPC services and a Power Virtual Server workspace and interconnects them.
+The Standard deployment of the Power Virtual Server with VPC landing zone creates VPC services and a Power Virtual Server workspace and interconnects them.
 
 A proxy service for public internet access from the PowerVS workspace is configured. You can optionally configure some management components on VPC (such as an NFS service, NTP forwarder, and DNS forwarder).
 
 ## Architecture diagram
-{: #fullstack-architecture-diagram}
+{: #standard-architecture-diagram}
 
-![Architecture diagram for 'Power Virtual Server with VPC landing zone' - variation 'PowerVS workspace'](deploy-arch-ibm-pvs-inf-full-stack.svg "Architecture diagram"){: caption="Figure 1. Single-zone PowerVS workspace accessible over secure landing zone" caption-side="bottom"}{: external download="deploy-arch-ibm-pvs-inf-full-stack.svg"}
+![Architecture diagram for 'Power Virtual Server with VPC landing zone' - variation 'Standard'](deploy-arch-ibm-pvs-inf-standard.svg "Architecture diagram"){: caption="Figure 1. Single-zone PowerVS workspace accessible over secure landing zone" caption-side="bottom"}{: external download="deploy-arch-ibm-pvs-inf-standard.svg"}
 
 ## Design requirements
-{: #fullstack-design-requirements}
-![Design requirements for 'Power Virtual Server with VPC landing zone' - variation 'PowerVS workspace'.](heat-map-deploy-arch-ibm-pvs-inf-full-stack.svg "Design requirements"){: caption="Figure 2. Scope of the solution requirements" caption-side="bottom"}
+{: #standard-design-requirements}
+![Design requirements for 'Power Virtual Server with VPC landing zone' - variation 'Standard'.](heat-map-deploy-arch-ibm-pvs-inf-standard.svg "Design requirements"){: caption="Figure 2. Scope of the solution requirements" caption-side="bottom"}
 
 IBM Cloud® Power Virtual Servers (PowerVS) is a public cloud offering that an enterprise can use to establish its own private IBM Power computing environment on shared public cloud infrastructure. PowerVS is logically isolated from all other public cloud tenants and infrastructure components, creating a private, secure place on the public cloud. This deployable architecture provides a framework to build a PowerVS offering according to the best practices and requirements from the IBM Cloud.
 
 ## Components
-{: #fullstack-components}
+{: #standard-components}
 
 ### VPC architecture decisions
-{: #fullstack-vpc-components-arch}
+{: #standard-vpc-components-arch}
 
 | Requirement | Component | Choice | Alternative choice |
 |-------------|-----------|--------------------|--------------------|
@@ -62,7 +62,7 @@ IBM Cloud® Power Virtual Servers (PowerVS) is a public cloud offering that an e
 {: caption="Table 1. VPC architecture decisions" caption-side="bottom"}
 
 ### PowerVS workspace architecture decisions
-{: #fullstack-pvs-components-workspace}
+{: #standard-pvs-components-workspace}
 
 | Requirement | Component | Choice | Alternative choice |
 |-------------|-----------|--------------------|--------------------|
@@ -74,7 +74,7 @@ IBM Cloud® Power Virtual Servers (PowerVS) is a public cloud offering that an e
 {: caption="Table 2. PowerVS workspace architecture decisions" caption-side="bottom"}
 
 ### PowerVS management services architecture decisions
-{: #fullstack-pvs-components-mgmt}
+{: #standard-pvs-components-mgmt}
 
 | Requirement | Component | Choice | Alternative choice |
 |-------------|-----------|--------------------|--------------------|
@@ -85,7 +85,7 @@ IBM Cloud® Power Virtual Servers (PowerVS) is a public cloud offering that an e
 {: caption="Table 3. PowerVS management services architecture decisions" caption-side="bottom"}
 
 ### Network security architecture decisions
-{: #fullstack-net-sec}
+{: #standard-net-sec}
 
 | Requirement | Component | Choice | Alternative choice |
 |-------------|-----------|--------------------|--------------------|
@@ -96,7 +96,7 @@ IBM Cloud® Power Virtual Servers (PowerVS) is a public cloud offering that an e
 {: caption="Table 4. Network security architecture decisions" caption-side="bottom"}
 
 ### Key and password management architecture decisions
-{: #fullstack-key-pw}
+{: #standard-key-pw}
 
 | Requirement | Component | Choice | Alternative choice |
 |-------------|-----------|--------------------|--------------------|
@@ -105,11 +105,11 @@ IBM Cloud® Power Virtual Servers (PowerVS) is a public cloud offering that an e
 {: caption="Table 5. Key and passwords management architecture decisions" caption-side="bottom"}
 
 ## Compliance
-{: #fullstack-compliance}
+{: #standard-compliance}
 
 This reference architecture is certified for SAP deployments.
 
 ## Next steps
-{: #fullstack-next-steps}
+{: #standard-next-steps}
 
 Install the SAP on Power deployable architecture on this infrastructure.

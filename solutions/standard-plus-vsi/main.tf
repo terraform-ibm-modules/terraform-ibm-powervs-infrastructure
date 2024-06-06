@@ -2,7 +2,7 @@
 # PowerVS with VPC landing zone module
 #####################################################
 
-module "quickstart" {
+module "standard" {
   source = "../../modules/powervs-vpc-landing-zone"
 
   providers = { ibm.ibm-is = ibm.ibm-is, ibm.ibm-pi = ibm.ibm-pi, ibm.ibm-sm = ibm.ibm-sm }
@@ -29,6 +29,10 @@ module "quickstart" {
   certificate_template_name   = var.certificate_template_name
 }
 
+moved {
+  from = module.quickstart
+  to   = module.standard
+}
 
 #####################################################
 # PowerVS Instance module
@@ -39,8 +43,8 @@ module "powervs_instance" {
   version   = "2.0.1"
   providers = { ibm = ibm.ibm-pi }
 
-  pi_workspace_guid      = module.quickstart.powervs_workspace_guid
-  pi_ssh_public_key_name = module.quickstart.powervs_ssh_public_key.name
+  pi_workspace_guid      = module.standard.powervs_workspace_guid
+  pi_ssh_public_key_name = module.standard.powervs_ssh_public_key.name
 
   pi_image_id                = local.pi_instance.pi_image_id
   pi_networks                = local.pi_instance.pi_networks

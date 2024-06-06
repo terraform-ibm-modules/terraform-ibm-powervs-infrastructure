@@ -1,5 +1,5 @@
 #####################################################
-# PowerVS fullstack solution
+# PowerVS Standard plus VSI solution
 #####################################################
 
 terraform {

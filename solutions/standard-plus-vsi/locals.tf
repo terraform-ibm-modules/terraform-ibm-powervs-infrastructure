@@ -42,8 +42,8 @@ locals {
   ##################################
 
   pi_instance = {
-    pi_image_id             = lookup(module.quickstart.powervs_images, local.qs_tshirt_choice.image, null)
-    pi_networks             = [module.quickstart.powervs_management_subnet, module.quickstart.powervs_backup_subnet]
+    pi_image_id             = lookup(module.standard.powervs_images, local.qs_tshirt_choice.image, null)
+    pi_networks             = [module.standard.powervs_management_subnet, module.standard.powervs_backup_subnet]
     pi_instance_name        = "pi-qs"
     pi_sap_profile_id       = local.sap_system_creation_enabled ? local.qs_tshirt_choice.sap_profile_id : null
     pi_server_type          = local.sap_system_creation_enabled ? null : local.qs_tshirt_choice.server_type

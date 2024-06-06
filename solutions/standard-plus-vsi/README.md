@@ -1,4 +1,4 @@
-# IBM Cloud Solution for Power Virtual Server with VPC Landing Zone Quickstart Variation
+# IBM Cloud Solution for Power Virtual Server with VPC Landing Zone Quickstart (Standard plus VSI) Variation
 
 This example sets up the following infrastructure:
 - A **VPC Infrastructure** with the following components:
@@ -30,13 +30,13 @@ This example sets up the following infrastructure:
 ## Solutions
 | Variation  | Available on IBM Catalog  |  Requires Schematics Workspace ID | Creates VPC Landing Zone | Performs VPC VSI OS Config | Creates PowerVS Infrastructure | Creates PowerVS Instance | Performs PowerVS OS Config |
 | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
-| [Quickstart](./)    | :heavy_check_mark:  |   N/A  | :heavy_check_mark:| :heavy_check_mark: | :heavy_check_mark:  | :heavy_check_mark: | N/A |
+| [Quickstart (Standard plus VSI)](./)    | :heavy_check_mark:  |   N/A  | :heavy_check_mark:| :heavy_check_mark: | :heavy_check_mark:  | :heavy_check_mark: | N/A |
 
 ## Reference architecture
-[PowerVS Quickstart variation](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/blob/main/reference-architectures/quickstart/deploy-arch-ibm-pvs-inf-quickstart.md)
+[Quickstart (Standard plus VSI) variation](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/blob/main/reference-architectures/standard-with.instance/deploy-arch-ibm-pvs-inf-standard-plus-vsi.md)
 
 ## Architecture diagram
-![quickstart-variation](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/blob/main/reference-architectures/quickstart/deploy-arch-ibm-pvs-inf-quickstart.svg)
+![Quickstart (Standard plus VSI)](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/blob/main/reference-architectures/standard-plus-vsi/deploy-arch-ibm-pvs-inf-standard-plus-vsi.svg)
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ### Requirements
@@ -51,7 +51,7 @@ This example sets up the following infrastructure:
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_powervs_instance"></a> [powervs\_instance](#module\_powervs\_instance) | terraform-ibm-modules/powervs-instance/ibm | 2.0.1 |
-| <a name="module_quickstart"></a> [quickstart](#module\_quickstart) | ../../modules/powervs-vpc-landing-zone | n/a |
+| <a name="module_standard"></a> [standard](#module\_standard) | ../../modules/powervs-vpc-landing-zone | n/a |
 
 ### Resources
 

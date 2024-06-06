@@ -6,26 +6,26 @@ offerings:
     catalog_id: da12d6f3-3cb7-402e-9350-878837212a6e
     offering_id: 2dd486c7-b317-4aaa-907b-42671485ad96
     variations:
-      - name: powervs-workspace
+      - name: standard
         mark_ready: false
         install_type: fullstack
         scc:
           instance_id: d9f6ba0c-dd0e-4348-a834-6002b675fe40
           region: us-south
-      - name: powervs-quickstart
+      - name: standard-plus-vsi
         mark_ready: false
         install_type: fullstack
         scc:
           instance_id: d9f6ba0c-dd0e-4348-a834-6002b675fe40
           region: us-south
-      - name: powervs-workspace
+      - name: standard-extend
         mark_ready: false
         install_type: extension
         import_only: true
         scc:
           instance_id: d9f6ba0c-dd0e-4348-a834-6002b675fe40
           region: us-south
-      - name: powervs-import-workspace
+      - name: import
         mark_ready: false
         install_type: fullstack
         scc:
