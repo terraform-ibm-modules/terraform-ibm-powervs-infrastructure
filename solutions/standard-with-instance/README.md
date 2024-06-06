@@ -1,4 +1,4 @@
-# IBM Cloud Solution for Power Virtual Server with VPC Landing Zone Standard with Instance Variation
+# IBM Cloud Solution for Power Virtual Server with VPC Landing Zone Quickstart (Standard plus VSI) Variation
 
 This example sets up the following infrastructure:
 - A **VPC Infrastructure** with the following components:
@@ -30,13 +30,13 @@ This example sets up the following infrastructure:
 ## Solutions
 | Variation  | Available on IBM Catalog  |  Requires Schematics Workspace ID | Creates VPC Landing Zone | Performs VPC VSI OS Config | Creates PowerVS Infrastructure | Creates PowerVS Instance | Performs PowerVS OS Config |
 | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
-| [Standard with Instance](./)    | :heavy_check_mark:  |   N/A  | :heavy_check_mark:| :heavy_check_mark: | :heavy_check_mark:  | :heavy_check_mark: | N/A |
+| [Quickstart (Standard plus VSI)](./)    | :heavy_check_mark:  |   N/A  | :heavy_check_mark:| :heavy_check_mark: | :heavy_check_mark:  | :heavy_check_mark: | N/A |
 
 ## Reference architecture
-[Standard with Instance variation](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/blob/main/reference-architectures/standard-with.instance/deploy-arch-ibm-pvs-inf-standard-with-instance.md)
+[Quickstart (Standard plus VSI) variation](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/blob/main/reference-architectures/standard-with.instance/deploy-arch-ibm-pvs-inf-standard-with-instance.md)
 
 ## Architecture diagram
-![Standard with Instance](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/blob/main/reference-architectures/standard-with-instance/deploy-arch-ibm-pvs-inf-standard-with-instance.svg)
+![Quickstart (Standard plus VSI)](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/blob/main/reference-architectures/standard-with-instance/deploy-arch-ibm-pvs-inf-standard-with-instance.svg)
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ### Requirements

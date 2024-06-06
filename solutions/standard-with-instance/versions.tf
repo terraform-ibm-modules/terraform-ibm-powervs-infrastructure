@@ -1,5 +1,5 @@
 #####################################################
-# PowerVS Standard with Instance solution
+# PowerVS Standard plus VSI solution
 #####################################################
 
 terraform {
