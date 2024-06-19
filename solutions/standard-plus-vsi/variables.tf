@@ -35,7 +35,7 @@ variable "client_to_site_vpn" {
   })
 
   default = {
-    "enable" : true,
+    "enable" : false,
     "client_ip_pool" : "192.168.0.0/16",
     "vpn_client_access_group_users" : []
   }
