@@ -686,15 +686,6 @@
                             "custom_config": {}
                         },
                         {
-                            "key": "external_access_ip",
-                            "default_value": "__NULL__",
-                            "required": true
-                        },
-                        {
-                            "key": "client_to_site_vpn",
-                            "required": true
-                        },
-                        {
                             "key": "ssh_public_key",
                             "required": true,
                             "type": "multiline_secure_value",
@@ -851,6 +842,13 @@
                         },
                         {
                             "key": "tags"
+                        },
+                        {
+                            "key": "external_access_ip",
+                            "default_value": "0.0.0.0/0"
+                        },
+                        {
+                            "key": "client_to_site_vpn"
                         },
                         {
                             "key": "sm_service_plan"
