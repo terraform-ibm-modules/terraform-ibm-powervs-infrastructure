@@ -29,8 +29,9 @@ locals {
   external_access_ip = var.external_access_ip != null && var.external_access_ip != "" ? length(regexall("/", var.external_access_ip)) > 0 ? var.external_access_ip : "${var.external_access_ip}/32" : ""
   override_json_string = templatefile("${path.module}/presets/slz-preset.json.tftpl",
     {
-      external_access_ip = local.external_access_ip,
-      vsi_image          = "ibm-redhat-8-8-amd64-sap-applications-1"
+      external_access_ip     = local.external_access_ip,
+      vsi_image              = "ibm-redhat-8-8-amd64-sap-applications-1",
+      transit_gateway_global = var.transit_gateway_global
     }
   )
 }

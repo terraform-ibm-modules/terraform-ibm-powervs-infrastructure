@@ -32,6 +32,11 @@ output "transit_gateway_id" {
   value       = module.standard.transit_gateway_id
 }
 
+output "transit_gateway_global" {
+  description = "Connect to the networks outside the associated region."
+  value       = module.standard.transit_gateway_global
+}
+
 output "vsi_list" {
   description = "A list of VSI with name, id, zone, and primary ipv4 address, VPC Name, and floating IP."
   value       = module.standard.vsi_list
