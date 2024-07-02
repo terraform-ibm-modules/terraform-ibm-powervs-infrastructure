@@ -45,6 +45,16 @@ variable "ssh_private_key" {
 }
 
 #####################################################
+# Optional Parameters IBM Cloud Services
+#####################################################
+
+variable "transit_gateway_global" {
+  description = "Connect to the networks outside the associated region."
+  type        = bool
+  default     = false
+}
+
+#####################################################
 # Optional Parameters VSI OS Management Services
 #####################################################
 
