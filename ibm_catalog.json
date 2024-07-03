@@ -225,6 +225,9 @@
                             "required": true
                         },
                         {
+                            "key": "transit_gateway_global"
+                        },
+                        {
                             "key": "configure_dns_forwarder"
                         },
                         {
@@ -277,7 +280,7 @@
                                 },
                                 {
                                     "displayname": "eu-de",
-                                    "value": "eu-es"
+                                    "value": "eu-de"
                                 },
                                 {
                                     "displayname": "eu-gb",
@@ -324,6 +327,9 @@
                         },
                         {
                             "key": "transit_gateway_id"
+                        },
+                        {
+                            "key": "transit_gateway_global"
                         },
                         {
                             "key": "vsi_list"
@@ -879,7 +885,7 @@
                                 },
                                 {
                                     "displayname": "eu-de",
-                                    "value": "eu-es"
+                                    "value": "eu-de"
                                 },
                                 {
                                     "displayname": "eu-gb",
