@@ -92,7 +92,7 @@ func TestRunMainStandardExample(t *testing.T) {
 	}
 }
 
-// quickstart = standard-plus-vsi
+// quickstart =standard-plus-vsi
 func setupOptionsQuickstartSolution(t *testing.T, prefix string) *testhelper.TestOptions {
 
 	options := testhelper.TestOptionsDefault(&testhelper.TestOptions{
