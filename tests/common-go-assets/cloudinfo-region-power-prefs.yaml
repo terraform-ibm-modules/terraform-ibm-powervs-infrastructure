@@ -5,7 +5,7 @@
 - name: eu-de-1
   useForTest: true
   testPriority: 2
-- name: mad02
+- name: tor01
   useForTest: true
   testPriority: 3
 - name: tok04
