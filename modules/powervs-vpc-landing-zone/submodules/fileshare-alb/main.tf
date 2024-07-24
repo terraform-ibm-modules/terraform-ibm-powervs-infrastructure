@@ -10,6 +10,7 @@ resource "ibm_is_share" "file_share_nfs" {
   access_control_mode = "security_group"
   iops                = var.file_share_iops
   zone                = var.vpc_zone
+  resource_group      = var.resource_group_id
 }
 
 resource "ibm_is_share_mount_target" "mount_target_nfs" {
