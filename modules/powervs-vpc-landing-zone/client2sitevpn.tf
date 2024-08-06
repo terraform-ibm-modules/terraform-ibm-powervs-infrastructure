@@ -63,7 +63,7 @@ resource "ibm_resource_instance" "secrets_manager" {
   service           = "secrets-manager"
   plan              = var.sm_service_plan
   location          = local.sm_region
-  resource_group_id = module.landing_zone.resource_group_data["slz-edge-rg"]
+  resource_group_id = module.landing_zone.resource_group_data["${var.prefix}-slz-edge-rg"]
   timeouts {
     create = "20m" # Extending provisioning time to 20 minutes
   }
@@ -127,7 +127,7 @@ module "client_to_site_vpn" {
   count     = var.client_to_site_vpn.enable ? 1 : 0
 
   vpn_gateway_name              = "${var.prefix}-vpc-pvs-vpn"
-  resource_group_id             = module.landing_zone.resource_group_data["slz-edge-rg"]
+  resource_group_id             = module.landing_zone.resource_group_data["${var.prefix}-slz-edge-rg"]
   access_group_name             = "${var.prefix}-client-to-site-vpn-access-group"
   subnet_ids                    = [for subnet in module.landing_zone.subnet_data : subnet.id if subnet.name == "${var.prefix}-edge-vpn-zone-1"]
   client_ip_pool                = var.client_to_site_vpn.client_ip_pool
