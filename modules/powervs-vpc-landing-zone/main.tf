@@ -23,7 +23,7 @@ module "vpc_file_share_alb" {
   count     = var.configure_nfs_server ? 1 : 0
 
   vpc_zone                      = "${lookup(local.ibm_powervs_zone_cloud_region_map, var.powervs_zone, null)}-1"
-  resource_group_id             = module.landing_zone.resource_group_data["slz-edge-rg"]
+  resource_group_id             = module.landing_zone.resource_group_data["${var.prefix}-slz-edge-rg"]
   file_share_name               = "${var.prefix}-file-share-nfs"
   file_share_size               = var.nfs_server_config.size
   file_share_iops               = var.nfs_server_config.iops
