@@ -2,6 +2,7 @@
 package test
 
 import (
+	"log"
 	"os"
 	"strings"
 	"testing"
@@ -9,6 +10,7 @@ import (
 	"github.com/gruntwork-io/terratest/modules/ssh"
 	"github.com/stretchr/testify/assert"
 	"github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper/cloudinfo"
+	"github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper/common"
 	"github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper/testhelper"
 )
 
@@ -17,12 +19,23 @@ const resourceGroup = "geretain-test-resources"
 const defaultExampleTerraformDir = "solutions/standard"
 const quickstartExampleTerraformDir = "solutions/standard-plus-vsi"
 
+// Define a struct with fields that match the structure of the YAML data
+const yamlLocation = "../common-dev-assets/common-go-assets/common-permanent-resources.yaml"
+
+var permanentResources map[string]interface{}
+
 var sharedInfoSvc *cloudinfo.CloudInfoService
 
 // TestMain will be run before any parallel tests, used to set up a shared InfoService object to track region usage
 // for multiple tests
 func TestMain(m *testing.M) {
 	sharedInfoSvc, _ = cloudinfo.NewCloudInfoServiceFromEnv("TF_VAR_ibmcloud_api_key", cloudinfo.CloudInfoServiceOptions{})
+
+	var err error
+	permanentResources, err = common.LoadMapFromYaml(yamlLocation)
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	// creating ssh keys
 	tSsh := new(testing.T)
@@ -65,7 +78,10 @@ func setupOptionsStandardSolution(t *testing.T, prefix string) *testhelper.TestO
 		"external_access_ip":          "0.0.0.0/0",
 		// locking into syd05 due to other data center issues
 		//"powervs_zone": "syd05",
-		"powervs_zone": options.Region,
+		"powervs_zone":                options.Region,
+		"existing_sm_instance_guid":   permanentResources["secretsManagerGuid"],
+		"existing_sm_instance_region": permanentResources["secretsManagerRegion"],
+		"certificate_template_name":   permanentResources["privateCertTemplateName"],
 	}
 
 	return options
@@ -126,7 +142,9 @@ func setupOptionsQuickstartSolution(t *testing.T, prefix string) *testhelper.Tes
 			"image":       "7300-02-01",
 			"tshirt_size": "aix_xs",
 		},
-		"powervs_zone": options.Region,
+		"powervs_zone":                options.Region,
+		"existing_sm_instance_guid":   permanentResources["secretsManagerGuid"],
+		"existing_sm_instance_region": permanentResources["secretsManagerRegion"],
 	}
 
 	return options
