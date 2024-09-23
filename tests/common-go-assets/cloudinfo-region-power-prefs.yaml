@@ -2,7 +2,7 @@
 - name: sao04
   useForTest: true
   testPriority: 1
-- name: eu-de-2
+- name: dal10
   useForTest: true
   testPriority: 2
 - name: tor01
