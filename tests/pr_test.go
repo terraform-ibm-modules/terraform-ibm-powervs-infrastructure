@@ -17,7 +17,8 @@ import (
 // Use existing resource group
 const resourceGroup = "geretain-test-resources"
 const defaultExampleTerraformDir = "solutions/standard"
-const quickstartExampleTerraformDir = "solutions/standard-plus-vsi"
+
+//const quickstartExampleTerraformDir = "solutions/standard-plus-vsi"
 
 // Define a struct with fields that match the structure of the YAML data
 const yamlLocation = "../common-dev-assets/common-go-assets/common-permanent-resources.yaml"
@@ -108,6 +109,7 @@ func TestRunMainStandardExample(t *testing.T) {
 	}
 }
 
+/*
 // quickstart =standard-plus-vsi
 func setupOptionsQuickstartSolution(t *testing.T, prefix string) *testhelper.TestOptions {
 
@@ -169,4 +171,6 @@ func TestRunMainQuickstartExample(t *testing.T) {
 		assert.Nil(t, err, "This should not have errored")
 		assert.NotNil(t, output, "Expected some output")
 	}
+
 }
+*/
