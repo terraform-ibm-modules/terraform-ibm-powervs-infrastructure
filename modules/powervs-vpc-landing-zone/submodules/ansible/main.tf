@@ -13,7 +13,13 @@ locals {
 # 1. Execute shell script to install ansible roles/collections
 ##############################################################
 
+resource "terraform_data" "trigger_ansible_vars" {
+  input = [var.playbook_template_vars, var.ansible_host_or_ip]
+}
+
 resource "terraform_data" "setup_ansible_host" {
+
+  triggers_replace = terraform_data.trigger_ansible_vars
 
   connection {
     type         = "ssh"
@@ -50,11 +56,9 @@ resource "terraform_data" "setup_ansible_host" {
 # 2. Execute ansible playbooks
 ##############################################################
 
-resource "terraform_data" "trigger_ansible_vars" {
-  input = var.playbook_template_vars
-}
-
 resource "terraform_data" "execute_playbooks" {
+
+  triggers_replace = terraform_data.trigger_ansible_vars
 
   depends_on = [terraform_data.setup_ansible_host]
 
@@ -67,8 +71,6 @@ resource "terraform_data" "execute_playbooks" {
     agent        = false
     timeout      = "5m"
   }
-
-  triggers_replace = terraform_data.trigger_ansible_vars
 
   # Create terraform scripts directory
   provisioner "remote-exec" {
