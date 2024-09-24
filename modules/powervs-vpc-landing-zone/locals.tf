@@ -29,9 +29,10 @@ locals {
   external_access_ip = var.external_access_ip != null && var.external_access_ip != "" ? length(regexall("/", var.external_access_ip)) > 0 ? var.external_access_ip : "${var.external_access_ip}/32" : ""
   override_json_string = templatefile("${path.module}/presets/slz-preset.json.tftpl",
     {
-      external_access_ip     = local.external_access_ip,
-      vsi_image              = "ibm-redhat-8-8-amd64-sap-applications-1",
-      transit_gateway_global = var.transit_gateway_global
+      external_access_ip           = local.external_access_ip,
+      vsi_image                    = "ibm-redhat-8-8-amd64-sap-applications-1",
+      network_services_vsi_profile = var.network_services_vsi_profile,
+      transit_gateway_global       = var.transit_gateway_global
     }
   )
 }
@@ -47,9 +48,10 @@ locals {
   key_floating_ip_exists = local.key_fip_vsi_exists ? contains(keys(module.landing_zone.fip_vsi[0]), "floating_ip") ? true : false : false
   access_host_or_ip      = local.key_floating_ip_exists ? module.landing_zone.fip_vsi[0].floating_ip : ""
 
-  key_vsi_list_exists         = contains(keys(module.landing_zone), "vsi_list") ? true : false
-  network_services_vsi_exists = local.key_vsi_list_exists ? contains(module.landing_zone.vsi_names, "${var.prefix}-network-services-001") ? true : false : false
-  network_services_vsi_ip     = local.network_services_vsi_exists ? [for vsi in module.landing_zone.vsi_list : vsi.ipv4_address if vsi.name == "${var.prefix}-network-services-001"][0] : ""
+  key_vsi_list_exists = contains(keys(module.landing_zone), "vsi_list") ? true : false
+  # network_services_vsi_exists = local.key_vsi_list_exists ? contains(module.landing_zone.vsi_names, "${var.prefix}-network-services-001") ? true : false : false
+  network_services_vsi_exists = local.key_vsi_list_exists ? length([for vsi_name in module.landing_zone.vsi_names : vsi_name if can(regex("${var.prefix}-network-services", vsi_name))]) > 0 ? true : false : false
+  network_services_vsi_ip     = local.network_services_vsi_exists ? [for vsi in module.landing_zone.vsi_list : vsi.ipv4_address if can(regex("${var.prefix}-network-services", vsi.name))][0] : ""
 
   ###### For preset floating ip and network services vsi should exist.
   valid_json_used   = local.key_floating_ip_exists && local.network_services_vsi_exists ? true : false
