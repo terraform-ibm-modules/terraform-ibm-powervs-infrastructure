@@ -1,13 +1,13 @@
 ---
-- name: sao04
-  useForTest: true
-  testPriority: 1
-- name: eu-de-1
-  useForTest: true
-  testPriority: 2
 - name: tor01
   useForTest: true
+  testPriority: 1
+- name: lon06
+  useForTest: true
+  testPriority: 2
+- name: osa21
+  useForTest: true
   testPriority: 3
-- name: tok04
+- name: sao01
   useForTest: true
   testPriority: 4
