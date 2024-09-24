@@ -225,6 +225,7 @@
                         "public_gateway": true,
                         "acl_name": "acl"
                     }
+
                 ],
                 "zone-2": null,
                 "zone-3": null
@@ -245,13 +246,9 @@
             "resource_group": "slz-edge-rg",
             "enable_floating_ip": true,
             "boot_volume_encryption_key_name": "slz-vsi-volume-key",
-            "ssh_keys": [
-                "ssh-key"
-            ],
+            "ssh_keys": ["ssh-key"],
             "vsi_per_subnet": 1,
-            "subnet_names": [
-                "vsi-management-zone-1"
-            ],
+            "subnet_names": ["vsi-management-zone-1"],
             "block_storage_volumes": [],
             "security_group": {
                 "name": "management-sg",
@@ -514,8 +511,7 @@
                             "port_min": 22
                         }
                     },
-                    %{ if "${external_access_ip}" != "" && "${external_access_ip}" != null
-                    }
+                    %{ if "${external_access_ip}" != "" && "${external_access_ip}" != null }
                     {
                         "direction": "inbound",
                         "name": "allow-ssh-tcp-22-inbound",
@@ -525,8 +521,7 @@
                             "port_min": 22
                         }
                     },
-                    %{ endif
-                    }
+                    %{ endif }
                     {
                         "direction": "outbound",
                         "name": "allow-all-outbound",
@@ -543,13 +538,9 @@
             "resource_group": "slz-edge-rg",
             "enable_floating_ip": false,
             "boot_volume_encryption_key_name": "slz-vsi-volume-key",
-            "ssh_keys": [
-                "ssh-key"
-            ],
+            "ssh_keys": ["ssh-key"],
             "vsi_per_subnet": 1,
-            "subnet_names": [
-                "vsi-edge-zone-1"
-            ],
+            "subnet_names": ["vsi-edge-zone-1"],
             "block_storage_volumes": [],
             "security_group": {
                 "name": "network-services-sg",
