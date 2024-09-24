@@ -228,6 +228,9 @@
                             "key": "transit_gateway_global"
                         },
                         {
+                            "key": "network_services_vsi_profile"
+                        },
+                        {
                             "key": "configure_dns_forwarder"
                         },
                         {
@@ -855,6 +858,9 @@
                         },
                         {
                             "key": "client_to_site_vpn"
+                        },
+                        {
+                            "key": "network_services_vsi_profile"
                         },
                         {
                             "key": "sm_service_plan"
