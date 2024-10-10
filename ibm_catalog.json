@@ -255,6 +255,21 @@
                             "key": "tags"
                         },
                         {
+                            "key": "custom_pi_images",
+                            "type": "array",
+                            "default_value": "__NULL__"
+                        },
+                        {
+                            "key": "custom_pi_image_cos_configuration",
+                            "type": "object",
+                            "default_value": "__NULL__"
+                        },
+                        {
+                            "key": "custom_pi_image_cos_service_credentials",
+                            "type": "string",
+                            "default_value": "__NULL__"
+                        },
+                        {
                             "key": "sm_service_plan"
                         },
                         {
