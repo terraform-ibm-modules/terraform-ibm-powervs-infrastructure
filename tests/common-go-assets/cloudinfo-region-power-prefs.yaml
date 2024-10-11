@@ -1,5 +1,5 @@
 ---
-- name: tor01
+- name: eu-de-1
   useForTest: true
   testPriority: 1
 - name: lon06
