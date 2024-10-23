@@ -1,12 +1,13 @@
 version: "v1"
 CRA_TARGETS:
   - CRA_TARGET: "solutions/standard"
-    PROFILE_ID: "bfacb71d-4b84-41ac-9825-e8a3a3eb7405" # SCC profile ID (currently set to IBM Cloud Framework for Financial Services 1.6.0 profile).
+    PROFILE_ID: "fe96bd4d-9b37-40f2-b39f-a62760e326a3"  # SCC profile ID (currently set to 'IBM Cloud Framework for Financial Services' '1.7.0' profile).
     CRA_IGNORE_RULES_FILE: "cra-tf-validate-ignore-rules.json"
     CRA_ENVIRONMENT_VARIABLES:
       TF_VAR_prefix: "cra-infra"
       TF_VAR_powervs_zone: "syd05"
       TF_VAR_powervs_resource_group_name: "Default"
       TF_VAR_external_access_ip: "0.0.0.0/0"
-      TF_VAR_ssh_public_key: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDb8qoH4U47+79ssT6FdsOIxxZY8/oxWc66WPwqHfpjCgDRP3Rc1uq2YEKIRJba2DzNFnf+byinH0O9hwjKZ/3l7HxNtvQZXdCnT79TOT/wGbcHBV8ZUTBkUOx67ryS0F5bKDdMDWdsWkMXkRb8AAsJWLAeuFsfMYQjMBLmvrMsRRB6GG+97jF18ghqHjuBTX1FNF9fcytEaz7WfP8KrgSYRcQOauIVlMJyOmh3gZl84u14SXwQKhQrdvqt47ZErKH+fbsgxfOvvmYgr5RktKjbmi+lyBkxRM7//BaKcPw5saThf1MiEesJxIqyL16DW9LXdWei74xHNuF65K03y975Qr9CtPkr1rGgxwU2ksqLy1NN5TnF4erd1VSuLZ5BLov7JRJ2K17ttt0agp9VmkjRFIivOek= some-user@testing-box"
+      TF_VAR_ssh_public_key: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDb8qoH4U47+79ssT6FdsOIxxZY8/oxWc66WPwqHfpjCgDRP3Rc1uq2YEKIRJba2DzNFnf+byinH0O9hwjKZ/3l7HxNtvQZXdCnT79TOT/wGbcHBV8ZUTBkUOx67ryS0F5bKDdMDWdsWkMXkRb8AAsJWLAeuFsfMYQjMBLmvrMsRRB6GG+97jF18ghqHjuBTX1FNF9fcytEaz7WfP8KrgSYRcQOauIVlMJyOmh3gZl84u14SXwQKhQrdvqt47ZErKH+fbsgxfOvvmYgr5RktKjbmi+lyBkxRM7//BaKcPw5saThf1MiEesJxIqyL16DW9LXdWei74xHNuF65K03y975Qr9CtPkr1rGgxwU2ksqLy1NN5TnF4erd1VSuLZ5BLov7JRJ2K17ttt0agp9VmkjRFIivOek=
+        some-user@testing-box"
       TF_VAR_ssh_private_key: "some_key"
