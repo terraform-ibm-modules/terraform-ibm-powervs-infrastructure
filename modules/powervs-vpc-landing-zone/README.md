@@ -57,27 +57,27 @@ module "powervs-vpc-landing-zone" {
   external_access_ip                      = var.external_access_ip
   ssh_public_key                          = var.ssh_public_key
   ssh_private_key                         = var.ssh_private_key
-  client_to_site_vpn                      = var.client_to_site_vpn           #(optional.  default check vars)
-  configure_dns_forwarder                 = var.configure_dns_forwarder      #(optional,  default false)
-  configure_ntp_forwarder                 = var.configure_ntp_forwarder      #(optional,  default false)
-  configure_nfs_server                    = var.configure_nfs_server         #(optional.  default false)
-  nfs_server_config                       = var.nfs_server_config            #(optional.  default check vars)
-  dns_forwarder_config                    = var.dns_forwarder_config         #(optional.  default check vars)
-  powervs_resource_group_name             = var.powervs_resource_group_name  #(optional.  default check vars)
-  powervs_management_network              = var.powervs_management_network   #(optional.  default check vars)
-  powervs_backup_network                  = var.powervs_backup_network       #(optional.  default check vars)
-  powervs_image_names                     = var.powervs_image_names          #(optional.  default check vars)
-  tags                                    = var.tags                         #(optional.  default check vars)
+  client_to_site_vpn                      = var.client_to_site_vpn                      #(optional.  default check vars)
+  configure_dns_forwarder                 = var.configure_dns_forwarder                 #(optional,  default false)
+  configure_ntp_forwarder                 = var.configure_ntp_forwarder                 #(optional,  default false)
+  configure_nfs_server                    = var.configure_nfs_server                    #(optional.  default false)
+  nfs_server_config                       = var.nfs_server_config                       #(optional.  default check vars)
+  dns_forwarder_config                    = var.dns_forwarder_config                    #(optional.  default check vars)
+  powervs_resource_group_name             = var.powervs_resource_group_name             #(optional.  default check vars)
+  powervs_management_network              = var.powervs_management_network              #(optional.  default check vars)
+  powervs_backup_network                  = var.powervs_backup_network                  #(optional.  default check vars)
+  powervs_image_names                     = var.powervs_image_names                     #(optional.  default check vars)
+  tags                                    = var.tags                                    #(optional.  default check vars)
   sm_service_plan                         = var.sm_service_plan
   pi_custom_image1                        = var.pi_custom_image1                        #(optional, default null)
   pi_custom_image2                        = var.pi_custom_image2                        #(optional, default null)
   pi_custom_image3                        = var.pi_custom_image3                        #(optional, default null)
   pi_custom_image_cos_configuration       = var.pi_custom_image_cos_configuration       #(optional, default null)
   pi_custom_image_cos_service_credentials = var.pi_custom_image_cos_service_credentials #(optional, default null) # pragma: allowlist secret
-  existing_sm_instance_guid               = var.existing_sm_instance_guid    #(optional.  default check vars)
-  existing_sm_instance_region             = var.existing_sm_instance_region  #(optional.  default check vars)
-  certificate_template_name               = var.certificate_template_name    #(optional.  default check vars)
-  network_services_vsi_profile            = var.network_services_vsi_profile #(optional.  default check vars)
+  existing_sm_instance_guid               = var.existing_sm_instance_guid               #(optional.  default check vars)
+  existing_sm_instance_region             = var.existing_sm_instance_region             #(optional.  default check vars)
+  certificate_template_name               = var.certificate_template_name               #(optional.  default check vars)
+  network_services_vsi_profile            = var.network_services_vsi_profile            #(optional.  default check vars)
 }
 ```
 
