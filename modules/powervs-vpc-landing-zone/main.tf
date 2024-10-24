@@ -42,18 +42,23 @@ module "vpc_file_share_alb" {
 
 module "powervs_workspace" {
   source    = "terraform-ibm-modules/powervs-workspace/ibm"
-  version   = "2.0.0"
+  version   = "2.1.1"
   providers = { ibm = ibm.ibm-pi }
 
-  pi_zone                       = var.powervs_zone
-  pi_resource_group_name        = var.powervs_resource_group_name
-  pi_workspace_name             = "${var.prefix}-${var.powervs_zone}-power-workspace"
-  pi_ssh_public_key             = { "name" = "${var.prefix}-${var.powervs_zone}-pvs-ssh-key", value = var.ssh_public_key }
-  pi_private_subnet_1           = var.powervs_management_network
-  pi_private_subnet_2           = var.powervs_backup_network
-  pi_transit_gateway_connection = { "enable" : true, "transit_gateway_id" : module.landing_zone.transit_gateway_data.id }
-  pi_tags                       = var.tags
-  pi_image_names                = var.powervs_image_names
+  pi_zone                                 = var.powervs_zone
+  pi_resource_group_name                  = var.powervs_resource_group_name
+  pi_workspace_name                       = "${var.prefix}-${var.powervs_zone}-power-workspace"
+  pi_ssh_public_key                       = { "name" = "${var.prefix}-${var.powervs_zone}-pvs-ssh-key", value = var.ssh_public_key }
+  pi_private_subnet_1                     = var.powervs_management_network
+  pi_private_subnet_2                     = var.powervs_backup_network
+  pi_transit_gateway_connection           = { "enable" : true, "transit_gateway_id" : module.landing_zone.transit_gateway_data.id }
+  pi_tags                                 = var.tags
+  pi_image_names                          = var.powervs_image_names
+  pi_custom_image1                        = var.pi_custom_image1
+  pi_custom_image2                        = var.pi_custom_image2
+  pi_custom_image3                        = var.pi_custom_image3
+  pi_custom_image_cos_configuration       = var.pi_custom_image_cos_configuration
+  pi_custom_image_cos_service_credentials = var.pi_custom_image_cos_service_credentials
 }
 
 
