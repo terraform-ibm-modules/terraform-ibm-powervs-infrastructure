@@ -73,7 +73,7 @@ module "powervs-vpc-landing-zone" {
   pi_custom_image2                        = var.pi_custom_image2                        #(optional, default null)
   pi_custom_image3                        = var.pi_custom_image3                        #(optional, default null)
   pi_custom_image_cos_configuration       = var.pi_custom_image_cos_configuration       #(optional, default null)
-  pi_custom_image_cos_service_credentials = var.pi_custom_image_cos_service_credentials #(optional, default null) # pragma: allowlist secret
+  pi_custom_image_cos_service_credentials = var.pi_custom_image_cos_service_credentials #(optional, default null)
   existing_sm_instance_guid               = var.existing_sm_instance_guid               #(optional.  default check vars)
   existing_sm_instance_region             = var.existing_sm_instance_region             #(optional.  default check vars)
   certificate_template_name               = var.certificate_template_name               #(optional.  default check vars)
