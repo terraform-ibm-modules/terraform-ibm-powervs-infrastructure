@@ -174,14 +174,6 @@ variable "pi_custom_image1" {
     storage_tier = string
     sap_type     = optional(string)
   })
-  validation {
-    condition     = var.pi_custom_image1 != null ? var.pi_custom_image1.sap_type == null ? true : contains(["Hana", "Netweaver"], var.pi_custom_image1.sap_type) : true
-    error_message = "Unsupported sap_type in pi_custom_image1. Supported values: null, \"Hana\", \"Netweaver\"."
-  }
-  validation {
-    condition     = var.pi_custom_image1 != null ? contains(["tier0", "tier1", "tier3", "tier5k"], var.pi_custom_image1.storage_tier) : true
-    error_message = "Invalid storage tier detected in pi_custom_image1. Supported values are: tier0, tier1, tier3, tier5k."
-  }
   default = null
 }
 
@@ -199,14 +191,6 @@ variable "pi_custom_image2" {
     storage_tier = string
     sap_type     = optional(string)
   })
-  validation {
-    condition     = var.pi_custom_image2 != null ? var.pi_custom_image2.sap_type == null ? true : contains(["Hana", "Netweaver"], var.pi_custom_image2.sap_type) : true
-    error_message = "Unsupported sap_type in pi_custom_image2. Supported values: null, \"Hana\", \"Netweaver\"."
-  }
-  validation {
-    condition     = var.pi_custom_image2 != null ? contains(["tier0", "tier1", "tier3", "tier5k"], var.pi_custom_image2.storage_tier) : true
-    error_message = "Invalid storage tier detected in pi_custom_image2. Supported values are: tier0, tier1, tier3, tier5k."
-  }
   default = null
 }
 
@@ -224,14 +208,6 @@ variable "pi_custom_image3" {
     storage_tier = string
     sap_type     = optional(string)
   })
-  validation {
-    condition     = var.pi_custom_image3 != null ? var.pi_custom_image3.sap_type == null ? true : contains(["Hana", "Netweaver"], var.pi_custom_image3.sap_type) : true
-    error_message = "Unsupported sap_type in pi_custom_image3. Supported values: null, \"Hana\", \"Netweaver\"."
-  }
-  validation {
-    condition     = var.pi_custom_image3 != null ? contains(["tier0", "tier1", "tier3", "tier5k"], var.pi_custom_image3.storage_tier) : true
-    error_message = "Invalid storage tier detected in pi_custom_image3. Supported values are: tier0, tier1, tier3, tier5k."
-  }
   default = null
 }
 
@@ -248,14 +224,6 @@ variable "pi_custom_image_cos_configuration" {
     bucket_region = string
   })
   default = null
-  validation {
-    condition     = var.pi_custom_image_cos_configuration != null ? contains(["public", "private"], var.pi_custom_image_cos_configuration.bucket_access) : true
-    error_message = "Invalid pi_custom_image_cos_configuration.bucket_access. Allowed values: [\"public\", \"private\"]."
-  }
-  validation {
-    condition     = alltrue([var.pi_custom_image1 == null, var.pi_custom_image2 == null, var.pi_custom_image3 == null]) ? true : var.pi_custom_image_cos_configuration != null
-    error_message = "The import of custom images into PowerVS workspace requires a cos configuration. pi_custom_image_cos_configuration undefined."
-  }
 }
 
 variable "pi_custom_image_cos_service_credentials" {
@@ -263,10 +231,6 @@ variable "pi_custom_image_cos_service_credentials" {
   type        = string
   sensitive   = true
   default     = null
-  validation {
-    condition     = var.pi_custom_image_cos_configuration != null ? var.pi_custom_image_cos_configuration.bucket_access == "private" ? var.pi_custom_image_cos_service_credentials != null : true : true
-    error_message = "pi_custom_image_cos_service_credentials are required to access private COS buckets."
-  }
 }
 
 
