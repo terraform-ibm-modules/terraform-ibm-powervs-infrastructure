@@ -159,7 +159,7 @@ variable "tags" {
   default     = []
 }
 
-variable "pi_custom_image1" {
+variable "powervs_custom_image1" {
   description = <<EOF
     Optional custom image to import from Cloud Object Storage into PowerVS workspace.
       image_name: string, must be unique image name how the image will be named inside PowerVS workspace
@@ -176,7 +176,7 @@ variable "pi_custom_image1" {
   default = null
 }
 
-variable "pi_custom_image2" {
+variable "powervs_custom_image2" {
   description = <<EOF
     Optional custom image to import from Cloud Object Storage into PowerVS workspace.
       image_name: string, must be unique image name how the image will be named inside PowerVS workspace
@@ -193,7 +193,7 @@ variable "pi_custom_image2" {
   default = null
 }
 
-variable "pi_custom_image3" {
+variable "powervs_custom_image3" {
   description = <<EOF
     Optional custom image to import from Cloud Object Storage into PowerVS workspace.
       image_name: string, must be unique image name how the image will be named inside PowerVS workspace
@@ -210,11 +210,11 @@ variable "pi_custom_image3" {
   default = null
 }
 
-variable "pi_custom_image_cos_configuration" {
+variable "powervs_custom_image_cos_configuration" {
   description = <<EOF
     Cloud Object Storage bucket containing the custom PowerVS images. Images will be imported into the PowerVS Workspace.
       bucket_name: string, name of the COS bucket
-      bucket_access: string, possible values: "public", "private" (private requires pi_custom_image_cos_service_credentials)
+      bucket_access: string, possible values: "public", "private" (private requires powervs_custom_image_cos_service_credentials)
       bucket_region: string, COS bucket region
   EOF
   type = object({
@@ -225,7 +225,7 @@ variable "pi_custom_image_cos_configuration" {
   default = null
 }
 
-variable "pi_custom_image_cos_service_credentials" {
+variable "powervs_custom_image_cos_service_credentials" {
   description = "Service credentials for the Cloud Object Storage bucket containing the custom PowerVS images. The bucket must have HMAC credentials enabled. Click [here](https://cloud.ibm.com/docs/cloud-object-storage?topic=cloud-object-storage-service-credentials) for a json example of a service credential."
   type        = string
   sensitive   = true

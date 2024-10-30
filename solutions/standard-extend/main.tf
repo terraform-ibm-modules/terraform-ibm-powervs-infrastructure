@@ -11,9 +11,9 @@ module "powervs_workspace" {
   pi_transit_gateway_connection           = { "enable" : true, "transit_gateway_id" : local.transit_gateway_id }
   pi_tags                                 = var.tags
   pi_image_names                          = var.powervs_image_names
-  pi_custom_image1                        = var.pi_custom_image1
-  pi_custom_image2                        = var.pi_custom_image2
-  pi_custom_image3                        = var.pi_custom_image3
-  pi_custom_image_cos_configuration       = var.pi_custom_image_cos_configuration
-  pi_custom_image_cos_service_credentials = var.pi_custom_image_cos_service_credentials
+  pi_custom_image1                        = var.powervs_custom_image1
+  pi_custom_image2                        = var.powervs_custom_image2
+  pi_custom_image3                        = var.powervs_custom_image3
+  pi_custom_image_cos_configuration       = var.powervs_custom_image_cos_configuration
+  pi_custom_image_cos_service_credentials = var.powervs_custom_image_cos_service_credentials
 }
