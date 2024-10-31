@@ -150,7 +150,7 @@ variable "powervs_backup_network" {
 variable "powervs_image_names" {
   description = "List of Images to be imported into cloud account from catalog images. Supported values can be found [here](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-workspace/blob/main/docs/catalog_images_list.md)"
   type        = list(string)
-  default     = ["IBMi-75-03-2924-2", "IBMi-74-09-2984-1", "7200-05-07", "7300-02-01", "SLES15-SP5-SAP", "SLES15-SP5-SAP-NETWEAVER", "RHEL9-SP2-SAP", "RHEL9-SP2-SAP-NETWEAVER"]
+  default     = ["IBMi-75-04-2984-1", "IBMi-74-10-2984-1", "7200-05-08", "7300-02-01", "SLES15-SP5-SAP", "SLES15-SP5-SAP-NETWEAVER", "RHEL9-SP2-SAP", "RHEL9-SP2-SAP-NETWEAVER"]
 }
 
 variable "tags" {
