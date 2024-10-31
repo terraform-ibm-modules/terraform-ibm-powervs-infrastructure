@@ -199,102 +199,58 @@ variable "tags" {
   default     = []
 }
 
-variable "powervs_custom_image1" {
-  description = <<EOF
-    Optional custom image to import from Cloud Object Storage into PowerVS workspace.
-      image_name: string, must be unique image name how the image will be named inside PowerVS workspace
-      file_name: string, full file name of the image inside COS bucket
-      storage_tier: string, storage tier which the image will be stored in after import. Supported values are: "tier0", "tier1", "tier3", "tier5k".
-      sap_type: optional string, "Hana", "Netweaver", don't use it for non-SAP image.
-  EOF
+variable "powervs_custom_images" {
+  description = "Optionally import up to three custom images from Cloud Object Storage into PowerVS workspace. image_name: string, must be unique. Name of image inside PowerVS workspace. file_name: string, object key of image inside COS bucket. storage_tier: string, storage tier which image will be stored in after import. Supported values: tier0, tier1, tier3, tier5k. sap_type: optional string, Supported values: null, Hana, Netweaver, use null for non-SAP image."
   type = object({
-    image_name   = string
-    file_name    = string
-    storage_tier = string
-    sap_type     = optional(string)
+    powervs_custom_image1 = object({
+      image_name   = string
+      file_name    = string
+      storage_tier = string
+      sap_type     = optional(string)
+    }),
+    powervs_custom_image2 = object({
+      image_name   = string
+      file_name    = string
+      storage_tier = string
+      sap_type     = optional(string)
+    }),
+    powervs_custom_image3 = object({
+      image_name   = string
+      file_name    = string
+      storage_tier = string
+      sap_type     = optional(string)
+    })
   })
-  validation {
-    condition     = var.powervs_custom_image1 != null ? var.powervs_custom_image1.sap_type == null ? true : contains(["Hana", "Netweaver"], var.powervs_custom_image1.sap_type) : true
-    error_message = "Unsupported sap_type in powervs_custom_image1. Supported values: null, \"Hana\", \"Netweaver\"."
+  default = {
+    powervs_custom_image1 = {
+      image_name   = ""
+      file_name    = ""
+      storage_tier = ""
+      sap_type     = null
+    },
+    powervs_custom_image2 = {
+      image_name   = ""
+      file_name    = ""
+      storage_tier = ""
+      sap_type     = null
+    },
+    powervs_custom_image3 = {
+      image_name   = ""
+      file_name    = ""
+      storage_tier = ""
+      sap_type     = null
+    }
   }
-  validation {
-    condition     = var.powervs_custom_image1 != null ? contains(["tier0", "tier1", "tier3", "tier5k"], var.powervs_custom_image1.storage_tier) : true
-    error_message = "Invalid storage tier detected in powervs_custom_image1. Supported values are: tier0, tier1, tier3, tier5k."
-  }
-  default = null
-}
-
-variable "powervs_custom_image2" {
-  description = <<EOF
-    Optional custom image to import from Cloud Object Storage into PowerVS workspace.
-      image_name: string, must be unique image name how the image will be named inside PowerVS workspace
-      file_name: string, full file name of the image inside COS bucket
-      storage_tier: string, storage tier which the image will be stored in after import. Supported values are: "tier0", "tier1", "tier3", "tier5k".
-      sap_type: optional string, "Hana", "Netweaver", don't use it for non-SAP image.
-  EOF
-  type = object({
-    image_name   = string
-    file_name    = string
-    storage_tier = string
-    sap_type     = optional(string)
-  })
-  validation {
-    condition     = var.powervs_custom_image2 != null ? var.powervs_custom_image2.sap_type == null ? true : contains(["Hana", "Netweaver"], var.powervs_custom_image2.sap_type) : true
-    error_message = "Unsupported sap_type in powervs_custom_image2. Supported values: null, \"Hana\", \"Netweaver\"."
-  }
-  validation {
-    condition     = var.powervs_custom_image2 != null ? contains(["tier0", "tier1", "tier3", "tier5k"], var.powervs_custom_image2.storage_tier) : true
-    error_message = "Invalid storage tier detected in powervs_custom_image2. Supported values are: tier0, tier1, tier3, tier5k."
-  }
-  default = null
-}
-
-variable "powervs_custom_image3" {
-  description = <<EOF
-    Optional custom image to import from Cloud Object Storage into PowerVS workspace.
-      image_name: string, must be unique image name how the image will be named inside PowerVS workspace
-      file_name: string, full file name of the image inside COS bucket
-      storage_tier: string, storage tier which the image will be stored in after import. Supported values are: "tier0", "tier1", "tier3", "tier5k".
-      sap_type: optional string, "Hana", "Netweaver", don't use it for non-SAP image.
-  EOF
-  type = object({
-    image_name   = string
-    file_name    = string
-    storage_tier = string
-    sap_type     = optional(string)
-  })
-  validation {
-    condition     = var.powervs_custom_image3 != null ? var.powervs_custom_image3.sap_type == null ? true : contains(["Hana", "Netweaver"], var.powervs_custom_image3.sap_type) : true
-    error_message = "Unsupported sap_type in powervs_custom_image3. Supported values: null, \"Hana\", \"Netweaver\"."
-  }
-  validation {
-    condition     = var.powervs_custom_image3 != null ? contains(["tier0", "tier1", "tier3", "tier5k"], var.powervs_custom_image3.storage_tier) : true
-    error_message = "Invalid storage tier detected in powervs_custom_image3. Supported values are: tier0, tier1, tier3, tier5k."
-  }
-  default = null
 }
 
 variable "powervs_custom_image_cos_configuration" {
-  description = <<EOF
-    Cloud Object Storage bucket containing the custom PowerVS images. Images will be imported into the PowerVS Workspace.
-      bucket_name: string, name of the COS bucket
-      bucket_access: string, possible values: "public", "private" (private requires powervs_custom_image_cos_service_credentials)
-      bucket_region: string, COS bucket region
-  EOF
+  description = "Cloud Object Storage bucket containing custom PowerVS images. bucket_name: string, name of the COS bucket. bucket_access: string, possible values: public, private (private requires powervs_custom_image_cos_service_credentials). bucket_region: string, COS bucket region"
   type = object({
     bucket_name   = string
     bucket_access = string
     bucket_region = string
   })
   default = null
-  validation {
-    condition     = var.powervs_custom_image_cos_configuration != null ? contains(["public", "private"], var.powervs_custom_image_cos_configuration.bucket_access) : true
-    error_message = "Invalid powervs_custom_image_cos_configuration.bucket_access. Allowed values: [\"public\", \"private\"]."
-  }
-  validation {
-    condition     = alltrue([var.powervs_custom_image1 == null, var.powervs_custom_image2 == null, var.powervs_custom_image3 == null]) ? true : var.powervs_custom_image_cos_configuration != null
-    error_message = "The import of custom images into PowerVS workspace requires a cos configuration. powervs_custom_image_cos_configuration undefined."
-  }
 }
 
 variable "powervs_custom_image_cos_service_credentials" {
@@ -302,10 +258,6 @@ variable "powervs_custom_image_cos_service_credentials" {
   type        = string
   sensitive   = true
   default     = null
-  validation {
-    condition     = var.powervs_custom_image_cos_configuration != null ? var.powervs_custom_image_cos_configuration.bucket_access == "private" ? var.powervs_custom_image_cos_service_credentials != null : true : true
-    error_message = "powervs_custom_image_cos_service_credentials are required to access private COS buckets."
-  }
 }
 
 

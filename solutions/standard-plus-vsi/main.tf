@@ -23,9 +23,7 @@ module "standard" {
   powervs_backup_network                       = var.powervs_backup_network
   powervs_image_names                          = [local.qs_tshirt_choice.image]
   tags                                         = var.tags
-  powervs_custom_image1                        = var.powervs_custom_image1
-  powervs_custom_image2                        = var.powervs_custom_image2
-  powervs_custom_image3                        = var.powervs_custom_image3
+  powervs_custom_images                        = var.powervs_custom_images
   powervs_custom_image_cos_configuration       = var.powervs_custom_image_cos_configuration
   powervs_custom_image_cos_service_credentials = var.powervs_custom_image_cos_service_credentials
   sm_service_plan                              = var.sm_service_plan
