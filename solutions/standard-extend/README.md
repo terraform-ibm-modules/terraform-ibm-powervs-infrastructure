@@ -47,7 +47,7 @@ If you do not have a PowerVS infrastructure that is the [Standard variation](htt
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_powervs_workspace"></a> [powervs\_workspace](#module\_powervs\_workspace) | terraform-ibm-modules/powervs-workspace/ibm | 2.1.1 |
+| <a name="module_powervs_workspace"></a> [powervs\_workspace](#module\_powervs\_workspace) | terraform-ibm-modules/powervs-workspace/ibm | 2.2.0 |
 
 ### Resources
 
