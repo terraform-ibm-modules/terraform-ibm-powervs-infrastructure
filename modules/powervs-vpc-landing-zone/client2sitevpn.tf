@@ -72,7 +72,7 @@ resource "ibm_resource_instance" "secrets_manager" {
 # Configure private cert engine if provisioning a new SM instance
 module "private_secret_engine" {
   source     = "terraform-ibm-modules/secrets-manager-private-cert-engine/ibm"
-  version    = "1.3.3"
+  version    = "1.3.4"
   providers  = { ibm = ibm.ibm-sm }
   count      = var.client_to_site_vpn.enable && var.existing_sm_instance_guid == null ? 1 : 0
   depends_on = [ibm_resource_instance.secrets_manager]
@@ -103,7 +103,7 @@ module "secrets_manager_group" {
 # Create private cert to use for VPN server
 module "secrets_manager_private_certificate" {
   source     = "terraform-ibm-modules/secrets-manager-private-cert/ibm"
-  version    = "1.3.1"
+  version    = "1.3.2"
   providers  = { ibm = ibm.ibm-sm }
   count      = var.client_to_site_vpn.enable ? 1 : 0
   depends_on = [module.private_secret_engine]

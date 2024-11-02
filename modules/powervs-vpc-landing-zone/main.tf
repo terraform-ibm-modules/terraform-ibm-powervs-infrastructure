@@ -42,7 +42,7 @@ module "vpc_file_share_alb" {
 
 module "powervs_workspace" {
   source    = "terraform-ibm-modules/powervs-workspace/ibm"
-  version   = "2.1.1"
+  version   = "2.2.0"
   providers = { ibm = ibm.ibm-pi }
 
   pi_zone                       = var.powervs_zone

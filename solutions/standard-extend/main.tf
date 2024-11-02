@@ -1,6 +1,6 @@
 module "powervs_workspace" {
   source  = "terraform-ibm-modules/powervs-workspace/ibm"
-  version = "2.1.1"
+  version = "2.2.0"
 
   pi_zone                       = var.powervs_zone
   pi_resource_group_name        = var.powervs_resource_group_name
