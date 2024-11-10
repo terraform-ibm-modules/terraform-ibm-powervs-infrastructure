@@ -44,7 +44,7 @@ This example sets up the following infrastructure:
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.3 |
-| <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | 1.70.1 |
+| <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | 1.71.1 |
 
 ### Modules
 
