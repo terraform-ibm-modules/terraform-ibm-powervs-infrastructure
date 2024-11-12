@@ -1,0 +1,32 @@
+- name: Update OS and reboot
+  hosts: all
+  become: yes
+
+  tasks:
+    - name: Update OS packages (SLES)
+      zypper:
+        name: '*'
+        state: latest
+      register: update_result
+      # when: ansible_distribution == 'SLES'
+      # ansible_distribution: SLES_SAP   !!
+      when: "'SLES' in ansible_distribution"
+
+    - name: Update OS packages (RHEL)
+      yum:
+        name: '*'
+        state: latest
+      register: update_result
+      when: ansible_distribution == 'RedHat' or ansible_distribution == 'CentOS'
+
+    - name: Reboot if updates were installed
+      command: shutdown -r now
+      async: 1
+      poll: 0
+      ignore_errors: true
+      when: update_result.changed
+	# when does not work!
+
+    - name: Wait for the system to come back online
+      wait_for_connection:
+        timeout: 1500

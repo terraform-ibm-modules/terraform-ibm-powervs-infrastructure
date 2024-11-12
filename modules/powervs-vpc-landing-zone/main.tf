@@ -13,6 +13,19 @@ module "landing_zone" {
   override_json_string = local.override_json_string
 }
 
+#####################################################
+# Module: setup IBM Cloud Monitoring instance
+#####################################################
+
+module "ibm_cloud_monitoring_instance" {
+  source    = "./submodules/ibmcloud_monitoring-instance"
+  providers = { ibm = ibm.ibm-is }
+  #name_ibm_cloud_monitoring-instance = "IBM Cloud Monitoring-instance-terraformed"
+  # region      = lookup(local.ibm_powervs_zone_cloud_region_map, var.powervs_zone, null)
+  #vpc_zone                      = "${lookup(local.ibm_powervs_zone_cloud_region_map, var.powervs_zone, null)}-1"
+  # prefix       = var.prefix
+}
+
 ###########################################################
 # Module: File share for NFS and Application Load Balancer
 ###########################################################
