@@ -199,68 +199,6 @@ variable "tags" {
   default     = []
 }
 
-variable "powervs_custom_images" {
-  description = "Optionally import up to three custom images from Cloud Object Storage into PowerVS workspace. image_name: string, must be unique. Name of image inside PowerVS workspace. file_name: string, object key of image inside COS bucket. storage_tier: string, storage tier which image will be stored in after import. Supported values: tier0, tier1, tier3, tier5k. sap_type: optional string, Supported values: null, Hana, Netweaver, use null for non-SAP image."
-  type = object({
-    powervs_custom_image1 = object({
-      image_name   = string
-      file_name    = string
-      storage_tier = string
-      sap_type     = optional(string)
-    }),
-    powervs_custom_image2 = object({
-      image_name   = string
-      file_name    = string
-      storage_tier = string
-      sap_type     = optional(string)
-    }),
-    powervs_custom_image3 = object({
-      image_name   = string
-      file_name    = string
-      storage_tier = string
-      sap_type     = optional(string)
-    })
-  })
-  default = {
-    powervs_custom_image1 = {
-      image_name   = ""
-      file_name    = ""
-      storage_tier = ""
-      sap_type     = null
-    },
-    powervs_custom_image2 = {
-      image_name   = ""
-      file_name    = ""
-      storage_tier = ""
-      sap_type     = null
-    },
-    powervs_custom_image3 = {
-      image_name   = ""
-      file_name    = ""
-      storage_tier = ""
-      sap_type     = null
-    }
-  }
-}
-
-variable "powervs_custom_image_cos_configuration" {
-  description = "Cloud Object Storage bucket containing custom PowerVS images. bucket_name: string, name of the COS bucket. bucket_access: string, possible values: public, private (private requires powervs_custom_image_cos_service_credentials). bucket_region: string, COS bucket region"
-  type = object({
-    bucket_name   = string
-    bucket_access = string
-    bucket_region = string
-  })
-  default = null
-}
-
-variable "powervs_custom_image_cos_service_credentials" {
-  description = "Service credentials for the Cloud Object Storage bucket containing the custom PowerVS images. The bucket must have HMAC credentials enabled. Click [here](https://cloud.ibm.com/docs/cloud-object-storage?topic=cloud-object-storage-service-credentials) for a json example of a service credential."
-  type        = string
-  sensitive   = true
-  default     = null
-}
-
-
 #####################################################
 # Optional Parameters Secret Manager
 #####################################################
