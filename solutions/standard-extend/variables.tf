@@ -84,23 +84,23 @@ variable "powervs_custom_images" {
     })
   })
   default = {
-    powervs_custom_image1 = {
-      image_name   = ""
-      file_name    = ""
-      storage_tier = ""
-      sap_type     = null
+    "powervs_custom_image1" : {
+      "image_name" : ""
+      "file_name" : ""
+      "storage_tier" : ""
+      "sap_type" : null
     },
-    powervs_custom_image2 = {
-      image_name   = ""
-      file_name    = ""
-      storage_tier = ""
-      sap_type     = null
+    "powervs_custom_image2" : {
+      "image_name" : ""
+      "file_name" : ""
+      "storage_tier" : ""
+      "sap_type" : null
     },
-    powervs_custom_image3 = {
-      image_name   = ""
-      file_name    = ""
-      storage_tier = ""
-      sap_type     = null
+    "powervs_custom_image3" : {
+      "image_name" : ""
+      "file_name" : ""
+      "storage_tier" : ""
+      "sap_type" : null
     }
   }
 }
