@@ -217,6 +217,32 @@
               "required": true
             },
             {
+              "key": "powervs_custom_images",
+              "custom_config": {
+                  "grouping": "deployment",
+                  "original_grouping": "deployment",
+                  "type": "json_editor"
+              }
+            },
+            {
+              "key": "powervs_custom_image_cos_configuration",
+              "custom_config": {
+                  "grouping": "deployment",
+                  "original_grouping": "deployment",
+                  "type": "json_editor"
+              }
+            },
+            {
+              "key": "powervs_custom_image_cos_service_credentials",
+              "type": "multiline_secure_value",
+              "display_name": "Multiline secure value",
+              "custom_config": {
+                  "grouping": "deployment",
+                  "original_grouping": "deployment",
+                  "type": "multiline_secure_value"
+              }
+            },
+            {
               "key": "transit_gateway_global"
             },
             {
@@ -1574,6 +1600,32 @@
             {
               "key": "powervs_image_names",
               "required": true
+            },
+            {
+              "key": "powervs_custom_images",
+              "custom_config": {
+                  "grouping": "deployment",
+                  "original_grouping": "deployment",
+                  "type": "json_editor"
+              }
+            },
+            {
+              "key": "powervs_custom_image_cos_configuration",
+              "custom_config": {
+                  "grouping": "deployment",
+                  "original_grouping": "deployment",
+                  "type": "json_editor"
+              }
+            },
+            {
+              "key": "powervs_custom_image_cos_service_credentials",
+              "type": "multiline_secure_value",
+              "display_name": "Multiline secure value",
+              "custom_config": {
+                  "grouping": "deployment",
+                  "original_grouping": "deployment",
+                  "type": "multiline_secure_value"
+              }
             },
             {
               "key": "tags"
