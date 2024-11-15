@@ -56,6 +56,11 @@ locals {
     var.powervs_custom_images.powervs_custom_image3.file_name == "" &&
     var.powervs_custom_images.powervs_custom_image3.storage_tier == ""
   ) ? null : var.powervs_custom_images.powervs_custom_image3
+  powervs_custom_image_cos_configuration = (
+    var.powervs_custom_image_cos_configuration.bucket_name == "" &&
+    var.powervs_custom_image_cos_configuration.bucket_access == "" &&
+    var.powervs_custom_image_cos_configuration.bucket_region == ""
+  ) ? null : var.powervs_custom_image_cos_configuration
 }
 
 module "powervs_workspace" {
@@ -75,7 +80,7 @@ module "powervs_workspace" {
   pi_custom_image1                        = local.powervs_custom_image1
   pi_custom_image2                        = local.powervs_custom_image2
   pi_custom_image3                        = local.powervs_custom_image3
-  pi_custom_image_cos_configuration       = var.powervs_custom_image_cos_configuration
+  pi_custom_image_cos_configuration       = local.powervs_custom_image_cos_configuration
   pi_custom_image_cos_service_credentials = var.powervs_custom_image_cos_service_credentials
 }
 

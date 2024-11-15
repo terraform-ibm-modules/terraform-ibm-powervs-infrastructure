@@ -112,7 +112,11 @@ variable "powervs_custom_image_cos_configuration" {
     bucket_access = string
     bucket_region = string
   })
-  default = null
+  default = {
+    "bucket_name" : "",
+    "bucket_access" : "",
+    "bucket_region" : "",
+  }
 }
 
 variable "powervs_custom_image_cos_service_credentials" {

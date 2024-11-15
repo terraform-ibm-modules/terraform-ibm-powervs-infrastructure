@@ -187,19 +187,19 @@ variable "powervs_custom_images" {
       "image_name" : "",
       "file_name" : "",
       "storage_tier" : "",
-      "sap_type" : null
+      "sap_type" : null,
     },
     "powervs_custom_image2" : {
       "image_name" : "",
       "file_name" : "",
       "storage_tier" : "",
-      "sap_type" : null
+      "sap_type" : null,
     },
     "powervs_custom_image3" : {
       "image_name" : "",
       "file_name" : "",
       "storage_tier" : "",
-      "sap_type" : null
+      "sap_type" : null,
     }
   }
 }
@@ -211,7 +211,11 @@ variable "powervs_custom_image_cos_configuration" {
     bucket_access = string
     bucket_region = string
   })
-  default = null
+  default = {
+    "bucket_name" : "",
+    "bucket_access" : "",
+    "bucket_region" : "",
+  }
 }
 
 variable "powervs_custom_image_cos_service_credentials" {
