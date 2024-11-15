@@ -1,5 +1,5 @@
 - name: Update OS and reboot
-  hosts: ${var.monitoring_vsi_ip} 
+  hosts: all 
   become: yes
 
   tasks:
@@ -24,8 +24,8 @@
       async: 1
       poll: 0
       ignore_errors: true
-      when: update_result.changed
-	# when does not work!
+      # when: update_result.change
+      # when does not work!
 
     - name: Wait for the system to come back online
       wait_for_connection:

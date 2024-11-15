@@ -20,9 +20,9 @@ module "landing_zone" {
 module "ibm_cloud_monitoring_instance" {
   source    = "./submodules/ibmcloud_monitoring-instance"
   providers = { ibm = ibm.ibm-is }
-  #name_ibm_cloud_monitoring-instance = "IBM Cloud Monitoring-instance-terraformed"
+  # name_ibm_cloud_monitoring-instance = "IBM Cloud Monitoring-instance-terraformed"
   # region      = lookup(local.ibm_powervs_zone_cloud_region_map, var.powervs_zone, null)
-  #vpc_zone                      = "${lookup(local.ibm_powervs_zone_cloud_region_map, var.powervs_zone, null)}-1"
+  # vpc_zone                      = "${lookup(local.ibm_powervs_zone_cloud_region_map, var.powervs_zone, null)}-1"
   # prefix       = var.prefix
 }
 
@@ -46,6 +46,7 @@ module "vpc_file_share_alb" {
   alb_name                      = "${var.prefix}-file-share-alb"
   alb_subnet_ids                = [for subnet in module.landing_zone.subnet_data : subnet.id if subnet.name == "${var.prefix}-edge-vsi-edge-zone-1"]
   alb_security_group_ids        = [for security_group in module.landing_zone.vpc_data[0].vpc_data.security_group : security_group.group_id if security_group.group_name == "network-services-sg"]
+
 
 }
 
@@ -121,4 +122,12 @@ module "configure_network_services" {
     })
   }
 
+  monitoring_vsi_ip = local.monitoring_vsi_ip
+  src_script_template_monitoring_name = "configure-monitoring-instance/ansible_exec.sh.tftpl"
+  dst_script_file_monitoring_name     = "configure-monitoring-instance.sh"
+
+  src_playbook_template_monitoring_name = "configure-monitoring-instance/playbook-configure-monitoring-instance.yml.tftpl"
+  dst_playbook_file_monitoring_name     = "playbook-configure-monitoring-instance.yml"
+
 }
+

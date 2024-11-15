@@ -53,6 +53,11 @@ locals {
   network_services_vsi_exists = local.key_vsi_list_exists ? length([for vsi_name in module.landing_zone.vsi_names : vsi_name if can(regex("${var.prefix}-network-services", vsi_name))]) > 0 ? true : false : false
   network_services_vsi_ip     = local.network_services_vsi_exists ? [for vsi in module.landing_zone.vsi_list : vsi.ipv4_address if can(regex("${var.prefix}-network-services", vsi.name))][0] : ""
 
+  monitoring_vsi_exists = local.key_vsi_list_exists ? length([for vsi_name in module.landing_zone.vsi_names : vsi_name if can(regex("${var.prefix}-monitoring", vsi_name))]) > 0 ? true : false : false
+  monitoring_vsi_ip     = local.network_services_vsi_exists ? [for vsi in module.landing_zone.vsi_list : vsi.ipv4_address if can(regex("${var.prefix}-monitoring", vsi.name))][0] : ""
+
+
+
   ###### For preset floating ip and network services vsi should exist.
   valid_json_used   = local.key_floating_ip_exists && local.network_services_vsi_exists ? true : false
   validate_json_msg = "Wrong JSON preset used. Please use one of the JSON preset supported for Power."

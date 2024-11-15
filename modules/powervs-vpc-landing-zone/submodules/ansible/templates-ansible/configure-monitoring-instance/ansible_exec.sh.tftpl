@@ -4,11 +4,19 @@
 ansible_playbook=${ansible_playbook_file}
 ansible_log_path=${ansible_log_path}
 
+ansible_private_key_file=${ansible_private_key_file}
+hostlist="${monitoring_vsi_ip},"
+
+export ANSIBLE_CONFIG=./ansible.cfg
+export ANSIBLE_PRIVATE_KEY_FILE=${ansible_private_key_file}
+
 # Create ansible.cfg file
 ansible_playbook_name=$(basename $${ansible_playbook})
 #Execute ansible playbook
 echo -e "[defaults]\nhost_key_checking=False\nlog_path=$${ansible_log_path}/$${ansible_playbook_name}.$(date "+%Y.%m.%d-%H.%M.%S").log" >ansible.cfg
-unbuffer ansible-playbook $${ansible_playbook}
+
+# run ansible-playbook without inventory
+unbuffer ansible-playbook $${ansible_playbook} -i $${hostlist}
 if [ $? -ne 0 ]; then
     rm -rf /root/.ssh/id_rsa
     exit 1
