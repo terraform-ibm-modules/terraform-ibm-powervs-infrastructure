@@ -123,9 +123,6 @@ resource "terraform_data" "execute_playbooks" {
 
 resource "terraform_data" "execute_playbooks_3" {
 
-  # triggers_replace = terraform_data.trigger_ansible_vars
-  #depends_on = [terraform_data.setup_ansible_host]
-
   connection {
     type         = "ssh"
     user         = "root"
