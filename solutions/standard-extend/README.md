@@ -5,12 +5,10 @@ It provisions the following infrastructure on top of the deployed Full Stack sol
 
 - A **Power Virtual Server workspace** with the following network topology:
     - Creates two private networks: a management network and a backup network
-    - Creates one or two IBM Cloud connections in a non-PER environment.
-    - Attaches the private networks to the IBM Cloud connections in a non-PER environment.
-    - Attaches the IBM Cloud connections to a transit gateway in a non-PER environment.
-    - Attaches the PowerVS workspace to transit gateway in PER-enabled DC
+    - Attaches the PowerVS workspace to transit gateway
     - Creates an SSH key.
-    - Imports cloud catalog stock images.
+    - Optionally imports list of stock catalog images.
+    - Optionally imports up to three custom images from Cloud Object Storage.
 
 
 ### Notes:
@@ -39,7 +37,7 @@ If you do not have a PowerVS infrastructure that is the [Standard variation](htt
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.3 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.9 |
 | <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | 1.71.1 |
 
 ### Modules
@@ -62,7 +60,10 @@ If you do not have a PowerVS infrastructure that is the [Standard variation](htt
 | <a name="input_IC_SCHEMATICS_WORKSPACE_ID"></a> [IC\_SCHEMATICS\_WORKSPACE\_ID](#input\_IC\_SCHEMATICS\_WORKSPACE\_ID) | leave blank if running locally. This variable will be automatically populated if running from an IBM Cloud Schematics workspace | `string` | `""` | no |
 | <a name="input_ibmcloud_api_key"></a> [ibmcloud\_api\_key](#input\_ibmcloud\_api\_key) | The IBM Cloud platform API key needed to deploy IAM enabled resources. | `string` | n/a | yes |
 | <a name="input_powervs_backup_network"></a> [powervs\_backup\_network](#input\_powervs\_backup\_network) | Name of the IBM Cloud PowerVS backup network and CIDR to create. | <pre>object({<br/>    name = string<br/>    cidr = string<br/>  })</pre> | <pre>{<br/>  "cidr": "10.62.0.0/24",<br/>  "name": "bkp_net"<br/>}</pre> | no |
-| <a name="input_powervs_image_names"></a> [powervs\_image\_names](#input\_powervs\_image\_names) | List of Images to be imported into cloud account from catalog images. Supported values can be found [here](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-workspace/blob/main/docs/catalog_images_list.md) | `list(string)` | <pre>[<br/>  "IBMi-75-03-2924-2",<br/>  "IBMi-74-09-2984-1",<br/>  "7200-05-07",<br/>  "7300-02-01",<br/>  "SLES15-SP5-SAP",<br/>  "SLES15-SP5-SAP-NETWEAVER",<br/>  "RHEL9-SP2-SAP",<br/>  "RHEL9-SP2-SAP-NETWEAVER"<br/>]</pre> | no |
+| <a name="input_powervs_custom_image_cos_configuration"></a> [powervs\_custom\_image\_cos\_configuration](#input\_powervs\_custom\_image\_cos\_configuration) | Cloud Object Storage bucket containing custom PowerVS images. bucket\_name: string, name of the COS bucket. bucket\_access: string, possible values: public, private (private requires powervs\_custom\_image\_cos\_service\_credentials). bucket\_region: string, COS bucket region | <pre>object({<br/>    bucket_name   = string<br/>    bucket_access = string<br/>    bucket_region = string<br/>  })</pre> | <pre>{<br/>  "bucket_access": "",<br/>  "bucket_name": "",<br/>  "bucket_region": ""<br/>}</pre> | no |
+| <a name="input_powervs_custom_image_cos_service_credentials"></a> [powervs\_custom\_image\_cos\_service\_credentials](#input\_powervs\_custom\_image\_cos\_service\_credentials) | Service credentials for the Cloud Object Storage bucket containing the custom PowerVS images. The bucket must have HMAC credentials enabled. Click [here](https://cloud.ibm.com/docs/cloud-object-storage?topic=cloud-object-storage-service-credentials) for a json example of a service credential. | `string` | `null` | no |
+| <a name="input_powervs_custom_images"></a> [powervs\_custom\_images](#input\_powervs\_custom\_images) | Optionally import up to three custom images from Cloud Object Storage into PowerVS workspace. Requires 'powervs\_custom\_image\_cos\_configuration' to be set. image\_name: string, must be unique. Name of image inside PowerVS workspace. file\_name: string, object key of image inside COS bucket. storage\_tier: string, storage tier which image will be stored in after import. Supported values: tier0, tier1, tier3, tier5k. sap\_type: optional string, Supported values: null, Hana, Netweaver, use null for non-SAP image. | <pre>object({<br/>    powervs_custom_image1 = object({<br/>      image_name   = string<br/>      file_name    = string<br/>      storage_tier = string<br/>      sap_type     = optional(string)<br/>    }),<br/>    powervs_custom_image2 = object({<br/>      image_name   = string<br/>      file_name    = string<br/>      storage_tier = string<br/>      sap_type     = optional(string)<br/>    }),<br/>    powervs_custom_image3 = object({<br/>      image_name   = string<br/>      file_name    = string<br/>      storage_tier = string<br/>      sap_type     = optional(string)<br/>    })<br/>  })</pre> | <pre>{<br/>  "powervs_custom_image1": {<br/>    "file_name": "",<br/>    "image_name": "",<br/>    "sap_type": null,<br/>    "storage_tier": ""<br/>  },<br/>  "powervs_custom_image2": {<br/>    "file_name": "",<br/>    "image_name": "",<br/>    "sap_type": null,<br/>    "storage_tier": ""<br/>  },<br/>  "powervs_custom_image3": {<br/>    "file_name": "",<br/>    "image_name": "",<br/>    "sap_type": null,<br/>    "storage_tier": ""<br/>  }<br/>}</pre> | no |
+| <a name="input_powervs_image_names"></a> [powervs\_image\_names](#input\_powervs\_image\_names) | List of Images to be imported into cloud account from catalog images. Supported values can be found [here](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-workspace/blob/main/docs/catalog_images_list.md). For custom os image import configure the optional parameter 'powervs\_custom\_images'. | `list(string)` | <pre>[<br/>  "IBMi-75-04-2984-1",<br/>  "IBMi-74-10-2984-1",<br/>  "7200-05-08",<br/>  "7300-02-01",<br/>  "SLES15-SP5-SAP",<br/>  "SLES15-SP5-SAP-NETWEAVER",<br/>  "RHEL9-SP2-SAP",<br/>  "RHEL9-SP2-SAP-NETWEAVER"<br/>]</pre> | no |
 | <a name="input_powervs_management_network"></a> [powervs\_management\_network](#input\_powervs\_management\_network) | Name of the IBM Cloud PowerVS management subnet and CIDR to create. | <pre>object({<br/>    name = string<br/>    cidr = string<br/>  })</pre> | <pre>{<br/>  "cidr": "10.61.0.0/24",<br/>  "name": "mgmt_net"<br/>}</pre> | no |
 | <a name="input_powervs_resource_group_name"></a> [powervs\_resource\_group\_name](#input\_powervs\_resource\_group\_name) | Existing IBM Cloud resource group name. | `string` | n/a | yes |
 | <a name="input_powervs_zone"></a> [powervs\_zone](#input\_powervs\_zone) | IBM Cloud data center location where IBM PowerVS infrastructure will be created. | `string` | n/a | yes |
