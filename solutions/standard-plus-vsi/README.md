@@ -14,13 +14,14 @@ This example sets up the following infrastructure:
     - Activity tracker
     - Optional Secrets Manager Instance Instance with private certificate.
 
-- A local **transit gateway**
+- A local or global **transit gateway**
 
 - A **Power Virtual Server** workspace with the following network topology:
     - Creates two private networks: a management network and a backup network.
     - Attaches the PowerVS workspace to transit gateway.
     - Creates an SSH key.
-    - Imports cloud catalog stock images.
+    - Optionally imports list of stock catalog images.
+    - Optionally imports up to three custom images from Cloud Object Storage.
 
 - A **PowerVS Instance** with following options:
     - t-shirt profile (Aix/IBMi/SAP Image)
@@ -28,6 +29,7 @@ This example sets up the following infrastructure:
     - 1 volume
 
 ## Solutions
+
 | Variation  | Available on IBM Catalog  |  Requires Schematics Workspace ID | Creates VPC Landing Zone | Performs VPC VSI OS Config | Creates PowerVS Infrastructure | Creates PowerVS Instance | Performs PowerVS OS Config |
 | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
 | [Quickstart (Standard plus VSI)](./)    | :heavy_check_mark:  |   N/A  | :heavy_check_mark:| :heavy_check_mark: | :heavy_check_mark:  | :heavy_check_mark: | N/A |
@@ -43,7 +45,7 @@ This example sets up the following infrastructure:
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.3 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.9 |
 | <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | 1.71.1 |
 
 ### Modules
