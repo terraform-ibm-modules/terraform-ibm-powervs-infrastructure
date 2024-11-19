@@ -115,7 +115,7 @@ variable "powervs_custom_image_cos_configuration" {
   default = {
     "bucket_name" : "",
     "bucket_access" : "",
-    "bucket_region" : "",
+    "bucket_region" : ""
   }
 }
 
