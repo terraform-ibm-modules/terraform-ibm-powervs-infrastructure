@@ -14,12 +14,27 @@ module "landing_zone" {
 }
 
 #####################################################
-# Module: setup IBM Cloud Monitoring instance
+# Create IBM Cloud Monitoring Instance
 #####################################################
 
-module "ibm_cloud_monitoring_instance" {
-  source    = "./submodules/ibmcloud_monitoring-instance"
-  providers = { ibm = ibm.ibm-is }
+locals {
+  region               = lookup(local.ibm_powervs_zone_cloud_region_map, var.powervs_zone, null)
+  prefix               = var.prefix
+  resource_group_id = module.landing_zone.resource_group_data["${var.prefix}-slz-service-rg"]
+  name_ibm_cloud_monitoring_instance  = "IBM Cloud Monitoring-instance-terraformed"
+}
+
+resource "ibm_resource_instance" "create-instance-monitoring" {
+  count = var.enable_monitoring && var.existing_monitoring_instance_crn == null ? 1 : 0
+  provider =  ibm.ibm-is 
+  name     = "${var.prefix}-${var.ibm_cloud_monitoring_instance_name}"
+  location = local.region
+  service  = "sysdig-monitor"
+  plan     = "graduated-tier"
+  resource_group_id  = local.resource_group_id
+  tags = [
+    "monitoring",
+  ]
 }
 
 ###########################################################
@@ -42,7 +57,6 @@ module "vpc_file_share_alb" {
   alb_name                      = "${var.prefix}-file-share-alb"
   alb_subnet_ids                = [for subnet in module.landing_zone.subnet_data : subnet.id if subnet.name == "${var.prefix}-edge-vsi-edge-zone-1"]
   alb_security_group_ids        = [for security_group in module.landing_zone.vpc_data[0].vpc_data.security_group : security_group.group_id if security_group.group_name == "network-services-sg"]
-
 
 }
 

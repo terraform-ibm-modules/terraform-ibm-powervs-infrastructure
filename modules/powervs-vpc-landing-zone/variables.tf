@@ -186,3 +186,32 @@ variable "certificate_template_name" {
   description = "The name of the Certificate Template to create for a private_cert secret engine. When `var.existing_sm_instance_guid` is not null, then it has to be the existing template name that exists in the private cert engine."
   default     = "my-template"
 }
+
+#################################################
+#  Monitoring: Optional Parameters 
+#################################################
+
+variable "enable_monitoring" {
+  description = "Specify if SAP Monitoring will be enabled. including IBM Cloud Monitoring Instance and Intel workload VSI . Set to 'false' if you do not want any monitoring.The monitoring instance will be created in the same region."
+  type        = bool
+  default     = true 
+}
+
+variable "ibm_cloud_monitoring_instance_name" {
+  description = "Specify the name of the IBM Cloud Monitoring Instance."
+  type        = string
+  default     = "IBM Cloud SAP Monitoring Instance"
+}
+
+
+#################################################
+#  Monitoring: extracted values
+#################################################
+
+variable "existing_monitoring_instance_crn" {
+  description = "crn of IBM Cloud Monitoring Instance."
+  type        = string
+  default     = null
+}
+
+

@@ -574,20 +574,22 @@
                 ]
             }
         },
-        {
-            "name": "monitoring-workload",
-            "image_name":     "ibm-sles-15-5-amd64-sap-applications-3",
-            "machine_type":   "bx2-2x8",
-            "vpc_name": "edge",
-            "resource_group": "slz-edge-rg",
-            "enable_floating_ip": false,
-            "boot_volume_encryption_key_name": "slz-vsi-volume-key",
-            "ssh_keys": ["ssh-key"],
-            "vsi_per_subnet": 1,
-            "subnet_names": ["vsi-edge-zone-1"],
-            "block_storage_volumes": [],
-            "security_groups": ["vpe-sg"]
-        }
+        %{ if "${enable_monitoring}" == true }
+            {
+                "name": "monitoring-workload",
+                "image_name":     "ibm-sles-15-5-amd64-sap-applications-3",
+                "machine_type":   "bx2-2x8",
+                "vpc_name": "edge",
+                "resource_group": "slz-edge-rg",
+                "enable_floating_ip": false,
+                "boot_volume_encryption_key_name": "slz-vsi-volume-key",
+                "ssh_keys": ["ssh-key"],
+                "vsi_per_subnet": 1,
+                "subnet_names": ["vsi-edge-zone-1"],
+                "block_storage_volumes": [],
+                "security_groups": ["vpe-sg"]
+            }
+        %{ endif }
     ],
 
     "virtual_private_endpoints": [

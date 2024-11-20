@@ -33,6 +33,7 @@ locals {
       vsi_image                    = "ibm-redhat-8-8-amd64-sap-applications-1",
       network_services_vsi_profile = var.network_services_vsi_profile,
       transit_gateway_global       = var.transit_gateway_global
+      enable_monitoring            = var.enable_monitoring
     }
   )
 }
@@ -54,11 +55,11 @@ locals {
   network_services_vsi_ip     = local.network_services_vsi_exists ? [for vsi in module.landing_zone.vsi_list : vsi.ipv4_address if can(regex("${var.prefix}-network-services", vsi.name))][0] : ""
 
   monitoring_vsi_exists = local.key_vsi_list_exists ? length([for vsi_name in module.landing_zone.vsi_names : vsi_name if can(regex("${var.prefix}-monitoring", vsi_name))]) > 0 ? true : false : false
-  monitoring_vsi_ip     = local.network_services_vsi_exists ? [for vsi in module.landing_zone.vsi_list : vsi.ipv4_address if can(regex("${var.prefix}-monitoring", vsi.name))][0] : ""
+  monitoring_vsi_ip     = local.network_services_vsi_exists ? [for vsi in module.landing_zone.vsi_list : vsi.ipv4_address if can(regex("${var.prefix}-monitoring", vsi.name))][0] : ""  # crn_monitoring_instance = resource.ibm_resource_instance.create-instance-monitoring[0].target_crn
+  crn_monitoring_instance = resource.ibm_resource_instance.create-instance-monitoring[0].target_crn
+  #crn_monitoring_instance = var.enable_monitoring && var.existing_monitoring_instance_crn == null ?  resource.ibm_resource_instance.create-instance-monitoring[0].target_crn : var.existing_monitoring_instance_crn
 
-
-
-  ###### For preset floating ip and network services vsi should exist.
+###### For preset floating ip and network services vsi should exist.
   valid_json_used   = local.key_floating_ip_exists && local.network_services_vsi_exists ? true : false
   validate_json_msg = "Wrong JSON preset used. Please use one of the JSON preset supported for Power."
   # tflint-ignore: terraform_unused_declarations
