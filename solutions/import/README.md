@@ -42,7 +42,7 @@ The pre-existing infrastructure must meet the following conditions to use the 'I
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.3 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.9 |
 | <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | 1.71.1 |
 
 ### Modules

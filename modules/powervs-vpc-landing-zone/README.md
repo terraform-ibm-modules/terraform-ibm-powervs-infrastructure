@@ -16,16 +16,14 @@ This module provisions the following resources in IBM Cloud:
     - Activity tracker
     - Optional Secrets Manager Instance Instance with private certificate.
 
-- A local **transit gateway**
+- A local or global **transit gateway**
 
 - A **Power Virtual Server** workspace with the following network topology:
     - Creates two private networks: a management network and a backup network.
-    - Creates one or two IBM Cloud connections in a non-PER environment.
-    - Attaches the private networks to the IBM Cloud connections in a non-PER environment.
-    - Attaches the IBM Cloud connections to a transit gateway in a non-PER environment.
-    - Attaches the PowerVS workspace to transit gateway in PER-enabled DC
+    - Attaches the PowerVS workspace to transit gateway
     - Creates an SSH key.
-    - Imports cloud catalog stock images.
+    - Optionally imports list of stock catalog images.
+    - Optionally imports up to three custom images from Cloud Object Storage.
 
 - Finally, interconnects both VPC and PowerVS infrastructure.
 
@@ -51,27 +49,30 @@ module "powervs-vpc-landing-zone" {
 
   providers = { ibm.ibm-is = ibm.ibm-is, ibm.ibm-pi = ibm.ibm-pi }
 
-  powervs_zone                = var.powervs_zone
-  prefix                      = var.prefix
-  external_access_ip          = var.external_access_ip
-  ssh_public_key              = var.ssh_public_key
-  ssh_private_key             = var.ssh_private_key
-  client_to_site_vpn          = var.client_to_site_vpn           #(optional.  default check vars)
-  configure_dns_forwarder     = var.configure_dns_forwarder      #(optional,  default false)
-  configure_ntp_forwarder     = var.configure_ntp_forwarder      #(optional,  default false)
-  configure_nfs_server        = var.configure_nfs_server         #(optional.  default false)
-  nfs_server_config           = var.nfs_server_config            #(optional.  default check vars)
-  dns_forwarder_config        = var.dns_forwarder_config         #(optional.  default check vars)
-  powervs_resource_group_name = var.powervs_resource_group_name  #(optional.  default check vars)
-  powervs_management_network  = var.powervs_management_network   #(optional.  default check vars)
-  powervs_backup_network      = var.powervs_backup_network       #(optional.  default check vars)
-  powervs_image_names         = var.powervs_image_names          #(optional.  default check vars)
-  tags                        = var.tags                         #(optional.  default check vars)
-  sm_service_plan             = var.sm_service_plan
-  existing_sm_instance_guid   = var.existing_sm_instance_guid    #(optional.  default check vars)
-  existing_sm_instance_region = var.existing_sm_instance_region  #(optional.  default check vars)
-  certificate_template_name   = var.certificate_template_name    #(optional.  default check vars)
-  network_services_vsi_profile = var.network_services_vsi_profile #(optional.  default check vars)
+  powervs_zone                                 = var.powervs_zone
+  prefix                                       = var.prefix
+  external_access_ip                           = var.external_access_ip
+  ssh_public_key                               = var.ssh_public_key
+  ssh_private_key                              = var.ssh_private_key
+  client_to_site_vpn                           = var.client_to_site_vpn                           #(optional.  default check vars)
+  configure_dns_forwarder                      = var.configure_dns_forwarder                      #(optional,  default false)
+  configure_ntp_forwarder                      = var.configure_ntp_forwarder                      #(optional,  default false)
+  configure_nfs_server                         = var.configure_nfs_server                         #(optional.  default false)
+  nfs_server_config                            = var.nfs_server_config                            #(optional.  default check vars)
+  dns_forwarder_config                         = var.dns_forwarder_config                         #(optional.  default check vars)
+  powervs_resource_group_name                  = var.powervs_resource_group_name                  #(optional.  default check vars)
+  powervs_management_network                   = var.powervs_management_network                   #(optional.  default check vars)
+  powervs_backup_network                       = var.powervs_backup_network                       #(optional.  default check vars)
+  powervs_image_names                          = var.powervs_image_names                          #(optional.  default check vars)
+  tags                                         = var.tags                                         #(optional.  default check vars)
+  sm_service_plan                              = var.sm_service_plan
+  powervs_custom_images                        = var.powervs_custom_images                        #(optional, default null)
+  powervs_custom_image_cos_configuration       = var.powervs_custom_image_cos_configuration       #(optional, default null)
+  powervs_custom_image_cos_service_credentials = var.powervs_custom_image_cos_service_credentials #(optional, default null)
+  existing_sm_instance_guid                    = var.existing_sm_instance_guid                    #(optional.  default check vars)
+  existing_sm_instance_region                  = var.existing_sm_instance_region                  #(optional.  default check vars)
+  certificate_template_name                    = var.certificate_template_name                    #(optional.  default check vars)
+  network_services_vsi_profile                 = var.network_services_vsi_profile                 #(optional.  default check vars)
 }
 ```
 
@@ -93,7 +94,7 @@ Creates VPC Landing Zone | Performs VPC VSI OS Config | Creates PowerVS Infrastr
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.3 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.9 |
 | <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | >=1.65.0 |
 
 ### Modules
@@ -102,7 +103,7 @@ Creates VPC Landing Zone | Performs VPC VSI OS Config | Creates PowerVS Infrastr
 |------|--------|---------|
 | <a name="module_client_to_site_vpn"></a> [client\_to\_site\_vpn](#module\_client\_to\_site\_vpn) | terraform-ibm-modules/client-to-site-vpn/ibm | 1.7.23 |
 | <a name="module_configure_network_services"></a> [configure\_network\_services](#module\_configure\_network\_services) | ./submodules/ansible | n/a |
-| <a name="module_landing_zone"></a> [landing\_zone](#module\_landing\_zone) | terraform-ibm-modules/landing-zone/ibm//patterns//vsi//module | 6.2.1 |
+| <a name="module_landing_zone"></a> [landing\_zone](#module\_landing\_zone) | terraform-ibm-modules/landing-zone/ibm//patterns//vsi//module | 6.2.2 |
 | <a name="module_powervs_workspace"></a> [powervs\_workspace](#module\_powervs\_workspace) | terraform-ibm-modules/powervs-workspace/ibm | 2.2.0 |
 | <a name="module_private_secret_engine"></a> [private\_secret\_engine](#module\_private\_secret\_engine) | terraform-ibm-modules/secrets-manager-private-cert-engine/ibm | 1.3.4 |
 | <a name="module_secrets_manager_group"></a> [secrets\_manager\_group](#module\_secrets\_manager\_group) | terraform-ibm-modules/secrets-manager-secret-group/ibm | 1.2.2 |
@@ -137,7 +138,10 @@ Creates VPC Landing Zone | Performs VPC VSI OS Config | Creates PowerVS Infrastr
 | <a name="input_network_services_vsi_profile"></a> [network\_services\_vsi\_profile](#input\_network\_services\_vsi\_profile) | Compute profile configuration of the network services vsi (cpu and memory configuration). Must be one of the supported profiles. See [here](https://cloud.ibm.com/docs/vpc?topic=vpc-profiles&interface=ui). | `string` | `"cx2-2x4"` | no |
 | <a name="input_nfs_server_config"></a> [nfs\_server\_config](#input\_nfs\_server\_config) | Configuration for the NFS server. 'size' is in GB, 'iops' is maximum input/output operation performance bandwidth per second, 'mount\_path' defines the target mount point on os. Set 'configure\_nfs\_server' to false to ignore creating file storage share. | <pre>object({<br/>    size       = number<br/>    iops       = number<br/>    mount_path = string<br/>  })</pre> | <pre>{<br/>  "iops": 600,<br/>  "mount_path": "/nfs",<br/>  "size": 200<br/>}</pre> | no |
 | <a name="input_powervs_backup_network"></a> [powervs\_backup\_network](#input\_powervs\_backup\_network) | Name of the IBM Cloud PowerVS backup network and CIDR to create. | <pre>object({<br/>    name = string<br/>    cidr = string<br/>  })</pre> | <pre>{<br/>  "cidr": "10.52.0.0/24",<br/>  "name": "bkp_net"<br/>}</pre> | no |
-| <a name="input_powervs_image_names"></a> [powervs\_image\_names](#input\_powervs\_image\_names) | List of Images to be imported into cloud account from catalog images. Supported values can be found [here](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-workspace/blob/main/docs/catalog_images_list.md) | `list(string)` | <pre>[<br/>  "IBMi-75-03-2924-2",<br/>  "IBMi-74-09-2984-1",<br/>  "7200-05-07",<br/>  "7300-02-01",<br/>  "SLES15-SP5-SAP",<br/>  "SLES15-SP5-SAP-NETWEAVER",<br/>  "RHEL9-SP2-SAP",<br/>  "RHEL9-SP2-SAP-NETWEAVER"<br/>]</pre> | no |
+| <a name="input_powervs_custom_image_cos_configuration"></a> [powervs\_custom\_image\_cos\_configuration](#input\_powervs\_custom\_image\_cos\_configuration) | Cloud Object Storage bucket containing custom PowerVS images. bucket\_name: string, name of the COS bucket. bucket\_access: string, possible values: public, private (private requires powervs\_custom\_image\_cos\_service\_credentials). bucket\_region: string, COS bucket region | <pre>object({<br/>    bucket_name   = string<br/>    bucket_access = string<br/>    bucket_region = string<br/>  })</pre> | <pre>{<br/>  "bucket_access": "",<br/>  "bucket_name": "",<br/>  "bucket_region": ""<br/>}</pre> | no |
+| <a name="input_powervs_custom_image_cos_service_credentials"></a> [powervs\_custom\_image\_cos\_service\_credentials](#input\_powervs\_custom\_image\_cos\_service\_credentials) | Service credentials for the Cloud Object Storage bucket containing the custom PowerVS images. The bucket must have HMAC credentials enabled. Click [here](https://cloud.ibm.com/docs/cloud-object-storage?topic=cloud-object-storage-service-credentials) for a json example of a service credential. | `string` | `null` | no |
+| <a name="input_powervs_custom_images"></a> [powervs\_custom\_images](#input\_powervs\_custom\_images) | Optionally import up to three custom images from Cloud Object Storage into PowerVS workspace. Requires 'powervs\_custom\_image\_cos\_configuration' to be set. image\_name: string, must be unique. Name of image inside PowerVS workspace. file\_name: string, object key of image inside COS bucket. storage\_tier: string, storage tier which image will be stored in after import. Supported values: tier0, tier1, tier3, tier5k. sap\_type: optional string, Supported values: null, Hana, Netweaver, use null for non-SAP image. | <pre>object({<br/>    powervs_custom_image1 = object({<br/>      image_name   = string<br/>      file_name    = string<br/>      storage_tier = string<br/>      sap_type     = optional(string)<br/>    }),<br/>    powervs_custom_image2 = object({<br/>      image_name   = string<br/>      file_name    = string<br/>      storage_tier = string<br/>      sap_type     = optional(string)<br/>    }),<br/>    powervs_custom_image3 = object({<br/>      image_name   = string<br/>      file_name    = string<br/>      storage_tier = string<br/>      sap_type     = optional(string)<br/>    })<br/>  })</pre> | <pre>{<br/>  "powervs_custom_image1": {<br/>    "file_name": "",<br/>    "image_name": "",<br/>    "sap_type": null,<br/>    "storage_tier": ""<br/>  },<br/>  "powervs_custom_image2": {<br/>    "file_name": "",<br/>    "image_name": "",<br/>    "sap_type": null,<br/>    "storage_tier": ""<br/>  },<br/>  "powervs_custom_image3": {<br/>    "file_name": "",<br/>    "image_name": "",<br/>    "sap_type": null,<br/>    "storage_tier": ""<br/>  }<br/>}</pre> | no |
+| <a name="input_powervs_image_names"></a> [powervs\_image\_names](#input\_powervs\_image\_names) | List of Images to be imported into cloud account from catalog images. Supported values can be found [here](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-workspace/blob/main/docs/catalog_images_list.md). For custom os image import configure the optional parameter 'powervs\_custom\_images'. | `list(string)` | <pre>[<br/>  "IBMi-75-04-2984-1",<br/>  "IBMi-74-10-2984-1",<br/>  "7200-05-08",<br/>  "7300-02-01",<br/>  "SLES15-SP5-SAP",<br/>  "SLES15-SP5-SAP-NETWEAVER",<br/>  "RHEL9-SP2-SAP",<br/>  "RHEL9-SP2-SAP-NETWEAVER"<br/>]</pre> | no |
 | <a name="input_powervs_management_network"></a> [powervs\_management\_network](#input\_powervs\_management\_network) | Name of the IBM Cloud PowerVS management subnet and CIDR to create. | <pre>object({<br/>    name = string<br/>    cidr = string<br/>  })</pre> | <pre>{<br/>  "cidr": "10.51.0.0/24",<br/>  "name": "mgmt_net"<br/>}</pre> | no |
 | <a name="input_powervs_resource_group_name"></a> [powervs\_resource\_group\_name](#input\_powervs\_resource\_group\_name) | Existing IBM Cloud resource group name. | `string` | n/a | yes |
 | <a name="input_powervs_zone"></a> [powervs\_zone](#input\_powervs\_zone) | IBM Cloud data center location where IBM PowerVS infrastructure will be created. | `string` | n/a | yes |

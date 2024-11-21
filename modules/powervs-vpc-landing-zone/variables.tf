@@ -148,15 +148,80 @@ variable "powervs_backup_network" {
 }
 
 variable "powervs_image_names" {
-  description = "List of Images to be imported into cloud account from catalog images. Supported values can be found [here](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-workspace/blob/main/docs/catalog_images_list.md)"
+  description = "List of Images to be imported into cloud account from catalog images. Supported values can be found [here](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-workspace/blob/main/docs/catalog_images_list.md). For custom os image import configure the optional parameter 'powervs_custom_images'."
   type        = list(string)
-  default     = ["IBMi-75-03-2924-2", "IBMi-74-09-2984-1", "7200-05-07", "7300-02-01", "SLES15-SP5-SAP", "SLES15-SP5-SAP-NETWEAVER", "RHEL9-SP2-SAP", "RHEL9-SP2-SAP-NETWEAVER"]
+  default     = ["IBMi-75-04-2984-1", "IBMi-74-10-2984-1", "7200-05-08", "7300-02-01", "SLES15-SP5-SAP", "SLES15-SP5-SAP-NETWEAVER", "RHEL9-SP2-SAP", "RHEL9-SP2-SAP-NETWEAVER"]
 }
 
 variable "tags" {
   description = "List of tag names for the IBM Cloud PowerVS workspace"
   type        = list(string)
   default     = []
+}
+
+variable "powervs_custom_images" {
+  description = "Optionally import up to three custom images from Cloud Object Storage into PowerVS workspace. Requires 'powervs_custom_image_cos_configuration' to be set. image_name: string, must be unique. Name of image inside PowerVS workspace. file_name: string, object key of image inside COS bucket. storage_tier: string, storage tier which image will be stored in after import. Supported values: tier0, tier1, tier3, tier5k. sap_type: optional string, Supported values: null, Hana, Netweaver, use null for non-SAP image."
+  type = object({
+    powervs_custom_image1 = object({
+      image_name   = string
+      file_name    = string
+      storage_tier = string
+      sap_type     = optional(string)
+    }),
+    powervs_custom_image2 = object({
+      image_name   = string
+      file_name    = string
+      storage_tier = string
+      sap_type     = optional(string)
+    }),
+    powervs_custom_image3 = object({
+      image_name   = string
+      file_name    = string
+      storage_tier = string
+      sap_type     = optional(string)
+    })
+  })
+  default = {
+    "powervs_custom_image1" : {
+      "image_name" : "",
+      "file_name" : "",
+      "storage_tier" : "",
+      "sap_type" : null
+    },
+    "powervs_custom_image2" : {
+      "image_name" : "",
+      "file_name" : "",
+      "storage_tier" : "",
+      "sap_type" : null
+    },
+    "powervs_custom_image3" : {
+      "image_name" : "",
+      "file_name" : "",
+      "storage_tier" : "",
+      "sap_type" : null
+    }
+  }
+}
+
+variable "powervs_custom_image_cos_configuration" {
+  description = "Cloud Object Storage bucket containing custom PowerVS images. bucket_name: string, name of the COS bucket. bucket_access: string, possible values: public, private (private requires powervs_custom_image_cos_service_credentials). bucket_region: string, COS bucket region"
+  type = object({
+    bucket_name   = string
+    bucket_access = string
+    bucket_region = string
+  })
+  default = {
+    "bucket_name" : "",
+    "bucket_access" : "",
+    "bucket_region" : ""
+  }
+}
+
+variable "powervs_custom_image_cos_service_credentials" {
+  description = "Service credentials for the Cloud Object Storage bucket containing the custom PowerVS images. The bucket must have HMAC credentials enabled. Click [here](https://cloud.ibm.com/docs/cloud-object-storage?topic=cloud-object-storage-service-credentials) for a json example of a service credential."
+  type        = string
+  sensitive   = true
+  default     = null
 }
 
 #####################################################
