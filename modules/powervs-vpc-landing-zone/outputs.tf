@@ -135,3 +135,23 @@ output "powervs_images" {
   description = "Object containing imported PowerVS image names and image ids."
   value       = module.powervs_workspace.pi_images
 }
+
+########################################################################
+# Monitoring output
+##################################################################
+
+output "existing_monitoring_instance_crn" {
+  description = "CRN of the IBM Cloud Monitoring Instance"
+  value       = resource.ibm_resource_instance.create_instance_monitoring[0].target_crn
+}
+# existing_monitoring_instance_crn = var.enable_monitoring && var.existing_monitoring_instance_crn == null ?  resource.ibm_resource_instance.create_instance_monitoring[0].target_crn : var.existing_monitoring_instance_crn
+
+output "location" {
+  description = "location = region  of the IBM Cloud Monitoring Instance"
+  value       = resource.ibm_resource_instance.create_instance_monitoring[0].location
+}
+
+output "monitoring_instance_guid" {
+  description = "location = region  of the IBM Cloud Monitoring Instance"
+  value       = resource.ibm_resource_instance.create_instance_monitoring[0].guid
+}

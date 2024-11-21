@@ -188,13 +188,13 @@ variable "certificate_template_name" {
 }
 
 #################################################
-#  Monitoring: Optional Parameters 
+#  Monitoring: Optional Parameters
 #################################################
 
 variable "enable_monitoring" {
   description = "Specify if SAP Monitoring will be enabled. including IBM Cloud Monitoring Instance and Intel workload VSI . Set to 'false' if you do not want any monitoring.The monitoring instance will be created in the same region."
   type        = bool
-  default     = true 
+  default     = true
 }
 
 variable "ibm_cloud_monitoring_instance_name" {
@@ -213,5 +213,3 @@ variable "existing_monitoring_instance_crn" {
   type        = string
   default     = null
 }
-
-

@@ -18,20 +18,18 @@ module "landing_zone" {
 #####################################################
 
 locals {
-  region               = lookup(local.ibm_powervs_zone_cloud_region_map, var.powervs_zone, null)
-  prefix               = var.prefix
+  region            = lookup(local.ibm_powervs_zone_cloud_region_map, var.powervs_zone, null)
   resource_group_id = module.landing_zone.resource_group_data["${var.prefix}-slz-service-rg"]
-  name_ibm_cloud_monitoring_instance  = "IBM Cloud Monitoring-instance-terraformed"
 }
 
-resource "ibm_resource_instance" "create-instance-monitoring" {
-  count = var.enable_monitoring && var.existing_monitoring_instance_crn == null ? 1 : 0
-  provider =  ibm.ibm-is 
-  name     = "${var.prefix}-${var.ibm_cloud_monitoring_instance_name}"
-  location = local.region
-  service  = "sysdig-monitor"
-  plan     = "graduated-tier"
-  resource_group_id  = local.resource_group_id
+resource "ibm_resource_instance" "create_instance_monitoring" {
+  count             = var.enable_monitoring == true && var.existing_monitoring_instance_crn == null ? 1 : 0
+  provider          = ibm.ibm-is
+  name              = "${var.prefix}-${var.ibm_cloud_monitoring_instance_name}"
+  location          = local.region
+  service           = "sysdig-monitor"
+  plan              = "graduated-tier"
+  resource_group_id = local.resource_group_id
   tags = [
     "monitoring",
   ]
@@ -132,7 +130,7 @@ module "configure_network_services" {
     })
   }
 
-  monitoring_vsi_ip = local.monitoring_vsi_ip
+  monitoring_vsi_ip                   = local.monitoring_vsi_ip
   src_script_template_monitoring_name = "configure-monitoring-instance/ansible_exec.sh.tftpl"
   dst_script_file_monitoring_name     = "configure-monitoring-instance.sh"
 
@@ -140,4 +138,3 @@ module "configure_network_services" {
   dst_playbook_file_monitoring_name     = "playbook-configure-monitoring-instance.yml"
 
 }
-
