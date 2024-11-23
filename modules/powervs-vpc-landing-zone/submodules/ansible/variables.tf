@@ -8,8 +8,8 @@ variable "ansible_host_or_ip" {
   type        = string
 }
 
-variable "monitoring_vsi_ip" {
-  description = "Private IP of virtual server instance  running SLES OS for monitoring services ."
+variable "monitoring_host_ip" {
+  description = "Private IP of virtual server instance running SLES OS for monitoring services ."
   type        = string
 }
 

@@ -15,7 +15,6 @@ No modules.
 
 | Name | Type |
 |------|------|
-| [random_id.filename](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/id) | resource |
 | [terraform_data.execute_playbooks](https://registry.terraform.io/providers/hashicorp/terraform/latest/docs/resources/data) | resource |
 | [terraform_data.execute_playbooks_3](https://registry.terraform.io/providers/hashicorp/terraform/latest/docs/resources/data) | resource |
 | [terraform_data.setup_ansible_host](https://registry.terraform.io/providers/hashicorp/terraform/latest/docs/resources/data) | resource |
@@ -31,7 +30,7 @@ No modules.
 | <a name="input_dst_playbook_file_name"></a> [dst\_playbook\_file\_name](#input\_dst\_playbook\_file\_name) | Name for the playbook file to be generated on the Ansible host. | `string` | n/a | yes |
 | <a name="input_dst_script_file_monitoring_name"></a> [dst\_script\_file\_monitoring\_name](#input\_dst\_script\_file\_monitoring\_name) | Name for the bash monitoring file to be generated on the Ansible host. | `string` | n/a | yes |
 | <a name="input_dst_script_file_name"></a> [dst\_script\_file\_name](#input\_dst\_script\_file\_name) | Name for the bash file to be generated on the Ansible host. | `string` | n/a | yes |
-| <a name="input_monitoring_vsi_ip"></a> [monitoring\_vsi\_ip](#input\_monitoring\_vsi\_ip) | Private IP of virtual server instance  running SLES OS for monitoring services . | `string` | n/a | yes |
+| <a name="input_monitoring_host_ip"></a> [monitoring\_host\_ip](#input\_monitoring\_host\_ip) | Private IP of virtual server instance running SLES OS for monitoring services . | `string` | n/a | yes |
 | <a name="input_playbook_template_vars"></a> [playbook\_template\_vars](#input\_playbook\_template\_vars) | Map values for the ansible playbook template. | `map(any)` | n/a | yes |
 | <a name="input_src_playbook_template_monitoring_name"></a> [src\_playbook\_template\_monitoring\_name](#input\_src\_playbook\_template\_monitoring\_name) | Name of the playbook template monitoring file located within the 'templates-ansible' directory. | `string` | n/a | yes |
 | <a name="input_src_playbook_template_name"></a> [src\_playbook\_template\_name](#input\_src\_playbook\_template\_name) | Name of the playbook template file located within the 'templates-ansible' directory. | `string` | n/a | yes |

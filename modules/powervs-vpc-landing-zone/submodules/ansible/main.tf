@@ -8,20 +8,21 @@ locals {
   src_playbook_tftpl_path = "${local.src_ansible_templates_dir}/${var.src_playbook_template_name}"
   dst_playbook_file_path  = "${local.dst_files_dir}/${var.dst_playbook_file_name}"
 
-  monitoring_vsi_ip =  var.monitoring_vsi_ip
+  #monitoring_host_ip                 = ${var.monitoring_host_ip}
   src_script_monitoring_tftpl_path   = "${local.src_ansible_templates_dir}/${var.src_script_template_monitoring_name}"
   dst_script_monitoring_file_path    = "${local.dst_files_dir}/${var.dst_script_file_monitoring_name}"
-  src_playbook_monitoring_tftpl_path = "${local.src_ansible_templates_dir}/${var. src_playbook_template_monitoring_name}"
+  src_playbook_monitoring_tftpl_path = "${local.src_ansible_templates_dir}/${var.src_playbook_template_monitoring_name}"
   dst_playbook_monitoring_file_path  = "${local.dst_files_dir}/${var.dst_playbook_file_monitoring_name}"
 
 }
 
-resource "random_id" "filename" {
-  byte_length = 2 # 4 characters when encoded in base32, which will give you a lowercase alphabetic string
-}
+# resource "random_id" "filename" {
+#  byte_length = 2 # 4 characters when encoded in base32, which will give you a lowercase alphabetic string
+#}
 
 locals {
-  private_key_file = "/root/.ssh/id_rsa_${substr(random_id.filename.b64_url, 0, 4)}"
+  private_key_file = "/root/.ssh/id_rsa_tmp"
+  # private_key_file = "/root/.ssh/id_rsa_${substr(random_id.filename.b64_url, 0, 4)}"
 }
 
 ##############################################################
@@ -153,7 +154,7 @@ resource "terraform_data" "execute_playbooks_3" {
   provisioner "file" {
     content = templatefile(local.src_playbook_monitoring_tftpl_path,
       {
-        "monitoring_vsi_ip" : local.monitoring_vsi_ip
+        "monitoring_host_ip" : var.monitoring_host_ip
     })
     destination = local.dst_playbook_monitoring_file_path
   }
@@ -165,7 +166,7 @@ resource "terraform_data" "execute_playbooks_3" {
       {
         "ansible_playbook_file" : local.dst_playbook_monitoring_file_path,
         "ansible_log_path" : local.dst_files_dir,
-        "monitoring_vsi_ip" : local.monitoring_vsi_ip,
+        "monitoring_host_ip" : var.monitoring_host_ip,
         "ansible_private_key_file" : local.private_key_file
     })
     destination = local.dst_script_monitoring_file_path
@@ -179,7 +180,7 @@ resource "terraform_data" "execute_playbooks_3" {
     ]
   }
 
-# Again delete Ansible Vault password used to encrypt the var
+  # Again delete Ansible Vault password used to encrypt the var
   # files with sensitive information and private ssh key
   provisioner "remote-exec" {
     inline = [

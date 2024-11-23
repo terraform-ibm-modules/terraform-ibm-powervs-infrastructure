@@ -262,19 +262,12 @@ variable "enable_monitoring" {
   default     = true
 }
 
-variable "ibm_cloud_monitoring_instance_name" {
-  description = "Specify the name of the IBM Cloud Monitoring Instance."
-  type        = string
-  default     = "IBM Cloud SAP Monitoring Instance"
-}
-
-
 #################################################
 #  Monitoring: extracted values
 #################################################
 
 variable "existing_monitoring_instance_crn" {
-  description = "crn of IBM Cloud Monitoring Instance."
+  description = "Existing CRN of IBM Cloud Monitoring Instance."
   type        = string
   default     = null
 }

@@ -5,7 +5,7 @@ ansible_playbook=${ansible_playbook_file}
 ansible_log_path=${ansible_log_path}
 
 ansible_private_key_file=${ansible_private_key_file}
-hostlist="${monitoring_vsi_ip},"
+hostlist="${monitoring_host_ip},"
 
 export ANSIBLE_CONFIG=./ansible.cfg
 export ANSIBLE_PRIVATE_KEY_FILE=${ansible_private_key_file}

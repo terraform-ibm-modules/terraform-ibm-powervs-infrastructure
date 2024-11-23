@@ -23,9 +23,9 @@ locals {
 }
 
 resource "ibm_resource_instance" "create_instance_monitoring" {
-  count             = var.enable_monitoring == true && var.existing_monitoring_instance_crn == null ? 1 : 0
+  count             = var.enable_monitoring && var.existing_monitoring_instance_crn == null ? 1 : 0
   provider          = ibm.ibm-is
-  name              = "${var.prefix}-${var.ibm_cloud_monitoring_instance_name}"
+  name              = "${var.prefix}-monitoring-instance"
   location          = local.region
   service           = "sysdig-monitor"
   plan              = "graduated-tier"
@@ -158,7 +158,7 @@ module "configure_network_services" {
     })
   }
 
-  monitoring_vsi_ip                   = local.monitoring_vsi_ip
+  monitoring_host_ip                  = local.monitoring_vsi_ip
   src_script_template_monitoring_name = "configure-monitoring-instance/ansible_exec.sh.tftpl"
   dst_script_file_monitoring_name     = "configure-monitoring-instance.sh"
 
