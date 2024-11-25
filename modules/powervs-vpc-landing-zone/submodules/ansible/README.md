@@ -15,7 +15,7 @@ No modules.
 
 | Name | Type |
 |------|------|
-| [terraform_data.execute_playbooks](https://registry.terraform.io/providers/hashicorp/terraform/latest/docs/resources/data) | resource |
+| [terraform_data.execute_network_playbooks](https://registry.terraform.io/providers/hashicorp/terraform/latest/docs/resources/data) | resource |
 | [terraform_data.execute_playbooks_3](https://registry.terraform.io/providers/hashicorp/terraform/latest/docs/resources/data) | resource |
 | [terraform_data.setup_ansible_host](https://registry.terraform.io/providers/hashicorp/terraform/latest/docs/resources/data) | resource |
 | [terraform_data.trigger_ansible_vars](https://registry.terraform.io/providers/hashicorp/terraform/latest/docs/resources/data) | resource |

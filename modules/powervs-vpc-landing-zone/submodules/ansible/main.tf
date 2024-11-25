@@ -3,19 +3,19 @@ locals {
   ansible_node_config_script = "${path.module}/ansible_node_packages.sh"
   dst_files_dir              = "/root/terraform_files"
 
-  src_script_tftpl_path   = "${local.src_ansible_templates_dir}/${var.src_script_template_name}"
-  dst_script_file_path    = "${local.dst_files_dir}/${var.dst_script_file_name}"
-  src_playbook_tftpl_path = "${local.src_ansible_templates_dir}/${var.src_playbook_template_name}"
-  dst_playbook_file_path  = "${local.dst_files_dir}/${var.dst_playbook_file_name}"
+  src_script_tftpl_path    = "${local.src_ansible_templates_dir}/${var.src_script_template_name}"
+  dst_script_file_path     = "${local.dst_files_dir}/${var.dst_script_file_name}"
+  src_playbook_tftpl_path  = "${local.src_ansible_templates_dir}/${var.src_playbook_template_name}"
+  dst_playbook_file_path   = "${local.dst_files_dir}/${var.dst_playbook_file_name}"
   src_inventory_tftpl_path = "${local.src_ansible_templates_dir}/network-services-inventory.tftpl"
   dst_inventory_file_path  = "${local.dst_files_dir}/network-services-inventory"
 
   src_inventory_monitoring_tftpl_path = "${local.src_ansible_templates_dir}/monitoring-vsi-inventory.tftpl"
   dst_inventory_monitoring_file_path  = "${local.dst_files_dir}/monitoring-inventory"
-  src_script_monitoring_tftpl_path   = "${local.src_ansible_templates_dir}/${var.src_script_template_monitoring_name}"
-  dst_script_monitoring_file_path    = "${local.dst_files_dir}/${var.dst_script_file_monitoring_name}"
-  src_playbook_monitoring_tftpl_path = "${local.src_ansible_templates_dir}/${var.src_playbook_template_monitoring_name}"
-  dst_playbook_monitoring_file_path  = "${local.dst_files_dir}/${var.dst_playbook_file_monitoring_name}"
+  src_script_monitoring_tftpl_path    = "${local.src_ansible_templates_dir}/${var.src_script_template_monitoring_name}"
+  dst_script_monitoring_file_path     = "${local.dst_files_dir}/${var.dst_script_file_monitoring_name}"
+  src_playbook_monitoring_tftpl_path  = "${local.src_ansible_templates_dir}/${var.src_playbook_template_monitoring_name}"
+  dst_playbook_monitoring_file_path   = "${local.dst_files_dir}/${var.dst_playbook_file_monitoring_name}"
 }
 
 # resource "random_id" "filename" {
@@ -69,7 +69,6 @@ resource "terraform_data" "setup_ansible_host" {
   }
 }
 
-
 ##############################################################
 # 2. Execute ansible playbooks
 ##############################################################
@@ -94,24 +93,24 @@ resource "terraform_data" "execute_network_playbooks" {
   provisioner "remote-exec" {
     inline = ["mkdir -p ${local.dst_files_dir}", "chmod 777 ${local.dst_files_dir}", ]
   }
- 
+
   # Copy and create ansible inventory template file on ansible host
   provisioner "file" {
-    content     = templatefile(local.src_inventory_tftpl_path, 
+    content = templatefile(local.src_inventory_tftpl_path,
       {
         "ansible_host_or_ip" : var.ansible_host_or_ip,
-	      "monitoring_host_ip" : var.monitoring_host_ip
+        "monitoring_host_ip" : var.monitoring_host_ip
     })
     destination = local.dst_inventory_file_path
   }
 
- # Copy and create ansible playbook template file on ansible host
+  # Copy and create ansible playbook template file on ansible host
   provisioner "file" {
     content     = templatefile(local.src_playbook_tftpl_path, var.playbook_template_vars)
     destination = local.dst_playbook_file_path
   }
 
-    # Copy and create ansible shell template file which will trigger the playbook on ansible host
+  # Copy and create ansible shell template file which will trigger the playbook on ansible host
   provisioner "file" {
     content = templatefile(local.src_script_tftpl_path,
       {
@@ -137,7 +136,7 @@ resource "terraform_data" "execute_network_playbooks" {
   provisioner "remote-exec" {
     inline = [
       "chmod +x ${local.dst_script_file_path}",
-      "local.dst_script_file_path"
+      local.dst_script_file_path
     ]
   }
 
@@ -157,7 +156,6 @@ resource "terraform_data" "execute_playbooks_3" {
   #triggers_replace = terraform_data.trigger_ansible_vars
 
   #depends_on = [terraform_data.setup_ansible_host]
-
 
   connection {
     type         = "ssh"
@@ -192,9 +190,9 @@ resource "terraform_data" "execute_playbooks_3" {
 
   # Copy and create ansible inventory template file on ansible host
   provisioner "file" {
-    content     = templatefile(local.src_inventory_monitoring_tftpl_path, 
+    content = templatefile(local.src_inventory_monitoring_tftpl_path,
       {
-	      "monitoring_host_ip" : var.monitoring_host_ip
+        "monitoring_host_ip" : var.monitoring_host_ip
     })
     destination = local.dst_inventory_monitoring_file_path
   }
@@ -215,7 +213,7 @@ resource "terraform_data" "execute_playbooks_3" {
   provisioner "remote-exec" {
     inline = [
       "chmod +x ${local.dst_script_monitoring_file_path}",
-      "local.dst_script_monitoring_file_path"
+      local.dst_script_monitoring_file_path
     ]
   }
 
