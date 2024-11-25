@@ -7,37 +7,23 @@ locals {
   dst_script_file_path     = "${local.dst_files_dir}/${var.dst_script_file_name}"
   src_playbook_tftpl_path  = "${local.src_ansible_templates_dir}/${var.src_playbook_template_name}"
   dst_playbook_file_path   = "${local.dst_files_dir}/${var.dst_playbook_file_name}"
-  src_inventory_tftpl_path = "${local.src_ansible_templates_dir}/network-services-inventory.tftpl"
-  dst_inventory_file_path  = "${local.dst_files_dir}/network-services-inventory"
+  src_inventory_tftpl_path = "${local.src_ansible_templates_dir}/${var.src_inventory_template_name}"
+  dst_inventory_file_path  = "${local.dst_files_dir}/${var.dst_inventory_file_name}"
 
-  src_inventory_monitoring_tftpl_path = "${local.src_ansible_templates_dir}/monitoring-vsi-inventory.tftpl"
-  dst_inventory_monitoring_file_path  = "${local.dst_files_dir}/monitoring-inventory"
-  src_script_monitoring_tftpl_path    = "${local.src_ansible_templates_dir}/${var.src_script_template_monitoring_name}"
-  dst_script_monitoring_file_path     = "${local.dst_files_dir}/${var.dst_script_file_monitoring_name}"
-  src_playbook_monitoring_tftpl_path  = "${local.src_ansible_templates_dir}/${var.src_playbook_template_monitoring_name}"
-  dst_playbook_monitoring_file_path   = "${local.dst_files_dir}/${var.dst_playbook_file_monitoring_name}"
 }
 
-# resource "random_id" "filename" {
-#  byte_length = 2 # 4 characters when encoded in base32, which will give you a lowercase alphabetic string
-#}
+resource "random_id" "filename" {
+  byte_length = 2 # 4 characters when encoded in base32, which will give you a lowercase alphabetic string
+}
 
 locals {
-  private_key_file = "/root/.ssh/id_rsa_tmp"
-  # private_key_file = "/root/.ssh/id_rsa_${substr(random_id.filename.b64_url, 0, 4)}"
+  private_key_file = "/root/.ssh/id_rsa_${substr(random_id.filename.b64_url, 0, 4)}"
 }
-
 ##############################################################
 # 1. Execute shell script to install ansible roles/collections
 ##############################################################
 
-resource "terraform_data" "trigger_ansible_vars" {
-  input = [var.playbook_template_vars, var.ansible_host_or_ip]
-}
-
 resource "terraform_data" "setup_ansible_host" {
-
-  triggers_replace = terraform_data.trigger_ansible_vars
 
   connection {
     type         = "ssh"
@@ -73,11 +59,13 @@ resource "terraform_data" "setup_ansible_host" {
 # 2. Execute ansible playbooks
 ##############################################################
 
-resource "terraform_data" "execute_network_playbooks" {
+resource "terraform_data" "trigger_ansible_vars" {
+  input = var.playbook_template_vars
+}
 
-  triggers_replace = terraform_data.trigger_ansible_vars
-
+resource "terraform_data" "execute_playbooks" {
   depends_on = [terraform_data.setup_ansible_host]
+  count      = var.ansible_vault_password != null ? 0 : 1
 
   connection {
     type         = "ssh"
@@ -89,25 +77,23 @@ resource "terraform_data" "execute_network_playbooks" {
     timeout      = "5m"
   }
 
+  triggers_replace = terraform_data.trigger_ansible_vars
+
   # Create terraform scripts directory
   provisioner "remote-exec" {
     inline = ["mkdir -p ${local.dst_files_dir}", "chmod 777 ${local.dst_files_dir}", ]
-  }
-
-  # Copy and create ansible inventory template file on ansible host
-  provisioner "file" {
-    content = templatefile(local.src_inventory_tftpl_path,
-      {
-        "ansible_host_or_ip" : var.ansible_host_or_ip,
-        "monitoring_host_ip" : var.monitoring_host_ip
-    })
-    destination = local.dst_inventory_file_path
   }
 
   # Copy and create ansible playbook template file on ansible host
   provisioner "file" {
     content     = templatefile(local.src_playbook_tftpl_path, var.playbook_template_vars)
     destination = local.dst_playbook_file_path
+  }
+
+  # Copy and create ansible inventory template file on ansible host
+  provisioner "file" {
+    content     = templatefile(local.src_inventory_tftpl_path, var.inventory_template_vars)
+    destination = local.dst_inventory_file_path
   }
 
   # Copy and create ansible shell template file which will trigger the playbook on ansible host
@@ -136,7 +122,7 @@ resource "terraform_data" "execute_network_playbooks" {
   provisioner "remote-exec" {
     inline = [
       "chmod +x ${local.dst_script_file_path}",
-      local.dst_script_file_path
+      local.dst_script_file_path,
     ]
   }
 
@@ -148,14 +134,9 @@ resource "terraform_data" "execute_network_playbooks" {
   }
 }
 
-##############################################################
-# 3. Execute ansible monitoring playbooks
-##############################################################
-
-resource "terraform_data" "execute_playbooks_3" {
-  #triggers_replace = terraform_data.trigger_ansible_vars
-
-  #depends_on = [terraform_data.setup_ansible_host]
+resource "terraform_data" "execute_playbooks_with_vault" {
+  depends_on = [terraform_data.setup_ansible_host]
+  count      = var.ansible_vault_password != null ? 1 : 0
 
   connection {
     type         = "ssh"
@@ -167,9 +148,43 @@ resource "terraform_data" "execute_playbooks_3" {
     timeout      = "5m"
   }
 
+  triggers_replace = terraform_data.trigger_ansible_vars
+
   # Create terraform scripts directory
   provisioner "remote-exec" {
     inline = ["mkdir -p ${local.dst_files_dir}", "chmod 777 ${local.dst_files_dir}", ]
+  }
+
+  # Copy and create ansible playbook template file on ansible host
+  provisioner "file" {
+    content     = templatefile(local.src_playbook_tftpl_path, var.playbook_template_vars)
+    destination = local.dst_playbook_file_path
+  }
+
+  #########  Encrypting the ansible playbook file with sensitive information using ansible vault  #########
+  provisioner "remote-exec" {
+    inline = [
+      "echo ${var.ansible_vault_password} > password_file",
+      "ansible-vault encrypt ${local.dst_playbook_file_path} --vault-password-file password_file"
+    ]
+  }
+
+  # Copy and create ansible inventory template file on ansible host
+  provisioner "file" {
+    content     = templatefile(local.src_inventory_tftpl_path, var.inventory_template_vars)
+    destination = local.dst_inventory_file_path
+  }
+
+  # Copy and create ansible shell template file which will trigger the playbook on ansible host
+  provisioner "file" {
+    content = templatefile(local.src_script_tftpl_path,
+      {
+        "ansible_playbook_file" : local.dst_playbook_file_path,
+        "ansible_log_path" : local.dst_files_dir,
+        "ansible_inventory" : local.dst_inventory_file_path,
+        "ansible_private_key_file" : local.private_key_file
+    })
+    destination = local.dst_script_file_path
   }
 
   # Write ssh user's ssh private key
@@ -182,38 +197,11 @@ resource "terraform_data" "execute_playbooks_3" {
     ]
   }
 
-  # Copy and create ansible monitoring playbook template file on ansible host
-  provisioner "file" {
-    source      = local.src_playbook_monitoring_tftpl_path
-    destination = local.dst_playbook_monitoring_file_path
-  }
-
-  # Copy and create ansible inventory template file on ansible host
-  provisioner "file" {
-    content = templatefile(local.src_inventory_monitoring_tftpl_path,
-      {
-        "monitoring_host_ip" : var.monitoring_host_ip
-    })
-    destination = local.dst_inventory_monitoring_file_path
-  }
-
-  # Copy and create ansible shell template file which will trigger the playbook on ansible host
-  provisioner "file" {
-    content = templatefile(local.src_script_monitoring_tftpl_path,
-      {
-        "ansible_playbook_file" : local.dst_playbook_monitoring_file_path,
-        "ansible_log_path" : local.dst_files_dir,
-        "ansible_inventory" : local.dst_inventory_monitoring_file_path,
-        "ansible_private_key_file" : local.private_key_file
-    })
-    destination = local.dst_script_monitoring_file_path
-  }
-
   # Execute bash shell script to run ansible playbooks
   provisioner "remote-exec" {
     inline = [
-      "chmod +x ${local.dst_script_monitoring_file_path}",
-      local.dst_script_monitoring_file_path
+      "chmod +x ${local.dst_script_file_path}",
+      local.dst_script_file_path,
     ]
   }
 
@@ -225,5 +213,4 @@ resource "terraform_data" "execute_playbooks_3" {
       "rm -rf ${local.private_key_file}"
     ]
   }
-
 }

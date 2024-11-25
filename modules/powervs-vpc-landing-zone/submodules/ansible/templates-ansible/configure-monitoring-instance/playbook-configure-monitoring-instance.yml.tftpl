@@ -1,5 +1,14 @@
 ---
 
+- name: Ansible play to configure Network services DNS, NTP and NFS
+  hosts: all
+  vars:
+    client_config: ${client_config}
+
+  roles:
+  - { role: ibm.power_linux_sap.powervs_client_enable_services, when: client_config is defined }
+
+
 - name: Update OS and reboot
   hosts: all
 
@@ -9,24 +18,13 @@
         name: '*'
         state: latest
       register: update_result
-      # when: ansible_distribution == 'SLES'
-      # ansible_distribution: SLES_SAP   !!
       when: "'SLES' in ansible_distribution"
-
-    - name: Update OS packages (RHEL)
-      yum:
-        name: '*'
-        state: latest
-      register: update_result
-      when: ansible_distribution == 'RedHat' or ansible_distribution == 'CentOS'
 
     - name: Reboot if updates were installed
       command: shutdown -r now
       async: 1
       poll: 0
       ignore_errors: true
-      # when: update_result.change
-      # when does not work!
 
     - name: Wait for the system to come back online
       wait_for_connection:
