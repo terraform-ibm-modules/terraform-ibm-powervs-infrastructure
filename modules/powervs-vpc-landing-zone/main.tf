@@ -183,8 +183,8 @@ module "configure_monitoring_host" {
     "client_config" : jsonencode(
       {
         "nfs" : local.network_services_config.nfs
-        dns = { enable = true, dns_server_ip = local.network_services_vsi_ip }
-        ntp = { enable = true, ntp_server_ip = local.network_services_vsi_ip }
+        "dns" : { enable = true, dns_server_ip = local.network_services_vsi_ip }
+        "ntp" : { enable = true, ntp_server_ip = local.network_services_vsi_ip }
     })
   }
 
