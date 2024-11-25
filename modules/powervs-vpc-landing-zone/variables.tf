@@ -257,7 +257,7 @@ variable "certificate_template_name" {
 #################################################
 
 variable "enable_monitoring" {
-  description = "Specify whether SAP Monitoring will be enabled. This includes the creation of an IBM Cloud Monitoring Instance and an Intel Monitoring Instance to host the services. If you prefer not to have monitoring, please set the option to 'false'."
+  description = "Specify whether SAP Monitoring will be enabled. This includes the creation of an IBM Cloud Monitoring Instance and an Intel Monitoring Instance to host the services. If you prefer not to have monitoring, set the option to 'false'."
   type        = bool
   default     = true
 }
