@@ -577,7 +577,7 @@
         %{ if "${enable_monitoring}" == true }
             {
                 "name": "monitoring-workload",
-                "image_name":     "ibm-sles-15-5-amd64-sap-applications-3",
+                "image_name":     "${monitoring_vsi_image}",
                 "machine_type":   "bx2-2x8",
                 "vpc_name": "edge",
                 "resource_group": "slz-edge-rg",

@@ -32,8 +32,9 @@ locals {
       external_access_ip           = local.external_access_ip,
       vsi_image                    = "ibm-redhat-8-8-amd64-sap-applications-1",
       network_services_vsi_profile = var.network_services_vsi_profile,
-      transit_gateway_global       = var.transit_gateway_global
-      enable_monitoring            = var.enable_monitoring
+      transit_gateway_global       = var.transit_gateway_global,
+      enable_monitoring            = var.enable_monitoring,
+      monitoring_vsi_image         = "ibm-sles-15-5-amd64-sap-applications-3"
     }
   )
 }
