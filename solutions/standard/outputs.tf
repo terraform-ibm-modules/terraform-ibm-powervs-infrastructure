@@ -83,6 +83,15 @@ output "network_services_config" {
 }
 
 ########################################################################
+# Monitoring Instance outputs
+########################################################################
+
+output "monitoring_instance" {
+  description = "Details of the IBM Cloud Monitoring Instance: CRN, location, guid"
+  value       = module.standard.monitoring_instance
+}
+
+########################################################################
 # PowerVS Infrastructure outputs
 ########################################################################
 
@@ -148,8 +157,8 @@ output "schematics_workspace_id" {
 #output "monitoring_instance_vars" {
 #  description = "Details of the IBM Cloud Monitoring Instance: CRN, location, guid"
 #  value = {
-#    crn      = var.enable_monitoring && var.existing_monitoring_instance_crn != null ? resource.ibm_resource_instance.create_instance_monitoring[0].target_crn : ""
-#    location = var.enable_monitoring && var.existing_monitoring_instance_crn != null ? resource.ibm_resource_instance.create_instance_monitoring[0].location : ""
-#    guid     = var.enable_monitoring && var.existing_monitoring_instance_crn != null ? resource.ibm_resource_instance.create_instance_monitoring[0].guid : ""
+#    crn      = var.enable_monitoring && var.existing_monitoring_instance_crn != null ? resource.ibm_resource_instance.monitoring_instance[0].target_crn : ""
+#    location = var.enable_monitoring && var.existing_monitoring_instance_crn != null ? resource.ibm_resource_instance.monitoring_instance[0].location : ""
+#    guid     = var.enable_monitoring && var.existing_monitoring_instance_crn != null ? resource.ibm_resource_instance.monitoring_instance[0].guid : ""
 #  }
 #}

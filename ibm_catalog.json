@@ -217,19 +217,23 @@
               "required": true
             },
             {
+              "key": "enable_monitoring",
+              "required": true
+            },
+            {
               "key": "powervs_custom_images",
               "custom_config": {
-                  "grouping": "deployment",
-                  "original_grouping": "deployment",
-                  "type": "json_editor"
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "type": "json_editor"
               }
             },
             {
               "key": "powervs_custom_image_cos_configuration",
               "custom_config": {
-                  "grouping": "deployment",
-                  "original_grouping": "deployment",
-                  "type": "json_editor"
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "type": "json_editor"
               }
             },
             {
@@ -237,9 +241,9 @@
               "type": "multiline_secure_value",
               "display_name": "Multiline secure value",
               "custom_config": {
-                  "grouping": "deployment",
-                  "original_grouping": "deployment",
-                  "type": "multiline_secure_value"
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "type": "multiline_secure_value"
               }
             },
             {
@@ -271,6 +275,9 @@
             },
             {
               "key": "tags"
+            },
+            {
+              "key": "existing_monitoring_instance_crn"
             },
             {
               "key": "sm_service_plan"
@@ -405,6 +412,9 @@
             },
             {
               "key": "powervs_images"
+            },
+            {
+              "key": "monitoring_instance"
             },
             {
               "key": "schematics_workspace_id"
@@ -751,6 +761,10 @@
               }
             },
             {
+              "key": "enable_monitoring",
+              "required": true
+            },
+            {
               "key": "custom_profile_instance_boot_image",
               "type": "string",
               "default_value": "none",
@@ -861,6 +875,9 @@
             },
             {
               "key": "tags"
+            },
+            {
+              "key": "existing_monitoring_instance_crn"
             },
             {
               "key": "external_access_ip",
@@ -1011,6 +1028,9 @@
             },
             {
               "key": "powervs_storage_configuration"
+            },
+            {
+              "key": "monitoring_instance"
             },
             {
               "key": "schematics_workspace_id"
@@ -1604,17 +1624,17 @@
             {
               "key": "powervs_custom_images",
               "custom_config": {
-                  "grouping": "deployment",
-                  "original_grouping": "deployment",
-                  "type": "json_editor"
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "type": "json_editor"
               }
             },
             {
               "key": "powervs_custom_image_cos_configuration",
               "custom_config": {
-                  "grouping": "deployment",
-                  "original_grouping": "deployment",
-                  "type": "json_editor"
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "type": "json_editor"
               }
             },
             {
@@ -1622,9 +1642,9 @@
               "type": "multiline_secure_value",
               "display_name": "Multiline secure value",
               "custom_config": {
-                  "grouping": "deployment",
-                  "original_grouping": "deployment",
-                  "type": "multiline_secure_value"
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "type": "multiline_secure_value"
               }
             },
             {

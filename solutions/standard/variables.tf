@@ -50,6 +50,11 @@ variable "ibmcloud_api_key" {
   sensitive   = true
 }
 
+variable "enable_monitoring" {
+  description = "Specify whether Monitoring will be enabled. This includes the creation of an IBM Cloud Monitoring Instance and an Intel Monitoring Instance to host the services. If you already have an existing monitoring instance then specify in optional parameter 'existing_monitoring_instance_crn' and setting this parameter to true."
+  type        = bool
+}
+
 #####################################################
 # Optional Parameters IBM Cloud Services
 #####################################################
@@ -254,6 +259,16 @@ variable "certificate_template_name" {
   default     = "my-template"
 }
 
+#################################################
+# Optional Parameters Monitoring Instance
+#################################################
+
+variable "existing_monitoring_instance_crn" {
+  description = "Existing CRN of IBM Cloud Monitoring Instance. If value is null, then an IBM Cloud Monitoring Instance will not be created but an intel VSI instance will be created if 'enable_monitoring' is true. "
+  type        = string
+  default     = null
+}
+
 #############################################################################
 # Schematics Output
 #############################################################################
@@ -264,29 +279,3 @@ variable "IC_SCHEMATICS_WORKSPACE_ID" {
   type        = string
   default     = ""
 }
-
-#################################################
-# Monitoring: Optional Parameters
-#################################################
-
-variable "enable_monitoring" {
-  description = "Specify whether SAP Monitoring will be enabled. This includes the creation of an IBM Cloud Monitoring Instance and an Intel Monitoring Instance to host the services. If you prefer not to have monitoring, set the option to 'false'."
-  type        = bool
-  default     = true
-}
-
-/*
-variable "monitoring_instance_vars" {
-  description = "Attributes of IBM Cloud Monitoring Instance. If value is not not null, then an IBM Cloud Monitoring Instance: target_crn, location = region, guid."
-  type = object({
-    crn      = string
-    location = string
-    guid     = string
-  })
-  default = {
-    "crn" : "",
-    "location" : "",
-    "guid" : ""
-  }
-}
-*/
