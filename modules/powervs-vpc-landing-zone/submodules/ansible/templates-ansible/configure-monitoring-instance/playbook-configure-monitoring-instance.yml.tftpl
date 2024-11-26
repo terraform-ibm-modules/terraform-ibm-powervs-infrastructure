@@ -6,7 +6,7 @@
     client_config: ${client_config}
 
   roles:
-  - { role: ibm.power_linux_sap.powervs_client_enable_services, when: client_config is defined }
+  - { role: ibm.power_linux_sap.configure_network_management_services, when: client_config is defined }
 
 
 - name: Update OS and reboot
@@ -14,14 +14,14 @@
 
   tasks:
     - name: Update OS packages (SLES)
-      zypper:
+      community.general.zypper:
         name: '*'
         state: latest
       register: update_result
       when: "'SLES' in ansible_distribution"
 
     - name: Reboot if updates were installed
-      command: shutdown -r now
+      ansible.builtin.command: shutdown -r now
       async: 1
       poll: 0
       ignore_errors: true
