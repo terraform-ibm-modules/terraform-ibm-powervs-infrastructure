@@ -547,7 +547,7 @@
     "vsi": [
         {
             "name": "jump-box",
-            "image_name": "${vsi_image}",
+            "image_name": "${rhel_image}",
             "machine_type": "cx2-2x4",
             "vpc_name": "edge",
             "resource_group": "slz-edge-rg",
@@ -562,7 +562,7 @@
         },
         {
             "name": "network-services",
-            "image_name": "${vsi_image}",
+            "image_name": "${rhel_image}",
             "machine_type": "${network_services_vsi_profile}",
             "vpc_name": "edge",
             "resource_group": "slz-edge-rg",
@@ -579,7 +579,7 @@
         ,
         {
             "name": "monitoring",
-            "image_name": "${monitoring_vsi_image}",
+            "image_name": "${sles_image}",
             "machine_type": "bx2-2x8",
             "vpc_name": "edge",
             "resource_group": "slz-edge-rg",

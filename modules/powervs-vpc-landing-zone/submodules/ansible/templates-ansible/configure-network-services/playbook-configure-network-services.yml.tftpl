@@ -14,5 +14,4 @@
     client_config: ${client_config}
 
   roles:
-  - { role: ibm.power_linux_sap.powervs_install_services, when: server_config!= "" }
-  - { role: ibm.power_linux_sap.powervs_client_enable_services, when: client_config!= "" }
+  - { role: ibm.power_linux_sap.configure_network_management_services, when: server_config!= "" or client_config!= ""}
