@@ -15,7 +15,7 @@ image_source: https://github.com/terraform-ibm-modules/terraform-ibm-powervs-inf
 use-case: ITServiceManagement
 industry: Technology
 content-type: reference-architecture
-version: v7.2.0
+version: v8.0.0
 compliance:
 
 ---
@@ -28,7 +28,7 @@ compliance:
 {: toc-industry="Technology"}
 {: toc-use-case="ITServiceManagement"}
 {: toc-compliance=""}
-{: toc-version="7.2.0"}
+{: toc-version="8.0.0"}
 
 Quickstart deployment of the Power Virtual Server with VPC landing zone creates VPC services, a Power Virtual Server workspace, and interconnects them. It also deploys a Power Virtual Server of chosen T-shirt size or custom configuration. Supported Os are Aix, IBM i, and Linux images.
 
