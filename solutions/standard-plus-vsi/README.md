@@ -4,6 +4,7 @@ This example sets up the following infrastructure:
 - A **VPC Infrastructure** with the following components:
     - One VSI for one management (jump/bastion) VSI,
     - One VSI for network-services configured as squid proxy, NTP and DNS servers(using Ansible Galaxy collection roles [ibm.power_linux_sap collection](https://galaxy.ansible.com/ui/repo/published/ibm/power_linux_sap/). This VSI also acts as central ansible execution node.
+    - Optional VSI for Monitoring host
     - Optional [Client to site VPN server](https://cloud.ibm.com/docs/vpc?topic=vpc-vpn-client-to-site-overview)
     - Optional [File storage share](https://cloud.ibm.com/docs/vpc?topic=vpc-file-storage-create&interface=ui)
     - Optional [Application load balancer](https://cloud.ibm.com/docs/vpc?topic=vpc-load-balancers&interface=ui)
@@ -15,6 +16,7 @@ This example sets up the following infrastructure:
     - Optional Secrets Manager Instance Instance with private certificate.
 
 - A local or global **transit gateway**
+- An optional IBM Cloud Monitoring Instance
 
 - A **Power Virtual Server** workspace with the following network topology:
     - Creates two private networks: a management network and a backup network.
@@ -72,7 +74,8 @@ No resources.
 | <a name="input_custom_profile"></a> [custom\_profile](#input\_custom\_profile) | Overrides t-shirt profile: Custom PowerVS instance. Specify 'sap\_profile\_id' [here](https://cloud.ibm.com/docs/sap?topic=sap-hana-iaas-offerings-profiles-power-vs) or combination of 'cores' & 'memory'. Optionally volumes can be created. | <pre>object({<br/>    sap_profile_id = string<br/>    cores          = string<br/>    memory         = string<br/>    server_type    = string<br/>    proc_type      = string<br/>    storage = object({<br/>      size = string<br/>      tier = string<br/>    })<br/>  })</pre> | <pre>{<br/>  "cores": "",<br/>  "memory": "",<br/>  "proc_type": "",<br/>  "sap_profile_id": null,<br/>  "server_type": "",<br/>  "storage": {<br/>    "size": "",<br/>    "tier": ""<br/>  }<br/>}</pre> | no |
 | <a name="input_custom_profile_instance_boot_image"></a> [custom\_profile\_instance\_boot\_image](#input\_custom\_profile\_instance\_boot\_image) | Override the t-shirt size specs of PowerVS Workspace instance by selecting an image name and providing valid 'custom\_profile' optional parameter. | `string` | `"none"` | no |
 | <a name="input_dns_forwarder_config"></a> [dns\_forwarder\_config](#input\_dns\_forwarder\_config) | Configuration for the DNS forwarder to a DNS service that is not reachable directly from PowerVS. | <pre>object({<br/>    dns_servers = string<br/>  })</pre> | <pre>{<br/>  "dns_servers": "161.26.0.7; 161.26.0.8; 9.9.9.9;"<br/>}</pre> | no |
-| <a name="input_enable_monitoring"></a> [enable\_monitoring](#input\_enable\_monitoring) | Specify whether SAP Monitoring will be enabled. This includes the creation of an IBM Cloud Monitoring Instance and an Intel Monitoring Instance to host the services. If you prefer not to have monitoring, set the option to 'false'. | `bool` | `true` | no |
+| <a name="input_enable_monitoring"></a> [enable\_monitoring](#input\_enable\_monitoring) | Specify whether Monitoring will be enabled. This includes the creation of an IBM Cloud Monitoring Instance and an Intel Monitoring Instance to host the services. If you already have an existing monitoring instance then specify in optional parameter 'existing\_monitoring\_instance\_crn' and setting this parameter to true. | `bool` | n/a | yes |
+| <a name="input_existing_monitoring_instance_crn"></a> [existing\_monitoring\_instance\_crn](#input\_existing\_monitoring\_instance\_crn) | Existing CRN of IBM Cloud Monitoring Instance. If value is null, then an IBM Cloud Monitoring Instance will not be created but an intel VSI instance will be created if 'enable\_monitoring' is true. | `string` | `null` | no |
 | <a name="input_existing_sm_instance_guid"></a> [existing\_sm\_instance\_guid](#input\_existing\_sm\_instance\_guid) | An existing Secrets Manager GUID. The existing Secret Manager instance must have private certificate engine configured. If not provided an new instance will be provisioned. | `string` | `null` | no |
 | <a name="input_existing_sm_instance_region"></a> [existing\_sm\_instance\_region](#input\_existing\_sm\_instance\_region) | Required if value is passed into `var.existing_sm_instance_guid`. | `string` | `null` | no |
 | <a name="input_external_access_ip"></a> [external\_access\_ip](#input\_external\_access\_ip) | Specify the source IP address or CIDR for login through SSH to the environment after deployment. Access to the environment will be allowed only from this IP address. Can be set to 'null' if you choose to use client to site vpn. | `string` | n/a | yes |
@@ -97,6 +100,7 @@ No resources.
 | <a name="output_access_host_or_ip"></a> [access\_host\_or\_ip](#output\_access\_host\_or\_ip) | Access host(jump/bastion) for created PowerVS infrastructure. |
 | <a name="output_ansible_host_or_ip"></a> [ansible\_host\_or\_ip](#output\_ansible\_host\_or\_ip) | Central Ansible node private IP address. |
 | <a name="output_dns_host_or_ip"></a> [dns\_host\_or\_ip](#output\_dns\_host\_or\_ip) | DNS forwarder host for created PowerVS infrastructure. |
+| <a name="output_monitoring_instance"></a> [monitoring\_instance](#output\_monitoring\_instance) | Details of the IBM Cloud Monitoring Instance: CRN, location, guid |
 | <a name="output_network_services_config"></a> [network\_services\_config](#output\_network\_services\_config) | Complete configuration of network management services. |
 | <a name="output_nfs_host_or_ip_path"></a> [nfs\_host\_or\_ip\_path](#output\_nfs\_host\_or\_ip\_path) | NFS host for created PowerVS infrastructure. |
 | <a name="output_ntp_host_or_ip"></a> [ntp\_host\_or\_ip](#output\_ntp\_host\_or\_ip) | NTP host for created PowerVS infrastructure. |

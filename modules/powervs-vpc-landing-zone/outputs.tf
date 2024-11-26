@@ -140,11 +140,11 @@ output "powervs_images" {
 # Monitoring output
 ########################################################################
 
-output "monitoring_instance_vars" {
+output "monitoring_instance" {
   description = "Details of the IBM Cloud Monitoring Instance: CRN, location, guid"
   value = {
-    crn      = var.enable_monitoring && var.existing_monitoring_instance_crn != null ? resource.ibm_resource_instance.create_instance_monitoring[0].target_crn : var.existing_monitoring_instance_crn != null ? var.existing_monitoring_instance_crn : ""
-    location = var.enable_monitoring && var.existing_monitoring_instance_crn != null ? resource.ibm_resource_instance.create_instance_monitoring[0].location : var.existing_monitoring_instance_crn != null ? var.existing_monitoring_instance_crn : ""
-    guid     = var.enable_monitoring && var.existing_monitoring_instance_crn != null ? resource.ibm_resource_instance.create_instance_monitoring[0].guid : var.existing_monitoring_instance_crn != null ? var.existing_monitoring_instance_crn : ""
+    crn      = var.enable_monitoring && var.existing_monitoring_instance_crn != null ? resource.ibm_resource_instance.monitoring_instance[0].target_crn : var.existing_monitoring_instance_crn != null ? var.existing_monitoring_instance_crn : ""
+    location = var.enable_monitoring && var.existing_monitoring_instance_crn != null ? resource.ibm_resource_instance.monitoring_instance[0].location : var.existing_monitoring_instance_crn != null ? var.existing_monitoring_instance_crn : ""
+    guid     = var.enable_monitoring && var.existing_monitoring_instance_crn != null ? resource.ibm_resource_instance.monitoring_instance[0].guid : var.existing_monitoring_instance_crn != null ? var.existing_monitoring_instance_crn : ""
   }
 }

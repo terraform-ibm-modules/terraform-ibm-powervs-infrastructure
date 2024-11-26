@@ -14,7 +14,7 @@ module "landing_zone" {
 }
 
 #####################################################
-# Create IBM Cloud Monitoring Instance
+# IBM Cloud Monitoring Instance
 #####################################################
 
 locals {
@@ -22,7 +22,7 @@ locals {
   resource_group_id = module.landing_zone.resource_group_data["${var.prefix}-slz-service-rg"]
 }
 
-resource "ibm_resource_instance" "create_instance_monitoring" {
+resource "ibm_resource_instance" "monitoring_instance" {
   count             = var.enable_monitoring && var.existing_monitoring_instance_crn == null ? 1 : 0
   provider          = ibm.ibm-is
   name              = "${var.prefix}-monitoring-instance"
@@ -132,7 +132,6 @@ locals {
 
 }
 
-
 module "configure_network_services" {
 
   source     = "./submodules/ansible"
@@ -183,8 +182,8 @@ module "configure_monitoring_host" {
     "client_config" : jsonencode(
       {
         "nfs" : local.network_services_config.nfs
-        "dns" : { enable = true, dns_server_ip = local.network_services_vsi_ip }
-        "ntp" : { enable = true, ntp_server_ip = local.network_services_vsi_ip }
+        "dns" : { enable = var.configure_dns_forwarder, dns_server_ip = local.network_services_vsi_ip }
+        "ntp" : { enable = var.configure_ntp_forwarder, ntp_server_ip = local.network_services_vsi_ip }
     })
   }
 

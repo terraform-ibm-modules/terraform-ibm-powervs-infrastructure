@@ -252,38 +252,18 @@ variable "certificate_template_name" {
   default     = "my-template"
 }
 
-#################################################
-#  Monitoring: Optional Parameters
-#################################################
+#####################################################
+# Optional Parameters Monitoring
+#####################################################
 
 variable "enable_monitoring" {
-  description = "Specify whether SAP Monitoring will be enabled. This includes the creation of an IBM Cloud Monitoring Instance and an Intel Monitoring Instance to host the services. If you prefer not to have monitoring, set the option to 'false'."
+  description = "Specify whether Monitoring will be enabled. This includes the creation of an IBM Cloud Monitoring Instance and an Intel Monitoring Instance to host the services. If you already have an existing monitoring instance then specify in optional parameter 'existing_monitoring_instance_crn'."
   type        = bool
   default     = true
 }
 
-#################################################
-#  Monitoring: extracted values
-#################################################
-
 variable "existing_monitoring_instance_crn" {
-  description = "Existing CRN of IBM Cloud Monitoring Instance. If value is not not null, then an IBM Cloud Monitoring Instance will not be created but an intel VSI instance will be created if 'enable_monitoring' is true. "
+  description = "Existing CRN of IBM Cloud Monitoring Instance. If value is null, then an IBM Cloud Monitoring Instance will not be created but an intel VSI instance will be created if 'enable_monitoring' is true. "
   type        = string
   default     = null
 }
-
-/*
-variable "monitoring_instance_vars" {
-  description = "Attributes of IBM Cloud Monitoring Instance. If value is not not null, then an IBM Cloud Monitoring Instance: target_crn, location = region, guid."
-  type = object({
-    crn      = string
-    location = string
-    guid     = string
-  })
-  default = {
-    "crn" : "",
-    "location" : "",
-    "guid" : ""
-  }
-}
-*/
