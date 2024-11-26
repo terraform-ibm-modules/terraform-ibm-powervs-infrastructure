@@ -573,8 +573,9 @@
                     }
                 ]
             }
-        },
+        }
         %{ if "${enable_monitoring}" == true }
+        ,
             {
                 "name": "monitoring-workload",
                 "image_name": "${monitoring_vsi_image}",

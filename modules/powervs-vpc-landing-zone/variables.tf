@@ -271,3 +271,19 @@ variable "existing_monitoring_instance_crn" {
   type        = string
   default     = null
 }
+
+/*
+variable "monitoring_instance_vars" {
+  description = "Attributes of IBM Cloud Monitoring Instance. If value is not not null, then an IBM Cloud Monitoring Instance: target_crn, location = region, guid."
+  type = object({
+    crn      = string
+    location = string
+    guid     = string
+  })
+  default = {
+    "crn" : "",
+    "location" : "",
+    "guid" : ""
+  }
+}
+*/

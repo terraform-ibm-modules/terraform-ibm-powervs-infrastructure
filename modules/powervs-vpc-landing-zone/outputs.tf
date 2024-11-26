@@ -138,7 +138,7 @@ output "powervs_images" {
 
 ########################################################################
 # Monitoring output
-##################################################################
+########################################################################
 
 output "monitoring_instance_vars" {
   description = "Details of the IBM Cloud Monitoring Instance: CRN, location, guid"
