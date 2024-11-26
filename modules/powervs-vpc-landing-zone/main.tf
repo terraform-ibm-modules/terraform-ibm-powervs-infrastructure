@@ -17,19 +17,14 @@ module "landing_zone" {
 # IBM Cloud Monitoring Instance
 #####################################################
 
-locals {
-  region            = lookup(local.ibm_powervs_zone_cloud_region_map, var.powervs_zone, null)
-  resource_group_id = module.landing_zone.resource_group_data["${var.prefix}-slz-service-rg"]
-}
-
 resource "ibm_resource_instance" "monitoring_instance" {
   count             = var.enable_monitoring && var.existing_monitoring_instance_crn == null ? 1 : 0
   provider          = ibm.ibm-is
   name              = "${var.prefix}-monitoring-instance"
-  location          = local.region
+  location          = lookup(local.ibm_powervs_zone_cloud_region_map, var.powervs_zone, null)
   service           = "sysdig-monitor"
   plan              = "graduated-tier"
-  resource_group_id = local.resource_group_id
+  resource_group_id = module.landing_zone.resource_group_data["${var.prefix}-slz-service-rg"]
   tags              = var.tags
 }
 
