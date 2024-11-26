@@ -257,7 +257,7 @@ variable "certificate_template_name" {
 #################################################
 
 variable "enable_monitoring" {
-  description = "Specify if SAP Monitoring will be enabled. including IBM Cloud Monitoring Instance and Intel workload VSI . Set to 'false' if you do not want any monitoring.The monitoring instance will be created in the same region."
+  description = "Specify whether SAP Monitoring will be enabled. This includes the creation of an IBM Cloud Monitoring Instance and an Intel Monitoring Instance to host the services. If you prefer not to have monitoring, set the option to 'false'."
   type        = bool
   default     = true
 }
@@ -267,7 +267,7 @@ variable "enable_monitoring" {
 #################################################
 
 variable "existing_monitoring_instance_crn" {
-  description = "Existing CRN of IBM Cloud Monitoring Instance."
+  description = "Existing CRN of IBM Cloud Monitoring Instance. If value is not not null, then an IBM Cloud Monitoring Instance will not be created but an intel VSI instance will be created if 'enable_monitoring' is true. "
   type        = string
   default     = null
 }

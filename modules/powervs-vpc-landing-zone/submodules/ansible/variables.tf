@@ -8,14 +8,8 @@ variable "ansible_host_or_ip" {
   type        = string
 }
 
-variable "monitoring_host_ip" {
-  description = "Private IP of virtual server instance running SLES OS for monitoring services ."
-  type        = string
-}
-
-
 variable "ssh_private_key" {
-  description = "Private SSH key used to login to jump/bastion server, also the ansible host and all the hosts on which tasks will be executed. Entered data must be in heredoc strings format (https://www.terraform.io/language/expressions/strings#heredoc-strings)."
+  description = "Private SSH key used to login to jump/bastion server, also the ansible host and all the hosts on which tasks will be executed. This key will be written temporarily on ansible host and deleted after execution."
   type        = string
   sensitive   = true
 }
@@ -45,23 +39,24 @@ variable "playbook_template_vars" {
   type        = map(any)
 }
 
-
-variable "src_script_template_monitoring_name" {
-  description = "Name for the bash monitoring file to be generated on the Ansible host."
+variable "src_inventory_template_name" {
+  description = "Name of the inventory template file located within the 'templates-ansible' directory."
   type        = string
 }
 
-variable "dst_script_file_monitoring_name" {
-  description = "Name for the bash monitoring file to be generated on the Ansible host."
+variable "dst_inventory_file_name" {
+  description = "Name for the inventory file to be generated on the Ansible host."
   type        = string
 }
 
-variable "src_playbook_template_monitoring_name" {
-  description = "Name of the playbook template monitoring file located within the 'templates-ansible' directory."
-  type        = string
+variable "inventory_template_vars" {
+  description = "Map values for the inventory template."
+  type        = map(any)
 }
 
-variable "dst_playbook_file_monitoring_name" {
-  description = "Name for the playbook monitoring file to be generated on the Ansible host."
+variable "ansible_vault_password" {
+  description = "Vault password to encrypt ansible variable file for SAP installation."
   type        = string
+  sensitive   = true
+  default     = null
 }
