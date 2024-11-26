@@ -144,21 +144,3 @@ output "schematics_workspace_id" {
   description = "ID of the IBM Cloud Schematics workspace. Returns null if not ran in Schematics."
   value       = var.IC_SCHEMATICS_WORKSPACE_ID
 }
-
-########################################################################
-# Monitoring output
-########################################################################
-
-#output "monitoring_instance_vars" {
-#  description = "Details of the IBM Cloud Monitoring Instance: CRN, location, guid"
-#  value = var.monitoring_instance_vars
-#}
-
-#output "monitoring_instance_vars" {
-#  description = "Details of the IBM Cloud Monitoring Instance: CRN, location, guid"
-#  value = {
-#    crn      = var.enable_monitoring && var.existing_monitoring_instance_crn != null ? resource.ibm_resource_instance.monitoring_instance[0].target_crn : ""
-#    location = var.enable_monitoring && var.existing_monitoring_instance_crn != null ? resource.ibm_resource_instance.monitoring_instance[0].location : ""
-#    guid     = var.enable_monitoring && var.existing_monitoring_instance_crn != null ? resource.ibm_resource_instance.monitoring_instance[0].guid : ""
-#  }
-#}

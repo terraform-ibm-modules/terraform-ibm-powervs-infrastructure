@@ -1722,6 +1722,9 @@
               "key": "powervs_images"
             },
             {
+              "key": "monitoring_instance"
+            },
+            {
               "key": "schematics_workspace_id"
             }
           ],

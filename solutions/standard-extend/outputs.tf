@@ -73,6 +73,15 @@ output "network_services_config" {
 }
 
 ########################################################################
+# Monitoring Instance outputs
+########################################################################
+
+output "monitoring_instance" {
+  description = "Details of the IBM Cloud Monitoring Instance: CRN, location, guid"
+  value       = local.standard_output[0].monitoring_instance.value
+}
+
+########################################################################
 # PowerVS Infrastructure outputs
 ########################################################################
 
