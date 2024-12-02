@@ -490,28 +490,20 @@
                 "description": "No"
               },
               {
+                "title": "Number of Intel Virtual Server Instance",
+                "description": "2"
+              },
+              {
                 "title": "Number of VPCs",
                 "description": "1"
               },
               {
-                "title": "Number of Intel VSIs",
-                "description": "2"
-              },
-              {
-                "title": "Separate VPC for management",
-                "description": "Yes"
-              },
-              {
-                "title": "Separate VPC for Network Services",
-                "description": "Yes"
+                "title": "Number of Power Virtual Server Workspace",
+                "description": "1"
               },
               {
                 "title": "Increases security with Key Management",
                 "description": "Yes"
-              },
-              {
-                "title": "Power Virtual Server Workspace",
-                "description": "PowerVS Workspace with all required components"
               },
               {
                 "title": "Internet proxy on VPC",
@@ -520,6 +512,10 @@
               {
                 "title": "Additional management configurations on VPC",
                 "description": "NFS as service, NTP forwarder, and DNS forwarder reachable from PowerVS Workspace"
+              },
+              {
+                "title": "Monitoring Instance and Monitoring Intel VSI Host",
+                "description": "Optional"
               }
             ],
             "diagrams": [
@@ -579,6 +575,10 @@
                 {
                   "displayname": "London 06 (lon06)",
                   "value": "lon06"
+                },
+                {
+                  "displayname": "Madrid 02 (mad02)",
+                  "value": "mad02"
                 },
                 {
                   "displayname": "Osaka 21 (osa21)",
@@ -1106,28 +1106,20 @@
                 "description": "Yes, 1 instance"
               },
               {
+                "title": "Number of Intel Virtual Server Instance",
+                "description": "2"
+              },
+              {
                 "title": "Number of VPCs",
                 "description": "1"
               },
               {
-                "title": "Number of Intel VSIs",
-                "description": "2"
-              },
-              {
-                "title": "Separate VPC for management",
-                "description": "Yes"
-              },
-              {
-                "title": "Separate VPC for Network Services",
-                "description": "Yes"
+                "title": "Number of Power Virtual Server Workspace",
+                "description": "1"
               },
               {
                 "title": "Increases security with Key Management",
                 "description": "Yes"
-              },
-              {
-                "title": "Power Virtual Server Workspace",
-                "description": "PowerVS Workspace with all required components"
               },
               {
                 "title": "Internet proxy on VPC",
@@ -1135,7 +1127,11 @@
               },
               {
                 "title": "Additional management configurations on VPC",
-                "description": "NFS server, NTP forwarder, and DNS forwarder reachable from PowerVS Workspace"
+                "description": "NFS as service, NTP forwarder, and DNS forwarder reachable from PowerVS Workspace"
+              },
+              {
+                "title": "Monitoring Instance and Monitoring Intel VSI Host",
+                "description": "Optional"
               }
             ],
             "diagrams": [

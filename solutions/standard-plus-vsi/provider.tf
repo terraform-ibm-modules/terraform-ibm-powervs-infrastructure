@@ -8,7 +8,7 @@ locals {
     "mon01"   = "mon"
     "eu-de-1" = "eu-de"
     "eu-de-2" = "eu-de"
-    #"mad02"    = "mad" #not supported. Just P10 machines
+    "mad02"   = "mad" #not supported. Just P10 machines
     #"mad04"    = "mad" #not supported. Just P10 machines
     "lon04"    = "lon"
     "lon06"    = "lon"
@@ -31,7 +31,7 @@ locals {
     "mon01"   = "ca-tor"
     "eu-de-1" = "eu-de"
     "eu-de-2" = "eu-de"
-    #"mad02"    = "eu-es" #not supported. Just P10 machines
+    "mad02"   = "eu-es" #not supported. Just P10 machines
     #"mad04"    = "eu-es" #not supported. Just P10 machines
     "lon04"    = "eu-gb"
     "lon06"    = "eu-gb"
