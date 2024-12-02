@@ -557,8 +557,7 @@
             "vsi_per_subnet": 1,
             "subnet_names": ["vsi-management-zone-1"],
             "block_storage_volumes": [],
-            "security_groups": ["management-sg"],
-            "use_legacy_network_interface": true
+            "security_groups": ["management-sg"]
         },
         {
             "name": "network-services",
@@ -572,8 +571,7 @@
             "vsi_per_subnet": 1,
             "subnet_names": ["vsi-edge-zone-1"],
             "block_storage_volumes": [],
-            "security_groups": ["network-services-sg"],
-            "use_legacy_network_interface": true
+            "security_groups": ["network-services-sg"]
         }
         %{ if "${enable_monitoring}" == true }
         ,
@@ -589,8 +587,7 @@
             "vsi_per_subnet": 1,
             "subnet_names": ["vsi-edge-zone-1"],
             "block_storage_volumes": [],
-            "security_groups": ["network-services-sg"],
-            "use_legacy_network_interface": true
+            "security_groups": ["network-services-sg"]
         }
         %{ endif }
     ],
