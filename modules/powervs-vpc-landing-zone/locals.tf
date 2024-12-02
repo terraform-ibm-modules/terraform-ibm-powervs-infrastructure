@@ -30,9 +30,11 @@ locals {
   override_json_string = templatefile("${path.module}/presets/slz-preset.json.tftpl",
     {
       external_access_ip           = local.external_access_ip,
-      vsi_image                    = "ibm-redhat-8-8-amd64-sap-applications-1",
+      rhel_image                   = "ibm-redhat-9-4-amd64-sap-applications-3",
       network_services_vsi_profile = var.network_services_vsi_profile,
-      transit_gateway_global       = var.transit_gateway_global
+      transit_gateway_global       = var.transit_gateway_global,
+      enable_monitoring            = var.enable_monitoring,
+      sles_image                   = "ibm-sles-15-5-amd64-sap-applications-3"
     }
   )
 }
@@ -52,6 +54,9 @@ locals {
   # network_services_vsi_exists = local.key_vsi_list_exists ? contains(module.landing_zone.vsi_names, "${var.prefix}-network-services-001") ? true : false : false
   network_services_vsi_exists = local.key_vsi_list_exists ? length([for vsi_name in module.landing_zone.vsi_names : vsi_name if can(regex("${var.prefix}-network-services", vsi_name))]) > 0 ? true : false : false
   network_services_vsi_ip     = local.network_services_vsi_exists ? [for vsi in module.landing_zone.vsi_list : vsi.ipv4_address if can(regex("${var.prefix}-network-services", vsi.name))][0] : ""
+
+  monitoring_vsi_exists = local.key_vsi_list_exists ? length([for vsi_name in module.landing_zone.vsi_names : vsi_name if can(regex("${var.prefix}-monitoring", vsi_name))]) > 0 ? true : false : false
+  monitoring_vsi_ip     = local.monitoring_vsi_exists ? [for vsi in module.landing_zone.vsi_list : vsi.ipv4_address if can(regex("${var.prefix}-monitoring", vsi.name))][0] : ""
 
   ###### For preset floating ip and network services vsi should exist.
   valid_json_used   = local.key_floating_ip_exists && local.network_services_vsi_exists ? true : false

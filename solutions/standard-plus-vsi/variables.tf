@@ -58,6 +58,12 @@ variable "ibmcloud_api_key" {
   sensitive   = true
 }
 
+variable "enable_monitoring" {
+  description = "Specify whether Monitoring will be enabled. This includes the creation of an IBM Cloud Monitoring Instance and an Intel Monitoring Instance to host the services. If you already have an existing monitoring instance then specify in optional parameter 'existing_monitoring_instance_crn' and setting this parameter to true."
+  type        = bool
+}
+
+
 #####################################################
 # Optional Parameters
 #####################################################
@@ -225,6 +231,16 @@ variable "certificate_template_name" {
   type        = string
   description = "The name of the Certificate Template to create for a private_cert secret engine. When `var.existing_sm_instance_guid` is not null, then it has to be the existing template name that exists in the private cert engine."
   default     = "my-template"
+}
+
+#################################################
+# Optional Parameters Monitoring Instance
+#################################################
+
+variable "existing_monitoring_instance_crn" {
+  description = "Existing CRN of IBM Cloud Monitoring Instance. If value is null, then an IBM Cloud Monitoring Instance will not be created but an intel VSI instance will be created if 'enable_monitoring' is true. "
+  type        = string
+  default     = null
 }
 
 #############################################################################

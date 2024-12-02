@@ -217,19 +217,23 @@
               "required": true
             },
             {
+              "key": "enable_monitoring",
+              "required": true
+            },
+            {
               "key": "powervs_custom_images",
               "custom_config": {
-                  "grouping": "deployment",
-                  "original_grouping": "deployment",
-                  "type": "json_editor"
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "type": "json_editor"
               }
             },
             {
               "key": "powervs_custom_image_cos_configuration",
               "custom_config": {
-                  "grouping": "deployment",
-                  "original_grouping": "deployment",
-                  "type": "json_editor"
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "type": "json_editor"
               }
             },
             {
@@ -237,9 +241,9 @@
               "type": "multiline_secure_value",
               "display_name": "Multiline secure value",
               "custom_config": {
-                  "grouping": "deployment",
-                  "original_grouping": "deployment",
-                  "type": "multiline_secure_value"
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "type": "multiline_secure_value"
               }
             },
             {
@@ -271,6 +275,9 @@
             },
             {
               "key": "tags"
+            },
+            {
+              "key": "existing_monitoring_instance_crn"
             },
             {
               "key": "sm_service_plan"
@@ -407,6 +414,9 @@
               "key": "powervs_images"
             },
             {
+              "key": "monitoring_instance"
+            },
+            {
               "key": "schematics_workspace_id"
             }
           ],
@@ -480,28 +490,20 @@
                 "description": "No"
               },
               {
+                "title": "Number of Intel Virtual Server Instance",
+                "description": "2"
+              },
+              {
                 "title": "Number of VPCs",
                 "description": "1"
               },
               {
-                "title": "Number of Intel VSIs",
-                "description": "2"
-              },
-              {
-                "title": "Separate VPC for management",
-                "description": "Yes"
-              },
-              {
-                "title": "Separate VPC for Network Services",
-                "description": "Yes"
+                "title": "Number of Power Virtual Server Workspace",
+                "description": "1"
               },
               {
                 "title": "Increases security with Key Management",
                 "description": "Yes"
-              },
-              {
-                "title": "Power Virtual Server Workspace",
-                "description": "PowerVS Workspace with all required components"
               },
               {
                 "title": "Internet proxy on VPC",
@@ -510,6 +512,10 @@
               {
                 "title": "Additional management configurations on VPC",
                 "description": "NFS as service, NTP forwarder, and DNS forwarder reachable from PowerVS Workspace"
+              },
+              {
+                "title": "Monitoring Instance and Monitoring Intel VSI Host",
+                "description": "Optional"
               }
             ],
             "diagrams": [
@@ -569,6 +575,10 @@
                 {
                   "displayname": "London 06 (lon06)",
                   "value": "lon06"
+                },
+                {
+                  "displayname": "Madrid 02 (mad02)",
+                  "value": "mad02"
                 },
                 {
                   "displayname": "Osaka 21 (osa21)",
@@ -751,6 +761,10 @@
               }
             },
             {
+              "key": "enable_monitoring",
+              "required": true
+            },
+            {
               "key": "custom_profile_instance_boot_image",
               "type": "string",
               "default_value": "none",
@@ -861,6 +875,9 @@
             },
             {
               "key": "tags"
+            },
+            {
+              "key": "existing_monitoring_instance_crn"
             },
             {
               "key": "external_access_ip",
@@ -1013,6 +1030,9 @@
               "key": "powervs_storage_configuration"
             },
             {
+              "key": "monitoring_instance"
+            },
+            {
               "key": "schematics_workspace_id"
             }
           ],
@@ -1086,28 +1106,20 @@
                 "description": "Yes, 1 instance"
               },
               {
+                "title": "Number of Intel Virtual Server Instance",
+                "description": "2"
+              },
+              {
                 "title": "Number of VPCs",
                 "description": "1"
               },
               {
-                "title": "Number of Intel VSIs",
-                "description": "2"
-              },
-              {
-                "title": "Separate VPC for management",
-                "description": "Yes"
-              },
-              {
-                "title": "Separate VPC for Network Services",
-                "description": "Yes"
+                "title": "Number of Power Virtual Server Workspace",
+                "description": "1"
               },
               {
                 "title": "Increases security with Key Management",
                 "description": "Yes"
-              },
-              {
-                "title": "Power Virtual Server Workspace",
-                "description": "PowerVS Workspace with all required components"
               },
               {
                 "title": "Internet proxy on VPC",
@@ -1115,7 +1127,11 @@
               },
               {
                 "title": "Additional management configurations on VPC",
-                "description": "NFS server, NTP forwarder, and DNS forwarder reachable from PowerVS Workspace"
+                "description": "NFS as service, NTP forwarder, and DNS forwarder reachable from PowerVS Workspace"
+              },
+              {
+                "title": "Monitoring Instance and Monitoring Intel VSI Host",
+                "description": "Optional"
               }
             ],
             "diagrams": [
@@ -1604,17 +1620,17 @@
             {
               "key": "powervs_custom_images",
               "custom_config": {
-                  "grouping": "deployment",
-                  "original_grouping": "deployment",
-                  "type": "json_editor"
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "type": "json_editor"
               }
             },
             {
               "key": "powervs_custom_image_cos_configuration",
               "custom_config": {
-                  "grouping": "deployment",
-                  "original_grouping": "deployment",
-                  "type": "json_editor"
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "type": "json_editor"
               }
             },
             {
@@ -1622,9 +1638,9 @@
               "type": "multiline_secure_value",
               "display_name": "Multiline secure value",
               "custom_config": {
-                  "grouping": "deployment",
-                  "original_grouping": "deployment",
-                  "type": "multiline_secure_value"
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "type": "multiline_secure_value"
               }
             },
             {
@@ -1700,6 +1716,9 @@
             },
             {
               "key": "powervs_images"
+            },
+            {
+              "key": "monitoring_instance"
             },
             {
               "key": "schematics_workspace_id"

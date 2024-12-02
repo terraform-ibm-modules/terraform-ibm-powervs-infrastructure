@@ -118,10 +118,318 @@
     "enable_transit_gateway": true,
     "transit_gateway_resource_group": "slz-service-rg",
     "transit_gateway_global": ${transit_gateway_global},
-    "transit_gateway_connections": [
-        "edge"
-    ],
+    "transit_gateway_connections": ["edge"],
     "security_groups": [
+        {
+            "name": "management-sg",
+            "vpc_name": "edge",
+            "rules": [
+                {
+                    "name": "allow-ibm-inbound",
+                    "direction": "inbound",
+                    "source": "161.26.0.0/16"
+                },
+                {
+                    "name": "allow-private1-inbound",
+                    "direction": "inbound",
+                    "source": "10.0.0.0/8",
+                    "tcp": {
+                        "port_max": 22,
+                        "port_min": 22
+                    }
+                },
+                {
+                    "name": "allow-private2-inbound",
+                    "direction": "inbound",
+                    "source": "172.16.0.0/12",
+                    "tcp": {
+                        "port_max": 22,
+                        "port_min": 22
+                    }
+                },
+                {
+                    "name": "allow-private3-inbound",
+                    "direction": "inbound",
+                    "source": "192.168.0.0/16",
+                    "tcp": {
+                        "port_max": 22,
+                        "port_min": 22
+                    }
+                },
+                {
+                    "name": "allow-ssh-inbound-schematics1",
+                    "direction": "inbound",
+                    "source": "169.45.235.176/28",
+                    "tcp": {
+                        "port_max": 22,
+                        "port_min": 22
+                    }
+                },
+                {
+                    "name": "allow-ssh-inbound-schematics2",
+                    "direction": "inbound",
+                    "source": "169.55.82.128/27",
+                    "tcp": {
+                        "port_max": 22,
+                        "port_min": 22
+                    }
+                },
+                {
+                    "name": "allow-ssh-inbound-schematics3",
+                    "direction": "inbound",
+                    "source": "169.60.115.32/27",
+                    "tcp": {
+                        "port_max": 22,
+                        "port_min": 22
+                    }
+                },
+                {
+                    "name": "allow-ssh-inbound-schematics4",
+                    "direction": "inbound",
+                    "source": "169.63.150.144/28",
+                    "tcp": {
+                        "port_max": 22,
+                        "port_min": 22
+                    }
+                },
+                {
+                    "name": "allow-ssh-inbound-schematics5",
+                    "direction": "inbound",
+                    "source": "169.62.1.224/28",
+                    "tcp": {
+                        "port_max": 22,
+                        "port_min": 22
+                    }
+                },
+                {
+                    "name": "allow-ssh-inbound-schematics6",
+                    "direction": "inbound",
+                    "source": "169.62.53.64/27",
+                    "tcp": {
+                        "port_max": 22,
+                        "port_min": 22
+                    }
+                },
+                {
+                    "name": "allow-ssh-inbound-schematics7",
+                    "direction": "inbound",
+                    "source": "150.238.230.128/27",
+                    "tcp": {
+                        "port_max": 22,
+                        "port_min": 22
+                    }
+                },
+                {
+                    "name": "allow-ssh-inbound-schematics8",
+                    "direction": "inbound",
+                    "source": "169.63.254.64/28",
+                    "tcp": {
+                        "port_max": 22,
+                        "port_min": 22
+                    }
+                },
+                {
+                    "name": "allow-ssh-inbound-schematics9",
+                    "direction": "inbound",
+                    "source": "169.47.104.160/28",
+                    "tcp": {
+                        "port_max": 22,
+                        "port_min": 22
+                    }
+                },
+                {
+                    "name": "allow-ssh-inbound-schematics10",
+                    "direction": "inbound",
+                    "source": "169.61.191.64/27",
+                    "tcp": {
+                        "port_max": 22,
+                        "port_min": 22
+                    }
+                },
+                {
+                    "name": "allow-ssh-inbound-schematics11",
+                    "direction": "inbound",
+                    "source": "169.60.172.144/28",
+                    "tcp": {
+                        "port_max": 22,
+                        "port_min": 22
+                    }
+                },
+                {
+                    "name": "allow-ssh-inbound-schematics12",
+                    "direction": "inbound",
+                    "source": "169.62.204.32/27",
+                    "tcp": {
+                        "port_max": 22,
+                        "port_min": 22
+                    }
+                },
+                {
+                    "name": "allow-ssh-inbound-schematics13",
+                    "direction": "inbound",
+                    "source": "158.175.106.64/27",
+                    "tcp": {
+                        "port_max": 22,
+                        "port_min": 22
+                    }
+                },
+                {
+                    "name": "allow-ssh-inbound-schematics14",
+                    "direction": "inbound",
+                    "source": "158.175.138.176/28",
+                    "tcp": {
+                        "port_max": 22,
+                        "port_min": 22
+                    }
+                },
+                {
+                    "name": "allow-ssh-inbound-schematics15",
+                    "direction": "inbound",
+                    "source": "141.125.79.160/28",
+                    "tcp": {
+                        "port_max": 22,
+                        "port_min": 22
+                    }
+                },
+                {
+                    "name": "allow-ssh-inbound-schematics16",
+                    "direction": "inbound",
+                    "source": "141.125.142.96/27",
+                    "tcp": {
+                        "port_max": 22,
+                        "port_min": 22
+                    }
+                },
+                {
+                    "name": "allow-ssh-inbound-schematics17",
+                    "direction": "inbound",
+                    "source": "158.176.111.64/27",
+                    "tcp": {
+                        "port_max": 22,
+                        "port_min": 22
+                    }
+                },
+                {
+                    "name": "allow-ssh-inbound-schematics18",
+                    "direction": "inbound",
+                    "source": "158.176.134.80/28",
+                    "tcp": {
+                        "port_max": 22,
+                        "port_min": 22
+                    }
+                },
+                {
+                    "name": "allow-ssh-inbound-schematics19",
+                    "direction": "inbound",
+                    "source": "149.81.123.64/27",
+                    "tcp": {
+                        "port_max": 22,
+                        "port_min": 22
+                    }
+                },
+                {
+                    "name": "allow-ssh-inbound-schematics20",
+                    "direction": "inbound",
+                    "source": "149.81.135.64/28",
+                    "tcp": {
+                        "port_max": 22,
+                        "port_min": 22
+                    }
+                },
+                {
+                    "name": "allow-ssh-inbound-schematics21",
+                    "direction": "inbound",
+                    "source": "158.177.210.176/28",
+                    "tcp": {
+                        "port_max": 22,
+                        "port_min": 22
+                    }
+                },
+                {
+                    "name": "allow-ssh-inbound-schematics22",
+                    "direction": "inbound",
+                    "source": "158.177.216.144/28",
+                    "tcp": {
+                        "port_max": 22,
+                        "port_min": 22
+                    }
+                },
+                {
+                    "name": "allow-ssh-inbound-schematics23",
+                    "direction": "inbound",
+                    "source": "161.156.138.80/28",
+                    "tcp": {
+                        "port_max": 22,
+                        "port_min": 22
+                    }
+                },
+                {
+                    "name": "allow-ssh-inbound-schematics24",
+                    "direction": "inbound",
+                    "source": "159.122.111.224/27",
+                    "tcp": {
+                        "port_max": 22,
+                        "port_min": 22
+                    }
+                },
+                {
+                    "name": "allow-ssh-inbound-schematics25",
+                    "direction": "inbound",
+                    "source": "161.156.37.160/27",
+                    "tcp": {
+                        "port_max": 22,
+                        "port_min": 22
+                    }
+                },
+                %{ if "${external_access_ip}" != "" && "${external_access_ip}" != null }
+                {
+                    "direction": "inbound",
+                    "name": "allow-ssh-tcp-22-inbound",
+                    "source": "${external_access_ip}",
+                    "tcp": {
+                        "port_max": 22,
+                        "port_min": 22
+                    }
+                },
+                %{ endif }
+                {
+                    "direction": "outbound",
+                    "name": "allow-all-outbound",
+                    "source": "0.0.0.0/0"
+                }
+            ]
+        },
+        {
+            "name": "network-services-sg",
+            "vpc_name": "edge",
+            "rules": [
+                {
+                    "direction": "inbound",
+                    "name": "allow-ibm-inbound",
+                    "source": "161.26.0.0/16"
+                },
+                {
+                    "direction": "inbound",
+                    "name": "allow-private1-inbound",
+                    "source": "10.0.0.0/8"
+                },
+                {
+                    "direction": "inbound",
+                    "name": "allow-private2-inbound",
+                    "source": "172.16.0.0/12"
+                },
+                {
+                    "direction": "inbound",
+                    "name": "allow-private3-inbound",
+                    "source": "192.168.0.0/16"
+                },
+                {
+                    "direction": "outbound",
+                    "name": "allow-all-outbound",
+                    "source": "0.0.0.0/0"
+                }
+            ]
+        },
         {
             "name": "vpe-sg",
             "vpc_name": "edge",
@@ -225,7 +533,6 @@
                         "public_gateway": true,
                         "acl_name": "acl"
                     }
-
                 ],
                 "zone-2": null,
                 "zone-3": null
@@ -240,7 +547,7 @@
     "vsi": [
         {
             "name": "jump-box",
-            "image_name": "${vsi_image}",
+            "image_name": "${rhel_image}",
             "machine_type": "cx2-2x4",
             "vpc_name": "edge",
             "resource_group": "slz-edge-rg",
@@ -250,289 +557,11 @@
             "vsi_per_subnet": 1,
             "subnet_names": ["vsi-management-zone-1"],
             "block_storage_volumes": [],
-            "security_group": {
-                "name": "management-sg",
-                "vpc_name": "edge",
-                "rules": [
-                    {
-                        "name": "allow-ibm-inbound",
-                        "direction": "inbound",
-                        "source": "161.26.0.0/16"
-                    },
-                    {
-                        "name": "allow-private1-inbound",
-                        "direction": "inbound",
-                        "source": "10.0.0.0/8",
-                        "tcp": {
-                            "port_max": 22,
-                            "port_min": 22
-                        }
-                    },
-                    {
-                        "name": "allow-private2-inbound",
-                        "direction": "inbound",
-                        "source": "172.16.0.0/12",
-                        "tcp": {
-                            "port_max": 22,
-                            "port_min": 22
-                        }
-                    },
-                    {
-                        "name": "allow-private3-inbound",
-                        "direction": "inbound",
-                        "source": "192.168.0.0/16",
-                        "tcp": {
-                            "port_max": 22,
-                            "port_min": 22
-                        }
-                    },
-                    {
-                        "name": "allow-ssh-inbound-schematics1",
-                        "direction": "inbound",
-                        "source": "169.45.235.176/28",
-                        "tcp": {
-                            "port_max": 22,
-                            "port_min": 22
-                        }
-                    },
-                    {
-                        "name": "allow-ssh-inbound-schematics2",
-                        "direction": "inbound",
-                        "source": "169.55.82.128/27",
-                        "tcp": {
-                            "port_max": 22,
-                            "port_min": 22
-                        }
-                    },
-                    {
-                        "name": "allow-ssh-inbound-schematics3",
-                        "direction": "inbound",
-                        "source": "169.60.115.32/27",
-                        "tcp": {
-                            "port_max": 22,
-                            "port_min": 22
-                        }
-                    },
-                    {
-                        "name": "allow-ssh-inbound-schematics4",
-                        "direction": "inbound",
-                        "source": "169.63.150.144/28",
-                        "tcp": {
-                            "port_max": 22,
-                            "port_min": 22
-                        }
-                    },
-                    {
-                        "name": "allow-ssh-inbound-schematics5",
-                        "direction": "inbound",
-                        "source": "169.62.1.224/28",
-                        "tcp": {
-                            "port_max": 22,
-                            "port_min": 22
-                        }
-                    },
-                    {
-                        "name": "allow-ssh-inbound-schematics6",
-                        "direction": "inbound",
-                        "source": "169.62.53.64/27",
-                        "tcp": {
-                            "port_max": 22,
-                            "port_min": 22
-                        }
-                    },
-                    {
-                        "name": "allow-ssh-inbound-schematics7",
-                        "direction": "inbound",
-                        "source": "150.238.230.128/27",
-                        "tcp": {
-                            "port_max": 22,
-                            "port_min": 22
-                        }
-                    },
-                    {
-                        "name": "allow-ssh-inbound-schematics8",
-                        "direction": "inbound",
-                        "source": "169.63.254.64/28",
-                        "tcp": {
-                            "port_max": 22,
-                            "port_min": 22
-                        }
-                    },
-                    {
-                        "name": "allow-ssh-inbound-schematics9",
-                        "direction": "inbound",
-                        "source": "169.47.104.160/28",
-                        "tcp": {
-                            "port_max": 22,
-                            "port_min": 22
-                        }
-                    },
-                    {
-                        "name": "allow-ssh-inbound-schematics10",
-                        "direction": "inbound",
-                        "source": "169.61.191.64/27",
-                        "tcp": {
-                            "port_max": 22,
-                            "port_min": 22
-                        }
-                    },
-                    {
-                        "name": "allow-ssh-inbound-schematics11",
-                        "direction": "inbound",
-                        "source": "169.60.172.144/28",
-                        "tcp": {
-                            "port_max": 22,
-                            "port_min": 22
-                        }
-                    },
-                    {
-                        "name": "allow-ssh-inbound-schematics12",
-                        "direction": "inbound",
-                        "source": "169.62.204.32/27",
-                        "tcp": {
-                            "port_max": 22,
-                            "port_min": 22
-                        }
-                    },
-                    {
-                        "name": "allow-ssh-inbound-schematics13",
-                        "direction": "inbound",
-                        "source": "158.175.106.64/27",
-                        "tcp": {
-                            "port_max": 22,
-                            "port_min": 22
-                        }
-                    },
-                    {
-                        "name": "allow-ssh-inbound-schematics14",
-                        "direction": "inbound",
-                        "source": "158.175.138.176/28",
-                        "tcp": {
-                            "port_max": 22,
-                            "port_min": 22
-                        }
-                    },
-                    {
-                        "name": "allow-ssh-inbound-schematics15",
-                        "direction": "inbound",
-                        "source": "141.125.79.160/28",
-                        "tcp": {
-                            "port_max": 22,
-                            "port_min": 22
-                        }
-                    },
-                    {
-                        "name": "allow-ssh-inbound-schematics16",
-                        "direction": "inbound",
-                        "source": "141.125.142.96/27",
-                        "tcp": {
-                            "port_max": 22,
-                            "port_min": 22
-                        }
-                    },
-                    {
-                        "name": "allow-ssh-inbound-schematics17",
-                        "direction": "inbound",
-                        "source": "158.176.111.64/27",
-                        "tcp": {
-                            "port_max": 22,
-                            "port_min": 22
-                        }
-                    },
-                    {
-                        "name": "allow-ssh-inbound-schematics18",
-                        "direction": "inbound",
-                        "source": "158.176.134.80/28",
-                        "tcp": {
-                            "port_max": 22,
-                            "port_min": 22
-                        }
-                    },
-                    {
-                        "name": "allow-ssh-inbound-schematics19",
-                        "direction": "inbound",
-                        "source": "149.81.123.64/27",
-                        "tcp": {
-                            "port_max": 22,
-                            "port_min": 22
-                        }
-                    },
-                    {
-                        "name": "allow-ssh-inbound-schematics20",
-                        "direction": "inbound",
-                        "source": "149.81.135.64/28",
-                        "tcp": {
-                            "port_max": 22,
-                            "port_min": 22
-                        }
-                    },
-                    {
-                        "name": "allow-ssh-inbound-schematics21",
-                        "direction": "inbound",
-                        "source": "158.177.210.176/28",
-                        "tcp": {
-                            "port_max": 22,
-                            "port_min": 22
-                        }
-                    },
-                    {
-                        "name": "allow-ssh-inbound-schematics22",
-                        "direction": "inbound",
-                        "source": "158.177.216.144/28",
-                        "tcp": {
-                            "port_max": 22,
-                            "port_min": 22
-                        }
-                    },
-                    {
-                        "name": "allow-ssh-inbound-schematics23",
-                        "direction": "inbound",
-                        "source": "161.156.138.80/28",
-                        "tcp": {
-                            "port_max": 22,
-                            "port_min": 22
-                        }
-                    },
-                    {
-                        "name": "allow-ssh-inbound-schematics24",
-                        "direction": "inbound",
-                        "source": "159.122.111.224/27",
-                        "tcp": {
-                            "port_max": 22,
-                            "port_min": 22
-                        }
-                    },
-                    {
-                        "name": "allow-ssh-inbound-schematics25",
-                        "direction": "inbound",
-                        "source": "161.156.37.160/27",
-                        "tcp": {
-                            "port_max": 22,
-                            "port_min": 22
-                        }
-                    },
-                    %{ if "${external_access_ip}" != "" && "${external_access_ip}" != null }
-                    {
-                        "direction": "inbound",
-                        "name": "allow-ssh-tcp-22-inbound",
-                        "source": "${external_access_ip}",
-                        "tcp": {
-                            "port_max": 22,
-                            "port_min": 22
-                        }
-                    },
-                    %{ endif }
-                    {
-                        "direction": "outbound",
-                        "name": "allow-all-outbound",
-                        "source": "0.0.0.0/0"
-                    }
-                ]
-            }
+            "security_groups": ["management-sg"]
         },
         {
             "name": "network-services",
-            "image_name": "${vsi_image}",
+            "image_name": "${rhel_image}",
             "machine_type": "${network_services_vsi_profile}",
             "vpc_name": "edge",
             "resource_group": "slz-edge-rg",
@@ -542,38 +571,25 @@
             "vsi_per_subnet": 1,
             "subnet_names": ["vsi-edge-zone-1"],
             "block_storage_volumes": [],
-            "security_group": {
-                "name": "network-services-sg",
-                "vpc_name": "egde",
-                "rules": [
-                    {
-                        "direction": "inbound",
-                        "name": "allow-ibm-inbound",
-                        "source": "161.26.0.0/16"
-                    },
-                    {
-                        "direction": "inbound",
-                        "name": "allow-private1-inbound",
-                        "source": "10.0.0.0/8"
-                    },
-                    {
-                        "direction": "inbound",
-                        "name": "allow-private2-inbound",
-                        "source": "172.16.0.0/12"
-                    },
-                    {
-                        "direction": "inbound",
-                        "name": "allow-private3-inbound",
-                        "source": "192.168.0.0/16"
-                    },
-                    {
-                        "direction": "outbound",
-                        "name": "allow-all-outbound",
-                        "source": "0.0.0.0/0"
-                    }
-                ]
-            }
+            "security_groups": ["network-services-sg"]
         }
+        %{ if "${enable_monitoring}" == true }
+        ,
+        {
+            "name": "monitoring",
+            "image_name": "${sles_image}",
+            "machine_type": "bx2-2x8",
+            "vpc_name": "edge",
+            "resource_group": "slz-edge-rg",
+            "enable_floating_ip": false,
+            "boot_volume_encryption_key_name": "slz-vsi-volume-key",
+            "ssh_keys": ["ssh-key"],
+            "vsi_per_subnet": 1,
+            "subnet_names": ["vsi-edge-zone-1"],
+            "block_storage_volumes": [],
+            "security_groups": ["network-services-sg"]
+        }
+        %{ endif }
     ],
     "virtual_private_endpoints": [
         {
@@ -584,9 +600,7 @@
                 {
                     "name": "edge",
                     "security_group_name": "vpe-sg",
-                    "subnets": [
-                        "vpe-zone-1"
-                    ]
+                    "subnets": ["vpe-zone-1"]
                 }
             ]
         }
