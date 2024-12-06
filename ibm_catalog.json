@@ -1470,6 +1470,7 @@
           "index": 4,
           "working_directory": "solutions/standard-extend",
           "compliance": {},
+          "dependency_version_2": true,
           "dependencies": [
             {
               "flavors": [
