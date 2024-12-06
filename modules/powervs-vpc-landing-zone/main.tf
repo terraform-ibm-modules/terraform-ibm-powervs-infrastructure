@@ -138,10 +138,10 @@ module "configure_network_services" {
   ssh_private_key    = var.ssh_private_key
 
   src_script_template_name = "configure-network-services/ansible_exec.sh.tftpl"
-  dst_script_file_name     = "network-services_configure_network_services.sh"
+  dst_script_file_name     = "network-services-instance.sh"
 
   src_playbook_template_name = "configure-network-services/playbook-configure-network-services.yml.tftpl"
-  dst_playbook_file_name     = "network-services-playbook-configure-network-services.yml"
+  dst_playbook_file_name     = "network-services-instance-playbook.yml"
   playbook_template_vars = {
     "server_config" : jsonencode(
       { "squid" : local.network_services_config.squid,
@@ -154,7 +154,7 @@ module "configure_network_services" {
   }
 
   src_inventory_template_name = "inventory.tftpl"
-  dst_inventory_file_name     = "configure-network-services-instance-inventory"
+  dst_inventory_file_name     = "network-services-instance-inventory"
   inventory_template_vars     = { "host_or_ip" : local.network_services_vsi_ip }
 }
 
@@ -170,10 +170,10 @@ module "configure_monitoring_host" {
   ssh_private_key    = var.ssh_private_key
 
   src_script_template_name = "configure-monitoring-instance/ansible_exec.sh.tftpl"
-  dst_script_file_name     = "configure-monitoring-instance.sh"
+  dst_script_file_name     = "monitoring-instance.sh"
 
   src_playbook_template_name = "configure-monitoring-instance/playbook-configure-monitoring-instance.yml.tftpl"
-  dst_playbook_file_name     = "configure-monitoring-instance-playbook.yml"
+  dst_playbook_file_name     = "monitoring-instance-playbook.yml"
   playbook_template_vars = {
     "client_config" : jsonencode(
       {
@@ -184,6 +184,6 @@ module "configure_monitoring_host" {
   }
 
   src_inventory_template_name = "inventory.tftpl"
-  dst_inventory_file_name     = "configure-network-services-instance-inventory"
+  dst_inventory_file_name     = "monitoring-instance-inventory"
   inventory_template_vars     = { "host_or_ip" : local.monitoring_vsi_ip }
 }
