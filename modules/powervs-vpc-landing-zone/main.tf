@@ -133,9 +133,10 @@ module "configure_network_services" {
   source     = "./submodules/ansible"
   depends_on = [module.vpc_file_share_alb]
 
-  bastion_host_ip    = local.access_host_or_ip
-  ansible_host_or_ip = local.network_services_vsi_ip
-  ssh_private_key    = var.ssh_private_key
+  bastion_host_ip        = local.access_host_or_ip
+  ansible_host_or_ip     = local.network_services_vsi_ip
+  ssh_private_key        = var.ssh_private_key
+  configure_ansible_host = true
 
   src_script_template_name = "configure-network-services/ansible_exec.sh.tftpl"
   dst_script_file_name     = "network-services-instance.sh"
@@ -165,9 +166,10 @@ module "configure_monitoring_host" {
   depends_on = [module.configure_network_services]
   count      = var.enable_monitoring ? 1 : 0
 
-  bastion_host_ip    = local.access_host_or_ip
-  ansible_host_or_ip = local.network_services_vsi_ip
-  ssh_private_key    = var.ssh_private_key
+  bastion_host_ip        = local.access_host_or_ip
+  ansible_host_or_ip     = local.network_services_vsi_ip
+  ssh_private_key        = var.ssh_private_key
+  configure_ansible_host = false
 
   src_script_template_name = "configure-monitoring-instance/ansible_exec.sh.tftpl"
   dst_script_file_name     = "monitoring-instance.sh"
