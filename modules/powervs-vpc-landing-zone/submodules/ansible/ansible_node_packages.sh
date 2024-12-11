@@ -8,7 +8,7 @@
 ############################################################
 
 GLOBAL_RHEL_PACKAGES="rhel-system-roles rhel-system-roles-sap expect"
-GLOBAL_GALAXY_COLLECTIONS="ibm.power_linux_sap:>=3.0.0,<4.0.0 ansible.posix:1.5.4 ansible.utils:4.1.0 community.general:10.1.0"
+GLOBAL_GALAXY_COLLECTIONS="ibm.power_linux_sap:>=3.0.0,<4.0.0"
 
 ############################################################
 # Start functions
@@ -90,6 +90,7 @@ main::install_packages() {
       done
     done
 
+    ansible-galaxy collection install -r '/root/.ansible/collections/ansible_collections/ibm/power_linux_sap/requirements.yml' -f
     main::log_info "All packages installed successfully"
   fi
 
