@@ -39,7 +39,7 @@ module "standard" {
 
 module "powervs_instance" {
   source    = "terraform-ibm-modules/powervs-instance/ibm"
-  version   = "2.2.1"
+  version   = "2.2.2"
   providers = { ibm = ibm.ibm-pi }
 
   pi_workspace_guid      = module.standard.powervs_workspace_guid
