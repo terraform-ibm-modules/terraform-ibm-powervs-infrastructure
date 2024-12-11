@@ -14,6 +14,11 @@ variable "ssh_private_key" {
   sensitive   = true
 }
 
+variable "configure_ansible_host" {
+  description = "If set to true, bash script will be executed to install and configure the collections and packages on ansible node."
+  type        = bool
+}
+
 variable "src_script_template_name" {
   description = "Name of the bash script template file located within the 'templates-ansible' directory."
   type        = string

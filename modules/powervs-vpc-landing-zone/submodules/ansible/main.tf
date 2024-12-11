@@ -24,6 +24,7 @@ locals {
 ##############################################################
 
 resource "terraform_data" "setup_ansible_host" {
+  count = var.configure_ansible_host ? 1 : 0
 
   connection {
     type         = "ssh"
@@ -213,4 +214,10 @@ resource "terraform_data" "execute_playbooks_with_vault" {
       "rm -rf ${local.private_key_file}"
     ]
   }
+}
+
+
+moved {
+  from = terraform_data.setup_ansible_host
+  to   = terraform_data.setup_ansible_host[0]
 }
