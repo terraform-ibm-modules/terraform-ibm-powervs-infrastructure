@@ -585,7 +585,7 @@
                   "value": "eu-de-2"
                 },
                 {
-                  "displayname": "London 04 (lon04). P10 only(Custom profile required)",
+                  "displayname": "London 04 (lon04)",
                   "value": "lon04"
                 },
                 {
@@ -595,6 +595,10 @@
                 {
                   "displayname": "Madrid 02 (mad02)",
                   "value": "mad02"
+                },
+                {
+                  "displayname": "Madrid 04 (mad04). P10 only(Custom profile required)",
+                  "value": "mad04"
                 },
                 {
                   "displayname": "Osaka 21 (osa21)",
