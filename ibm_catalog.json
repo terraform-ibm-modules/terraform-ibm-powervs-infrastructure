@@ -89,12 +89,20 @@
                   "value": "dal12"
                 },
                 {
+                  "displayname": "Dallas 14 (dal14)",
+                  "value": "dal14"
+                },
+                {
                   "displayname": "Frankfurt 1 (eu-de-1)",
                   "value": "eu-de-1"
                 },
                 {
                   "displayname": "Frankfurt 2 (eu-de-2)",
                   "value": "eu-de-2"
+                },
+                {
+                  "displayname": "London 04 (lon04)",
+                  "value": "lon04"
                 },
                 {
                   "displayname": "London 06 (lon06)",
@@ -565,6 +573,10 @@
                   "value": "dal12"
                 },
                 {
+                  "displayname": "Dallas 14 (dal14). P10 only(Custom profile required)",
+                  "value": "dal14"
+                },
+                {
                   "displayname": "Frankfurt 1 (eu-de-1)",
                   "value": "eu-de-1"
                 },
@@ -573,12 +585,20 @@
                   "value": "eu-de-2"
                 },
                 {
+                  "displayname": "London 04 (lon04)",
+                  "value": "lon04"
+                },
+                {
                   "displayname": "London 06 (lon06)",
                   "value": "lon06"
                 },
                 {
                   "displayname": "Madrid 02 (mad02)",
                   "value": "mad02"
+                },
+                {
+                  "displayname": "Madrid 04 (mad04). P10 only(Custom profile required)",
+                  "value": "mad04"
                 },
                 {
                   "displayname": "Osaka 21 (osa21)",
@@ -1198,12 +1218,20 @@
                   "value": "dal12"
                 },
                 {
+                  "displayname": "Dallas 14 (dal14)",
+                  "value": "dal14"
+                },
+                {
                   "displayname": "Frankfurt 1 (eu-de-1)",
                   "value": "eu-de-1"
                 },
                 {
                   "displayname": "Frankfurt 2 (eu-de-2)",
                   "value": "eu-de-2"
+                },
+                {
+                  "displayname": "London 04 (lon04)",
+                  "value": "lon04"
                 },
                 {
                   "displayname": "London 06 (lon06)",
@@ -1519,12 +1547,20 @@
                   "value": "dal12"
                 },
                 {
+                  "displayname": "Dallas 14 (dal14)",
+                  "value": "dal14"
+                },
+                {
                   "displayname": "Frankfurt 1 (eu-de-1)",
                   "value": "eu-de-1"
                 },
                 {
                   "displayname": "Frankfurt 2 (eu-de-2)",
                   "value": "eu-de-2"
+                },
+                {
+                  "displayname": "London 04 (lon04)",
+                  "value": "lon04"
                 },
                 {
                   "displayname": "London 06 (lon06)",
