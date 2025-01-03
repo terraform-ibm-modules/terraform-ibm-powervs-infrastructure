@@ -23,7 +23,7 @@ locals {
 
 module "powervs_workspace" {
   source  = "terraform-ibm-modules/powervs-workspace/ibm"
-  version = "2.3.0"
+  version = "2.4.0"
 
   pi_zone                                 = var.powervs_zone
   pi_resource_group_name                  = var.powervs_resource_group_name
