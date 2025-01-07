@@ -55,4 +55,5 @@ module "powervs_instance" {
   pi_cpu_proc_type           = local.pi_instance.pi_cpu_proc_type
   pi_boot_image_storage_tier = "tier3"
   pi_storage_config          = local.pi_instance.pi_storage_config
+  pi_user_tags               = var.tags
 }
