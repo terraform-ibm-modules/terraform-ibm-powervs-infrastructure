@@ -700,10 +700,10 @@
                   }
                 },
                 {
-                  "displayname": "SAP DEV RHEL (ush1-4x128,disk-750GB,RHEL9-SP2-SAP)",
+                  "displayname": "SAP DEV RHEL (ush1-4x128,disk-750GB,RHEL9-SP4-SAP)",
                   "value": {
                     "tshirt_size": "sap_dev_rhel",
-                    "image": "RHEL9-SP2-SAP"
+                    "image": "RHEL9-SP4-SAP"
                   }
                 },
                 {
@@ -812,20 +812,20 @@
                   "value": "SLES15-SP5"
                 },
                 {
+                  "displayname": "SAP - RHEL9-SP4-SAP",
+                  "value": "RHEL9-SP4-SAP"
+                },
+                {
+                  "displayname": "SAP - RHEL9-SP4-SAP-NETWEAVER",
+                  "value": "RHEL9-SP4-SAP-NETWEAVER"
+                },
+                {
                   "displayname": "SAP - RHEL9-SP2-SAP",
                   "value": "RHEL9-SP2-SAP"
                 },
                 {
                   "displayname": "SAP - RHEL9-SP2-SAP-NETWEAVER",
                   "value": "RHEL9-SP2-SAP-NETWEAVER"
-                },
-                {
-                  "displayname": "SAP - RHEL8-SP8-SAP",
-                  "value": "RHEL8-SP8-SAP"
-                },
-                {
-                  "displayname": "SAP - RHEL8-SP8-SAP-NETWEAVER",
-                  "value": "RHEL8-SP8-SAP-NETWEAVER"
                 },
                 {
                   "displayname": "SAP - SLES15-SP5-SAP",

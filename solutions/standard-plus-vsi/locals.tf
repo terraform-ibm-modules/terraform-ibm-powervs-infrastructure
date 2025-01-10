@@ -17,7 +17,7 @@ locals {
     "custom"       = { "sap_profile_id" = var.custom_profile.sap_profile_id, "server_type" = var.custom_profile.server_type, "proc_type" = var.custom_profile.proc_type, "cores" = var.custom_profile.cores, "memory" = var.custom_profile.memory, "storage" = var.custom_profile.storage.size, "tier" = var.custom_profile.storage.tier, "image" = var.custom_profile_instance_boot_image }
   }
 
-  sap_boot_images  = ["RHEL9-SP2-SAP", "RHEL8-SP8-SAP", "RHEL9-SP2-SAP-NETWEAVER", "RHEL8-SP8-SAP-NETWEAVER", "SLES15-SP5-SAP", "SLES15-SP4-SAP", "SLES15-SP5-SAP-NETWEAVER", "SLES15-SP4-SAP-NETWEAVER"]
+  sap_boot_images  = ["RHEL9-SP4-SAP", "RHEL9-SP2-SAP", "RHEL9-SP4-SAP-NETWEAVER", "RHEL9-SP2-SAP-NETWEAVER", "SLES15-SP5-SAP", "SLES15-SP4-SAP", "SLES15-SP5-SAP-NETWEAVER", "SLES15-SP4-SAP-NETWEAVER"]
   qs_tshirt_choice = lookup(local.ibm_powervs_quickstart_tshirt_sizes, var.tshirt_size.tshirt_size, null)
 
   valid_boot_image_provided     = local.qs_tshirt_choice.image != "none" ? true : false
