@@ -27,11 +27,7 @@ locals {
     "wdc07"    = "us-east"
   }
 
-  valid_sles_image          = var.enable_monitoring ? (var.vpc_intel_images.sles_image != "" ? true : false) : true
-  sles_image_validation_msg = "The sles_image attribute of var.vpc_intel_images cannot be empty when enable_monitoring is set to true. Please provide a valid SLES OS stock image name to create monitoring VSI."
-  # tflint-ignore: terraform_unused_declarations
-  valid_sles_image_chk = regex("^${local.sles_image_validation_msg}$", (local.valid_sles_image ? local.sles_image_validation_msg : ""))
-  external_access_ip   = var.external_access_ip != null && var.external_access_ip != "" ? length(regexall("/", var.external_access_ip)) > 0 ? var.external_access_ip : "${var.external_access_ip}/32" : ""
+  external_access_ip = var.external_access_ip != null && var.external_access_ip != "" ? length(regexall("/", var.external_access_ip)) > 0 ? var.external_access_ip : "${var.external_access_ip}/32" : ""
   override_json_string = templatefile("${path.module}/presets/slz-preset.json.tftpl",
     {
       external_access_ip           = local.external_access_ip,
