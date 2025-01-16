@@ -33,6 +33,14 @@ variable "client_to_site_vpn" {
   }
 }
 
+variable "vpc_intel_images" {
+  description = "Stock OS image names for creating VPC landing zone VSI instances: RHEL (management and network services) and SLES (monitoring)."
+  type = object({
+    rhel_image = string
+    sles_image = string
+  })
+}
+
 variable "ssh_public_key" {
   description = "Public SSH Key for VSI creation. Must be an RSA key with a key size of either 2048 bits or 4096 bits (recommended). Must be a valid SSH key that does not already exist in the deployment region."
   type        = string

@@ -13,6 +13,7 @@ module "standard" {
   ssh_public_key                               = var.ssh_public_key
   ssh_private_key                              = var.ssh_private_key
   client_to_site_vpn                           = var.client_to_site_vpn
+  vpc_intel_images                             = var.vpc_intel_images
   transit_gateway_global                       = var.transit_gateway_global
   configure_dns_forwarder                      = var.configure_dns_forwarder
   configure_ntp_forwarder                      = var.configure_ntp_forwarder
