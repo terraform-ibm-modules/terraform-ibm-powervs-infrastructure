@@ -4,7 +4,7 @@
   "prefix": $PREFIX,
   "tshirt_size": {
       "tshirt_size":"aix_xs",
-      "image":"7300-02-01"
+      "image":"7300-02-02"
    },
   "external_access_ip": "0.0.0.0/0",
   "powervs_resource_group_name": "Automation",

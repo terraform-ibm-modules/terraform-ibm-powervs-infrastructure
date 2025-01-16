@@ -142,7 +142,7 @@ func setupOptionsQuickstartSolution(t *testing.T, prefix string) *testhelper.Tes
 		"powervs_resource_group_name": options.ResourceGroup,
 		"external_access_ip":          "0.0.0.0/0",
 		"tshirt_size": map[string]string{
-			"image":       "7300-02-01",
+			"image":       "7300-02-02",
 			"tshirt_size": "aix_xs",
 		},
 		"powervs_zone":                options.Region,
