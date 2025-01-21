@@ -66,6 +66,22 @@ variable "transit_gateway_global" {
 }
 
 #####################################################
+# Optional Parameter VPC VSIs
+#####################################################
+
+variable "vpc_intel_images" {
+  description = "Stock OS image names for creating VPC landing zone VSI instances: RHEL (management and network services) and SLES (monitoring)."
+  type = object({
+    rhel_image = string
+    sles_image = string
+  })
+  default = {
+    rhel_image = "ibm-redhat-9-4-amd64-sap-applications-3"
+    sles_image = "ibm-sles-15-5-amd64-sap-applications-4"
+  }
+}
+
+#####################################################
 # Optional Parameter Network Services VSI Profile
 #####################################################
 

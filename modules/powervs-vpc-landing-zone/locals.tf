@@ -31,11 +31,11 @@ locals {
   override_json_string = templatefile("${path.module}/presets/slz-preset.json.tftpl",
     {
       external_access_ip           = local.external_access_ip,
-      rhel_image                   = "ibm-redhat-9-4-amd64-sap-applications-3",
+      rhel_image                   = var.vpc_intel_images.rhel_image,
       network_services_vsi_profile = var.network_services_vsi_profile,
       transit_gateway_global       = var.transit_gateway_global,
       enable_monitoring            = var.enable_monitoring,
-      sles_image                   = "ibm-sles-15-5-amd64-sap-applications-3"
+      sles_image                   = var.vpc_intel_images.sles_image
     }
   )
 }
