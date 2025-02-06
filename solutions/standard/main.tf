@@ -35,5 +35,6 @@ module "standard" {
   network_services_vsi_profile                 = var.network_services_vsi_profile
   enable_monitoring                            = var.enable_monitoring
   existing_monitoring_instance_crn             = var.existing_monitoring_instance_crn
-
+  enable_scc_wp                                = var.enable_scc_wp
+  existing_scc_wp_instance_guid                = var.existing_scc_wp_instance_guid
 }

@@ -92,6 +92,15 @@ output "monitoring_instance" {
 }
 
 ########################################################################
+# SCC Workload Protection outputs
+########################################################################
+
+output "scc_wp_instance" {
+  description = "Details of the IBM Cloud Workload Protection instance: guid, location"
+  value       = module.standard.scc_wp_instance
+}
+
+########################################################################
 # PowerVS Infrastructure outputs
 ########################################################################
 

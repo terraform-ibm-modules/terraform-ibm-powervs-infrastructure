@@ -285,6 +285,22 @@ variable "existing_monitoring_instance_crn" {
   default     = null
 }
 
+#################################################
+# Optional Parameters SCC Workload Protection
+#################################################
+
+variable "enable_scc_wp" {
+  description = "Set to true to enable SCC Workload Protection. To create a new instance, leave existing_scc_wp_instance_guid as null. To connect to an existing instance, define existing_scc_wp_instance_guid."
+  type        = bool
+  default     = false
+}
+
+variable "existing_scc_wp_instance_guid" {
+  description = "Provide GUID of existing SCC workload protection instance and set enable_scc_wp to true if you want to connect to it. Leave as null and set enable_scc_wp to true if you want to create one. This value is ignored if enable_scc_wp is false."
+  type        = string
+  default     = null
+}
+
 #############################################################################
 # Schematics Output
 #############################################################################

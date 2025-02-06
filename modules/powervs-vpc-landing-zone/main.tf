@@ -28,6 +28,29 @@ resource "ibm_resource_instance" "monitoring_instance" {
   tags              = var.tags
 }
 
+#################################################
+# SCC Workload Protection Instance
+#################################################
+
+resource "ibm_resource_instance" "scc_wp_instance" {
+  count    = var.enable_scc_wp && var.existing_scc_wp_instance_guid == null ? 1 : 0
+  provider = ibm.ibm-is
+
+  name              = "${var.prefix}-scc-wp-instance"
+  service           = "compliance"
+  plan              = "security-compliance-center-standard-plan"
+  location          = lookup(local.ibm_powervs_zone_cloud_region_map, var.powervs_zone, null)
+  resource_group_id = module.landing_zone.resource_group_data["${var.prefix}-slz-service-rg"]
+  tags              = var.tags
+}
+
+data "ibm_resource_instance" "existing_scc_wp_instance" {
+  count    = var.enable_scc_wp && var.existing_scc_wp_instance_guid != null ? 1 : 0
+  provider = ibm.ibm-is
+
+  identifier = var.existing_scc_wp_instance_guid
+}
+
 ###########################################################
 # Module: File share for NFS and Application Load Balancer
 ###########################################################

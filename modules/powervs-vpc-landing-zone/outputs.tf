@@ -149,3 +149,15 @@ output "monitoring_instance" {
     monitoring_host_ip = local.monitoring_vsi_ip
   }
 }
+
+########################################################################
+# SCC Workload Protection Output
+########################################################################
+
+output "scc_wp_instance" {
+  description = "Details of the Security and Compliance Center Workload Protection Instance: guid, region"
+  value = {
+    guid   = var.enable_scc_wp && var.existing_scc_wp_instance_guid == null ? resource.ibm_resource_instance.scc_wp_instance[0].guid : var.existing_scc_wp_instance_guid
+    region = var.enable_scc_wp && var.existing_scc_wp_instance_guid == null ? resource.ibm_resource_instance.scc_wp_instance[0].location : data.ibm_resource_instance.existing_scc_wp_instance[0].location
+  }
+}
