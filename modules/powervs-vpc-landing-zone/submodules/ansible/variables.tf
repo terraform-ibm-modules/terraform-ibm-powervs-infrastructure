@@ -60,17 +60,13 @@ variable "inventory_template_vars" {
 }
 
 variable "ansible_vault_password" {
-  description = "Vault password to encrypt ansible playbooks that contain sensitive information. Password requirements: 15-100 characters and at least one uppercase letter, one lowercase letter, one number, one of the following special characters: \"!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~\". Avoid non-printable characters."
+  description = "Vault password to encrypt ansible playbooks that contain sensitive information. Password requirements: 15-100 characters and at least one uppercase letter, one lowercase letter, one number, and one special character. Allowed characters: A-Z, a-z, 0-9, !#$%&()*+-.:;<=>?@[]_{|}~."
   type        = string
   sensitive   = true
   default     = null
   validation {
     condition     = var.ansible_vault_password == null ? true : (length(var.ansible_vault_password) >= 15 && length(var.ansible_vault_password) <= 100)
     error_message = "ansible_vault_password needs to be between 15 and 100 characters in length."
-  }
-  validation {
-    condition     = var.ansible_vault_password == null ? true : can(regex("[!\"#$%&'()*+,\\-.\\/:;<=>?@[\\]^_`{|}~]", var.ansible_vault_password))
-    error_message = "ansible_vault_password needs to contain at least one of the following special characters: \"!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~\"."
   }
   validation {
     condition     = var.ansible_vault_password == null ? true : can(regex("[A-Z]", var.ansible_vault_password))
@@ -83,5 +79,13 @@ variable "ansible_vault_password" {
   validation {
     condition     = var.ansible_vault_password == null ? true : can(regex("[0-9]", var.ansible_vault_password))
     error_message = "ansible_vault_password needs to contain at least one number (0-9)."
+  }
+  validation {
+    condition     = var.ansible_vault_password == null ? true : can(regex("[!#$%&()*+\\-.:;<=>?@[\\]_{|}~]", var.ansible_vault_password))
+    error_message = "ansible_vault_password needs to contain at least one of the following special characters: !#$%&()*+-.:;<=>?@[]_{|}~"
+  }
+  validation {
+    condition     = var.ansible_vault_password == null ? true : can(regex("^[A-Za-z0-9!#$%&()*+\\-.:;<=>?@[\\]_{|}~]+$", var.ansible_vault_password))
+    error_message = "ansible_vault_password contains illegal characters. Allowed characters: A-Z, a-z, 0-9, !#$%&()*+-.:;<=>?@[]_{|}~"
   }
 }
