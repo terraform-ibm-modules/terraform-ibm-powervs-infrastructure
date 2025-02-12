@@ -230,7 +230,6 @@
             },
             {
               "key": "vpc_intel_images",
-              "required": true,
               "hidden": true
             },
             {
@@ -773,7 +772,6 @@
             },
             {
               "key": "vpc_intel_images",
-              "required": true,
               "hidden": true
             },
             {
