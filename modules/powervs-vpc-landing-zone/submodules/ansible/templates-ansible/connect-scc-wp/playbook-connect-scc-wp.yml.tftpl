@@ -1,0 +1,77 @@
+# ------------------------------------------------------------------------
+# This playbook installs the sysdig agent and connects it to a
+# Security and Compliance Center Workload Protection instance
+# ------------------------------------------------------------------------
+
+---
+
+- name: Install and connect Sysdig Agent
+  hosts: all
+  vars:
+    wp_guid: "${SCC_WP_GUID}"
+    collector_endpoint: "${COLLECTOR_ENDPOINT}"
+    wp_api_endpoint: "${API_ENDPOINT}"
+  tasks:
+    - name: Obtain SCC WP token
+      ansible.builtin.uri:
+        url: "https://{{ wp_api_endpoint }}/api/token"
+        method: GET
+        headers:
+          Content-Type: application/json
+          Authorization: "Bearer {{ ibmcloud_iam_token }}"
+          IBMInstanceID: "{{ wp_guid }}"
+      register: wp_token_response
+      delegate_to: 127.0.0.1
+      run_once: true
+
+    - name: Set fact for IBM Cloud SCC Workload Protection token
+      ansible.builtin.set_fact:
+        wp_token: "{{ wp_token_response.json.token.key }}"
+      delegate_to: 127.0.0.1
+      run_once: true
+
+    - name: Obtain SCC Workload Protection Access key
+      ansible.builtin.uri:
+        url: "https://{{ wp_api_endpoint }}/api/customer/accessKeys"
+        method: GET
+        headers:
+          Content-Type: application/json
+          Authorization: "Bearer {{ wp_token }}"
+          IBMInstanceID: "{{ wp_guid }}"
+      register: access_key_response
+      delegate_to: 127.0.0.1
+      run_once: true
+
+    - name: Set fact for IBM Cloud SCC Workload Protection Access Key
+      ansible.builtin.set_fact:
+        access_key: "{{ access_key_response.json.customerAccessKeys[0].accessKey }}"
+      delegate_to: 127.0.0.1
+      run_once: true
+
+    - name: Download Sysdig agent installation script
+      ansible.builtin.get_url:
+        url: https://ibm.biz/install-sysdig-agent
+        dest: /tmp/install-agent.sh
+        mode: "0755"
+
+    - name: Install Sysdig agent
+      ansible.builtin.command:
+        argv:
+          - /tmp/install-agent.sh
+          - --access_key
+          - "{{ access_key }}"
+          - --collector
+          - "{{ collector_endpoint }}"
+          - --collector_port
+          - 6443
+          - --secure
+          - true
+          - "{{ '--universal_ebpf' if ansible_kernel is version('5.8','>=') else '--kmod' }}"
+          - --additional_conf
+          - "sysdig_api_endpoint: {{ wp_api_endpoint }}\nhost_scanner:\n enabled: true\n scan_on_start: true\nkspm_analyzer:\n enabled: true"
+        creates: /lib/systemd/system/dragent.service
+
+    - name: Start Sysdig agent in case it was stopped
+      ansible.builtin.service:
+        name: dragent
+        state: started

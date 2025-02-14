@@ -211,3 +211,27 @@ module "configure_monitoring_host" {
   dst_inventory_file_name     = "monitoring-instance-inventory"
   inventory_template_vars     = { "host_or_ip" : local.monitoring_vsi_ip }
 }
+
+module "connect_scc_wp" {
+
+  source     = "./submodules/ansible"
+  depends_on = [module.configure_network_services, module.configure_monitoring_host]
+  count      = var.enable_scc_wp ? 1 : 0
+
+  bastion_host_ip        = local.access_host_or_ip
+  ansible_host_or_ip     = local.network_services_vsi_ip
+  ssh_private_key        = var.ssh_private_key
+  ansible_vault_password = var.ansible_vault_password
+  configure_ansible_host = false
+  ibmcloud_api_key       = var.ibmcloud_api_key
+
+  src_script_template_name = "connect-scc-wp/ansible_connect_scc_wp.sh.tftpl"
+  dst_script_file_name     = "${var.prefix}-connect_wp.sh"
+
+  src_playbook_template_name  = "connect-scc-wp/playbook-connect-scc-wp.yml.tftpl"
+  dst_playbook_file_name      = "${var.prefix}-playbook-connect-scc-wp.yml"
+  playbook_template_vars      = { "SCC_WP_GUID" : local.scc_wp_instance.guid, "COLLECTOR_ENDPOINT" : "ingest.private.${local.scc_wp_instance.region}.security-compliance-secure.cloud.ibm.com", "API_ENDPOINT" : "private.${local.scc_wp_instance.region}.security-compliance-secure.cloud.ibm.com" }
+  src_inventory_template_name = "inventory.tftpl"
+  dst_inventory_file_name     = "${var.prefix}-scc-wp-inventory"
+  inventory_template_vars     = { "host_or_ip" : join("\n", [for vsi in module.landing_zone.vsi_list : vsi["ipv4_address"]]) }
+}

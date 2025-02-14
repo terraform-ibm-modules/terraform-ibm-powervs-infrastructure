@@ -299,3 +299,17 @@ variable "existing_scc_wp_instance_guid" {
   type        = string
   default     = null
 }
+
+variable "ansible_vault_password" {
+  description = "Vault password to encrypt ansible variable file for SAP installation."
+  type        = string
+  sensitive   = true
+  default     = null
+}
+
+variable "ibmcloud_api_key" {
+  description = "IBM Cloud platform API key needed to deploy IAM enabled resources."
+  type        = string
+  sensitive   = true
+  default     = null
+}

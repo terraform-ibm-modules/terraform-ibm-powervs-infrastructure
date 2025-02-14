@@ -301,6 +301,13 @@ variable "existing_scc_wp_instance_guid" {
   default     = null
 }
 
+variable "ansible_vault_password" {
+  description = "Vault password to encrypt ansible variable file for SAP installation."
+  type        = string
+  sensitive   = true
+  default     = null
+}
+
 #############################################################################
 # Schematics Output
 #############################################################################

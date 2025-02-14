@@ -66,3 +66,14 @@ locals {
   validate_json_chk = regex("^${local.validate_json_msg}$", (local.valid_json_used ? local.validate_json_msg : ""))
 
 }
+
+########################################################################
+# SCC Workload Protection locals
+########################################################################
+
+locals {
+  scc_wp_instance = {
+    guid   = var.enable_scc_wp && var.existing_scc_wp_instance_guid == null ? resource.ibm_resource_instance.scc_wp_instance[0].guid : var.existing_scc_wp_instance_guid
+    region = var.enable_scc_wp && var.existing_scc_wp_instance_guid == null ? resource.ibm_resource_instance.scc_wp_instance[0].location : data.ibm_resource_instance.existing_scc_wp_instance[0].location
+  }
+}
