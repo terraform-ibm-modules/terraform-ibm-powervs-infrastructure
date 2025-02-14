@@ -27,7 +27,7 @@ No modules.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_ansible_host_or_ip"></a> [ansible\_host\_or\_ip](#input\_ansible\_host\_or\_ip) | Private IP of virtual server instance running RHEL OS on which ansible will be installed and configured to act as central ansible node. | `string` | n/a | yes |
-| <a name="input_ansible_vault_password"></a> [ansible\_vault\_password](#input\_ansible\_vault\_password) | Vault password to encrypt ansible variable file for SAP installation. | `string` | `null` | no |
+| <a name="input_ansible_vault_password"></a> [ansible\_vault\_password](#input\_ansible\_vault\_password) | Vault password to encrypt ansible playbooks that contain sensitive information. Password requirements: 15-100 characters and at least one uppercase letter, one lowercase letter, one number, and one special character. Allowed characters: A-Z, a-z, 0-9, !#$%&()*+-.:;<=>?@[]\_{\|}~. | `string` | `null` | no |
 | <a name="input_bastion_host_ip"></a> [bastion\_host\_ip](#input\_bastion\_host\_ip) | Jump/Bastion server public IP address to reach the ansible host which has private IP. | `string` | n/a | yes |
 | <a name="input_configure_ansible_host"></a> [configure\_ansible\_host](#input\_configure\_ansible\_host) | If set to true, bash script will be executed to install and configure the collections and packages on ansible node. | `bool` | n/a | yes |
 | <a name="input_dst_inventory_file_name"></a> [dst\_inventory\_file\_name](#input\_dst\_inventory\_file\_name) | Name for the inventory file to be generated on the Ansible host. | `string` | n/a | yes |
