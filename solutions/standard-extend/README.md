@@ -38,20 +38,20 @@ If you do not have a PowerVS infrastructure that is the [Standard variation](htt
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.9 |
-| <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | 1.74.0 |
+| <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | 1.75.2 |
 
 ### Modules
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_powervs_workspace"></a> [powervs\_workspace](#module\_powervs\_workspace) | terraform-ibm-modules/powervs-workspace/ibm | 2.4.0 |
+| <a name="module_powervs_workspace"></a> [powervs\_workspace](#module\_powervs\_workspace) | terraform-ibm-modules/powervs-workspace/ibm | 2.5.0 |
 
 ### Resources
 
 | Name | Type |
 |------|------|
-| [ibm_schematics_output.schematics_output](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.74.0/docs/data-sources/schematics_output) | data source |
-| [ibm_schematics_workspace.schematics_workspace](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.74.0/docs/data-sources/schematics_workspace) | data source |
+| [ibm_schematics_output.schematics_output](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.75.2/docs/data-sources/schematics_output) | data source |
+| [ibm_schematics_workspace.schematics_workspace](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.75.2/docs/data-sources/schematics_workspace) | data source |
 
 ### Inputs
 

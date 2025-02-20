@@ -1,7 +1,7 @@
 ---
 copyright:
   years: 2024, 2025
-lastupdated: "2025-01-16"
+lastupdated: "2025-02-18"
 keywords:
 subcollection: deployable-reference-architectures
 authors:
@@ -15,7 +15,7 @@ image_source: https://github.com/terraform-ibm-modules/terraform-ibm-powervs-inf
 use-case: ITServiceManagement
 industry: Technology
 content-type: reference-architecture
-version: v8.1.2
+version: v8.1.4
 compliance:
 
 ---
@@ -27,8 +27,7 @@ compliance:
 {: toc-content-type="reference-architecture"}
 {: toc-industry="Technology"}
 {: toc-use-case="ITServiceManagement"}
-{: toc-compliance=""}
-{: toc-version="8.1.2"}
+{: toc-version="v8.1.4"}
 
 Quickstart deployment of the Power Virtual Server with VPC landing zone creates VPC services, a Power Virtual Server workspace, and interconnects them. It also deploys a Power Virtual Server of chosen T-shirt size or custom configuration. Supported Os are Aix, IBM i, and Linux images.
 
@@ -41,6 +40,7 @@ A proxy service for public internet access from the PowerVS workspace is configu
 
 ## Design requirements
 {: #standard-plus-vsi-design-requirements}
+
 ![Design requirements for 'Power Virtual Server with VPC landing zone' - variation 'Quickstart'](heat-map-deploy-arch-ibm-pvs-inf-standard-plus-vsi.svg "Design requirements"){: caption="Figure 2. Scope of the solution requirements" caption-side="bottom"}
 
 IBM Cloud® Power Virtual Servers (PowerVS) is a public cloud offering that an enterprise can use to establish its own private IBM Power computing environment on shared public cloud infrastructure. PowerVS is logically isolated from all other public cloud tenants and infrastructure components, creating a private, secure place on the public cloud. This deployable architecture provides a framework to build a PowerVS offering according to the best practices and requirements from the IBM Cloud.
@@ -79,8 +79,8 @@ IBM Cloud® Power Virtual Servers (PowerVS) is a public cloud offering that an e
 
 | Requirement | Component | Choice | Alternative choice |
 |-------------|-----------|--------------------|--------------------|
-|* Ensure public internet connectivity from all the instances to be deployed in PowerVS workspace|SQUID proxy|Set up SQUID proxy software on Linux virtual server instance that is running in edge VPC|                    |
-|* Provide shared NFS storage that might be directly attached to all the instances to be deployed in PowerVS workspace| File storage shares in VPC|Use the files storage share service running in VPC. Disk size is specified by the user.||
+|* Ensure public internet connectivity from all the instances to be deployed in PowerVS workspace|SQUID proxy|Set up SQUID proxy software on Linux virtual server instance that is running in edge VPC|  |
+|* Provide shared NFS storage that might be directly attached to all the instances to be deployed in PowerVS workspace| File storage shares in VPC|Use the files storage share service running in VPC. Disk size is specified by the user.| |
 |* Provide time synchronization to all instances to be deployed in PowerVS workspace|NTP forwarder|Synchronize time by using public NTP servers. Set up time synchronization on Linux virtual server instance that is running in workload VPC.|By using time synchronization servers directly reachable from PowerVS workspace, NTP forwarder is not required.|
 |* Provide a DNS forwarder to a DNS server not directly reachable from PowerVS workspace (for example, running on-premises or in other isolated environment)|DNS forwarder|Configure DNS forwarder on Linux virtual server instance that is running in edge VPC| By using default IBM Cloud DNS service, DNS forwarder is not needed. Direct domain name resolution is possible.|
 {: caption="Table 3. PowerVS management services architecture decisions" caption-side="bottom"}
@@ -90,8 +90,8 @@ IBM Cloud® Power Virtual Servers (PowerVS) is a public cloud offering that an e
 
 | Requirement | Component | Choice | Alternative choice |
 |-------------|-----------|--------------------|--------------------|
-|* Preload VPN configuration to simplify VPN setup|VPNs|VPN configuration is the responsibility of the customer. Automation creates a client to site VPN server||
-|* Enable floating IP on bastion host to execute deployment|Floating IPs on bastion host in management VPC|Use floating IP on bastion host from IBM Schematics to complete deployment||
+|* Preload VPN configuration to simplify VPN setup|VPNs|VPN configuration is the responsibility of the customer. Automation creates a client to site VPN server| |
+|* Enable floating IP on bastion host to execute deployment|Floating IPs on bastion host in management VPC|Use floating IP on bastion host from IBM Schematics to complete deployment| |
 |* Isolate management VSI and allow only a limited number of network connections  \n * All other connections from or to management VPC are forbidden|Security group rules for management VSI|Open following ports by default: 22 (for limited number of IPs).  \n All ports to PowerVS workspace are open.  \n All ports to other VPCs are open.|More ports might be opened in preset or added manually after deployment|
 |* Isolate network services VSI, VPEs and NFSaaS |Security group rules in edge VPC|Separate security groups are created for each component and only certain IPs or Ports are allowed. |More ports might be opened in preset or added manually after deployment|
 {: caption="Table 4. Network security architecture decisions" caption-side="bottom"}
