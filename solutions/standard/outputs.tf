@@ -98,6 +98,7 @@ output "monitoring_instance" {
 output "scc_wp_instance" {
   description = "Details of the IBM Cloud Workload Protection instance: guid, location"
   value       = module.standard.scc_wp_instance
+  sensitive   = true
 }
 
 ########################################################################

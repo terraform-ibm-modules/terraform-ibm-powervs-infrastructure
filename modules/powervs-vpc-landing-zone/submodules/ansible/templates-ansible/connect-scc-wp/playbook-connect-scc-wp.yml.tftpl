@@ -11,42 +11,12 @@
     wp_guid: "${SCC_WP_GUID}"
     collector_endpoint: "${COLLECTOR_ENDPOINT}"
     wp_api_endpoint: "${API_ENDPOINT}"
+    access_key: "${ACCESS_KEY}"
   tasks:
-    - name: Obtain SCC WP token
-      ansible.builtin.uri:
-        url: "https://{{ wp_api_endpoint }}/api/token"
-        method: GET
-        headers:
-          Content-Type: application/json
-          Authorization: "Bearer {{ ibmcloud_iam_token }}"
-          IBMInstanceID: "{{ wp_guid }}"
-      register: wp_token_response
-      delegate_to: 127.0.0.1
-      run_once: true
-
-    - name: Set fact for IBM Cloud SCC Workload Protection token
-      ansible.builtin.set_fact:
-        wp_token: "{{ wp_token_response.json.token.key }}"
-      delegate_to: 127.0.0.1
-      run_once: true
-
-    - name: Obtain SCC Workload Protection Access key
-      ansible.builtin.uri:
-        url: "https://{{ wp_api_endpoint }}/api/customer/accessKeys"
-        method: GET
-        headers:
-          Content-Type: application/json
-          Authorization: "Bearer {{ wp_token }}"
-          IBMInstanceID: "{{ wp_guid }}"
-      register: access_key_response
-      delegate_to: 127.0.0.1
-      run_once: true
-
-    - name: Set fact for IBM Cloud SCC Workload Protection Access Key
-      ansible.builtin.set_fact:
-        access_key: "{{ access_key_response.json.customerAccessKeys[0].accessKey }}"
-      delegate_to: 127.0.0.1
-      run_once: true
+    - name: Check if agent is already running
+      ansible.builtin.stat:
+        path: /opt/draios/logs/running
+      register: file_exists
 
     - name: Download Sysdig agent installation script
       ansible.builtin.get_url:

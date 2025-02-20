@@ -294,12 +294,6 @@ variable "enable_scc_wp" {
   default     = false
 }
 
-variable "existing_scc_wp_instance_guid" {
-  description = "Provide GUID of existing SCC workload protection instance and set enable_scc_wp to true if you want to connect to it. Leave as null and set enable_scc_wp to true if you want to create one. This value is ignored if enable_scc_wp is false."
-  type        = string
-  default     = null
-}
-
 variable "ansible_vault_password" {
   description = "Vault password to encrypt ansible variable file for SAP installation."
   type        = string

@@ -32,23 +32,16 @@ resource "ibm_resource_instance" "monitoring_instance" {
 # SCC Workload Protection Instance
 #################################################
 
-resource "ibm_resource_instance" "scc_wp_instance" {
-  count    = var.enable_scc_wp && var.existing_scc_wp_instance_guid == null ? 1 : 0
-  provider = ibm.ibm-is
+module "scc_wp_instance" {
+  source    = "terraform-ibm-modules/scc-workload-protection/ibm"
+  providers = { ibm = ibm.ibm-is }
 
-  name              = "${var.prefix}-scc-wp-instance"
-  service           = "compliance"
-  plan              = "security-compliance-center-standard-plan"
-  location          = lookup(local.ibm_powervs_zone_cloud_region_map, var.powervs_zone, null)
-  resource_group_id = module.landing_zone.resource_group_data["${var.prefix}-slz-service-rg"]
-  tags              = var.tags
-}
-
-data "ibm_resource_instance" "existing_scc_wp_instance" {
-  count    = var.enable_scc_wp && var.existing_scc_wp_instance_guid != null ? 1 : 0
-  provider = ibm.ibm-is
-
-  identifier = var.existing_scc_wp_instance_guid
+  version                       = "1.4.3"
+  name                          = "${var.prefix}-scc-wp-instance"
+  region                        = lookup(local.ibm_powervs_zone_cloud_region_map, var.powervs_zone, null)
+  resource_group_id             = module.landing_zone.resource_group_data["${var.prefix}-slz-service-rg"]
+  resource_key_tags             = ["scc-wp-tag"]
+  cloud_monitoring_instance_crn = local.monitoring_instance.crn != "" ? local.monitoring_instance.crn : null
 }
 
 ###########################################################
@@ -230,7 +223,7 @@ module "connect_scc_wp" {
 
   src_playbook_template_name  = "connect-scc-wp/playbook-connect-scc-wp.yml.tftpl"
   dst_playbook_file_name      = "${var.prefix}-playbook-connect-scc-wp.yml"
-  playbook_template_vars      = { "SCC_WP_GUID" : local.scc_wp_instance.guid, "COLLECTOR_ENDPOINT" : "ingest.private.${local.scc_wp_instance.region}.security-compliance-secure.cloud.ibm.com", "API_ENDPOINT" : "private.${local.scc_wp_instance.region}.security-compliance-secure.cloud.ibm.com" }
+  playbook_template_vars      = local.playbook_template_vars
   src_inventory_template_name = "inventory.tftpl"
   dst_inventory_file_name     = "${var.prefix}-scc-wp-inventory"
   inventory_template_vars     = { "host_or_ip" : join("\n", [for vsi in module.landing_zone.vsi_list : vsi["ipv4_address"]]) }

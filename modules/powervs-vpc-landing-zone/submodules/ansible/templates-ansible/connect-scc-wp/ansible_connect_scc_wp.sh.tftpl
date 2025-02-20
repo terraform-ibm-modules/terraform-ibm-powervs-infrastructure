@@ -6,10 +6,6 @@ ansible_log_path=${ansible_log_path}
 ansible_inventory=${ansible_inventory}
 ansible_private_key_file=${ansible_private_key_file}
 
-# shell to get the ibmcloud api token
-ibmcloud_auth_response=$(curl -X POST 'https://iam.cloud.ibm.com/identity/token' -H 'Content-Type: application/x-www-form-urlencoded' -d "apikey=$IBMCLOUD_API_KEY&grant_type=urn:ibm:params:oauth:grant-type:apikey")
-ibmcloud_iam_token=$(echo "$ibmcloud_auth_response" | jq -r '.access_token')
-
 # Create ansible.cfg file
 ansible_playbook_name=$(basename $${ansible_playbook})
 echo -e "[defaults]\nhost_key_checking=False" >ansible.cfg
@@ -17,7 +13,7 @@ export ANSIBLE_LOG_PATH=$${ansible_log_path}/$${ansible_playbook_name}.$(date "+
 export ANSIBLE_PRIVATE_KEY_FILE=$${ansible_private_key_file}
 
 #Execute ansible playbook
-unbuffer ansible-playbook -i $${ansible_inventory} $${ansible_playbook} --extra-vars ibmcloud_iam_token=$${ibmcloud_iam_token} --vault-password-file password_file
+unbuffer ansible-playbook -i $${ansible_inventory} $${ansible_playbook} --vault-password-file password_file
 if [ $? -ne 0 ]; then
     rm -rf $${ansible_private_key_file}
     rm -rf password_file

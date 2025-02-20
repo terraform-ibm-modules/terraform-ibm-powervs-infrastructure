@@ -156,8 +156,5 @@ output "monitoring_instance" {
 
 output "scc_wp_instance" {
   description = "Details of the Security and Compliance Center Workload Protection Instance: guid, region"
-  value = {
-    guid   = local.scc_wp_instance.guid
-    region = local.scc_wp_instance.region
-  }
+  value       = module.scc_wp_instance
 }

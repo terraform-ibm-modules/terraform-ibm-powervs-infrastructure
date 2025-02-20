@@ -85,8 +85,11 @@ locals {
 ########################################################################
 
 locals {
-  scc_wp_instance = {
-    guid   = var.enable_scc_wp && var.existing_scc_wp_instance_guid == null ? resource.ibm_resource_instance.scc_wp_instance[0].guid : var.existing_scc_wp_instance_guid
-    region = var.enable_scc_wp && var.existing_scc_wp_instance_guid == null ? resource.ibm_resource_instance.scc_wp_instance[0].location : data.ibm_resource_instance.existing_scc_wp_instance[0].location
+  playbook_template_vars = {
+    SCC_WP_GUID : module.scc_wp_instance.guid,
+    # resource key doesn't support private endpoint, so prefix with private. to use private endpoint
+    COLLECTOR_ENDPOINT : join(".", ["private", module.scc_wp_instance.ingestion_endpoint]),
+    API_ENDPOINT : replace(module.scc_wp_instance.api_endpoint, "https://", "https://private."),
+    ACCESS_KEY : module.scc_wp_instance.access_key
   }
 }
