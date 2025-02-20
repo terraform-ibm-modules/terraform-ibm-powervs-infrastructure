@@ -300,10 +300,3 @@ variable "ansible_vault_password" {
   sensitive   = true
   default     = null
 }
-
-variable "ibmcloud_api_key" {
-  description = "IBM Cloud platform API key needed to deploy IAM enabled resources."
-  type        = string
-  sensitive   = true
-  default     = null
-}

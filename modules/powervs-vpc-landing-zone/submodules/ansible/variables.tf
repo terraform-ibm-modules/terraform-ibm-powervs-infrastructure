@@ -89,10 +89,3 @@ variable "ansible_vault_password" {
     error_message = "ansible_vault_password contains illegal characters. Allowed characters: A-Z, a-z, 0-9, !#$%&()*+-.:;<=>?@[]_{|}~"
   }
 }
-
-variable "ibmcloud_api_key" {
-  description = "IBM Cloud platform API key needed to deploy IAM enabled resources."
-  type        = string
-  sensitive   = true
-  default     = null
-}

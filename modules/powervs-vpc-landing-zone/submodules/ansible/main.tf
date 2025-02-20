@@ -9,7 +9,6 @@ locals {
   dst_playbook_file_path   = "${local.dst_files_dir}/${var.dst_playbook_file_name}"
   src_inventory_tftpl_path = "${local.src_ansible_templates_dir}/${var.src_inventory_template_name}"
   dst_inventory_file_path  = "${local.dst_files_dir}/${var.dst_inventory_file_name}"
-  ibmcloud_api_key         = var.ibmcloud_api_key == null ? "" : nonsensitive(var.ibmcloud_api_key)
 
 }
 
@@ -203,7 +202,6 @@ resource "terraform_data" "execute_playbooks_with_vault" {
   provisioner "remote-exec" {
     inline = [
       "chmod +x ${local.dst_script_file_path}",
-      "export IBMCLOUD_API_KEY=${local.ibmcloud_api_key} && ${local.dst_script_file_path}",
     ]
   }
 

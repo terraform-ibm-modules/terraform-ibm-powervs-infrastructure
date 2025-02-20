@@ -216,7 +216,6 @@ module "connect_scc_wp" {
   ssh_private_key        = var.ssh_private_key
   ansible_vault_password = var.ansible_vault_password
   configure_ansible_host = false
-  ibmcloud_api_key       = var.ibmcloud_api_key
 
   src_script_template_name = "connect-scc-wp/ansible_connect_scc_wp.sh.tftpl"
   dst_script_file_name     = "${var.prefix}-connect_wp.sh"

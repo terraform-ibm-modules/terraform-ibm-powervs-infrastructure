@@ -33,7 +33,6 @@ No modules.
 | <a name="input_dst_inventory_file_name"></a> [dst\_inventory\_file\_name](#input\_dst\_inventory\_file\_name) | Name for the inventory file to be generated on the Ansible host. | `string` | n/a | yes |
 | <a name="input_dst_playbook_file_name"></a> [dst\_playbook\_file\_name](#input\_dst\_playbook\_file\_name) | Name for the playbook file to be generated on the Ansible host. | `string` | n/a | yes |
 | <a name="input_dst_script_file_name"></a> [dst\_script\_file\_name](#input\_dst\_script\_file\_name) | Name for the bash file to be generated on the Ansible host. | `string` | n/a | yes |
-| <a name="input_ibmcloud_api_key"></a> [ibmcloud\_api\_key](#input\_ibmcloud\_api\_key) | IBM Cloud platform API key needed to deploy IAM enabled resources. | `string` | `null` | no |
 | <a name="input_inventory_template_vars"></a> [inventory\_template\_vars](#input\_inventory\_template\_vars) | Map values for the inventory template. | `map(any)` | n/a | yes |
 | <a name="input_playbook_template_vars"></a> [playbook\_template\_vars](#input\_playbook\_template\_vars) | Map values for the ansible playbook template. | `map(any)` | n/a | yes |
 | <a name="input_src_inventory_template_name"></a> [src\_inventory\_template\_name](#input\_src\_inventory\_template\_name) | Name of the inventory template file located within the 'templates-ansible' directory. | `string` | n/a | yes |

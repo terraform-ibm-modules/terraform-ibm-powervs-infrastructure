@@ -36,6 +36,5 @@ module "standard" {
   enable_monitoring                            = var.enable_monitoring
   existing_monitoring_instance_crn             = var.existing_monitoring_instance_crn
   enable_scc_wp                                = var.enable_scc_wp
-  ibmcloud_api_key                             = var.ibmcloud_api_key
   ansible_vault_password                       = var.ansible_vault_password
 }
