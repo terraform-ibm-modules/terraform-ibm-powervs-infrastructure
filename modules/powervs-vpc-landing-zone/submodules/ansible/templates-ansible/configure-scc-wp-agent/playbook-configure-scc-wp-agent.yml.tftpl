@@ -24,6 +24,8 @@
         dest: /tmp/install-agent.sh
         mode: "0755"
       when: not file_exists_before.stat.exists
+      retries: 3
+      delay: 20
 
     - name: Install Sysdig agent
       ansible.builtin.command:
@@ -42,18 +44,13 @@
           - "sysdig_api_endpoint: {{ wp_api_endpoint }}\nhost_scanner:\n enabled: true\n scan_on_start: true\nkspm_analyzer:\n enabled: true"
       when: not file_exists_before.stat.exists
 
-    - name: Check agent reports it's running
-      ansible.builtin.stat:
-        path: /opt/draios/logs/running
-      register: file_exists_after
-
-    - name: Make sure Sysdig agent is running
-      ansible.builtin.fail:
-        msg: "Sysdig agent not running. Something went wrong and it didn't start correctly."
-      when: not file_exists_after.stat.exists
-
     - name: Ensure Sysdig agent is enabled and started
       ansible.builtin.service:
         name: dragent
         state: started
         enabled: true
+
+    - name: Wait for Sysdig agent to report as running
+      ansible.builtin.wait_for:
+        path: /opt/draios/logs/running
+        timeout: 120
