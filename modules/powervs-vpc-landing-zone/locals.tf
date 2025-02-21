@@ -85,11 +85,11 @@ locals {
 ########################################################################
 
 locals {
-  playbook_template_vars = {
-    SCC_WP_GUID : module.scc_wp_instance.guid,
+  scc_wp_playbook_template_vars = {
+    SCC_WP_GUID : var.enable_scc_wp ? module.scc_wp_instance[0].guid : null,
     # resource key doesn't support private endpoint, so prefix with private. to use private endpoint
-    COLLECTOR_ENDPOINT : join(".", ["private", module.scc_wp_instance.ingestion_endpoint]),
-    API_ENDPOINT : replace(module.scc_wp_instance.api_endpoint, "https://", "https://private."),
-    ACCESS_KEY : module.scc_wp_instance.access_key
+    COLLECTOR_ENDPOINT : var.enable_scc_wp ? replace(module.scc_wp_instance[0].ingestion_endpoint, "ingest.", "ingest.private.") : null,
+    API_ENDPOINT : var.enable_scc_wp ? replace(module.scc_wp_instance[0].api_endpoint, "https://", "https://private.") : null,
+    ACCESS_KEY : var.enable_scc_wp ? module.scc_wp_instance[0].access_key : null
   }
 }

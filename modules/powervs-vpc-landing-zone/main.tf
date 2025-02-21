@@ -34,13 +34,17 @@ resource "ibm_resource_instance" "monitoring_instance" {
 
 module "scc_wp_instance" {
   source    = "terraform-ibm-modules/scc-workload-protection/ibm"
+  version   = "1.4.3"
   providers = { ibm = ibm.ibm-is }
+  count     = var.enable_scc_wp ? 1 : 0
 
-  version                       = "1.4.3"
   name                          = "${var.prefix}-scc-wp-instance"
   region                        = lookup(local.ibm_powervs_zone_cloud_region_map, var.powervs_zone, null)
   resource_group_id             = module.landing_zone.resource_group_data["${var.prefix}-slz-service-rg"]
-  resource_key_tags             = ["scc-wp-tag"]
+  scc_wp_service_plan           = "graduated-tier"
+  resource_tags                 = var.tags
+  resource_key_name             = "${var.prefix}-scc-wp-manager-key"
+  resource_key_tags             = var.tags
   cloud_monitoring_instance_crn = local.monitoring_instance.crn != "" ? local.monitoring_instance.crn : null
 }
 
@@ -205,7 +209,7 @@ module "configure_monitoring_host" {
   inventory_template_vars     = { "host_or_ip" : local.monitoring_vsi_ip }
 }
 
-module "connect_scc_wp" {
+module "configure_scc_wp_agent" {
 
   source     = "./submodules/ansible"
   depends_on = [module.configure_network_services, module.configure_monitoring_host]
@@ -217,12 +221,12 @@ module "connect_scc_wp" {
   ansible_vault_password = var.ansible_vault_password
   configure_ansible_host = false
 
-  src_script_template_name = "connect-scc-wp/ansible_connect_scc_wp.sh.tftpl"
-  dst_script_file_name     = "${var.prefix}-connect_wp.sh"
+  src_script_template_name = "configure-scc-wp-agent/ansible_configure_scc_wp_agent.sh.tftpl"
+  dst_script_file_name     = "${var.prefix}-configure_scc_wp_agent.sh"
 
-  src_playbook_template_name  = "connect-scc-wp/playbook-connect-scc-wp.yml.tftpl"
-  dst_playbook_file_name      = "${var.prefix}-playbook-connect-scc-wp.yml"
-  playbook_template_vars      = local.playbook_template_vars
+  src_playbook_template_name  = "configure-scc-wp-agent/playbook-configure-scc-wp-agent.yml.tftpl"
+  dst_playbook_file_name      = "${var.prefix}-playbook-configure-scc-wp-agent.yml"
+  playbook_template_vars      = local.scc_wp_playbook_template_vars
   src_inventory_template_name = "inventory.tftpl"
   dst_inventory_file_name     = "${var.prefix}-scc-wp-inventory"
   inventory_template_vars     = { "host_or_ip" : join("\n", [for vsi in module.landing_zone.vsi_list : vsi["ipv4_address"]]) }

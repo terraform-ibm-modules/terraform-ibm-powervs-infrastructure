@@ -156,5 +156,5 @@ output "monitoring_instance" {
 
 output "scc_wp_instance" {
   description = "Details of the Security and Compliance Center Workload Protection Instance: guid, region"
-  value       = module.scc_wp_instance
+  value       = var.enable_scc_wp ? module.scc_wp_instance[0] : null
 }
