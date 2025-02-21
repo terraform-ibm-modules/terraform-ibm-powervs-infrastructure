@@ -16,14 +16,14 @@
     - name: Check if agent is already running
       ansible.builtin.stat:
         path: /opt/draios/logs/running
-      register: file_exists
+      register: file_exists_before
 
     - name: Download Sysdig agent installation script
       ansible.builtin.get_url:
         url: https://ibm.biz/install-sysdig-agent
         dest: /tmp/install-agent.sh
         mode: "0755"
-      when: not file_exists.stat.exists
+      when: not file_exists_before.stat.exists
 
     - name: Install Sysdig agent
       ansible.builtin.command:
@@ -40,4 +40,20 @@
           - "{{ '--universal_ebpf' if ansible_kernel is version('5.8','>=') else '--kmod' }}"
           - --additional_conf
           - "sysdig_api_endpoint: {{ wp_api_endpoint }}\nhost_scanner:\n enabled: true\n scan_on_start: true\nkspm_analyzer:\n enabled: true"
-      when: not file_exists.stat.exists
+      when: not file_exists_before.stat.exists
+
+    - name: Check agent reports it's running
+      ansible.builtin.stat:
+        path: /opt/draios/logs/running
+      register: file_exists_after
+
+    - name: Make sure Sysdig agent is running
+      ansible.builtin.fail:
+        msg: "Sysdig agent not running. Something went wrong and it didn't start correctly."
+      when: not file_exists_after.stat.exists
+
+    - name: Ensure Sysdig agent is enabled and started
+      ansible.builtin.service:
+        name: dragent
+        state: started
+        enabled: true
