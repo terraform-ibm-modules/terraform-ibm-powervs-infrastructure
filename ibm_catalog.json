@@ -347,6 +347,10 @@
             },
             {
               "key": "certificate_template_name"
+            },
+            {
+              "key": "IC_SCHEMATICS_WORKSPACE_ID",
+              "hidden": true
             }
           ],
           "outputs": [
@@ -973,6 +977,10 @@
             },
             {
               "key": "certificate_template_name"
+            },
+            {
+              "key": "IC_SCHEMATICS_WORKSPACE_ID",
+              "hidden": true
             }
           ],
           "outputs": [
@@ -1342,7 +1350,8 @@
               }
             },
             {
-              "key": "tags"
+              "key": "IC_SCHEMATICS_WORKSPACE_ID",
+              "hidden": true
             }
           ],
           "outputs": [
@@ -1689,6 +1698,10 @@
             },
             {
               "key": "tags"
+            },
+            {
+              "key": "IC_SCHEMATICS_WORKSPACE_ID",
+              "hidden": true
             }
           ],
           "outputs": [
