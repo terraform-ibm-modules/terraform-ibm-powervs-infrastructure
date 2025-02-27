@@ -230,7 +230,7 @@
             },
             {
               "key": "enable_scc_wp",
-              "required":true,
+              "required": true,
               "default_value": false
             },
             {
@@ -803,6 +803,11 @@
               "required": true
             },
             {
+              "key": "enable_scc_wp",
+              "required": true,
+              "default_value": false
+            },
+            {
               "key": "vpc_intel_images",
               "hidden": true
             },
@@ -893,6 +898,11 @@
                 "original_grouping": "deployment",
                 "type": "json_editor"
               }
+            },
+            {
+              "key": "ansible_vault_password",
+              "type": "multiline_secure_value",
+              "display_name": "Multiline secure value"
             },
             {
               "key": "configure_dns_forwarder"

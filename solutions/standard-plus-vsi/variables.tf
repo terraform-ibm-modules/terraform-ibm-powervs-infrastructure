@@ -255,6 +255,28 @@ variable "existing_monitoring_instance_crn" {
   default     = null
 }
 
+#################################################
+# Optional Parameters SCC Workload Protection
+#################################################
+
+variable "enable_scc_wp" {
+  description = "Set to true to enable SCC Workload Protection and install and configure the Sysdig agent on all VSIs and PowerVS instances in this deployment."
+  type        = bool
+  default     = false
+}
+
+variable "ansible_vault_password" {
+  description = "Vault password to encrypt ansible variable file for SAP installation."
+  type        = string
+  sensitive   = true
+  default     = null
+
+  validation {
+    condition     = var.enable_scc_wp ? var.ansible_vault_password != null : true
+    error_message = "ansible_vault_password is required when enable_scc_wp=true"
+  }
+}
+
 #############################################################################
 # Schematics Output
 #############################################################################
