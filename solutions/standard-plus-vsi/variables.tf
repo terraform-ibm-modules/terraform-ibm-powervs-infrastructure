@@ -266,7 +266,7 @@ variable "enable_scc_wp" {
 }
 
 variable "ansible_vault_password" {
-  description = "Vault password to encrypt ansible variable file for SAP installation."
+  description = "Vault password to encrypt ansible variable file for SAP installation. Required when using scc workload protection."
   type        = string
   sensitive   = true
   default     = null
