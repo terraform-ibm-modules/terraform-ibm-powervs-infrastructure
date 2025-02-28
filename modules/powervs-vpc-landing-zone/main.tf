@@ -209,6 +209,20 @@ module "configure_monitoring_host" {
   inventory_template_vars     = { "host_or_ip" : local.monitoring_vsi_ip }
 }
 
+########################################################################
+# SCC Workload Protection locals
+########################################################################
+
+locals {
+  scc_wp_playbook_template_vars = {
+    SCC_WP_GUID : var.enable_scc_wp ? module.scc_wp_instance[0].guid : null,
+    # resource key doesn't support private endpoint, so prefix with private. to use private endpoint
+    COLLECTOR_ENDPOINT : var.enable_scc_wp ? replace(module.scc_wp_instance[0].ingestion_endpoint, "ingest.", "ingest.private.") : null,
+    API_ENDPOINT : var.enable_scc_wp ? replace(module.scc_wp_instance[0].api_endpoint, "https://", "https://private.") : null,
+    ACCESS_KEY : var.enable_scc_wp ? module.scc_wp_instance[0].access_key : null
+  }
+}
+
 module "configure_scc_wp_agent" {
 
   source     = "./submodules/ansible"
