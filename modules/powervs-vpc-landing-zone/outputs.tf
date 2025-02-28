@@ -155,6 +155,11 @@ output "monitoring_instance" {
 ########################################################################
 
 output "scc_wp_instance" {
-  description = "Details of the Security and Compliance Center Workload Protection Instance: guid, region"
-  value       = var.enable_scc_wp ? module.scc_wp_instance[0] : null
+  description = "Details of the Security and Compliance Center Workload Protection Instance: guid, access_key, api_endpoint, ingestion_endpoint"
+  value = {
+    guid               = local.scc_wp_instance.guid
+    access_key         = local.scc_wp_instance.ingestion_endpoint
+    api_endpoint       = local.scc_wp_instance.api_endpoint
+    ingestion_endpoint = local.scc_wp_instance.access_key
+  }
 }

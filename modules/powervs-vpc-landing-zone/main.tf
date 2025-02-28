@@ -209,19 +209,6 @@ module "configure_monitoring_host" {
   inventory_template_vars     = { "host_or_ip" : local.monitoring_vsi_ip }
 }
 
-########################################################################
-# SCC Workload Protection locals
-########################################################################
-
-locals {
-  scc_wp_playbook_template_vars = {
-    SCC_WP_GUID : var.enable_scc_wp ? module.scc_wp_instance[0].guid : null,
-    # resource key doesn't support private endpoint, so prefix with private. to use private endpoint
-    COLLECTOR_ENDPOINT : var.enable_scc_wp ? replace(module.scc_wp_instance[0].ingestion_endpoint, "ingest.", "ingest.private.") : null,
-    API_ENDPOINT : var.enable_scc_wp ? replace(module.scc_wp_instance[0].api_endpoint, "https://", "https://private.") : null,
-    ACCESS_KEY : var.enable_scc_wp ? module.scc_wp_instance[0].access_key : null
-  }
-}
 
 module "configure_scc_wp_agent" {
 
@@ -238,9 +225,14 @@ module "configure_scc_wp_agent" {
   src_script_template_name = "configure-scc-wp-agent/ansible_configure_scc_wp_agent.sh.tftpl"
   dst_script_file_name     = "${var.prefix}-configure_scc_wp_agent.sh"
 
-  src_playbook_template_name  = "configure-scc-wp-agent/playbook-configure-scc-wp-agent.yml.tftpl"
-  dst_playbook_file_name      = "${var.prefix}-playbook-configure-scc-wp-agent.yml"
-  playbook_template_vars      = local.scc_wp_playbook_template_vars
+  src_playbook_template_name = "configure-scc-wp-agent/playbook-configure-scc-wp-agent.yml.tftpl"
+  dst_playbook_file_name     = "${var.prefix}-playbook-configure-scc-wp-agent.yml"
+  playbook_template_vars = {
+    SCC_WP_GUID : local.scc_wp_instance.guid,
+    COLLECTOR_ENDPOINT : local.scc_wp_instance.ingestion_endpoint,
+    API_ENDPOINT : local.scc_wp_instance.api_endpoint,
+    ACCESS_KEY : local.scc_wp_instance.access_key
+  }
   src_inventory_template_name = "inventory.tftpl"
   dst_inventory_file_name     = "${var.prefix}-scc-wp-inventory"
   inventory_template_vars     = { "host_or_ip" : join("\n", [for vsi in module.landing_zone.vsi_list : vsi["ipv4_address"]]) }
