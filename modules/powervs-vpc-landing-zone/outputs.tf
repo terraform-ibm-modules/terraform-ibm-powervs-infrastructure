@@ -143,9 +143,28 @@ output "powervs_images" {
 output "monitoring_instance" {
   description = "Details of the IBM Cloud Monitoring Instance: CRN, location, guid"
   value = {
-    crn                = var.enable_monitoring && var.existing_monitoring_instance_crn == null ? resource.ibm_resource_instance.monitoring_instance[0].crn : var.existing_monitoring_instance_crn != null ? var.existing_monitoring_instance_crn : ""
-    location           = var.enable_monitoring && var.existing_monitoring_instance_crn == null ? resource.ibm_resource_instance.monitoring_instance[0].location : var.existing_monitoring_instance_crn != null ? split(":", var.existing_monitoring_instance_crn)[5] : ""
-    guid               = var.enable_monitoring && var.existing_monitoring_instance_crn == null ? resource.ibm_resource_instance.monitoring_instance[0].guid : var.existing_monitoring_instance_crn != null ? split(":", var.existing_monitoring_instance_crn)[7] : ""
-    monitoring_host_ip = local.monitoring_vsi_ip
+    crn                = local.monitoring_instance.crn
+    location           = local.monitoring_instance.location
+    guid               = local.monitoring_instance.guid
+    monitoring_host_ip = local.monitoring_instance.monitoring_host_ip
   }
+}
+
+########################################################################
+# SCC Workload Protection Output
+########################################################################
+
+output "scc_wp_instance" {
+  description = "Details of the Security and Compliance Center Workload Protection Instance: guid, api_endpoint, ingestion_endpoint"
+  value = {
+    guid               = local.scc_wp_instance.guid
+    access_key         = local.scc_wp_instance.ingestion_endpoint
+    api_endpoint       = local.scc_wp_instance.api_endpoint
+    ingestion_endpoint = local.scc_wp_instance.access_key
+  }
+}
+
+output "scc_wp_access_key" {
+  description = "Access key for the Security and Compliance Center Workload Protection Instance."
+  value       = local.scc_wp_instance.access_key
 }

@@ -66,3 +66,29 @@ locals {
   validate_json_chk = regex("^${local.validate_json_msg}$", (local.valid_json_used ? local.validate_json_msg : ""))
 
 }
+
+########################################################################
+# Monitoring locals
+########################################################################
+
+locals {
+  monitoring_instance = {
+    crn                = var.enable_monitoring && var.existing_monitoring_instance_crn == null ? resource.ibm_resource_instance.monitoring_instance[0].crn : var.existing_monitoring_instance_crn != null ? var.existing_monitoring_instance_crn : ""
+    location           = var.enable_monitoring && var.existing_monitoring_instance_crn == null ? resource.ibm_resource_instance.monitoring_instance[0].location : var.existing_monitoring_instance_crn != null ? split(":", var.existing_monitoring_instance_crn)[5] : ""
+    guid               = var.enable_monitoring && var.existing_monitoring_instance_crn == null ? resource.ibm_resource_instance.monitoring_instance[0].guid : var.existing_monitoring_instance_crn != null ? split(":", var.existing_monitoring_instance_crn)[7] : ""
+    monitoring_host_ip = local.monitoring_vsi_ip
+  }
+}
+
+########################################################################
+# SCC Workload Protection locals
+########################################################################
+
+locals {
+  scc_wp_instance = {
+    guid               = var.enable_scc_wp ? module.scc_wp_instance[0].guid : "",
+    access_key         = var.enable_scc_wp ? module.scc_wp_instance[0].access_key : "",
+    api_endpoint       = var.enable_scc_wp ? replace(module.scc_wp_instance[0].api_endpoint, "https://", "https://private.") : "",
+    ingestion_endpoint = var.enable_scc_wp ? replace(module.scc_wp_instance[0].ingestion_endpoint, "ingest.", "ingest.private.") : ""
+  }
+}
