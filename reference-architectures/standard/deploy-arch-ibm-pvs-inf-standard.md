@@ -32,7 +32,7 @@ compliance: SAPCertified
 
 The Standard deployment of the Power Virtual Server with VPC landing zone creates VPC services and a Power Virtual Server workspace and interconnects them.
 
-A proxy service for public internet access from the PowerVS workspace is configured. You can optionally configure some management components on VPC (such as an NFS service, NTP forwarder, and DNS forwarder).
+A proxy service for public internet access from the PowerVS workspace is configured. You can optionally configure some management components on VPC (such as an NFS service, NTP forwarder, and DNS forwarder), as well as Monitoring and Security and Compliance Center Workload Protection.
 
 ## Architecture diagram
 {: #standard-architecture-diagram}
