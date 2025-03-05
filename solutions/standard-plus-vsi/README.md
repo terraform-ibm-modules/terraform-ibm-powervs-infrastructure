@@ -2,12 +2,13 @@
 
 This example sets up the following infrastructure:
 - A **VPC Infrastructure** with the following components:
-    - One VSI for one management (jump/bastion) VSI,
+    - One VSI for management (jump/bastion)
     - One VSI for network-services configured as squid proxy, NTP and DNS servers(using Ansible Galaxy collection roles [ibm.power_linux_sap collection](https://galaxy.ansible.com/ui/repo/published/ibm/power_linux_sap/). This VSI also acts as central ansible execution node.
     - Optional VSI for Monitoring host
     - Optional [Client to site VPN server](https://cloud.ibm.com/docs/vpc?topic=vpc-vpn-client-to-site-overview)
     - Optional [File storage share](https://cloud.ibm.com/docs/vpc?topic=vpc-file-storage-create&interface=ui)
     - Optional [Application load balancer](https://cloud.ibm.com/docs/vpc?topic=vpc-load-balancers&interface=ui)
+    - Optional [IBM Cloud Security and Compliance Center Workload Protection](https://cloud.ibm.com/docs/workload-protection) and Sysdig agent configuration on the VSIs in the deployment
     - IBM Cloud Object storage(COS) Virtual Private endpoint gateway(VPE)
     - IBM Cloud Object storage(COS) Instance and buckets
     - VPC flow logs

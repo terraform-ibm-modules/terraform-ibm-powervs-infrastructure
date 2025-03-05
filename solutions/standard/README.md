@@ -8,6 +8,7 @@ This example sets up the following infrastructure:
     - Optional [Client to site VPN server](https://cloud.ibm.com/docs/vpc?topic=vpc-vpn-client-to-site-overview)
     - Optional [File storage share](https://cloud.ibm.com/docs/vpc?topic=vpc-file-storage-create&interface=ui)
     - Optional [Application load balancer](https://cloud.ibm.com/docs/vpc?topic=vpc-load-balancers&interface=ui)
+    - Optional [IBM Cloud Security and Compliance Center Workload Protection](https://cloud.ibm.com/docs/workload-protection) and Sysdig agent configuration on the VSIs in the deployment
     - IBM Cloud Object storage(COS) Virtual Private endpoint gateway(VPE)
     - IBM Cloud Object storage(COS) Instance and buckets
     - VPC flow logs
