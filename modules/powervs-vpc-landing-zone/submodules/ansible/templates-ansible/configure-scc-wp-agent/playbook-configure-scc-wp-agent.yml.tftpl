@@ -1,0 +1,56 @@
+# ------------------------------------------------------------------------
+# This playbook installs the sysdig agent and connects it to a
+# Security and Compliance Center Workload Protection instance
+# ------------------------------------------------------------------------
+
+---
+
+- name: Install and connect Sysdig Agent
+  hosts: all
+  vars:
+    wp_guid: "${SCC_WP_GUID}"
+    collector_endpoint: "${COLLECTOR_ENDPOINT}"
+    wp_api_endpoint: "${API_ENDPOINT}"
+    access_key: "${ACCESS_KEY}"
+  tasks:
+    - name: Check if agent is already running
+      ansible.builtin.stat:
+        path: /opt/draios/logs/running
+      register: file_exists_before
+
+    - name: Download Sysdig agent installation script
+      ansible.builtin.get_url:
+        url: https://ibm.biz/install-sysdig-agent
+        dest: /tmp/install-agent.sh
+        mode: "0755"
+      when: not file_exists_before.stat.exists
+      retries: 3
+      delay: 20
+
+    - name: Install Sysdig agent
+      ansible.builtin.command:
+        argv:
+          - /tmp/install-agent.sh
+          - --access_key
+          - "{{ access_key }}"
+          - --collector
+          - "{{ collector_endpoint }}"
+          - --collector_port
+          - 6443
+          - --secure
+          - true
+          - "{{ '--universal_ebpf' if ansible_kernel is version('5.8','>=') else '--kmod' }}"
+          - --additional_conf
+          - "sysdig_api_endpoint: {{ wp_api_endpoint }}\nhost_scanner:\n enabled: true\n scan_on_start: true\nkspm_analyzer:\n enabled: true"
+      when: not file_exists_before.stat.exists
+
+    - name: Ensure Sysdig agent is enabled and started
+      ansible.builtin.service:
+        name: dragent
+        state: started
+        enabled: true
+
+    - name: Wait for Sysdig agent to report as running
+      ansible.builtin.wait_for:
+        path: /opt/draios/logs/running
+        timeout: 120
