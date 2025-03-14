@@ -2,6 +2,6 @@
 - name: osa21
   useForTest: true
   testPriority: 1
-- name: sao04
+- name: dal10
   useForTest: true
   testPriority: 2
