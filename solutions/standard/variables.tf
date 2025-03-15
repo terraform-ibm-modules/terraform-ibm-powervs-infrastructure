@@ -285,6 +285,23 @@ variable "existing_monitoring_instance_crn" {
   default     = null
 }
 
+#################################################
+# Optional Parameters SCC Workload Protection
+#################################################
+
+variable "enable_scc_wp" {
+  description = "Set to true to enable SCC Workload Protection and install and configure the Sysdig agent on all VSIs and PowerVS instances in this deployment."
+  type        = bool
+  default     = false
+}
+
+variable "ansible_vault_password" {
+  description = "Vault password to encrypt ansible playbooks that contain sensitive information. Required when using scc workload protection."
+  type        = string
+  sensitive   = true
+  default     = null
+}
+
 #############################################################################
 # Schematics Output
 #############################################################################
