@@ -1,7 +1,7 @@
 {
   "ibmcloud_api_key": $VALIDATION_APIKEY,
   "powervs_zone": "dal10",
-  "prefix": $PREFIX,
+  "prefix": "qs-val",
   "tshirt_size": {
       "tshirt_size":"aix_xs",
       "image":"7300-02-02"
