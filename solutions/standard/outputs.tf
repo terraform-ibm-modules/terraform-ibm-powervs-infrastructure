@@ -98,6 +98,7 @@ output "monitoring_instance" {
 output "scc_wp_instance" {
   description = "Details of the Security and Compliance Center Workload Protection Instance: guid, access key, api_endpoint, ingestion_endpoint."
   value       = module.standard.scc_wp_instance
+  sensitive   = true
 }
 
 ########################################################################
