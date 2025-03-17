@@ -26,18 +26,6 @@ locals {
     "wdc06"    = "us-east"
     "wdc07"    = "us-east"
   }
-
-  external_access_ip = var.external_access_ip != null && var.external_access_ip != "" ? length(regexall("/", var.external_access_ip)) > 0 ? var.external_access_ip : "${var.external_access_ip}/32" : ""
-  override_json_string = templatefile("${path.module}/presets/slz-preset.json.tftpl",
-    {
-      external_access_ip           = local.external_access_ip,
-      rhel_image                   = var.vpc_intel_images.rhel_image,
-      network_services_vsi_profile = var.network_services_vsi_profile,
-      transit_gateway_global       = var.transit_gateway_global,
-      enable_monitoring            = var.enable_monitoring,
-      sles_image                   = var.vpc_intel_images.sles_image
-    }
-  )
 }
 
 #####################################################

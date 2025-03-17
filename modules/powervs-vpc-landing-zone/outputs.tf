@@ -1,5 +1,5 @@
 output "prefix" {
-  description = "The prefix that is associated with all resources"
+  description = "The prefix that is associated with all resources."
   value       = var.prefix
 }
 
@@ -18,7 +18,7 @@ output "vsi_names" {
 }
 
 output "ssh_public_key" {
-  description = "The string value of the ssh public key used when deploying VPC"
+  description = "The string value of the ssh public key used when deploying VPC."
   value       = var.ssh_public_key
 }
 
@@ -141,11 +141,15 @@ output "powervs_images" {
 ########################################################################
 
 output "monitoring_instance" {
-  description = "Details of the IBM Cloud Monitoring Instance: CRN, location, guid"
-  value = {
-    crn                = var.enable_monitoring && var.existing_monitoring_instance_crn == null ? resource.ibm_resource_instance.monitoring_instance[0].crn : var.existing_monitoring_instance_crn != null ? var.existing_monitoring_instance_crn : ""
-    location           = var.enable_monitoring && var.existing_monitoring_instance_crn == null ? resource.ibm_resource_instance.monitoring_instance[0].location : var.existing_monitoring_instance_crn != null ? split(":", var.existing_monitoring_instance_crn)[5] : ""
-    guid               = var.enable_monitoring && var.existing_monitoring_instance_crn == null ? resource.ibm_resource_instance.monitoring_instance[0].guid : var.existing_monitoring_instance_crn != null ? split(":", var.existing_monitoring_instance_crn)[7] : ""
-    monitoring_host_ip = local.monitoring_vsi_ip
-  }
+  description = "Details of the IBM Cloud Monitoring Instance: CRN, location, guid, monitoring_host_ip."
+  value       = local.monitoring_instance
+}
+
+########################################################################
+# SCC Workload Protection Output
+########################################################################
+
+output "scc_wp_instance" {
+  description = "Details of the Security and Compliance Center Workload Protection Instance: guid, access key, api_endpoint, ingestion_endpoint."
+  value       = local.scc_wp_instance
 }

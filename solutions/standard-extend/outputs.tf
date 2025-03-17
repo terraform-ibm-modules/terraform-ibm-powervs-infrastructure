@@ -82,6 +82,21 @@ output "monitoring_instance" {
 }
 
 ########################################################################
+# SCC Workload Protection outputs
+########################################################################
+
+output "scc_wp_instance" {
+  description = "Details of the IBM Cloud Workload Protection instance: api_endpoint, crn, guid, ingestion_endpoint"
+  value       = local.standard_output[0].scc_wp_instance.value
+}
+
+output "scc_wp_access_key" {
+  description = "Access key for the Security and Compliance Center Workload Protection Instance."
+  value       = local.standard_output[0].scc_wp_access_key.value
+  sensitive   = true
+}
+
+########################################################################
 # PowerVS Infrastructure outputs
 ########################################################################
 

@@ -61,7 +61,7 @@ resource "terraform_data" "setup_ansible_host" {
 ##############################################################
 
 resource "terraform_data" "trigger_ansible_vars" {
-  input = var.playbook_template_vars
+  input = [var.playbook_template_vars, var.inventory_template_vars]
 }
 
 resource "terraform_data" "execute_playbooks" {
