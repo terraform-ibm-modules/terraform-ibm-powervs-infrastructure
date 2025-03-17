@@ -84,7 +84,7 @@ func setupOptionsStandardSolution(t *testing.T, prefix string) *testhelper.TestO
 		"existing_sm_instance_region": permanentResources["secretsManagerRegion"],
 		"certificate_template_name":   permanentResources["privateCertTemplateName"],
 		"enable_monitoring":           true,
-		"enable_scc_wp":               false,
+		"enable_scc_wp":               true,
 	}
 
 	return options
