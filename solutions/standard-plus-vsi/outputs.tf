@@ -82,7 +82,7 @@ output "network_services_config" {
 ########################################################################
 
 output "monitoring_instance" {
-  description = "Details of the IBM Cloud Monitoring Instance: CRN, location, guid"
+  description = "Details of the IBM Cloud Monitoring Instance: CRN, location, guid."
   value       = module.standard.monitoring_instance
 }
 
@@ -92,7 +92,6 @@ output "monitoring_instance" {
 output "scc_wp_instance" {
   description = "Details of the Security and Compliance Center Workload Protection Instance: guid, access key, api_endpoint, ingestion_endpoint."
   value       = module.standard.scc_wp_instance
-  sensitive   = true
 }
 
 ########################################################################
