@@ -74,9 +74,9 @@ module "scc_wp_instance" {
 locals {
   scc_wp_instance = {
     guid               = var.enable_scc_wp ? module.scc_wp_instance[0].guid : "",
-    access_key         = var.enable_scc_wp ? module.scc_wp_instance[0].access_key : "",
-    api_endpoint       = var.enable_scc_wp ? replace(module.scc_wp_instance[0].api_endpoint, "https://", "https://private.") : "",
-    ingestion_endpoint = var.enable_scc_wp ? replace(module.scc_wp_instance[0].ingestion_endpoint, "ingest.", "ingest.private.") : ""
+    access_key         = var.enable_scc_wp ? nonsensitive(module.scc_wp_instance[0].access_key) : "",
+    api_endpoint       = var.enable_scc_wp ? nonsensitive(replace(module.scc_wp_instance[0].api_endpoint, "https://", "https://private.")) : "",
+    ingestion_endpoint = var.enable_scc_wp ? nonsensitive(replace(module.scc_wp_instance[0].ingestion_endpoint, "ingest.", "ingest.private.")) : ""
   }
 }
 
