@@ -1,5 +1,5 @@
 output "prefix" {
-  description = "The prefix that is associated with all resources"
+  description = "The prefix that is associated with all resources."
   value       = var.prefix
 }
 
@@ -18,7 +18,7 @@ output "vsi_names" {
 }
 
 output "ssh_public_key" {
-  description = "The string value of the ssh public key used when deploying VPC"
+  description = "The string value of the ssh public key used when deploying VPC."
   value       = var.ssh_public_key
 }
 
@@ -82,23 +82,16 @@ output "network_services_config" {
 ########################################################################
 
 output "monitoring_instance" {
-  description = "Details of the IBM Cloud Monitoring Instance: CRN, location, guid"
+  description = "Details of the IBM Cloud Monitoring Instance: CRN, location, guid."
   value       = module.standard.monitoring_instance
 }
 
 ########################################################################
 # SCC Workload Protection outputs
 ########################################################################
-
 output "scc_wp_instance" {
-  description = "Details of the IBM Cloud Workload Protection instance: api_endpoint, crn, guid, ingestion_endpoint"
+  description = "Details of the Security and Compliance Center Workload Protection Instance: guid, access key, api_endpoint, ingestion_endpoint."
   value       = module.standard.scc_wp_instance
-}
-
-output "scc_wp_access_key" {
-  description = "Access key for the Security and Compliance Center Workload Protection Instance."
-  value       = module.standard.scc_wp_access_key
-  sensitive   = true
 }
 
 ########################################################################

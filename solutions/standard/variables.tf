@@ -9,7 +9,7 @@ variable "powervs_resource_group_name" {
 }
 
 variable "prefix" {
-  description = "A unique identifier for resources. Must begin with a lowercase letter and end with a lowercase letter or number. This prefix will be prepended to any resources provisioned by this template. Prefixes must be 16 or fewer characters."
+  description = "A unique identifier for resources. Must begin with a lowercase letter and end with a lowercase letter or number. This prefix will be prepended to any resources provisioned by this template. Prefixes must be 10 or fewer characters."
   type        = string
 }
 
@@ -52,6 +52,11 @@ variable "ibmcloud_api_key" {
 
 variable "enable_monitoring" {
   description = "Specify whether Monitoring will be enabled. This includes the creation of an IBM Cloud Monitoring Instance and an Intel Monitoring Instance to host the services. If you already have an existing monitoring instance then specify in optional parameter 'existing_monitoring_instance_crn' and setting this parameter to true."
+  type        = bool
+}
+
+variable "enable_scc_wp" {
+  description = "Enable SCC Workload Protection and install and configure the Sysdig agent on all intel VSIs in this deployment. If set to true, then value for 'ansible_vault_password' in optional parameter must be set."
   type        = bool
 }
 
@@ -289,14 +294,8 @@ variable "existing_monitoring_instance_crn" {
 # Optional Parameters SCC Workload Protection
 #################################################
 
-variable "enable_scc_wp" {
-  description = "Set to true to enable SCC Workload Protection and install and configure the Sysdig agent on all VSIs and PowerVS instances in this deployment."
-  type        = bool
-  default     = false
-}
-
 variable "ansible_vault_password" {
-  description = "Vault password to encrypt ansible playbooks that contain sensitive information. Required when using scc workload protection."
+  description = "Vault password to encrypt ansible playbooks that contain sensitive information. Required when SCC workload Protection is enabled. Password requirements: 15-100 characters and at least one uppercase letter, one lowercase letter, one number, and one special character. Allowed characters: A-Z, a-z, 0-9, !#$%&()*+-.:;<=>?@[]_{|}~."
   type        = string
   sensitive   = true
   default     = null

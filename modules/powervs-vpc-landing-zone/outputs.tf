@@ -1,5 +1,5 @@
 output "prefix" {
-  description = "The prefix that is associated with all resources"
+  description = "The prefix that is associated with all resources."
   value       = var.prefix
 }
 
@@ -18,7 +18,7 @@ output "vsi_names" {
 }
 
 output "ssh_public_key" {
-  description = "The string value of the ssh public key used when deploying VPC"
+  description = "The string value of the ssh public key used when deploying VPC."
   value       = var.ssh_public_key
 }
 
@@ -141,13 +141,8 @@ output "powervs_images" {
 ########################################################################
 
 output "monitoring_instance" {
-  description = "Details of the IBM Cloud Monitoring Instance: CRN, location, guid"
-  value = {
-    crn                = local.monitoring_instance.crn
-    location           = local.monitoring_instance.location
-    guid               = local.monitoring_instance.guid
-    monitoring_host_ip = local.monitoring_instance.monitoring_host_ip
-  }
+  description = "Details of the IBM Cloud Monitoring Instance: CRN, location, guid, monitoring_host_ip."
+  value       = local.monitoring_instance
 }
 
 ########################################################################
@@ -155,16 +150,6 @@ output "monitoring_instance" {
 ########################################################################
 
 output "scc_wp_instance" {
-  description = "Details of the Security and Compliance Center Workload Protection Instance: guid, api_endpoint, ingestion_endpoint"
-  value = {
-    guid               = local.scc_wp_instance.guid
-    access_key         = local.scc_wp_instance.ingestion_endpoint
-    api_endpoint       = local.scc_wp_instance.api_endpoint
-    ingestion_endpoint = local.scc_wp_instance.access_key
-  }
-}
-
-output "scc_wp_access_key" {
-  description = "Access key for the Security and Compliance Center Workload Protection Instance."
-  value       = local.scc_wp_instance.access_key
+  description = "Details of the Security and Compliance Center Workload Protection Instance: guid, access key, api_endpoint, ingestion_endpoint."
+  value       = local.scc_wp_instance
 }

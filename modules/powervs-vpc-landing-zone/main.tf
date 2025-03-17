@@ -1,10 +1,24 @@
 #####################################################
-# Module: VPC Landing Zone module
+# VPC Landing Zone module
 #####################################################
+locals {
+
+  external_access_ip = var.external_access_ip != null && var.external_access_ip != "" ? length(regexall("/", var.external_access_ip)) > 0 ? var.external_access_ip : "${var.external_access_ip}/32" : ""
+  override_json_string = templatefile("${path.module}/presets/slz-preset.json.tftpl",
+    {
+      external_access_ip           = local.external_access_ip,
+      rhel_image                   = var.vpc_intel_images.rhel_image,
+      network_services_vsi_profile = var.network_services_vsi_profile,
+      transit_gateway_global       = var.transit_gateway_global,
+      enable_monitoring            = var.enable_monitoring,
+      sles_image                   = var.vpc_intel_images.sles_image
+    }
+  )
+}
 
 module "landing_zone" {
   source    = "terraform-ibm-modules/landing-zone/ibm//patterns//vsi//module"
-  version   = "7.3.0"
+  version   = "7.3.1"
   providers = { ibm = ibm.ibm-is }
 
   ssh_public_key       = var.ssh_public_key
@@ -14,7 +28,7 @@ module "landing_zone" {
 }
 
 #####################################################
-# IBM Cloud Monitoring Instance
+# IBM Cloud Monitoring Instance module
 #####################################################
 
 resource "ibm_resource_instance" "monitoring_instance" {
@@ -28,8 +42,17 @@ resource "ibm_resource_instance" "monitoring_instance" {
   tags              = var.tags
 }
 
+locals {
+  monitoring_instance = {
+    crn                = var.enable_monitoring && var.existing_monitoring_instance_crn == null ? resource.ibm_resource_instance.monitoring_instance[0].crn : var.existing_monitoring_instance_crn != null ? var.existing_monitoring_instance_crn : ""
+    location           = var.enable_monitoring && var.existing_monitoring_instance_crn == null ? resource.ibm_resource_instance.monitoring_instance[0].location : var.existing_monitoring_instance_crn != null ? split(":", var.existing_monitoring_instance_crn)[5] : ""
+    guid               = var.enable_monitoring && var.existing_monitoring_instance_crn == null ? resource.ibm_resource_instance.monitoring_instance[0].guid : var.existing_monitoring_instance_crn != null ? split(":", var.existing_monitoring_instance_crn)[7] : ""
+    monitoring_host_ip = local.monitoring_vsi_ip
+  }
+}
+
 #################################################
-# SCC Workload Protection Instance
+# SCC Workload Protection Instance module
 #################################################
 
 module "scc_wp_instance" {
@@ -48,8 +71,17 @@ module "scc_wp_instance" {
   cloud_monitoring_instance_crn = local.monitoring_instance.crn != "" ? local.monitoring_instance.crn : null
 }
 
+locals {
+  scc_wp_instance = {
+    guid               = var.enable_scc_wp ? module.scc_wp_instance[0].guid : "",
+    access_key         = var.enable_scc_wp ? nonsensitive(module.scc_wp_instance[0].access_key) : "",
+    api_endpoint       = var.enable_scc_wp ? nonsensitive(replace(module.scc_wp_instance[0].api_endpoint, "https://", "https://private.")) : "",
+    ingestion_endpoint = var.enable_scc_wp ? nonsensitive(replace(module.scc_wp_instance[0].ingestion_endpoint, "ingest.", "ingest.private.")) : ""
+  }
+}
+
 ###########################################################
-# Module: File share for NFS and Application Load Balancer
+# File share for NFS and Application Load Balancer module
 ###########################################################
 
 module "vpc_file_share_alb" {
@@ -72,7 +104,7 @@ module "vpc_file_share_alb" {
 }
 
 ###########################################################
-# Module: PowerVS Workspace
+# PowerVS Workspace module
 ###########################################################
 
 locals {
@@ -121,7 +153,7 @@ module "powervs_workspace" {
 
 
 ###########################################################
-# Module: Ansible Host setup and execution
+# Ansible Host setup and execution module
 ###########################################################
 
 locals {

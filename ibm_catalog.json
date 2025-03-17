@@ -230,8 +230,7 @@
             },
             {
               "key": "enable_scc_wp",
-              "required": true,
-              "default_value": false
+              "required": true
             },
             {
               "key": "vpc_intel_images",
@@ -804,8 +803,7 @@
             },
             {
               "key": "enable_scc_wp",
-              "required": true,
-              "default_value": false
+              "required": true
             },
             {
               "key": "vpc_intel_images",

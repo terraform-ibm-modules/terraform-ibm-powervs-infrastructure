@@ -26,18 +26,6 @@ locals {
     "wdc06"    = "us-east"
     "wdc07"    = "us-east"
   }
-
-  external_access_ip = var.external_access_ip != null && var.external_access_ip != "" ? length(regexall("/", var.external_access_ip)) > 0 ? var.external_access_ip : "${var.external_access_ip}/32" : ""
-  override_json_string = templatefile("${path.module}/presets/slz-preset.json.tftpl",
-    {
-      external_access_ip           = local.external_access_ip,
-      rhel_image                   = var.vpc_intel_images.rhel_image,
-      network_services_vsi_profile = var.network_services_vsi_profile,
-      transit_gateway_global       = var.transit_gateway_global,
-      enable_monitoring            = var.enable_monitoring,
-      sles_image                   = var.vpc_intel_images.sles_image
-    }
-  )
 }
 
 #####################################################
@@ -65,30 +53,4 @@ locals {
   # tflint-ignore: terraform_unused_declarations
   validate_json_chk = regex("^${local.validate_json_msg}$", (local.valid_json_used ? local.validate_json_msg : ""))
 
-}
-
-########################################################################
-# Monitoring locals
-########################################################################
-
-locals {
-  monitoring_instance = {
-    crn                = var.enable_monitoring && var.existing_monitoring_instance_crn == null ? resource.ibm_resource_instance.monitoring_instance[0].crn : var.existing_monitoring_instance_crn != null ? var.existing_monitoring_instance_crn : ""
-    location           = var.enable_monitoring && var.existing_monitoring_instance_crn == null ? resource.ibm_resource_instance.monitoring_instance[0].location : var.existing_monitoring_instance_crn != null ? split(":", var.existing_monitoring_instance_crn)[5] : ""
-    guid               = var.enable_monitoring && var.existing_monitoring_instance_crn == null ? resource.ibm_resource_instance.monitoring_instance[0].guid : var.existing_monitoring_instance_crn != null ? split(":", var.existing_monitoring_instance_crn)[7] : ""
-    monitoring_host_ip = local.monitoring_vsi_ip
-  }
-}
-
-########################################################################
-# SCC Workload Protection locals
-########################################################################
-
-locals {
-  scc_wp_instance = {
-    guid               = var.enable_scc_wp ? module.scc_wp_instance[0].guid : "",
-    access_key         = var.enable_scc_wp ? module.scc_wp_instance[0].access_key : "",
-    api_endpoint       = var.enable_scc_wp ? replace(module.scc_wp_instance[0].api_endpoint, "https://", "https://private.") : "",
-    ingestion_endpoint = var.enable_scc_wp ? replace(module.scc_wp_instance[0].ingestion_endpoint, "ingest.", "ingest.private.") : ""
-  }
 }

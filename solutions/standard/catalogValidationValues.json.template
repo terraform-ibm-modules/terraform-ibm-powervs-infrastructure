@@ -6,5 +6,6 @@
   "external_access_ip": "0.0.0.0/0",
   "ssh_public_key": $SSH_PUB_KEY,
   "ssh_private_key": $SSH_PRV_KEY,
-  "enable_monitoring": false
+  "enable_monitoring": false,
+  "enable_scc_wp": false
 }
