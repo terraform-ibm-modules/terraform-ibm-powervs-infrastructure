@@ -15,6 +15,7 @@ locals {
     }
   )
 }
+
 module "landing_zone" {
   source    = "terraform-ibm-modules/landing-zone/ibm//patterns//vsi//module"
   version   = "7.3.0"
