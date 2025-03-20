@@ -13,4 +13,4 @@ CRA_TARGETS:
         some-user@testing-box"
       TF_VAR_ssh_private_key: "some_key"
       TF_VAR_enable_monitoring: true
-      TF_VAR_enable_sccp_wp: true
+      TF_VAR_enable_scc_wp: true
