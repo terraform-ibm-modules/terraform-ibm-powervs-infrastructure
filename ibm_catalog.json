@@ -14,7 +14,9 @@
         "terraform",
         "reference_architecture",
         "solution",
-        "support_ibm"
+        "support_ibm",
+        "infra_only",
+        "single_system"
       ],
       "keywords": [
         "power",
@@ -190,7 +192,7 @@
             {
               "key": "ssh_public_key",
               "type": "multiline_secure_value",
-              "display_name": "Multiline secure value",
+              "display_name": "ssh_public_key",
               "required": true,
               "custom_config": {
                 "grouping": "deployment",
@@ -201,7 +203,7 @@
             {
               "key": "ssh_private_key",
               "type": "multiline_secure_value",
-              "display_name": "Multiline secure value",
+              "display_name": "ssh_private_key",
               "required": true,
               "custom_config": {
                 "grouping": "deployment",
@@ -255,7 +257,7 @@
             {
               "key": "powervs_custom_image_cos_service_credentials",
               "type": "multiline_secure_value",
-              "display_name": "Multiline secure value",
+              "display_name": "powervs_custom_image_cos_service_credentials",
               "custom_config": {
                 "grouping": "deployment",
                 "original_grouping": "deployment",
@@ -265,7 +267,7 @@
             {
               "key": "ansible_vault_password",
               "type": "multiline_secure_value",
-              "display_name": "Multiline secure value"
+              "display_name": "ansible_vault_password"
             },
             {
               "key": "transit_gateway_global"
@@ -755,7 +757,7 @@
               "key": "ssh_public_key",
               "required": true,
               "type": "multiline_secure_value",
-              "display_name": "Multiline secure value",
+              "display_name": "ssh_public_key",
               "custom_config": {
                 "grouping": "deployment",
                 "original_grouping": "deployment",
@@ -766,7 +768,7 @@
               "key": "ssh_private_key",
               "required": true,
               "type": "multiline_secure_value",
-              "display_name": "Multiline secure value",
+              "display_name": "ssh_private_key",
               "custom_config": {
                 "grouping": "deployment",
                 "original_grouping": "deployment",
@@ -900,7 +902,7 @@
             {
               "key": "ansible_vault_password",
               "type": "multiline_secure_value",
-              "display_name": "Multiline secure value"
+              "display_name": "ansible_vault_password"
             },
             {
               "key": "configure_dns_forwarder"
@@ -1707,7 +1709,7 @@
             {
               "key": "powervs_custom_image_cos_service_credentials",
               "type": "multiline_secure_value",
-              "display_name": "Multiline secure value",
+              "display_name": "powervs_custom_image_cos_service_credentials",
               "custom_config": {
                 "grouping": "deployment",
                 "original_grouping": "deployment",
