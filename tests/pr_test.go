@@ -85,6 +85,7 @@ func setupOptionsStandardSolution(t *testing.T, prefix string) *testhelper.TestO
 		"certificate_template_name":   permanentResources["privateCertTemplateName"],
 		"enable_monitoring":           true,
 		"enable_scc_wp":               true,
+		"ansible_vault_password":      "SecurePassw0rd!",
 	}
 
 	return options
