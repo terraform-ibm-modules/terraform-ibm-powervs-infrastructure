@@ -27,14 +27,6 @@ var permanentResources map[string]interface{}
 
 var sharedInfoSvc *cloudinfo.CloudInfoService
 
-// getDefaultRegion specifies the default test locations in case best zone query fails
-func getDefaultRegion(prefix string) string {
-	if strings.HasPrefix(prefix, "pvs-i-m") {
-		return "dal10"
-	}
-	return "osa21"
-}
-
 // TestMain will be run before any parallel tests, used to set up a shared InfoService object to track region usage
 // for multiple tests
 func TestMain(m *testing.M) {
@@ -56,30 +48,15 @@ func TestMain(m *testing.M) {
 	os.Exit(m.Run())
 }
 
-func setupOptionsStandardSolution(t *testing.T, prefix string) *testhelper.TestOptions {
+func setupOptionsStandardSolution(t *testing.T, prefix string, powervs_zone string) *testhelper.TestOptions {
 
-	defaultRegion := getDefaultRegion(prefix)
 	options := testhelper.TestOptionsDefault(&testhelper.TestOptions{
-		Testing:            t,
-		TerraformDir:       defaultExampleTerraformDir,
-		Prefix:             prefix,
-		ResourceGroup:      resourceGroup,
-		DefaultRegion:      defaultRegion,                                          // specify default region to skip best choice query
-		BestRegionYAMLPath: "./common-go-assets/cloudinfo-region-power-prefs.yaml", // specific to powervs zones
-		// temporary workaround for BSS backend issue
-		ImplicitDestroy: []string{
-			"module.standard.module.landing_zone.module.landing_zone.ibm_resource_group.resource_groups",
-		},
+		Testing:       t,
+		TerraformDir:  defaultExampleTerraformDir,
+		Prefix:        prefix,
+		ResourceGroup: resourceGroup,
+		Region:        powervs_zone,
 	})
-
-	// query for best zone to deploy powervs example, based on current connection count
-	// NOTE: this is why we do not want to run multiple tests in parallel.
-	options.Region, _ = testhelper.GetBestPowerSystemsRegionO(options.RequiredEnvironmentVars["TF_VAR_ibmcloud_api_key"], options.BestRegionYAMLPath, options.DefaultRegion,
-		testhelper.TesthelperTerraformOptions{CloudInfoService: sharedInfoSvc})
-	// if for any reason the region is empty at this point, such as error, use default
-	if len(options.Region) == 0 {
-		options.Region = options.DefaultRegion
-	}
 
 	options.TerraformVars = map[string]interface{}{
 		"prefix":                      options.Prefix,
@@ -100,7 +77,7 @@ func setupOptionsStandardSolution(t *testing.T, prefix string) *testhelper.TestO
 func TestRunBranchStandardExample(t *testing.T) {
 	t.Parallel()
 
-	options := setupOptionsStandardSolution(t, "pvs-i-b")
+	options := setupOptionsStandardSolution(t, "pvs-i-b", "osa21")
 
 	output, err := options.RunTestConsistency()
 	assert.Nil(t, err, "This should not have errored")
@@ -109,7 +86,7 @@ func TestRunBranchStandardExample(t *testing.T) {
 
 func TestRunMainStandardExample(t *testing.T) {
 	t.Parallel()
-	options := setupOptionsStandardSolution(t, "pvs-i-m")
+	options := setupOptionsStandardSolution(t, "pvs-i-m", "dal10")
 
 	output, err := options.RunTestUpgrade()
 	if !options.UpgradeTestSkipped {
