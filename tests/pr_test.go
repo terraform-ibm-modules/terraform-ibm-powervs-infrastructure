@@ -48,37 +48,20 @@ func TestMain(m *testing.M) {
 	os.Exit(m.Run())
 }
 
-func setupOptionsStandardSolution(t *testing.T, prefix string) *testhelper.TestOptions {
+func setupOptionsStandardSolution(t *testing.T, prefix string, powervs_zone string) *testhelper.TestOptions {
 
 	options := testhelper.TestOptionsDefault(&testhelper.TestOptions{
-		Testing:            t,
-		TerraformDir:       defaultExampleTerraformDir,
-		Prefix:             prefix,
-		ResourceGroup:      resourceGroup,
-		Region:             "us-south", // specify default region to skip best choice query
-		DefaultRegion:      "dal10",
-		BestRegionYAMLPath: "./common-go-assets/cloudinfo-region-power-prefs.yaml", // specific to powervs zones
-		// temporary workaround for BSS backend issue
-		ImplicitDestroy: []string{
-			"module.standard.module.landing_zone.module.landing_zone.ibm_resource_group.resource_groups",
-		},
+		Testing:       t,
+		TerraformDir:  defaultExampleTerraformDir,
+		Prefix:        prefix,
+		ResourceGroup: resourceGroup,
+		Region:        powervs_zone,
 	})
-
-	// query for best zone to deploy powervs example, based on current connection count
-	// NOTE: this is why we do not want to run multiple tests in parallel.
-	options.Region, _ = testhelper.GetBestPowerSystemsRegionO(options.RequiredEnvironmentVars["TF_VAR_ibmcloud_api_key"], options.BestRegionYAMLPath, options.DefaultRegion,
-		testhelper.TesthelperTerraformOptions{CloudInfoService: sharedInfoSvc})
-	// if for any reason the region is empty at this point, such as error, use default
-	if len(options.Region) == 0 {
-		options.Region = options.DefaultRegion
-	}
 
 	options.TerraformVars = map[string]interface{}{
 		"prefix":                      options.Prefix,
 		"powervs_resource_group_name": options.ResourceGroup,
 		"external_access_ip":          "0.0.0.0/0",
-		// locking into syd05 due to other data center issues
-		//"powervs_zone": "syd05",
 		"powervs_zone":                options.Region,
 		"existing_sm_instance_guid":   permanentResources["secretsManagerGuid"],
 		"existing_sm_instance_region": permanentResources["secretsManagerRegion"],
@@ -94,7 +77,7 @@ func setupOptionsStandardSolution(t *testing.T, prefix string) *testhelper.TestO
 func TestRunBranchStandardExample(t *testing.T) {
 	t.Parallel()
 
-	options := setupOptionsStandardSolution(t, "pvs-i-b")
+	options := setupOptionsStandardSolution(t, "pvs-i-b", "osa21")
 
 	output, err := options.RunTestConsistency()
 	assert.Nil(t, err, "This should not have errored")
@@ -103,7 +86,7 @@ func TestRunBranchStandardExample(t *testing.T) {
 
 func TestRunMainStandardExample(t *testing.T) {
 	t.Parallel()
-	options := setupOptionsStandardSolution(t, "pvs-i-m")
+	options := setupOptionsStandardSolution(t, "pvs-i-m", "dal10")
 
 	output, err := options.RunTestUpgrade()
 	if !options.UpgradeTestSkipped {
@@ -111,69 +94,3 @@ func TestRunMainStandardExample(t *testing.T) {
 		assert.NotNil(t, output, "Expected some output")
 	}
 }
-
-/*
-// quickstart =standard-plus-vsi
-func setupOptionsQuickstartSolution(t *testing.T, prefix string) *testhelper.TestOptions {
-
-	options := testhelper.TestOptionsDefault(&testhelper.TestOptions{
-		Testing:            t,
-		TerraformDir:       quickstartExampleTerraformDir,
-		Prefix:             prefix,
-		ResourceGroup:      resourceGroup,
-		Region:             "us-south", // specify default region to skip best choice query
-		DefaultRegion:      "dal10",
-		BestRegionYAMLPath: "./common-go-assets/cloudinfo-region-power-prefs.yaml", // specific to powervs zones
-		// temporary workaround for BSS backend issue
-		ImplicitDestroy: []string{
-			"module.standard.module.landing_zone.module.landing_zone.ibm_resource_group.resource_groups",
-		},
-	})
-
-	// query for best zone to deploy powervs example, based on current connection count
-	// NOTE: this is why we do not want to run multiple tests in parallel.
-	options.Region, _ = testhelper.GetBestPowerSystemsRegionO(options.RequiredEnvironmentVars["TF_VAR_ibmcloud_api_key"], options.BestRegionYAMLPath, options.DefaultRegion,
-		testhelper.TesthelperTerraformOptions{CloudInfoService: sharedInfoSvc})
-	// if for any reason the region is empty at this point, such as error, use default
-	if len(options.Region) == 0 {
-		options.Region = options.DefaultRegion
-	}
-
-	options.TerraformVars = map[string]interface{}{
-		"prefix":                      options.Prefix,
-		"powervs_resource_group_name": options.ResourceGroup,
-		"external_access_ip":          "0.0.0.0/0",
-		"tshirt_size": map[string]string{
-			"image":       "7300-02-02",
-			"tshirt_size": "aix_xs",
-		},
-		"powervs_zone":                options.Region,
-		"existing_sm_instance_guid":   permanentResources["secretsManagerGuid"],
-		"existing_sm_instance_region": permanentResources["secretsManagerRegion"],
-	}
-
-	return options
-}
-
-func TestRunBranchQuickstartExample(t *testing.T) {
-	t.Parallel()
-
-	options := setupOptionsQuickstartSolution(t, "pvs-qs-b")
-
-	output, err := options.RunTestConsistency()
-	assert.Nil(t, err, "This should not have errored")
-	assert.NotNil(t, output, "Expected some output")
-}
-
-func TestRunMainQuickstartExample(t *testing.T) {
-	t.Parallel()
-	options := setupOptionsQuickstartSolution(t, "pvs-qs-m")
-
-	output, err := options.RunTestUpgrade()
-	if !options.UpgradeTestSkipped {
-		assert.Nil(t, err, "This should not have errored")
-		assert.NotNil(t, output, "Expected some output")
-	}
-
-}
-*/
