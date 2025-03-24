@@ -28,7 +28,7 @@ var permanentResources map[string]interface{}
 var sharedInfoSvc *cloudinfo.CloudInfoService
 
 // getDefaultRegion specifies the default test locations in case best zone query fails
-func getDefaultRegion(prefix string) (string) {
+func getDefaultRegion(prefix string) string {
 	if strings.HasPrefix(prefix, "pvs-i-m") {
 		return "dal10"
 	}
@@ -64,7 +64,7 @@ func setupOptionsStandardSolution(t *testing.T, prefix string) *testhelper.TestO
 		TerraformDir:       defaultExampleTerraformDir,
 		Prefix:             prefix,
 		ResourceGroup:      resourceGroup,
-		DefaultRegion:      defaultRegion, // specify default region to skip best choice query
+		DefaultRegion:      defaultRegion,                                          // specify default region to skip best choice query
 		BestRegionYAMLPath: "./common-go-assets/cloudinfo-region-power-prefs.yaml", // specific to powervs zones
 		// temporary workaround for BSS backend issue
 		ImplicitDestroy: []string{
