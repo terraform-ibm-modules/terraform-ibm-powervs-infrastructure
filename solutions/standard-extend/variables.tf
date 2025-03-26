@@ -52,7 +52,7 @@ variable "ibmcloud_api_key" {
 variable "powervs_image_names" {
   description = "List of Images to be imported into cloud account from catalog images. Supported values can be found [here](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-workspace/blob/main/docs/catalog_images_list.md). For custom os image import configure the optional parameter 'powervs_custom_images'."
   type        = list(string)
-  default     = ["IBMi-75-04-2984-1", "IBMi-74-10-2984-1", "7200-05-08", "7300-02-02", "SLES15-SP5-SAP", "SLES15-SP5-SAP-NETWEAVER", "RHEL9-SP4-SAP", "RHEL9-SP4-SAP-NETWEAVER"]
+  default     = ["IBMi-75-04-2984-1", "IBMi-74-10-2984-1", "7200-05-08", "7300-02-02", "SLES15-SP6-SAP", "SLES15-SP6-SAP-NETWEAVER", "RHEL9-SP4-SAP", "RHEL9-SP4-SAP-NETWEAVER"]
 }
 
 variable "tags" {
