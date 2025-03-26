@@ -709,31 +709,31 @@
                   }
                 },
                 {
-                  "displayname": "IBM i - XS (0.25cpu,8GB,disk-100GB,IBMi-75-04-2984-1)",
+                  "displayname": "IBM i - XS (0.25cpu,8GB,disk-100GB,IBMi-75-05-2984-1)",
                   "value": {
                     "tshirt_size": "ibm_i_xs",
-                    "image": "IBMi-75-04-2984-1"
+                    "image": "IBMi-75-05-2984-1"
                   }
                 },
                 {
-                  "displayname": "IBM i - S (1cpu,32GB,disk-500GB,IBMi-75-04-2984-1)",
+                  "displayname": "IBM i - S (1cpu,32GB,disk-500GB,IBMi-75-05-2984-1)",
                   "value": {
                     "tshirt_size": "ibm_i_s",
-                    "image": "IBMi-75-04-2984-1"
+                    "image": "IBMi-75-05-2984-1"
                   }
                 },
                 {
-                  "displayname": "IBM i - M (2cpu,64GB,disk-1000GB,IBMi-75-04-2984-1)",
+                  "displayname": "IBM i - M (2cpu,64GB,disk-1000GB,IBMi-75-05-2984-1)",
                   "value": {
                     "tshirt_size": "ibm_i_m",
-                    "image": "IBMi-75-04-2984-1"
+                    "image": "IBMi-75-05-2984-1"
                   }
                 },
                 {
-                  "displayname": "IBM i - L (4cpu,132GB,disk-2000GB,IBMi-75-04-2984-1)",
+                  "displayname": "IBM i - L (4cpu,132GB,disk-2000GB,IBMi-75-05-2984-1)",
                   "value": {
                     "tshirt_size": "ibm_i_l",
-                    "image": "IBMi-75-04-2984-1"
+                    "image": "IBMi-75-05-2984-1"
                   }
                 },
                 {
@@ -744,10 +744,10 @@
                   }
                 },
                 {
-                  "displayname": "SAP DEV SLES (ush1-4x128,disk-750GB,SLES15-SP5-SAP)",
+                  "displayname": "SAP DEV SLES (ush1-4x128,disk-750GB,SLES15-SP6-SAP)",
                   "value": {
                     "tshirt_size": "sap_dev_sles",
-                    "image": "SLES15-SP5-SAP"
+                    "image": "SLES15-SP6-SAP"
                   }
                 }
               ],
@@ -829,16 +829,16 @@
                   "value": "7200-05-08"
                 },
                 {
+                  "displayname": "IBM i - IBMi-75-05-2984-1",
+                  "value": "IBMi-75-05-2984-1"
+                },
+                {
                   "displayname": "IBM i - IBMi-75-04-2984-1",
                   "value": "IBMi-75-04-2984-1"
                 },
                 {
-                  "displayname": "IBM i - IBMi-75-04-2924-1",
-                  "value": "IBMi-75-04-2924-1"
-                },
-                {
-                  "displayname": "IBM i - IBMi-74-10-2984-1",
-                  "value": "IBMi-74-10-2984-1"
+                  "displayname": "IBM i - IBMi-74-11-2984-1",
+                  "value": "IBMi-74-11-2984-1"
                 },
                 {
                   "displayname": "IBM i - IBMi_COR-74-10-1",
@@ -873,20 +873,20 @@
                   "value": "RHEL9-SP2-SAP-NETWEAVER"
                 },
                 {
+                  "displayname": "SAP - SLES15-SP6-SAP",
+                  "value": "SLES15-SP6-SAP"
+                },
+                {
+                  "displayname": "SAP - SLES15-SP6-SAP-NETWEAVER",
+                  "value": "SLES15-SP6-SAP-NETWEAVER"
+                },
+                {
                   "displayname": "SAP - SLES15-SP5-SAP",
                   "value": "SLES15-SP5-SAP"
                 },
                 {
                   "displayname": "SAP - SLES15-SP5-SAP-NETWEAVER",
                   "value": "SLES15-SP5-SAP-NETWEAVER"
-                },
-                {
-                  "displayname": "SAP - SLES15-SP4-SAP",
-                  "value": "SLES15-SP4-SAP"
-                },
-                {
-                  "displayname": "SAP - SLES15-SP4-SAP-NETWEAVER",
-                  "value": "SLES15-SP4-SAP-NETWEAVER"
                 }
               ],
               "custom_config": {}
