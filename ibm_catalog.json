@@ -833,12 +833,12 @@
                   "value": "IBMi-75-05-2984-1"
                 },
                 {
-                  "displayname": "IBM i - IBMi-75-05-2924-1",
-                  "value": "IBMi-75-05-2924-1"
-                },
-                {
                   "displayname": "IBM i - IBMi-75-04-2984-1",
                   "value": "IBMi-75-04-2984-1"
+                },
+                {
+                  "displayname": "IBM i - IBMi-74-11-2984-1",
+                  "value": "IBMi-74-11-2984-1"
                 },
                 {
                   "displayname": "IBM i - IBMi_COR-74-10-1",
