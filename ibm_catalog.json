@@ -709,31 +709,31 @@
                   }
                 },
                 {
-                  "displayname": "IBM i - XS (0.25cpu,8GB,disk-100GB,IBMi-75-04-2984-1)",
+                  "displayname": "IBM i - XS (0.25cpu,8GB,disk-100GB,IBMi-75-05-2984-1)",
                   "value": {
                     "tshirt_size": "ibm_i_xs",
-                    "image": "IBMi-75-04-2984-1"
+                    "image": "IBMi-75-05-2984-1"
                   }
                 },
                 {
-                  "displayname": "IBM i - S (1cpu,32GB,disk-500GB,IBMi-75-04-2984-1)",
+                  "displayname": "IBM i - S (1cpu,32GB,disk-500GB,IBMi-75-05-2984-1)",
                   "value": {
                     "tshirt_size": "ibm_i_s",
-                    "image": "IBMi-75-04-2984-1"
+                    "image": "IBMi-75-05-2984-1"
                   }
                 },
                 {
-                  "displayname": "IBM i - M (2cpu,64GB,disk-1000GB,IBMi-75-04-2984-1)",
+                  "displayname": "IBM i - M (2cpu,64GB,disk-1000GB,IBMi-75-05-2984-1)",
                   "value": {
                     "tshirt_size": "ibm_i_m",
-                    "image": "IBMi-75-04-2984-1"
+                    "image": "IBMi-75-05-2984-1"
                   }
                 },
                 {
-                  "displayname": "IBM i - L (4cpu,132GB,disk-2000GB,IBMi-75-04-2984-1)",
+                  "displayname": "IBM i - L (4cpu,132GB,disk-2000GB,IBMi-75-05-2984-1)",
                   "value": {
                     "tshirt_size": "ibm_i_l",
-                    "image": "IBMi-75-04-2984-1"
+                    "image": "IBMi-75-05-2984-1"
                   }
                 },
                 {
@@ -829,16 +829,16 @@
                   "value": "7200-05-08"
                 },
                 {
+                  "displayname": "IBM i - IBMi-75-05-2984-1",
+                  "value": "IBMi-75-05-2984-1"
+                },
+                {
+                  "displayname": "IBM i - IBMi-75-05-2924-1",
+                  "value": "IBMi-75-05-2924-1"
+                },
+                {
                   "displayname": "IBM i - IBMi-75-04-2984-1",
                   "value": "IBMi-75-04-2984-1"
-                },
-                {
-                  "displayname": "IBM i - IBMi-75-04-2924-1",
-                  "value": "IBMi-75-04-2924-1"
-                },
-                {
-                  "displayname": "IBM i - IBMi-74-10-2984-1",
-                  "value": "IBMi-74-10-2984-1"
                 },
                 {
                   "displayname": "IBM i - IBMi_COR-74-10-1",
