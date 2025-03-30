@@ -18,7 +18,7 @@ locals {
 
 module "landing_zone" {
   source    = "terraform-ibm-modules/landing-zone/ibm//patterns//vsi//module"
-  version   = "7.3.2"
+  version   = "7.4.2"
   providers = { ibm = ibm.ibm-is }
 
   ssh_public_key       = var.ssh_public_key
@@ -57,7 +57,7 @@ locals {
 
 module "scc_wp_instance" {
   source    = "terraform-ibm-modules/scc-workload-protection/ibm"
-  version   = "1.5.3"
+  version   = "1.5.4"
   providers = { ibm = ibm.ibm-is }
   count     = var.enable_scc_wp ? 1 : 0
 
