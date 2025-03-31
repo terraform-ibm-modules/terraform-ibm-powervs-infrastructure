@@ -289,7 +289,7 @@ variable "existing_monitoring_instance_crn" {
 #################################################
 
 variable "enable_scc_wp" {
-  description = "Set to true to enable SCC Workload Protection and install and configure the Sysdig agent on all VSIs and PowerVS instances in this deployment."
+  description = "Set to true to enable SCC Workload Protection and install and configure the SCC Workload Protection agent on all VSIs and PowerVS instances in this deployment."
   type        = bool
   default     = false
 }
