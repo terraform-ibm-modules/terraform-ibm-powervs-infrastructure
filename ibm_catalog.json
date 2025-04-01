@@ -681,31 +681,31 @@
                   }
                 },
                 {
-                  "displayname": "AIX - XS (1cpu,32GB,disk-100GB,7300-02-02)",
+                  "displayname": "AIX - XS (1cpu,32GB,disk-100GB,7300-03-00)",
                   "value": {
                     "tshirt_size": "aix_xs",
-                    "image": "7300-02-02"
+                    "image": "7300-03-00"
                   }
                 },
                 {
-                  "displayname": "AIX - S (4cpu,128GB,disk-500GB,7300-02-02)",
+                  "displayname": "AIX - S (4cpu,128GB,disk-500GB,7300-03-00)",
                   "value": {
                     "tshirt_size": "aix_s",
-                    "image": "7300-02-02"
+                    "image": "7300-03-00"
                   }
                 },
                 {
-                  "displayname": "AIX - M (8cpu,256GB,disk-1000GB,7300-02-02)",
+                  "displayname": "AIX - M (8cpu,256GB,disk-1000GB,7300-03-00)",
                   "value": {
                     "tshirt_size": "aix_m",
-                    "image": "7300-02-02"
+                    "image": "7300-03-00"
                   }
                 },
                 {
-                  "displayname": "AIX - L (14cpu,512GB,disk-2000GB,7300-02-02)",
+                  "displayname": "AIX - L (14cpu,512GB,disk-2000GB,7300-03-00)",
                   "value": {
                     "tshirt_size": "aix_l",
-                    "image": "7300-02-02"
+                    "image": "7300-03-00"
                   }
                 },
                 {
@@ -821,12 +821,12 @@
                   "value": "none"
                 },
                 {
-                  "displayname": "AIX - 7300-02-02",
-                  "value": "7300-02-02"
+                  "displayname": "AIX - 7300-03-00",
+                  "value": "7300-03-00"
                 },
                 {
-                  "displayname": "AIX - 7200-05-08",
-                  "value": "7200-05-08"
+                  "displayname": "AIX - 7200-05-09",
+                  "value": "7200-05-09"
                 },
                 {
                   "displayname": "IBM i - IBMi-75-05-2984-1",
