@@ -89,7 +89,7 @@ module "private_secret_engine" {
 # Create a secret group to place the certificate in
 module "secrets_manager_group" {
   source    = "terraform-ibm-modules/secrets-manager-secret-group/ibm"
-  version   = "1.3.1"
+  version   = "1.3.2"
   providers = { ibm = ibm.ibm-sm }
   count     = var.client_to_site_vpn.enable ? 1 : 0
 
@@ -131,7 +131,6 @@ module "client_to_site_vpn" {
   access_group_name             = "${var.prefix}-client-to-site-vpn-access-group"
   subnet_ids                    = [for subnet in module.landing_zone.subnet_data : subnet.id if subnet.name == "${var.prefix}-edge-vpn-zone-1"]
   client_ip_pool                = var.client_to_site_vpn.client_ip_pool
-  secrets_manager_id            = local.sm_guid
   server_cert_crn               = module.secrets_manager_private_certificate[0].secret_crn
   vpn_client_access_group_users = var.client_to_site_vpn.vpn_client_access_group_users
   vpn_server_routes             = local.vpn_server_routes
