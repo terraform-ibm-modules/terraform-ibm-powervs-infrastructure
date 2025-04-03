@@ -1212,7 +1212,7 @@
           "configuration": [
             {
               "key": "access_host",
-              "required": true,
+              "required": true
               "default_value": "{\"vsi_name\":\"\",\"floating_ip\":\"\"}",
               "custom_config": {
                 "grouping": "deployment",
@@ -1222,7 +1222,7 @@
             },
             {
               "key": "proxy_server_ip_port",
-              "required": true,
+              "required": true
               "default_value": "{\"ip\":\"\",\"port\":\"\"}",
               "custom_config": {
                 "grouping": "deployment",
