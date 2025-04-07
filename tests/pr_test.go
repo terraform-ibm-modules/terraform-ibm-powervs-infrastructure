@@ -43,8 +43,12 @@ func TestMain(m *testing.M) {
 	rsaKeyPair, _ := ssh.GenerateRSAKeyPairE(tSsh, 4096)
 	sshPublicKey := strings.TrimSuffix(rsaKeyPair.PublicKey, "\n") // removing trailing new lines
 	sshPrivateKey := "<<EOF\n" + rsaKeyPair.PrivateKey + "EOF"
-	os.Setenv("TF_VAR_ssh_public_key", sshPublicKey)
-	os.Setenv("TF_VAR_ssh_private_key", sshPrivateKey)
+	if err := os.Setenv("TF_VAR_ssh_public_key", sshPublicKey); err != nil {
+		tSsh.Fatalf("failed to set TF_VAR_ssh_public_key: %v", err)
+	}
+	if err := os.Setenv("TF_VAR_ssh_private_key", sshPrivateKey); err != nil {
+		tSsh.Fatalf("failed to set TF_VAR_ssh_private_key: %v", err)
+	}
 	os.Exit(m.Run())
 }
 
@@ -86,7 +90,7 @@ func TestRunBranchStandardExample(t *testing.T) {
 
 func TestRunMainStandardExample(t *testing.T) {
 	t.Parallel()
-	options := setupOptionsStandardSolution(t, "pvs-i-m", "dal10")
+	options := setupOptionsStandardSolution(t, "pvs-i-m", "syd04")
 
 	output, err := options.RunTestUpgrade()
 	if !options.UpgradeTestSkipped {
