@@ -52,10 +52,6 @@ variable "vpc_intel_images" {
 variable "ssh_public_key" {
   description = "Public SSH Key for VSI creation. Must be an RSA key with a key size of either 2048 bits or 4096 bits (recommended). Must be a valid SSH key that does not already exist in the deployment region."
   type        = string
-  validation {
-    condition     = !contains([for key in data.ibm_is_ssh_keys.ssh_keys.keys : regex("^(ssh-[a-z0-9]+)\\s+([A-Za-z0-9+/=]+)", key.public_key)[1]], regex("^(ssh-[a-z0-9]+)\\s+([A-Za-z0-9+/=]+)", var.ssh_public_key)[1])
-    error_message = "The provided ssh_public_key already exists in your target IBM Cloud region. Please use a new SSH key."
-  }
 }
 
 variable "ssh_private_key" {
