@@ -37,6 +37,11 @@ output "transit_gateway_global" {
   value       = module.standard.transit_gateway_global
 }
 
+output "vpc_data" {
+  description = "List of VPC data."
+  value       = module.standard.vpc_data
+}
+
 output "vsi_list" {
   description = "A list of VSI with name, id, zone, and primary ipv4 address, VPC Name, and floating IP."
   value       = module.standard.vsi_list

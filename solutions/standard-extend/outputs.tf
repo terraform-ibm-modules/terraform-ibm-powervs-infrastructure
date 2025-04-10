@@ -32,6 +32,11 @@ output "transit_gateway_id" {
   value       = local.transit_gateway_id
 }
 
+output "vpc_data" {
+  description = "List of VPC data."
+  value       = local.standard_output[0].vpc_data.value
+}
+
 output "vsi_list" {
   description = "A list of VSI with name, id, zone, and primary ipv4 address, VPC Name, and floating IP."
   value       = local.standard_output[0].vsi_list.value

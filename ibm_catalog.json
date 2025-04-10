@@ -387,6 +387,9 @@
               "key": "transit_gateway_global"
             },
             {
+              "key": "vpc_data"
+            },
+            {
               "key": "vsi_list"
             },
             {
@@ -1021,6 +1024,9 @@
             },
             {
               "key": "transit_gateway_id"
+            },
+            {
+              "key": "vpc_data"
             },
             {
               "key": "vsi_list"
@@ -1742,6 +1748,9 @@
             },
             {
               "key": "transit_gateway_id"
+            },
+            {
+              "key": "vpc_data"
             },
             {
               "key": "vsi_list"
