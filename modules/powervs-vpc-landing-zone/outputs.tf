@@ -53,7 +53,7 @@ output "resource_group_data" {
 }
 
 output "file_share_load_balancer" {
-  description = "File share load balancer data."
+  description = "Application load balancer data for NFS endpoint access."
   value       = var.configure_nfs_server ? module.vpc_file_share_alb[0].file_share_alb : { name = "", id = "", private_ips = [] }
 }
 
