@@ -1,5 +1,5 @@
 output "prefix" {
-  description = "The prefix that is associated with all resources"
+  description = "The prefix that is associated with all resources."
   value       = local.prefix
 }
 
@@ -77,7 +77,7 @@ output "network_services_config" {
 ########################################################################
 
 output "monitoring_instance" {
-  description = "Details of the IBM Cloud Monitoring Instance: CRN, location, guid"
+  description = "Details of the IBM Cloud Monitoring Instance: CRN, location, guid."
   value       = local.standard_output[0].monitoring_instance.value
 }
 
