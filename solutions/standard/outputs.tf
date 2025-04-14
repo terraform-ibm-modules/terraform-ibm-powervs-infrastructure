@@ -22,9 +22,9 @@ output "vpc_data" {
   value       = module.standard.vpc_data
 }
 
-output "file_share_load_balancer" {
-  description = "Application load balancer data for NFS endpoint access."
-  value       = var.configure_nfs_server ? module.standard.file_share_load_balancer : { name = "", id = "", private_ips = [] }
+output "application_load_balancer" {
+  description = "Details of application load balancer."
+  value       = var.configure_nfs_server ? module.standard.application_load_balancer : { name = "", id = "", private_ips = [] }
 }
 
 output "ssh_public_key" {

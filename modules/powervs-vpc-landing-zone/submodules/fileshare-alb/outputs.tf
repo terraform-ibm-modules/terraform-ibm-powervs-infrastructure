@@ -1,5 +1,5 @@
 output "file_share_alb" {
-  description = "Application load balancer data for NFS endpoint access."
+  description = "Details of application load balancer."
   value = {
     name        = ibm_is_lb.file_share_alb.name
     id          = ibm_is_lb.file_share_alb.id
