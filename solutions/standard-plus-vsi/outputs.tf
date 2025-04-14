@@ -24,7 +24,7 @@ output "vpc_data" {
 
 output "application_load_balancer" {
   description = "Details of application load balancer."
-  value       = var.configure_nfs_server ? module.standard.application_load_balancer : { name = "", id = "", private_ips = [] }
+  value       = module.standard.application_load_balancer
 }
 
 output "ssh_public_key" {
