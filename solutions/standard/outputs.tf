@@ -17,6 +17,16 @@ output "vsi_names" {
   value       = module.standard.vsi_names
 }
 
+output "vpc_data" {
+  description = "List of VPC data."
+  value       = module.standard.vpc_data
+}
+
+output "file_share_load_balancer" {
+  description = "Application load balancer data for NFS endpoint access."
+  value       = var.configure_nfs_server ? module.standard.file_share_load_balancer : { name = "", id = "", private_ips = [] }
+}
+
 output "ssh_public_key" {
   description = "The string value of the ssh public key used when deploying VPC."
   value       = var.ssh_public_key
