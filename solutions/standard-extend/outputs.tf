@@ -17,6 +17,16 @@ output "vsi_names" {
   value       = local.standard_output[0].vsi_names.value
 }
 
+output "vpc_data" {
+  description = "List of VPC data."
+  value       = local.standard_output[0].vpc_data.value
+}
+
+output "application_load_balancer" {
+  description = "Details of application load balancer."
+  value       = local.standard_output[0].application_load_balancer.value
+}
+
 output "ssh_public_key" {
   description = "The string value of the ssh public key used when deploying VPC"
   value       = local.ssh_public_key

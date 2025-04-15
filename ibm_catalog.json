@@ -1744,7 +1744,13 @@
               "key": "vpc_names"
             },
             {
+              "key": "vpc_data"
+            },
+            {
               "key": "vsi_names"
+            },
+            {
+              "key": "application_load_balancer"
             },
             {
               "key": "ssh_public_key"
