@@ -43,7 +43,7 @@ The pre-existing infrastructure must meet the following conditions to use the 'I
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.9 |
-| <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | 1.76.3 |
+| <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | 1.77.0 |
 
 ### Modules
 
@@ -58,9 +58,9 @@ The pre-existing infrastructure must meet the following conditions to use the 'I
 
 | Name | Type |
 |------|------|
-| [ibm_is_network_acl.management_acls_ds](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.76.3/docs/data-sources/is_network_acl) | data source |
-| [ibm_is_subnet.management_subnets_ds](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.76.3/docs/data-sources/is_subnet) | data source |
-| [ibm_tg_gateway.tgw_ds](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.76.3/docs/data-sources/tg_gateway) | data source |
+| [ibm_is_network_acl.management_acls_ds](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.77.0/docs/data-sources/is_network_acl) | data source |
+| [ibm_is_subnet.management_subnets_ds](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.77.0/docs/data-sources/is_subnet) | data source |
+| [ibm_tg_gateway.tgw_ds](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.77.0/docs/data-sources/tg_gateway) | data source |
 
 ### Inputs
 
@@ -96,10 +96,10 @@ The pre-existing infrastructure must meet the following conditions to use the 'I
 | <a name="output_powervs_workspace_id"></a> [powervs\_workspace\_id](#output\_powervs\_workspace\_id) | PowerVS infrastructure workspace CRN. |
 | <a name="output_powervs_workspace_name"></a> [powervs\_workspace\_name](#output\_powervs\_workspace\_name) | PowerVS infrastructure workspace name. |
 | <a name="output_powervs_zone"></a> [powervs\_zone](#output\_powervs\_zone) | Zone of existing PowerVS infrastructure. |
-| <a name="output_prefix"></a> [prefix](#output\_prefix) | The prefix that is associated with all resources |
+| <a name="output_prefix"></a> [prefix](#output\_prefix) | The prefix that is associated with all resources. |
 | <a name="output_proxy_host_or_ip_port"></a> [proxy\_host\_or\_ip\_port](#output\_proxy\_host\_or\_ip\_port) | Proxy host:port for existing PowerVS infrastructure. |
 | <a name="output_schematics_workspace_id"></a> [schematics\_workspace\_id](#output\_schematics\_workspace\_id) | ID of the IBM Cloud Schematics workspace. Returns null if not ran in Schematics. |
-| <a name="output_ssh_public_key"></a> [ssh\_public\_key](#output\_ssh\_public\_key) | The string value of the ssh public key used when deploying VPC |
+| <a name="output_ssh_public_key"></a> [ssh\_public\_key](#output\_ssh\_public\_key) | The string value of the ssh public key used when deploying VPC. |
 | <a name="output_transit_gateway_id"></a> [transit\_gateway\_id](#output\_transit\_gateway\_id) | The ID of transit gateway. |
 | <a name="output_transit_gateway_name"></a> [transit\_gateway\_name](#output\_transit\_gateway\_name) | The name of the transit gateway. |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

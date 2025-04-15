@@ -1,5 +1,5 @@
 output "prefix" {
-  description = "The prefix that is associated with all resources"
+  description = "The prefix that is associated with all resources."
   value       = ""
 }
 
@@ -8,7 +8,7 @@ output "prefix" {
 ##############################################################
 
 output "ssh_public_key" {
-  description = "The string value of the ssh public key used when deploying VPC"
+  description = "The string value of the ssh public key used when deploying VPC."
   value       = module.access_host.vsi_ssh_public_key[0].public_key
   sensitive   = true
 }

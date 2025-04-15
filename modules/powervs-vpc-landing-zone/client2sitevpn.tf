@@ -125,7 +125,7 @@ module "secrets_manager_private_certificate" {
 # Create client to site VPN Server
 module "client_to_site_vpn" {
   source    = "terraform-ibm-modules/client-to-site-vpn/ibm"
-  version   = "2.2.4"
+  version   = "2.2.5"
   providers = { ibm = ibm.ibm-is }
   count     = var.client_to_site_vpn.enable ? 1 : 0
 
@@ -144,7 +144,7 @@ resource "ibm_is_vpc_routing_table" "transit" {
   provider = ibm.ibm-is
   count    = var.client_to_site_vpn.enable ? 1 : 0
 
-  vpc                              = [for vpc in module.landing_zone.vpc_data : vpc.vpc_id if vpc.vpc_name == "${var.prefix}-edge-vpc"][0]
+  vpc                              = [for vpc in module.landing_zone.vpc_data : vpc.vpc_id if vpc.vpc_name == "${var.prefix}-edge"][0]
   name                             = "${var.prefix}-route-table-vpn-server-transit"
   route_transit_gateway_ingress    = true
   accept_routes_from_resource_type = ["vpn_server"]
@@ -158,6 +158,6 @@ resource "ibm_is_vpc_address_prefix" "vpn_address_prefix" {
 
   zone = "${lookup(local.ibm_powervs_zone_cloud_region_map, var.powervs_zone, null)}-1"
   name = "${var.prefix}-vpn-address-prefix"
-  vpc  = [for vpc in module.landing_zone.vpc_data : vpc.vpc_id if vpc.vpc_name == "${var.prefix}-edge-vpc"][0]
+  vpc  = [for vpc in module.landing_zone.vpc_data : vpc.vpc_id if vpc.vpc_name == "${var.prefix}-edge"][0]
   cidr = var.client_to_site_vpn.client_ip_pool
 }

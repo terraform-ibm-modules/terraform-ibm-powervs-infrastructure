@@ -43,5 +43,6 @@ No modules.
 
 | Name | Description |
 |------|-------------|
+| <a name="output_file_share_alb"></a> [file\_share\_alb](#output\_file\_share\_alb) | Details of application load balancer. |
 | <a name="output_nfs_host_or_ip_path"></a> [nfs\_host\_or\_ip\_path](#output\_nfs\_host\_or\_ip\_path) | NFS mount path for created infrastructure. |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

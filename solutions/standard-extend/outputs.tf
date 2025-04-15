@@ -1,5 +1,5 @@
 output "prefix" {
-  description = "The prefix that is associated with all resources"
+  description = "The prefix that is associated with all resources."
   value       = local.prefix
 }
 
@@ -15,6 +15,16 @@ output "vpc_names" {
 output "vsi_names" {
   description = "A list of the vsis names provisioned within the VPCs."
   value       = local.standard_output[0].vsi_names.value
+}
+
+output "vpc_data" {
+  description = "List of VPC data."
+  value       = local.standard_output[0].vpc_data.value
+}
+
+output "application_load_balancer" {
+  description = "Details of application load balancer."
+  value       = local.standard_output[0].application_load_balancer.value
 }
 
 output "ssh_public_key" {
@@ -77,7 +87,7 @@ output "network_services_config" {
 ########################################################################
 
 output "monitoring_instance" {
-  description = "Details of the IBM Cloud Monitoring Instance: CRN, location, guid"
+  description = "Details of the IBM Cloud Monitoring Instance: CRN, location, guid."
   value       = local.standard_output[0].monitoring_instance.value
 }
 

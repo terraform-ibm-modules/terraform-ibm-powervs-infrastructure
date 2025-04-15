@@ -52,6 +52,11 @@ output "resource_group_data" {
   value       = module.landing_zone.resource_group_data
 }
 
+output "application_load_balancer" {
+  description = "Details of application load balancer."
+  value       = var.configure_nfs_server ? module.vpc_file_share_alb[0].file_share_alb : { name = "", id = "", private_ips = [] }
+}
+
 output "access_host_or_ip" {
   description = "Access host(jump/bastion) for created PowerVS infrastructure."
   value       = local.access_host_or_ip

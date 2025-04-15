@@ -181,7 +181,7 @@ variable "powervs_image_names" {
 }
 
 variable "tags" {
-  description = "List of tag names for the IBM Cloud PowerVS workspace"
+  description = "List of tag names for the IBM Cloud PowerVS workspace."
   type        = list(string)
   default     = []
 }
@@ -231,7 +231,7 @@ variable "powervs_custom_images" {
 }
 
 variable "powervs_custom_image_cos_configuration" {
-  description = "Cloud Object Storage bucket containing custom PowerVS images. bucket_name: string, name of the COS bucket. bucket_access: string, possible values: public, private (private requires powervs_custom_image_cos_service_credentials). bucket_region: string, COS bucket region"
+  description = "Cloud Object Storage bucket containing custom PowerVS images. bucket_name: string, name of the COS bucket. bucket_access: string, possible values: public, private (private requires powervs_custom_image_cos_service_credentials). bucket_region: string, COS bucket region."
   type = object({
     bucket_name   = string
     bucket_access = string
@@ -285,7 +285,7 @@ variable "certificate_template_name" {
 #################################################
 
 variable "existing_monitoring_instance_crn" {
-  description = "Existing CRN of IBM Cloud Monitoring Instance. If value is null, then an IBM Cloud Monitoring Instance will not be created but an intel VSI instance will be created if 'enable_monitoring' is true. "
+  description = "Existing CRN of IBM Cloud Monitoring Instance. If value is null, then an IBM Cloud Monitoring Instance will not be created but an intel VSI instance will be created if 'enable_monitoring' is true."
   type        = string
   default     = null
 }
