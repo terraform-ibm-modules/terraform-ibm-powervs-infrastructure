@@ -3,15 +3,17 @@
 #####################################################
 
 locals {
+  p10_unsupported_regions = ["che01", "lon04", "lon06", "mon01", "syd04", "syd05", "tor01", "us-east", "us-south"] # datacenters that don't support P10 yet
+  server_type             = contains(local.p10_unsupported_regions, var.powervs_zone) ? "s922" : "s1022"
   ibm_powervs_quickstart_tshirt_sizes = {
-    "aix_xs"       = { "sap_profile_id" = null, "server_type" = "s922", "proc_type" = "shared", "cores" = "1", "memory" = "32", "storage" = "100", "tier" = "tier3", "image" = var.tshirt_size.image }
-    "aix_s"        = { "sap_profile_id" = null, "server_type" = "s922", "proc_type" = "shared", "cores" = "4", "memory" = "128", "storage" = "500", "tier" = "tier3", "image" = var.tshirt_size.image }
-    "aix_m"        = { "sap_profile_id" = null, "server_type" = "s922", "proc_type" = "shared", "cores" = "8", "memory" = "256", "storage" = "1000", "tier" = "tier3", "image" = var.tshirt_size.image }
-    "aix_l"        = { "sap_profile_id" = null, "server_type" = "s922", "proc_type" = "shared", "cores" = "14", "memory" = "512", "storage" = "2000", "tier" = "tier3", "image" = var.tshirt_size.image }
-    "ibm_i_xs"     = { "sap_profile_id" = null, "server_type" = "s922", "proc_type" = "shared", "cores" = "0.25", "memory" = "8", "storage" = "100", "tier" = "tier3", "image" = var.tshirt_size.image }
-    "ibm_i_s"      = { "sap_profile_id" = null, "server_type" = "s922", "proc_type" = "shared", "cores" = "1", "memory" = "32", "storage" = "500", "tier" = "tier3", "image" = var.tshirt_size.image }
-    "ibm_i_m"      = { "sap_profile_id" = null, "server_type" = "s922", "proc_type" = "shared", "cores" = "2", "memory" = "64", "storage" = "1000", "tier" = "tier3", "image" = var.tshirt_size.image }
-    "ibm_i_l"      = { "sap_profile_id" = null, "server_type" = "s922", "proc_type" = "shared", "cores" = "4", "memory" = "132", "storage" = "2000", "tier" = "tier3", "image" = var.tshirt_size.image }
+    "aix_xs"       = { "sap_profile_id" = null, "server_type" = local.server_type, "proc_type" = "shared", "cores" = "1", "memory" = "32", "storage" = "100", "tier" = "tier3", "image" = var.tshirt_size.image }
+    "aix_s"        = { "sap_profile_id" = null, "server_type" = local.server_type, "proc_type" = "shared", "cores" = "4", "memory" = "128", "storage" = "500", "tier" = "tier3", "image" = var.tshirt_size.image }
+    "aix_m"        = { "sap_profile_id" = null, "server_type" = local.server_type, "proc_type" = "shared", "cores" = "8", "memory" = "256", "storage" = "1000", "tier" = "tier3", "image" = var.tshirt_size.image }
+    "aix_l"        = { "sap_profile_id" = null, "server_type" = local.server_type, "proc_type" = "shared", "cores" = "14", "memory" = "512", "storage" = "2000", "tier" = "tier3", "image" = var.tshirt_size.image }
+    "ibm_i_xs"     = { "sap_profile_id" = null, "server_type" = local.server_type, "proc_type" = "shared", "cores" = "0.25", "memory" = "8", "storage" = "100", "tier" = "tier3", "image" = var.tshirt_size.image }
+    "ibm_i_s"      = { "sap_profile_id" = null, "server_type" = local.server_type, "proc_type" = "shared", "cores" = "1", "memory" = "32", "storage" = "500", "tier" = "tier3", "image" = var.tshirt_size.image }
+    "ibm_i_m"      = { "sap_profile_id" = null, "server_type" = local.server_type, "proc_type" = "shared", "cores" = "2", "memory" = "64", "storage" = "1000", "tier" = "tier3", "image" = var.tshirt_size.image }
+    "ibm_i_l"      = { "sap_profile_id" = null, "server_type" = local.server_type, "proc_type" = "shared", "cores" = "4", "memory" = "132", "storage" = "2000", "tier" = "tier3", "image" = var.tshirt_size.image }
     "sap_dev_rhel" = { "sap_profile_id" = "ush1-4x128", "server_type" = null, "proc_type" = null, "storage" = "750", "tier" = "tier1", "image" = var.tshirt_size.image }
     "sap_dev_sles" = { "sap_profile_id" = "ush1-4x128", "server_type" = null, "proc_type" = null, "storage" = "750", "tier" = "tier1", "image" = var.tshirt_size.image }
     "custom"       = { "sap_profile_id" = var.custom_profile.sap_profile_id, "server_type" = var.custom_profile.server_type, "proc_type" = var.custom_profile.proc_type, "cores" = var.custom_profile.cores, "memory" = var.custom_profile.memory, "storage" = var.custom_profile.storage.size, "tier" = var.custom_profile.storage.tier, "image" = var.custom_profile_instance_boot_image }
