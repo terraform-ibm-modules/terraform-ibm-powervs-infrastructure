@@ -64,6 +64,7 @@ resource "ibm_resource_instance" "secrets_manager" {
   plan              = var.sm_service_plan
   location          = local.sm_region
   resource_group_id = module.landing_zone.resource_group_data["${var.prefix}-slz-edge-rg"]
+  tags              = var.tags
   parameters = {
     "allowed_network" : "public-and-private"
   }
