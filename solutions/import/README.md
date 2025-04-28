@@ -43,7 +43,7 @@ The pre-existing infrastructure must meet the following conditions to use the 'I
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.9 |
-| <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | 1.77.1 |
+| <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | 1.77.0 |
 
 ### Modules
 
@@ -58,9 +58,9 @@ The pre-existing infrastructure must meet the following conditions to use the 'I
 
 | Name | Type |
 |------|------|
-| [ibm_is_network_acl.management_acls_ds](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.77.1/docs/data-sources/is_network_acl) | data source |
-| [ibm_is_subnet.management_subnets_ds](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.77.1/docs/data-sources/is_subnet) | data source |
-| [ibm_tg_gateway.tgw_ds](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.77.1/docs/data-sources/tg_gateway) | data source |
+| [ibm_is_network_acl.management_acls_ds](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.77.0/docs/data-sources/is_network_acl) | data source |
+| [ibm_is_subnet.management_subnets_ds](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.77.0/docs/data-sources/is_subnet) | data source |
+| [ibm_tg_gateway.tgw_ds](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.77.0/docs/data-sources/tg_gateway) | data source |
 
 ### Inputs
 
