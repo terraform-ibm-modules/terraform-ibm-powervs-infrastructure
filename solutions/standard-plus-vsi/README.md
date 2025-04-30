@@ -49,13 +49,13 @@ This example sets up the following infrastructure:
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.9 |
-| <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | 1.77.0 |
+| <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | 1.78.0 |
 
 ### Modules
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_powervs_instance"></a> [powervs\_instance](#module\_powervs\_instance) | terraform-ibm-modules/powervs-instance/ibm | 2.6.0 |
+| <a name="module_powervs_instance"></a> [powervs\_instance](#module\_powervs\_instance) | terraform-ibm-modules/powervs-instance/ibm | 2.6.1 |
 | <a name="module_standard"></a> [standard](#module\_standard) | ../../modules/powervs-vpc-landing-zone | n/a |
 
 ### Resources
@@ -95,7 +95,7 @@ No resources.
 | <a name="input_ssh_public_key"></a> [ssh\_public\_key](#input\_ssh\_public\_key) | Public SSH Key for VSI creation. Must be an RSA key with a key size of either 2048 bits or 4096 bits (recommended). Must be a valid SSH key that does not already exist in the deployment region. | `string` | n/a | yes |
 | <a name="input_tags"></a> [tags](#input\_tags) | List of tag names for the IBM Cloud PowerVS workspace | `list(string)` | `[]` | no |
 | <a name="input_tshirt_size"></a> [tshirt\_size](#input\_tshirt\_size) | PowerVS instance profiles. These profiles can be overridden by specifying 'custom\_profile\_instance\_boot\_image' and 'custom\_profile' values in optional parameters. | <pre>object({<br/>    tshirt_size = string<br/>    image       = string<br/>  })</pre> | n/a | yes |
-| <a name="input_vpc_intel_images"></a> [vpc\_intel\_images](#input\_vpc\_intel\_images) | Stock OS image names for creating VPC landing zone VSI instances: RHEL (management and network services) and SLES (monitoring). | <pre>object({<br/>    rhel_image = string<br/>    sles_image = string<br/>  })</pre> | <pre>{<br/>  "rhel_image": "ibm-redhat-9-4-amd64-sap-applications-4",<br/>  "sles_image": "ibm-sles-15-5-amd64-sap-applications-4"<br/>}</pre> | no |
+| <a name="input_vpc_intel_images"></a> [vpc\_intel\_images](#input\_vpc\_intel\_images) | Stock OS image names for creating VPC landing zone VSI instances: RHEL (management and network services) and SLES (monitoring). | <pre>object({<br/>    rhel_image = string<br/>    sles_image = string<br/>  })</pre> | <pre>{<br/>  "rhel_image": "ibm-redhat-9-4-amd64-sap-applications-5",<br/>  "sles_image": "ibm-sles-15-6-amd64-sap-applications-3"<br/>}</pre> | no |
 
 ### Outputs
 

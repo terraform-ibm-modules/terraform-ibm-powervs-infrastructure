@@ -64,6 +64,7 @@ resource "ibm_resource_instance" "secrets_manager" {
   plan              = var.sm_service_plan
   location          = local.sm_region
   resource_group_id = module.landing_zone.resource_group_data["${var.prefix}-slz-edge-rg"]
+  tags              = var.tags
   parameters = {
     "allowed_network" : "public-and-private"
   }
@@ -125,7 +126,7 @@ module "secrets_manager_private_certificate" {
 # Create client to site VPN Server
 module "client_to_site_vpn" {
   source    = "terraform-ibm-modules/client-to-site-vpn/ibm"
-  version   = "2.2.5"
+  version   = "3.0.2"
   providers = { ibm = ibm.ibm-is }
   count     = var.client_to_site_vpn.enable ? 1 : 0
 
