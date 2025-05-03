@@ -23,7 +23,6 @@ This example sets up the following infrastructure:
     - Creates two private networks: a management network and a backup network.
     - Attaches the PowerVS workspace to transit gateway.
     - Creates an SSH key.
-    - Optionally imports list of stock catalog images.
     - Optionally imports up to three custom images from Cloud Object Storage.
 
 - A **PowerVS Instance** with following options:
@@ -60,7 +59,9 @@ This example sets up the following infrastructure:
 
 ### Resources
 
-No resources.
+| Name | Type |
+|------|------|
+| [ibm_pi_catalog_images.catalog_images_ds](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.78.0/docs/data-sources/pi_catalog_images) | data source |
 
 ### Inputs
 

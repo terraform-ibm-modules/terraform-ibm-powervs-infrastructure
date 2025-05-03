@@ -23,7 +23,6 @@ module "standard" {
   powervs_resource_group_name                  = var.powervs_resource_group_name
   powervs_management_network                   = var.powervs_management_network
   powervs_backup_network                       = var.powervs_backup_network
-  powervs_image_names                          = var.powervs_image_names
   tags                                         = var.tags
   powervs_custom_images                        = var.powervs_custom_images
   powervs_custom_image_cos_configuration       = var.powervs_custom_image_cos_configuration
