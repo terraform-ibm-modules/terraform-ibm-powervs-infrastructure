@@ -12,7 +12,7 @@ data "ibm_pi_catalog_images" "catalog_images_ds" {
 locals {
   p10_unsupported_regions = ["che01", "lon04", "lon06", "mon01", "syd04", "syd05", "tor01", "us-east", "us-south"] # datacenters that don't support P10 yet
   server_type             = contains(local.p10_unsupported_regions, var.powervs_zone) ? "s922" : "s1022"
-  sap_profile_id          = contains(local.p10_unsupported_regions, var.powervs_zone) ? "ush1-4x128" : "sh2-4x256" # sap_profile_id for P9 and P10
+  sap_profile_id          = contains(local.p10_unsupported_regions, var.powervs_zone) ? "ush1-4x256" : "sh2-4x256" # sap_profile_id for P9 and P10
 
   ibm_powervs_quickstart_tshirt_sizes = {
     "aix_xs"       = { "sap_profile_id" = null, "server_type" = local.server_type, "proc_type" = "shared", "cores" = "1", "memory" = "32", "storage" = "100", "tier" = "tier3", "image" = var.tshirt_size.image }

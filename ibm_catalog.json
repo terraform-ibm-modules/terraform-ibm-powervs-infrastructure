@@ -733,14 +733,14 @@
                   }
                 },
                 {
-                  "displayname": "SAP DEV RHEL (ush1-4x128,disk-750GB,RHEL9-SP4-SAP)",
+                  "displayname": "SAP DEV RHEL (4x256,disk-750GB,RHEL9-SP4-SAP)",
                   "value": {
                     "tshirt_size": "sap_dev_rhel",
                     "image": "RHEL9-SP4-SAP"
                   }
                 },
                 {
-                  "displayname": "SAP DEV SLES (ush1-4x128,disk-750GB,SLES15-SP6-SAP)",
+                  "displayname": "SAP DEV SLES (4x256,disk-750GB,SLES15-SP6-SAP)",
                   "value": {
                     "tshirt_size": "sap_dev_sles",
                     "image": "SLES15-SP6-SAP"

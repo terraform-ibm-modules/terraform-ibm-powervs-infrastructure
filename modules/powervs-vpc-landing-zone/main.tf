@@ -44,6 +44,7 @@ resource "ibm_resource_instance" "monitoring_instance" {
 
 locals {
   monitoring_instance = {
+    enable             = var.enable_monitoring
     crn                = var.enable_monitoring && var.existing_monitoring_instance_crn == null ? resource.ibm_resource_instance.monitoring_instance[0].crn : var.existing_monitoring_instance_crn != null ? var.existing_monitoring_instance_crn : ""
     location           = var.enable_monitoring && var.existing_monitoring_instance_crn == null ? resource.ibm_resource_instance.monitoring_instance[0].location : var.existing_monitoring_instance_crn != null ? split(":", var.existing_monitoring_instance_crn)[5] : ""
     guid               = var.enable_monitoring && var.existing_monitoring_instance_crn == null ? resource.ibm_resource_instance.monitoring_instance[0].guid : var.existing_monitoring_instance_crn != null ? split(":", var.existing_monitoring_instance_crn)[7] : ""
@@ -73,6 +74,7 @@ module "scc_wp_instance" {
 
 locals {
   scc_wp_instance = {
+    enable             = var.enable_scc_wp
     guid               = var.enable_scc_wp ? module.scc_wp_instance[0].guid : "",
     access_key         = var.enable_scc_wp ? nonsensitive(module.scc_wp_instance[0].access_key) : "",
     api_endpoint       = var.enable_scc_wp ? nonsensitive(replace(module.scc_wp_instance[0].api_endpoint, "https://", "https://private.")) : "",
