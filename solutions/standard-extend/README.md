@@ -7,8 +7,7 @@ It provisions the following infrastructure on top of the deployed Full Stack sol
     - Creates two private networks: a management network and a backup network
     - Attaches the PowerVS workspace to transit gateway
     - Creates an SSH key.
-    - Optionally imports up to three custom images from Cloud Object Storage.
-
+    - Optionally imports up to three custom Linux and SAP Linux images from Cloud Object Storage.
 
 ### Notes:
 - Make sure that you select a PowerVS zone that is different from the one used for the prerequisite infrastructure.

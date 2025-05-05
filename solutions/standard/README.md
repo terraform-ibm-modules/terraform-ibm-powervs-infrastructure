@@ -23,7 +23,7 @@ This example sets up the following infrastructure:
     - Creates two private networks: a management network and a backup network.
     - Attaches the PowerVS workspace to transit gateway.
     - Creates an SSH key.
-    - Optionally imports up to three custom images from Cloud Object Storage.
+    - Optionally imports up to three custom Linux and SAP Linux images from Cloud Object Storage.
 
 ### Notes:
 - Catalog image names to be imported into infrastructure can be found [here](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-workspace/blob/main/docs/catalog_images_list.md)
