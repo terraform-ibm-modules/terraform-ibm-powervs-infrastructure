@@ -1204,7 +1204,10 @@
           "install_type": "fullstack",
           "index": 3,
           "working_directory": "solutions/import",
-          "compliance": {},
+          "compliance": {
+            "authority": "",
+            "profiles": []
+          },
           "configuration": [
             {
               "key": "access_host",
@@ -1524,7 +1527,10 @@
           "install_type": "extension",
           "index": 4,
           "working_directory": "solutions/standard-extend",
-          "compliance": {},
+          "compliance": {
+            "authority": "",
+            "profiles": []
+          },
           "dependencies": [
             {
               "flavors": [

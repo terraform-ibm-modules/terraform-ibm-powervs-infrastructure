@@ -43,7 +43,7 @@ If you do not have a PowerVS infrastructure that is the [Standard variation](htt
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_powervs_workspace"></a> [powervs\_workspace](#module\_powervs\_workspace) | git::https://github.com/terraform-ibm-modules/terraform-ibm-powervs-workspace.git | image |
+| <a name="module_powervs_workspace"></a> [powervs\_workspace](#module\_powervs\_workspace) | terraform-ibm-modules/powervs-workspace/ibm | 3.0.0 |
 
 ### Resources
 

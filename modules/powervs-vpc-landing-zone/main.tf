@@ -131,7 +131,8 @@ locals {
 }
 
 module "powervs_workspace" {
-  source = "git::https://github.com/terraform-ibm-modules/terraform-ibm-powervs-workspace.git?ref=image"
+  source  = "terraform-ibm-modules/powervs-workspace/ibm"
+  version = "3.0.0"
 
   providers = { ibm = ibm.ibm-pi }
 
