@@ -7,7 +7,7 @@ It provisions the following infrastructure on top of the deployed Full Stack sol
     - Creates two private networks: a management network and a backup network
     - Attaches the PowerVS workspace to transit gateway
     - Creates an SSH key.
-    - Optionally imports up to three custom Linux and SAP Linux images from Cloud Object Storage.
+    - Optionally imports up to three custom images from Cloud Object Storage.
 
 ### Notes:
 - Make sure that you select a PowerVS zone that is different from the one used for the prerequisite infrastructure.
@@ -42,7 +42,7 @@ If you do not have a PowerVS infrastructure that is the [Standard variation](htt
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_powervs_workspace"></a> [powervs\_workspace](#module\_powervs\_workspace) | terraform-ibm-modules/powervs-workspace/ibm | 3.0.0 |
+| <a name="module_powervs_workspace"></a> [powervs\_workspace](#module\_powervs\_workspace) | terraform-ibm-modules/powervs-workspace/ibm | 3.0.1 |
 
 ### Resources
 
