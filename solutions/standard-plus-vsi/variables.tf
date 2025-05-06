@@ -85,6 +85,47 @@ variable "custom_profile" {
   }
 }
 
+#####################################################
+# Optional Parameters PowerVS Workspace
+#####################################################
+
+variable "powervs_management_network" {
+  description = "Name of the IBM Cloud PowerVS management subnet and CIDR to create."
+  type = object({
+    name = string
+    cidr = string
+  })
+
+  default = {
+    "name" : "mgmt_net",
+    "cidr" : "10.51.0.0/24"
+  }
+}
+
+variable "powervs_backup_network" {
+  description = "Name of the IBM Cloud PowerVS backup network and CIDR to create."
+  type = object({
+    name = string
+    cidr = string
+  })
+
+  default = {
+    "name" : "bkp_net",
+    "cidr" : "10.52.0.0/24"
+  }
+}
+
+variable "powervs_resource_group_name" {
+  description = "Existing IBM Cloud resource group name."
+  type        = string
+  default     = "Default"
+}
+
+variable "tags" {
+  description = "List of tag names for the IBM Cloud PowerVS workspace"
+  type        = list(string)
+  default     = []
+}
 
 #####################################################
 # Optional Parameters for intel VSI
@@ -157,48 +198,6 @@ variable "nfs_server_config" {
     "iops" : 600,
     "mount_path" : "/nfs"
   }
-}
-
-#####################################################
-# Optional Parameters PowerVS Workspace
-#####################################################
-
-variable "powervs_management_network" {
-  description = "Name of the IBM Cloud PowerVS management subnet and CIDR to create."
-  type = object({
-    name = string
-    cidr = string
-  })
-
-  default = {
-    "name" : "mgmt_net",
-    "cidr" : "10.51.0.0/24"
-  }
-}
-
-variable "powervs_backup_network" {
-  description = "Name of the IBM Cloud PowerVS backup network and CIDR to create."
-  type = object({
-    name = string
-    cidr = string
-  })
-
-  default = {
-    "name" : "bkp_net",
-    "cidr" : "10.52.0.0/24"
-  }
-}
-
-variable "powervs_resource_group_name" {
-  description = "Existing IBM Cloud resource group name."
-  type        = string
-  default     = "Default"
-}
-
-variable "tags" {
-  description = "List of tag names for the IBM Cloud PowerVS workspace"
-  type        = list(string)
-  default     = []
 }
 
 

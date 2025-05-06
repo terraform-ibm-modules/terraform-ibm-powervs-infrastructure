@@ -887,6 +887,15 @@
               }
             },
             {
+              "key": "powervs_management_network"
+            },
+            {
+              "key": "powervs_backup_network"
+            },
+            {
+              "key": "tags"
+            },
+            {
               "key": "vpc_intel_images",
               "hidden": true
             },
@@ -910,15 +919,6 @@
             },
             {
               "key": "nfs_server_config"
-            },
-            {
-              "key": "powervs_management_network"
-            },
-            {
-              "key": "powervs_backup_network"
-            },
-            {
-              "key": "tags"
             },
             {
               "key": "enable_scc_wp"
