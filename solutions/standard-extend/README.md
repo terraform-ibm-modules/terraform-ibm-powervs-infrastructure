@@ -1,6 +1,6 @@
-# IBM Cloud Catalog Solution for Power Virtual Server with VPC Landing Zone Standard Extend Variation
+# IBM Cloud Catalog Solution for Power Virtual Server with VPC Landing Zone Standard Landscape Extend Variation
 
-This example extends an existing PowerVS infrastructure for deployable architectures deployed as standard variation with an additional PowerVS workspace.
+This example extends an existing PowerVS infrastructure for deployable architectures deployed as Standard Landscape Variation with an additional PowerVS workspace.
 It provisions the following infrastructure on top of the deployed Full Stack solution:
 
 - A **Power Virtual Server workspace** with the following network topology:
@@ -16,19 +16,19 @@ It provisions the following infrastructure on top of the deployed Full Stack sol
 
 ### Before You Begin
 
-If you do not have a PowerVS infrastructure that is the [Standard variation](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/tree/main/solutions/standard) create it first.
+If you do not have a PowerVS infrastructure that is the [Standard Landscape Variation](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/tree/main/solutions/standard) create it first.
 
 
 | Variation  | Available on IBM Catalog  |  Requires Schematics Workspace ID | Creates VPC Landing Zone | Performs VPC VSI OS Config | Creates PowerVS Infrastructure | Creates PowerVS Instance | Performs PowerVS OS Config |
 | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
-| [Standard Extend](./)    | :heavy_check_mark:  |  :heavy_check_mark: |  N/A | N/A | :heavy_check_mark:  | N/A | N/A |
+| [Standard Landscape Extend](./)    | :heavy_check_mark:  |  :heavy_check_mark: |  N/A | N/A | :heavy_check_mark:  | N/A | N/A |
 
 
 ## Reference architecture
-[Standard Extend variation](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/blob/main/reference-architectures/standard-extend/deploy-arch-ibm-pvs-inf-standard-extend.md)
+[Standard Landscape Extend Variation](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/blob/main/reference-architectures/standard-extend/deploy-arch-ibm-pvs-inf-standard-extend.md)
 
 ## Architecture diagram
-![Standard Extend](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/blob/main/reference-architectures/standard-extend/deploy-arch-ibm-pvs-inf-standard-extend.svg)
+![Standard Landscape Extend](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/blob/main/reference-architectures/standard-extend/deploy-arch-ibm-pvs-inf-standard-extend.svg)
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ### Requirements

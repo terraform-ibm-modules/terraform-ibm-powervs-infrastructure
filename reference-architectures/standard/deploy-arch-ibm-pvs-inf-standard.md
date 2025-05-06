@@ -22,7 +22,7 @@ compliance: SAPCertified
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Power Virtual Server with VPC landing zone - 'Standard Variation'
+# Power Virtual Server with VPC landing zone - 'Standard Landscape Variation'
 {: #deploy-arch-ibm-pvs-inf-standard}
 {: toc-content-type="reference-architecture"}
 {: toc-industry="Technology"}

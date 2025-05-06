@@ -57,7 +57,7 @@
       ],
       "flavors": [
         {
-          "label": "Standard",
+          "label": "Standard Landscape",
           "name": "standard",
           "install_type": "fullstack",
           "index": 1,
@@ -72,6 +72,25 @@
             ]
           },
           "configuration": [
+            {
+              "key": "prefix",
+              "type": "string",
+              "default_value": "",
+              "required": true
+            },
+            {
+              "key": "powervs_resource_group_name",
+              "required": true,
+              "default_value": "",
+              "custom_config": {
+                "config_constraints": {
+                  "identifier": "rg_name"
+                },
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "type": "resource_group"
+              }
+            },
             {
               "key": "powervs_zone",
               "type": "string",
@@ -162,31 +181,8 @@
               "custom_config": {}
             },
             {
-              "key": "powervs_resource_group_name",
-              "required": true,
-              "default_value": "",
-              "custom_config": {
-                "config_constraints": {
-                  "identifier": "rg_name"
-                },
-                "grouping": "deployment",
-                "original_grouping": "deployment",
-                "type": "resource_group"
-              }
-            },
-            {
-              "key": "prefix",
-              "type": "string",
-              "default_value": "",
-              "required": true
-            },
-            {
               "key": "external_access_ip",
               "default_value": "__NULL__",
-              "required": true
-            },
-            {
-              "key": "client_to_site_vpn",
               "required": true
             },
             {
@@ -223,16 +219,13 @@
               }
             },
             {
-              "key": "enable_monitoring",
-              "required": true
+              "key": "powervs_management_network"
             },
             {
-              "key": "enable_scc_wp",
-              "required": true
+              "key": "powervs_backup_network"
             },
             {
-              "key": "vpc_intel_images",
-              "hidden": true
+              "key": "tags"
             },
             {
               "key": "powervs_custom_images",
@@ -261,12 +254,11 @@
               }
             },
             {
-              "key": "ansible_vault_password",
-              "type": "multiline_secure_value",
-              "display_name": "ansible_vault_password"
+              "key": "transit_gateway_global"
             },
             {
-              "key": "transit_gateway_global"
+              "key": "vpc_intel_images",
+              "hidden": true
             },
             {
               "key": "network_services_vsi_profile"
@@ -287,16 +279,21 @@
               "key": "nfs_server_config"
             },
             {
-              "key": "powervs_management_network"
+              "key": "enable_scc_wp"
             },
             {
-              "key": "powervs_backup_network"
+              "key": "ansible_vault_password",
+              "type": "multiline_secure_value",
+              "display_name": "ansible_vault_password"
             },
             {
-              "key": "tags"
+              "key": "enable_monitoring"
             },
             {
               "key": "existing_monitoring_instance_crn"
+            },
+            {
+              "key": "client_to_site_vpn"
             },
             {
               "key": "sm_service_plan"
@@ -544,7 +541,7 @@
             "diagrams": [
               {
                 "diagram": {
-                  "caption": "Power Virtual Server with VPC landing zone 'Standard' variation",
+                  "caption": "Power Virtual Server with VPC landing zone 'Standard Landscape' variation",
                   "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/refs/tags/v8.4.0/reference-architectures/standard/deploy-arch-ibm-pvs-inf-standard.svg",
                   "type": "image/svg+xml"
                 },
@@ -569,6 +566,24 @@
             ]
           },
           "configuration": [
+            {
+              "key": "prefix",
+              "default_value": "",
+              "required": true
+            },
+            {
+              "key": "powervs_resource_group_name",
+              "required": true,
+              "default_value": "",
+              "custom_config": {
+                "config_constraints": {
+                  "identifier": "rg_name"
+                },
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "type": "resource_group"
+              }
+            },
             {
               "key": "powervs_zone",
               "type": "string",
@@ -657,11 +672,6 @@
                 }
               ],
               "custom_config": {}
-            },
-            {
-              "key": "prefix",
-              "default_value": "",
-              "required": true
             },
             {
               "key": "tshirt_size",
@@ -783,29 +793,10 @@
               }
             },
             {
-              "key": "powervs_resource_group_name",
-              "required": true,
-              "default_value": "",
-              "custom_config": {
-                "config_constraints": {
-                  "identifier": "rg_name"
-                },
-                "grouping": "deployment",
-                "original_grouping": "deployment",
-                "type": "resource_group"
-              }
-            },
-            {
-              "key": "enable_monitoring",
+              "key": "ansible_vault_password",
+              "type": "multiline_secure_value",
+              "display_name": "ansible_vault_password",
               "required": true
-            },
-            {
-              "key": "enable_scc_wp",
-              "required": true
-            },
-            {
-              "key": "vpc_intel_images",
-              "hidden": true
             },
             {
               "key": "custom_profile_instance_boot_image",
@@ -896,9 +887,14 @@
               }
             },
             {
-              "key": "ansible_vault_password",
-              "type": "multiline_secure_value",
-              "display_name": "ansible_vault_password"
+              "key": "vpc_intel_images",
+              "hidden": true
+            },
+            {
+              "key": "network_services_vsi_profile"
+            },
+            {
+              "key": "external_access_ip"
             },
             {
               "key": "configure_dns_forwarder"
@@ -925,17 +921,16 @@
               "key": "tags"
             },
             {
+              "key": "enable_scc_wp"
+            },
+            {
+              "key": "enable_monitoring"
+            },
+            {
               "key": "existing_monitoring_instance_crn"
             },
             {
-              "key": "external_access_ip",
-              "default_value": "0.0.0.0/0"
-            },
-            {
               "key": "client_to_site_vpn"
-            },
-            {
-              "key": "network_services_vsi_profile"
             },
             {
               "key": "sm_service_plan"
@@ -1199,7 +1194,7 @@
           }
         },
         {
-          "label": "Import",
+          "label": "Import Landscape",
           "name": "import",
           "install_type": "fullstack",
           "index": 3,
@@ -1512,17 +1507,17 @@
             "diagrams": [
               {
                 "diagram": {
-                  "caption": "Power Virtual Server with VPC landing zone 'Import' variation",
+                  "caption": "Power Virtual Server with VPC landing zone 'Import Landscape' variation",
                   "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/refs/tags/v8.4.0/reference-architectures/import/deploy-arch-ibm-pvs-inf-import.svg",
                   "type": "image/svg+xml"
                 },
-                "description": "This solution helps to install the deployable architecture 'Power Virtual Server for SAP HANA' on top of a pre-existing Power Virtual Server(PowerVS) landscape. 'Power Virtual Server for SAP HANA' automation requires a schematics workspace id for installation. The 'Import' solution creates a schematics workspace by taking pre-existing VPC and PowerVS infrastructure resource details as inputs. The ID of this schematics workspace will be the pre-requisite workspace id required by 'Power Virtual Server for SAP HANA' to create and configure the PowerVS instances for SAP on top of the existing infrastructure.\n \nRequired and optional management components are configured."
+                "description": "This solution helps to install the deployable architecture 'Power Virtual Server for SAP HANA' on top of a pre-existing Power Virtual Server(PowerVS) landscape. 'Power Virtual Server for SAP HANA' automation requires a schematics workspace id for installation. The 'Import Landscape' solution creates a schematics workspace by taking pre-existing VPC and PowerVS infrastructure resource details as inputs. The ID of this schematics workspace will be the pre-requisite workspace id required by 'Power Virtual Server for SAP HANA' to create and configure the PowerVS instances for SAP on top of the existing infrastructure.\n \nRequired and optional management components are configured."
               }
             ]
           }
         },
         {
-          "label": "Standard",
+          "label": "Standard Landscape Extension",
           "name": "standard-extend",
           "install_type": "extension",
           "index": 4,
@@ -1829,7 +1824,7 @@
             "diagrams": [
               {
                 "diagram": {
-                  "caption": "Power Virtual Server with VPC landing zone 'Standard Extend' variation",
+                  "caption": "Power Virtual Server with VPC landing zone 'Standard Landscape Extend' variation",
                   "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/refs/tags/v8.4.0/reference-architectures/standard-extend/deploy-arch-ibm-pvs-inf-standard-extend.svg",
                   "type": "image/svg+xml"
                 },

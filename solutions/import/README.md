@@ -1,4 +1,4 @@
-# IBM Cloud solution for Power Virtual Server with VPC landing zone Import Variation
+# IBM Cloud solution for Power Virtual Server with VPC landing zone Import Landscape Variation
 
 This solution helps to install the deployable architecture ['Power Virtual Server for SAP HANA'](https://cloud.ibm.com/catalog/architecture/deploy-arch-ibm-pvs-sap-9aa6135e-75d5-467e-9f4a-ac2a21c069b8-global) on top of a pre-existing Power Virtual Server(PowerVS) landscape. 'Power Virtual Server for SAP HANA' automation requires a schematics workspace id for installation. The 'Import' solution creates a schematics workspace by taking pre-existing VPC and PowerVS infrastructure resource details as inputs. The ID of this schematics workspace will be the pre-requisite workspace id required by 'Power Virtual Server for SAP HANA' to create and configure the PowerVS instances for SAP on top of the existing infrastructure.
 
@@ -35,7 +35,7 @@ The pre-existing infrastructure must meet the following conditions to use the 'I
 | [Import](./)  | :heavy_check_mark:  | N/A  | N/A  | N/A  |  N/A  | N/A | N/A |
 
 ## Architecture diagram
-![import Variation](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/blob/main/reference-architectures/import/deploy-arch-ibm-pvs-inf-import.svg)
+![Import Landscape Variation](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/blob/main/reference-architectures/import/deploy-arch-ibm-pvs-inf-import.svg)
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ### Requirements
