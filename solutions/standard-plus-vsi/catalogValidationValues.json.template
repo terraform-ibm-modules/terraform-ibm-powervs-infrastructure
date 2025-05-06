@@ -1,10 +1,10 @@
 {
   "ibmcloud_api_key": $VALIDATION_APIKEY,
-  "powervs_zone": "dal10",
+  "powervs_zone": "sao04",
   "prefix": "qs-val",
   "tshirt_size": {
       "tshirt_size":"aix_xs",
-      "image":"7300-02-02"
+      "image":"7300-03-00"
    },
   "external_access_ip": "0.0.0.0/0",
   "powervs_resource_group_name": "Automation",

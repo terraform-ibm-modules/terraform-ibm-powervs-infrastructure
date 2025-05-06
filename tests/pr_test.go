@@ -81,7 +81,7 @@ func setupOptionsStandardSolution(t *testing.T, prefix string, powervs_zone stri
 func TestRunBranchStandardExample(t *testing.T) {
 	t.Parallel()
 
-	options := setupOptionsStandardSolution(t, "pvs-i-b", "lon06")
+	options := setupOptionsStandardSolution(t, "pvs-i-b", "sao04")
 
 	output, err := options.RunTestConsistency()
 	assert.Nil(t, err, "This should not have errored")
