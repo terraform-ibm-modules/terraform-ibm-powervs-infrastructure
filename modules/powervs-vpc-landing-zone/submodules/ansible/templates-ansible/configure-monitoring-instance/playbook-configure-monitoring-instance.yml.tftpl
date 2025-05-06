@@ -20,12 +20,9 @@
       register: update_result
       when: "'SLES' in ansible_distribution"
 
-    - name: Reboot if updates were installed
-      ansible.builtin.command: shutdown -r now
-      async: 1
-      poll: 0
+    - name: Reboot the system if updates were installed
+      ansible.builtin.reboot:
+        reboot_timeout: 600
+        test_command: whoami
+      when: update_result is defined and update_result.changed
       ignore_errors: true
-
-    - name: Wait for the system to come back online
-      wait_for_connection:
-        timeout: 1500
