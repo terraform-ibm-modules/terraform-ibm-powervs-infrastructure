@@ -1,5 +1,5 @@
 #####################################################
-# PowerVS Standard solution
+# PowerVS standard landscape solution
 #####################################################
 
 terraform {

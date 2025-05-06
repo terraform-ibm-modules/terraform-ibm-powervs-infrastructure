@@ -13,7 +13,7 @@ Four solutions are offered:
 1. [Standard Landscape](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/tree/main/solutions/standard)
     - Creates a VPC and Power Virtual Server workspace, interconnects them, and configures OS network management services (SQUID proxy, NTP, NFS, and DNS services) using Ansible Galaxy collection roles [ibm.power_linux_sap collection](https://galaxy.ansible.com/ui/repo/published/ibm/power_linux_sap/).
 2. [Standard Landscape Extend](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/tree/main/solutions/standard-extend)
-    - Extends the standard solution by creating a new Power Virtual Server workspace in a different zone and interconnects with the previous solution.
+    - Extends the standard landscape solution by creating a new Power Virtual Server workspace in a different zone and interconnects with the previous solution.
     - This solution is typically used for **High Availability scenarios** where a single management VPC can be used to reach both PowerVS workspaces.
 3. [Quickstart (Standard plus VSI)](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/tree/main/solutions/standard-plus-vsi)
     - Creates a VPC and a Power Virtual Server workspace, interconnects them, and configures operating network management services (SQUID proxy, NTP, NFS, and DNS services) using Ansible Galaxy collection roles [ibm.power_linux_sap collection](https://galaxy.ansible.com/ui/repo/published/ibm/power_linux_sap/).
