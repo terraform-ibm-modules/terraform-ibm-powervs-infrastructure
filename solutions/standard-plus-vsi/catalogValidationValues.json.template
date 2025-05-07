@@ -6,7 +6,7 @@
       "tshirt_size":"aix_xs",
       "image":"7300-03-00"
    },
-  "powervs_resource_group_name": "Automation",
+  "powervs_resource_group_name": "Default",
   "ssh_public_key": $SSH_PUB_KEY,
   "ssh_private_key": $SSH_PRV_KEY,
   "ansible_vault_password": "SecurePassw0rd!"
