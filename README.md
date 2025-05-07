@@ -22,7 +22,7 @@ Four solutions are offered:
 
 ## Reference architectures
 - [Standard Landscape](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/tree/main/reference-architectures/standard/deploy-arch-ibm-pvs-inf-standard.md)
-- [Standard Landscape Extend Landscape](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/tree/main/reference-architectures/standard-extend/deploy-arch-ibm-pvs-inf-standard-extend.md)
+- [Standard Landscape Extend](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/tree/main/reference-architectures/standard-extend/deploy-arch-ibm-pvs-inf-standard-extend.md)
 - [Quickstart (Standard Landscape plus VSI)](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/tree/main/reference-architectures/standard-plus-vsi/deploy-arch-ibm-pvs-inf-standard-plus-vsi.md)
 
 ## Solutions
