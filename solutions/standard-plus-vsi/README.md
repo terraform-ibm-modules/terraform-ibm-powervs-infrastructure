@@ -23,7 +23,6 @@ This example sets up the following infrastructure:
     - Creates two private networks: a management network and a backup network.
     - Attaches the PowerVS workspace to transit gateway.
     - Creates an SSH key.
-    - Optionally imports up to three custom images from Cloud Object Storage.
 
 - A **PowerVS Instance** with following options:
     - t-shirt profile (Aix/IBMi/SAP Image)
