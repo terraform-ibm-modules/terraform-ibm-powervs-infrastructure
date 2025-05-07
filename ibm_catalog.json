@@ -534,7 +534,19 @@
                 "description": "NFS as service, NTP forwarder, and DNS forwarder reachable from PowerVS Workspace"
               },
               {
+                "title": "Client to site VPN with new or existing Secrets Manager instance",
+                "description": "Optional"
+              },
+              {
+                "title": "SCC Workload Protection instance",
+                "description": "Optional"
+              },
+              {
                 "title": "Monitoring Instance and Monitoring Intel VSI Host",
+                "description": "Optional"
+              },
+              {
+                "title": "Bring your own image to PowerVS",
                 "description": "Optional"
               }
             ],
@@ -1177,8 +1189,20 @@
                 "description": "NFS as service, NTP forwarder, and DNS forwarder reachable from PowerVS Workspace"
               },
               {
+                "title": "Client to site VPN with new or existing Secrets Manager instance",
+                "description": "Optional"
+              },
+              {
+                "title": "SCC Workload Protection instance",
+                "description": "Optional"
+              },
+              {
                 "title": "Monitoring Instance and Monitoring Intel VSI Host",
                 "description": "Optional"
+              },
+              {
+                "title": "Bring your own image to PowerVS",
+                "description": "No"
               }
             ],
             "diagrams": [
@@ -1496,6 +1520,10 @@
               {
                 "title": "Power Virtual Server Workspace",
                 "description": "PowerVS Workspace with all required components in different zone. Used for HA scenario."
+              },
+              {
+                "title": "Bring your own image to PowerVS",
+                "description": "Optional"
               }
             ],
             "diagrams": [
