@@ -15,20 +15,15 @@ Four solutions are offered:
 2. [Standard Landscape Extend](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/tree/main/solutions/standard-extend)
     - Extends the standard landscape solution by creating a new Power Virtual Server workspace in a different zone and interconnects with the previous solution.
     - This solution is typically used for **High Availability scenarios** where a single management VPC can be used to reach both PowerVS workspaces.
-3. [Quickstart (Standard plus VSI)](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/tree/main/solutions/standard-plus-vsi)
+3. [Quickstart (Standard Landscape plus VSI)](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/tree/main/solutions/standard-plus-vsi)
     - Creates a VPC and a Power Virtual Server workspace, interconnects them, and configures operating network management services (SQUID proxy, NTP, NFS, and DNS services) using Ansible Galaxy collection roles [ibm.power_linux_sap collection](https://galaxy.ansible.com/ui/repo/published/ibm/power_linux_sap/).
     - Additionally creates a Power Virtual Server Instance of a selected t-shirt size.
     - This solution is typically utilized for **PoCs, demos, and quick onboarding** to PowerVS Infrastructure.
-4. [Import Landscape](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/tree/main/solutions/import)
-    - Takes information about an existing infrastructure and creates a schematics workspace.
-    - The schematics workspace's ID and the outputs from it can be used to install the terraform solution 'Power Virtual Server for SAP HANA' on top of a pre-existing PowerVS infrastructure.
-    - It creates the ACL and security group rules necessary for management services (NTP, NFS, DNS, and proxy server) and schematics engine access.
-    - This solution is typically used for converting an existing Power Virtual Server landscape to a Schematics workspace.
 
 ## Reference architectures
 - [Standard Landscape](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/tree/main/reference-architectures/standard/deploy-arch-ibm-pvs-inf-standard.md)
 - [Standard Landscape Extend Landscape](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/tree/main/reference-architectures/standard-extend/deploy-arch-ibm-pvs-inf-standard-extend.md)
-- [Quickstart (Standard plus VSI)](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/tree/main/reference-architectures/standard-plus-vsi/deploy-arch-ibm-pvs-inf-standard-plus-vsi.md)
+- [Quickstart (Standard Landscape plus VSI)](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/tree/main/reference-architectures/standard-plus-vsi/deploy-arch-ibm-pvs-inf-standard-plus-vsi.md)
 
 ## Solutions
 
@@ -36,8 +31,7 @@ Four solutions are offered:
 | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
 | [Standard Landscape](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/tree/main/solutions/standard)  | :heavy_check_mark:  | N/A  | :heavy_check_mark:  | :heavy_check_mark:  |  :heavy_check_mark: | N/A | N/A |
 | [Standard Landscape Extend](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/tree/main/solutions/standard-extend)    | :heavy_check_mark:  |  :heavy_check_mark: |  N/A | N/A | :heavy_check_mark:  | N/A | N/A |
-| [Quickstart (Standard plus VSI)](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/tree/main/solutions/standard-plus-vsi)    | :heavy_check_mark:  |   N/A  | :heavy_check_mark:| :heavy_check_mark: | :heavy_check_mark:  | :heavy_check_mark: | N/A |
-| [Import Landscape](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/tree/main/solutions/import)    | :heavy_check_mark:  |   N/A  | N/A | N/A | N/A  | N/A | N/A |
+| [Quickstart (Standard Landscape plus VSI)](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/tree/main/solutions/standard-plus-vsi)    | :heavy_check_mark:  |   N/A  | :heavy_check_mark:| :heavy_check_mark: | :heavy_check_mark:  | :heavy_check_mark: | N/A |
 
 
 ## Required IAM access policies
