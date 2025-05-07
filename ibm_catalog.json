@@ -1194,7 +1194,7 @@
           }
         },
         {
-          "label": "Standard Landscape Extension",
+          "label": "Extend Standard Landscape",
           "name": "standard-extend",
           "install_type": "extension",
           "index": 4,
@@ -1501,7 +1501,7 @@
             "diagrams": [
               {
                 "diagram": {
-                  "caption": "Power Virtual Server with VPC landing zone 'Standard Landscape Extend' variation",
+                  "caption": "Power Virtual Server with VPC landing zone 'Extend Standard Landscape' variation",
                   "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/refs/tags/v8.4.0/reference-architectures/standard-extend/deploy-arch-ibm-pvs-inf-standard-extend.svg",
                   "type": "image/svg+xml"
                 },

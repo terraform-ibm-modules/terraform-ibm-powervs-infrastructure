@@ -1,4 +1,4 @@
-# IBM Cloud Catalog Solution for Power Virtual Server with VPC Landing Zone Standard Landscape Extend Variation
+# IBM Cloud Catalog Solution for Power Virtual Server with VPC Landing Zone Extend Standard Landscape Variation
 
 This example extends an existing PowerVS infrastructure for deployable architectures deployed as Standard Landscape Variation with an additional PowerVS workspace.
 It provisions the following infrastructure on top of the deployed Full Stack solution:
@@ -21,14 +21,14 @@ If you do not have a PowerVS infrastructure that is the [Standard Landscape Vari
 
 | Variation  | Available on IBM Catalog  |  Requires Schematics Workspace ID | Creates VPC Landing Zone | Performs VPC VSI OS Config | Creates PowerVS Infrastructure | Creates PowerVS Instance | Performs PowerVS OS Config |
 | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
-| [Standard Landscape Extend](./)    | :heavy_check_mark:  |  :heavy_check_mark: |  N/A | N/A | :heavy_check_mark:  | N/A | N/A |
+| [Extend Standard Landscape](./)    | :heavy_check_mark:  |  :heavy_check_mark: |  N/A | N/A | :heavy_check_mark:  | N/A | N/A |
 
 
 ## Reference architecture
-[Standard Landscape Extend Variation](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/blob/main/reference-architectures/standard-extend/deploy-arch-ibm-pvs-inf-standard-extend.md)
+[Extend Standard Landscape Variation](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/blob/main/reference-architectures/standard-extend/deploy-arch-ibm-pvs-inf-standard-extend.md)
 
 ## Architecture diagram
-![Standard Landscape Extend](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/blob/main/reference-architectures/standard-extend/deploy-arch-ibm-pvs-inf-standard-extend.svg)
+![Extend Standard Landscape](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/blob/main/reference-architectures/standard-extend/deploy-arch-ibm-pvs-inf-standard-extend.svg)
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ### Requirements
