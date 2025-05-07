@@ -262,7 +262,6 @@ module "configure_scc_wp_agent" {
   src_playbook_template_name = "configure-scc-wp-agent/playbook-configure-scc-wp-agent.yml.tftpl"
   dst_playbook_file_name     = "${var.prefix}-playbook-configure-scc-wp-agent.yml"
   playbook_template_vars = {
-    SCC_WP_GUID : local.scc_wp_instance.guid,
     COLLECTOR_ENDPOINT : local.scc_wp_instance.ingestion_endpoint,
     API_ENDPOINT : local.scc_wp_instance.api_endpoint,
     ACCESS_KEY : local.scc_wp_instance.access_key
