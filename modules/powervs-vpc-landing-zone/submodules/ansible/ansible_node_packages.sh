@@ -56,6 +56,9 @@ main::install_packages() {
 
     main::subscription_mgr_check_process
 
+    ## hotfix for subscription-manager broken pipe error in next step
+    subscription-manager list --available --all
+
     ## enable repository for RHEL sap roles
     subscription-manager repos --enable="rhel-$(rpm -E %rhel)-for-$(uname -m)-sap-solutions-rpms"
 
