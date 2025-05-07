@@ -22,7 +22,6 @@ module "standard" {
   powervs_resource_group_name      = var.powervs_resource_group_name
   powervs_management_network       = var.powervs_management_network
   powervs_backup_network           = var.powervs_backup_network
-  powervs_image_names              = [local.qs_tshirt_choice.image]
   tags                             = var.tags
   sm_service_plan                  = var.sm_service_plan
   existing_sm_instance_guid        = var.existing_sm_instance_guid

@@ -44,6 +44,7 @@ resource "ibm_resource_instance" "monitoring_instance" {
 
 locals {
   monitoring_instance = {
+    enable             = var.enable_monitoring
     crn                = var.enable_monitoring && var.existing_monitoring_instance_crn == null ? resource.ibm_resource_instance.monitoring_instance[0].crn : var.existing_monitoring_instance_crn != null ? var.existing_monitoring_instance_crn : ""
     location           = var.enable_monitoring && var.existing_monitoring_instance_crn == null ? resource.ibm_resource_instance.monitoring_instance[0].location : var.existing_monitoring_instance_crn != null ? split(":", var.existing_monitoring_instance_crn)[5] : ""
     guid               = var.enable_monitoring && var.existing_monitoring_instance_crn == null ? resource.ibm_resource_instance.monitoring_instance[0].guid : var.existing_monitoring_instance_crn != null ? split(":", var.existing_monitoring_instance_crn)[7] : ""
@@ -57,7 +58,7 @@ locals {
 
 module "scc_wp_instance" {
   source    = "terraform-ibm-modules/scc-workload-protection/ibm"
-  version   = "1.5.8"
+  version   = "1.5.10"
   providers = { ibm = ibm.ibm-is }
   count     = var.enable_scc_wp ? 1 : 0
 
@@ -73,6 +74,7 @@ module "scc_wp_instance" {
 
 locals {
   scc_wp_instance = {
+    enable             = var.enable_scc_wp
     guid               = var.enable_scc_wp ? module.scc_wp_instance[0].guid : "",
     access_key         = var.enable_scc_wp ? nonsensitive(module.scc_wp_instance[0].access_key) : "",
     api_endpoint       = var.enable_scc_wp ? nonsensitive(replace(module.scc_wp_instance[0].api_endpoint, "https://", "https://private.")) : "",
@@ -131,8 +133,9 @@ locals {
 }
 
 module "powervs_workspace" {
-  source    = "terraform-ibm-modules/powervs-workspace/ibm"
-  version   = "2.5.0"
+  source  = "terraform-ibm-modules/powervs-workspace/ibm"
+  version = "3.0.1"
+
   providers = { ibm = ibm.ibm-pi }
 
   pi_zone                                 = var.powervs_zone
@@ -143,7 +146,6 @@ module "powervs_workspace" {
   pi_private_subnet_2                     = var.powervs_backup_network
   pi_transit_gateway_connection           = { "enable" : true, "transit_gateway_id" : module.landing_zone.transit_gateway_data.id }
   pi_tags                                 = var.tags
-  pi_image_names                          = var.powervs_image_names
   pi_custom_image1                        = local.powervs_custom_image1
   pi_custom_image2                        = local.powervs_custom_image2
   pi_custom_image3                        = local.powervs_custom_image3
@@ -260,7 +262,6 @@ module "configure_scc_wp_agent" {
   src_playbook_template_name = "configure-scc-wp-agent/playbook-configure-scc-wp-agent.yml.tftpl"
   dst_playbook_file_name     = "${var.prefix}-playbook-configure-scc-wp-agent.yml"
   playbook_template_vars = {
-    SCC_WP_GUID : local.scc_wp_instance.guid,
     COLLECTOR_ENDPOINT : local.scc_wp_instance.ingestion_endpoint,
     API_ENDPOINT : local.scc_wp_instance.api_endpoint,
     ACCESS_KEY : local.scc_wp_instance.access_key

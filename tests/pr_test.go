@@ -60,6 +60,11 @@ func setupOptionsStandardSolution(t *testing.T, prefix string, powervs_zone stri
 		Prefix:        prefix,
 		ResourceGroup: resourceGroup,
 		Region:        powervs_zone,
+		ImplicitDestroy: []string{
+			"module.standard.module.powervs_workspace.ibm_resource_instance.pi_workspace",
+			"module.standard.module.powervs_workspace.ibm_pi_network.private_subnet_1[0]",
+			"module.standard.module.powervs_workspace.ibm_pi_network.private_subnet_2[0]",
+		},
 	})
 
 	options.TerraformVars = map[string]interface{}{
@@ -67,6 +72,11 @@ func setupOptionsStandardSolution(t *testing.T, prefix string, powervs_zone stri
 		"powervs_resource_group_name": options.ResourceGroup,
 		"external_access_ip":          "0.0.0.0/0",
 		"powervs_zone":                options.Region,
+		"client_to_site_vpn": map[string]interface{}{
+			"enable":                        true,
+			"client_ip_pool":                "192.168.0.0/16",
+			"vpn_client_access_group_users": []string{},
+		},
 		"existing_sm_instance_guid":   permanentResources["secretsManagerGuid"],
 		"existing_sm_instance_region": permanentResources["secretsManagerRegion"],
 		"certificate_template_name":   permanentResources["privateCertTemplateName"],
@@ -81,7 +91,7 @@ func setupOptionsStandardSolution(t *testing.T, prefix string, powervs_zone stri
 func TestRunBranchStandardExample(t *testing.T) {
 	t.Parallel()
 
-	options := setupOptionsStandardSolution(t, "pvs-i-b", "lon06")
+	options := setupOptionsStandardSolution(t, "pvs-i-b", "sao04")
 
 	output, err := options.RunTestConsistency()
 	assert.Nil(t, err, "This should not have errored")
