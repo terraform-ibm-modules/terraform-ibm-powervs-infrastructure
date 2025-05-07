@@ -60,6 +60,11 @@ func setupOptionsStandardSolution(t *testing.T, prefix string, powervs_zone stri
 		Prefix:        prefix,
 		ResourceGroup: resourceGroup,
 		Region:        powervs_zone,
+		ImplicitDestroy: []string{
+			"module.standard.module.powervs_workspace.ibm_resource_instance.pi_workspace",
+			"module.standard.module.powervs_workspace.ibm_pi_network.private_subnet_1[0]",
+			"module.standard.module.powervs_workspace.ibm_pi_network.private_subnet_2[0]",
+		},
 	})
 
 	options.TerraformVars = map[string]interface{}{
