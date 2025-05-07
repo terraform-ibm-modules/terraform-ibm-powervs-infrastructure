@@ -1,0 +1,6 @@
+{
+  "ibmcloud_api_key": $VALIDATION_APIKEY,
+  "powervs_zone": "eu-de-2",
+  "powervs_resource_group_name": "Default",
+  "prerequisite_workspace_id": "us-east.workspace.globalcatalog-collection.2ad1e7ad"
+}

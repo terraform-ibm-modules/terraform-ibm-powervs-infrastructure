@@ -1,6 +1,6 @@
 {
   "prefix": $PREFIX,
-  "powervs_resource_group_name": "Automation",
+  "powervs_resource_group_name": "Default",
   "powervs_zone": "eu-de-1",
   "external_access_ip": "0.0.0.0/0",
   "ssh_public_key": $SSH_PUB_KEY,
