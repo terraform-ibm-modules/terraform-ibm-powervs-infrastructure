@@ -22,6 +22,15 @@ output "vpc_data" {
   value       = local.standard_output[0].vpc_data.value
 }
 
+output "kms_key_map" {
+  description = "Map of ids and keys for KMS keys created"
+  value       = local.standard_output[0].kms_key_map.value
+}
+
+output "vsi_ssh_key_data" {
+  description = "List of VSI SSH key data"
+  value       = local.standard_output[0].vsi_ssh_key_data.value
+}
 output "application_load_balancer" {
   description = "Details of application load balancer."
   value       = local.standard_output[0].application_load_balancer.value
