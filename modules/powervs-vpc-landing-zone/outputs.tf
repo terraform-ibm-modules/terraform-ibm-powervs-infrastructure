@@ -47,6 +47,16 @@ output "vpc_data" {
   value       = module.landing_zone.vpc_data
 }
 
+output "key_map" {
+  description = "Map of ids and keys for keys created"
+  value       = module.landing_zone.key_map
+}
+
+output "vsi_ssh_key_data" {
+  description = "List of SSH key data"
+  value       = module.landing_zone.ssh_key_data
+}
+
 output "resource_group_data" {
   description = "List of resource groups data used within landing zone."
   value       = module.landing_zone.resource_group_data

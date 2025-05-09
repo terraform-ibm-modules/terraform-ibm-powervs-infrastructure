@@ -22,6 +22,16 @@ output "vpc_data" {
   value       = module.standard.vpc_data
 }
 
+output "key_map" {
+  description = "Map of ids and keys for keys created"
+  value       = module.standard.key_map
+}
+
+output "vsi_ssh_key_data" {
+  description = "List of VSI SSH key data"
+  value       = module.standard.vsi_ssh_key_data
+}
+
 output "application_load_balancer" {
   description = "Details of application load balancer."
   value       = module.standard.application_load_balancer
