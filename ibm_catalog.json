@@ -371,7 +371,7 @@
               "key": "vsi_names"
             },
             {
-              "key": "key_map"
+              "key": "kms_key_map"
             },
             {
               "key": "vsi_ssh_key_data"
@@ -1041,7 +1041,7 @@
               "key": "vsi_list"
             },
             {
-              "key": "key_map"
+              "key": "kms_key_map"
             },
             {
               "key": "vsi_ssh_key_data"
@@ -1438,7 +1438,7 @@
               "key": "vsi_names"
             },
             {
-              "key": "key_map"
+              "key": "kms_key_map"
             },
             {
               "key": "vsi_ssh_key_data"

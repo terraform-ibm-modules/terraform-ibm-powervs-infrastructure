@@ -22,9 +22,9 @@ output "vpc_data" {
   value       = module.standard.vpc_data
 }
 
-output "key_map" {
-  description = "Map of ids and keys for keys created"
-  value       = module.standard.key_map
+output "kms_key_map" {
+  description = "Map of ids and keys for KMS keys created"
+  value       = module.standard.kms_key_map
 }
 
 output "vsi_ssh_key_data" {

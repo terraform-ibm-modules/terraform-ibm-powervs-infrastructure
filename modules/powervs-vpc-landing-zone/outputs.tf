@@ -47,8 +47,8 @@ output "vpc_data" {
   value       = module.landing_zone.vpc_data
 }
 
-output "key_map" {
-  description = "Map of ids and keys for keys created"
+output "kms_key_map" {
+  description = "Map of ids and keys for KMS keys created"
   value       = module.landing_zone.key_map
 }
 
