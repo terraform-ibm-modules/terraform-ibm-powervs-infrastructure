@@ -55,16 +55,12 @@ func TestMain(m *testing.M) {
 func setupOptionsStandardSolution(t *testing.T, prefix string, powervs_zone string) *testhelper.TestOptions {
 
 	options := testhelper.TestOptionsDefault(&testhelper.TestOptions{
-		Testing:       t,
-		TerraformDir:  defaultExampleTerraformDir,
-		Prefix:        prefix,
-		ResourceGroup: resourceGroup,
-		Region:        powervs_zone,
-		ImplicitDestroy: []string{
-			"module.standard.module.powervs_workspace.ibm_resource_instance.pi_workspace",
-			"module.standard.module.powervs_workspace.ibm_pi_network.private_subnet_1[0]",
-			"module.standard.module.powervs_workspace.ibm_pi_network.private_subnet_2[0]",
-		},
+		Testing:         t,
+		TerraformDir:    defaultExampleTerraformDir,
+		Prefix:          prefix,
+		ResourceGroup:   resourceGroup,
+		Region:          powervs_zone,
+		ImplicitDestroy: []string{},
 	})
 
 	options.TerraformVars = map[string]interface{}{
@@ -80,7 +76,7 @@ func setupOptionsStandardSolution(t *testing.T, prefix string, powervs_zone stri
 		"existing_sm_instance_guid":   permanentResources["secretsManagerGuid"],
 		"existing_sm_instance_region": permanentResources["secretsManagerRegion"],
 		"certificate_template_name":   permanentResources["privateCertTemplateName"],
-		"enable_monitoring":           true,
+		"enable_monitoring":           false,
 		"enable_scc_wp":               true,
 		"ansible_vault_password":      "SecurePassw0rd!",
 	}
