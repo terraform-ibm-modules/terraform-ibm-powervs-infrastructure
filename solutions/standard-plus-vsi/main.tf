@@ -123,3 +123,31 @@ resource "terraform_data" "aix_init" {
   }
 
 }
+
+
+module "pi_scc_wp_agent" {
+
+  source     = "../../modules/powervs-vpc-landing-zone/submodules/ansible"
+  depends_on = [module.powervs_instance, terraform_data.aix_init]
+  count      = var.enable_scc_wp && contains(["aix", "linux"], local.pi_instance_os_type) ? 1 : 0
+
+  bastion_host_ip        = module.standard.access_host_or_ip
+  ansible_host_or_ip     = module.standard.ansible_host_or_ip
+  ssh_private_key        = var.ssh_private_key
+  ansible_vault_password = var.ansible_vault_password
+  configure_ansible_host = false
+
+  src_script_template_name = "configure-scc-wp-agent/ansible_configure_scc_wp_agent.sh.tftpl"
+  dst_script_file_name     = "${var.prefix}-configure_scc_wp_agent_${local.pi_instance_os_type}.sh"
+
+  src_playbook_template_name = "configure-scc-wp-agent/playbook-configure-scc-wp-agent-${local.pi_instance_os_type}.yml.tftpl"
+  dst_playbook_file_name     = "${var.prefix}-playbook-configure-scc-wp-agent-${local.pi_instance_os_type}.yml"
+  playbook_template_vars = {
+    COLLECTOR_ENDPOINT : module.standard.scc_wp_instance.ingestion_endpoint,
+    API_ENDPOINT : module.standard.scc_wp_instance.api_endpoint,
+    ACCESS_KEY : module.standard.scc_wp_instance.access_key
+  }
+  src_inventory_template_name = "inventory.tftpl"
+  dst_inventory_file_name     = "${var.prefix}-scc-wp-inventory"
+  inventory_template_vars     = { "host_or_ip" : module.powervs_instance.pi_instance_primary_ip }
+}
