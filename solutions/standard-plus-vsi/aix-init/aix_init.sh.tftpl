@@ -1,0 +1,266 @@
+#!/bin/ksh
+
+# Variables
+EXTEND_ROOT_VOLUME_WWN=${pi_storage_configuration.0.wwns}
+DATA_VOLUME_WWN=${pi_storage_configuration.1.wwns}
+DATA_VOLUME_MOUNT_PATH=${pi_storage_configuration.1.mount}
+DATAVG='${pi_storage_configuration.1.name}vg'
+DATALV='${pi_storage_configuration.1.name}lv'
+PROXY_IP_PORT=${network_services_config.squid.squid_server_ip_port}
+NO_PROXY=${network_services_config.squid.no_proxy_hosts}
+NFS_ENABLE=${network_services_config.nfs.enable}
+NFS_MOUNT_POINT=${network_services_config.nfs.nfs_client_path}
+NFS_HOST_OR_PATH=${network_services_config.nfs.nfs_server_path}
+NFS_DOMAIN="test.com"
+NFS_HOSTNAME="nfs_server"
+NTP_ENABLE=${network_services_config.ntp.enable}
+NTP_SERVER=${network_services_config.ntp.ntp_server_ip}
+NTP_CONF="/etc/ntp.conf"
+ETC_HOSTS="/etc/hosts"
+
+##############################################################
+# Extend boot volume
+##############################################################
+
+# Change rootvg physical partition limit if not already set
+CHVG_LIMIT=$(lsvg rootvg | grep "MAX PPs per PV" | awk '{print $5}')
+if [[ "$CHVG_LIMIT" -lt 1024 ]]; then
+  echo "Updating rootvg partition limit..."
+  chvg -t 16 rootvg
+fi
+
+# Get hdisk for rootvg extension
+while true; do
+  sleep 5
+  cfgmgr
+  hdisk_name=$(lspv -u | grep -i $EXTEND_ROOT_VOLUME_WWN | awk '{ print $1 }')
+  if [[ -n $hdisk_name ]]; then
+    break
+  fi
+done
+
+# Check if hdisk is already in rootvg
+VGNAME=$(lspv $hdisk_name | awk '/VOLUME GROUP:/ {print $NF}')
+if [[ "$VGNAME" != "rootvg" ]]; then
+  echo "Adding $hdisk_name to rootvg..."
+  chdev -l $hdisk_name -a pv=yes
+  cfgmgr
+  /usr/sbin/extendvg '-f' 'rootvg' $hdisk_name
+  for fs in / /usr /opt /var /tmp; do
+    echo "Ensuring $fs is extended by 4GB"
+    chfs -a size=+4G $fs
+  done
+else
+  echo "$hdisk_name already part of rootvg."
+fi
+
+
+###################################################################
+# Create Filesystem for data volume
+###################################################################
+
+# Get hdisk for data volume
+hdisk_name=$(lspv -u | grep -i $DATA_VOLUME_WWN | awk '{ print $1 }')
+if [ -z "$hdisk_name" ]; then
+    echo "Error: Disk $DATA_VOLUME_WWN not found."
+    exit 1
+fi
+
+# Initialize disk only if not already a PV
+PVTEST=$(lspv | grep $hdisk_name)
+if [[ -z "$PVTEST" ]]; then
+  echo "Initializing $hdisk_name as a physical volume..."
+  chdev -l $hdisk_name -a pv=yes
+fi
+
+# Check if VG exists
+if ! lsvg $DATAVG >/dev/null 2>&1; then
+  echo "Creating volume group $DATAVG..."
+  mkvg -y $DATAVG $hdisk_name
+else
+  echo "Volume group $DATAVG already exists."
+fi
+
+# Check if LV exists
+if ! ls -l /dev/$DATALV >/dev/null 2>&1; then
+  FREE_LPS=$(lsvg $DATAVG | grep "FREE PPs" | awk '{print $6}')
+  if [[ -z "$FREE_LPS" || "$FREE_LPS" -le 0 ]]; then
+    echo "No free space available in volume group $DATAVG."
+    exit 3
+  fi
+  echo "Creating logical volume $DATALV using $FREE_LPS LPs..."
+  mklv -t jfs2 -y $DATALV $DATAVG $FREE_LPS
+else
+  echo "Logical volume $DATALV already exists."
+fi
+
+# Create mount point if it doesn't exist
+if [[ ! -d "$DATA_VOLUME_MOUNT_PATH" ]]; then
+  echo "Creating mount point $DATA_VOLUME_MOUNT_PATH..."
+  mkdir -p $DATA_VOLUME_MOUNT_PATH
+fi
+
+# Check if filesystem already exists and is in /etc/filesystems
+if ! grep -q "$DATA_VOLUME_MOUNT_PATH" /etc/filesystems; then
+  echo "Creating filesystem on $DATALV mounted at $DATA_VOLUME_MOUNT_PATH..."
+  crfs -v jfs2 -d $DATALV -m $DATA_VOLUME_MOUNT_PATH -A yes
+else
+  echo "Filesystem for $DATA_VOLUME_MOUNT_PATH already exists in /etc/filesystems."
+fi
+
+# Ensure mount
+mount | grep -q "$DATA_VOLUME_MOUNT_PATH"
+if [ $? -ne 0 ]; then
+  echo "Mounting $DATA_VOLUME_MOUNT_PATH..."
+  mount $DATA_VOLUME_MOUNT_PATH
+else
+  echo "$DATA_VOLUME_MOUNT_PATH is already mounted."
+fi
+
+# Final check
+echo "Filesystem status:"
+df -g $DATA_VOLUME_MOUNT_PATH
+
+
+###################################################################
+# Configure proxy
+###################################################################
+
+# Proxy settings
+http_proxy="http://$PROXY_IP_PORT"
+https_proxy="http://$PROXY_IP_PORT"
+HTTP_PROXY="http://$PROXY_IP_PORT"
+HTTPS_PROXY="http://$PROXY_IP_PORT"
+no_proxy="$NO_PROXY"
+
+# System-wide configuration in /etc/profile
+profile_file="/etc/profile"
+
+# Function to add proxy setting if it doesn't already exist
+add_proxy_setting() {
+    local var_name="$1"
+    local var_value="$2"
+    # Check if the export line already exists in the profile file
+    if ! grep -q "export $var_name=$var_value" "$profile_file"; then
+        echo "export $var_name=$var_value" | tee -a "$profile_file" > /dev/null
+    fi
+}
+
+# Add proxy settings to /etc/profile (system-wide, for all users)
+add_proxy_setting "http_proxy" "$http_proxy"
+add_proxy_setting "https_proxy" "$https_proxy"
+add_proxy_setting "HTTP_PROXY" "$HTTP_PROXY"
+add_proxy_setting "HTTPS_PROXY" "$HTTPS_PROXY"
+add_proxy_setting "no_proxy" "$no_proxy"
+
+# Apply them immediately in current shell
+export http_proxy="$http_proxy"
+export https_proxy="$https_proxy"
+export HTTP_PROXY="$HTTP_PROXY"
+export HTTPS_PROXY="$HTTPS_PROXY"
+export no_proxy="$no_proxy"
+
+###################################################################
+# Install curl package
+###################################################################
+echo 'y' | /opt/freeware/bin/dnf install curl-7.52*
+
+
+###################################################################
+# Mount File storage share
+###################################################################
+
+# Check if NFS_ENABLE is set to true
+if [[ "$NFS_ENABLE" != "true" ]]; then
+  echo "NFS configuration is disabled (NFS_ENABLE=$NFS_ENABLE). Skipping setup."
+else
+
+  if [[ -z "$NFS_HOST_OR_PATH" ]]; then
+    echo "Usage: $0 <nfs_host_or_ip_path>"
+    exit 1
+  fi
+
+  # Parse NFS Host and 4th Octet, and set domain
+  NFS_IP=$(echo "$NFS_HOST_OR_PATH" | sed 's/:.*//')
+  FOURTH_OCTET=$(echo "$NFS_IP" | awk -F. '{print $4}')
+
+  if [[ -z "$FOURTH_OCTET" || "$NFS_IP" != 10.30.40.* ]]; then
+    echo "Error: Invalid or unexpected NFS IP format: $NFS_IP"
+    exit 2
+  fi
+
+  HOST_ENTRY="10.30.40.$FOURTH_OCTET $NFS_HOSTNAME"
+
+  chnfsdom "$NFS_DOMAIN"
+
+  # Start NFS Services If Not Already Running
+  echo "Starting NFS services..."
+  startsrc -g nfs
+  echo "NFS services are already running."
+
+  # Add NFS Server to /etc/hosts
+  if ! grep -q "$HOST_ENTRY" "$ETC_HOSTS"; then
+    echo "Adding host entry: $HOST_ENTRY"
+    echo "$HOST_ENTRY" >> "$ETC_HOSTS"
+  else
+    echo "Host entry already present: $HOST_ENTRY"
+  fi
+
+  # Create Mount Point If It Doesn't Exist
+  if [[ ! -d "$NFS_MOUNT_POINT" ]]; then
+    echo "Creating mount point: $NFS_MOUNT_POINT"
+    mkdir -p "$NFS_MOUNT_POINT"
+  else
+    echo "Mount point already exists: $NFS_MOUNT_POINT"
+  fi
+
+  # Mount NFS Share If Not Already Mounted
+  if ! mount | grep -wq "$NFS_MOUNT_POINT"; then
+    echo "Mounting NFS share using NFSv4..."
+    mount -o vers=4 "$NFS_HOST_OR_PATH" "$NFS_MOUNT_POINT"
+    if [[ $? -eq 0 ]]; then
+      echo "NFS share mounted successfully at $NFS_MOUNT_POINT"
+    else
+      echo "Error: Failed to mount NFS share"
+      exit 3
+    fi
+  else
+    echo "NFS share is already mounted at $NFS_MOUNT_POINT"
+  fi
+fi
+
+###################################################################
+# Configure NTP
+###################################################################
+
+# Check if the NTP server is already configured
+if [ "$NTP_ENABLE" = true ]; then
+  if ! grep -q "server $NTP_SERVER" "$NTP_CONF"; then
+      echo "Setting NTP server to $NTP_SERVER..."
+      echo "server $NTP_SERVER" >> "$NTP_CONF"
+  else
+      echo "NTP server $NTP_SERVER is already configured."
+  fi
+
+  # Check if the NTP service is running
+  NTP_STATUS=$(lssrc -s xntpd | awk 'NR>1 {print $4}')
+  if [ "$NTP_STATUS" != "active" ]; then
+      echo "Stopping and restarting NTP service..."
+      stopsrc -s xntpd
+      startsrc -s xntpd
+  else
+      echo "NTP service is already running."
+  fi
+
+  echo "Setting NTP service to start automatically on reboot..."
+  chssys -s xntpd -a autorestart
+
+
+  # Verify NTP status
+  echo "Verifying NTP synchronization..."
+  ntpq -p
+
+  echo "NTP configuration is complete."
+else
+  echo "NTP configuration is disabled (NTP_ENABLE=$NTP_ENABLE). Skipping setup."
+fi
