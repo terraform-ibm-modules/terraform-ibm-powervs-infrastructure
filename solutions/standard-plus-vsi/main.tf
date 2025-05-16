@@ -138,16 +138,16 @@ module "pi_scc_wp_agent" {
   configure_ansible_host = false
 
   src_script_template_name = "configure-scc-wp-agent/ansible_configure_scc_wp_agent.sh.tftpl"
-  dst_script_file_name     = "${var.prefix}-configure_scc_wp_agent_${local.pi_instance_os_type}.sh"
+  dst_script_file_name     = "${var.prefix}-configure_scc_wp_agent_pi_${local.pi_instance_os_type}.sh"
 
   src_playbook_template_name = "configure-scc-wp-agent/playbook-configure-scc-wp-agent-${local.pi_instance_os_type}.yml.tftpl"
-  dst_playbook_file_name     = "${var.prefix}-playbook-configure-scc-wp-agent-${local.pi_instance_os_type}.yml"
+  dst_playbook_file_name     = "${var.prefix}-playbook-configure-scc-wp-agent-pi-${local.pi_instance_os_type}.yml"
   playbook_template_vars = {
     COLLECTOR_ENDPOINT : module.standard.scc_wp_instance.ingestion_endpoint,
     API_ENDPOINT : module.standard.scc_wp_instance.api_endpoint,
     ACCESS_KEY : module.standard.scc_wp_instance.access_key
   }
   src_inventory_template_name = "inventory.tftpl"
-  dst_inventory_file_name     = "${var.prefix}-scc-wp-inventory"
+  dst_inventory_file_name     = "${var.prefix}-scc-wp-inventory-pi-${local.pi_instance_os_type}"
   inventory_template_vars     = { "host_or_ip" : module.powervs_instance.pi_instance_primary_ip }
 }
