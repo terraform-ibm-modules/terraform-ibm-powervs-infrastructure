@@ -35,7 +35,7 @@ module "standard" {
 }
 
 
-resource "time_sleep" "wait_15_mins" {
+resource "time_sleep" "wait_for_dependencies" {
   count           = local.pi_instance_os_type == "aix" || local.pi_instance_os_type == "linux" ? 1 : 0
   create_duration = var.configure_nfs_server ? "900s" : "500s"
 }
@@ -45,7 +45,7 @@ resource "time_sleep" "wait_15_mins" {
 #####################################################
 
 module "powervs_instance" {
-  depends_on = [time_sleep.wait_15_mins]
+  depends_on = [time_sleep.wait_for_dependencies]
   source     = "terraform-ibm-modules/powervs-instance/ibm"
   version    = "2.6.1"
   providers  = { ibm = ibm.ibm-pi }

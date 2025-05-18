@@ -63,7 +63,7 @@ This example sets up the following infrastructure:
 | Name | Type |
 |------|------|
 | [terraform_data.aix_init](https://registry.terraform.io/providers/hashicorp/terraform/latest/docs/resources/data) | resource |
-| [time_sleep.wait_15_mins](https://registry.terraform.io/providers/hashicorp/time/0.13.1/docs/resources/sleep) | resource |
+| [time_sleep.wait_for_dependencies](https://registry.terraform.io/providers/hashicorp/time/0.13.1/docs/resources/sleep) | resource |
 | [ibm_pi_catalog_images.catalog_images_ds](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.78.2/docs/data-sources/pi_catalog_images) | data source |
 
 ### Inputs

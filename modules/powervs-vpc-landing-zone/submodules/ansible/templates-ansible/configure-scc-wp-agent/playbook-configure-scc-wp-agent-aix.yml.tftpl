@@ -43,7 +43,7 @@
 
     - name: Start kspm_analyzer with environment variables
       ansible.builtin.shell: |
-        startsrc -s kspm_analyzer -e 'API_ENDPOINT={{ wp_api_endpoint }} ACCESS_KEY={{ access_key }}'
+        startsrc -s kspm_analyzer -e 'API_ENDPOINT={{ wp_api_endpoint | replace('https://', '') }} ACCESS_KEY={{ access_key }}'
       register: start_output
       failed_when: "'not found' in start_output.stderr"
       changed_when: "'is already active' not in start_output.stdout"
@@ -56,5 +56,5 @@
 
     - name: Add respawn entry to inittab if not present
       ansible.builtin.shell: |
-        mkitab "fkcmd:2:respawn:startsrc -s kspm_analyzer -e 'API_ENDPOINT={{ wp_api_endpoint }} ACCESS_KEY={{ access_key }}'"
+        mkitab "fkcmd:2:respawn:startsrc -s kspm_analyzer -e 'API_ENDPOINT={{ wp_api_endpoint | replace('https://', '') }} ACCESS_KEY={{ access_key }}'"
       when: "'fkcmd' not in inittab_entry.stdout"
