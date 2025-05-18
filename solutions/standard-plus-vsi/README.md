@@ -28,6 +28,7 @@ This example sets up the following infrastructure:
     - t-shirt profile (Aix/IBMi/SAP Image)
     - Custom profile ( cores, memory, storage and image)
     - 1 volume
+    - Network management services, filesystems and SCC Workload protection agents are configured for AIX and Linux instances.
 
 ## Solutions
 

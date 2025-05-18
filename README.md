@@ -17,7 +17,7 @@ Three solutions are offered:
     - This solution is typically used for **High Availability scenarios** where a single management VPC can be used to reach both PowerVS workspaces.
 3. [Quickstart (Standard Landscape plus VSI)](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/tree/main/solutions/standard-plus-vsi)
     - Creates a VPC and a Power Virtual Server workspace, interconnects them, and configures operating network management services (SQUID proxy, NTP, NFS, and DNS services) using Ansible Galaxy collection roles [ibm.power_linux_sap collection](https://galaxy.ansible.com/ui/repo/published/ibm/power_linux_sap/).
-    - Additionally creates a Power Virtual Server Instance of a selected t-shirt size.
+    - Additionally creates a Power Virtual Server Instance of a selected t-shirt size. Network management services, filesystems and SCC Workload protection agents are configured for AIX and Linux instances.
     - This solution is typically utilized for **PoCs, demos, and quick onboarding** to PowerVS Infrastructure.
 
 ## Reference architectures
