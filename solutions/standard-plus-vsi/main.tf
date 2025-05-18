@@ -45,10 +45,9 @@ resource "time_sleep" "wait_for_dependencies" {
 #####################################################
 
 module "powervs_instance" {
-  depends_on = [time_sleep.wait_for_dependencies]
-  source     = "terraform-ibm-modules/powervs-instance/ibm"
-  version    = "2.6.1"
-  providers  = { ibm = ibm.ibm-pi }
+  source    = "terraform-ibm-modules/powervs-instance/ibm"
+  version   = "2.6.2"
+  providers = { ibm = ibm.ibm-pi }
 
   pi_workspace_guid      = module.standard.powervs_workspace_guid
   pi_ssh_public_key_name = module.standard.powervs_ssh_public_key.name
