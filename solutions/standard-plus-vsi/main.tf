@@ -37,7 +37,7 @@ module "standard" {
 
 resource "time_sleep" "wait_15_mins" {
   count           = local.pi_instance_os_type == "aix" || local.pi_instance_os_type == "linux" ? 1 : 0
-  create_duration = "900s"
+  create_duration = var.configure_nfs_server ? "900s" : "500s"
 }
 
 #####################################################
