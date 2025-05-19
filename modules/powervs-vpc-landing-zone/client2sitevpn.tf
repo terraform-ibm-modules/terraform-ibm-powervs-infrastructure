@@ -13,7 +13,7 @@ locals {
 
   sm_guid                   = var.client_to_site_vpn.enable && var.existing_sm_instance_guid == null ? ibm_resource_instance.secrets_manager[0].guid : var.existing_sm_instance_guid
   sm_region                 = var.client_to_site_vpn.enable && var.existing_sm_instance_region == null ? lookup(local.ibm_powervs_zone_cloud_region_map, var.powervs_zone, null) : var.existing_sm_instance_region
-  certificate_template_name = var.client_to_site_vpn.enable ? var.existing_certificate_template_name != null ? var.existing_certificate_template_name : "${var.prefix}-template" : null
+  certificate_template_name = "${var.prefix}-template"
 
   root_ca_name         = "${var.prefix}-root-ca"
   root_ca_common_name  = "example.com"

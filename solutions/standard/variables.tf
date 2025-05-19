@@ -288,12 +288,6 @@ variable "existing_sm_instance_region" {
   default     = null
 }
 
-variable "existing_certificate_template_name" {
-  type        = string
-  description = "The name of an existing template name that exists in the private cert engine. Set to null if you want to generate new certificates and create a new template."
-  default     = null
-}
-
 #############################################################################
 # Schematics Output
 #############################################################################
