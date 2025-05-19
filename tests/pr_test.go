@@ -73,12 +73,12 @@ func setupOptionsStandardSolution(t *testing.T, prefix string, powervs_zone stri
 			"client_ip_pool":                "192.168.0.0/16",
 			"vpn_client_access_group_users": []string{},
 		},
-		"existing_sm_instance_guid":   permanentResources["secretsManagerGuid"],
-		"existing_sm_instance_region": permanentResources["secretsManagerRegion"],
-		"certificate_template_name":   permanentResources["privateCertTemplateName"],
-		"enable_monitoring":           false,
-		"enable_scc_wp":               true,
-		"ansible_vault_password":      "SecurePassw0rd!",
+		"existing_sm_instance_guid":          permanentResources["secretsManagerGuid"],
+		"existing_sm_instance_region":        permanentResources["secretsManagerRegion"],
+		"existing_certificate_template_name": permanentResources["privateCertTemplateName"],
+		"enable_monitoring":                  false,
+		"enable_scc_wp":                      true,
+		"ansible_vault_password":             "SecurePassw0rd!",
 	}
 
 	return options
