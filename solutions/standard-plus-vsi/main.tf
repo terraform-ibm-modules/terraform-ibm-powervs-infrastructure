@@ -45,9 +45,10 @@ resource "time_sleep" "wait_for_dependencies" {
 #####################################################
 
 module "powervs_instance" {
-  source    = "terraform-ibm-modules/powervs-instance/ibm"
-  version   = "2.6.2"
-  providers = { ibm = ibm.ibm-pi }
+  source     = "terraform-ibm-modules/powervs-instance/ibm"
+  version    = "2.6.2"
+  providers  = { ibm = ibm.ibm-pi }
+  depends_on = [time_sleep.wait_for_dependencies]
 
   pi_workspace_guid      = module.standard.powervs_workspace_guid
   pi_ssh_public_key_name = module.standard.powervs_ssh_public_key.name
@@ -81,7 +82,9 @@ module "powervs_instance" {
 # AIX init if image name is 7xxx-xx-xx
 ######################################################
 resource "terraform_data" "aix_init" {
-  count = local.pi_instance_os_type == "aix" ? 1 : 0
+
+  count      = local.pi_instance_os_type == "aix" ? 1 : 0
+  depends_on = [module.powervs_instance]
 
   triggers_replace = {
     "network_services_config"  = local.network_services_config,
