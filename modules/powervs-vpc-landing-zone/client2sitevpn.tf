@@ -126,7 +126,7 @@ module "secrets_manager_private_certificate" {
 # Create client to site VPN Server
 module "client_to_site_vpn" {
   source    = "terraform-ibm-modules/client-to-site-vpn/ibm"
-  version   = "3.0.9"
+  version   = "3.0.10"
   providers = { ibm = ibm.ibm-is }
   count     = var.client_to_site_vpn.enable ? 1 : 0
 
