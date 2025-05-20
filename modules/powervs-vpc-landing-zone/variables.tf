@@ -254,6 +254,18 @@ variable "existing_sm_instance_region" {
   type        = string
   description = "Required if value is passed into `var.existing_sm_instance_guid`."
   default     = null
+  validation {
+    condition = (
+      (var.existing_sm_instance_guid == null) == (var.existing_sm_instance_region == null)
+      &&
+      (
+        var.existing_sm_instance_guid == null
+        || var.client_to_site_vpn.enable == true
+      )
+    )
+
+    error_message = "Both existing_sm_instance_guid and existing_sm_instance_region must be either null or non-null together. If both are provided, then var.client_to_site_vpn.enable must be true."
+  }
 }
 
 #####################################################
