@@ -11,8 +11,9 @@
 
 locals {
 
-  sm_guid   = var.client_to_site_vpn.enable && var.existing_sm_instance_guid == null ? ibm_resource_instance.secrets_manager[0].guid : var.existing_sm_instance_guid
-  sm_region = var.client_to_site_vpn.enable && var.existing_sm_instance_region == null ? lookup(local.ibm_powervs_zone_cloud_region_map, var.powervs_zone, null) : var.existing_sm_instance_region
+  sm_guid                   = var.client_to_site_vpn.enable && var.existing_sm_instance_guid == null ? ibm_resource_instance.secrets_manager[0].guid : var.existing_sm_instance_guid
+  sm_region                 = var.client_to_site_vpn.enable && var.existing_sm_instance_region == null ? lookup(local.ibm_powervs_zone_cloud_region_map, var.powervs_zone, null) : var.existing_sm_instance_region
+  certificate_template_name = "${var.prefix}-template"
 
   root_ca_name         = "${var.prefix}-root-ca"
   root_ca_common_name  = "example.com"
@@ -78,7 +79,7 @@ module "private_secret_engine" {
   source     = "terraform-ibm-modules/secrets-manager-private-cert-engine/ibm"
   version    = "1.5.1"
   providers  = { ibm = ibm.ibm-sm }
-  count      = var.client_to_site_vpn.enable && var.existing_sm_instance_guid == null ? 1 : 0
+  count      = var.client_to_site_vpn.enable ? 1 : 0
   depends_on = [ibm_resource_instance.secrets_manager]
 
   secrets_manager_guid      = local.sm_guid
@@ -87,7 +88,7 @@ module "private_secret_engine" {
   root_ca_common_name       = local.root_ca_common_name
   root_ca_max_ttl           = "8760h"
   intermediate_ca_name      = local.intermediate_ca_name
-  certificate_template_name = var.certificate_template_name
+  certificate_template_name = local.certificate_template_name
 }
 
 # Create a secret group to place the certificate in
@@ -115,7 +116,7 @@ module "secrets_manager_private_certificate" {
 
   cert_name              = "${var.prefix}-cts-vpn-private-cert"
   cert_description       = "an example private cert"
-  cert_template          = var.certificate_template_name
+  cert_template          = local.certificate_template_name
   cert_secrets_group_id  = module.secrets_manager_group[0].secret_group_id
   cert_common_name       = local.cert_common_name
   secrets_manager_guid   = local.sm_guid

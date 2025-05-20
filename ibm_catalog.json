@@ -350,9 +350,6 @@
               "custom_config": {}
             },
             {
-              "key": "certificate_template_name"
-            },
-            {
               "key": "IC_SCHEMATICS_WORKSPACE_ID",
               "hidden": true
             }
@@ -1003,9 +1000,6 @@
                 }
               ],
               "custom_config": {}
-            },
-            {
-              "key": "certificate_template_name"
             },
             {
               "key": "IC_SCHEMATICS_WORKSPACE_ID",

@@ -256,7 +256,7 @@ variable "existing_monitoring_instance_crn" {
 #####################################################
 
 variable "client_to_site_vpn" {
-  description = "VPN configuration - the client ip pool and list of users email ids to access the environment. If enabled, then a Secret Manager instance is also provisioned with certificates generated. See optional parameters to reuse existing certificate from secrets manager instance."
+  description = "VPN configuration - the client ip pool and list of users email ids to access the environment. If enabled, then a Secret Manager instance is also provisioned with certificates generated. See optional parameters to reuse an existing Secrets manager instance."
   type = object({
     enable                        = bool
     client_ip_pool                = string
@@ -278,7 +278,7 @@ variable "sm_service_plan" {
 
 variable "existing_sm_instance_guid" {
   type        = string
-  description = "An existing Secrets Manager GUID. The existing Secret Manager instance must have private certificate engine configured. If not provided an new instance will be provisioned."
+  description = "An existing Secrets Manager GUID. If not provided a new instance will be provisioned."
   default     = null
 }
 
@@ -286,12 +286,6 @@ variable "existing_sm_instance_region" {
   type        = string
   description = "Required if value is passed into `var.existing_sm_instance_guid`."
   default     = null
-}
-
-variable "certificate_template_name" {
-  type        = string
-  description = "The name of the Certificate Template to create for a private_cert secret engine. When `var.existing_sm_instance_guid` is not null, then it has to be the existing template name that exists in the private cert engine."
-  default     = "my-template"
 }
 
 #############################################################################
