@@ -350,9 +350,6 @@
               "custom_config": {}
             },
             {
-              "key": "certificate_template_name"
-            },
-            {
               "key": "IC_SCHEMATICS_WORKSPACE_ID",
               "hidden": true
             }
@@ -560,7 +557,7 @@
               {
                 "diagram": {
                   "caption": "Power Virtual Server with VPC landing zone 'Standard Landscape' variation",
-                  "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/refs/tags/v8.4.2/reference-architectures/standard/deploy-arch-ibm-pvs-inf-standard.svg",
+                  "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/refs/tags/v8.4.3/reference-architectures/standard/deploy-arch-ibm-pvs-inf-standard.svg",
                   "type": "image/svg+xml"
                 },
                 "description": "The Power Virtual Server with VPC landing zone as variation 'Create a new architecture' deploys VPC services and a Power Virtual Server workspace and interconnects them.\n \nRequired and optional management components are configured."
@@ -1005,9 +1002,6 @@
               "custom_config": {}
             },
             {
-              "key": "certificate_template_name"
-            },
-            {
               "key": "IC_SCHEMATICS_WORKSPACE_ID",
               "hidden": true
             }
@@ -1221,7 +1215,7 @@
               {
                 "diagram": {
                   "caption": "Power Virtual Server with VPC landing zone 'Quickstart' variation",
-                  "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/refs/tags/v8.4.2/reference-architectures/standard-plus-vsi/deploy-arch-ibm-pvs-inf-standard-plus-vsi.svg",
+                  "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/refs/tags/v8.4.3/reference-architectures/standard-plus-vsi/deploy-arch-ibm-pvs-inf-standard-plus-vsi.svg",
                   "type": "image/svg+xml"
                 },
                 "description": "The Power Virtual Server with VPC landing zone as 'Quickstart' variation of 'Create a new architecture' option deploys VPC services and a Power Virtual Server workspace and interconnects them. It also creates one Power virtual server instance of chosen t-shirt size or custom configuration.\n \nRequired and optional management components are configured."
@@ -1548,7 +1542,7 @@
               {
                 "diagram": {
                   "caption": "Power Virtual Server with VPC landing zone 'Extend Standard Landscape' variation",
-                  "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/refs/tags/v8.4.2/reference-architectures/standard-extend/deploy-arch-ibm-pvs-inf-standard-extend.svg",
+                  "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/refs/tags/v8.4.3/reference-architectures/standard-extend/deploy-arch-ibm-pvs-inf-standard-extend.svg",
                   "type": "image/svg+xml"
                 },
                 "description": "The Power Virtual Server with VPC landing zone as variation 'Extend Power Virtual Server with VPC landing zone' creates an additional Power Virtual Server workspace and connects it with already created Power Virtual Server with VPC landing zone. It builds on existing Power Virtual Server with VPC landing zone deployed as a variation 'Create a new architecture'."

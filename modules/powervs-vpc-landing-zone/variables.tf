@@ -18,21 +18,6 @@ variable "external_access_ip" {
   type        = string
 }
 
-variable "client_to_site_vpn" {
-  description = "VPN configuration - the client ip pool and list of users email ids to access the environment. If enabled, then a Secret Manager instance is also provisioned with certificates generated. See optional parameters to reuse existing certificate from secrets manager instance."
-  type = object({
-    enable                        = bool
-    client_ip_pool                = string
-    vpn_client_access_group_users = list(string)
-  })
-
-  default = {
-    "enable" : true,
-    "client_ip_pool" : "192.168.0.0/16",
-    "vpn_client_access_group_users" : []
-  }
-}
-
 variable "vpc_intel_images" {
   description = "Stock OS image names for creating VPC landing zone VSI instances: RHEL (management and network services) and SLES (monitoring)."
   type = object({
@@ -238,6 +223,21 @@ variable "powervs_custom_image_cos_service_credentials" {
 # Optional Parameters Secret Manager
 #####################################################
 
+variable "client_to_site_vpn" {
+  description = "VPN configuration - the client ip pool and list of users email ids to access the environment. If enabled, then a Secret Manager instance is also provisioned with certificates generated. See optional parameters to reuse an existing Secrets manager instance."
+  type = object({
+    enable                        = bool
+    client_ip_pool                = string
+    vpn_client_access_group_users = list(string)
+  })
+
+  default = {
+    "enable" : false,
+    "client_ip_pool" : "192.168.0.0/16",
+    "vpn_client_access_group_users" : []
+  }
+}
+
 variable "sm_service_plan" {
   type        = string
   description = "The service/pricing plan to use when provisioning a new Secrets Manager instance. Allowed values: `standard` and `trial`. Only used if `existing_sm_instance_guid` is set to null."
@@ -246,7 +246,7 @@ variable "sm_service_plan" {
 
 variable "existing_sm_instance_guid" {
   type        = string
-  description = "An existing Secrets Manager GUID. The existing Secret Manager instance must have private certificate engine configured. If not provided an new instance will be provisioned."
+  description = "An existing Secrets Manager GUID. If not provided a new instance will be provisioned."
   default     = null
 }
 
@@ -254,12 +254,15 @@ variable "existing_sm_instance_region" {
   type        = string
   description = "Required if value is passed into `var.existing_sm_instance_guid`."
   default     = null
-}
+  validation {
+    condition = (
+      (var.existing_sm_instance_guid == null) == (var.existing_sm_instance_region == null)
+      &&
+      (var.existing_sm_instance_guid == null || var.client_to_site_vpn.enable == true)
+    )
 
-variable "certificate_template_name" {
-  type        = string
-  description = "The name of the Certificate Template to create for a private_cert secret engine. When `var.existing_sm_instance_guid` is not null, then it has to be the existing template name that exists in the private cert engine."
-  default     = "my-template"
+    error_message = "Both existing_sm_instance_guid and existing_sm_instance_region must be either null or non-null together. If both are provided, then var.client_to_site_vpn.enable must be true."
+  }
 }
 
 #####################################################
@@ -269,7 +272,7 @@ variable "certificate_template_name" {
 variable "enable_monitoring" {
   description = "Specify whether Monitoring will be enabled. This includes the creation of an IBM Cloud Monitoring Instance and an Intel Monitoring Instance to host the services. If you already have an existing monitoring instance then specify in optional parameter 'existing_monitoring_instance_crn'."
   type        = bool
-  default     = true
+  default     = false
 }
 
 variable "existing_monitoring_instance_crn" {

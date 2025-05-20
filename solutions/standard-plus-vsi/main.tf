@@ -26,7 +26,6 @@ module "standard" {
   sm_service_plan                  = var.sm_service_plan
   existing_sm_instance_guid        = var.existing_sm_instance_guid
   existing_sm_instance_region      = var.existing_sm_instance_region
-  certificate_template_name        = var.certificate_template_name
   network_services_vsi_profile     = var.network_services_vsi_profile
   enable_monitoring                = var.enable_monitoring
   existing_monitoring_instance_crn = var.existing_monitoring_instance_crn

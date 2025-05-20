@@ -52,30 +52,33 @@ module "powervs-vpc-landing-zone" {
   providers = { ibm.ibm-is = ibm.ibm-is, ibm.ibm-pi = ibm.ibm-pi }
 
   powervs_zone                                 = var.powervs_zone
+  powervs_resource_group_name                  = var.powervs_resource_group_name
   prefix                                       = var.prefix
   external_access_ip                           = var.external_access_ip
+  vpc_intel_images                             = var.vpc_intel_images
   ssh_public_key                               = var.ssh_public_key
   ssh_private_key                              = var.ssh_private_key
-  client_to_site_vpn                           = var.client_to_site_vpn                           #(optional.  default check vars)
+  transit_gateway_global                       = var.transit_gateway_global                       #(optional,  default false)
+  network_services_vsi_profile                 = var.network_services_vsi_profile                 #(optional.  default check vars)
   configure_dns_forwarder                      = var.configure_dns_forwarder                      #(optional,  default false)
   configure_ntp_forwarder                      = var.configure_ntp_forwarder                      #(optional,  default false)
   configure_nfs_server                         = var.configure_nfs_server                         #(optional.  default false)
-  nfs_server_config                            = var.nfs_server_config                            #(optional.  default check vars)
   dns_forwarder_config                         = var.dns_forwarder_config                         #(optional.  default check vars)
-  powervs_resource_group_name                  = var.powervs_resource_group_name                  #(optional.  default check vars)
+  nfs_server_config                            = var.nfs_server_config                            #(optional.  default check vars)
   powervs_management_network                   = var.powervs_management_network                   #(optional.  default check vars)
   powervs_backup_network                       = var.powervs_backup_network                       #(optional.  default check vars)
-  tags                                         = var.tags                                         #(optional.  default check vars)
-  sm_service_plan                              = var.sm_service_plan
-  powervs_custom_images                        = var.powervs_custom_images                        #(optional, default null)
-  powervs_custom_image_cos_configuration       = var.powervs_custom_image_cos_configuration       #(optional, default null)
-  powervs_custom_image_cos_service_credentials = var.powervs_custom_image_cos_service_credentials #(optional, default null)
-  existing_sm_instance_guid                    = var.existing_sm_instance_guid                    #(optional.  default check vars)
-  existing_sm_instance_region                  = var.existing_sm_instance_region                  #(optional.  default check vars)
-  certificate_template_name                    = var.certificate_template_name                    #(optional.  default check vars)
-  network_services_vsi_profile                 = var.network_services_vsi_profile                 #(optional.  default check vars)
-  enable_monitoring                            = var.enable_monitoring                            #(optional.  default true)
+  tags                                         = var.tags                                         #(optional.  default [])
+  powervs_custom_images                        = var.powervs_custom_images                        #(optional,  default null)
+  powervs_custom_image_cos_configuration       = var.powervs_custom_image_cos_configuration       #(optional,  default null)
+  powervs_custom_image_cos_service_credentials = var.powervs_custom_image_cos_service_credentials #(optional,  default null)
+  client_to_site_vpn                           = var.client_to_site_vpn                           #(optional.  default check vars)
+  sm_service_plan                              = var.sm_service_plan                              #(optional.  default standard)
+  existing_sm_instance_guid                    = var.existing_sm_instance_guid                    #(optional.  default null)
+  existing_sm_instance_region                  = var.existing_sm_instance_region                  #(optional.  default null)
+  enable_monitoring                            = var.enable_monitoring                            #(optional.  default false)
   existing_monitoring_instance_crn             = var.existing_monitoring_instance_crn             #(optional.  default null)
+  enable_scc_wp                                = var.enable_scc_wp                                #(optional.  default false)
+  ansible_vault_password                       = var.ansible_vault_password                       #(optional.  default null)
 }
 ```
 
@@ -130,16 +133,15 @@ Creates VPC Landing Zone | Performs VPC VSI OS Config | Creates PowerVS Infrastr
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_ansible_vault_password"></a> [ansible\_vault\_password](#input\_ansible\_vault\_password) | Vault password to encrypt ansible playbooks that contain sensitive information. Required when SCC workload Protection is enabled. Password requirements: 15-100 characters and at least one uppercase letter, one lowercase letter, one number, and one special character. Allowed characters: A-Z, a-z, 0-9, !#$%&()*+-.:;<=>?@[]\_{\|}~. | `string` | `null` | no |
-| <a name="input_certificate_template_name"></a> [certificate\_template\_name](#input\_certificate\_template\_name) | The name of the Certificate Template to create for a private\_cert secret engine. When `var.existing_sm_instance_guid` is not null, then it has to be the existing template name that exists in the private cert engine. | `string` | `"my-template"` | no |
-| <a name="input_client_to_site_vpn"></a> [client\_to\_site\_vpn](#input\_client\_to\_site\_vpn) | VPN configuration - the client ip pool and list of users email ids to access the environment. If enabled, then a Secret Manager instance is also provisioned with certificates generated. See optional parameters to reuse existing certificate from secrets manager instance. | <pre>object({<br/>    enable                        = bool<br/>    client_ip_pool                = string<br/>    vpn_client_access_group_users = list(string)<br/>  })</pre> | <pre>{<br/>  "client_ip_pool": "192.168.0.0/16",<br/>  "enable": true,<br/>  "vpn_client_access_group_users": []<br/>}</pre> | no |
+| <a name="input_client_to_site_vpn"></a> [client\_to\_site\_vpn](#input\_client\_to\_site\_vpn) | VPN configuration - the client ip pool and list of users email ids to access the environment. If enabled, then a Secret Manager instance is also provisioned with certificates generated. See optional parameters to reuse an existing Secrets manager instance. | <pre>object({<br/>    enable                        = bool<br/>    client_ip_pool                = string<br/>    vpn_client_access_group_users = list(string)<br/>  })</pre> | <pre>{<br/>  "client_ip_pool": "192.168.0.0/16",<br/>  "enable": false,<br/>  "vpn_client_access_group_users": []<br/>}</pre> | no |
 | <a name="input_configure_dns_forwarder"></a> [configure\_dns\_forwarder](#input\_configure\_dns\_forwarder) | Specify if DNS forwarder will be configured. This will allow you to use central DNS servers (e.g. IBM Cloud DNS servers) sitting outside of the created IBM PowerVS infrastructure. If yes, ensure 'dns\_forwarder\_config' optional variable is set properly. DNS forwarder will be installed on the network-services vsi. | `bool` | `false` | no |
 | <a name="input_configure_nfs_server"></a> [configure\_nfs\_server](#input\_configure\_nfs\_server) | Specify if NFS server will be configured. This will allow you easily to share files between PowerVS instances (e.g., SAP installation files). [File storage share and mount target](https://cloud.ibm.com/docs/vpc?topic=vpc-file-storage-create&interface=ui) in VPC will be created.. If yes, ensure 'nfs\_server\_config' optional variable is set properly below. Default value is '200GB' which will be mounted on specified directory in network-service vsi. | `bool` | `false` | no |
 | <a name="input_configure_ntp_forwarder"></a> [configure\_ntp\_forwarder](#input\_configure\_ntp\_forwarder) | Specify if NTP forwarder will be configured. This will allow you to synchronize time between IBM PowerVS instances. NTP forwarder will be installed on the network-services vsi. | `bool` | `false` | no |
 | <a name="input_dns_forwarder_config"></a> [dns\_forwarder\_config](#input\_dns\_forwarder\_config) | Configuration for the DNS forwarder to a DNS service that is not reachable directly from PowerVS. | <pre>object({<br/>    dns_servers = string<br/>  })</pre> | <pre>{<br/>  "dns_servers": "161.26.0.7; 161.26.0.8; 9.9.9.9;"<br/>}</pre> | no |
-| <a name="input_enable_monitoring"></a> [enable\_monitoring](#input\_enable\_monitoring) | Specify whether Monitoring will be enabled. This includes the creation of an IBM Cloud Monitoring Instance and an Intel Monitoring Instance to host the services. If you already have an existing monitoring instance then specify in optional parameter 'existing\_monitoring\_instance\_crn'. | `bool` | `true` | no |
+| <a name="input_enable_monitoring"></a> [enable\_monitoring](#input\_enable\_monitoring) | Specify whether Monitoring will be enabled. This includes the creation of an IBM Cloud Monitoring Instance and an Intel Monitoring Instance to host the services. If you already have an existing monitoring instance then specify in optional parameter 'existing\_monitoring\_instance\_crn'. | `bool` | `false` | no |
 | <a name="input_enable_scc_wp"></a> [enable\_scc\_wp](#input\_enable\_scc\_wp) | Set to true to enable SCC Workload Protection and install and configure the SCC Workload Protection agent on all VSIs and PowerVS instances in this deployment. | `bool` | `false` | no |
 | <a name="input_existing_monitoring_instance_crn"></a> [existing\_monitoring\_instance\_crn](#input\_existing\_monitoring\_instance\_crn) | Existing CRN of IBM Cloud Monitoring Instance. If value is null, then an IBM Cloud Monitoring Instance will not be created but an intel VSI instance will be created if 'enable\_monitoring' is true. | `string` | `null` | no |
-| <a name="input_existing_sm_instance_guid"></a> [existing\_sm\_instance\_guid](#input\_existing\_sm\_instance\_guid) | An existing Secrets Manager GUID. The existing Secret Manager instance must have private certificate engine configured. If not provided an new instance will be provisioned. | `string` | `null` | no |
+| <a name="input_existing_sm_instance_guid"></a> [existing\_sm\_instance\_guid](#input\_existing\_sm\_instance\_guid) | An existing Secrets Manager GUID. If not provided a new instance will be provisioned. | `string` | `null` | no |
 | <a name="input_existing_sm_instance_region"></a> [existing\_sm\_instance\_region](#input\_existing\_sm\_instance\_region) | Required if value is passed into `var.existing_sm_instance_guid`. | `string` | `null` | no |
 | <a name="input_external_access_ip"></a> [external\_access\_ip](#input\_external\_access\_ip) | Specify the source IP address or CIDR for login through SSH to the environment after deployment. Access to the environment will be allowed only from this IP address. Can be set to 'null' if you choose to use client to site vpn. | `string` | n/a | yes |
 | <a name="input_network_services_vsi_profile"></a> [network\_services\_vsi\_profile](#input\_network\_services\_vsi\_profile) | Compute profile configuration of the network services vsi (cpu and memory configuration). Must be one of the supported profiles. See [here](https://cloud.ibm.com/docs/vpc?topic=vpc-profiles&interface=ui). | `string` | `"cx2-2x4"` | no |
