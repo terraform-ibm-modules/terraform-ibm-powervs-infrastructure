@@ -20,6 +20,7 @@
       register: update_result
       when: "'SLES' in ansible_distribution"
 
-    - name: Reboot system if required (shell)
-      ansible.builtin.shell: shutdown -r now
-      when: update_result is defined and update_result.changed
+    - name: Reboot system with delay
+      shell: "(sleep 2 && reboot) &"
+      async: 1
+      poll: 0
