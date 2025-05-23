@@ -24,3 +24,4 @@
       shell: "(sleep 2 && reboot) &"
       async: 1
       poll: 0
+      when: update_result is defined and update_result.changed
