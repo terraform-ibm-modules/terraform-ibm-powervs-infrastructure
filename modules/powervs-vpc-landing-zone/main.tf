@@ -259,7 +259,7 @@ module "configure_scc_wp_agent" {
   src_script_template_name = "configure-scc-wp-agent/ansible_configure_scc_wp_agent.sh.tftpl"
   dst_script_file_name     = "${var.prefix}-configure_scc_wp_agent.sh"
 
-  src_playbook_template_name = "configure-scc-wp-agent/playbook-configure-scc-wp-agent.yml.tftpl"
+  src_playbook_template_name = "configure-scc-wp-agent/playbook-configure-scc-wp-agent-linux.yml.tftpl"
   dst_playbook_file_name     = "${var.prefix}-playbook-configure-scc-wp-agent.yml"
   playbook_template_vars = {
     COLLECTOR_ENDPOINT : local.scc_wp_instance.ingestion_endpoint,
