@@ -74,7 +74,6 @@ data "ibm_iam_auth_token" "auth_token" {
   provider = ibm.ibm-is
 }
 
-# Null resource replaced with restapi_object to enable CSPM
 provider "restapi" {
   uri = "https://resource-controller.cloud.ibm.com"
   headers = {
