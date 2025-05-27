@@ -61,6 +61,10 @@ func setupOptionsStandardSolution(t *testing.T, prefix string, powervs_zone stri
 		ResourceGroup:   resourceGroup,
 		Region:          powervs_zone,
 		ImplicitDestroy: []string{},
+		// workaround for https://github.com/terraform-ibm-modules/terraform-ibm-scc-workload-protection/issues/243
+		IgnoreAdds: testhelper.Exemptions{
+			List: []string{"module.standard.module.scc_wp_instance[0].restapi_object.cspm"},
+		},
 	})
 
 	options.TerraformVars = map[string]interface{}{
