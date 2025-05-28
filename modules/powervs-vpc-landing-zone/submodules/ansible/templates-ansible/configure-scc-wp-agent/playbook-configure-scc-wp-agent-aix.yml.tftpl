@@ -56,5 +56,5 @@
 
     - name: Add respawn entry to inittab if not present
       ansible.builtin.shell: |
-        mkitab "fkcmd:2:respawn:startsrc -s kspm_analyzer -e 'API_ENDPOINT={{ wp_api_endpoint | replace('https://', '') }} ACCESS_KEY={{ access_key }}'"
+        mkitab "wpagent:2:respawn:startsrc -s kspm_analyzer -e 'API_ENDPOINT={{ wp_api_endpoint | replace('https://', '') }} ACCESS_KEY={{ access_key }}'"
       when: "'fkcmd' not in inittab_entry.stdout"
