@@ -47,7 +47,7 @@ This example sets up the following infrastructure:
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.9 |
-| <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | 1.78.3 |
+| <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | 1.78.4 |
 | <a name="requirement_restapi"></a> [restapi](#requirement\_restapi) | 1.20.0 |
 
 ### Modules
@@ -61,8 +61,8 @@ This example sets up the following infrastructure:
 
 | Name | Type |
 |------|------|
-| [ibm_iam_auth_token.auth_token](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.78.3/docs/data-sources/iam_auth_token) | data source |
-| [ibm_pi_catalog_images.catalog_images_ds](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.78.3/docs/data-sources/pi_catalog_images) | data source |
+| [ibm_iam_auth_token.auth_token](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.78.4/docs/data-sources/iam_auth_token) | data source |
+| [ibm_pi_catalog_images.catalog_images_ds](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.78.4/docs/data-sources/pi_catalog_images) | data source |
 
 ### Inputs
 
