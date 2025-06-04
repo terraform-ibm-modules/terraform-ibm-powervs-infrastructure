@@ -2,13 +2,6 @@
 # PowerVS Instance module
 #####################################################
 
-data "ibm_pi_catalog_images" "catalog_images_ds" {
-  provider             = ibm.ibm-pi
-  pi_cloud_instance_id = module.standard.powervs_workspace_guid
-  sap                  = true
-  vtl                  = true
-}
-
 locals {
   p10_unsupported_regions = ["che01", "lon04", "lon06", "mon01", "syd04", "syd05", "tor01", "us-east", "us-south"] # datacenters that don't support P10 yet
   server_type             = contains(local.p10_unsupported_regions, var.powervs_zone) ? "s922" : "s1022"
@@ -68,13 +61,9 @@ locals {
   # tflint-ignore: terraform_unused_declarations
   valid_custom_profile_msg_chk = regex("^${local.valid_custom_profile_msg}$", (local.custom_profile_enabled ? local.valid_custom_profile_provided ? local.valid_custom_profile_msg : "" : local.valid_custom_profile_msg))
 
-  catalog_images = {
-    for stock_image in data.ibm_pi_catalog_images.catalog_images_ds.images :
-    stock_image.name => stock_image.image_id
-  }
-
+  pi_instance_os_type = can(regex("RHEL|SLES", local.qs_tshirt_choice.image)) ? "linux" : can(regex("^7\\d{3}-\\d{2}-\\d{2}$", local.qs_tshirt_choice.image)) ? "aix" : "ibm_i"
   pi_instance = {
-    pi_image_id             = lookup(local.catalog_images, local.qs_tshirt_choice.image, null)
+    pi_image_id             = local.qs_tshirt_choice.image
     pi_networks             = [module.standard.powervs_management_subnet, module.standard.powervs_backup_subnet]
     pi_instance_name        = "${var.prefix}-pi-qs"
     pi_sap_profile_id       = local.sap_system_creation_enabled ? local.qs_tshirt_choice.sap_profile_id : null
@@ -82,6 +71,36 @@ locals {
     pi_number_of_processors = local.sap_system_creation_enabled ? null : local.qs_tshirt_choice.cores
     pi_memory_size          = local.sap_system_creation_enabled ? null : local.qs_tshirt_choice.memory
     pi_cpu_proc_type        = local.sap_system_creation_enabled ? null : local.qs_tshirt_choice.proc_type
-    pi_storage_config       = local.qs_tshirt_choice.storage != "" && local.qs_tshirt_choice.tier != "" ? [{ name = "data", size = local.qs_tshirt_choice.storage, count = "1", tier = local.qs_tshirt_choice.tier, mount = "/data" }] : null
+    ## Include additional storage for AIX image as root volume is very small
+    pi_storage_config = local.qs_tshirt_choice.storage != "" && local.qs_tshirt_choice.tier != "" ? local.pi_instance_os_type == "aix" ? [
+      { name  = "rootextend",
+        size  = "30",
+        count = "1",
+        tier  = "tier3",
+        mount = "/"
+      },
+      {
+        name  = "data",
+        size  = local.qs_tshirt_choice.storage,
+        count = "1",
+        tier  = local.qs_tshirt_choice.tier,
+        mount = "/data"
+      }
+      ] : [
+      { name  = "data",
+        size  = local.qs_tshirt_choice.storage,
+        count = "1",
+        tier  = local.qs_tshirt_choice.tier,
+        mount = "/data"
+      }
+    ] : null
   }
+
+  network_services_config = {
+    squid = { enable = true, squid_server_ip_port = module.standard.proxy_host_or_ip_port, no_proxy_hosts = "161.0.0.0/0,10.0.0.0/8" }
+    nfs   = { enable = var.configure_nfs_server, nfs_server_path = module.standard.nfs_host_or_ip_path, nfs_client_path = lookup(var.nfs_server_config, "mount_path", ""), opts = "sec=sys,nfsvers=4.1,nofail", fstype = "nfs4" }
+    dns   = { enable = var.configure_dns_forwarder, dns_server_ip = module.standard.dns_host_or_ip }
+    ntp   = { enable = var.configure_ntp_forwarder, ntp_server_ip = module.standard.ntp_host_or_ip }
+  }
+
 }
