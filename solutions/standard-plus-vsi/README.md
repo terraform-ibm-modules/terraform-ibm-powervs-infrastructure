@@ -66,7 +66,7 @@ This example sets up the following infrastructure:
 |------|------|
 | [terraform_data.aix_init](https://registry.terraform.io/providers/hashicorp/terraform/latest/docs/resources/data) | resource |
 | [time_sleep.wait_for_dependencies](https://registry.terraform.io/providers/hashicorp/time/0.13.1/docs/resources/sleep) | resource |
-| [ibm_iam_auth_token.auth_token](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.78.3/docs/data-sources/iam_auth_token) | data source |
+| [ibm_iam_auth_token.auth_token](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.79.0/docs/data-sources/iam_auth_token) | data source |
 
 ### Inputs
 
