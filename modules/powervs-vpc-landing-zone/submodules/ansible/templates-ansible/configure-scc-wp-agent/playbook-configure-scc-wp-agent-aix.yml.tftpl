@@ -1,0 +1,60 @@
+---
+- name: Install and configure kspm_analyzer on AIX
+  hosts: all
+  vars:
+    #collector_endpoint: "${COLLECTOR_ENDPOINT}" not used
+    wp_api_endpoint: "${API_ENDPOINT}"
+    access_key: "${ACCESS_KEY}"
+    ansible_shell_executable: /usr/bin/ksh  # Set the default shell
+    ansible_shell_type: sh
+
+  tasks:
+    - name: Ensure /opt directory exists
+      ansible.builtin.file:
+        path: /opt
+        state: directory
+        mode: '0755'
+
+    - name: Download kspm-analyzer binary
+      ansible.builtin.shell:
+        . /etc/profile  && curl -o /opt/kspm-analyzer-aix-ppc64 https://s3.us-east-1.amazonaws.com/download.draios.com/dependencies/kspm-analyzer/1.44.17/kspm-analyzer-aix-ppc64
+      args:
+        creates: /opt/kspm-analyzer-aix-ppc64
+
+    - name: Make binary executable
+      ansible.builtin.shell:
+        chmod +x /opt/kspm-analyzer-aix-ppc64
+
+    - name: Check if kspm_analyzer SRC subsystem exists
+      ansible.builtin.shell: lssrc -s kspm_analyzer
+      register: kspm_subsystem_check
+      failed_when: false
+      changed_when: false
+
+    - name: Create SRC subsystem if it does not exist
+      ansible.builtin.shell: |
+        mkssys -p /opt/kspm-analyzer-aix-ppc64 \
+               -s kspm_analyzer \
+               -u 0 \
+               -e /opt/kspm-analyzer-error.log \
+               -i /opt/kspm-analyzer-input.log \
+               -o /opt/kspm-analyzer-output.log
+      when: kspm_subsystem_check.rc != 0
+
+    - name: Start kspm_analyzer with environment variables
+      ansible.builtin.shell: |
+        startsrc -s kspm_analyzer -e 'API_ENDPOINT={{ wp_api_endpoint | replace('https://', '') }} ACCESS_KEY={{ access_key }}'
+      register: start_output
+      failed_when: "'not found' in start_output.stderr"
+      changed_when: "'is already active' not in start_output.stdout"
+
+    - name: Check if inittab entry exists
+      ansible.builtin.shell: lsitab wpagent
+      register: inittab_entry
+      failed_when: false
+      changed_when: false
+
+    - name: Add respawn entry to inittab if not present
+      ansible.builtin.shell: |
+        mkitab "wpagent:2:respawn:startsrc -s kspm_analyzer -e 'API_ENDPOINT={{ wp_api_endpoint | replace('https://', '') }} ACCESS_KEY={{ access_key }}'"
+      when: "'wpagent' not in inittab_entry.stdout"
