@@ -78,15 +78,16 @@ module "scc_wp_instance" {
   providers = { ibm = ibm.ibm-is }
   count     = var.enable_scc_wp ? 1 : 0
 
-  name                          = "${var.prefix}-scc-wp-instance"
-  region                        = lookup(local.ibm_powervs_zone_cloud_region_map, var.powervs_zone, null)
-  resource_group_id             = module.landing_zone.resource_group_data["${var.prefix}-slz-service-rg"]
-  scc_wp_service_plan           = "graduated-tier"
-  resource_tags                 = var.tags
-  resource_key_name             = "${var.prefix}-scc-wp-manager-key"
-  resource_key_tags             = var.tags
-  cloud_monitoring_instance_crn = local.monitoring_instance.crn != "" ? local.monitoring_instance.crn : null
-  app_config_crn                = var.enable_scc_wp ? module.app_config[0].app_config_crn : null
+  name                                         = "${var.prefix}-scc-wp-instance"
+  region                                       = lookup(local.ibm_powervs_zone_cloud_region_map, var.powervs_zone, null)
+  resource_group_id                            = module.landing_zone.resource_group_data["${var.prefix}-slz-service-rg"]
+  scc_wp_service_plan                          = "graduated-tier"
+  scc_workload_protection_trusted_profile_name = "${var.prefix}-workload-protection-trusted-profile"
+  resource_tags                                = var.tags
+  resource_key_name                            = "${var.prefix}-scc-wp-manager-key"
+  resource_key_tags                            = var.tags
+  cloud_monitoring_instance_crn                = local.monitoring_instance.crn != "" ? local.monitoring_instance.crn : null
+  app_config_crn                               = var.enable_scc_wp ? module.app_config[0].app_config_crn : null
 }
 
 locals {
