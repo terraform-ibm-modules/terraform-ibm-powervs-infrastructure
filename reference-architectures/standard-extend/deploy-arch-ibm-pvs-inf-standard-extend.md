@@ -1,7 +1,7 @@
 ---
 copyright:
   years: 2024, 2025
-lastupdated: "2025-06-16"
+lastupdated: "2025-06-17"
 keywords:
 subcollection: deployable-reference-architectures
 authors:
@@ -15,7 +15,7 @@ image_source: https://github.com/terraform-ibm-modules/terraform-ibm-powervs-inf
 use-case: ITServiceManagement
 industry: Technology
 content-type: reference-architecture
-version: v8.5.2
+version: v8.5.3
 compliance: SAPCertified
 
 ---
@@ -28,7 +28,7 @@ compliance: SAPCertified
 {: toc-industry="Technology"}
 {: toc-use-case="ITServiceManagement"}
 {: toc-compliance="SAPCertified"}
-{: toc-version="v8.5.2"}
+{: toc-version="v8.5.3"}
 
 The Power Virtual Server with VPC landing zone as variation 'Extend Power Virtual Server with VPC landing zone' creates an additional Power Virtual Server workspace and connects it with the already created Power Virtual Server with VPC landing zone. It builds on the existing Power Virtual Server with VPC landing zone deployed as a variation 'Create a new architecture'.
 
