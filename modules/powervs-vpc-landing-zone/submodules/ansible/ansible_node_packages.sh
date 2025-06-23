@@ -35,8 +35,9 @@ main::log_error() {
 }
 
 main::log_system_info() {
-  local instance_id=$(dmidecode -s system-family)
-  local utc_time=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+  local instance_id utc_time
+  instance_id=$(dmidecode -s system-family)
+  utc_time=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
   main::log_info "Virtual server instance ID: ${instance_id}"
   main::log_info "System Time (UTC): ${utc_time}"
 }
