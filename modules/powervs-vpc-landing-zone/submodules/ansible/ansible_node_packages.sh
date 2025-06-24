@@ -34,6 +34,14 @@ main::log_error() {
   exit 1
 }
 
+main::log_system_info() {
+  local instance_id utc_time
+  instance_id=$(dmidecode -s system-family)
+  utc_time=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+  main::log_info "Virtual server instance ID: ${instance_id}"
+  main::log_info "System Time (UTC): ${utc_time}"
+}
+
 main::subscription_mgr_check_process() {
 
   main::log_info "Sleeping 30 seconds for all subscription-manager process to finish."
@@ -103,4 +111,5 @@ main::install_packages() {
 # Main start here                                          #
 ############################################################
 main::get_os_version
+main::log_system_info
 main::install_packages
