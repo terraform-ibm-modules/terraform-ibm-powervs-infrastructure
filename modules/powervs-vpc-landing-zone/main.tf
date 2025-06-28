@@ -18,7 +18,7 @@ locals {
 
 module "landing_zone" {
   source    = "terraform-ibm-modules/landing-zone/ibm//patterns//vsi//module"
-  version   = "8.2.2"
+  version   = "8.3.0"
   providers = { ibm = ibm.ibm-is }
 
   ssh_public_key       = var.ssh_public_key
@@ -59,7 +59,7 @@ locals {
 # Create new App Config instance
 module "app_config" {
   source    = "terraform-ibm-modules/app-configuration/ibm"
-  version   = "1.8.2"
+  version   = "1.8.3"
   providers = { ibm = ibm.ibm-is }
   count     = var.enable_scc_wp ? 1 : 0
 
