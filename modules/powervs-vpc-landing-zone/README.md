@@ -115,7 +115,7 @@ Creates VPC Landing Zone | Performs VPC VSI OS Config | Creates PowerVS Infrastr
 | <a name="module_landing_zone"></a> [landing\_zone](#module\_landing\_zone) | terraform-ibm-modules/landing-zone/ibm//patterns//vsi//module | 8.3.0 |
 | <a name="module_powervs_workspace"></a> [powervs\_workspace](#module\_powervs\_workspace) | terraform-ibm-modules/powervs-workspace/ibm | 3.0.2 |
 | <a name="module_private_secret_engine"></a> [private\_secret\_engine](#module\_private\_secret\_engine) | terraform-ibm-modules/secrets-manager-private-cert-engine/ibm | 1.6.0 |
-| <a name="module_scc_wp_instance"></a> [scc\_wp\_instance](#module\_scc\_wp\_instance) | terraform-ibm-modules/scc-workload-protection/ibm | 1.10.0 |
+| <a name="module_scc_wp_instance"></a> [scc\_wp\_instance](#module\_scc\_wp\_instance) | terraform-ibm-modules/scc-workload-protection/ibm | 1.10.1 |
 | <a name="module_secrets_manager_group"></a> [secrets\_manager\_group](#module\_secrets\_manager\_group) | terraform-ibm-modules/secrets-manager-secret-group/ibm | 1.3.8 |
 | <a name="module_secrets_manager_private_certificate"></a> [secrets\_manager\_private\_certificate](#module\_secrets\_manager\_private\_certificate) | terraform-ibm-modules/secrets-manager-private-cert/ibm | 1.4.0 |
 | <a name="module_vpc_file_share_alb"></a> [vpc\_file\_share\_alb](#module\_vpc\_file\_share\_alb) | ./submodules/fileshare-alb | n/a |
