@@ -8,6 +8,16 @@ variable "prefix" {
   type        = string
 }
 
+variable "powervs_instance_count" {
+  description = "Number of PowerVS instances to create."
+  type        = number
+  default     = 1
+  validation {
+    condition     = var.powervs_instance_count > 0
+    error_message = "The number of PowerVS instances must be a positive integer."
+  }
+}
+
 variable "tshirt_size" {
   description = "PowerVS instance profiles. These profiles can be overridden by specifying 'custom_profile_instance_boot_image' and 'custom_profile' values in optional parameters."
   type = object({

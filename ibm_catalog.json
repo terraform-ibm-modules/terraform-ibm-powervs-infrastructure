@@ -692,6 +692,11 @@
               "custom_config": {}
             },
             {
+              "key": "powervs_instance_count",
+              "default_value": "",
+              "required": true
+            },
+            {
               "key": "tshirt_size",
               "type": "object",
               "default_value": "",

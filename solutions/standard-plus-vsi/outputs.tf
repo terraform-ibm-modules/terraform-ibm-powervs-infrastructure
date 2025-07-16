@@ -170,17 +170,17 @@ output "powervs_images" {
 
 output "powervs_instance_management_ip" {
   description = "IP address of the primary network interface of IBM PowerVS instance."
-  value       = module.powervs_instance.pi_instance_primary_ip
+  value       = module.powervs_instance[*].pi_instance_primary_ip
 }
 
 output "powervs_instance_private_ips" {
   description = "All private IP addresses (as a list) of IBM PowerVS instance."
-  value       = module.powervs_instance.pi_instance_private_ips
+  value       = module.powervs_instance[*].pi_instance_private_ips
 }
 
 output "powervs_storage_configuration" {
   description = "Storage configuration of PowerVS instance."
-  value       = module.powervs_instance.pi_storage_configuration
+  value       = module.powervs_instance[*].pi_storage_configuration
 }
 
 output "schematics_workspace_id" {
