@@ -6,7 +6,7 @@
             "use_prefix": true
         },
         {
-            "name": "slz-edge-rg",
+            "name": "${second_rg_name}",
             "create": true,
             "use_prefix": true
         }
@@ -116,7 +116,7 @@
         "add_route": true
     },
     "enable_transit_gateway": true,
-    "transit_gateway_resource_group": "slz-service-rg",
+    "transit_gateway_resource_group": "${tgw_rg_name}",
     "transit_gateway_global": ${transit_gateway_global},
     "transit_gateway_connections": ["edge"],
     "security_groups": [
@@ -433,7 +433,7 @@
         {
             "name": "vpe-sg",
             "vpc_name": "edge",
-            "resource_group": "slz-edge-rg",
+            "resource_group": "${second_rg_name}",
             "show": false,
             "rules": [
                 {
@@ -468,7 +468,7 @@
     "vpcs": [
         {
             "prefix": "edge",
-            "resource_group": "slz-edge-rg",
+            "resource_group": "${second_rg_name}",
             "clean_default_sg_acl": false,
             "flow_logs_bucket_name": "atracker-bucket",
             "default_security_group_rules": [
@@ -550,7 +550,7 @@
             "image_name": "${rhel_image}",
             "machine_type": "cx2-2x4",
             "vpc_name": "edge",
-            "resource_group": "slz-edge-rg",
+            "resource_group": "${second_rg_name}",
             "enable_floating_ip": true,
             "boot_volume_encryption_key_name": "slz-vsi-volume-key",
             "ssh_keys": ["ssh-key"],
@@ -564,7 +564,7 @@
             "image_name": "${rhel_image}",
             "machine_type": "${network_services_vsi_profile}",
             "vpc_name": "edge",
-            "resource_group": "slz-edge-rg",
+            "resource_group": "${second_rg_name}",
             "enable_floating_ip": false,
             "boot_volume_encryption_key_name": "slz-vsi-volume-key",
             "ssh_keys": ["ssh-key"],
@@ -580,7 +580,7 @@
             "image_name": "${sles_image}",
             "machine_type": "bx2-2x8",
             "vpc_name": "edge",
-            "resource_group": "slz-edge-rg",
+            "resource_group": "${second_rg_name}",
             "enable_floating_ip": false,
             "boot_volume_encryption_key_name": "slz-vsi-volume-key",
             "ssh_keys": ["ssh-key"],
@@ -595,7 +595,7 @@
         {
             "service_name": "cos",
             "service_type": "cloud-object-storage",
-            "resource_group": "slz-edge-rg",
+            "resource_group": "${second_rg_name}",
             "vpcs": [
                 {
                     "name": "edge",
