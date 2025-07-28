@@ -42,7 +42,7 @@ If you do not have a PowerVS infrastructure that is the [Standard Landscape Vari
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_powervs_workspace"></a> [powervs\_workspace](#module\_powervs\_workspace) | terraform-ibm-modules/powervs-workspace/ibm | 3.0.2 |
+| <a name="module_powervs_workspace"></a> [powervs\_workspace](#module\_powervs\_workspace) | terraform-ibm-modules/powervs-workspace/ibm | 3.1.0 |
 
 ### Resources
 
