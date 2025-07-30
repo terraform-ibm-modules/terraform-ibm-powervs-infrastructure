@@ -9,7 +9,7 @@ ansible_private_key_file=${ansible_private_key_file}
 ansible_playbook_name=$(basename $${ansible_playbook})
 
 # Install ansible-core during the initial bootstrap
-if [ "$ansible_playbook_name" == "ocp-cluster-bootstrap-playbook.yml" ]; then
+if [ "$ansible_playbook_name" == "ocp-cluster-install-configuration-playbook.yml" ]; then
   echo "Installing ansible-core as a part of bootstrap..."
   yum install -y expect ansible-core
 fi

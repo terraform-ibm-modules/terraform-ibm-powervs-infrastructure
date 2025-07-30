@@ -75,7 +75,7 @@ module "ocp_cluster_install_configuration" {
   configure_ansible_host = false
 
   src_script_template_name = "deploy-openshift-cluster/ansible_exec.sh.tftpl"
-  dst_script_file_name     = "bootstrap-ocp-cluster.sh"
+  dst_script_file_name     = "ocp-cluster-install-configuration.sh"
 
   src_playbook_template_name = "deploy-openshift-cluster/playbook-configure-ocp-cluster.yml.tftpl"
   dst_playbook_file_name     = "ocp-cluster-install-configuration-playbook.yml"
