@@ -1,0 +1,169 @@
+- name: Install or upgrade OpenShift tools and create install-config.yaml file
+  hosts: all
+  vars:
+    openshift_release: "${OPENSHIFT_RELEASE}"
+    base_domain: "${BASE_DOMAIN}"
+    cluster_dir:  "${CLUSTER_DIR}"
+    cluster_name: "${CLUSTER_NAME}"
+    cluster_network: "${CLUSTER_NETWORK}"
+    cluster_service_network: "${CLUSTER_SERVICE_NETWORK}"
+    worker_processors: "${WORKER_PROCESSORS}"
+    worker_system_type: "${WORKER_SYSTEM_TYPE}"
+    worker_proc_type: "${WORKER_PROC_TYPE}"
+    worker_replicas: ${WORKER_REPLICAS}
+    master_processors: "${MASTER_PROCESSORS}"
+    master_system_type: "${MASTER_SYSTEM_TYPE}"
+    master_proc_type: "${MASTER_PROC_TYPE}"
+    master_replicas: ${MASTER_REPLICAS}
+    user_id:  "${USER_ID}"
+    transit_gateway_name: "${TRANSIT_GATEWAY_NAME}"
+    powervs_workspace_guid: "${POWERVS_WORKSPACE_GUID}"
+    resource_group: "${RESOURCE_GROUP}"
+    powervs_region: "${POWERVS_REGION}"
+    powervs_zone: "${POWERVS_ZONE}"
+    vpc_name: "${VPC_NAME}"
+    vpc_region: "${VPC_REGION}"
+    pull_secret: '${PULL_SECRET_FILE}'
+    ssh_key: "${SSH_KEY}"
+    base_path: "/tmp"
+    base_url: "https://mirror.openshift.com/pub/openshift-v4"
+    tools:
+      oc:
+        release_arch: "amd64"
+        file: "openshift-client-linux-{{ openshift_release }}.tar.gz"
+      openshift-install:
+        release_arch: "ppc64le"
+        file: "openshift-install-linux-amd64-{{ openshift_release }}.tar.gz"
+      ccoctl:
+        release_arch: "amd64"
+        file: "ccoctl-linux-{{ openshift_release }}.tar.gz"
+
+    tools_with_version_check: "{{ tools | dict2items | rejectattr('key', 'equalto', 'ccoctl') | list }}"
+
+  tasks:
+    - name: Ensure base path exists
+      file:
+        path: "{{ base_path }}"
+        state: directory
+        mode: '0755'
+
+    - name: Check if binaries exist (excluding ccoctl)
+      stat:
+        path: "/usr/bin/{{ item.key }}"
+      register: binary_stat
+      loop: "{{ tools_with_version_check }}"
+      loop_control:
+        label: "{{ item.key }}"
+
+    - name: Get installed version of each binary
+      command: "/usr/bin/{{ item.0.key }} version"
+      register: version_output
+      when: item.1.stat.exists
+      loop: "{{ tools_with_version_check | zip(binary_stat.results) }}"
+      loop_control:
+        label: "{{ item.0.key }}"
+
+    - name: Extract versions
+      set_fact:
+        installed_versions: "{{ installed_versions | default({}) | combine({ item.0.key: (item.1.stdout_lines[0].split(' ')[1]) }) }}"
+      when: item.1.stdout_lines is defined and item.1.stdout_lines[0] is search(item.0.key)
+      loop: "{{ tools_with_version_check | zip(version_output.results) }}"
+      loop_control:
+        label: "{{ item.0.key }}"
+
+    - name: Remove binary if version mismatch
+      file:
+        path: "/usr/bin/{{ item.key }}"
+        state: absent
+      when: >
+        (installed_versions[item.key] is not defined) or
+        (installed_versions[item.key] != openshift_release)
+      loop: "{{ tools_with_version_check }}"
+      loop_control:
+        label: "{{ item.key }}"
+
+    - name: Always remove ccoctl binary if present
+      file:
+        path: /usr/bin/ccoctl
+        state: absent
+
+    - name: Download tool archives
+      get_url:
+        url: "{{ base_url }}/{{ item.value.release_arch }}/clients/ocp/{{ openshift_release }}/{{ item.value.file }}"
+        dest: "{{ base_path }}/{{ item.value.file }}"
+        mode: '0644'
+      loop: "{{ tools | dict2items }}"
+      loop_control:
+        label: "{{ item.key }}"
+
+    - name: Extract and install binaries
+      unarchive:
+        src: "{{ base_path }}/{{ item.value.file }}"
+        dest: /usr/bin/
+        remote_src: yes
+        extra_opts: [ "{{ item.key }}" ]
+      loop: "{{ tools | dict2items }}"
+      loop_control:
+        label: "{{ item.key }}"
+
+    - name: Ensure cluster directory exists
+      file:
+        path: "{{ cluster_dir }}"
+        state: directory
+        mode: '0755'
+
+    - name: Create install-config.yaml in cluster_dir
+      copy:
+        dest: "{{ cluster_dir }}/install-config.yaml"
+        content: |
+          apiVersion: v1
+          baseDomain: "{{ base_domain }}"
+          publish: Internal
+          metadata:
+            creationTimestamp: null
+            name: "{{ cluster_name }}"
+
+          networking:
+            clusterNetwork:
+              - cidr: "{{ cluster_network }}"
+                hostPrefix: 23
+            networkType: OVNKubernetes
+            serviceNetwork:
+              - "{{ cluster_service_network }}"
+
+          platform:
+            powervs:
+              userID: {{ user_id }}
+              powervsResourceGroup: {{ resource_group }}
+              region: {{ powervs_region }}
+              zone: {{ powervs_zone }}
+              tgName: {{ transit_gateway_name }}
+              vpcName: {{ vpc_name }}
+              vpcRegion: {{ vpc_region }}
+              serviceInstanceGUID: {{ powervs_workspace_guid }}
+
+          compute:
+            - architecture: ppc64le
+              hyperthreading: Enabled
+              name: worker
+              platform:
+                powervs:
+                  processors: {{ worker_processors }}
+                  sysType: "{{ worker_system_type }}"
+                  procType: "{{ worker_proc_type }}"
+              replicas: {{ worker_replicas }}
+
+          controlPlane:
+            architecture: ppc64le
+            hyperthreading: Enabled
+            name: master
+            platform:
+              powervs:
+                processors: {{ master_processors }}
+                sysType: "{{ master_system_type }}"
+                procType: "{{ master_proc_type }}"
+            replicas: {{ master_replicas }}
+
+          pullSecret: '{{ pull_secret }}'
+
+          sshKey: "{{ ssh_key }}"

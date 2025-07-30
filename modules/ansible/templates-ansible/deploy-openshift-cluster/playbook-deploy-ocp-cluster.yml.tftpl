@@ -1,0 +1,48 @@
+---
+- name: Create .powervs folder
+  hosts: all
+
+  vars:
+    powervs_config_path: "~/.powervs/config.json"
+    id: "${IBM_ID}"
+    region: "${POWERVS_REGION}"
+    zone: "${POWERVS_ZONE}"
+    resource_group: "${RESOURCE_GROUP}"
+    install_dir: "${CLUSTER_DIR}"
+    openshift_install_bootstrap_timeout: "${OPENSHIFT_INSTALL_BOOTSTRAP_TIMEOUT}"
+    openshift_install_machine_wait_timeout: "${OPENSHIFT_INSTALL_MACHINE_WAIT_TIMEOUT}"
+    openshift_install_cluster_timeout: "${OPENSHIFT_INSTALL_CLUSTER_TIMEOUT}"
+    openshift_install_destroy_timeout: "${OPENSHIFT_INSTALL_DESTROY_TIMEOUT}"
+
+  tasks:
+    - name: Ensure ~/.powervs directory exists
+      file:
+        path: "{{ powervs_config_path | dirname }}"
+        state: directory
+        mode: '0700'
+
+    - name: Create ~/.powervs/config.json file securely
+      copy:
+        dest: "{{ powervs_config_path }}"
+        content: |
+          {
+            "id": "{{ id }}",
+            "apikey": "{{ lookup('env', 'IBMCLOUD_API_KEY') }}",
+            "region": "{{ region }}",
+            "zone": "{{ zone }}",
+            "resourcegroup": "{{ resource_group }}",
+          }
+        mode: '0600'
+
+    - name: Run openshift-install create cluster
+      ansible.builtin.shell: |
+        openshift-install create cluster --dir={{ install_dir }} --log-level=debug
+      environment:
+        IBMCLOUD_API_KEY: "{{ lookup('env', 'IBMCLOUD_API_KEY') }}"
+        OPENSHIFT_INSTALL_BOOTSTRAP_TIMEOUT: "{{ openshift_install_bootstrap_timeout }}"
+        OPENSHIFT_INSTALL_MACHINE_WAIT_TIMEOUT: "{{ openshift_install_machine_wait_timeout }}"
+        OPENSHIFT_INSTALL_CLUSTER_TIMEOUT: "{{ openshift_install_cluster_timeout }}"
+        OPENSHIFT_INSTALL_DESTROY_TIMEOUT: "{{ openshift_install_destroy_timeout }}"
+
+      register: install_output
+      ignore_errors: false
