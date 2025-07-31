@@ -64,7 +64,7 @@ output "resource_group_data" {
 
 output "application_load_balancer" {
   description = "Details of application load balancer."
-  value       = var.configure_nfs_server ? module.vpc_file_share_alb[0].file_share_alb : { name = "", id = "", private_ips = [] }
+  value       = var.configure_nfs_server ? module.vpc_file_share_nlb[0].file_share_nlb : { name = "", id = "", private_ips = [] }
 }
 
 output "access_host_or_ip" {
@@ -89,7 +89,7 @@ output "ntp_host_or_ip" {
 
 output "nfs_host_or_ip_path" {
   description = "NFS host for created PowerVS infrastructure."
-  value       = var.configure_nfs_server ? module.vpc_file_share_alb[0].nfs_host_or_ip_path : ""
+  value       = var.configure_nfs_server ? module.vpc_file_share_nlb[0].nfs_host_or_ip_path : ""
 }
 
 output "ansible_host_or_ip" {
