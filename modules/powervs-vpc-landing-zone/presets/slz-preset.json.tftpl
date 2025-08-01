@@ -381,6 +381,33 @@
                         "port_min": 22
                     }
                 },
+                {
+                    "name": "allow-ssh-inbound-schematics26",
+                    "direction": "inbound",
+                    "source": "163.74.95.217/32",
+                    "tcp": {
+                        "port_max": 22,
+                        "port_min": 22
+                    }
+                },
+                                {
+                    "name": "allow-ssh-inbound-schematics27",
+                    "direction": "inbound",
+                    "source": "163.66.91.30/32",
+                    "tcp": {
+                        "port_max": 22,
+                        "port_min": 22
+                    }
+                },
+                                {
+                    "name": "allow-ssh-inbound-schematics28",
+                    "direction": "inbound",
+                    "source": "163.75.88.96/32",
+                    "tcp": {
+                        "port_max": 22,
+                        "port_min": 22
+                    }
+                },
                 %{ if "${external_access_ip}" != "" && "${external_access_ip}" != null }
                 {
                     "direction": "inbound",
