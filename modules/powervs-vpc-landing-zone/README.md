@@ -118,14 +118,19 @@ Creates VPC Landing Zone | Performs VPC VSI OS Config | Creates PowerVS Infrastr
 | <a name="module_scc_wp_instance"></a> [scc\_wp\_instance](#module\_scc\_wp\_instance) | terraform-ibm-modules/scc-workload-protection/ibm | 1.10.4 |
 | <a name="module_secrets_manager_group"></a> [secrets\_manager\_group](#module\_secrets\_manager\_group) | terraform-ibm-modules/secrets-manager-secret-group/ibm | 1.3.11 |
 | <a name="module_secrets_manager_private_certificate"></a> [secrets\_manager\_private\_certificate](#module\_secrets\_manager\_private\_certificate) | terraform-ibm-modules/secrets-manager-private-cert/ibm | 1.4.0 |
-| <a name="module_vpc_file_share_nlb"></a> [vpc\_file\_share\_nlb](#module\_vpc\_file\_share\_nlb) | ./submodules/fileshare-nlb | n/a |
 
 ### Resources
 
 | Name | Type |
 |------|------|
+| [ibm_is_lb.file_share_nlb](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/is_lb) | resource |
+| [ibm_is_lb_listener.nfs_front_end_listener](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/is_lb_listener) | resource |
+| [ibm_is_lb_pool.nfs_backend_pool](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/is_lb_pool) | resource |
+| [ibm_is_share.file_share_nfs](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/is_share) | resource |
+| [ibm_is_share_mount_target.mount_target_nfs](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/is_share_mount_target) | resource |
 | [ibm_is_vpc_address_prefix.vpn_address_prefix](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/is_vpc_address_prefix) | resource |
-| [ibm_is_vpc_routing_table.transit](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/is_vpc_routing_table) | resource |
+| [ibm_is_vpc_routing_table.routing_table](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/is_vpc_routing_table) | resource |
+| [ibm_is_vpc_routing_table_route.nfs_route](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/is_vpc_routing_table_route) | resource |
 | [ibm_resource_instance.monitoring_instance](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/resource_instance) | resource |
 | [ibm_resource_instance.secrets_manager](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/resource_instance) | resource |
 
@@ -168,10 +173,10 @@ Creates VPC Landing Zone | Performs VPC VSI OS Config | Creates PowerVS Infrastr
 |------|-------------|
 | <a name="output_access_host_or_ip"></a> [access\_host\_or\_ip](#output\_access\_host\_or\_ip) | Access host(jump/bastion) for created PowerVS infrastructure. |
 | <a name="output_ansible_host_or_ip"></a> [ansible\_host\_or\_ip](#output\_ansible\_host\_or\_ip) | Central Ansible node private IP address. |
-| <a name="output_application_load_balancer"></a> [application\_load\_balancer](#output\_application\_load\_balancer) | Details of application load balancer. |
 | <a name="output_dns_host_or_ip"></a> [dns\_host\_or\_ip](#output\_dns\_host\_or\_ip) | DNS forwarder host for created PowerVS infrastructure. |
 | <a name="output_kms_key_map"></a> [kms\_key\_map](#output\_kms\_key\_map) | Map of ids and keys for KMS keys created |
 | <a name="output_monitoring_instance"></a> [monitoring\_instance](#output\_monitoring\_instance) | Details of the IBM Cloud Monitoring Instance: CRN, location, guid, monitoring\_host\_ip. |
+| <a name="output_network_load_balancer"></a> [network\_load\_balancer](#output\_network\_load\_balancer) | Details of network load balancer. |
 | <a name="output_network_services_config"></a> [network\_services\_config](#output\_network\_services\_config) | Complete configuration of network management services. |
 | <a name="output_nfs_host_or_ip_path"></a> [nfs\_host\_or\_ip\_path](#output\_nfs\_host\_or\_ip\_path) | NFS host for created PowerVS infrastructure. |
 | <a name="output_ntp_host_or_ip"></a> [ntp\_host\_or\_ip](#output\_ntp\_host\_or\_ip) | NTP host for created PowerVS infrastructure. |

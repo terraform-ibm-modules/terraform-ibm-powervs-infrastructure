@@ -31,9 +31,9 @@ output "vsi_ssh_key_data" {
   description = "List of VSI SSH key data"
   value       = local.standard_output[0].vsi_ssh_key_data.value
 }
-output "application_load_balancer" {
-  description = "Details of application load balancer."
-  value       = local.standard_output[0].application_load_balancer.value
+output "network_load_balancer" {
+  description = "Details of network load balancer."
+  value       = local.standard_output[0].network_load_balancer.value
 }
 
 output "ssh_public_key" {

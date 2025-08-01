@@ -378,7 +378,7 @@
               "key": "vsi_ssh_key_data"
             },
             {
-              "key": "application_load_balancer"
+              "key": "network_load_balancer"
             },
             {
               "key": "ssh_public_key"
@@ -1024,7 +1024,7 @@
               "key": "vsi_names"
             },
             {
-              "key": "application_load_balancer"
+              "key": "network_load_balancer"
             },
             {
               "key": "ssh_public_key"
@@ -1442,7 +1442,7 @@
               "key": "vsi_ssh_key_data"
             },
             {
-              "key": "application_load_balancer"
+              "key": "network_load_balancer"
             },
             {
               "key": "ssh_public_key"

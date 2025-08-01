@@ -142,15 +142,15 @@ module "client_to_site_vpn" {
 }
 
 # Allows VPN Server <=> Transit Gateway traffic
-resource "ibm_is_vpc_routing_table" "transit" {
-  provider = ibm.ibm-is
-  count    = var.client_to_site_vpn.enable ? 1 : 0
+# resource "ibm_is_vpc_routing_table" "transit" {
+#   provider = ibm.ibm-is
+#   count    = var.client_to_site_vpn.enable ? 1 : 0
 
-  vpc                              = [for vpc in module.landing_zone.vpc_data : vpc.vpc_id if vpc.vpc_name == "${var.prefix}-edge"][0]
-  name                             = "${var.prefix}-route-table-vpn-server-transit"
-  route_transit_gateway_ingress    = true
-  accept_routes_from_resource_type = ["vpn_server"]
-}
+#   vpc                              = [for vpc in module.landing_zone.vpc_data : vpc.vpc_id if vpc.vpc_name == "${var.prefix}-edge"][0]
+#   name                             = "${var.prefix}-route-table-vpn-server-transit"
+#   route_transit_gateway_ingress    = true
+#   accept_routes_from_resource_type = ["vpn_server"]
+# }
 
 # Allows VPN Clients <=> Transit Gateway traffic
 resource "ibm_is_vpc_address_prefix" "vpn_address_prefix" {
