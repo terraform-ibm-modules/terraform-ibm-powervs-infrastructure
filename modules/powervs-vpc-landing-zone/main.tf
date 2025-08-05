@@ -218,7 +218,7 @@ locals {
 module "configure_network_services" {
 
   source     = "./submodules/ansible"
-  depends_on = [ibm_is_vpc_routing_table_route.nfs_route]
+  depends_on = [ibm_is_share_mount_target.mount_target_nfs]
 
   bastion_host_ip        = local.access_host_or_ip
   ansible_host_or_ip     = local.network_services_vsi_ip
