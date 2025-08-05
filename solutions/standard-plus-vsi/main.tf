@@ -34,20 +34,20 @@ module "standard" {
 }
 
 
-resource "time_sleep" "wait_for_dependencies" {
-  count           = local.pi_instance_os_type == "aix" || local.pi_instance_os_type == "linux" ? 1 : 0
-  create_duration = var.configure_nfs_server ? "900s" : "500s"
-}
+# resource "time_sleep" "wait_for_dependencies" {
+#   count           = local.pi_instance_os_type == "aix" || local.pi_instance_os_type == "linux" ? 1 : 0
+#   create_duration = var.configure_nfs_server ? "900s" : "500s"
+# }
 
 #####################################################
 # PowerVS Instance module
 #####################################################
 
 module "powervs_instance" {
-  source     = "terraform-ibm-modules/powervs-instance/ibm"
-  version    = "2.6.2"
-  providers  = { ibm = ibm.ibm-pi }
-  depends_on = [time_sleep.wait_for_dependencies]
+  source    = "terraform-ibm-modules/powervs-instance/ibm"
+  version   = "2.6.2"
+  providers = { ibm = ibm.ibm-pi }
+  # depends_on = [time_sleep.wait_for_dependencies]
 
   pi_workspace_guid      = module.standard.powervs_workspace_guid
   pi_ssh_public_key_name = module.standard.powervs_ssh_public_key.name
