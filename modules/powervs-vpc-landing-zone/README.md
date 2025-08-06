@@ -179,6 +179,7 @@ Creates VPC Landing Zone | Performs VPC VSI OS Config | Creates PowerVS Infrastr
 | <a name="output_network_load_balancer"></a> [network\_load\_balancer](#output\_network\_load\_balancer) | Details of network load balancer. |
 | <a name="output_network_services_config"></a> [network\_services\_config](#output\_network\_services\_config) | Complete configuration of network management services. |
 | <a name="output_nfs_host_or_ip_path"></a> [nfs\_host\_or\_ip\_path](#output\_nfs\_host\_or\_ip\_path) | NFS host for created PowerVS infrastructure. |
+| <a name="output_nlb_nfs_network_services_ready"></a> [nlb\_nfs\_network\_services\_ready](#output\_nlb\_nfs\_network\_services\_ready) | Output value that always returns true but depends on nfs, nlb, and network services playbook. Used to create implicit dependency for PowerVS initialization so PowerVS instance creation can start in parallel with nfs, nlb, and network services. |
 | <a name="output_ntp_host_or_ip"></a> [ntp\_host\_or\_ip](#output\_ntp\_host\_or\_ip) | NTP host for created PowerVS infrastructure. |
 | <a name="output_powervs_backup_subnet"></a> [powervs\_backup\_subnet](#output\_powervs\_backup\_subnet) | Name, ID and CIDR of backup private network in created PowerVS infrastructure. |
 | <a name="output_powervs_images"></a> [powervs\_images](#output\_powervs\_images) | Object containing imported PowerVS image names and image ids. |

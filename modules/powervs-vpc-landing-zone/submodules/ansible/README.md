@@ -42,5 +42,7 @@ No modules.
 
 ### Outputs
 
-No outputs.
+| Name | Description |
+|------|-------------|
+| <a name="output_playbook_output"></a> [playbook\_output](#output\_playbook\_output) | Output from execute\_playbooks. Only available after apply. Can be used to create an implicit dependency on the playbook execution. |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

@@ -168,3 +168,8 @@ output "scc_wp_instance" {
   description = "Details of the Security and Compliance Center Workload Protection Instance: guid, access key, api_endpoint, ingestion_endpoint."
   value       = local.scc_wp_instance
 }
+
+output "nlb_nfs_network_services_ready" {
+  description = "Output value that always returns true but depends on nfs, nlb, and network services playbook. Used to create implicit dependency for PowerVS initialization so PowerVS instance creation can start in parallel with nfs, nlb, and network services."
+  value       = length([module.configure_network_services.playbook_output, ibm_is_vpc_routing_table_route.nfs_route, ibm_is_lb_listener.nfs_front_end_listener]) >= 0
+}
