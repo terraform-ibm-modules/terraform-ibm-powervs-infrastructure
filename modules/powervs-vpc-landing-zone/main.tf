@@ -106,28 +106,8 @@ locals {
 }
 
 # ###########################################################
-# # File share for NFS and Network Load Balancer module
+# # Routing table used by NLB for NFS and VPN
 # ###########################################################
-
-# module "vpc_file_share_nlb" {
-#   source    = "./submodules/fileshare-nlb"
-#   providers = { ibm = ibm.ibm-is }
-#   count     = var.configure_nfs_server ? 1 : 0
-
-#   vpc_zone                      = "${lookup(local.ibm_powervs_zone_cloud_region_map, var.powervs_zone, null)}-1"
-#   resource_group_id             = module.landing_zone.resource_group_data["${var.prefix}-${local.second_rg_name}"]
-#   file_share_name               = "${var.prefix}-file-share-nfs"
-#   file_share_size               = var.nfs_server_config.size
-#   file_share_iops               = var.nfs_server_config.iops
-#   file_share_mount_target_name  = "${var.prefix}-nfs"
-#   file_share_subnet_id          = [for subnet in module.landing_zone.subnet_data : subnet.id if subnet.name == "${var.prefix}-edge-vsi-edge-zone-1"][0]
-#   file_share_security_group_ids = [for security_group in module.landing_zone.vpc_data[0].vpc_data.security_group : security_group.group_id if security_group.group_name == "network-services-sg"]
-#   nlb_name                      = "${var.prefix}-file-share-nlb"
-#   nlb_subnet_ids                = [for subnet in module.landing_zone.subnet_data : subnet.id if subnet.name == "${var.prefix}-edge-vsi-edge-zone-1"]
-#   nlb_security_group_ids        = [for security_group in module.landing_zone.vpc_data[0].vpc_data.security_group : security_group.group_id if security_group.group_name == "network-services-sg"]
-#   routing_table_name            = "${var.prefix}-file-share-routing"
-# }
-# TODO Cleanup
 
 resource "ibm_is_vpc_routing_table" "routing_table" {
   provider = ibm.ibm-is

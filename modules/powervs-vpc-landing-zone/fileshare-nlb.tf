@@ -82,19 +82,7 @@ resource "ibm_is_lb_listener" "nfs_front_end_listener" {
   lb           = ibm_is_lb.file_share_nlb[0].id
   default_pool = ibm_is_lb_pool.nfs_backend_pool[0].id
   protocol     = "tcp"
-  # port         = 2049 # TODO investigate, forces replacement
 }
-
-# resource "ibm_is_vpc_routing_table" "nfs_routing_table" {
-#   count = var.configure_nfs_server ? 1 : 0
-
-#   name                          = local.routing_table_name
-#   vpc                           = ibm_is_share_mount_target.mount_target_nfs[0].vpc
-#   route_direct_link_ingress     = false
-#   route_transit_gateway_ingress = true
-#   route_vpc_zone_ingress        = false
-
-# }
 
 resource "ibm_is_vpc_routing_table_route" "nfs_route" {
   provider = ibm.ibm-is
