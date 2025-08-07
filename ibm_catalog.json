@@ -64,7 +64,7 @@
           "label": "Standard Landscape",
           "name": "standard",
           "install_type": "fullstack",
-          "index": 1,
+          "index": 2,
           "working_directory": "solutions/standard",
           "compliance": {
             "authority": "scc-v3",
@@ -574,7 +574,7 @@
           "label": "Quickstart",
           "name": "standard-plus-vsi",
           "install_type": "fullstack",
-          "index": 2,
+          "index": 1,
           "working_directory": "solutions/standard-plus-vsi",
           "compliance": {
             "authority": "scc-v3",
