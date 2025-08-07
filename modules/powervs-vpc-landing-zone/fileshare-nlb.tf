@@ -99,10 +99,14 @@ resource "ibm_is_vpc_routing_table_route" "nfs_route" {
 }
 
 locals {
-  nfs_host_or_ip_path = ibm_is_share_mount_target.mount_target_nfs[0].mount_path
-  file_share_nlb = {
+  nfs_host_or_ip_path = var.configure_nfs_server ? ibm_is_share_mount_target.mount_target_nfs[0].mount_path : ""
+  file_share_nlb = var.configure_nfs_server ? {
     name        = ibm_is_lb.file_share_nlb[0].name
     id          = ibm_is_lb.file_share_nlb[0].id
     private_ips = [for private_ip in ibm_is_lb.file_share_nlb[0].private_ip : private_ip.address]
+    } : {
+    name        = ""
+    id          = ""
+    private_ips = []
   }
 }
