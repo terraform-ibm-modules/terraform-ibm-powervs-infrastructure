@@ -62,9 +62,9 @@ output "resource_group_data" {
   value       = module.landing_zone.resource_group_data
 }
 
-output "application_load_balancer" {
-  description = "Details of application load balancer."
-  value       = var.configure_nfs_server ? module.vpc_file_share_alb[0].file_share_alb : { name = "", id = "", private_ips = [] }
+output "network_load_balancer" {
+  description = "Details of network load balancer."
+  value       = var.configure_nfs_server ? local.file_share_nlb : { name = "", id = "", private_ips = [] }
 }
 
 output "access_host_or_ip" {
@@ -89,7 +89,7 @@ output "ntp_host_or_ip" {
 
 output "nfs_host_or_ip_path" {
   description = "NFS host for created PowerVS infrastructure."
-  value       = var.configure_nfs_server ? module.vpc_file_share_alb[0].nfs_host_or_ip_path : ""
+  value       = var.configure_nfs_server ? local.nfs_host_or_ip_path : ""
 }
 
 output "ansible_host_or_ip" {
@@ -167,4 +167,9 @@ output "monitoring_instance" {
 output "scc_wp_instance" {
   description = "Details of the Security and Compliance Center Workload Protection Instance: guid, access key, api_endpoint, ingestion_endpoint."
   value       = local.scc_wp_instance
+}
+
+output "nlb_nfs_network_services_ready" {
+  description = "Output value that always returns true but depends on nfs, nlb, and network services playbook. Used to create implicit dependency for PowerVS initialization so PowerVS instance creation can start in parallel with nfs, nlb, and network services."
+  value       = length([module.configure_network_services.playbook_output, ibm_is_vpc_routing_table_route.nfs_route, ibm_is_lb_listener.nfs_front_end_listener]) >= 0
 }

@@ -1,6 +1,6 @@
 {
   "ibmcloud_api_key": $VALIDATION_APIKEY,
-  "powervs_zone": "sao04",
+  "powervs_zone": "us-south",
   "prefix": "qs-val",
   "tshirt_size": {
       "tshirt_size":"aix_xs",

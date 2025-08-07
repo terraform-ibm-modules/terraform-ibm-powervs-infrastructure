@@ -32,9 +32,9 @@ output "vsi_ssh_key_data" {
   value       = module.standard.vsi_ssh_key_data
 }
 
-output "application_load_balancer" {
-  description = "Details of application load balancer."
-  value       = module.standard.application_load_balancer
+output "network_load_balancer" {
+  description = "Details of network load balancer."
+  value       = module.standard.network_load_balancer
 }
 
 output "ssh_public_key" {
