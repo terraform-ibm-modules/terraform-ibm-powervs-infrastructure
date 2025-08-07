@@ -9,7 +9,7 @@ This module provisions the following resources in IBM Cloud:
     - Optional VSI for Monitoring host
     - Optional [Client to site VPN server](https://cloud.ibm.com/docs/vpc?topic=vpc-vpn-client-to-site-overview)
     - Optional [File storage share](https://cloud.ibm.com/docs/vpc?topic=vpc-file-storage-create&interface=ui)
-    - Optional [Application load balancer](https://cloud.ibm.com/docs/vpc?topic=vpc-load-balancers&interface=ui)
+    - Optional [Network load balancer](https://cloud.ibm.com/docs/vpc?group=network-load-balancer)
     - IBM Cloud Object storage(COS) Virtual Private endpoint gateway(VPE)
     - IBM Cloud Object storage(COS) Instance and buckets
     - VPC flow logs
