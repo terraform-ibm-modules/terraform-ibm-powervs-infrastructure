@@ -113,7 +113,7 @@ resource "ibm_is_vpc_routing_table" "routing_table" {
   provider = ibm.ibm-is
   count    = var.configure_nfs_server || var.client_to_site_vpn.enable ? 1 : 0
 
-  name                             = local.routing_table_name
+  name                             = "${var.prefix}-routing"
   vpc                              = [for vpc in module.landing_zone.vpc_data : vpc.vpc_id if vpc.vpc_name == "${var.prefix}-edge"][0]
   route_transit_gateway_ingress    = true
   accept_routes_from_resource_type = var.client_to_site_vpn.enable ? ["vpn_server"] : []

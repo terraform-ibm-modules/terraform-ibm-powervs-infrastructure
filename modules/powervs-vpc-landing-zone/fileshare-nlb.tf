@@ -14,7 +14,6 @@ locals {
   nlb_name                      = "${var.prefix}-file-share-nlb"
   nlb_subnet_ids                = [for subnet in module.landing_zone.subnet_data : subnet.id if subnet.name == "${var.prefix}-edge-vsi-edge-zone-1"]
   nlb_security_group_ids        = [for security_group in module.landing_zone.vpc_data[0].vpc_data.security_group : security_group.group_id if security_group.group_name == "network-services-sg"]
-  routing_table_name            = "${var.prefix}-routing"
 }
 
 resource "ibm_is_share" "file_share_nfs" {
