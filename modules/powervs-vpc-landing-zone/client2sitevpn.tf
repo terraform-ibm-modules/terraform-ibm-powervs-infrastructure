@@ -64,7 +64,7 @@ resource "ibm_resource_instance" "secrets_manager" {
   service           = "secrets-manager"
   plan              = var.sm_service_plan
   location          = local.sm_region
-  resource_group_id = module.landing_zone.resource_group_data["${var.prefix}-slz-edge-rg"]
+  resource_group_id = module.landing_zone.resource_group_data["${var.prefix}-${local.second_rg_name}"]
   tags              = var.tags
   parameters = {
     "allowed_network" : "public-and-private"
@@ -77,7 +77,7 @@ resource "ibm_resource_instance" "secrets_manager" {
 # Configure private cert engine if provisioning a new SM instance
 module "private_secret_engine" {
   source     = "terraform-ibm-modules/secrets-manager-private-cert-engine/ibm"
-  version    = "1.6.3"
+  version    = "1.6.7"
   providers  = { ibm = ibm.ibm-sm }
   count      = var.client_to_site_vpn.enable ? 1 : 0
   depends_on = [ibm_resource_instance.secrets_manager]
@@ -94,7 +94,7 @@ module "private_secret_engine" {
 # Create a secret group to place the certificate in
 module "secrets_manager_group" {
   source    = "terraform-ibm-modules/secrets-manager-secret-group/ibm"
-  version   = "1.3.11"
+  version   = "1.3.13"
   providers = { ibm = ibm.ibm-sm }
   count     = var.client_to_site_vpn.enable ? 1 : 0
 
@@ -108,7 +108,7 @@ module "secrets_manager_group" {
 # Create private cert to use for VPN server
 module "secrets_manager_private_certificate" {
   source     = "terraform-ibm-modules/secrets-manager-private-cert/ibm"
-  version    = "1.4.0"
+  version    = "1.4.4"
   providers  = { ibm = ibm.ibm-sm }
   count      = var.client_to_site_vpn.enable ? 1 : 0
   depends_on = [module.private_secret_engine]
@@ -127,29 +127,18 @@ module "secrets_manager_private_certificate" {
 # Create client to site VPN Server
 module "client_to_site_vpn" {
   source    = "terraform-ibm-modules/client-to-site-vpn/ibm"
-  version   = "3.2.13"
+  version   = "3.2.20"
   providers = { ibm = ibm.ibm-is }
   count     = var.client_to_site_vpn.enable ? 1 : 0
 
   vpn_gateway_name              = "${var.prefix}-vpc-pvs-vpn"
-  resource_group_id             = module.landing_zone.resource_group_data["${var.prefix}-slz-edge-rg"]
+  resource_group_id             = module.landing_zone.resource_group_data["${var.prefix}-${local.second_rg_name}"]
   access_group_name             = "${var.prefix}-client-to-site-vpn-access-group"
   subnet_ids                    = [for subnet in module.landing_zone.subnet_data : subnet.id if subnet.name == "${var.prefix}-edge-vpn-zone-1"]
   client_ip_pool                = var.client_to_site_vpn.client_ip_pool
   server_cert_crn               = module.secrets_manager_private_certificate[0].secret_crn
   vpn_client_access_group_users = var.client_to_site_vpn.vpn_client_access_group_users
   vpn_server_routes             = local.vpn_server_routes
-}
-
-# Allows VPN Server <=> Transit Gateway traffic
-resource "ibm_is_vpc_routing_table" "transit" {
-  provider = ibm.ibm-is
-  count    = var.client_to_site_vpn.enable ? 1 : 0
-
-  vpc                              = [for vpc in module.landing_zone.vpc_data : vpc.vpc_id if vpc.vpc_name == "${var.prefix}-edge"][0]
-  name                             = "${var.prefix}-route-table-vpn-server-transit"
-  route_transit_gateway_ingress    = true
-  accept_routes_from_resource_type = ["vpn_server"]
 }
 
 # Allows VPN Clients <=> Transit Gateway traffic

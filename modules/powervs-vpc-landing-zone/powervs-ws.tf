@@ -1,3 +1,7 @@
+###########################################################
+# PowerVS Workspace module
+###########################################################
+
 locals {
   powervs_custom_image1 = (
     var.powervs_custom_images.powervs_custom_image1.image_name == "" &&
@@ -25,13 +29,15 @@ module "powervs_workspace" {
   source  = "terraform-ibm-modules/powervs-workspace/ibm"
   version = "3.2.1"
 
+  providers = { ibm = ibm.ibm-pi }
+
   pi_zone                                 = var.powervs_zone
   pi_resource_group_name                  = var.powervs_resource_group_name
-  pi_workspace_name                       = local.powervs_workspace_name
-  pi_ssh_public_key                       = local.powervs_ssh_public_key
+  pi_workspace_name                       = "${var.prefix}-${var.powervs_zone}-power-workspace"
+  pi_ssh_public_key                       = { "name" = "${var.prefix}-${var.powervs_zone}-pvs-ssh-key", value = var.ssh_public_key }
   pi_private_subnet_1                     = var.powervs_management_network
   pi_private_subnet_2                     = var.powervs_backup_network
-  pi_transit_gateway_connection           = { "enable" : true, "transit_gateway_id" : local.transit_gateway_id }
+  pi_transit_gateway_connection           = { "enable" : true, "transit_gateway_id" : module.landing_zone.transit_gateway_data.id }
   pi_tags                                 = var.tags
   pi_custom_image1                        = local.powervs_custom_image1
   pi_custom_image2                        = local.powervs_custom_image2

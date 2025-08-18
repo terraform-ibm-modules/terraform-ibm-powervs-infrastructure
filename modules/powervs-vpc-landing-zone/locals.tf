@@ -52,5 +52,4 @@ locals {
   validate_json_msg = "Wrong JSON preset used. Please use one of the JSON preset supported for Power."
   # tflint-ignore: terraform_unused_declarations
   validate_json_chk = regex("^${local.validate_json_msg}$", (local.valid_json_used ? local.validate_json_msg : ""))
-
 }
