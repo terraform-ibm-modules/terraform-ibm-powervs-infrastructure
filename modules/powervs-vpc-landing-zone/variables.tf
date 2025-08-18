@@ -302,3 +302,13 @@ variable "ansible_vault_password" {
     error_message = "ansible_vault_password is required when enable_scc_wp=true"
   }
 }
+
+#################################################
+# Optional Parameters DNS IP
+#################################################
+
+variable "vpn_dns_ips" {
+  description = "IP of the DNS server to use in VPN configuration"
+  type        = list(string)
+  default     = null
+}
