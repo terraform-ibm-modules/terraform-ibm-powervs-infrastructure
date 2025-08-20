@@ -55,6 +55,24 @@ variable "transit_gateway_global" {
   default     = false
 }
 
+variable "ibm_dns_service" {
+  description = "Create IBM DNS service instance, DNS zone, and custom resolver. If set to false, then the DNS service and zone will not be created. Conflicts with 'configure_dns_forwarder'."
+  type = object({
+    enable      = bool
+    name        = optional(string)
+    base_domain = optional(string)
+    label       = optional(string)
+  })
+  default = {
+    "enable" = false
+  }
+
+  validation {
+    condition     = var.ibm_dns_service.enable != var.configure_dns_forwarder
+    error_message = "The 'ibm_dns_service' and 'configure_dns_forwarder' cannot both be true."
+  }
+}
+
 #####################################################
 # Optional Parameter Network Services VSI Profile
 #####################################################
@@ -224,17 +242,24 @@ variable "powervs_custom_image_cos_service_credentials" {
 #####################################################
 
 variable "client_to_site_vpn" {
-  description = "VPN configuration - the client ip pool and list of users email ids to access the environment. If enabled, then a Secret Manager instance is also provisioned with certificates generated. See optional parameters to reuse an existing Secrets manager instance."
+  description = "VPN configuration - the client ip pool and list of users email ids to access the environment. If enabled, then a Secret Manager instance is also provisioned with certificates generated. See optional parameters to reuse an existing Secrets manager instance. PowerVS server routes need to be created for the VPN so the PowerVS instances can be reached. Each route must have a unique name and destination CIDR."
   type = object({
     enable                        = bool
     client_ip_pool                = string
     vpn_client_access_group_users = list(string)
-  })
+    powervs_server_routes = list(object({
+      route_name  = string
+      destination = string
+      action      = string
+    }))
+    }
+  )
 
   default = {
     "enable" : false,
     "client_ip_pool" : "192.168.0.0/16",
-    "vpn_client_access_group_users" : []
+    "vpn_client_access_group_users" : [],
+    "powervs_server_routes" : null,
   }
 }
 
@@ -301,14 +326,4 @@ variable "ansible_vault_password" {
     condition     = var.enable_scc_wp ? var.ansible_vault_password != null : true
     error_message = "ansible_vault_password is required when enable_scc_wp=true"
   }
-}
-
-#################################################
-# Optional Parameters DNS IP
-#################################################
-
-variable "vpn_dns_ips" {
-  description = "IP of the DNS server to use in VPN configuration"
-  type        = list(string)
-  default     = null
 }

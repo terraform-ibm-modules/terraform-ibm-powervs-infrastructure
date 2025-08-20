@@ -2,58 +2,52 @@
 # PowerVS with VPC landing zone module
 #####################################################
 
-# module "standard" {
-#   source = "../../modules/powervs-vpc-landing-zone"
-
-#   providers = { ibm.ibm-is = ibm.ibm-is, ibm.ibm-pi = ibm.ibm-pi, ibm.ibm-sm = ibm.ibm-sm }
-
-#   powervs_zone                     = var.powervs_zone
-#   prefix                           = var.prefix
-#   external_access_ip               = var.external_access_ip
-#   ssh_public_key                   = var.ssh_public_key
-#   ssh_private_key                  = var.ssh_private_key
-#   client_to_site_vpn               = var.client_to_site_vpn
-#   vpc_intel_images                 = var.vpc_intel_images
-#   configure_dns_forwarder          = false
-#   configure_ntp_forwarder          = var.configure_ntp_forwarder
-#   configure_nfs_server             = var.configure_nfs_server
-#   dns_forwarder_config             = null
-#   nfs_server_config                = var.nfs_server_config
-#   powervs_resource_group_name      = var.powervs_resource_group_name
-#   powervs_management_network       = null
-#   powervs_backup_network           = null
-#   tags                             = var.tags
-#   sm_service_plan                  = var.sm_service_plan
-#   existing_sm_instance_guid        = var.existing_sm_instance_guid
-#   existing_sm_instance_region      = var.existing_sm_instance_region
-#   network_services_vsi_profile     = var.network_services_vsi_profile
-#   enable_monitoring                = var.enable_monitoring
-#   existing_monitoring_instance_crn = var.existing_monitoring_instance_crn
-#   enable_scc_wp                    = var.enable_scc_wp
-#   ansible_vault_password           = var.ansible_vault_password
-# }
-
-#####################################################
-# DNS Service & Zone Creation
-#####################################################
-
-resource "ibm_resource_instance" "ibm_dns_instance" {
-  provider = ibm.ibm-is
-
-  name              = "${var.cluster_name}-dns"
-  resource_group_id = "" # TODO: replace with module output
-  location          = "global"
-  service           = "dns-svcs"
-  plan              = "standard-dns"
+locals {
+  powervs_server_routes = [
+    {
+      route_name  = "cluster_network"
+      destination = var.cluster_network_config.cluster_network_cidr
+      action      = "deliver"
+    },
+    {
+      route_name  = "cluster_service_network"
+      destination = var.cluster_network_config.cluster_service_network_cidr
+      action      = "deliver"
+    }
+  ]
+  client_to_site_vpn = merge(var.client_to_site_vpn, { "powervs_server_routes" : local.powervs_server_routes })
 }
 
-resource "ibm_dns_zone" "dns_zone" {
-  provider = ibm.ibm-is
+module "standard" {
+  source = "../../modules/powervs-vpc-landing-zone"
 
-  name        = var.cluster_base_domain
-  instance_id = ibm_resource_instance.ibm_dns_instance.guid
-  description = "IBM DNS instance created by deployable architecture for OpenShift IPI on Power Virtual Server"
-  label       = var.cluster_name
+  providers = { ibm.ibm-is = ibm.ibm-is, ibm.ibm-pi = ibm.ibm-pi, ibm.ibm-sm = ibm.ibm-sm }
+
+  powervs_zone                     = var.powervs_zone
+  prefix                           = var.prefix
+  external_access_ip               = var.external_access_ip
+  ssh_public_key                   = var.ssh_public_key
+  ssh_private_key                  = var.ssh_private_key
+  client_to_site_vpn               = local.client_to_site_vpn
+  vpc_intel_images                 = var.vpc_intel_images
+  configure_dns_forwarder          = false
+  configure_ntp_forwarder          = var.configure_ntp_forwarder
+  configure_nfs_server             = var.configure_nfs_server
+  dns_forwarder_config             = null
+  nfs_server_config                = var.nfs_server_config
+  powervs_resource_group_name      = var.powervs_resource_group_name
+  powervs_management_network       = null
+  powervs_backup_network           = null
+  tags                             = var.tags
+  sm_service_plan                  = var.sm_service_plan
+  existing_sm_instance_guid        = var.existing_sm_instance_guid
+  existing_sm_instance_region      = var.existing_sm_instance_region
+  network_services_vsi_profile     = var.network_services_vsi_profile
+  enable_monitoring                = var.enable_monitoring
+  existing_monitoring_instance_crn = var.existing_monitoring_instance_crn
+  enable_scc_wp                    = var.enable_scc_wp
+  ansible_vault_password           = var.ansible_vault_password
+  ibm_dns_service                  = { enable = true, name = "${var.cluster_name}-dns", base_domain = var.cluster_base_domain, label = var.cluster_name }
 }
 
 #####################################################
@@ -66,11 +60,11 @@ locals {
 }
 
 module "ocp_cluster_install_configuration" {
-  source = "../../modules/ansible"
-  #depends_on = [ module.standard ] # TODO: uncomment during integration
+  source     = "../../modules/ansible"
+  depends_on = [module.standard]
 
-  bastion_host_ip        = "" # TODO: replace with module output
-  ansible_host_or_ip     = "" # TODO: replace with module output
+  bastion_host_ip        = module.standard.access_host_or_ip
+  ansible_host_or_ip     = module.standard.ansible_host_or_ip
   ssh_private_key        = var.ssh_private_key
   configure_ansible_host = false
 
@@ -95,12 +89,12 @@ module "ocp_cluster_install_configuration" {
     MASTER_PROC_TYPE : var.cluster_master_node_config.proc_type,
     MASTER_REPLICAS : var.cluster_master_node_config.replicas,
     USER_ID : var.user_id,
-    TRANSIT_GATEWAY_NAME : "",   # TODO: replace with module output
-    POWERVS_WORKSPACE_GUID : "", # TODO: replace with module output
+    TRANSIT_GATEWAY_NAME : module.standard.transit_gateway_name,
+    POWERVS_WORKSPACE_GUID : module.standard.powervs_workspace_guid,
     RESOURCE_GROUP : var.powervs_resource_group_name,
     POWERVS_REGION : local.powervs_region,
     POWERVS_ZONE : var.powervs_zone,
-    VPC_NAME : "", # TODO: replace with module output
+    VPC_NAME : module.standard.vpc_names[0],
     VPC_REGION : local.vpc_region
     PULL_SECRET_FILE : jsonencode(var.openshift_pull_secret),
     SSH_KEY : var.ssh_public_key,
@@ -108,15 +102,15 @@ module "ocp_cluster_install_configuration" {
 
   src_inventory_template_name = "inventory.tftpl"
   dst_inventory_file_name     = "${var.cluster_name}-playbook-ocp-install-config-inventory"
-  inventory_template_vars     = { "host_or_ip" : "" } #TODO: replace with module output (ansible_host_or_ip)
+  inventory_template_vars     = { "host_or_ip" : module.standard.ansible_host_or_ip }
 }
 
 module "ocp_cluster_manifest_creation" {
   source     = "../../modules/ansible"
   depends_on = [module.ocp_cluster_install_configuration]
 
-  bastion_host_ip        = "" # TODO: replace with module output
-  ansible_host_or_ip     = "" # TODO: replace with module output
+  bastion_host_ip        = module.standard.access_host_or_ip
+  ansible_host_or_ip     = module.standard.ansible_host_or_ip
   ssh_private_key        = var.ssh_private_key
   configure_ansible_host = false
   ibmcloud_api_key       = var.ibmcloud_api_key
@@ -137,15 +131,15 @@ module "ocp_cluster_manifest_creation" {
 
   src_inventory_template_name = "inventory.tftpl"
   dst_inventory_file_name     = "${var.cluster_name}-playbook-ocp-install-config-inventory"
-  inventory_template_vars     = { "host_or_ip" : "" } #TODO: replace with module output (ansible_host_or_ip)
+  inventory_template_vars     = { "host_or_ip" : module.standard.ansible_host_or_ip }
 }
 
 module "ocp_cluster_deployment" {
   source     = "../../modules/ansible"
   depends_on = [module.ocp_cluster_manifest_creation]
 
-  bastion_host_ip        = "" # TODO: replace with module output
-  ansible_host_or_ip     = "" # TODO: replace with module output
+  bastion_host_ip        = module.standard.access_host_or_ip
+  ansible_host_or_ip     = module.standard.ansible_host_or_ip
   ssh_private_key        = var.ssh_private_key
   configure_ansible_host = false
   ibmcloud_api_key       = var.ibmcloud_api_key
@@ -169,5 +163,5 @@ module "ocp_cluster_deployment" {
 
   src_inventory_template_name = "inventory.tftpl"
   dst_inventory_file_name     = "${var.cluster_name}-playbook-ocp-install-config-inventory"
-  inventory_template_vars     = { "host_or_ip" : "" } #TODO: replace with module output (ansible_host_or_ip)
+  inventory_template_vars     = { "host_or_ip" : module.standard.ansible_host_or_ip }
 }

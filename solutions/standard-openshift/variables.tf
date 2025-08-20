@@ -54,16 +54,6 @@ variable "cluster_name" {
 }
 
 #####################################################
-# Optional Parameters PowerVS Instance
-#####################################################
-
-variable "custom_profile_instance_boot_image" {
-  description = "Override the t-shirt size specs of PowerVS Workspace instance by selecting an image name and providing valid 'custom_profile' optional parameter."
-  type        = string
-  default     = "none"
-}
-
-#####################################################
 # Optional Parameters Openshift Cluster
 #####################################################
 
@@ -258,7 +248,7 @@ variable "existing_sm_instance_region" {
 # Schematics Output
 #############################################################################
 
-# tflint-ignore: terraform_naming_convention
+# tflint-ignore: all
 variable "IC_SCHEMATICS_WORKSPACE_ID" {
   description = "leave blank if running locally. This variable will be automatically populated if running from an IBM Cloud Schematics workspace"
   type        = string
