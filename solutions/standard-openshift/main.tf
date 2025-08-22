@@ -5,12 +5,12 @@
 locals {
   powervs_server_routes = [
     {
-      route_name  = "cluster_network"
+      route_name  = "cluster-network"
       destination = var.cluster_network_config.cluster_network_cidr
       action      = "deliver"
     },
     {
-      route_name  = "cluster_service_network"
+      route_name  = "cluster-service-network"
       destination = var.cluster_network_config.cluster_service_network_cidr
       action      = "deliver"
     }
