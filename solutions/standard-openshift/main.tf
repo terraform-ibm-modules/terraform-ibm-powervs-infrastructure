@@ -16,6 +16,13 @@ locals {
     }
   ]
   client_to_site_vpn = merge(var.client_to_site_vpn, { "powervs_server_routes" : local.powervs_server_routes })
+
+  # automatically pick the supported system type unless it's overwritten by the user
+  p10_unsupported_regions = ["che01", "lon04", "lon06", "mon01", "syd04", "syd05", "tor01", "us-east"] # datacenters that don't support P10 yet
+  system_type             = contains(local.p10_unsupported_regions, var.powervs_zone) ? "s922" : "s1022"
+
+  cluster_master_node_config = var.cluster_master_node_config.system_type != null ? var.cluster_master_node_config : merge(var.cluster_master_node_config, { system_type : local.system_type })
+  cluster_worker_node_config = var.cluster_worker_node_config.system_type != null ? var.cluster_worker_node_config : merge(var.cluster_worker_node_config, { system_type : local.system_type })
 }
 
 module "standard" {
@@ -80,14 +87,14 @@ module "ocp_cluster_install_configuration" {
     CLUSTER_NAME : var.cluster_name,
     CLUSTER_NETWORK : var.cluster_network_config.cluster_network_cidr,
     CLUSTER_SERVICE_NETWORK : var.cluster_network_config.cluster_service_network_cidr,
-    WORKER_PROCESSORS : var.cluster_worker_node_config.processors,
-    WORKER_SYSTEM_TYPE : var.cluster_worker_node_config.system_type,
-    WORKER_PROC_TYPE : var.cluster_worker_node_config.proc_type,
-    WORKER_REPLICAS : var.cluster_worker_node_config.replicas,
-    MASTER_PROCESSORS : var.cluster_master_node_config.processors,
-    MASTER_SYSTEM_TYPE : var.cluster_master_node_config.system_type,
-    MASTER_PROC_TYPE : var.cluster_master_node_config.proc_type,
-    MASTER_REPLICAS : var.cluster_master_node_config.replicas,
+    WORKER_PROCESSORS : local.cluster_worker_node_config.processors,
+    WORKER_SYSTEM_TYPE : local.cluster_worker_node_config.system_type,
+    WORKER_PROC_TYPE : local.cluster_worker_node_config.proc_type,
+    WORKER_REPLICAS : local.cluster_worker_node_config.replicas,
+    MASTER_PROCESSORS : local.cluster_master_node_config.processors,
+    MASTER_SYSTEM_TYPE : local.cluster_master_node_config.system_type,
+    MASTER_PROC_TYPE : local.cluster_master_node_config.proc_type,
+    MASTER_REPLICAS : local.cluster_master_node_config.replicas,
     USER_ID : var.user_id,
     TRANSIT_GATEWAY_NAME : module.standard.transit_gateway_name,
     POWERVS_WORKSPACE_GUID : module.standard.powervs_workspace_guid,
