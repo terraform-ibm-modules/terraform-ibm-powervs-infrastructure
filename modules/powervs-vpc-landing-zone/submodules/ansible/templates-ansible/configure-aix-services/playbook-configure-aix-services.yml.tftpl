@@ -1,0 +1,262 @@
+---
+- name: AIX Configuration (configure proxy,configure NTP, extend rootvg, filesystem creation, install curl, configure NFS)
+  hosts: all
+  gather_facts: no
+
+  vars:
+    EXTEND_ROOT_VOLUME_WWN: "${EXTEND_ROOT_VOLUME_WWN}"
+    DATA_VOLUME_WWN: "${DATA_VOLUME_WWN}"
+    DATA_VOLUME_MOUNT_PATH: "${DATA_VOLUME_MOUNT_PATH}"
+    DATAVG: "${DATAVG}"
+    DATALV: "${DATALV}"
+    PROXY_IP_PORT: "${PROXY_IP_PORT}"
+    NO_PROXY: "${NO_PROXY}"
+    NFS_ENABLE: "${NFS_ENABLE}"
+    NFS_MOUNT_POINT: "${NFS_MOUNT_POINT}"
+    NFS_HOST_OR_PATH: "${NFS_HOST_OR_PATH}"
+    NTP_ENABLE: "${NTP_ENABLE}"
+    NTP_SERVER: "${NTP_SERVER}"
+    # Hardcoded values (Terraform can override)
+    NFS_DOMAIN: "${NFS_DOMAIN}"
+    NFS_HOSTNAME: "${NFS_HOSTNAME}"
+    ansible_shell_executable: /usr/bin/ksh
+    ansible_shell_type: sh
+
+  tags:
+    - rootvg
+    - data
+    - proxy
+    - curl
+    - ntp
+    - nfs
+
+  tasks:
+    ##############################################################
+    # Show derived variables
+    ##############################################################
+    - name: Show derived variables
+      ansible.builtin.debug:
+        msg:
+          - "EXTEND_ROOT_VOLUME_WWN = {{ EXTEND_ROOT_VOLUME_WWN }}"
+          - "DATA_VOLUME_WWN = {{ DATA_VOLUME_WWN }}"
+          - "DATA_VOLUME_MOUNT_PATH = {{ DATA_VOLUME_MOUNT_PATH }}"
+          - "DATAVG = {{ DATAVG }}"
+          - "DATALV = {{ DATALV }}"
+
+    - name: Show all variables from Terraform
+      ansible.builtin.debug:
+        msg:
+          - "PROXY_IP_PORT = {{ PROXY_IP_PORT }}"
+          - "NO_PROXY = {{ NO_PROXY }}"
+          - "NFS_ENABLE = {{ NFS_ENABLE }}"
+          - "NFS_MOUNT_POINT = {{ NFS_MOUNT_POINT }}"
+          - "NFS_HOST_OR_PATH = {{ NFS_HOST_OR_PATH }}"
+          - "NTP_ENABLE = {{ NTP_ENABLE }}"
+          - "NTP_SERVER = {{ NTP_SERVER }}"
+          - "NFS_DOMAIN = {{ NFS_DOMAIN }}"
+          - "NFS_HOSTNAME = {{ NFS_HOSTNAME }}"
+
+    ##############################################################
+    # Configure proxy
+    ##############################################################
+    - name: Show proxy variables
+      ansible.builtin.debug:
+        msg:
+          - "PROXY_IP_PORT = {{ PROXY_IP_PORT }}"
+          - "NO_PROXY = {{ NO_PROXY }}"
+      tags: proxy
+
+    - name: Set proxy environment variables in /etc/profile
+      ansible.builtin.blockinfile:
+        path: /etc/profile
+        marker: "# {mark} PROXY SETTINGS"
+        block: |
+          export http_proxy=http://{{ PROXY_IP_PORT }}
+          export https_proxy=http://{{ PROXY_IP_PORT }}
+          export HTTP_PROXY=http://{{ PROXY_IP_PORT }}
+          export HTTPS_PROXY=http://{{ PROXY_IP_PORT }}
+          export no_proxy={{ NO_PROXY }}
+      tags: proxy
+
+    - name: Export proxy variables for current session
+      ansible.builtin.shell: |
+        export http_proxy=http://{{ PROXY_IP_PORT }}
+        export https_proxy=http://{{ PROXY_IP_PORT }}
+        export HTTP_PROXY=http://{{ PROXY_IP_PORT }}
+        export HTTPS_PROXY=http://{{ PROXY_IP_PORT }}
+        export no_proxy={{ NO_PROXY }}
+      tags: proxy
+
+    ##############################################################
+    # Configure NTP
+    ##############################################################
+    - name: Ensure NTP server entry is in /etc/ntp.conf
+      ansible.builtin.lineinfile:
+        path: /etc/ntp.conf
+        line: "server {{ NTP_SERVER }}"
+        state: present
+      when: NTP_ENABLE | bool
+      tags: ntp
+
+    - name: Restart NTP service if not active
+      ansible.builtin.shell: |
+        stopsrc -s xntpd || true
+        startsrc -s xntpd
+      when: NTP_ENABLE | bool
+      tags: ntp
+
+    ##############################################################
+    # Extend rootvg
+    ##############################################################
+
+    - name: Get hdisk with given WWN (run cfgmgr first)
+      ansible.builtin.shell: |
+        cfgmgr >/dev/null 2>&1
+        lspv -u | grep -i {{ EXTEND_ROOT_VOLUME_WWN }} | awk '{print $1}'
+      register: hdisk_name
+      changed_when: false
+      tags: rootvg
+
+    - name: Get current MAX PPs per PV for rootvg
+      ansible.builtin.shell: "lsvg rootvg | grep 'MAX PPs per PV' | awk '{print $5}'"
+      register: chvg_limit
+      changed_when: false
+      tags: rootvg
+
+    - name: Update rootvg partition limit if less than 1024
+      ansible.builtin.shell: "chvg -t 16 rootvg"
+      when: chvg_limit.stdout | int < 1024
+      tags: rootvg
+
+    - name: Discover hdisk by WWN for rootvg extension
+      ansible.builtin.shell: >
+        lspv -u | tr '[:upper:]' '[:lower:]' |
+        awk -v w="{{ EXTEND_ROOT_VOLUME_WWN | lower }}" 'index($0,w){print $1; exit}'
+      register: hdisk_name
+      changed_when: false
+      tags: rootvg
+
+    - name: Mark hdisk as physical volume
+      ansible.builtin.command: "chdev -l {{ hdisk_name.stdout }} -a pv=yes"
+      when: hdisk_name.stdout != ""
+      tags: rootvg
+
+    - name: Extend rootvg with new disk
+      community.general.aix_lvg:
+        vg: rootvg
+        pvs: ["{{ hdisk_name.stdout }}"]
+        force: true
+        state: present
+      when: hdisk_name.stdout != ""
+      tags: rootvg
+
+    # Resize filesystems individually instead of using loop
+    - name: Resizing / to 8G
+      community.general.aix_filesystem:
+        filesystem: /
+        size: 8G
+        state: present
+      tags: rootvg
+
+    - name: Resizing /usr to 8G
+      community.general.aix_filesystem:
+        filesystem: /usr
+        size: 8G
+        state: present
+      tags: rootvg
+
+    - name: Resizing /opt to 6G
+      community.general.aix_filesystem:
+        filesystem: /opt
+        size: 6G
+        state: present
+      tags: rootvg
+
+    - name: Resizing /var to 6G
+      community.general.aix_filesystem:
+        filesystem: /var
+        size: 6G
+        state: present
+      tags: rootvg
+
+    - name: Resizing /tmp to 4G
+      community.general.aix_filesystem:
+        filesystem: /tmp
+        size: 4G
+        state: present
+      tags: rootvg
+
+    ##############################################################
+    # Install curl package
+    ##############################################################
+    - name: Install curl package using dnf
+      ansible.builtin.shell: |
+        . /etc/profile && echo 'y' | /opt/freeware/bin/dnf install curl-7.53*
+      register: curl_install
+      changed_when: "'Complete!' in curl_install.stdout or 'Nothing to do.' in curl_install.stdout"
+      tags: curl
+
+    - name: Verify curl installation
+      ansible.builtin.shell: |
+        . /etc/profile && /opt/freeware/bin/dnf list installed curl | grep curl
+      register: curl_check
+      changed_when: false
+      failed_when: curl_check.rc != 0
+      tags: curl
+
+
+    ##############################################################
+    # Configure NFS
+    ##############################################################
+    - name: Show NFS variables
+      ansible.builtin.debug:
+        msg:
+          - "NFS_ENABLE = {{ NFS_ENABLE }}"
+          - "NFS_HOST_OR_PATH = {{ NFS_HOST_OR_PATH }}"
+          - "NFS_MOUNT_POINT = {{ NFS_MOUNT_POINT }}"
+          - "NFS_DOMAIN = {{ NFS_DOMAIN }}"
+          - "NFS_HOSTNAME = {{ NFS_HOSTNAME }}"
+      tags: nfs
+
+    - name: Configure NFS if enabled
+      when: NFS_ENABLE | bool
+      block:
+        - name: Set NFS domain
+          ansible.builtin.command: chnfsdom "{{ NFS_DOMAIN }}"
+          changed_when: false
+          tags: nfs
+
+        - name: Ensure NFS services running
+          ansible.builtin.command: startsrc -g nfs
+          changed_when: false
+          tags: nfs
+
+        - name: Ensure NFS server entry in /etc/hosts
+          ansible.builtin.lineinfile:
+            path: /etc/hosts
+            line: "{{ NFS_HOST_OR_PATH.split(':')[0] }} {{ NFS_HOSTNAME }}"
+            state: present
+          tags: nfs
+
+        - name: Create mount directory
+          ansible.builtin.file:
+            path: "{{ NFS_MOUNT_POINT }}"
+            state: directory
+          tags: nfs
+
+        - name: Check if NFS already mounted
+          ansible.builtin.shell: "mount | awk '{print $2}' | grep -w {{ NFS_MOUNT_POINT }} || true"
+          register: nfs_mount_check
+          changed_when: false
+          tags: nfs
+
+        - name: Mount NFS share (NFSv4)
+          ansible.builtin.command: "mount -o vers=4 {{ NFS_HOST_OR_PATH }} {{ NFS_MOUNT_POINT }}"
+          when: nfs_mount_check.stdout == ""
+          tags: nfs
+
+        - name: Show NFS mount status
+          ansible.builtin.command: df -g {{ NFS_MOUNT_POINT }}
+          register: nfs_mount_status
+          changed_when: false
+          tags: nfs
