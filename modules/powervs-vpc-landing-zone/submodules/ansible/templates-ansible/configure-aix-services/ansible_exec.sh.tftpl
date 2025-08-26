@@ -1,0 +1,22 @@
+#!/bin/bash
+
+### Using input variables from terraform
+ansible_playbook=${ansible_playbook_file}
+ansible_log_path=${ansible_log_path}
+ansible_inventory=${ansible_inventory}
+ansible_private_key_file=${ansible_private_key_file}
+
+# Create ansible.cfg file
+ansible_playbook_name=$(basename $${ansible_playbook})
+echo -e "[defaults]\nhost_key_checking=False" >ansible.cfg
+export ANSIBLE_LOG_PATH=$${ansible_log_path}/$${ansible_playbook_name}.$(date "+%Y.%m.%d-%H.%M.%S").log
+export ANSIBLE_PRIVATE_KEY_FILE=$${ansible_private_key_file}
+
+#Execute ansible playbook
+unbuffer ansible-playbook -i $${ansible_inventory} $${ansible_playbook}
+if [ $? -ne 0 ]; then
+    rm -rf $${ansible_private_key_file}
+    exit 1
+fi
+echo \"Playbook command successful\"
+rm -rf $${ansible_private_key_file}
