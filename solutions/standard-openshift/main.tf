@@ -42,7 +42,7 @@ module "standard" {
   configure_nfs_server             = var.configure_nfs_server
   dns_forwarder_config             = null
   nfs_server_config                = var.nfs_server_config
-  powervs_resource_group_name      = var.powervs_resource_group_name
+  powervs_resource_group_name      = null
   powervs_management_network       = null
   powervs_backup_network           = null
   tags                             = var.tags
@@ -98,7 +98,7 @@ module "ocp_cluster_install_configuration" {
     USER_ID : var.user_id,
     TRANSIT_GATEWAY_NAME : module.standard.transit_gateway_name,
     POWERVS_WORKSPACE_GUID : module.standard.powervs_workspace_guid,
-    RESOURCE_GROUP : var.powervs_resource_group_name,
+    RESOURCE_GROUP : "ocp-rg",
     POWERVS_REGION : local.powervs_region,
     POWERVS_ZONE : var.powervs_zone,
     VPC_NAME : module.standard.vpc_names[0],
@@ -133,7 +133,7 @@ module "ocp_cluster_manifest_creation" {
     CLUSTER_DIR : "/root/${var.cluster_dir}",
     REQUESTS_DIR : "./credreqs"
     ACCOUNT_NAME : var.cluster_name,
-    RESOURCE_GROUP : var.powervs_resource_group_name,
+    RESOURCE_GROUP : "ocp-rg",
   }
 
   src_inventory_template_name = "inventory.tftpl"
@@ -160,7 +160,7 @@ module "ocp_cluster_deployment" {
     IBM_ID : var.user_id
     POWERVS_REGION : local.powervs_region,
     POWERVS_ZONE : var.powervs_zone,
-    RESOURCE_GROUP : var.powervs_resource_group_name,
+    RESOURCE_GROUP : "ocp-rg",
     CLUSTER_DIR : var.cluster_dir,
     OPENSHIFT_INSTALL_BOOTSTRAP_TIMEOUT : "120m",
     OPENSHIFT_INSTALL_MACHINE_WAIT_TIMEOUT : "35m",

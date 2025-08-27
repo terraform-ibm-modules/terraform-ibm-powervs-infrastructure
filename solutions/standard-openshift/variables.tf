@@ -117,12 +117,6 @@ variable "cluster_worker_node_config" {
 # Optional Parameters PowerVS Workspace
 #####################################################
 
-variable "powervs_resource_group_name" {
-  description = "Existing IBM Cloud resource group name."
-  type        = string
-  default     = "Default"
-}
-
 variable "tags" {
   description = "List of tag names for the IBM Cloud PowerVS workspace"
   type        = list(string)
