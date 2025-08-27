@@ -34,15 +34,40 @@
           }
         mode: '0600'
 
-    - name: Run openshift-install create cluster
-      ansible.builtin.shell: |
-        openshift-install create cluster --dir={{ install_dir }} --log-level=debug
-      environment:
-        IBMCLOUD_API_KEY: "{{ lookup('env', 'IBMCLOUD_API_KEY') }}"
-        OPENSHIFT_INSTALL_BOOTSTRAP_TIMEOUT: "{{ openshift_install_bootstrap_timeout }}"
-        OPENSHIFT_INSTALL_MACHINE_WAIT_TIMEOUT: "{{ openshift_install_machine_wait_timeout }}"
-        OPENSHIFT_INSTALL_CLUSTER_TIMEOUT: "{{ openshift_install_cluster_timeout }}"
-        OPENSHIFT_INSTALL_DESTROY_TIMEOUT: "{{ openshift_install_destroy_timeout }}"
+    - name: Create the Cluster
+      block:
+        - name: Run openshift-install create cluster
+          ansible.builtin.shell: |
+            openshift-install create cluster --dir={{ install_dir }} --log-level=debug
+          environment:
+            IBMCLOUD_API_KEY: "{{ lookup('env', 'IBMCLOUD_API_KEY') }}"
+            OPENSHIFT_INSTALL_BOOTSTRAP_TIMEOUT: "{{ openshift_install_bootstrap_timeout }}"
+            OPENSHIFT_INSTALL_MACHINE_WAIT_TIMEOUT: "{{ openshift_install_machine_wait_timeout }}"
+            OPENSHIFT_INSTALL_CLUSTER_TIMEOUT: "{{ openshift_install_cluster_timeout }}"
+            OPENSHIFT_INSTALL_DESTROY_TIMEOUT: "{{ openshift_install_destroy_timeout }}"
 
-      register: install_output
-      ignore_errors: false
+          register: install_output
+          ignore_errors: false
+
+      rescue:
+        - name: Wait for OpenShift install to complete
+          ansible.builtin.shell: |
+            openshift-install wait-for install-complete
+          environment:
+            IBMCLOUD_API_KEY: "{{ lookup('env', 'IBMCLOUD_API_KEY') }}"
+            OPENSHIFT_INSTALL_BOOTSTRAP_TIMEOUT: "{{ openshift_install_bootstrap_timeout }}"
+            OPENSHIFT_INSTALL_MACHINE_WAIT_TIMEOUT: "{{ openshift_install_machine_wait_timeout }}"
+            OPENSHIFT_INSTALL_CLUSTER_TIMEOUT: "{{ openshift_install_cluster_timeout }}"
+            OPENSHIFT_INSTALL_DESTROY_TIMEOUT: "{{ openshift_install_destroy_timeout }}"
+
+          register: wait_for_install_output
+          ignore_errors: false
+
+        - name: Print wait_for_install_output
+          ansible.builtin.debug:
+            var: wait_for_install_output
+
+      always:
+        - name: Print Create openshift-install create cluster install_output
+          ansible.builtin.debug:
+            var: install_output
