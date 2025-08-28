@@ -4,7 +4,7 @@ variable "powervs_zone" {
 }
 
 variable "powervs_resource_group_name" {
-  description = "Existing IBM Cloud resource group name. Used for PowerVS related resources. If null, ocp-rg is created and used for TGW, VPC, and PowerVS resources."
+  description = "Existing IBM Cloud resource group name. Used for PowerVS related resources. If null, '<var.prefix>-ocp-rg' is created and used for TGW, VPC, and PowerVS resources."
   type        = string
 }
 

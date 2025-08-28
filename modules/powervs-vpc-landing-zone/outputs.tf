@@ -113,7 +113,7 @@ output "powervs_zone" {
 
 output "powervs_resource_group_name" {
   description = "IBM Cloud resource group where PowerVS infrastructure is created."
-  value       = var.powervs_resource_group_name
+  value       = "${var.prefix}-${local.second_rg_name}"
 }
 
 output "powervs_workspace_name" {

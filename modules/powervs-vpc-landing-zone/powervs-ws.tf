@@ -32,7 +32,7 @@ module "powervs_workspace" {
   providers = { ibm = ibm.ibm-pi }
 
   pi_zone                                 = var.powervs_zone
-  pi_resource_group_name                  = var.powervs_resource_group_name
+  pi_resource_group_id                    = module.landing_zone.resource_group_data["${var.prefix}-${local.second_rg_name}"]
   pi_workspace_name                       = "${var.prefix}-${var.powervs_zone}-power-workspace"
   pi_ssh_public_key                       = { "name" = "${var.prefix}-${var.powervs_zone}-pvs-ssh-key", value = var.ssh_public_key }
   pi_private_subnet_1                     = var.powervs_management_network
