@@ -52,7 +52,7 @@
       rescue:
         - name: Wait for OpenShift install to complete
           ansible.builtin.shell: |
-            openshift-install wait-for install-complete
+            openshift-install wait-for bootstrap-complete --dir={{ install_dir }} --log-level=debug
           environment:
             IBMCLOUD_API_KEY: "{{ lookup('env', 'IBMCLOUD_API_KEY') }}"
             OPENSHIFT_INSTALL_BOOTSTRAP_TIMEOUT: "{{ openshift_install_bootstrap_timeout }}"
