@@ -87,6 +87,7 @@ module "ocp_cluster_install_configuration" {
     CLUSTER_NAME : var.cluster_name,
     CLUSTER_NETWORK : var.cluster_network_config.cluster_network_cidr,
     CLUSTER_SERVICE_NETWORK : var.cluster_network_config.cluster_service_network_cidr,
+    MACHINE_NETWORK : var.cluster_network_config.cluster_machine_network_cidr
     WORKER_PROCESSORS : local.cluster_worker_node_config.processors,
     WORKER_SYSTEM_TYPE : local.cluster_worker_node_config.system_type,
     WORKER_PROC_TYPE : local.cluster_worker_node_config.proc_type,

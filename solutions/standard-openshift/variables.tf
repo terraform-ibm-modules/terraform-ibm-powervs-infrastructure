@@ -74,10 +74,12 @@ variable "cluster_network_config" {
   type = object({
     cluster_network_cidr         = string
     cluster_service_network_cidr = string
+    cluster_machine_network_cidr = string
   })
   default = {
     cluster_network_cidr         = "172.168.0.0/22"
     cluster_service_network_cidr = "10.67.0.0/24"
+    cluster_machine_network_cidr = "10.72.0.0/24"
   }
 }
 

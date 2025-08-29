@@ -7,6 +7,7 @@
     cluster_name: "${CLUSTER_NAME}"
     cluster_network: "${CLUSTER_NETWORK}"
     cluster_service_network: "${CLUSTER_SERVICE_NETWORK}"
+    machine_network: "${MACHINE_NETWORK}"
     worker_processors: "${WORKER_PROCESSORS}"
     worker_system_type: "${WORKER_SYSTEM_TYPE}"
     worker_proc_type: "${WORKER_PROC_TYPE}"
@@ -130,6 +131,8 @@
             networkType: OVNKubernetes
             serviceNetwork:
               - "{{ cluster_service_network }}"
+            machineNetwork:
+              - cidr: {{ machine_network }}
 
           platform:
             powervs:
