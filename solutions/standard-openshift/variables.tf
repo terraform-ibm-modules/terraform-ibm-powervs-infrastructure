@@ -98,6 +98,10 @@ variable "cluster_master_node_config" {
     replicas    = 3
   }
   validation {
+    condition     = var.cluster_master_node_config.system_type != null ? contains(["s1122", "s1022", "s922", "e980", "e1080", "e1050"], var.cluster_master_node_config.system_type) : true
+    error_message = "value"
+  }
+  validation {
     condition     = contains(["Capped", "Dedicated", "Shared"], var.cluster_master_node_config.proc_type)
     error_message = "Unsupported value for cluster_master_node_config.proc_type. Allowed values: Capped, Dedicated, Shared."
   }
@@ -116,6 +120,10 @@ variable "cluster_worker_node_config" {
     system_type = null
     proc_type   = "Dedicated"
     replicas    = 3
+  }
+  validation {
+    condition     = var.cluster_worker_node_config.system_type != null ? contains(["s1122", "s1022", "s922", "e980", "e1080", "e1050"], var.cluster_worker_node_config.system_type) : true
+    error_message = "value"
   }
   validation {
     condition     = contains(["Capped", "Dedicated", "Shared"], var.cluster_worker_node_config.proc_type)
