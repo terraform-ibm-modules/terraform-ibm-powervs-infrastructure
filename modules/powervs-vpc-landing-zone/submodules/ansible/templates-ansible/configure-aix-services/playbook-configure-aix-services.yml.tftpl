@@ -1,5 +1,5 @@
 ---
-- name: AIX Configuration (configure proxy,configure NTP, extend rootvg, filesystem creation, install curl, configure NFS)
+- name: AIX Configuration (configure proxy, configure NTP, extend rootvg, create data filesystem, install curl, configure NFS)
   hosts: all
   gather_facts: no
 
@@ -32,39 +32,41 @@
 
   tasks:
     ##############################################################
-    # Show derived variables
+    # Debug (commented out for production)
     ##############################################################
-    - name: Show derived variables
-      ansible.builtin.debug:
-        msg:
-          - "EXTEND_ROOT_VOLUME_WWN = {{ EXTEND_ROOT_VOLUME_WWN }}"
-          - "DATA_VOLUME_WWN = {{ DATA_VOLUME_WWN }}"
-          - "DATA_VOLUME_MOUNT_PATH = {{ DATA_VOLUME_MOUNT_PATH }}"
-          - "DATAVG = {{ DATAVG }}"
-          - "DATALV = {{ DATALV }}"
+    # - name: Show derived variables
+    #   ansible.builtin.debug:
+    #     msg:
+    #       - "EXTEND_ROOT_VOLUME_WWN = {{ EXTEND_ROOT_VOLUME_WWN }}"
+    #       - "DATA_VOLUME_WWN = {{ DATA_VOLUME_WWN }}"
+    #       - "DATA_VOLUME_MOUNT_PATH = {{ DATA_VOLUME_MOUNT_PATH }}"
+    #       - "DATAVG = {{ DATAVG }}"
+    #       - "DATALV = {{ DATALV }}"
+    #   tags: debug
 
-    - name: Show all variables from Terraform
-      ansible.builtin.debug:
-        msg:
-          - "PROXY_IP_PORT = {{ PROXY_IP_PORT }}"
-          - "NO_PROXY = {{ NO_PROXY }}"
-          - "NFS_ENABLE = {{ NFS_ENABLE }}"
-          - "NFS_MOUNT_POINT = {{ NFS_MOUNT_POINT }}"
-          - "NFS_HOST_OR_PATH = {{ NFS_HOST_OR_PATH }}"
-          - "NTP_ENABLE = {{ NTP_ENABLE }}"
-          - "NTP_SERVER = {{ NTP_SERVER }}"
-          - "NFS_DOMAIN = {{ NFS_DOMAIN }}"
-          - "NFS_HOSTNAME = {{ NFS_HOSTNAME }}"
+    # - name: Show all variables from Terraform
+    #   ansible.builtin.debug:
+    #     msg:
+    #       - "PROXY_IP_PORT = {{ PROXY_IP_PORT }}"
+    #       - "NO_PROXY = {{ NO_PROXY }}"
+    #       - "NFS_ENABLE = {{ NFS_ENABLE }}"
+    #       - "NFS_MOUNT_POINT = {{ NFS_MOUNT_POINT }}"
+    #       - "NFS_HOST_OR_PATH = {{ NFS_HOST_OR_PATH }}"
+    #       - "NTP_ENABLE = {{ NTP_ENABLE }}"
+    #       - "NTP_SERVER = {{ NTP_SERVER }}"
+    #       - "NFS_DOMAIN = {{ NFS_DOMAIN }}"
+    #       - "NFS_HOSTNAME = {{ NFS_HOSTNAME }}"
+    #   tags: debug
 
     ##############################################################
     # Configure proxy
     ##############################################################
-    - name: Show proxy variables
-      ansible.builtin.debug:
-        msg:
-          - "PROXY_IP_PORT = {{ PROXY_IP_PORT }}"
-          - "NO_PROXY = {{ NO_PROXY }}"
-      tags: proxy
+    # - name: Show proxy variables
+    #   ansible.builtin.debug:
+    #     msg:
+    #       - "PROXY_IP_PORT = {{ PROXY_IP_PORT }}"
+    #       - "NO_PROXY = {{ NO_PROXY }}"
+    #   tags: debug
 
     - name: Set proxy environment variables in /etc/profile
       ansible.builtin.blockinfile:
@@ -85,6 +87,7 @@
         export HTTP_PROXY=http://{{ PROXY_IP_PORT }}
         export HTTPS_PROXY=http://{{ PROXY_IP_PORT }}
         export no_proxy={{ NO_PROXY }}
+      changed_when: false
       tags: proxy
 
     ##############################################################
@@ -103,16 +106,17 @@
         stopsrc -s xntpd || true
         startsrc -s xntpd
       when: NTP_ENABLE | bool
+      changed_when: false
       tags: ntp
 
     ##############################################################
     # Extend rootvg
     ##############################################################
-
-    - name: Get hdisk with given WWN (run cfgmgr first)
+    - name: Discover hdisk by WWN for rootvg extension (run cfgmgr first)
       ansible.builtin.shell: |
         cfgmgr >/dev/null 2>&1
-        lspv -u | grep -i {{ EXTEND_ROOT_VOLUME_WWN }} | awk '{print $1}'
+        lspv -u | tr '[:upper:]' '[:lower:]' |
+        awk -v w="{{ EXTEND_ROOT_VOLUME_WWN | lower }}" 'index($0,w){print $1; exit}'
       register: hdisk_name
       changed_when: false
       tags: rootvg
@@ -126,19 +130,13 @@
     - name: Update rootvg partition limit if less than 1024
       ansible.builtin.shell: "chvg -t 16 rootvg"
       when: chvg_limit.stdout | int < 1024
-      tags: rootvg
-
-    - name: Discover hdisk by WWN for rootvg extension
-      ansible.builtin.shell: >
-        lspv -u | tr '[:upper:]' '[:lower:]' |
-        awk -v w="{{ EXTEND_ROOT_VOLUME_WWN | lower }}" 'index($0,w){print $1; exit}'
-      register: hdisk_name
       changed_when: false
       tags: rootvg
 
     - name: Mark hdisk as physical volume
       ansible.builtin.command: "chdev -l {{ hdisk_name.stdout }} -a pv=yes"
       when: hdisk_name.stdout != ""
+      changed_when: false
       tags: rootvg
 
     - name: Extend rootvg with new disk
@@ -150,40 +148,17 @@
       when: hdisk_name.stdout != ""
       tags: rootvg
 
-    # Resize filesystems individually instead of using loop
-    - name: Resizing / to 8G
+    - name: Resize filesystems
       community.general.aix_filesystem:
-        filesystem: /
-        size: 8G
+        filesystem: "{{ item.filesystem }}"
+        size: "{{ item.size }}"
         state: present
-      tags: rootvg
-
-    - name: Resizing /usr to 8G
-      community.general.aix_filesystem:
-        filesystem: /usr
-        size: 8G
-        state: present
-      tags: rootvg
-
-    - name: Resizing /opt to 6G
-      community.general.aix_filesystem:
-        filesystem: /opt
-        size: 6G
-        state: present
-      tags: rootvg
-
-    - name: Resizing /var to 6G
-      community.general.aix_filesystem:
-        filesystem: /var
-        size: 6G
-        state: present
-      tags: rootvg
-
-    - name: Resizing /tmp to 4G
-      community.general.aix_filesystem:
-        filesystem: /tmp
-        size: 4G
-        state: present
+      loop:
+        - { filesystem: "/",    size: "8G" }
+        - { filesystem: "/usr", size: "8G" }
+        - { filesystem: "/opt", size: "6G" }
+        - { filesystem: "/var", size: "6G" }
+        - { filesystem: "/tmp", size: "4G" }
       tags: rootvg
 
     ##############################################################
@@ -204,19 +179,18 @@
       failed_when: curl_check.rc != 0
       tags: curl
 
-
     ##############################################################
     # Configure NFS
     ##############################################################
-    - name: Show NFS variables
-      ansible.builtin.debug:
-        msg:
-          - "NFS_ENABLE = {{ NFS_ENABLE }}"
-          - "NFS_HOST_OR_PATH = {{ NFS_HOST_OR_PATH }}"
-          - "NFS_MOUNT_POINT = {{ NFS_MOUNT_POINT }}"
-          - "NFS_DOMAIN = {{ NFS_DOMAIN }}"
-          - "NFS_HOSTNAME = {{ NFS_HOSTNAME }}"
-      tags: nfs
+    # - name: Show NFS variables
+    #   ansible.builtin.debug:
+    #     msg:
+    #       - "NFS_ENABLE = {{ NFS_ENABLE }}"
+    #       - "NFS_HOST_OR_PATH = {{ NFS_HOST_OR_PATH }}"
+    #       - "NFS_MOUNT_POINT = {{ NFS_MOUNT_POINT }}"
+    #       - "NFS_DOMAIN = {{ NFS_DOMAIN }}"
+    #       - "NFS_HOSTNAME = {{ NFS_HOSTNAME }}"
+    #   tags: debug
 
     - name: Configure NFS if enabled
       when: NFS_ENABLE | bool
@@ -260,3 +234,98 @@
           register: nfs_mount_status
           changed_when: false
           tags: nfs
+
+    ##############################################################
+    # Create filesystem for data volume (AIX)
+    ##############################################################
+    - name: Get hdisk for data volume
+      ansible.builtin.shell: |
+        lspv -u | tr '[:upper:]' '[:lower:]' |
+        awk -v w="{{ DATA_VOLUME_WWN | lower }}" 'index($0,w){print $1; exit}'
+      register: data_hdisk
+      changed_when: false
+      tags: data
+
+    - name: Fail if data hdisk not found
+      ansible.builtin.fail:
+        msg: "Error: Disk {{ DATA_VOLUME_WWN }} not found."
+      when: data_hdisk.stdout == ""
+      tags: data
+
+    - name: Create Volume Group ({{ DATAVG }}) on data hdisk
+      ibm.power_aix.lvg:
+        vg_name: "{{ DATAVG }}"
+        pvs: ["{{ data_hdisk.stdout }}"]
+        state: present
+      tags: data
+
+    - name: Gather LVM facts
+      ibm.power_aix.lvm_facts:
+      register: lvm_info
+      tags: data
+
+    # - name: Show VG facts (for visibility)
+    #   ansible.builtin.debug:
+    #     var: lvm_info.ansible_facts.LVM.VGs[DATAVG]
+    #   tags: data
+
+    # - name: Print FREE PPs and PP SIZE
+    #   ansible.builtin.debug:
+    #     msg: "FREE PPs={{ lvm_info.ansible_facts.LVM.VGs[DATAVG]['FREE PPs'] }} , PP SIZE={{ lvm_info.ansible_facts.LVM.VGs[DATAVG]['PP SIZE'] }}"
+    #   tags: data
+
+    - name: Calculate LV size = Free PPs × PP Size
+      ansible.builtin.set_fact:
+        datalv_size: "{{ (lvm_info.ansible_facts.LVM.VGs[DATAVG]['FREE PPs'] | regex_search('^\\d+') | int) *
+                         (lvm_info.ansible_facts.LVM.VGs[DATAVG]['PP SIZE'] | regex_search('^\\d+') | int) }}M"
+      tags: data
+
+    # - name: Print calculated datalv_size
+    #   ansible.builtin.debug:
+    #     msg: "Calculated datalv_size = {{ datalv_size }}"
+    #   tags: data
+
+    - name: Create Logical Volume ({{ DATALV }}) in {{ DATAVG }}
+      ibm.power_aix.lvol:
+        vg: "{{ DATAVG }}"
+        lv: "{{ DATALV }}"
+        size: "{{ datalv_size }}"
+        state: present
+      when:
+        - "DATALV not in (lvm_info.ansible_facts.LVM.VGs[DATAVG].LVs | default({}))"
+        - (lvm_info.ansible_facts.LVM.VGs[DATAVG]['FREE PPs'] | regex_search('^\\d+') | int) > 0
+      tags: data
+
+    - name: Ensure mount path exists
+      ansible.builtin.file:
+        path: "{{ DATA_VOLUME_MOUNT_PATH }}"
+        state: directory
+        mode: '0755'
+      tags: data
+
+    - name: Ensure filesystem exists on LV and is mounted
+      ibm.power_aix.filesystem:
+        device: "/dev/{{ DATALV }}"
+        filesystem: "{{ DATA_VOLUME_MOUNT_PATH }}"
+        fs_type: jfs2
+        auto_mount: yes
+        permissions: rw
+        state: present
+      tags: data
+
+    - name: Ensure mount is active
+      ibm.power_aix.mount:
+        mount_dir: "{{ DATA_VOLUME_MOUNT_PATH }}"
+        state: mount
+      tags: data
+      
+    - name: Verify filesystem mounted with df -g
+      ansible.builtin.shell: df -g | grep "{{ DATA_VOLUME_MOUNT_PATH }}"
+      register: df_output
+      changed_when: false
+      tags: data
+
+    # - name: Show df -g output for verification
+    #   ansible.builtin.debug:
+    #     var: df_output.stdout
+    #   tags: data

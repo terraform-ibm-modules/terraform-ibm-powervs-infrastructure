@@ -120,7 +120,7 @@ module "pi_aix_configure_services" {
 module "pi_scc_wp_agent" {
 
   source     = "../../modules/powervs-vpc-landing-zone/submodules/ansible"
-  depends_on = [module.standard, module.powervs_instance]
+  depends_on = [module.standard, module.powervs_instance, module.pi_aix_configure_services]
   count      = var.enable_scc_wp && contains(["aix", "linux"], local.pi_instance_os_type) ? 1 : 0
 
   bastion_host_ip        = module.standard.access_host_or_ip
