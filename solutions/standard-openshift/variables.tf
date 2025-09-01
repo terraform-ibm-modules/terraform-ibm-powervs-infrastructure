@@ -97,6 +97,10 @@ variable "cluster_master_node_config" {
     proc_type   = "Dedicated"
     replicas    = 3
   }
+  validation {
+    condition     = contains(["Capped", "Dedicated", "Shared"], var.cluster_master_node_config.proc_type)
+    error_message = "Unsupported value for cluster_master_node_config.proc_type. Allowed values: Capped, Dedicated, Shared."
+  }
 }
 
 variable "cluster_worker_node_config" {
@@ -112,6 +116,10 @@ variable "cluster_worker_node_config" {
     system_type = null
     proc_type   = "Dedicated"
     replicas    = 3
+  }
+  validation {
+    condition     = contains(["Capped", "Dedicated", "Shared"], var.cluster_worker_node_config.proc_type)
+    error_message = "Unsupported value for cluster_worker_node_config.proc_type. Allowed values: Capped, Dedicated, Shared."
   }
 }
 
