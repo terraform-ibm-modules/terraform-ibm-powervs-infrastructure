@@ -31,42 +31,6 @@
     - nfs
 
   tasks:
-    ##############################################################
-    # Debug (commented out for production)
-    ##############################################################
-    # - name: Show derived variables
-    #   ansible.builtin.debug:
-    #     msg:
-    #       - "EXTEND_ROOT_VOLUME_WWN = {{ EXTEND_ROOT_VOLUME_WWN }}"
-    #       - "DATA_VOLUME_WWN = {{ DATA_VOLUME_WWN }}"
-    #       - "DATA_VOLUME_MOUNT_PATH = {{ DATA_VOLUME_MOUNT_PATH }}"
-    #       - "DATAVG = {{ DATAVG }}"
-    #       - "DATALV = {{ DATALV }}"
-    #   tags: debug
-
-    # - name: Show all variables from Terraform
-    #   ansible.builtin.debug:
-    #     msg:
-    #       - "PROXY_IP_PORT = {{ PROXY_IP_PORT }}"
-    #       - "NO_PROXY = {{ NO_PROXY }}"
-    #       - "NFS_ENABLE = {{ NFS_ENABLE }}"
-    #       - "NFS_MOUNT_POINT = {{ NFS_MOUNT_POINT }}"
-    #       - "NFS_HOST_OR_PATH = {{ NFS_HOST_OR_PATH }}"
-    #       - "NTP_ENABLE = {{ NTP_ENABLE }}"
-    #       - "NTP_SERVER = {{ NTP_SERVER }}"
-    #       - "NFS_DOMAIN = {{ NFS_DOMAIN }}"
-    #       - "NFS_HOSTNAME = {{ NFS_HOSTNAME }}"
-    #   tags: debug
-
-    ##############################################################
-    # Configure proxy
-    ##############################################################
-    # - name: Show proxy variables
-    #   ansible.builtin.debug:
-    #     msg:
-    #       - "PROXY_IP_PORT = {{ PROXY_IP_PORT }}"
-    #       - "NO_PROXY = {{ NO_PROXY }}"
-    #   tags: debug
 
     - name: Set proxy environment variables in /etc/profile
       ansible.builtin.blockinfile:
@@ -182,15 +146,6 @@
     ##############################################################
     # Configure NFS
     ##############################################################
-    # - name: Show NFS variables
-    #   ansible.builtin.debug:
-    #     msg:
-    #       - "NFS_ENABLE = {{ NFS_ENABLE }}"
-    #       - "NFS_HOST_OR_PATH = {{ NFS_HOST_OR_PATH }}"
-    #       - "NFS_MOUNT_POINT = {{ NFS_MOUNT_POINT }}"
-    #       - "NFS_DOMAIN = {{ NFS_DOMAIN }}"
-    #       - "NFS_HOSTNAME = {{ NFS_HOSTNAME }}"
-    #   tags: debug
 
     - name: Configure NFS if enabled
       when: NFS_ENABLE | bool
@@ -264,26 +219,11 @@
       register: lvm_info
       tags: data
 
-    # - name: Show VG facts (for visibility)
-    #   ansible.builtin.debug:
-    #     var: lvm_info.ansible_facts.LVM.VGs[DATAVG]
-    #   tags: data
-
-    # - name: Print FREE PPs and PP SIZE
-    #   ansible.builtin.debug:
-    #     msg: "FREE PPs={{ lvm_info.ansible_facts.LVM.VGs[DATAVG]['FREE PPs'] }} , PP SIZE={{ lvm_info.ansible_facts.LVM.VGs[DATAVG]['PP SIZE'] }}"
-    #   tags: data
-
     - name: Calculate LV size = Free PPs × PP Size
       ansible.builtin.set_fact:
         datalv_size: "{{ (lvm_info.ansible_facts.LVM.VGs[DATAVG]['FREE PPs'] | regex_search('^\\d+') | int) *
                          (lvm_info.ansible_facts.LVM.VGs[DATAVG]['PP SIZE'] | regex_search('^\\d+') | int) }}M"
       tags: data
-
-    # - name: Print calculated datalv_size
-    #   ansible.builtin.debug:
-    #     msg: "Calculated datalv_size = {{ datalv_size }}"
-    #   tags: data
 
     - name: Create Logical Volume ({{ DATALV }}) in {{ DATAVG }}
       ibm.power_aix.lvol:
@@ -318,14 +258,9 @@
         mount_dir: "{{ DATA_VOLUME_MOUNT_PATH }}"
         state: mount
       tags: data
-      
+
     - name: Verify filesystem mounted with df -g
       ansible.builtin.shell: df -g | grep "{{ DATA_VOLUME_MOUNT_PATH }}"
       register: df_output
       changed_when: false
       tags: data
-
-    # - name: Show df -g output for verification
-    #   ansible.builtin.debug:
-    #     var: df_output.stdout
-    #   tags: data

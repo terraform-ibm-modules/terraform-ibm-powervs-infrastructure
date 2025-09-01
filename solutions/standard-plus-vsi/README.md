@@ -55,6 +55,7 @@ This example sets up the following infrastructure:
 
 | Name | Source | Version |
 |------|--------|---------|
+| <a name="module_pi_aix_configure_services"></a> [pi\_aix\_configure\_services](#module\_pi\_aix\_configure\_services) | ../../modules/powervs-vpc-landing-zone/submodules/ansible | n/a |
 | <a name="module_pi_scc_wp_agent"></a> [pi\_scc\_wp\_agent](#module\_pi\_scc\_wp\_agent) | ../../modules/powervs-vpc-landing-zone/submodules/ansible | n/a |
 | <a name="module_powervs_instance"></a> [powervs\_instance](#module\_powervs\_instance) | terraform-ibm-modules/powervs-instance/ibm | 2.7.0 |
 | <a name="module_standard"></a> [standard](#module\_standard) | ../../modules/powervs-vpc-landing-zone | n/a |
@@ -63,7 +64,6 @@ This example sets up the following infrastructure:
 
 | Name | Type |
 |------|------|
-| [terraform_data.aix_init](https://registry.terraform.io/providers/hashicorp/terraform/latest/docs/resources/data) | resource |
 | [ibm_iam_auth_token.auth_token](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.82.0/docs/data-sources/iam_auth_token) | data source |
 
 ### Inputs
