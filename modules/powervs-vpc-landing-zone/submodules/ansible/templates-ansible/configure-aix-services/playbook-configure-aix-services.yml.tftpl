@@ -237,9 +237,13 @@
             line: "server {{ NTP_SERVER }}"
             state: present
 
-        - name: Enable xntpd autorestart via SRC
-          ansible.builtin.command: chssys -s xntpd -a autorestart
-          changed_when: false
+        - name: Ensure NTP daemon entry exists in /etc/inittab (persistent)
+          ibm.power_aix.inittab:
+            name: xntpd
+            runlevel: '2'
+            action: 'respawn'
+            command: '/usr/bin/startsrc -s xntpd > /dev/console 2>&1'
+            state: present
 
         - name: Restart NTP service
           ansible.builtin.service:
