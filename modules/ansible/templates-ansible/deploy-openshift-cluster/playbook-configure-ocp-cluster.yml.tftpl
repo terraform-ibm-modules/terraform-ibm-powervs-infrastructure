@@ -143,7 +143,8 @@
               zone: {{ powervs_zone }}
               tgName: {{ transit_gateway_name }}
               vpcName: {{ vpc_name }}
-              subnetName: {{ vpc_subnet_name }}
+              vpcSubnets:
+                - {{ vpc_subnet_name }}
               vpcRegion: {{ vpc_region }}
               serviceInstanceGUID: {{ powervs_workspace_guid }}
 
