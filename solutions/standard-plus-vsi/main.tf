@@ -74,6 +74,7 @@ module "powervs_instance" {
 
 module "pi_aix_configure_services" {
   source     = "../../modules/powervs-vpc-landing-zone/submodules/ansible"
+  count      = local.pi_instance_os_type == "aix" ? 1 : 0
   depends_on = [module.standard, module.powervs_instance]
 
   bastion_host_ip        = module.standard.access_host_or_ip
