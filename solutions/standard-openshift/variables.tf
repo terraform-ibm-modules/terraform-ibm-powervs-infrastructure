@@ -172,13 +172,13 @@ variable "external_access_ip" {
 variable "configure_ntp_forwarder" {
   description = "Specify if NTP forwarder will be configured. This will allow you to synchronize time between IBM PowerVS instances. NTP forwarder will be installed on the network-services vsi."
   type        = bool
-  default     = true
+  default     = false
 }
 
 variable "configure_nfs_server" {
   description = "Specify if NFS server will be configured. This will allow you easily to share files between PowerVS instances (e.g., SAP installation files). [File storage share and mount target](https://cloud.ibm.com/docs/vpc?topic=vpc-file-storage-create&interface=ui) in VPC will be created.. If yes, ensure 'nfs_server_config' optional variable is set properly below. Default value is '200GB' which will be mounted on specified directory in network-service vsi."
   type        = bool
-  default     = true
+  default     = false
 }
 
 variable "nfs_server_config" {
