@@ -16,6 +16,8 @@
     NFS_HOST_OR_PATH: "${NFS_HOST_OR_PATH}"
     NTP_ENABLE: "${NTP_ENABLE}"
     NTP_SERVER: "${NTP_SERVER}"
+    DNS_ENABLE: "${DNS_ENABLE}"
+    DNS_SERVER_1: "${DNS_SERVER_1}"
     # Hardcoded values (Terraform can override)
     NFS_DOMAIN: "${NFS_DOMAIN}"
     NFS_HOSTNAME: "${NFS_HOSTNAME}"
@@ -262,3 +264,22 @@
           register: ntpq_output
           changed_when: false
       tags: ntp
+
+    ##############################################################
+    # Configure DNS
+    ##############################################################
+    - name: Configure DNS
+      when: DNS_ENABLE | bool
+      block:
+        - name: Ensure DNS server entry is first in /etc/resolv.conf
+          ansible.builtin.lineinfile:
+            path: /etc/resolv.conf
+            line: "nameserver {{ DNS_SERVER_1 }}"
+            insertbefore: BOF
+            state: present
+
+        - name: Verify DNS configuration
+          ansible.builtin.command: cat /etc/resolv.conf
+          register: dns_output
+          changed_when: false
+      tags: dns

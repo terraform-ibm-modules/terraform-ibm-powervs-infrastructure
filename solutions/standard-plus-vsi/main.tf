@@ -108,6 +108,11 @@ module "pi_aix_configure_services" {
     # hardcoded values for NFS configuration (dummy values)
     NFS_DOMAIN   = "test.com"
     NFS_HOSTNAME = "nfs_server"
+
+    DNS_ENABLE   = local.network_services_config.dns.enable
+    DNS_SERVER_1 = local.network_services_config.dns.dns_server_ip
+
+
   }
 
   src_inventory_template_name = "inventory.tftpl"
