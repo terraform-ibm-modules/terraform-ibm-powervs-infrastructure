@@ -27,7 +27,8 @@
     ##############################################################
     # Configure Proxy
     ##############################################################
-    - block:
+    - name: Configure Proxy
+      block:
         - name: Set proxy environment variables in /etc/profile
           ansible.builtin.blockinfile:
             path: /etc/profile
@@ -52,7 +53,8 @@
     ##############################################################
     # Extend rootvg
     ##############################################################
-    - block:
+    - name: Extend rootvg
+      block:
         - name: Discover hdisk by WWN for rootvg extension (run cfgmgr first)
           ansible.builtin.shell: |
             cfgmgr >/dev/null 2>&1
@@ -100,7 +102,8 @@
     ##############################################################
     # Install curl package
     ##############################################################
-    - block:
+    - name: Install curl package
+      block:
         - name: Install curl package using dnf
           ansible.builtin.shell: |
             . /etc/profile && echo 'y' | /opt/freeware/bin/dnf install curl-7.53*
@@ -118,7 +121,8 @@
     ##############################################################
     # Create filesystem for data volume
     ##############################################################
-    - block:
+    - name: Create filesystem for data volume
+      block:
         - name: Get hdisk for data volume
           ansible.builtin.shell: |
             lspv -u | tr '[:upper:]' '[:lower:]' |
@@ -185,7 +189,9 @@
     ##############################################################
     # Configure NFS
     ##############################################################
-    - block:
+    - name: Configure NFS
+      when: NFS_ENABLE | bool
+      block:
         - name: Set NFS domain
           ansible.builtin.command: chnfsdom "{{ NFS_DOMAIN }}"
           changed_when: false
@@ -224,13 +230,14 @@
           ansible.builtin.command: df -g {{ NFS_MOUNT_POINT }}
           register: nfs_mount_status
           changed_when: false
-      when: NFS_ENABLE | bool
       tags: nfs
 
     ##############################################################
     # Configure NTP (persistent)
     ##############################################################
-    - block:
+    - name: Configure NTP (persistent)
+      when: NTP_ENABLE | bool
+      block:
         - name: Ensure NTP server entry is in /etc/ntp.conf
           ansible.builtin.lineinfile:
             path: /etc/ntp.conf
@@ -254,6 +261,4 @@
           ansible.builtin.command: ntpq -p
           register: ntpq_output
           changed_when: false
-
-      when: NTP_ENABLE | bool
       tags: ntp
