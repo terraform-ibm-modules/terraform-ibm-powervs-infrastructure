@@ -8,7 +8,7 @@
 ############################################################
 
 GLOBAL_RHEL_PACKAGES="rhel-system-roles rhel-system-roles-sap expect"
-GLOBAL_GALAXY_COLLECTIONS="ibm.power_linux_sap:>=3.0.0,<4.0.0"
+GLOBAL_GALAXY_COLLECTIONS="ibm.power_linux_sap:>=3.0.0,<4.0.0 ibm.power_aix:>=2.0.0,<3.0.0"
 
 ############################################################
 # Start functions

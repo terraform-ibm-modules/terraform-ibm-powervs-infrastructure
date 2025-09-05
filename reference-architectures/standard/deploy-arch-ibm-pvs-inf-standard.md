@@ -1,7 +1,7 @@
 ---
 copyright:
   years: 2024, 2025
-lastupdated: "2025-08-07"
+lastupdated: "2025-09-08"
 keywords:
 subcollection: deployable-reference-architectures
 authors:
@@ -15,7 +15,7 @@ image_source: https://github.com/terraform-ibm-modules/terraform-ibm-powervs-inf
 use-case: ITServiceManagement
 industry: Technology
 content-type: reference-architecture
-version: v9.0.0
+version: v9.0.1
 compliance: SAPCertified
 
 ---
@@ -28,7 +28,7 @@ compliance: SAPCertified
 {: toc-industry="Technology"}
 {: toc-use-case="ITServiceManagement"}
 {: toc-compliance="SAPCertified"}
-{: toc-version="v9.0.0"}
+{: toc-version="v9.0.1"}
 
 The Standard deployment of the Power Virtual Server with VPC landing zone creates VPC services and a Power Virtual Server workspace and interconnects them.
 
