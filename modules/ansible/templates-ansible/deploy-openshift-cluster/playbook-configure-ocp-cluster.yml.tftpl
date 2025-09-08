@@ -11,10 +11,12 @@
     worker_processors: "${WORKER_PROCESSORS}"
     worker_system_type: "${WORKER_SYSTEM_TYPE}"
     worker_proc_type: "${WORKER_PROC_TYPE}"
+    worker_memory: "${WORKER_MEMORY}"
     worker_replicas: ${WORKER_REPLICAS}
     master_processors: "${MASTER_PROCESSORS}"
     master_system_type: "${MASTER_SYSTEM_TYPE}"
     master_proc_type: "${MASTER_PROC_TYPE}"
+    master_memory: "${MASTER_MEMORY}"
     master_replicas: ${MASTER_REPLICAS}
     user_id:  "${USER_ID}"
     transit_gateway_name: "${TRANSIT_GATEWAY_NAME}"
@@ -154,6 +156,7 @@
                   processors: {{ worker_processors }}
                   sysType: "{{ worker_system_type }}"
                   procType: "{{ worker_proc_type }}"
+                  memoryGiB: "{{ worker_memory }}"
               replicas: {{ worker_replicas }}
 
           controlPlane:
@@ -165,6 +168,7 @@
                 processors: {{ master_processors }}
                 sysType: "{{ master_system_type }}"
                 procType: "{{ master_proc_type }}"
+                memoryGiB: "{{ master_memory }}"
             replicas: {{ master_replicas }}
 
           pullSecret: '{{ pull_secret }}'
