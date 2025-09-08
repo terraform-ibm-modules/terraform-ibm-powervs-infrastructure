@@ -1,0 +1,285 @@
+---
+- name: AIX Configuration (proxy, rootvg, curl, data fs, nfs, ntp)
+  hosts: all
+  gather_facts: no
+
+  vars:
+    EXTEND_ROOT_VOLUME_WWN: "${EXTEND_ROOT_VOLUME_WWN}"
+    DATA_VOLUME_WWN: "${DATA_VOLUME_WWN}"
+    DATA_VOLUME_MOUNT_PATH: "${DATA_VOLUME_MOUNT_PATH}"
+    DATAVG: "${DATAVG}"
+    DATALV: "${DATALV}"
+    PROXY_IP_PORT: "${PROXY_IP_PORT}"
+    NO_PROXY: "${NO_PROXY}"
+    NFS_ENABLE: "${NFS_ENABLE}"
+    NFS_MOUNT_POINT: "${NFS_MOUNT_POINT}"
+    NFS_HOST_OR_PATH: "${NFS_HOST_OR_PATH}"
+    NTP_ENABLE: "${NTP_ENABLE}"
+    NTP_SERVER: "${NTP_SERVER}"
+    DNS_ENABLE: "${DNS_ENABLE}"
+    DNS_SERVER_1: "${DNS_SERVER_1}"
+    # Hardcoded values (Terraform can override)
+    NFS_DOMAIN: "${NFS_DOMAIN}"
+    NFS_HOSTNAME: "${NFS_HOSTNAME}"
+    ansible_shell_executable: /usr/bin/ksh
+    ansible_shell_type: sh
+
+  tasks:
+
+    ##############################################################
+    # Configure Proxy
+    ##############################################################
+    - name: Configure Proxy
+      block:
+        - name: Set proxy environment variables in /etc/profile
+          ansible.builtin.blockinfile:
+            path: /etc/profile
+            marker: "# {mark} PROXY SETTINGS"
+            block: |
+              export http_proxy=http://{{ PROXY_IP_PORT }}
+              export https_proxy=http://{{ PROXY_IP_PORT }}
+              export HTTP_PROXY=http://{{ PROXY_IP_PORT }}
+              export HTTPS_PROXY=http://{{ PROXY_IP_PORT }}
+              export no_proxy={{ NO_PROXY }}
+
+        - name: Export proxy variables for current session
+          ansible.builtin.shell: |
+            export http_proxy=http://{{ PROXY_IP_PORT }}
+            export https_proxy=http://{{ PROXY_IP_PORT }}
+            export HTTP_PROXY=http://{{ PROXY_IP_PORT }}
+            export HTTPS_PROXY=http://{{ PROXY_IP_PORT }}
+            export no_proxy={{ NO_PROXY }}
+          changed_when: false
+      tags: proxy
+
+    ##############################################################
+    # Extend rootvg
+    ##############################################################
+    - name: Extend rootvg
+      block:
+        - name: Discover hdisk by WWN for rootvg extension (run cfgmgr first)
+          ansible.builtin.shell: |
+            cfgmgr >/dev/null 2>&1
+            lspv -u | tr '[:upper:]' '[:lower:]' |
+            awk -v w="{{ EXTEND_ROOT_VOLUME_WWN | lower }}" 'index($0,w){print $1; exit}'
+          register: hdisk_name
+          changed_when: false
+
+        - name: Get current MAX PPs per PV for rootvg
+          ansible.builtin.shell: "lsvg rootvg | grep 'MAX PPs per PV' | awk '{print $5}'"
+          register: chvg_limit
+          changed_when: false
+
+        - name: Update rootvg partition limit if less than 1024
+          ansible.builtin.shell: "chvg -t 16 rootvg"
+          when: chvg_limit.stdout | int < 1024
+          changed_when: false
+
+        - name: Mark hdisk as physical volume
+          ansible.builtin.command: "chdev -l {{ hdisk_name.stdout }} -a pv=yes"
+          when: hdisk_name.stdout != ""
+          changed_when: false
+
+        - name: Extend rootvg with new disk
+          community.general.aix_lvg:
+            vg: rootvg
+            pvs: ["{{ hdisk_name.stdout }}"]
+            force: true
+            state: present
+          when: hdisk_name.stdout != ""
+
+        - name: Resize filesystems
+          community.general.aix_filesystem:
+            filesystem: "{{ item.filesystem }}"
+            size: "{{ item.size }}"
+            state: present
+          loop:
+            - { filesystem: "/",    size: "8G" }
+            - { filesystem: "/usr", size: "8G" }
+            - { filesystem: "/opt", size: "6G" }
+            - { filesystem: "/var", size: "6G" }
+            - { filesystem: "/tmp", size: "4G" }
+      tags: rootvg
+
+    ##############################################################
+    # Install curl package
+    ##############################################################
+    - name: Install curl package
+      block:
+        - name: Install curl package using dnf
+          ansible.builtin.shell: |
+            . /etc/profile && echo 'y' | /opt/freeware/bin/dnf install curl-7.53*
+          register: curl_install
+          changed_when: "'Complete!' in curl_install.stdout or 'Nothing to do.' in curl_install.stdout"
+
+        - name: Verify curl installation
+          ansible.builtin.shell: |
+            . /etc/profile && /opt/freeware/bin/dnf list installed curl | grep curl
+          register: curl_check
+          changed_when: false
+          failed_when: curl_check.rc != 0
+      tags: curl
+
+    ##############################################################
+    # Create filesystem for data volume
+    ##############################################################
+    - name: Create filesystem for data volume
+      block:
+        - name: Get hdisk for data volume
+          ansible.builtin.shell: |
+            lspv -u | tr '[:upper:]' '[:lower:]' |
+            awk -v w="{{ DATA_VOLUME_WWN | lower }}" 'index($0,w){print $1; exit}'
+          register: data_hdisk
+          changed_when: false
+
+        - name: Fail if data hdisk not found
+          ansible.builtin.fail:
+            msg: "Error: Disk {{ DATA_VOLUME_WWN }} not found."
+          when: data_hdisk.stdout == ""
+
+        - name: Create Volume Group ({{ DATAVG }}) on data hdisk
+          ibm.power_aix.lvg:
+            vg_name: "{{ DATAVG }}"
+            pvs: ["{{ data_hdisk.stdout }}"]
+            state: present
+
+        - name: Gather LVM facts
+          ibm.power_aix.lvm_facts:
+          register: lvm_info
+
+        - name: Calculate LV size = Free PPs × PP Size
+          ansible.builtin.set_fact:
+            datalv_size: "{{ (lvm_info.ansible_facts.LVM.VGs[DATAVG]['FREE PPs'] | regex_search('^\\d+') | int) *
+                             (lvm_info.ansible_facts.LVM.VGs[DATAVG]['PP SIZE'] | regex_search('^\\d+') | int) }}M"
+
+        - name: Create Logical Volume ({{ DATALV }}) in {{ DATAVG }}
+          ibm.power_aix.lvol:
+            vg: "{{ DATAVG }}"
+            lv: "{{ DATALV }}"
+            size: "{{ datalv_size }}"
+            state: present
+          when:
+            - "DATALV not in (lvm_info.ansible_facts.LVM.VGs[DATAVG].LVs | default({}))"
+            - (lvm_info.ansible_facts.LVM.VGs[DATAVG]['FREE PPs'] | regex_search('^\\d+') | int) > 0
+
+        - name: Ensure mount path exists
+          ansible.builtin.file:
+            path: "{{ DATA_VOLUME_MOUNT_PATH }}"
+            state: directory
+            mode: '0755'
+
+        - name: Ensure filesystem exists on LV and is mounted
+          ibm.power_aix.filesystem:
+            device: "/dev/{{ DATALV }}"
+            filesystem: "{{ DATA_VOLUME_MOUNT_PATH }}"
+            fs_type: jfs2
+            auto_mount: yes
+            permissions: rw
+            state: present
+
+        - name: Ensure mount is active
+          ibm.power_aix.mount:
+            mount_dir: "{{ DATA_VOLUME_MOUNT_PATH }}"
+            state: mount
+
+        - name: Verify filesystem mounted with df -g
+          ansible.builtin.shell: df -g | grep "{{ DATA_VOLUME_MOUNT_PATH }}"
+          register: df_output
+          changed_when: false
+      tags: data
+
+    ##############################################################
+    # Configure NFS
+    ##############################################################
+    - name: Configure NFS
+      when: NFS_ENABLE | bool
+      block:
+        - name: Set NFS domain
+          ansible.builtin.command: chnfsdom "{{ NFS_DOMAIN }}"
+          changed_when: false
+
+        - name: Ensure NFS services running
+          ansible.builtin.command: startsrc -g nfs
+          changed_when: false
+
+        - name: Ensure NFS server entry in /etc/hosts
+          ansible.builtin.lineinfile:
+            path: /etc/hosts
+            line: "{{ NFS_HOST_OR_PATH.split(':')[0] }} {{ NFS_HOSTNAME }}"
+            state: present
+
+        - name: Create mount directory
+          ansible.builtin.file:
+            path: "{{ NFS_MOUNT_POINT }}"
+            state: directory
+
+        - name: Ensure NFS filesystem stanza exists (persistent)
+          ibm.power_aix.filesystem:
+            device: "{{ NFS_HOST_OR_PATH.split(':')[1] }}"
+            filesystem: "{{ NFS_MOUNT_POINT }}"
+            fs_type: nfs4
+            auto_mount: yes
+            permissions: rw
+            state: present
+            nfs_server: "{{ NFS_HOSTNAME }}"
+
+        - name: Ensure NFS is actually mounted now
+          ibm.power_aix.mount:
+            mount_dir: "{{ NFS_MOUNT_POINT }}"
+            state: mount
+
+        - name: Show NFS mount status
+          ansible.builtin.command: df -g {{ NFS_MOUNT_POINT }}
+          register: nfs_mount_status
+          changed_when: false
+      tags: nfs
+
+    ##############################################################
+    # Configure NTP (persistent)
+    ##############################################################
+    - name: Configure NTP (persistent)
+      when: NTP_ENABLE | bool
+      block:
+        - name: Ensure NTP server entry is in /etc/ntp.conf
+          ansible.builtin.lineinfile:
+            path: /etc/ntp.conf
+            line: "server {{ NTP_SERVER }}"
+            state: present
+
+        - name: Ensure NTP daemon entry exists in /etc/inittab (persistent)
+          ibm.power_aix.inittab:
+            name: xntpd
+            runlevel: '2'
+            action: 'respawn'
+            command: '/usr/bin/startsrc -s xntpd > /dev/console 2>&1'
+            state: present
+
+        - name: Restart NTP service
+          ansible.builtin.service:
+            name: xntpd
+            state: restarted
+
+        - name: Verify NTP service with ntpq -p
+          ansible.builtin.command: ntpq -p
+          register: ntpq_output
+          changed_when: false
+      tags: ntp
+
+    ##############################################################
+    # Configure DNS
+    ##############################################################
+    - name: Configure DNS
+      when: DNS_ENABLE | bool
+      block:
+        - name: Ensure DNS server entry is first in /etc/resolv.conf
+          ansible.builtin.lineinfile:
+            path: /etc/resolv.conf
+            line: "nameserver {{ DNS_SERVER_1 }}"
+            insertbefore: BOF
+            state: present
+
+        - name: Verify DNS configuration
+          ansible.builtin.command: cat /etc/resolv.conf
+          register: dns_output
+          changed_when: false
+      tags: dns

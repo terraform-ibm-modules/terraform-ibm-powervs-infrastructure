@@ -88,59 +88,61 @@ module "powervs_instance" {
   pi_network_services_config = local.pi_instance_os_type == "linux" ? local.network_services_config : null
 }
 
-######################################################
-# AIX init if image name is 7xxx-xx-xx
-######################################################
-resource "terraform_data" "aix_init" {
-
+module "pi_aix_configure_services" {
+  source     = "../../modules/powervs-vpc-landing-zone/submodules/ansible"
   count      = local.pi_instance_os_type == "aix" ? 1 : 0
   depends_on = [module.standard, module.powervs_instance]
 
-  triggers_replace = {
-    "network_services_config"  = local.network_services_config,
-    "pi_storage_configuration" = module.powervs_instance.pi_storage_configuration
-  }
-  connection {
-    type         = "ssh"
-    user         = "root"
-    bastion_host = module.standard.access_host_or_ip
-    host         = module.powervs_instance.pi_instance_primary_ip
-    private_key  = var.ssh_private_key
-    agent        = false
-    timeout      = "10m"
+  bastion_host_ip        = module.standard.access_host_or_ip
+  ansible_host_or_ip     = module.standard.ansible_host_or_ip
+  ssh_private_key        = var.ssh_private_key
+  configure_ansible_host = false
+
+  src_script_template_name = "configure-aix-services/ansible_exec.sh.tftpl"
+  dst_script_file_name     = "${var.prefix}-configure_aix_services_pi.sh"
+
+  src_playbook_template_name = "configure-aix-services/playbook-configure-aix-services.yml.tftpl"
+  dst_playbook_file_name     = "${var.prefix}-playbook-configure-aix-services-pi.yml"
+
+  playbook_template_vars = {
+    EXTEND_ROOT_VOLUME_WWN = module.powervs_instance.pi_storage_configuration[0].wwns
+    DATA_VOLUME_WWN        = module.powervs_instance.pi_storage_configuration[1].wwns
+    DATA_VOLUME_MOUNT_PATH = module.powervs_instance.pi_storage_configuration[1].mount
+    DATAVG                 = "${module.powervs_instance.pi_storage_configuration[1].name}vg"
+    DATALV                 = "${module.powervs_instance.pi_storage_configuration[1].name}lv"
+
+    PROXY_IP_PORT = local.network_services_config.squid.squid_server_ip_port
+    NO_PROXY      = local.network_services_config.squid.no_proxy_hosts
+
+    NFS_ENABLE       = local.network_services_config.nfs.enable
+    NFS_MOUNT_POINT  = local.network_services_config.nfs.nfs_client_path
+    NFS_HOST_OR_PATH = local.network_services_config.nfs.nfs_server_path
+
+    NTP_ENABLE = local.network_services_config.ntp.enable
+    NTP_SERVER = local.network_services_config.ntp.ntp_server_ip
+
+    # hardcoded values for NFS configuration (dummy values)
+    NFS_DOMAIN   = "test.com"
+    NFS_HOSTNAME = "nfs_server"
+
+    DNS_ENABLE   = local.network_services_config.dns.enable
+    DNS_SERVER_1 = local.network_services_config.dns.dns_server_ip
+
+
   }
 
-  # Create terraform scripts directory
-  provisioner "remote-exec" {
-    inline = ["mkdir -p /root/terraform_files", "chmod 777 /root/terraform_files", ]
+  src_inventory_template_name = "inventory.tftpl"
+  dst_inventory_file_name     = "${var.prefix}-configure-aix-services-pi-inventory"
+  inventory_template_vars = {
+    host_or_ip = module.powervs_instance.pi_instance_primary_ip
   }
-
-  # Copy aix_init.sh shell file to ansible host
-  provisioner "file" {
-    content = templatefile("./aix-init/aix_init.sh.tftpl",
-      merge(
-        { "network_services_config" = local.network_services_config },
-        { "pi_storage_configuration" = module.powervs_instance.pi_storage_configuration }
-      )
-    )
-    destination = "/root/terraform_files/aix_init.sh"
-  }
-
-  # Execute aix_ini.sh shell script to configure management services and create filesystem
-  provisioner "remote-exec" {
-    inline = [
-      "chmod +x /root/terraform_files/aix_init.sh",
-      "/root/terraform_files/aix_init.sh",
-    ]
-  }
-
 }
 
 
 module "pi_scc_wp_agent" {
 
   source     = "../../modules/powervs-vpc-landing-zone/submodules/ansible"
-  depends_on = [module.standard, module.powervs_instance, terraform_data.aix_init]
+  depends_on = [module.standard, module.powervs_instance, module.pi_aix_configure_services]
   count      = var.enable_scc_wp && contains(["aix", "linux"], local.pi_instance_os_type) ? 1 : 0
 
   bastion_host_ip        = module.standard.access_host_or_ip
