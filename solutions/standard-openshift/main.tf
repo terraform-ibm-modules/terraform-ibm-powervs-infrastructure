@@ -37,11 +37,6 @@ module "standard" {
   ssh_private_key                  = var.ssh_private_key
   client_to_site_vpn               = local.client_to_site_vpn
   vpc_intel_images                 = var.vpc_intel_images
-  configure_dns_forwarder          = false
-  configure_ntp_forwarder          = var.configure_ntp_forwarder
-  configure_nfs_server             = var.configure_nfs_server
-  dns_forwarder_config             = null
-  nfs_server_config                = var.nfs_server_config
   powervs_resource_group_name      = null
   powervs_management_network       = null
   powervs_backup_network           = null

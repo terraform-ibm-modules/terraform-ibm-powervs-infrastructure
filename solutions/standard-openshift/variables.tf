@@ -169,34 +169,6 @@ variable "external_access_ip" {
   default     = "0.0.0.0/0"
 }
 
-variable "configure_ntp_forwarder" {
-  description = "Specify if NTP forwarder will be configured. This will allow you to synchronize time between IBM PowerVS instances. NTP forwarder will be installed on the network-services vsi."
-  type        = bool
-  default     = false
-}
-
-variable "configure_nfs_server" {
-  description = "Specify if NFS server will be configured. This will allow you easily to share files between PowerVS instances (e.g., SAP installation files). [File storage share and mount target](https://cloud.ibm.com/docs/vpc?topic=vpc-file-storage-create&interface=ui) in VPC will be created.. If yes, ensure 'nfs_server_config' optional variable is set properly below. Default value is '200GB' which will be mounted on specified directory in network-service vsi."
-  type        = bool
-  default     = false
-}
-
-variable "nfs_server_config" {
-  description = "Configuration for the NFS server. 'size' is in GB, 'iops' is maximum input/output operation performance bandwidth per second, 'mount_path' defines the target mount point on os. Set 'configure_nfs_server' to false to ignore creating file storage share."
-  type = object({
-    size       = number
-    iops       = number
-    mount_path = string
-  })
-
-  default = {
-    "size" : 200,
-    "iops" : 600,
-    "mount_path" : "/nfs"
-  }
-}
-
-
 #####################################################
 # Optional Parameters Monitoring and SCC WP Instance
 #####################################################

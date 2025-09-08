@@ -3,8 +3,6 @@
   hosts: all
 
   vars:
-    powervs_config_path: "~/.powervs/config.json"
-    id: "${IBM_ID}"
     region: "${POWERVS_REGION}"
     zone: "${POWERVS_ZONE}"
     resource_group: "${RESOURCE_GROUP}"
@@ -15,25 +13,6 @@
     openshift_install_destroy_timeout: "${OPENSHIFT_INSTALL_DESTROY_TIMEOUT}"
 
   tasks:
-    - name: Ensure ~/.powervs directory exists
-      file:
-        path: "{{ powervs_config_path | dirname }}"
-        state: directory
-        mode: '0700'
-
-    - name: Create ~/.powervs/config.json file securely
-      copy:
-        dest: "{{ powervs_config_path }}"
-        content: |
-          {
-            "id": "{{ id }}",
-            "apikey": "{{ lookup('env', 'IBMCLOUD_API_KEY') }}",
-            "region": "{{ region }}",
-            "zone": "{{ zone }}",
-            "resourcegroup": "{{ resource_group }}",
-          }
-        mode: '0600'
-
     - name: Create the Cluster
       block:
         - name: Run openshift-install create cluster

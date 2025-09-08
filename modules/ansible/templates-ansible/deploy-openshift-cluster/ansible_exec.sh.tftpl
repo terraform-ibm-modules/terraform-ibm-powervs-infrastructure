@@ -21,7 +21,7 @@ export ANSIBLE_PRIVATE_KEY_FILE=$${ansible_private_key_file}
 export IBMCLOUD_API_KEY=$${IBMCLOUD_API_KEY}
 
 #Execute ansible playbook
-# unbuffer ansible-playbook -i $${ansible_inventory} $${ansible_playbook} --extra-vars "IBMCLOUD_API_KEY=$IBMCLOUD_API_KEY"
+unbuffer ansible-playbook -i $${ansible_inventory} $${ansible_playbook} --extra-vars "IBMCLOUD_API_KEY=$IBMCLOUD_API_KEY"
 ## On failure:
 if [ $? -ne 0 ]; then
     rm -rf $${ansible_private_key_file}

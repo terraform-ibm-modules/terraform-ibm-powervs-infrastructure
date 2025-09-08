@@ -133,7 +133,7 @@
             serviceNetwork:
               - "{{ cluster_service_network }}"
             machineNetwork:
-              - cidr: {{ machine_network }}
+              - cidr: "{{ machine_network }}"
 
           platform:
             powervs:
@@ -173,3 +173,22 @@
           pullSecret: '{{ pull_secret }}'
 
           sshKey: "{{ ssh_key }}"
+
+    - name: Ensure ~/.powervs directory exists
+      file:
+        path: "~/.powervs"
+        state: directory
+        mode: '0700'
+
+    - name: Create ~/.powervs/config.json file securely
+      copy:
+        dest: "~/.powervs/config.json"
+        content: |
+          {
+            "id": "{{ user_id }}",
+            "apikey": "{{ lookup('env', 'IBMCLOUD_API_KEY') }}",
+            "region": "{{ powervs_region }}",
+            "zone": "{{ powervs_zone }}",
+            "resourcegroup": "{{ resource_group }}",
+          }
+        mode: '0600'
