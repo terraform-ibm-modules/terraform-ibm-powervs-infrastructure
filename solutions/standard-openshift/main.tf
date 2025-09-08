@@ -98,7 +98,6 @@ module "ocp_cluster_install_configuration" {
     POWERVS_REGION : local.powervs_region,
     POWERVS_ZONE : var.powervs_zone,
     VPC_NAME : module.standard.vpc_names[0],
-    VPC_SUBNET_NAME : "${var.prefix}-edge-vsi-edge-zone-1"
     VPC_REGION : local.vpc_region
     PULL_SECRET_FILE : jsonencode(var.openshift_pull_secret),
     SSH_KEY : var.ssh_public_key,

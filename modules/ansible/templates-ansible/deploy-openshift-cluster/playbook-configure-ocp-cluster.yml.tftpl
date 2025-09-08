@@ -23,7 +23,6 @@
     powervs_region: "${POWERVS_REGION}"
     powervs_zone: "${POWERVS_ZONE}"
     vpc_name: "${VPC_NAME}"
-    vpc_subnet_name: "${VPC_SUBNET_NAME}"
     vpc_region: "${VPC_REGION}"
     pull_secret: '${PULL_SECRET_FILE}'
     ssh_key: "${SSH_KEY}"
@@ -143,8 +142,6 @@
               zone: {{ powervs_zone }}
               tgName: {{ transit_gateway_name }}
               vpcName: {{ vpc_name }}
-              vpcSubnets:
-                - {{ vpc_subnet_name }}
               vpcRegion: {{ vpc_region }}
               serviceInstanceGUID: {{ powervs_workspace_guid }}
 
