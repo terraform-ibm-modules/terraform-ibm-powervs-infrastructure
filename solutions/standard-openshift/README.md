@@ -4,7 +4,7 @@
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.9 |
-| <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | 1.81.1 |
+| <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | 1.82.1 |
 | <a name="requirement_restapi"></a> [restapi](#requirement\_restapi) | 2.0.1 |
 
 ### Modules
@@ -20,7 +20,7 @@
 
 | Name | Type |
 |------|------|
-| [ibm_iam_auth_token.auth_token](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.81.1/docs/data-sources/iam_auth_token) | data source |
+| [ibm_iam_auth_token.auth_token](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.82.1/docs/data-sources/iam_auth_token) | data source |
 
 ### Inputs
 
@@ -33,7 +33,7 @@
 | <a name="input_cluster_dir"></a> [cluster\_dir](#input\_cluster\_dir) | The directory that holds the artifacts of the OpenShift cluster creation. | `string` | `"ocp-powervs-deploy"` | no |
 | <a name="input_cluster_master_node_config"></a> [cluster\_master\_node\_config](#input\_cluster\_master\_node\_config) | Configuration for the master nodes of the OpenShift cluster, including CPU, system type, processor type, and replica count. If system\_type is null, it's chosen based on whether it's supported in the region. This can be overwritten by passing a value, e.g. 's1022' or 's922'. | <pre>object({<br/>    processors  = number<br/>    system_type = string<br/>    proc_type   = string<br/>    replicas    = number<br/>  })</pre> | <pre>{<br/>  "proc_type": "Dedicated",<br/>  "processors": 4,<br/>  "replicas": 3,<br/>  "system_type": null<br/>}</pre> | no |
 | <a name="input_cluster_name"></a> [cluster\_name](#input\_cluster\_name) | The name of the cluster. | `string` | n/a | yes |
-| <a name="input_cluster_network_config"></a> [cluster\_network\_config](#input\_cluster\_network\_config) | Configuration object for the OpenShift cluster and service network CIDRs. | <pre>object({<br/>    cluster_network_cidr         = string<br/>    cluster_service_network_cidr = string<br/>    cluster_machine_network_cidr = string<br/>  })</pre> | <pre>{<br/>  "cluster_machine_network_cidr": "10.72.0.0/24",<br/>  "cluster_network_cidr": "172.22.0.0/22",<br/>  "cluster_service_network_cidr": "10.67.0.0/24"<br/>}</pre> | no |
+| <a name="input_cluster_network_config"></a> [cluster\_network\_config](#input\_cluster\_network\_config) | Configuration object for the OpenShift cluster and service network CIDRs. | <pre>object({<br/>    cluster_network_cidr         = string<br/>    cluster_service_network_cidr = string<br/>    cluster_machine_network_cidr = string<br/>  })</pre> | <pre>{<br/>  "cluster_machine_network_cidr": "10.72.0.0/24",<br/>  "cluster_network_cidr": "10.128.0.0/14",<br/>  "cluster_service_network_cidr": "10.67.0.0/16"<br/>}</pre> | no |
 | <a name="input_cluster_worker_node_config"></a> [cluster\_worker\_node\_config](#input\_cluster\_worker\_node\_config) | Configuration for the worker nodes of the OpenShift cluster, including CPU, system type, processor type, and replica count. If system\_type is null, it's chosen based on whether it's supported in the region. This can be overwritten by passing a value, e.g. 's1022' or 's922'. | <pre>object({<br/>    processors  = number<br/>    system_type = string<br/>    proc_type   = string<br/>    replicas    = number<br/>  })</pre> | <pre>{<br/>  "proc_type": "Dedicated",<br/>  "processors": 4,<br/>  "replicas": 3,<br/>  "system_type": null<br/>}</pre> | no |
 | <a name="input_enable_monitoring"></a> [enable\_monitoring](#input\_enable\_monitoring) | Specify whether Monitoring will be enabled. This includes the creation of an IBM Cloud Monitoring Instance and an Intel Monitoring Instance to host the services. If you already have an existing monitoring instance then specify in optional parameter 'existing\_monitoring\_instance\_crn' and setting this parameter to true. | `bool` | `false` | no |
 | <a name="input_enable_scc_wp"></a> [enable\_scc\_wp](#input\_enable\_scc\_wp) | Enable SCC Workload Protection and install and configure the SCC Workload Protection agent on all intel VSIs in this deployment. If set to true, then value for 'ansible\_vault\_password' in optional parameter must be set. | `bool` | `true` | no |

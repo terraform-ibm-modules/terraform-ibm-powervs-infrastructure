@@ -77,8 +77,8 @@ variable "cluster_network_config" {
     cluster_machine_network_cidr = string
   })
   default = {
-    cluster_network_cidr         = "172.22.0.0/22"
-    cluster_service_network_cidr = "10.67.0.0/24"
+    cluster_network_cidr         = "10.128.0.0/14"
+    cluster_service_network_cidr = "10.67.0.0/16"
     cluster_machine_network_cidr = "10.72.0.0/24"
   }
 }
