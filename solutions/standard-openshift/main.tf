@@ -31,7 +31,7 @@ module "standard" {
   providers = { ibm.ibm-is = ibm.ibm-is, ibm.ibm-pi = ibm.ibm-pi, ibm.ibm-sm = ibm.ibm-sm }
 
   powervs_zone                     = var.powervs_zone
-  prefix                           = var.prefix
+  prefix                           = var.cluster_name
   external_access_ip               = var.external_access_ip
   ssh_public_key                   = var.ssh_public_key
   ssh_private_key                  = var.ssh_private_key

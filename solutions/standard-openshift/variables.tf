@@ -3,8 +3,8 @@ variable "powervs_zone" {
   type        = string
 }
 
-variable "prefix" {
-  description = "A unique identifier for resources. Must begin with a lowercase letter and end with a lowercase letter or number. Must contain only lowercase letters, numbers, and - characters. This prefix will be prepended to any resources provisioned by this template. Prefixes must be 16 or fewer characters."
+variable "cluster_name" {
+  description = "The name of the cluster and a unique identifier used as prefix for resources. Must begin with a lowercase letter and end with a lowercase letter or number. Must contain only lowercase letters, numbers, and - characters. This prefix will be prepended to any resources provisioned by this template. Prefixes must be 16 or fewer characters."
   type        = string
 }
 
@@ -45,11 +45,6 @@ variable "ansible_vault_password" {
 
 variable "cluster_base_domain" {
   description = "The base domain name that will be used by the cluster. (ie: example.com)"
-  type        = string
-}
-
-variable "cluster_name" {
-  description = "The name of the cluster."
   type        = string
 }
 
