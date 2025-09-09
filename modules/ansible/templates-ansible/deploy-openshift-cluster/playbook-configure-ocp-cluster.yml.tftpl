@@ -156,7 +156,7 @@
                   processors: {{ worker_processors }}
                   sysType: "{{ worker_system_type }}"
                   procType: "{{ worker_proc_type }}"
-                  memoryGiB: "{{ worker_memory }}"
+                  memoryGiB: {{ worker_memory }}
               replicas: {{ worker_replicas }}
 
           controlPlane:
@@ -168,7 +168,7 @@
                 processors: {{ master_processors }}
                 sysType: "{{ master_system_type }}"
                 procType: "{{ master_proc_type }}"
-                memoryGiB: "{{ master_memory }}"
+                memoryGiB: {{ master_memory }}
             replicas: {{ master_replicas }}
 
           pullSecret: '{{ pull_secret }}'
