@@ -29,9 +29,26 @@
           ignore_errors: false
 
       rescue:
-        - name: Wait for OpenShift install to complete
+        - name: Wait for OpenShift API to become ready
           ansible.builtin.shell: |
             openshift-install wait-for bootstrap-complete --dir={{ install_dir }} --log-level=debug
+          environment:
+            IBMCLOUD_API_KEY: "{{ lookup('env', 'IBMCLOUD_API_KEY') }}"
+            OPENSHIFT_INSTALL_BOOTSTRAP_TIMEOUT: "{{ openshift_install_bootstrap_timeout }}"
+            OPENSHIFT_INSTALL_MACHINE_WAIT_TIMEOUT: "{{ openshift_install_machine_wait_timeout }}"
+            OPENSHIFT_INSTALL_CLUSTER_TIMEOUT: "{{ openshift_install_cluster_timeout }}"
+            OPENSHIFT_INSTALL_DESTROY_TIMEOUT: "{{ openshift_install_destroy_timeout }}"
+
+          register: wait_for_bootstrap_output
+          ignore_errors: false
+
+        - name: Print wait_for_bootstrap_output
+          ansible.builtin.debug:
+            var: wait_for_bootstrap_output
+
+        - name: Wait for OpenShift cluster to become ready
+          ansible.builtin.shell: |
+            openshift-install wait-for install-complete --dir={{ install_dir }} --log-level=debug
           environment:
             IBMCLOUD_API_KEY: "{{ lookup('env', 'IBMCLOUD_API_KEY') }}"
             OPENSHIFT_INSTALL_BOOTSTRAP_TIMEOUT: "{{ openshift_install_bootstrap_timeout }}"
