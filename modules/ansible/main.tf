@@ -133,6 +133,14 @@ resource "terraform_data" "execute_playbooks" {
       "rm -rf ${local.private_key_file}"
     ]
   }
+
+  # print output of openshift installation if applicable, else do nothing
+  provisioner "remote-exec" {
+    inline = [
+      "if [ -f ${lookup(var.playbook_template_vars, "CLUSTER_DIR", "/tmp")}/.openshift_install.log ]; then cat ${lookup(var.playbook_template_vars, "CLUSTER_DIR", "/tmp")}/.openshift_install.log; fi"
+    ]
+    on_failure = continue
+  }
 }
 
 resource "terraform_data" "execute_playbooks_with_vault" {
