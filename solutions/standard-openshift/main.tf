@@ -71,7 +71,7 @@ module "ocp_cluster_install_configuration" {
   ansible_vault_password = var.ansible_vault_password
   configure_ansible_host = false
 
-  src_script_template_name = "deploy-openshift-cluster/ansible_exec.sh.tftpl"
+  src_script_template_name = "deploy-openshift-cluster/ansible_exec_vault.sh.tftpl"
   dst_script_file_name     = "ocp-cluster-install-configuration.sh"
 
   src_playbook_template_name = "deploy-openshift-cluster/playbook-configure-ocp-cluster.yml.tftpl"
