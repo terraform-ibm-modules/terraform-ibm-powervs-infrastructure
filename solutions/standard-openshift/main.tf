@@ -68,6 +68,7 @@ module "ocp_cluster_install_configuration" {
   bastion_host_ip        = module.standard.access_host_or_ip
   ansible_host_or_ip     = module.standard.ansible_host_or_ip
   ssh_private_key        = var.ssh_private_key
+  ansible_vault_password = var.ansible_vault_password
   configure_ansible_host = false
 
   src_script_template_name = "deploy-openshift-cluster/ansible_exec.sh.tftpl"
