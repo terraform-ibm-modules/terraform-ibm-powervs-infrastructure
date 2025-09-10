@@ -88,7 +88,7 @@ variable "cluster_master_node_config" {
   default = {
     processors  = 4
     system_type = null
-    proc_type   = "Dedicated"
+    proc_type   = "Shared"
     memory      = 32
     replicas    = 3
   }
@@ -118,7 +118,7 @@ variable "cluster_worker_node_config" {
   default = {
     processors  = 4
     system_type = null
-    proc_type   = "Dedicated"
+    proc_type   = "Shared"
     memory      = 32
     replicas    = 3
   }
