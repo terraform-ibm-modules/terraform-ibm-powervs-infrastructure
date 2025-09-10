@@ -3,6 +3,7 @@
 #####################################################
 
 locals {
+  cluster_dir = "/root/ocp-powervs-deploy"
   powervs_server_routes = [
     {
       route_name  = "cluster-network"
@@ -79,7 +80,7 @@ module "ocp_cluster_install_configuration" {
   playbook_template_vars = {
     OPENSHIFT_RELEASE : var.openshift_release,
     BASE_DOMAIN : var.cluster_base_domain,
-    CLUSTER_DIR : var.cluster_dir,
+    CLUSTER_DIR : local.cluster_dir,
     CLUSTER_NAME : var.cluster_name,
     CLUSTER_NETWORK : var.cluster_network_config.cluster_network_cidr,
     CLUSTER_SERVICE_NETWORK : var.cluster_network_config.cluster_service_network_cidr,
@@ -129,7 +130,7 @@ module "ocp_cluster_manifest_creation" {
   playbook_template_vars = {
     RELEASE_IMAGE : "quay.io/openshift-release-dev/ocp-release:${var.openshift_release}-multi",
     CLUSTER_NAME : var.cluster_name,
-    CLUSTER_DIR : "/root/${var.cluster_dir}",
+    CLUSTER_DIR : local.cluster_dir,
     REQUESTS_DIR : "./credreqs"
     ACCOUNT_NAME : var.cluster_name,
     RESOURCE_GROUP : module.standard.powervs_resource_group_name,
@@ -160,7 +161,7 @@ module "ocp_cluster_deployment" {
     POWERVS_REGION : local.powervs_region,
     POWERVS_ZONE : var.powervs_zone,
     RESOURCE_GROUP : module.standard.powervs_resource_group_name,
-    CLUSTER_DIR : var.cluster_dir,
+    CLUSTER_DIR : local.cluster_dir,
     OPENSHIFT_INSTALL_BOOTSTRAP_TIMEOUT : "120m",
     OPENSHIFT_INSTALL_MACHINE_WAIT_TIMEOUT : "35m",
     OPENSHIFT_INSTALL_CLUSTER_TIMEOUT : "180m",

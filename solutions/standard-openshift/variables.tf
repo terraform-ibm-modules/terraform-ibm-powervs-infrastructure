@@ -58,12 +58,6 @@ variable "openshift_release" {
   default     = "4.19.5"
 }
 
-variable "cluster_dir" {
-  description = "The directory that holds the artifacts of the OpenShift cluster creation."
-  type        = string
-  default     = "ocp-powervs-deploy"
-}
-
 variable "cluster_network_config" {
   description = "Configuration object for the OpenShift cluster and service network CIDRs."
   type = object({

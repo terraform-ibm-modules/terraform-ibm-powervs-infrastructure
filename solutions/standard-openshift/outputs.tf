@@ -14,7 +14,7 @@ output "cluster_base_domain" {
 
 output "cluster_dir" {
   description = "The directory on the network services VSI that holds the artifacts of the OpenShift cluster creation."
-  value       = var.cluster_dir
+  value       = local.cluster_dir
 }
 
 output "cluster_resource_group" {
