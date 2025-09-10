@@ -157,7 +157,7 @@ variable "vpc_intel_images" {
     sles_image = string
   })
   default = {
-    "rhel_image" : "ibm-redhat-9-6-amd64-sap-applications-1"
+    "rhel_image" : "ibm-redhat-9-4-amd64-sap-applications-7"
     "sles_image" : "ibm-sles-15-7-amd64-sap-applications-1"
   }
 }
