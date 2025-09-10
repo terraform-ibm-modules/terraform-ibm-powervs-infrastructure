@@ -179,7 +179,7 @@ variable "external_access_ip" {
 #####################################################
 
 variable "enable_scc_wp" {
-  description = "Enable SCC Workload Protection and install and configure the SCC Workload Protection agent on all intel VSIs in this deployment. If set to true, then value for 'ansible_vault_password' in optional parameter must be set."
+  description = "Enable SCC Workload Protection and install and configure the SCC Workload Protection agent on all intel VSIs in this deployment."
   type        = bool
   default     = true
 }
