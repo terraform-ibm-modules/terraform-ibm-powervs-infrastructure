@@ -1230,6 +1230,480 @@
           "terraform_version": "1.10.5"
         },
         {
+          "label": "Quickstart Openshift",
+          "name": "standard-openshift",
+          "install_type": "fullstack",
+          "index": 3,
+          "working_directory": "solutions/standard-openshift",
+          "compliance": {
+            "authority": "scc-v3",
+            "profiles": [
+              {
+                "profile_name": "IBM Cloud Framework for Financial Services",
+                "profile_version": "1.7.0"
+              }
+            ]
+          },
+          "configuration": [
+            {
+              "key": "cluster_name",
+              "type": "string",
+              "default_value": "",
+              "required": true
+            },
+            {
+              "key": "powervs_zone",
+              "type": "string",
+              "required": true,
+              "default_value": "",
+              "options": [
+                {
+                  "displayname": "Dallas (dallas)",
+                  "value": "us-south"
+                },
+                {
+                  "displayname": "Dallas 10 (dal10)",
+                  "value": "dal10"
+                },
+                {
+                  "displayname": "Dallas 12 (dal12)",
+                  "value": "dal12"
+                },
+                {
+                  "displayname": "Frankfurt 1 (eu-de-1)",
+                  "value": "eu-de-1"
+                },
+                {
+                  "displayname": "Frankfurt 2 (eu-de-2)",
+                  "value": "eu-de-2"
+                },
+                {
+                  "displayname": "London 04 (lon04)",
+                  "value": "lon04"
+                },
+                {
+                  "displayname": "London 06 (lon06)",
+                  "value": "lon06"
+                },
+                {
+                  "displayname": "Madrid 02 (mad02)",
+                  "value": "mad02"
+                },
+                {
+                  "displayname": "Madrid 04 (mad04)",
+                  "value": "mad04"
+                },
+                {
+                  "displayname": "Osaka 21 (osa21)",
+                  "value": "osa21"
+                },
+                {
+                  "displayname": "Sao Paulo 01 (sao01)",
+                  "value": "sao01"
+                },
+                {
+                  "displayname": "Sao Paulo 04 (sao04)",
+                  "value": "sao04"
+                },
+                {
+                  "displayname": "Sydney 04 (syd04)",
+                  "value": "syd04"
+                },
+                {
+                  "displayname": "Sydney 05 (syd05)",
+                  "value": "syd05"
+                },
+                {
+                  "displayname": "Washington DC (us-east)",
+                  "value": "us-east"
+                },
+                {
+                  "displayname": "Washington DC 06 (wdc06)",
+                  "value": "wdc06"
+                },
+                {
+                  "displayname": "Washington DC 07 (wdc07)",
+                  "value": "wdc07"
+                }
+              ],
+              "custom_config": {}
+            },
+            {
+              "key": "external_access_ip",
+              "default_value": "__NULL__",
+              "required": true
+            },
+            {
+              "key": "ssh_public_key",
+              "type": "multiline_secure_value",
+              "display_name": "ssh_public_key",
+              "required": true,
+              "custom_config": {
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "type": "multiline_secure_value"
+              }
+            },
+            {
+              "key": "ssh_private_key",
+              "type": "multiline_secure_value",
+              "display_name": "ssh_private_key",
+              "required": true,
+              "custom_config": {
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "type": "multiline_secure_value"
+              }
+            },
+            {
+              "key": "ibmcloud_api_key",
+              "type": "multiline_secure_value",
+              "display_name": "Multiline secure value",
+              "required": true,
+              "custom_config": {
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "type": "multiline_secure_value"
+              }
+            },
+            {
+              "key": "user_id",
+              "type": "string",
+              "display_name": "user_id",
+              "required": true
+            },
+            {
+              "key": "openshift_pull_secret",
+              "type": "multiline_secure_value",
+              "display_name": "openshift_pull_secret",
+              "required": true
+            },
+            {
+              "key": "cluster_base_domain",
+              "type": "string",
+              "display_name": "cluster_base_domain",
+              "required": true
+            },
+            {
+              "key": "openshift_release",
+              "type": "string",
+              "display_name": "openshift_release"
+            },
+            {
+              "key": "cluster_network_config",
+              "type": "code_editor",
+              "display_name": "cluster_network_config"
+            },
+            {
+              "key": "cluster_master_node_config",
+              "type": "code_editor",
+              "display_name": "cluster_master_node_config"
+            },
+            {
+              "key": "cluster_worker_node_config",
+              "type": "code_editor",
+              "display_name": "cluster_worker_node_config"
+            },
+            {
+              "key": "tags"
+            },
+            {
+              "key": "vpc_intel_images",
+              "hidden": true
+            },
+            {
+              "key": "network_services_vsi_profile"
+            },
+            {
+              "key": "enable_scc_wp"
+            },
+            {
+              "key": "ansible_vault_password",
+              "type": "multiline_secure_value",
+              "display_name": "ansible_vault_password",
+              "required": true
+            },
+            {
+              "key": "enable_monitoring"
+            },
+            {
+              "key": "existing_monitoring_instance_crn"
+            },
+            {
+              "key": "client_to_site_vpn"
+            },
+            {
+              "key": "sm_service_plan"
+            },
+            {
+              "key": "existing_sm_instance_guid"
+            },
+            {
+              "key": "existing_sm_instance_region",
+              "type": "string",
+              "default_value": "__NULL__",
+              "options": [
+                {
+                  "displayname": "Null",
+                  "value": "__NULL__"
+                },
+                {
+                  "displayname": "au-syd",
+                  "value": "au-syd"
+                },
+                {
+                  "displayname": "br-sao",
+                  "value": "br-sao"
+                },
+                {
+                  "displayname": "ca-tor",
+                  "value": "ca-tor"
+                },
+                {
+                  "displayname": "eu-de",
+                  "value": "eu-de"
+                },
+                {
+                  "displayname": "eu-gb",
+                  "value": "eu-gb"
+                },
+                {
+                  "displayname": "jp-osa",
+                  "value": "jp-osa"
+                },
+                {
+                  "displayname": "jp-tok",
+                  "value": "jp-tok"
+                },
+                {
+                  "displayname": "us-east",
+                  "value": "us-east"
+                },
+                {
+                  "displayname": "us-south",
+                  "value": "us-south"
+                }
+              ],
+              "custom_config": {}
+            },
+            {
+              "key": "IC_SCHEMATICS_WORKSPACE_ID",
+              "hidden": true
+            }
+          ],
+          "outputs": [
+            {
+              "key": "prefix"
+            },
+            {
+              "key": "vpc_names"
+            },
+            {
+              "key": "vpc_data"
+            },
+            {
+              "key": "vsi_names"
+            },
+            {
+              "key": "kms_key_map"
+            },
+            {
+              "key": "vsi_ssh_key_data"
+            },
+            {
+              "key": "network_load_balancer"
+            },
+            {
+              "key": "ssh_public_key"
+            },
+            {
+              "key": "transit_gateway_name"
+            },
+            {
+              "key": "transit_gateway_id"
+            },
+            {
+              "key": "transit_gateway_global"
+            },
+            {
+              "key": "vsi_list"
+            },
+            {
+              "key": "resource_group_data"
+            },
+            {
+              "key": "access_host_or_ip"
+            },
+            {
+              "key": "proxy_host_or_ip_port"
+            },
+            {
+              "key": "dns_host_or_ip"
+            },
+            {
+              "key": "ntp_host_or_ip"
+            },
+            {
+              "key": "nfs_host_or_ip_path"
+            },
+            {
+              "key": "ansible_host_or_ip"
+            },
+            {
+              "key": "network_services_config"
+            },
+            {
+              "key": "powervs_zone"
+            },
+            {
+              "key": "powervs_resource_group_name"
+            },
+            {
+              "key": "powervs_workspace_name"
+            },
+            {
+              "key": "powervs_workspace_id"
+            },
+            {
+              "key": "powervs_workspace_guid"
+            },
+            {
+              "key": "powervs_ssh_public_key"
+            },
+            {
+              "key": "powervs_management_subnet"
+            },
+            {
+              "key": "powervs_backup_subnet"
+            },
+            {
+              "key": "powervs_images"
+            },
+            {
+              "key": "monitoring_instance"
+            },
+            {
+              "key": "schematics_workspace_id"
+            }
+          ],
+          "iam_permissions": [
+            {
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::serviceRole:Manager"
+              ],
+              "service_name": "appid"
+            },
+            {
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::serviceRole:Manager"
+              ],
+              "service_name": "cloud-object-storage"
+            },
+            {
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::serviceRole:Manager"
+              ],
+              "service_name": "hs-crypto"
+            },
+            {
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::role:Administrator"
+              ],
+              "service_name": "iam-identity"
+            },
+            {
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::serviceRole:Manager"
+              ],
+              "service_name": "kms"
+            },
+            {
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::serviceRole:Manager",
+                "crn:v1:bluemix:public:iam::::role:Administrator"
+              ],
+              "service_name": "is.vpc"
+            },
+            {
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::role:Editor"
+              ],
+              "service_name": "is.vpc"
+            },
+            {
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::role:Editor"
+              ],
+              "service_name": "transit.gateway"
+            },
+            {
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::serviceRole:Manager"
+              ],
+              "service_name": "power-iaas"
+            }
+          ],
+          "architecture": {
+            "features": [
+              {
+                "title": "Power Virtual Server Instance",
+                "description": "No"
+              },
+              {
+                "title": "Number of Intel Virtual Server Instance",
+                "description": "2"
+              },
+              {
+                "title": "Number of VPCs",
+                "description": "1"
+              },
+              {
+                "title": "Number of Power Virtual Server Workspace",
+                "description": "1"
+              },
+              {
+                "title": "Increases security with Key Management",
+                "description": "Yes"
+              },
+              {
+                "title": "Internet proxy on VPC",
+                "description": "Proxy service to reach public internet from PowerVS Workspace"
+              },
+              {
+                "title": "Additional management configurations on VPC",
+                "description": "NFS as service, NTP forwarder, and DNS forwarder reachable from PowerVS Workspace"
+              },
+              {
+                "title": "Client to site VPN with new or existing Secrets Manager instance",
+                "description": "Optional"
+              },
+              {
+                "title": "SCC Workload Protection instance",
+                "description": "Optional"
+              },
+              {
+                "title": "Monitoring Instance and Monitoring Intel VSI Host",
+                "description": "Optional"
+              },
+              {
+                "title": "Bring your own image to PowerVS",
+                "description": "Optional"
+              }
+            ],
+            "diagrams": [
+              {
+                "diagram": {
+                  "caption": "Power Virtual Server with VPC landing zone 'Standard Landscape' variation",
+                  "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/refs/tags/v9.0.0/reference-architectures/standard/deploy-arch-ibm-pvs-inf-standard.svg",
+                  "type": "image/svg+xml"
+                },
+                "description": "The Power Virtual Server with VPC landing zone as variation 'Create a new architecture' deploys VPC services and a Power Virtual Server workspace and interconnects them.\n \nRequired and optional management components are configured."
+              }
+            ]
+          },
+          "terraform_version": "1.10.5"
+        },
+        {
           "label": "Extend Standard Landscape",
           "name": "standard-extend",
           "install_type": "extension",
