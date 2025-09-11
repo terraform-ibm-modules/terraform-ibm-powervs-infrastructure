@@ -323,6 +323,10 @@
                   "value": "br-sao"
                 },
                 {
+                  "displayname": "ca-mon",
+                  "value": "ca-mon"
+                },
+                {
                   "displayname": "ca-tor",
                   "value": "ca-tor"
                 },
@@ -976,6 +980,10 @@
                   "value": "br-sao"
                 },
                 {
+                  "displayname": "ca-mon",
+                  "value": "ca-mon"
+                },
+                {
                   "displayname": "ca-tor",
                   "value": "ca-tor"
                 },
@@ -1454,6 +1462,10 @@
                 {
                   "displayname": "br-sao",
                   "value": "br-sao"
+                },
+                {
+                  "displayname": "ca-mon",
+                  "value": "ca-mon"
                 },
                 {
                   "displayname": "ca-tor",
