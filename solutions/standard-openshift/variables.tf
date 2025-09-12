@@ -74,6 +74,18 @@ variable "cluster_network_config" {
     cluster_service_network_cidr = "10.67.0.0/16"
     cluster_machine_network_cidr = "10.72.0.0/24"
   }
+  validation {
+    condition     = can(regex("/([0-9]{1,2})$", var.cluster_network_config.cluster_network_cidr)) && tonumber(regex("/([0-9]{1,2})$", var.cluster_network_config.cluster_network_cidr)[0]) <= 14
+    error_message = "The CIDR suffix must be /14 or less to ensure enough IP addresses are available in this subnet (e.g., 10.128.0.0/14)."
+  }
+  validation {
+    condition     = can(regex("/([0-9]{1,2})$", var.cluster_network_config.cluster_service_network_cidr)) && tonumber(regex("/([0-9]{1,2})$", var.cluster_network_config.cluster_service_network_cidr)[0]) <= 16
+    error_message = "The CIDR suffix must be /16 or less to ensure enough IP addresses are available in this subnet (e.g., 10.67.0.0/16)."
+  }
+  validation {
+    condition     = can(regex("/([0-9]{1,2})$", var.cluster_network_config.cluster_network_cidr)) && tonumber(regex("/([0-9]{1,2})$", var.cluster_network_config.cluster_network_cidr)[0]) <= 24
+    error_message = "The CIDR suffix must be /24 or less to ensure enough IP addresses are available in this subnet (e.g., 10.72.0.0/24)."
+  }
 }
 
 variable "cluster_master_node_config" {
