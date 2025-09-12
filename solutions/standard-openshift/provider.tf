@@ -58,9 +58,9 @@ locals {
     "eu-de-2" = "eu-de"
     "mad02"   = "mad"
     "mad04"   = "mad"
-    # "lon04"   = "lon" not yet supported by IPI
-    "lon06" = "lon"
-    "osa21" = "osa"
+    "lon04"   = "lon"
+    "lon06"   = "lon"
+    "osa21"   = "osa"
     #"tok04"    = "jp-tok"
     "us-south" = "us-south"
     "dal10"    = "dal"
