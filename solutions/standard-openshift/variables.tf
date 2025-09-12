@@ -80,16 +80,16 @@ variable "cluster_master_node_config" {
   description = "Configuration for the master nodes of the OpenShift cluster, including CPU, system type, processor type, and replica count. If system_type is null, it's chosen based on whether it's supported in the region. This can be overwritten by passing a value, e.g. 's1022' or 's922'. Memory is in GB."
   type = object({
     processors  = number
+    memory      = number
     system_type = string
     proc_type   = string
-    memory      = number
     replicas    = number
   })
   default = {
     processors  = 4
+    memory      = 32
     system_type = null
     proc_type   = "Shared"
-    memory      = 32
     replicas    = 3
   }
   validation {
@@ -110,16 +110,16 @@ variable "cluster_worker_node_config" {
   description = "Configuration for the worker nodes of the OpenShift cluster, including CPU, system type, processor type, and replica count. If system_type is null, it's chosen based on whether it's supported in the region. This can be overwritten by passing a value, e.g. 's1022' or 's922'. Memory is in GB."
   type = object({
     processors  = number
+    memory      = number
     system_type = string
     proc_type   = string
-    memory      = number
     replicas    = number
   })
   default = {
     processors  = 4
+    memory      = 32
     system_type = null
     proc_type   = "Shared"
-    memory      = 32
     replicas    = 3
   }
   validation {
