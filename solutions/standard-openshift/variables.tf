@@ -180,6 +180,12 @@ variable "network_services_vsi_profile" {
   default     = "cx2-2x4"
 }
 
+variable "intel_user_data" {
+  description = "User data that automatically performs common configuration tasks or runs scripts only on the intel VSIs. For more information, see https://cloud.ibm.com/docs/vpc?topic=vpc-user-data. For information on using the user_data variable, please refer: https://cloud.ibm.com/docs/secure-infrastructure-vpc?topic=secure-infrastructure-vpc-user-data"
+  type        = string
+  default     = null
+}
+
 variable "external_access_ip" {
   description = "Specify the source IP address or CIDR for login through SSH to the environment after deployment. Access to the environment will be allowed only from this IP address. Can be set to 'null' if you choose to use client to site vpn."
   type        = string

@@ -38,6 +38,7 @@ module "standard" {
   ssh_private_key                  = var.ssh_private_key
   client_to_site_vpn               = local.client_to_site_vpn
   vpc_intel_images                 = var.vpc_intel_images
+  user_data                        = var.intel_user_data
   powervs_resource_group_name      = null
   powervs_management_network       = null
   powervs_backup_network           = null

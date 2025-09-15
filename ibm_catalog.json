@@ -1423,6 +1423,11 @@
               "key": "network_services_vsi_profile"
             },
             {
+              "key": "intel_user_data",
+              "type": "code_editor",
+              "display_name": "intel_user_data"
+            },
+            {
               "key": "enable_scc_wp"
             },
             {
