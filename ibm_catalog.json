@@ -1424,8 +1424,7 @@
             },
             {
               "key": "intel_user_data",
-              "type": "code_editor",
-              "display_name": "intel_user_data"
+              "hidden": true
             },
             {
               "key": "enable_scc_wp"
