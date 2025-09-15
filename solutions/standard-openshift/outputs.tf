@@ -91,21 +91,6 @@ output "proxy_host_or_ip_port" {
   value       = module.standard.proxy_host_or_ip_port
 }
 
-output "dns_host_or_ip" {
-  description = "DNS forwarder host for created PowerVS infrastructure."
-  value       = module.standard.dns_host_or_ip
-}
-
-output "ntp_host_or_ip" {
-  description = "NTP host for created PowerVS infrastructure."
-  value       = module.standard.ntp_host_or_ip
-}
-
-output "nfs_host_or_ip_path" {
-  description = "NFS host for created PowerVS infrastructure."
-  value       = module.standard.nfs_host_or_ip_path
-}
-
 output "ansible_host_or_ip" {
   description = "Central Ansible node private IP address."
   value       = module.standard.ansible_host_or_ip
