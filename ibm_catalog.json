@@ -1662,8 +1662,16 @@
           "architecture": {
             "features": [
               {
-                "title": "Power Virtual Server Instance",
-                "description": "No"
+                "title": "Power Virtual Server Control Plane Instances",
+                "description": "1 or 3"
+              },
+              {
+                "title": "Power Virtual Server Compute Instances",
+                "description": "2...N"
+              },
+              {
+                "title": "Number of OpenShift Clusters on PowerVS",
+                "description": "1"
               },
               {
                 "title": "Number of Intel Virtual Server Instance",
@@ -1678,7 +1686,7 @@
                 "description": "1"
               },
               {
-                "title": "Increases security with Key Management",
+                "title": "Increased security with Key Management",
                 "description": "Yes"
               },
               {
@@ -1686,8 +1694,12 @@
                 "description": "Proxy service to reach public internet from PowerVS Workspace"
               },
               {
-                "title": "Additional management configurations on VPC",
-                "description": "NFS as service, NTP forwarder, and DNS forwarder reachable from PowerVS Workspace"
+                "title": "IBM Cloud DNS Service",
+                "description": "Configure DNS server for internal resolution of the Cluster domain"
+              },
+              {
+                "title": "Number of Application load balancers to ensure Cluster API availability",
+                "description": "3"
               },
               {
                 "title": "Client to site VPN with new or existing Secrets Manager instance",
