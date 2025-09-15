@@ -133,7 +133,7 @@ module "ocp_cluster_manifest_creation" {
     CLUSTER_NAME : var.cluster_name,
     CLUSTER_DIR : local.cluster_dir,
     REQUESTS_DIR : "./credreqs"
-    ACCOUNT_NAME : var.cluster_name,
+    SERVICE_ID_PREFIX : var.cluster_name,
     RESOURCE_GROUP : module.standard.powervs_resource_group_name,
   }
 
