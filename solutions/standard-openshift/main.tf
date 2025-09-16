@@ -64,7 +64,7 @@ locals {
 }
 
 module "ocp_cluster_install_configuration" {
-  source     = "../../modules/ansible"
+  source     = "./ansible"
   depends_on = [module.standard]
 
   bastion_host_ip        = module.standard.access_host_or_ip
@@ -114,7 +114,7 @@ module "ocp_cluster_install_configuration" {
 }
 
 module "ocp_cluster_manifest_creation" {
-  source     = "../../modules/ansible"
+  source     = "./ansible"
   depends_on = [module.ocp_cluster_install_configuration]
 
   bastion_host_ip        = module.standard.access_host_or_ip
@@ -142,7 +142,7 @@ module "ocp_cluster_manifest_creation" {
 }
 
 module "ocp_cluster_deployment" {
-  source     = "../../modules/ansible"
+  source     = "./ansible"
   depends_on = [module.ocp_cluster_manifest_creation]
 
   bastion_host_ip        = module.standard.access_host_or_ip

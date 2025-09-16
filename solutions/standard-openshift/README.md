@@ -11,9 +11,9 @@
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_ocp_cluster_deployment"></a> [ocp\_cluster\_deployment](#module\_ocp\_cluster\_deployment) | ../../modules/ansible | n/a |
-| <a name="module_ocp_cluster_install_configuration"></a> [ocp\_cluster\_install\_configuration](#module\_ocp\_cluster\_install\_configuration) | ../../modules/ansible | n/a |
-| <a name="module_ocp_cluster_manifest_creation"></a> [ocp\_cluster\_manifest\_creation](#module\_ocp\_cluster\_manifest\_creation) | ../../modules/ansible | n/a |
+| <a name="module_ocp_cluster_deployment"></a> [ocp\_cluster\_deployment](#module\_ocp\_cluster\_deployment) | ./ansible | n/a |
+| <a name="module_ocp_cluster_install_configuration"></a> [ocp\_cluster\_install\_configuration](#module\_ocp\_cluster\_install\_configuration) | ./ansible | n/a |
+| <a name="module_ocp_cluster_manifest_creation"></a> [ocp\_cluster\_manifest\_creation](#module\_ocp\_cluster\_manifest\_creation) | ./ansible | n/a |
 | <a name="module_standard"></a> [standard](#module\_standard) | ../../modules/powervs-vpc-landing-zone | n/a |
 
 ### Resources
