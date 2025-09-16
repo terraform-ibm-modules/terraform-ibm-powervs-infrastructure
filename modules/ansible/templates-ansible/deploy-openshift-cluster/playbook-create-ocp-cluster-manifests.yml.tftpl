@@ -5,7 +5,6 @@
   vars:
     release_image: "${RELEASE_IMAGE}"
     requests_dir: "${REQUESTS_DIR}"
-    service_id_prefix: "${SERVICE_ID_PREFIX}"
     resource_group: "${RESOURCE_GROUP}"
     cluster_name: "${CLUSTER_NAME}"
     cluster_dir: "${CLUSTER_DIR}"
@@ -24,7 +23,7 @@
         command: >
           ccoctl ibmcloud create-service-id
           --credentials-requests-dir {{ requests_dir }}
-          --name {{ service_id_prefix }}
+          --name {{ cluster_name }}
           --resource-group-name {{ resource_group }}
         args:
           chdir: "{{ cluster_dir }}"
