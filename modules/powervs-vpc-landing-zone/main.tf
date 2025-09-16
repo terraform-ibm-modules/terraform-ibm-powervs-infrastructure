@@ -11,7 +11,7 @@ locals {
       external_access_ip           = local.external_access_ip,
       rhel_image                   = var.vpc_intel_images.rhel_image,
       network_services_vsi_profile = var.network_services_vsi_profile,
-      user_data                    = replace(var.user_data, "\n", "\\n")
+      user_data                    = var.user_data != null ? replace(var.user_data, "\n", "\\n") : null
       transit_gateway_global       = var.transit_gateway_global,
       enable_monitoring            = var.enable_monitoring,
       sles_image                   = var.vpc_intel_images.sles_image,
