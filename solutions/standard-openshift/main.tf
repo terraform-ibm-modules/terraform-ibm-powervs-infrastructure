@@ -85,7 +85,7 @@ module "ocp_cluster_install_configuration" {
     CLUSTER_NAME : var.cluster_name,
     CLUSTER_NETWORK : var.cluster_network_config.cluster_network_cidr,
     CLUSTER_SERVICE_NETWORK : var.cluster_network_config.cluster_service_network_cidr,
-    MACHINE_NETWORK : var.cluster_network_config.cluster_machine_network_cidr
+    MACHINE_NETWORK : var.cluster_network_config.cluster_machine_network_cidr,
     WORKER_PROCESSORS : local.cluster_worker_node_config.processors,
     WORKER_SYSTEM_TYPE : local.cluster_worker_node_config.system_type,
     WORKER_PROC_TYPE : local.cluster_worker_node_config.proc_type,
@@ -103,7 +103,7 @@ module "ocp_cluster_install_configuration" {
     POWERVS_REGION : local.powervs_region,
     POWERVS_ZONE : var.powervs_zone,
     VPC_NAME : module.standard.vpc_names[0],
-    VPC_REGION : local.vpc_region
+    VPC_REGION : local.vpc_region,
     PULL_SECRET_FILE : jsonencode(var.openshift_pull_secret),
     SSH_KEY : var.ssh_public_key,
   }
