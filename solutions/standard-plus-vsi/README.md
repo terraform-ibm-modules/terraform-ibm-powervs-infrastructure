@@ -37,7 +37,7 @@ This example sets up the following infrastructure:
 | [Quickstart (Standard plus VSI)](./)    | :heavy_check_mark:  |   N/A  | :heavy_check_mark:| :heavy_check_mark: | :heavy_check_mark:  | :heavy_check_mark: | :heavy_check_mark: |
 
 ## Reference architecture
-[Quickstart (Standard plus VSI) variation](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/blob/main/reference-architectures/standard-with.instance/deploy-arch-ibm-pvs-inf-standard-plus-vsi.md)
+[Quickstart (Standard plus VSI) variation](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/blob/main/reference-architectures/standard-plus-vsi/deploy-arch-ibm-pvs-inf-standard-plus-vsi.md)
 
 ## Architecture diagram
 ![Quickstart (Standard plus VSI)](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/blob/main/reference-architectures/standard-plus-vsi/deploy-arch-ibm-pvs-inf-standard-plus-vsi.svg)
