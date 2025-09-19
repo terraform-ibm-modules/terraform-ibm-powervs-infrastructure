@@ -116,6 +116,10 @@ variable "cluster_master_node_config" {
     condition     = var.cluster_master_node_config.memory >= 2 && var.cluster_master_node_config.memory <= 64
     error_message = "Memory needs to be at least 2 and at most 64."
   }
+  validation {
+    condition     = var.cluster_master_node_config.replicas == 1 || var.cluster_master_node_config.replicas == 3
+    error_message = "The number of master nodes needs to be 3 or 1 for single-node openshift."
+  }
 }
 
 variable "cluster_worker_node_config" {
@@ -145,6 +149,10 @@ variable "cluster_worker_node_config" {
   validation {
     condition     = var.cluster_worker_node_config.memory >= 2 && var.cluster_worker_node_config.memory <= 64
     error_message = "Memory needs to be at least 2 and at most 64."
+  }
+  validation {
+    condition     = var.cluster_worker_node_config.replicas >= 2
+    error_message = "The number of worker nodes needs to be 2 or more."
   }
 }
 
