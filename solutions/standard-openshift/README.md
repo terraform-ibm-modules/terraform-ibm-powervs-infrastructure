@@ -1,3 +1,45 @@
+# IBM Cloud Solution for Power Virtual Server with VPC Landing Zone Quickstart Openshift Variation
+
+This example sets up an OpenShift Cluster on PowerVS following infrastructure:
+- A **VPC Infrastructure** with the following components:
+    - One VSI for management (jump/bastion)
+    - One VSI for network-services configured as squid proxy (using Ansible Galaxy collection roles [ibm.power_linux_sap collection](https://galaxy.ansible.com/ui/repo/published/ibm/power_linux_sap/). This VSI also acts as central ansible execution node.
+    - Optional VSI for Monitoring host
+    - Optional [Client to site VPN server](https://cloud.ibm.com/docs/vpc?topic=vpc-vpn-client-to-site-overview)
+    - Optional [IBM Cloud Security and Compliance Center Workload Protection](https://cloud.ibm.com/docs/workload-protection) and SCC Workload Protection agent configuration on the VSIs in the deployment
+    - IBM Cloud Object storage(COS) Virtual Private endpoint gateway(VPE)
+    - IBM Cloud Object storage(COS) Instance and buckets
+    - VPC flow logs
+    - KMS keys
+    - Activity tracker
+    - Optional Secrets Manager Instance Instance with private certificate.
+
+- A local **transit gateway**
+- An IBM Cloud DNS Service Instance
+- An optional IBM Cloud Monitoring Instance
+
+- A **Power Virtual Server** workspace with the following features:
+    - A DHCP machine subnet to which all nodes are assigned.
+    - Attaches the PowerVS workspace to transit gateway.
+    - Creates an SSH key.
+
+- A configurable number of **PowerVS Instances**:
+    - 1 or 3 master nodes
+    - 2 or more worker nodes
+    - Custom profile (cores, memory, machine type, core type)
+
+## Solutions
+
+| Variation  | Available on IBM Catalog  |  Requires Schematics Workspace ID | Creates VPC Landing Zone | Performs VPC VSI OS Config | Creates PowerVS Infrastructure | Creates PowerVS Instance | Creates OpenShift Cluster on PowerVS |
+| ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
+| [Quickstart Openshift](./)    | :heavy_check_mark:  |   N/A  | :heavy_check_mark:| :heavy_check_mark: | :heavy_check_mark:  | :heavy_check_mark: | :heavy_check_mark: |
+
+## Reference architecture
+[Quickstart Openshift](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/blob/main/reference-architectures/standard-openshift/deploy-arch-ibm-pvs-inf-standard-openshift.md)
+
+## Architecture diagram
+![Quickstart Openshift](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/blob/main/reference-architectures/standard-openshift/deploy-arch-ibm-pvs-inf-standard-openshift.svg)
+
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ### Requirements
 
