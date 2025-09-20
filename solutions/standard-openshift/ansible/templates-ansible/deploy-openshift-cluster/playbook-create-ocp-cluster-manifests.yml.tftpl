@@ -1,0 +1,79 @@
+---
+- name: Execute OpenShift commands and IBM Cloud service creation
+  hosts: all
+
+  vars:
+    release_image: "${RELEASE_IMAGE}"
+    requests_dir: "${REQUESTS_DIR}"
+    resource_group: "${RESOURCE_GROUP}"
+    cluster_name: "${CLUSTER_NAME}"
+    cluster_dir: "${CLUSTER_DIR}"
+
+  tasks:
+    - name: Create manifests and extract image
+      block:
+      - name: Extract OpenShift release
+        command: >
+          oc adm release extract --cloud=powervs --credentials-requests {{ release_image }} --to={{ requests_dir }}
+        args:
+          chdir: "{{ cluster_dir }}"
+        register: release_extract_output
+
+      - name: Create IBM Cloud service ID using ccoctl
+        command: >
+          ccoctl ibmcloud create-service-id
+          --credentials-requests-dir {{ requests_dir }}
+          --name {{ cluster_name }}
+          --resource-group-name {{ resource_group }}
+        args:
+          chdir: "{{ cluster_dir }}"
+        environment:
+          IBMCLOUD_API_KEY: "{{ lookup('env', 'IBMCLOUD_API_KEY') }}"
+        register: service_id_creation_output
+
+      - name: Output result of release extraction
+        debug:
+          var: release_extract_output
+
+      - name: Output result of IBM Cloud service creation
+        debug:
+          var: service_id_creation_output
+
+      rescue:
+      - name: Rescue if failure occurred
+        ansible.builtin.shell: |
+          ccoctl ibmcloud delete-service-id --credentials-requests-dir {{requests_dir}} --name {{cluster_name}};
+        args:
+          chdir: "{{ cluster_dir }}"
+        environment:
+          IBMCLOUD_API_KEY: "{{ lookup('env', 'IBMCLOUD_API_KEY') }}"
+
+      - name: Mark that rescue was triggered
+        set_fact:
+          rescue_triggered: true
+
+    - name: Create manifests
+      ansible.builtin.shell: |
+        openshift-install create manifests
+      args:
+          chdir: "{{ cluster_dir }}"
+      environment:
+        IBMCLOUD_API_KEY: "{{ lookup('env', 'IBMCLOUD_API_KEY') }}"
+
+    - name: Find files matching openshift* in manifests dir
+      ansible.builtin.find:
+        paths: "{{ cluster_dir }}/manifests"
+        patterns: "openshift*"
+        file_type: file
+      register: found_files
+
+    - name: Set permissions to 0640
+      ansible.builtin.file:
+        path: "{{ item.path }}"
+        mode: '0640'
+      loop: "{{ found_files.files }}"
+
+    - name: Fail if rescue was triggered
+      fail:
+        msg: "Rescue block was triggered; Task is now failing as a result."
+      when: rescue_triggered | default(false)

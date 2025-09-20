@@ -1,6 +1,0 @@
-{
-  "ibmcloud_api_key": $VALIDATION_APIKEY,
-  "powervs_zone": "eu-de-2",
-  "powervs_resource_group_name": "Default",
-  "prerequisite_workspace_id": "us-south.workspace.DO-NOT-DELETE-Catalog-validate-onboarding-for-extend-landspace.679f97fd"
-}
