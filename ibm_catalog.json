@@ -17,7 +17,7 @@
         "support_ibm",
         "infra_only",
         "single_system",
-        "converged_infra"
+        "platform_engineering"
       ],
       "keywords": [
         "power",
