@@ -1060,7 +1060,6 @@
             {
               "key": "cluster_name",
               "type": "string",
-              "default_value": "",
               "required": true
             },
             {
