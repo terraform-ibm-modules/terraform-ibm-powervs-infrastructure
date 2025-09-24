@@ -24,8 +24,12 @@ export IBMCLOUD_API_KEY=$${IBMCLOUD_API_KEY}
 unbuffer ansible-playbook -i $${ansible_inventory} $${ansible_playbook} --extra-vars "IBMCLOUD_API_KEY=$IBMCLOUD_API_KEY" --vault-password-file password_file
 ## On failure:
 if [ $? -ne 0 ]; then
+    if [ -f "~/.powervs/config.json" ]; then ansible-vault encrypt ~/.powervs/config.json --vault-password-file password_file
+    rm -f password_file
     rm -rf $${ansible_private_key_file}
     exit 1
 fi
 echo \"Playbook command successful\"
 rm -rf $${ansible_private_key_file}
+if [ -f "~/.powervs/config.json" ]; then ansible-vault encrypt ~/.powervs/config.json --vault-password-file password_file
+rm -f password_file

@@ -123,8 +123,7 @@ resource "terraform_data" "execute_playbooks" {
   provisioner "remote-exec" {
     inline = [
       "if [ -f \"~/.powervs/config.json\" ]; then echo ${var.ansible_vault_password} > password_file",
-      "if [ -f \"~/.powervs/config.json\" ]; then ansible-vault decrypt ~/.powervs/config.json --vault-password-file password_file",
-      "rm -f password_file"
+      "if [ -f \"~/.powervs/config.json\" ]; then ansible-vault decrypt ~/.powervs/config.json --vault-password-file password_file"
     ]
   }
 
@@ -227,9 +226,7 @@ resource "terraform_data" "execute_playbooks_with_vault" {
   # Decrypt ocp config if it already exists
   provisioner "remote-exec" {
     inline = [
-      "if [ -f \"~/.powervs/config.json\" ]; then echo ${var.ansible_vault_password} > password_file",
-      "if [ -f \"~/.powervs/config.json\" ]; then ansible-vault decrypt ~/.powervs/config.json --vault-password-file password_file",
-      "rm -f password_file"
+      "if [ -f \"~/.powervs/config.json\" ]; then ansible-vault decrypt ~/.powervs/config.json --vault-password-file password_file"
     ]
   }
 
@@ -238,6 +235,15 @@ resource "terraform_data" "execute_playbooks_with_vault" {
     inline = [
       "chmod +x ${local.dst_script_file_path}",
       "export IBMCLOUD_API_KEY=${local.ibmcloud_api_key} && ${local.dst_script_file_path}",
+    ]
+  }
+
+  # Encrypt ocp config if it already exists
+  provisioner "remote-exec" {
+    inline = [
+      "if [ -f \"~/.powervs/config.json\" ]; then echo ${var.ansible_vault_password} > password_file",
+      "if [ -f \"~/.powervs/config.json\" ]; then ansible-vault encrypt ~/.powervs/config.json --vault-password-file password_file",
+      "rm -f password_file"
     ]
   }
 
@@ -250,14 +256,6 @@ resource "terraform_data" "execute_playbooks_with_vault" {
     ]
   }
 
-  # Encrypt ocp config if it already exists
-  provisioner "remote-exec" {
-    inline = [
-      "if [ -f \"~/.powervs/config.json\" ]; then echo ${var.ansible_vault_password} > password_file",
-      "if [ -f \"~/.powervs/config.json\" ]; then ansible-vault encrypt ~/.powervs/config.json --vault-password-file password_file",
-      "rm -f password_file"
-    ]
-  }
 }
 
 
