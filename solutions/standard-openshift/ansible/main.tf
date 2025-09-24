@@ -66,7 +66,7 @@ resource "terraform_data" "trigger_ansible_vars" {
 
 resource "terraform_data" "execute_playbooks" {
   depends_on = [terraform_data.setup_ansible_host]
-  count      = var.ansible_vault_password != null ? 0 : 1
+  count      = var.encrypt_playbook ? 0 : 1
 
   connection {
     type         = "ssh"
@@ -119,6 +119,15 @@ resource "terraform_data" "execute_playbooks" {
     ]
   }
 
+  # Decrypt ocp config if it already exists
+  provisioner "remote-exec" {
+    inline = [
+      "if [ -f \"~/.powervs/config.json\" ]; then echo ${var.ansible_vault_password} > password_file",
+      "if [ -f \"~/.powervs/config.json\" ]; then ansible-vault decrypt ~/.powervs/config.json --vault-password-file password_file",
+      "rm -f password_file"
+    ]
+  }
+
   # Execute bash shell script to run ansible playbooks
   provisioner "remote-exec" {
     inline = [
@@ -134,6 +143,15 @@ resource "terraform_data" "execute_playbooks" {
     ]
   }
 
+  # Encrypt ocp config if it already exists
+  provisioner "remote-exec" {
+    inline = [
+      "if [ -f \"~/.powervs/config.json\" ]; then echo ${var.ansible_vault_password} > password_file",
+      "if [ -f \"~/.powervs/config.json\" ]; then ansible-vault encrypt ~/.powervs/config.json --vault-password-file password_file",
+      "rm -f password_file"
+    ]
+  }
+
   # print output of openshift installation if applicable, else do nothing
   provisioner "remote-exec" {
     inline = [
@@ -145,7 +163,7 @@ resource "terraform_data" "execute_playbooks" {
 
 resource "terraform_data" "execute_playbooks_with_vault" {
   depends_on = [terraform_data.setup_ansible_host]
-  count      = var.ansible_vault_password != null ? 1 : 0
+  count      = var.encrypt_playbook ? 1 : 0
 
   connection {
     type         = "ssh"
@@ -206,6 +224,15 @@ resource "terraform_data" "execute_playbooks_with_vault" {
     ]
   }
 
+  # Decrypt ocp config if it already exists
+  provisioner "remote-exec" {
+    inline = [
+      "if [ -f \"~/.powervs/config.json\" ]; then echo ${var.ansible_vault_password} > password_file",
+      "if [ -f \"~/.powervs/config.json\" ]; then ansible-vault decrypt ~/.powervs/config.json --vault-password-file password_file",
+      "rm -f password_file"
+    ]
+  }
+
   # Execute bash shell script to run ansible playbooks
   provisioner "remote-exec" {
     inline = [
@@ -220,6 +247,15 @@ resource "terraform_data" "execute_playbooks_with_vault" {
     inline = [
       "rm -rf password_file",
       "rm -rf ${local.private_key_file}"
+    ]
+  }
+
+  # Encrypt ocp config if it already exists
+  provisioner "remote-exec" {
+    inline = [
+      "if [ -f \"~/.powervs/config.json\" ]; then echo ${var.ansible_vault_password} > password_file",
+      "if [ -f \"~/.powervs/config.json\" ]; then ansible-vault encrypt ~/.powervs/config.json --vault-password-file password_file",
+      "rm -f password_file"
     ]
   }
 }

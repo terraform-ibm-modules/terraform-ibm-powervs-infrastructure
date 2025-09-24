@@ -71,6 +71,7 @@ module "ocp_cluster_install_configuration" {
   ansible_host_or_ip     = module.standard.ansible_host_or_ip
   ssh_private_key        = var.ssh_private_key
   ansible_vault_password = var.ansible_vault_password
+  encrypt_playbook       = true
   configure_ansible_host = false
 
   src_script_template_name = "deploy-openshift-cluster/ansible_exec_vault.sh.tftpl"
@@ -120,6 +121,8 @@ module "ocp_cluster_manifest_creation" {
   bastion_host_ip        = module.standard.access_host_or_ip
   ansible_host_or_ip     = module.standard.ansible_host_or_ip
   ssh_private_key        = var.ssh_private_key
+  ansible_vault_password = var.ansible_vault_password
+  encrypt_playbook       = false
   configure_ansible_host = false
   ibmcloud_api_key       = var.ibmcloud_api_key
 
@@ -148,6 +151,8 @@ module "ocp_cluster_deployment" {
   bastion_host_ip        = module.standard.access_host_or_ip
   ansible_host_or_ip     = module.standard.ansible_host_or_ip
   ssh_private_key        = var.ssh_private_key
+  ansible_vault_password = var.ansible_vault_password
+  encrypt_playbook       = false
   configure_ansible_host = false
   ibmcloud_api_key       = var.ibmcloud_api_key
 
