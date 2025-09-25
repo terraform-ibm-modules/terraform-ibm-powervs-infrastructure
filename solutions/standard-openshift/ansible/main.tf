@@ -122,8 +122,8 @@ resource "terraform_data" "execute_playbooks" {
   # Decrypt ocp config if it already exists
   provisioner "remote-exec" {
     inline = [
-      "if [ -f \"~/.powervs/config.json\" ]; then echo ${var.ansible_vault_password} > password_file; fi",
-      "if [ -f \"~/.powervs/config.json\" ]; then ansible-vault decrypt ~/.powervs/config.json --vault-password-file password_file; fi"
+      "if [ -f \"/root/.powervs/config.json\" ]; then echo ${var.ansible_vault_password} > password_file; fi",
+      "if [ -f \"/root/.powervs/config.json\" ]; then ansible-vault decrypt /root/.powervs/config.json --vault-password-file password_file; fi"
     ]
   }
 
@@ -145,8 +145,12 @@ resource "terraform_data" "execute_playbooks" {
   # Encrypt ocp config if it already exists
   provisioner "remote-exec" {
     inline = [
-      "if [ -f \"~/.powervs/config.json\" ]; then echo ${var.ansible_vault_password} > password_file; fi",
-      "if [ -f \"~/.powervs/config.json\" ]; then ansible-vault encrypt ~/.powervs/config.json --vault-password-file password_file; fi",
+      "if [ -f \"/root/.powervs/config.json\" ]; then",
+      "  if ! ( head -n 1 | grep -q '^\\$ANSIBLE_VAULT' ); then",
+      "    echo ${var.ansible_vault_password} > password_file",
+      "    ansible-vault encrypt /root/.powervs/config.json --vault-password-file password_file",
+      "  fi",
+      "fi",
       "rm -f password_file"
     ]
   }
@@ -226,7 +230,7 @@ resource "terraform_data" "execute_playbooks_with_vault" {
   # Decrypt ocp config if it already exists
   provisioner "remote-exec" {
     inline = [
-      "if [ -f \"~/.powervs/config.json\" ]; then ansible-vault decrypt ~/.powervs/config.json --vault-password-file password_file; fi"
+      "if [ -f \"/root/.powervs/config.json\" ]; then ansible-vault decrypt /root/.powervs/config.json --vault-password-file password_file; fi"
     ]
   }
 
@@ -241,8 +245,12 @@ resource "terraform_data" "execute_playbooks_with_vault" {
   # Encrypt ocp config if it already exists
   provisioner "remote-exec" {
     inline = [
-      "if [ -f \"~/.powervs/config.json\" ]; then echo ${var.ansible_vault_password} > password_file; fi",
-      "if [ -f \"~/.powervs/config.json\" ]; then ansible-vault encrypt ~/.powervs/config.json --vault-password-file password_file; fi",
+      "if [ -f \"/root/.powervs/config.json\" ]; then",
+      "  if ! ( head -n 1 | grep -q '^\\$ANSIBLE_VAULT' ); then",
+      "    echo ${var.ansible_vault_password} > password_file",
+      "    ansible-vault encrypt /root/.powervs/config.json --vault-password-file password_file",
+      "  fi",
+      "fi",
       "rm -f password_file"
     ]
   }
