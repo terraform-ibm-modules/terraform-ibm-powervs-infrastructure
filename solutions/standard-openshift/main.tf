@@ -19,7 +19,7 @@ locals {
   client_to_site_vpn = merge(var.client_to_site_vpn, { "powervs_server_routes" : local.powervs_server_routes })
 
   # automatically pick the supported system type unless it's overwritten by the user
-  p10_unsupported_regions = ["che01", "lon04", "lon06", "mon01", "syd04", "syd05", "tor01", "us-east"] # datacenters that don't support P10 yet
+  p10_unsupported_regions = ["che01", "lon04", "mon01", "syd04", "syd05", "tor01", "us-east"] # datacenters that don't support P10 yet
   system_type             = contains(local.p10_unsupported_regions, var.powervs_zone) ? "s922" : "s1022"
 
   cluster_master_node_config = var.cluster_master_node_config.system_type != null ? var.cluster_master_node_config : merge(var.cluster_master_node_config, { system_type : local.system_type })
