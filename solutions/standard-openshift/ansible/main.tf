@@ -122,8 +122,8 @@ resource "terraform_data" "execute_playbooks" {
   # Decrypt ocp config if it already exists
   provisioner "remote-exec" {
     inline = [
-      "if [ -f \"/root/.powervs/config.json\" ]; then",
-      "  if ! ( head -n 1 /root/.powervs/config.json | grep -q '^$ANSIBLE_VAULT' ); then",
+      "if [ -f /root/.powervs/config.json ]; then",
+      "  if head -n 1 /root/.powervs/config.json | grep -q '^$ANSIBLE_VAULT'; then",
       "    echo ${var.ansible_vault_password} > password_file",
       "    ansible-vault decrypt /root/.powervs/config.json --vault-password-file password_file",
       "  fi",
@@ -132,10 +132,13 @@ resource "terraform_data" "execute_playbooks" {
   }
 
   # Execute bash shell script to run ansible playbooks
+  # create password file so the script can encrypt the ocp config
   provisioner "remote-exec" {
     inline = [
+      "echo ${var.ansible_vault_password} > password_file",
       "chmod +x ${local.dst_script_file_path}",
       "export IBMCLOUD_API_KEY=${local.ibmcloud_api_key} && ${local.dst_script_file_path}",
+      "rm -f password_file"
     ]
   }
 
@@ -149,7 +152,7 @@ resource "terraform_data" "execute_playbooks" {
   # Encrypt ocp config if it already exists
   provisioner "remote-exec" {
     inline = [
-      "if [ -f \"/root/.powervs/config.json\" ]; then",
+      "if [ -f /root/.powervs/config.json ]; then",
       "  if ! ( head -n 1 /root/.powervs/config.json | grep -q '^$ANSIBLE_VAULT' ); then",
       "    echo ${var.ansible_vault_password} > password_file",
       "    ansible-vault encrypt /root/.powervs/config.json --vault-password-file password_file",
@@ -234,8 +237,8 @@ resource "terraform_data" "execute_playbooks_with_vault" {
   # Decrypt ocp config if it already exists
   provisioner "remote-exec" {
     inline = [
-      "if [ -f \"/root/.powervs/config.json\" ]; then",
-      "  if ! ( head -n 1 /root/.powervs/config.json | grep -q '^$ANSIBLE_VAULT' ); then",
+      "if [ -f /root/.powervs/config.json ]; then",
+      "  if head -n 1 /root/.powervs/config.json | grep -q '^$ANSIBLE_VAULT'; then",
       "    ansible-vault decrypt /root/.powervs/config.json --vault-password-file password_file",
       "  fi",
       "fi"
@@ -253,7 +256,7 @@ resource "terraform_data" "execute_playbooks_with_vault" {
   # Encrypt ocp config if it already exists
   provisioner "remote-exec" {
     inline = [
-      "if [ -f \"/root/.powervs/config.json\" ]; then",
+      "if [ -f /root/.powervs/config.json ]; then",
       "  if ! ( head -n 1 /root/.powervs/config.json | grep -q '^$ANSIBLE_VAULT' ); then",
       "    echo ${var.ansible_vault_password} > password_file",
       "    ansible-vault encrypt /root/.powervs/config.json --vault-password-file password_file",
