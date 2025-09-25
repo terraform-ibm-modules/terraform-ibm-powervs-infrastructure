@@ -27,23 +27,10 @@ locals {
     }
   }
 
-  powervs_server_routes = [
-    {
-      route_name  = "mgmt_net"
-      destination = var.powervs_management_network.cidr
-      action      = "deliver"
-    },
-    {
-      route_name  = "bkp_net"
-      destination = var.powervs_backup_network.cidr
-      action      = "deliver"
-    }
-  ]
-
-  vpn_server_routes = merge(local.default_server_routes,
+  vpn_server_routes = var.client_to_site_vpn.powervs_server_routes != null ? merge(local.default_server_routes,
     tomap(
       {
-        for instance in local.powervs_server_routes :
+        for instance in var.client_to_site_vpn.powervs_server_routes :
         instance.route_name => {
           destination = instance.destination
           action      = instance.action
@@ -51,7 +38,7 @@ locals {
         if !startswith(instance.destination, "10.")
       }
     )
-  )
+  ) : local.default_server_routes
 }
 
 
@@ -131,11 +118,13 @@ module "client_to_site_vpn" {
   providers = { ibm = ibm.ibm-is }
   count     = var.client_to_site_vpn.enable ? 1 : 0
 
-  vpn_gateway_name              = "${var.prefix}-vpc-pvs-vpn"
-  resource_group_id             = module.landing_zone.resource_group_data["${var.prefix}-${local.second_rg_name}"]
-  access_group_name             = "${var.prefix}-client-to-site-vpn-access-group"
-  subnet_ids                    = [for subnet in module.landing_zone.subnet_data : subnet.id if subnet.name == "${var.prefix}-edge-vpn-zone-1"]
-  client_ip_pool                = var.client_to_site_vpn.client_ip_pool
+  vpn_gateway_name  = "${var.prefix}-vpc-pvs-vpn"
+  resource_group_id = module.landing_zone.resource_group_data["${var.prefix}-${local.second_rg_name}"]
+  access_group_name = "${var.prefix}-client-to-site-vpn-access-group"
+  subnet_ids        = [for subnet in module.landing_zone.subnet_data : subnet.id if subnet.name == "${var.prefix}-edge-vpn-zone-1"]
+  client_ip_pool    = var.client_to_site_vpn.client_ip_pool
+  # vpn supports only 2 dns servers
+  client_dns_server_ips         = var.ibm_dns_service.enable ? slice([for location in ibm_dns_custom_resolver.dns_resolver[0].locations : location.dns_server_ip], 0, 2) : null
   server_cert_crn               = module.secrets_manager_private_certificate[0].secret_crn
   vpn_client_access_group_users = var.client_to_site_vpn.vpn_client_access_group_users
   vpn_server_routes             = local.vpn_server_routes

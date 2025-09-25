@@ -4,7 +4,7 @@ variable "powervs_zone" {
 }
 
 variable "powervs_resource_group_name" {
-  description = "Existing IBM Cloud resource group name. Used for PowerVS related resources. If null, ocp-rg is created and used for TGW, VPC, and PowerVS resources."
+  description = "Existing IBM Cloud resource group name. Used for PowerVS related resources. If null, '<var.prefix>-ocp-rg' is created and used for TGW, VPC, and PowerVS resources."
   type        = string
 }
 
@@ -55,6 +55,24 @@ variable "transit_gateway_global" {
   default     = false
 }
 
+variable "ibm_dns_service" {
+  description = "Create IBM DNS service instance, DNS zone, and custom resolver. If set to false, then the DNS service and zone will not be created. Conflicts with 'configure_dns_forwarder'."
+  type = object({
+    enable      = bool
+    name        = optional(string)
+    base_domain = optional(string)
+    label       = optional(string)
+  })
+  default = {
+    "enable" = false
+  }
+
+  validation {
+    condition     = var.ibm_dns_service.enable != var.configure_dns_forwarder
+    error_message = "The 'ibm_dns_service' and 'configure_dns_forwarder' cannot both be true."
+  }
+}
+
 #####################################################
 # Optional Parameter Network Services VSI Profile
 #####################################################
@@ -63,6 +81,12 @@ variable "network_services_vsi_profile" {
   description = "Compute profile configuration of the network services vsi (cpu and memory configuration). Must be one of the supported profiles. See [here](https://cloud.ibm.com/docs/vpc?topic=vpc-profiles&interface=ui)."
   type        = string
   default     = "cx2-2x4"
+}
+
+variable "user_data" {
+  description = "User data that automatically performs common configuration tasks or runs scripts. For more information, see https://cloud.ibm.com/docs/vpc?topic=vpc-user-data. For information on using the user_data variable, please refer: https://cloud.ibm.com/docs/secure-infrastructure-vpc?topic=secure-infrastructure-vpc-user-data"
+  type        = string
+  default     = null
 }
 
 #####################################################
@@ -224,17 +248,24 @@ variable "powervs_custom_image_cos_service_credentials" {
 #####################################################
 
 variable "client_to_site_vpn" {
-  description = "VPN configuration - the client ip pool and list of users email ids to access the environment. If enabled, then a Secret Manager instance is also provisioned with certificates generated. See optional parameters to reuse an existing Secrets manager instance."
+  description = "VPN configuration - the client ip pool and list of users email ids to access the environment. If enabled, then a Secret Manager instance is also provisioned with certificates generated. See optional parameters to reuse an existing Secrets manager instance. PowerVS server routes need to be created for the VPN so the PowerVS instances can be reached. Each route must have a unique name and destination CIDR."
   type = object({
     enable                        = bool
     client_ip_pool                = string
     vpn_client_access_group_users = list(string)
-  })
+    powervs_server_routes = list(object({
+      route_name  = string
+      destination = string
+      action      = string
+    }))
+    }
+  )
 
   default = {
     "enable" : false,
     "client_ip_pool" : "192.168.0.0/16",
-    "vpn_client_access_group_users" : []
+    "vpn_client_access_group_users" : [],
+    "powervs_server_routes" : null,
   }
 }
 

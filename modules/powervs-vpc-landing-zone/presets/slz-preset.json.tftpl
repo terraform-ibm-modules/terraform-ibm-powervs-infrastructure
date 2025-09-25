@@ -720,6 +720,10 @@
             "subnet_names": ["vsi-management-zone-1"],
             "block_storage_volumes": [],
             "security_groups": ["management-sg"]
+            %{ if "${user_data}" != "" && "${user_data}" != null }
+            ,
+            "user_data" : "${user_data}"
+            %{ endif }
         },
         {
             "name": "network-services",
@@ -734,6 +738,10 @@
             "subnet_names": ["vsi-edge-zone-1"],
             "block_storage_volumes": [],
             "security_groups": ["network-services-sg"]
+            %{ if "${user_data}" != "" && "${user_data}" != null }
+            ,
+            "user_data" : "${user_data}"
+            %{ endif }
         }
         %{ if "${enable_monitoring}" == true }
         ,
@@ -750,6 +758,10 @@
             "subnet_names": ["vsi-edge-zone-1"],
             "block_storage_volumes": [],
             "security_groups": ["network-services-sg"]
+            %{ if "${user_data}" != "" && "${user_data}" != null }
+            ,
+            "user_data" : "${user_data}"
+            %{ endif }
         }
         %{ endif }
     ],
