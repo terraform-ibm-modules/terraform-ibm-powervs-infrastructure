@@ -123,7 +123,7 @@ resource "terraform_data" "execute_playbooks" {
   provisioner "remote-exec" {
     inline = [
       "if [ -f \"/root/.powervs/config.json\" ]; then",
-      "  if ! ( head -n 1 | grep -q '^\\$ANSIBLE_VAULT' ); then",
+      "  if ! ( head -n 1 /root/.powervs/config.json | grep -q '^$ANSIBLE_VAULT' ); then",
       "    echo ${var.ansible_vault_password} > password_file",
       "    ansible-vault decrypt /root/.powervs/config.json --vault-password-file password_file",
       "  fi",
@@ -150,7 +150,7 @@ resource "terraform_data" "execute_playbooks" {
   provisioner "remote-exec" {
     inline = [
       "if [ -f \"/root/.powervs/config.json\" ]; then",
-      "  if ! ( head -n 1 | grep -q '^\\$ANSIBLE_VAULT' ); then",
+      "  if ! ( head -n 1 /root/.powervs/config.json | grep -q '^$ANSIBLE_VAULT' ); then",
       "    echo ${var.ansible_vault_password} > password_file",
       "    ansible-vault encrypt /root/.powervs/config.json --vault-password-file password_file",
       "  fi",
@@ -235,7 +235,7 @@ resource "terraform_data" "execute_playbooks_with_vault" {
   provisioner "remote-exec" {
     inline = [
       "if [ -f \"/root/.powervs/config.json\" ]; then",
-      "  if ! ( head -n 1 | grep -q '^\\$ANSIBLE_VAULT' ); then",
+      "  if ! ( head -n 1 /root/.powervs/config.json | grep -q '^$ANSIBLE_VAULT' ); then",
       "    ansible-vault decrypt /root/.powervs/config.json --vault-password-file password_file",
       "  fi",
       "fi"
@@ -254,7 +254,7 @@ resource "terraform_data" "execute_playbooks_with_vault" {
   provisioner "remote-exec" {
     inline = [
       "if [ -f \"/root/.powervs/config.json\" ]; then",
-      "  if ! ( head -n 1 | grep -q '^\\$ANSIBLE_VAULT' ); then",
+      "  if ! ( head -n 1 /root/.powervs/config.json | grep -q '^$ANSIBLE_VAULT' ); then",
       "    echo ${var.ansible_vault_password} > password_file",
       "    ansible-vault encrypt /root/.powervs/config.json --vault-password-file password_file",
       "  fi",
