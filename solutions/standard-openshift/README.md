@@ -13,6 +13,7 @@ This example sets up an OpenShift Cluster on PowerVS following infrastructure:
     - KMS keys
     - Activity tracker
     - Optional Secrets Manager Instance Instance with private certificate.
+    - Three application load balancers for internal OpenShift API, public OpenShift API, and OpenShift applications
 
 - A local **transit gateway**
 - An IBM Cloud DNS Service Instance

@@ -119,12 +119,16 @@ resource "terraform_data" "execute_playbooks" {
     ]
   }
 
+  # Create the vault password_file to be used for decryption and encryption of ocp config
+  provisioner "remote-exec" {
+    inline = ["echo ${var.ansible_vault_password} > password_file"]
+  }
+
   # Decrypt ocp config if it already exists
   provisioner "remote-exec" {
     inline = [
       "if [ -f /root/.powervs/config.json ]; then",
       "  if head -n 1 /root/.powervs/config.json | grep -q '^$ANSIBLE_VAULT'; then",
-      "    echo ${var.ansible_vault_password} > password_file",
       "    ansible-vault decrypt /root/.powervs/config.json --vault-password-file password_file",
       "  fi",
       "fi"
@@ -135,11 +139,14 @@ resource "terraform_data" "execute_playbooks" {
   # create password file so the script can encrypt the ocp config
   provisioner "remote-exec" {
     inline = [
-      "echo ${var.ansible_vault_password} > password_file",
       "chmod +x ${local.dst_script_file_path}",
-      "export IBMCLOUD_API_KEY=${local.ibmcloud_api_key} && ${local.dst_script_file_path}",
-      "rm -f password_file"
+      "export IBMCLOUD_API_KEY=${local.ibmcloud_api_key} && ${local.dst_script_file_path}"
     ]
+  }
+
+  # Again delete the password_file
+  provisioner "remote-exec" {
+    inline = ["rm -f password_file"]
   }
 
   # Again delete private ssh key
