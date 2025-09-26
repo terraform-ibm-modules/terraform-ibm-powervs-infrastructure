@@ -29,7 +29,7 @@ variable "user_id" {
 }
 
 variable "openshift_pull_secret" {
-  description = "Pull secret from Red Hat OpenShift Cluster Manager for authenticating OpenShift image downloads from Red Hat container registries."
+  description = "Pull secret from Red Hat OpenShift Cluster Manager for authenticating OpenShift image downloads from Red Hat container registries. A RedHat account is required. It can be obtained on https://console.redhat.com/openshift/install/pull-secret."
   type        = map(any)
   sensitive   = true
 }
