@@ -2,6 +2,22 @@
 # PowerVS with VPC landing zone module
 #####################################################
 
+locals {
+  powervs_server_routes = [
+    {
+      route_name  = var.powervs_management_network.name
+      destination = var.powervs_management_network.cidr
+      action      = "deliver"
+    },
+    {
+      route_name  = var.powervs_backup_network.name
+      destination = var.powervs_backup_network.cidr
+      action      = "deliver"
+    }
+  ]
+  client_to_site_vpn = merge(var.client_to_site_vpn, { "powervs_server_routes" : local.powervs_server_routes })
+}
+
 module "standard" {
   source = "../../modules/powervs-vpc-landing-zone"
 
@@ -12,7 +28,7 @@ module "standard" {
   external_access_ip               = var.external_access_ip
   ssh_public_key                   = var.ssh_public_key
   ssh_private_key                  = var.ssh_private_key
-  client_to_site_vpn               = var.client_to_site_vpn
+  client_to_site_vpn               = local.client_to_site_vpn
   vpc_intel_images                 = var.vpc_intel_images
   configure_dns_forwarder          = var.configure_dns_forwarder
   configure_ntp_forwarder          = var.configure_ntp_forwarder
@@ -39,7 +55,7 @@ module "standard" {
 
 module "powervs_instance" {
   source    = "terraform-ibm-modules/powervs-instance/ibm"
-  version   = "2.7.0"
+  version   = "2.8.1"
   providers = { ibm = ibm.ibm-pi }
 
   pi_workspace_guid      = module.standard.powervs_workspace_guid
