@@ -28,9 +28,11 @@ if [ $? -ne 0 ]; then
     rm -f password_file
     rm -rf $${ansible_private_key_file}
     # remove API Key from any logs where it may have been included in plain text
-    grep -RIl -- "$IBMCLOUD_API_KEY" "/root" | while IFS= read -r file; do
-      sed -i 's/'"$IBMCLOUD_API_KEY"'/***redacted***/g' "$file"
-    done
+    if [ ! -z $IBMCLOUD_API_KEY ]; then
+      grep -RIl --devices=skip --exclude-dir='.ansible/' -- "$IBMCLOUD_API_KEY" "/root" | while IFS= read -r file; do
+        sed -i 's/'"$IBMCLOUD_API_KEY"'/***redacted***/g' "$file"
+      done
+    fi
     exit 1
 fi
 echo \"Playbook command successful\"
@@ -38,6 +40,8 @@ rm -rf $${ansible_private_key_file}
 if [ -f /root/.powervs/config.json ]; then ansible-vault encrypt /root/.powervs/config.json --vault-password-file password_file; fi
 rm -f password_file
 # remove API Key from any logs where it may have been included in plain text
-grep -RIl -- "$IBMCLOUD_API_KEY" "/root" | while IFS= read -r file; do
-  sed -i 's/'"$IBMCLOUD_API_KEY"'/***redacted***/g' "$file"
-done
+if [ ! -z $IBMCLOUD_API_KEY ]; then
+  grep -RIl --devices=skip --exclude-dir='.ansible/' -- "$IBMCLOUD_API_KEY" "/root" | while IFS= read -r file; do
+    sed -i 's/'"$IBMCLOUD_API_KEY"'/***redacted***/g' "$file"
+  done
+fi
