@@ -48,8 +48,13 @@ variable "ansible_vault_password" {
 }
 
 variable "cluster_base_domain" {
-  description = "The base domain name that will be used by the cluster. (ie: example.com)"
+  description = "The base domain name that will be used by the cluster. Only .test, .example, and .invalid domains are supported (ie: domain.example)."
   type        = string
+
+  validation {
+    condition     = endswith(var.cluster_base_domain, ".test") || endswith(var.cluster_base_domain, ".example") || endswith(var.cluster_base_domain, ".invalid")
+    error_message = "value"
+  }
 }
 
 #####################################################
