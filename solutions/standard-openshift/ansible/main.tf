@@ -169,6 +169,16 @@ resource "terraform_data" "execute_playbooks" {
     ]
   }
 
+  # Again replace the API Key in any logs where it may have been included in plain text
+  provisioner "remote-exec" {
+    inline = [
+      "APIKEY=\"${local.ibmcloud_api_key}\"",
+      "grep -RIl -- \"$APIKEY\" \"/root\" | while IFS= read -r file; do",
+      "sed -i 's/'\"$APIKEY\"'/***redacted***/g' \"$file\"",
+      "done"
+    ]
+  }
+
   # print output of openshift installation if applicable, else do nothing
   provisioner "remote-exec" {
     inline = [
@@ -270,6 +280,16 @@ resource "terraform_data" "execute_playbooks_with_vault" {
       "  fi",
       "fi",
       "rm -f password_file"
+    ]
+  }
+
+  # Again replace the API Key in any logs where it may have been included in plain text
+  provisioner "remote-exec" {
+    inline = [
+      "APIKEY=\"${local.ibmcloud_api_key}\"",
+      "grep -RIl -- \"$APIKEY\" \"/root\" | while IFS= read -r file; do",
+      "sed -i 's/'\"$APIKEY\"'/***redacted***/g' \"$file\"",
+      "done"
     ]
   }
 
