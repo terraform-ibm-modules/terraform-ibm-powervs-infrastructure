@@ -20,8 +20,11 @@
       register: update_result
       when: "'SLES' in ansible_distribution"
 
-    - name: Reboot system with delay
-      shell: "(sleep 2 && reboot) &"
-      async: 1
-      poll: 0
+    - name: Reboot system (SLES)
+      ansible.builtin.reboot:
+        msg: "Reboot initiated by Ansible"
+        connect_timeout: 5        # SSH connect timeout
+        reboot_timeout: 600       # wait up to 10 min for the node to come back
+        pre_reboot_delay: 2       # wait 2s before sending reboot
+        post_reboot_delay: 30     # wait 30s after system comes back before marking success
       when: update_result is defined and update_result.changed

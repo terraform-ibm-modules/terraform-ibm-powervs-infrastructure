@@ -22,6 +22,9 @@ locals {
     monitoring_host_ip = local.monitoring_vsi_ip
   }
 }
+resource "time_sleep" "wait_for_2min" {
+  create_duration = "120s"
+}
 
 #####################################################
 # Configure monitoring VSI
@@ -31,7 +34,7 @@ locals {
 module "configure_monitoring_host" {
 
   source     = "./submodules/ansible"
-  depends_on = [module.configure_network_services]
+  depends_on = [module.configure_network_services, time_sleep.wait_for_2min]
   count      = var.enable_monitoring ? 1 : 0
 
   bastion_host_ip        = local.access_host_or_ip
