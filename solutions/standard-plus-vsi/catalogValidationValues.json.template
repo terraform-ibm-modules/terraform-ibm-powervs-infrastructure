@@ -4,7 +4,7 @@
   "prefix": "qs-val",
   "tshirt_size": {
       "tshirt_size":"aix_xs",
-      "image":"7300-03-00"
+      "image":"7300-03-01"
    },
   "powervs_resource_group_name": "Default",
   "ssh_public_key": $SSH_PUB_KEY,
