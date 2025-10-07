@@ -102,7 +102,7 @@ Once the landing zone components are deployed, this architecture leverages the [
 | Requirement | Component | Choice | Alternative choice |
 |-------------|-----------|--------|--------------------|
 |* Deploy PowerVS instances for Bootstrap (temporary), Master, and Worker nodes. | PowerVS instances | The customer can specify the number of master and worker nodes and customize their compute profiles. |
-|* Modify the DNS Service instance to correctly resolve the cluster API | DNS Service instance | Add CNAME entries to DNS zone to resolve internal and external cluster APIs. |
+|* Modify the DNS Service instance to correctly resolve the cluster API | DNS Service instance | Add CNAME entries to DNS zone to resolve internal and external cluster APIs. Only support .test, .example, .invalid domains to prevent public resolution. |
 |* Application Load Balancers to establish connectivity to the cluster API. | Three Application Load Balancers | One for internal API, one for external api, and one for the applications deployed in the cluster. |
 |* Use DHCP to dynamically assign IP addresses to the nodes | DHCP Subnet in PowerVS | Machine network dynamically assigns IP addresses to the nodes. |
 |* Modify security groups to allow network traffic to API. | Default Security Group | The default security group is attached to the load balancers and configured so the required network traffic is able to pass. |
