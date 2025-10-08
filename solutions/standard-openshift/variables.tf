@@ -30,7 +30,7 @@ variable "user_id" {
 
 variable "openshift_pull_secret" {
   description = "Pull secret from Red Hat OpenShift Cluster Manager for authenticating OpenShift image downloads from Red Hat container registries. A RedHat account is required. It can be obtained on https://console.redhat.com/openshift/install/pull-secret."
-  type        = map(any)
+  type        = string
   sensitive   = true
 }
 
@@ -74,9 +74,9 @@ variable "cluster_network_config" {
     cluster_machine_network_cidr = string
   })
   default = {
-    cluster_network_cidr         = "10.128.0.0/14"
-    cluster_service_network_cidr = "10.67.0.0/16"
-    cluster_machine_network_cidr = "10.72.0.0/24"
+    "cluster_network_cidr" : "10.128.0.0/14",
+    "cluster_service_network_cidr" : "10.67.0.0/16",
+    "cluster_machine_network_cidr" : "10.72.0.0/24"
   }
   validation {
     condition     = can(regex("/([0-9]{1,2})$", var.cluster_network_config.cluster_network_cidr)) && tonumber(regex("/([0-9]{1,2})$", var.cluster_network_config.cluster_network_cidr)[0]) <= 14
@@ -102,11 +102,11 @@ variable "cluster_master_node_config" {
     replicas    = number
   })
   default = {
-    processors  = 4
-    memory      = 32
-    system_type = null
-    proc_type   = "Shared"
-    replicas    = 3
+    "processors" : "4",
+    "memory" : "32",
+    "system_type" : "null",
+    "proc_type" : "Shared",
+    "replicas" : "3"
   }
   validation {
     condition     = var.cluster_master_node_config.system_type != null ? contains(["s1122", "s1022", "s922", "e980", "e1080", "e1050"], var.cluster_master_node_config.system_type) : true
@@ -136,11 +136,11 @@ variable "cluster_worker_node_config" {
     replicas    = number
   })
   default = {
-    processors  = 4
-    memory      = 32
-    system_type = null
-    proc_type   = "Shared"
-    replicas    = 3
+    "processors" : "4",
+    "memory" : "32",
+    "system_type" : "null",
+    "proc_type" : "Shared",
+    "replicas" : "3"
   }
   validation {
     condition     = var.cluster_worker_node_config.system_type != null ? contains(["s1122", "s1022", "s922", "e980", "e1080", "e1050"], var.cluster_worker_node_config.system_type) : true
@@ -181,7 +181,7 @@ variable "vpc_intel_images" {
     sles_image = string
   })
   default = {
-    "rhel_image" : "ibm-redhat-9-4-amd64-sap-applications-7"
+    "rhel_image" : "ibm-redhat-9-4-amd64-sap-applications-7",
     "sles_image" : "ibm-sles-15-7-amd64-sap-applications-1"
   }
 }
