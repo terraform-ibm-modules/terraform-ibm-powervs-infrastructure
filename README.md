@@ -16,7 +16,7 @@ Three solutions are offered:
     - Creates a VPC and a Power Virtual Server workspace, interconnects them, and configures operating network management services (SQUID proxy, NTP, NFS, and DNS services) using Ansible Galaxy collection roles [ibm.power_linux_sap collection](https://galaxy.ansible.com/ui/repo/published/ibm/power_linux_sap/).
     - Additionally creates a Power Virtual Server Instance of a selected t-shirt size. Network management services, filesystems and SCC Workload protection agents are configured for AIX and Linux instances.
     - This solution is typically utilized for **PoCs, demos, and quick onboarding** to PowerVS Infrastructure.
-3. [Quickstart Openshift](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/tree/main/solutions/standard-openshift)
+3. [Quickstart OpenShift](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/tree/main/solutions/standard-openshift)
     - Creates a VPC and a Power Virtual Server workspace and then deploys an OpenShift Cluster in them by using the [RedHat IPI Installer](https://docs.redhat.com/en/documentation/openshift_container_platform/4.19/html-single/installing_on_ibm_power_virtual_server/index) for IBM PowerVS.
     - The number of PowerVS Master and Worker nodes and their compute configuration is fully customizable.
     - Optionally creates IBM Cloud Monitoring and a SCC Workload protection instances.
@@ -25,7 +25,7 @@ Three solutions are offered:
 ## Reference architectures
 - [Standard Landscape](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/tree/main/reference-architectures/standard/deploy-arch-ibm-pvs-inf-standard.md)
 - [Quickstart (Standard Landscape plus VSI)](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/tree/main/reference-architectures/standard-plus-vsi/deploy-arch-ibm-pvs-inf-standard-plus-vsi.md)
-- [Quickstart Openshift](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/tree/main/reference-architectures/standard-openshift/deploy-arch-ibm-pvs-inf-standard-openshift.md)
+- [Quickstart OpenShift](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/tree/main/reference-architectures/standard-openshift/deploy-arch-ibm-pvs-inf-standard-openshift.md)
 
 ## Solutions
 

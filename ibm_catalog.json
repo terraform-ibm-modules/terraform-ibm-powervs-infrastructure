@@ -1098,7 +1098,7 @@
           "terraform_version": "1.10.5"
         },
         {
-          "label": "Quickstart Openshift",
+          "label": "Quickstart OpenShift",
           "name": "standard-openshift",
           "install_type": "fullstack",
           "index": 3,
@@ -1489,11 +1489,11 @@
             "diagrams": [
               {
                 "diagram": {
-                  "caption": "Power Virtual Server with VPC landing zone 'Quickstart Openshift' variation",
+                  "caption": "Power Virtual Server with VPC landing zone 'Quickstart OpenShift' variation",
                   "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/refs/tags/v10.0.1/reference-architectures/standard-openshift/deploy-arch-ibm-pvs-inf-standard-openshift.svg",
                   "type": "image/svg+xml"
                 },
-                "description": "The Power Virtual Server with VPC landing zone as variation 'Quickstart Openshift' deploys VPC services and an Openshift Cluster on PowerVS and interconnects them.\n \nRequired and optional management components are configured."
+                "description": "The Power Virtual Server with VPC landing zone as variation 'Quickstart OpenShift' deploys VPC services and an Openshift Cluster on PowerVS and interconnects them.\n \nRequired and optional management components are configured."
               }
             ]
           },

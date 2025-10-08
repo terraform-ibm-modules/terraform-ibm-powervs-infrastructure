@@ -1,4 +1,4 @@
-# IBM Cloud Solution for Power Virtual Server with VPC Landing Zone Quickstart Openshift Variation
+# IBM Cloud Solution for Power Virtual Server with VPC Landing Zone Quickstart OpenShift Variation
 
 This example sets up an OpenShift Cluster on PowerVS following infrastructure:
 - A **VPC Infrastructure** with the following components:
@@ -33,13 +33,13 @@ This example sets up an OpenShift Cluster on PowerVS following infrastructure:
 
 | Variation  | Available on IBM Catalog  |  Requires Schematics Workspace ID | Creates VPC Landing Zone | Performs VPC VSI OS Config | Creates PowerVS Infrastructure | Creates PowerVS Instance | Creates OpenShift Cluster on PowerVS |
 | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
-| [Quickstart Openshift](./)    | :heavy_check_mark:  |   N/A  | :heavy_check_mark:| :heavy_check_mark: | :heavy_check_mark:  | :heavy_check_mark: | :heavy_check_mark: |
+| [Quickstart OpenShift](./)    | :heavy_check_mark:  |   N/A  | :heavy_check_mark:| :heavy_check_mark: | :heavy_check_mark:  | :heavy_check_mark: | :heavy_check_mark: |
 
 ## Reference architecture
-[Quickstart Openshift](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/blob/main/reference-architectures/standard-openshift/deploy-arch-ibm-pvs-inf-standard-openshift.md)
+[Quickstart OpenShift](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/blob/main/reference-architectures/standard-openshift/deploy-arch-ibm-pvs-inf-standard-openshift.md)
 
 ## Architecture diagram
-![Quickstart Openshift](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/blob/main/reference-architectures/standard-openshift/deploy-arch-ibm-pvs-inf-standard-openshift.svg)
+![Quickstart OpenShift](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/blob/main/reference-architectures/standard-openshift/deploy-arch-ibm-pvs-inf-standard-openshift.svg)
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ### Requirements

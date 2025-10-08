@@ -22,7 +22,7 @@ compliance:
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Power Virtual Server with VPC landing zone - 'Quickstart Openshift Variation'
+# Power Virtual Server with VPC landing zone - 'Quickstart OpenShift Variation'
 {: #deploy-arch-ibm-pvs-inf-standard-openshift}
 {: toc-content-type="reference-architecture"}
 {: toc-industry="Technology"}
@@ -36,7 +36,7 @@ The number of PowerVS master and worker nodes and their respective compute confi
 ## Architecture diagram
 {: #standard-openshift-architecture-diagram}
 
-![Architecture diagram for 'Power Virtual Server with VPC landing zone' - variation 'Quickstart Openshift'.](deploy-arch-ibm-pvs-inf-standard-openshift.svg "Architecture diagram"){: caption="Figure 1. Single-zone PowerVS workspace accessible over secure landing zone" caption-side="bottom"}{: external download="deploy-arch-ibm-pvs-inf-standard-openshift.svg"}
+![Architecture diagram for 'Power Virtual Server with VPC landing zone' - variation 'Quickstart OpenShift'.](deploy-arch-ibm-pvs-inf-standard-openshift.svg "Architecture diagram"){: caption="Figure 1. Single-zone PowerVS workspace accessible over secure landing zone" caption-side="bottom"}{: external download="deploy-arch-ibm-pvs-inf-standard-openshift.svg"}
 
 ## Design requirements
 {: #standard-openshift-design-requirements}

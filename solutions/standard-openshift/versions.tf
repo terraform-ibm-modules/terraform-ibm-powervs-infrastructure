@@ -1,5 +1,5 @@
 #####################################################
-# PowerVS Standard Openshift solution
+# PowerVS Quickstart OpenShift solution
 #####################################################
 
 terraform {
