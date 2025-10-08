@@ -192,7 +192,6 @@
             {
               "key": "ssh_public_key",
               "type": "multiline_secure_value",
-              "display_name": "ssh_public_key",
               "required": true,
               "custom_config": {
                 "grouping": "deployment",
@@ -203,7 +202,6 @@
             {
               "key": "ssh_private_key",
               "type": "multiline_secure_value",
-              "display_name": "ssh_private_key",
               "required": true,
               "custom_config": {
                 "grouping": "deployment",
@@ -250,7 +248,6 @@
             {
               "key": "powervs_custom_image_cos_service_credentials",
               "type": "multiline_secure_value",
-              "display_name": "powervs_custom_image_cos_service_credentials",
               "custom_config": {
                 "grouping": "deployment",
                 "original_grouping": "deployment",
@@ -288,7 +285,12 @@
             {
               "key": "ansible_vault_password",
               "type": "multiline_secure_value",
-              "display_name": "ansible_vault_password"
+              "required": true,
+              "custom_config": {
+                "type": "multiline_secure_value",
+                "grouping": "deployment",
+                "original_grouping": "deployment"
+              }
             },
             {
               "key": "enable_monitoring"
@@ -692,7 +694,6 @@
               "key": "ssh_public_key",
               "required": true,
               "type": "multiline_secure_value",
-              "display_name": "ssh_public_key",
               "custom_config": {
                 "grouping": "deployment",
                 "original_grouping": "deployment",
@@ -703,7 +704,6 @@
               "key": "ssh_private_key",
               "required": true,
               "type": "multiline_secure_value",
-              "display_name": "ssh_private_key",
               "custom_config": {
                 "grouping": "deployment",
                 "original_grouping": "deployment",
@@ -724,8 +724,12 @@
             {
               "key": "ansible_vault_password",
               "type": "multiline_secure_value",
-              "display_name": "ansible_vault_password",
-              "required": true
+              "required": true,
+              "custom_config": {
+                "type": "multiline_secure_value",
+                "grouping": "deployment",
+                "original_grouping": "deployment"
+              }
             },
             {
               "key": "custom_profile_instance_boot_image",
@@ -1199,7 +1203,6 @@
             {
               "key": "ssh_public_key",
               "type": "multiline_secure_value",
-              "display_name": "ssh_public_key",
               "required": true,
               "custom_config": {
                 "grouping": "deployment",
@@ -1210,7 +1213,6 @@
             {
               "key": "ssh_private_key",
               "type": "multiline_secure_value",
-              "display_name": "ssh_private_key",
               "required": true,
               "custom_config": {
                 "grouping": "deployment",
@@ -1232,40 +1234,46 @@
             {
               "key": "user_id",
               "type": "string",
-              "display_name": "user_id",
               "required": true
             },
             {
               "key": "openshift_pull_secret",
               "type": "multiline_secure_value",
-              "display_name": "openshift_pull_secret",
-              "required": true
+              "required": true,
+              "custom_config": {
+                "type": "multiline_secure_value",
+                "grouping": "deployment",
+                "original_grouping": "deployment"
+              }
             },
             {
               "key": "cluster_base_domain",
               "type": "string",
-              "display_name": "cluster_base_domain",
               "required": true
             },
             {
               "key": "openshift_release",
-              "type": "string",
-              "display_name": "openshift_release"
+              "type": "string"
             },
             {
               "key": "cluster_network_config",
-              "type": "code_editor",
-              "display_name": "cluster_network_config"
+              "type": "code_editor"
             },
             {
               "key": "cluster_master_node_config",
-              "type": "code_editor",
-              "display_name": "cluster_master_node_config"
+              "custom_config": {
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "type": "code_editor"
+              }
             },
             {
               "key": "cluster_worker_node_config",
-              "type": "code_editor",
-              "display_name": "cluster_worker_node_config"
+              "custom_config": {
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "type": "code_editor"
+              }
             },
             {
               "key": "tags"
@@ -1287,8 +1295,12 @@
             {
               "key": "ansible_vault_password",
               "type": "multiline_secure_value",
-              "display_name": "ansible_vault_password",
-              "required": true
+              "required": true,
+              "custom_config": {
+                "type": "multiline_secure_value",
+                "grouping": "deployment",
+                "original_grouping": "deployment"
+              }
             },
             {
               "key": "enable_monitoring"
@@ -1471,10 +1483,6 @@
               },
               {
                 "title": "Monitoring Instance and Monitoring Intel VSI Host",
-                "description": "Optional"
-              },
-              {
-                "title": "Bring your own image to PowerVS",
                 "description": "Optional"
               }
             ],
