@@ -104,7 +104,7 @@ variable "cluster_master_node_config" {
   default = {
     "processors" : "4",
     "memory" : "32",
-    "system_type" : "null",
+    "system_type" : null,
     "proc_type" : "Shared",
     "replicas" : "3"
   }
@@ -138,7 +138,7 @@ variable "cluster_worker_node_config" {
   default = {
     "processors" : "4",
     "memory" : "32",
-    "system_type" : "null",
+    "system_type" : null,
     "proc_type" : "Shared",
     "replicas" : "3"
   }
