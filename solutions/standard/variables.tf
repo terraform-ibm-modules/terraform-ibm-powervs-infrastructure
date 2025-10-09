@@ -36,6 +36,26 @@ variable "ibmcloud_api_key" {
 }
 
 #####################################################
+# Optional Parameters VPC
+#####################################################
+
+variable "vpc_subnet_cidrs" {
+  description = "CIDR values for the VPC subnets to be created. It's customer responsibility that none of the defined networks collide, including the PowerVS subnets and VPN client pool."
+  type = object({
+    vpn  = string
+    mgmt = string
+    vpe  = string
+    edge = string
+  })
+  default = {
+    "vpn"  = "10.30.10.0/24"
+    "mgmt" = "10.30.20.0/24"
+    "vpe"  = "10.30.30.0/24"
+    "edge" = "10.30.40.0/24"
+  }
+}
+
+#####################################################
 # Optional Parameters PowerVS Workspace
 #####################################################
 

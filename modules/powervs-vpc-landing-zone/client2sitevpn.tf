@@ -21,8 +21,28 @@ locals {
   cert_common_name     = "example"
 
   default_server_routes = {
-    "vpc-vsis" = {
-      destination = "10.0.0.0/8"
+    "vpc-vpn" = {
+      destination = var.vpc_subnet_cidrs.vpn
+      action      = "deliver"
+    },
+    "vpc-mgmt" = {
+      destination = var.vpc_subnet_cidrs.mgmt
+      action      = "deliver"
+    },
+    "vpc-vpe" = {
+      destination = var.vpc_subnet_cidrs.vpe
+      action      = "deliver"
+    },
+    "vpc-edge" = {
+      destination = var.vpc_subnet_cidrs.edge
+      action      = "deliver"
+    }
+    "vpn-pvs-mgmt" = {
+      destination = var.powervs_management_network.cidr
+      action      = "deliver"
+    }
+    "vpn-pvs-bckp" = {
+      destination = var.powervs_backup_network.cidr
       action      = "deliver"
     }
   }

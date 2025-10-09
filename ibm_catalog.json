@@ -221,6 +221,14 @@
               }
             },
             {
+              "key": "vpc_subnet_cidrs",
+              "custom_config": {
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "type": "code_editor"
+              }
+            },
+            {
               "key": "powervs_management_network"
             },
             {
@@ -865,6 +873,14 @@
             },
             {
               "key": "custom_profile",
+              "custom_config": {
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "type": "code_editor"
+              }
+            },
+            {
+              "key": "vpc_subnet_cidrs",
               "custom_config": {
                 "grouping": "deployment",
                 "original_grouping": "deployment",

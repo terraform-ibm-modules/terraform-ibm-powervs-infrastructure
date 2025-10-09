@@ -17,6 +17,10 @@ locals {
       sles_image                   = var.vpc_intel_images.sles_image,
       second_rg_name               = local.second_rg_name,
       tgw_rg_name                  = local.tgw_rg_name
+      vpc_subnet_cidrs             = var.vpc_subnet_cidrs
+      powervs_mgmt_cidr            = var.powervs_management_network.cidr
+      powervs_bckp_cidr            = var.powervs_backup_network.cidr
+      vpn_client_cidr              = var.client_to_site_vpn.client_ip_pool
     }
   )
 }
