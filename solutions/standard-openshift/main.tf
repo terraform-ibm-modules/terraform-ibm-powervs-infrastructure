@@ -105,7 +105,7 @@ module "ocp_cluster_install_configuration" {
     POWERVS_ZONE : var.powervs_zone,
     VPC_NAME : module.standard.vpc_names[0],
     VPC_REGION : local.vpc_region,
-    PULL_SECRET_FILE : jsonencode(var.openshift_pull_secret),
+    PULL_SECRET : trimspace(var.openshift_pull_secret),
     SSH_KEY : var.ssh_public_key,
   }
 

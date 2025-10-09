@@ -13,12 +13,12 @@ variable "cluster_name" {
 }
 
 variable "ssh_public_key" {
-  description = "Public SSH Key for VSI creation. Must be an RSA key with a key size of either 2048 bits or 4096 bits (recommended). Must be a valid SSH key that does not already exist in the deployment region."
+  description = "Public SSH Key for VSI creation. Must be an RSA key with a key size of either 2048 bits or 4096 bits (recommended). Must be a valid SSH key that does not already exist in the deployment region. If you're unsure how to create one, check [Generate a SSH Key Pair](https://cloud.ibm.com/docs/powervs-vpc?topic=powervs-vpc-powervs-automation-prereqs#powervs-automation-ssh-key) in our docs. For more information about SSH keys, see [SSH keys](https://cloud.ibm.com/docs/vpc?topic=vpc-ssh-keys) in the VPC docs."
   type        = string
 }
 
 variable "ssh_private_key" {
-  description = "Private SSH key (RSA format) to login to Intel VSIs to configure network management services (SQUID, NTP, DNS and ansible). Should match to public SSH key referenced by 'ssh_public_key'. The key is not uploaded or stored. For more information about SSH keys, see [SSH keys](https://cloud.ibm.com/docs/vpc?topic=vpc-ssh-keys)."
+  description = "Private SSH key (RSA format) to login to Intel VSIs to configure network management services (SQUID, NTP, DNS and ansible). Should match to public SSH key referenced by 'ssh_public_key'. The key is not uploaded or stored. If you're unsure how to create one, check [Generate a SSH Key Pair](https://cloud.ibm.com/docs/powervs-vpc?topic=powervs-vpc-powervs-automation-prereqs#powervs-automation-ssh-key) in our docs. For more information about SSH keys, see [SSH keys](https://cloud.ibm.com/docs/vpc?topic=vpc-ssh-keys) in the VPC docs."
   type        = string
   sensitive   = true
 }
@@ -30,7 +30,7 @@ variable "user_id" {
 
 variable "openshift_pull_secret" {
   description = "Pull secret from Red Hat OpenShift Cluster Manager for authenticating OpenShift image downloads from Red Hat container registries. A RedHat account is required. It can be obtained on https://console.redhat.com/openshift/install/pull-secret."
-  type        = map(any)
+  type        = string
   sensitive   = true
 }
 
@@ -40,7 +40,6 @@ variable "ibmcloud_api_key" {
   sensitive   = true
 }
 
-# required?
 variable "ansible_vault_password" {
   description = "Vault password to encrypt ansible playbooks that contain sensitive information. Password requirements: 15-100 characters and at least one uppercase letter, one lowercase letter, one number, and one special character. Allowed characters: A-Z, a-z, 0-9, !#$%&()*+-.:;<=>?@[]_{|}~."
   type        = string
@@ -75,9 +74,9 @@ variable "cluster_network_config" {
     cluster_machine_network_cidr = string
   })
   default = {
-    cluster_network_cidr         = "10.128.0.0/14"
-    cluster_service_network_cidr = "10.67.0.0/16"
-    cluster_machine_network_cidr = "10.72.0.0/24"
+    "cluster_network_cidr" : "10.128.0.0/14",
+    "cluster_service_network_cidr" : "10.67.0.0/16",
+    "cluster_machine_network_cidr" : "10.72.0.0/24"
   }
   validation {
     condition     = can(regex("/([0-9]{1,2})$", var.cluster_network_config.cluster_network_cidr)) && tonumber(regex("/([0-9]{1,2})$", var.cluster_network_config.cluster_network_cidr)[0]) <= 14
@@ -103,11 +102,11 @@ variable "cluster_master_node_config" {
     replicas    = number
   })
   default = {
-    processors  = 4
-    memory      = 32
-    system_type = null
-    proc_type   = "Shared"
-    replicas    = 3
+    "processors" : "4",
+    "memory" : "32",
+    "system_type" : null,
+    "proc_type" : "Shared",
+    "replicas" : "3"
   }
   validation {
     condition     = var.cluster_master_node_config.system_type != null ? contains(["s1122", "s1022", "s922", "e980", "e1080", "e1050"], var.cluster_master_node_config.system_type) : true
@@ -137,11 +136,11 @@ variable "cluster_worker_node_config" {
     replicas    = number
   })
   default = {
-    processors  = 4
-    memory      = 32
-    system_type = null
-    proc_type   = "Shared"
-    replicas    = 3
+    "processors" : "4",
+    "memory" : "32",
+    "system_type" : null,
+    "proc_type" : "Shared",
+    "replicas" : "3"
   }
   validation {
     condition     = var.cluster_worker_node_config.system_type != null ? contains(["s1122", "s1022", "s922", "e980", "e1080", "e1050"], var.cluster_worker_node_config.system_type) : true
@@ -182,7 +181,7 @@ variable "vpc_intel_images" {
     sles_image = string
   })
   default = {
-    "rhel_image" : "ibm-redhat-9-4-amd64-sap-applications-7"
+    "rhel_image" : "ibm-redhat-9-4-amd64-sap-applications-7",
     "sles_image" : "ibm-sles-15-7-amd64-sap-applications-1"
   }
 }

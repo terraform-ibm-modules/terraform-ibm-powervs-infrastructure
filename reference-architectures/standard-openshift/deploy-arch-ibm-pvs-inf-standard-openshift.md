@@ -1,7 +1,7 @@
 ---
 copyright:
   years: 2024, 2025
-lastupdated: "2025-09-15"
+lastupdated: "2025-10-08"
 keywords:
 subcollection: deployable-reference-architectures
 authors:
@@ -15,28 +15,31 @@ image_source: https://github.com/terraform-ibm-modules/terraform-ibm-powervs-inf
 use-case: ITServiceManagement
 industry: Technology
 content-type: reference-architecture
-version: v10.0.0
+version: v10.0.1
 compliance:
 
 ---
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Power Virtual Server with VPC landing zone - 'Quickstart Openshift Variation'
+# Power Virtual Server with VPC landing zone - 'Quickstart OpenShift Variation'
 {: #deploy-arch-ibm-pvs-inf-standard-openshift}
 {: toc-content-type="reference-architecture"}
 {: toc-industry="Technology"}
 {: toc-use-case="ITServiceManagement"}
-{: toc-version="v10.0.0"}
+{: toc-version="v10.0.1"}
 
 The Quickstart OpenShift deployment on Power Virtual Server with a VPC landing zone uses the Red Hat IPI installer to set up an OpenShift cluster. Before the deployment begins, it provisions VPC services and creates a Power Virtual Server workspace, which together form the landing zone used to access and manage the cluster.
 
 The number of PowerVS master and worker nodes and their respective compute configurations can be configured during deployment. Optionally, Monitoring and Security and Compliance Center Workload Protection can also be configured.
 
+Due to technical limitations, the cost estimate Projects gives does not include the PowerVS resources deployed. The cost estimate given on the catalog page is accurate for a deployment using default values. This only applies to the Quickstart OpenShift variation.
+{: important}
+
 ## Architecture diagram
 {: #standard-openshift-architecture-diagram}
 
-![Architecture diagram for 'Power Virtual Server with VPC landing zone' - variation 'Quickstart Openshift'.](deploy-arch-ibm-pvs-inf-standard-openshift.svg "Architecture diagram"){: caption="Figure 1. Single-zone PowerVS workspace accessible over secure landing zone" caption-side="bottom"}{: external download="deploy-arch-ibm-pvs-inf-standard-openshift.svg"}
+![Architecture diagram for 'Power Virtual Server with VPC landing zone' - variation 'Quickstart OpenShift'.](deploy-arch-ibm-pvs-inf-standard-openshift.svg "Architecture diagram"){: caption="Figure 1. Single-zone PowerVS workspace accessible over secure landing zone" caption-side="bottom"}{: external download="deploy-arch-ibm-pvs-inf-standard-openshift.svg"}
 
 ## Design requirements
 {: #standard-openshift-design-requirements}
