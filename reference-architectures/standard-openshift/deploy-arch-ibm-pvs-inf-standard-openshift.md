@@ -33,6 +33,9 @@ The Quickstart OpenShift deployment on Power Virtual Server with a VPC landing z
 
 The number of PowerVS master and worker nodes and their respective compute configurations can be configured during deployment. Optionally, Monitoring and Security and Compliance Center Workload Protection can also be configured.
 
+Due to technical limitations, the cost estimate Projects gives does not include the PowerVS resources deployed. The cost estimate given on the catalog page is accurate for a deployment using default values. This only applies to the Quickstart OpenShift variation.
+{: important}
+
 ## Architecture diagram
 {: #standard-openshift-architecture-diagram}
 

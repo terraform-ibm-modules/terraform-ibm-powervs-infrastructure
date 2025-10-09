@@ -29,6 +29,9 @@ This example sets up an OpenShift Cluster on PowerVS following infrastructure:
     - 2 or more worker nodes
     - Custom profile (cores, memory, machine type, core type)
 
+Due to technical limitations, the cost estimate Projects gives does not include the PowerVS resources deployed. The cost estimate given on the catalog page is accurate for a deployment using default values. This only applies to the Quickstart OpenShift variation.
+{: important}
+
 ## Solutions
 
 | Variation  | Available on IBM Catalog  |  Requires Schematics Workspace ID | Creates VPC Landing Zone | Performs VPC VSI OS Config | Creates PowerVS Infrastructure | Creates PowerVS Instance | Creates OpenShift Cluster on PowerVS |
