@@ -165,7 +165,7 @@
                         "port_min": 22
                     }
                 },
-                %{ if "${powervs_mgmt_cidr}" != "" && "${powervs_mgmt_cidr}" != null }
+                %{ if "${powervs_mgmt_cidr}" != null }
                 {
                     "name": "allow-pvs-mgmt-inbound",
                     "direction": "inbound",
@@ -176,7 +176,7 @@
                     }
                 },
                 %{ endif }
-                %{ if "${powervs_bckp_cidr}" != "" && "${powervs_bckp_cidr}" != null }
+                %{ if "${powervs_bckp_cidr}" != null }
                 {
                     "name": "allow-pvs-bckp-inbound",
                     "direction": "inbound",
@@ -639,14 +639,14 @@
                     "direction": "inbound",
                     "source": "${vpc_subnet_cidrs.edge}"
                 },
-                %{ if "${powervs_mgmt_cidr}" != "" && "${powervs_mgmt_cidr}" != null }
+                %{ if "${powervs_mgmt_cidr}" != null }
                 {
                     "name": "allow-pvs-mgmt-inbound",
                     "direction": "inbound",
                     "source": "${powervs_mgmt_cidr}"
                 },
                 %{ endif }
-                %{ if "${powervs_bckp_cidr}" != "" && "${powervs_bckp_cidr}" != null }
+                %{ if "${powervs_bckp_cidr}" != null }
                 {
                     "name": "allow-pvs-bckp-inbound",
                     "direction": "inbound",
@@ -701,14 +701,14 @@
                     "direction": "inbound",
                     "source": "${vpc_subnet_cidrs.edge}"
                 },
-                %{ if "${powervs_mgmt_cidr}" != "" && "${powervs_mgmt_cidr}" != null }
+                %{ if "${powervs_mgmt_cidr}" != null }
                 {
                     "name": "allow-pvs-mgmt-inbound",
                     "direction": "inbound",
                     "source": "${powervs_mgmt_cidr}"
                 },
                 %{ endif }
-                %{ if "${powervs_bckp_cidr}" != "" && "${powervs_bckp_cidr}" != null }
+                %{ if "${powervs_bckp_cidr}" != null }
                 {
                     "name": "allow-pvs-bckp-inbound",
                     "direction": "inbound",
