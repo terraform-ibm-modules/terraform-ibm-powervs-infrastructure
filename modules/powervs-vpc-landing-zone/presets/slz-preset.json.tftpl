@@ -165,6 +165,7 @@
                         "port_min": 22
                     }
                 },
+                %{ if "${powervs_mgmt_cidr}" != "" && "${powervs_mgmt_cidr}" != null }
                 {
                     "name": "allow-pvs-mgmt-inbound",
                     "direction": "inbound",
@@ -174,6 +175,8 @@
                         "port_min": 22
                     }
                 },
+                %{ endif }
+                %{ if "${powervs_bckp_cidr}" != "" && "${powervs_bckp_cidr}" != null }
                 {
                     "name": "allow-pvs-bckp-inbound",
                     "direction": "inbound",
@@ -183,6 +186,7 @@
                         "port_min": 22
                     }
                 },
+                %{ endif }
                 {
                     "name": "allow-private2-inbound",
                     "direction": "inbound",
@@ -635,16 +639,20 @@
                     "direction": "inbound",
                     "source": "${vpc_subnet_cidrs.edge}"
                 },
+                %{ if "${powervs_mgmt_cidr}" != "" && "${powervs_mgmt_cidr}" != null }
                 {
                     "name": "allow-pvs-mgmt-inbound",
                     "direction": "inbound",
                     "source": "${powervs_mgmt_cidr}"
                 },
+                %{ endif }
+                %{ if "${powervs_bckp_cidr}" != "" && "${powervs_bckp_cidr}" != null }
                 {
                     "name": "allow-pvs-bckp-inbound",
                     "direction": "inbound",
                     "source": "${powervs_bckp_cidr}"
                 },
+                %{ endif }
                 {
                     "direction": "inbound",
                     "name": "allow-private2-inbound",
@@ -693,16 +701,20 @@
                     "direction": "inbound",
                     "source": "${vpc_subnet_cidrs.edge}"
                 },
+                %{ if "${powervs_mgmt_cidr}" != "" && "${powervs_mgmt_cidr}" != null }
                 {
                     "name": "allow-pvs-mgmt-inbound",
                     "direction": "inbound",
                     "source": "${powervs_mgmt_cidr}"
                 },
+                %{ endif }
+                %{ if "${powervs_bckp_cidr}" != "" && "${powervs_bckp_cidr}" != null }
                 {
                     "name": "allow-pvs-bckp-inbound",
                     "direction": "inbound",
                     "source": "${powervs_bckp_cidr}"
                 },
+                %{ endif }
                 {
                     "direction": "inbound",
                     "name": "allow-private2-inbound",
