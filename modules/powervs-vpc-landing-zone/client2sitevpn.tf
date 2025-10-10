@@ -20,45 +20,52 @@ locals {
   intermediate_ca_name = "${var.prefix}-intermediate-ca"
   cert_common_name     = "example"
 
-  default_server_routes = {
-    "vpc-vpn" = {
-      destination = var.vpc_subnet_cidrs.vpn
-      action      = "deliver"
-    },
-    "vpc-mgmt" = {
-      destination = var.vpc_subnet_cidrs.mgmt
-      action      = "deliver"
-    },
-    "vpc-vpe" = {
-      destination = var.vpc_subnet_cidrs.vpe
-      action      = "deliver"
-    },
-    "vpc-edge" = {
-      destination = var.vpc_subnet_cidrs.edge
-      action      = "deliver"
-    }
-    "vpn-pvs-mgmt" = {
+  # powervs routes
+  powervs_mgmt_route = var.powervs_management_network != null ? {
+    var.powervs_management_network.name : {
       destination = var.powervs_management_network.cidr
       action      = "deliver"
     }
-    "vpn-pvs-bckp" = {
+  } : {}
+  powervs_bckp_route = var.powervs_backup_network != null ? {
+    var.powervs_backup_network.name : {
       destination = var.powervs_backup_network.cidr
+      action      = "deliver"
+    }
+  } : {}
+
+  # vpc routes
+  vpc_server_routes = {
+    "vpc-vpn" : {
+      destination = var.vpc_subnet_cidrs.vpn
+      action      = "deliver"
+    },
+    "vpc-mgmt" : {
+      destination = var.vpc_subnet_cidrs.mgmt
+      action      = "deliver"
+    },
+    "vpc-vpe" : {
+      destination = var.vpc_subnet_cidrs.vpe
+      action      = "deliver"
+    },
+    "vpc-edge" : {
+      destination = var.vpc_subnet_cidrs.edge
       action      = "deliver"
     }
   }
 
-  vpn_server_routes = var.client_to_site_vpn.powervs_server_routes != null ? merge(local.default_server_routes,
-    tomap(
-      {
-        for instance in var.client_to_site_vpn.powervs_server_routes :
-        instance.route_name => {
-          destination = instance.destination
-          action      = instance.action
-        }
-        if !startswith(instance.destination, "10.")
+  # add additional routes (needed for networks created outside of this module)
+  additional_routes = tomap(
+    {
+      for instance in var.client_to_site_vpn.powervs_server_routes :
+      instance.route_name => {
+        destination = instance.destination
+        action      = instance.action
       }
-    )
-  ) : local.default_server_routes
+    }
+  )
+
+  vpn_server_routes = merge(local.powervs_mgmt_route, local.powervs_bckp_route, local.vpc_server_routes, local.additional_routes)
 }
 
 
