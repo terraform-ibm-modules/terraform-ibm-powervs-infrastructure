@@ -20,7 +20,7 @@ locals {
       vpc_subnet_cidrs             = var.vpc_subnet_cidrs
       powervs_mgmt_cidr            = var.powervs_management_network != null ? var.powervs_management_network.cidr : null
       powervs_bckp_cidr            = var.powervs_backup_network != null ? var.powervs_backup_network.cidr : null
-      vpn_client_cidr              = var.client_to_site_vpn.client_ip_pool
+      vpn_client_cidr              = var.client_to_site_vpn.enable ? var.client_to_site_vpn.client_ip_pool : null
     }
   )
 }

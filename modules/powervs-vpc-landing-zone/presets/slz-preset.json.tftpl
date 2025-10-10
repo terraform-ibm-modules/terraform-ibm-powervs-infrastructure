@@ -187,17 +187,9 @@
                     }
                 },
                 %{ endif }
+                %{ if "${vpn_client_cidr}" != null }
                 {
-                    "name": "allow-private2-inbound",
-                    "direction": "inbound",
-                    "source": "172.16.0.0/12",
-                    "tcp": {
-                        "port_max": 22,
-                        "port_min": 22
-                    }
-                },
-                {
-                    "name": "allow-private3-inbound",
+                    "name": "allow-vpn-client-inbound",
                     "direction": "inbound",
                     "source": "${vpn_client_cidr}",
                     "tcp": {
@@ -205,6 +197,7 @@
                         "port_min": 22
                     }
                 },
+                %{ endif }
                 {
                     "name": "allow-ssh-inbound-schematics1",
                     "direction": "inbound",
@@ -653,16 +646,13 @@
                     "source": "${powervs_bckp_cidr}"
                 },
                 %{ endif }
+                %{ if "${vpn_client_cidr}" != null }
                 {
                     "direction": "inbound",
-                    "name": "allow-private2-inbound",
-                    "source": "172.16.0.0/12"
-                },
-                {
-                    "direction": "inbound",
-                    "name": "allow-private3-inbound",
+                    "name": "allow-vpn-client-inbound",
                     "source": "${vpn_client_cidr}"
                 },
+                %{ endif }
                 {
                     "direction": "outbound",
                     "name": "allow-all-outbound",
@@ -715,14 +705,10 @@
                     "source": "${powervs_bckp_cidr}"
                 },
                 %{ endif }
+                %{ if "${vpn_client_cidr}" != null }
                 {
                     "direction": "inbound",
-                    "name": "allow-private2-inbound",
-                    "source": "172.16.0.0/12"
-                },
-                {
-                    "direction": "inbound",
-                    "name": "allow-private3-inbound",
+                    "name": "allow-vpn-client-inbound",
                     "source": "${vpn_client_cidr}"
                 },
                 {
@@ -730,6 +716,7 @@
                     "name": "allow-all-outbound",
                     "source": "0.0.0.0/0"
                 }
+                %{ endif }
             ]
         }
     ],
