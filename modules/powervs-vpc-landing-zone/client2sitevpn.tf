@@ -22,13 +22,13 @@ locals {
 
   # powervs routes
   powervs_mgmt_route = var.powervs_management_network != null ? {
-    var.powervs_management_network.name : {
+    (replace(var.powervs_management_network.name, "_", "-")) : {
       destination = var.powervs_management_network.cidr
       action      = "deliver"
     }
   } : {}
   powervs_bckp_route = var.powervs_backup_network != null ? {
-    var.powervs_backup_network.name : {
+    (replace(var.powervs_backup_network.name, "_", "-")) : {
       destination = var.powervs_backup_network.cidr
       action      = "deliver"
     }
@@ -55,7 +55,7 @@ locals {
   }
 
   # add additional routes (needed for networks created outside of this module)
-  additional_routes = tomap(
+  additional_routes = var.client_to_site_vpn.powervs_server_routes != null ? tomap(
     {
       for instance in var.client_to_site_vpn.powervs_server_routes :
       instance.route_name => {
@@ -63,7 +63,7 @@ locals {
         action      = instance.action
       }
     }
-  )
+  ) : {}
 
   vpn_server_routes = merge(local.powervs_mgmt_route, local.powervs_bckp_route, local.vpc_server_routes, local.additional_routes)
 }

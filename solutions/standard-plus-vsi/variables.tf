@@ -120,6 +120,11 @@ variable "powervs_management_network" {
     "name" : "mgmt_net",
     "cidr" : "10.51.0.0/24"
   }
+
+  validation {
+    condition     = can(regex("^([a-z]|[a-z][-_a-z0-9]*[a-z0-9])$", var.powervs_management_network.name))
+    error_message = "powervs_management_network.name can only contain 'a-z', '0-9', '-', '_' and must end on a letter or number."
+  }
 }
 
 variable "powervs_backup_network" {
@@ -132,6 +137,11 @@ variable "powervs_backup_network" {
   default = {
     "name" : "bkp_net",
     "cidr" : "10.52.0.0/24"
+  }
+
+  validation {
+    condition     = var.powervs_backup_network != null ? can(regex("^([a-z]|[a-z][-_a-z0-9]*[a-z0-9])$", var.powervs_backup_network.name)) : true
+    error_message = "powervs_backup_network.name can only contain 'a-z', '0-9', '-', '_' and must end on a letter or number."
   }
 }
 
