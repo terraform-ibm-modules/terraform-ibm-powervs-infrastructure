@@ -1273,7 +1273,11 @@
             },
             {
               "key": "cluster_network_config",
-              "type": "code_editor"
+              "custom_config": {
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "type": "code_editor"
+              }
             },
             {
               "key": "cluster_master_node_config",
