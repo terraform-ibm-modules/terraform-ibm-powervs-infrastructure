@@ -64,7 +64,7 @@ locals {
   pi_instance_os_type = can(regex("RHEL|SLES", local.qs_tshirt_choice.image)) ? "linux" : can(regex("^7\\d{3}-\\d{2}-\\d{2}$", local.qs_tshirt_choice.image)) ? "aix" : "ibm_i"
   pi_instance = {
     pi_image_id             = local.qs_tshirt_choice.image
-    pi_networks             = [module.standard.powervs_management_subnet, module.standard.powervs_backup_subnet]
+    pi_networks             = concat([module.standard.powervs_management_subnet], module.standard.powervs_backup_subnet != null ? [module.standard.powervs_backup_subnet] : [])
     pi_instance_name        = "${var.prefix}-pi-qs"
     pi_sap_profile_id       = local.sap_system_creation_enabled ? local.qs_tshirt_choice.sap_profile_id : null
     pi_server_type          = local.sap_system_creation_enabled ? null : local.qs_tshirt_choice.server_type
@@ -97,7 +97,7 @@ locals {
   }
 
   network_services_config = {
-    squid = { enable = true, squid_server_ip_port = module.standard.proxy_host_or_ip_port, no_proxy_hosts = "161.0.0.0/0,10.0.0.0/8" }
+    squid = { enable = true, squid_server_ip_port = module.standard.proxy_host_or_ip_port, no_proxy_hosts = "161.0.0.0/0,${var.vpc_subnet_cidrs.vpn},${var.vpc_subnet_cidrs.mgmt},${var.vpc_subnet_cidrs.vpe},${var.vpc_subnet_cidrs.edge},${var.powervs_management_network != null ? "${var.powervs_management_network.cidr}," : ""}${var.powervs_backup_network != null ? "${var.powervs_backup_network.cidr}," : ""}${var.client_to_site_vpn.client_ip_pool}" }
     nfs   = { enable = var.configure_nfs_server, nfs_server_path = module.standard.nfs_host_or_ip_path, nfs_client_path = lookup(var.nfs_server_config, "mount_path", ""), opts = "sec=sys,nfsvers=4.1,nofail", fstype = "nfs4" }
     dns   = { enable = var.configure_dns_forwarder, dns_server_ip = module.standard.dns_host_or_ip }
     ntp   = { enable = var.configure_ntp_forwarder, ntp_server_ip = module.standard.ntp_host_or_ip }

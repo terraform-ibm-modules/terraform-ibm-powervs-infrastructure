@@ -46,6 +46,26 @@ variable "ssh_private_key" {
 }
 
 #####################################################
+# Optional Parameters VPC
+#####################################################
+
+variable "vpc_subnet_cidrs" {
+  description = "CIDR values for the VPC subnets to be created. It's customer responsibility that none of the defined networks collide, including the PowerVS subnets and VPN client pool."
+  type = object({
+    vpn  = string
+    mgmt = string
+    vpe  = string
+    edge = string
+  })
+  default = {
+    "vpn"  = "10.30.10.0/24"
+    "mgmt" = "10.30.20.0/24"
+    "vpe"  = "10.30.30.0/24"
+    "edge" = "10.30.40.0/24"
+  }
+}
+
+#####################################################
 # Optional Parameters IBM Cloud Services
 #####################################################
 
@@ -248,16 +268,16 @@ variable "powervs_custom_image_cos_service_credentials" {
 #####################################################
 
 variable "client_to_site_vpn" {
-  description = "VPN configuration - the client ip pool and list of users email ids to access the environment. If enabled, then a Secret Manager instance is also provisioned with certificates generated. See optional parameters to reuse an existing Secrets manager instance. PowerVS server routes need to be created for the VPN so the PowerVS instances can be reached. Each route must have a unique name and destination CIDR."
+  description = "VPN configuration - the client ip pool and list of users email ids to access the environment. If enabled, then a Secret Manager instance is also provisioned with certificates generated. See optional parameters to reuse an existing Secrets manager instance. PowerVS server routes will create additional entries in the routing table to establish connectivity between the VPN and PowerVS. This is only needed if the PowerVS subnets are in this module are set to null and additional subnets are created outside of this module. Each route must have a unique name and destination CIDR."
   type = object({
     enable                        = bool
     client_ip_pool                = string
     vpn_client_access_group_users = list(string)
-    powervs_server_routes = list(object({
+    powervs_server_routes = optional(list(object({
       route_name  = string
       destination = string
       action      = string
-    }))
+    })))
     }
   )
 

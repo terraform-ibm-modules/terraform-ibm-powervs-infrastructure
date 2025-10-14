@@ -130,32 +130,74 @@
                     "source": "161.26.0.0/16"
                 },
                 {
-                    "name": "allow-private1-inbound",
+                    "name": "allow-vpn-inbound",
                     "direction": "inbound",
-                    "source": "10.0.0.0/8",
+                    "source": "${vpc_subnet_cidrs.vpn}",
                     "tcp": {
                         "port_max": 22,
                         "port_min": 22
                     }
                 },
                 {
-                    "name": "allow-private2-inbound",
+                    "name": "allow-mgmt-inbound",
                     "direction": "inbound",
-                    "source": "172.16.0.0/12",
+                    "source": "${vpc_subnet_cidrs.mgmt}",
                     "tcp": {
                         "port_max": 22,
                         "port_min": 22
                     }
                 },
                 {
-                    "name": "allow-private3-inbound",
+                    "name": "allow-vpe-inbound",
                     "direction": "inbound",
-                    "source": "192.168.0.0/16",
+                    "source": "${vpc_subnet_cidrs.vpe}",
                     "tcp": {
                         "port_max": 22,
                         "port_min": 22
                     }
                 },
+                {
+                    "name": "allow-edge-inbound",
+                    "direction": "inbound",
+                    "source": "${vpc_subnet_cidrs.edge}",
+                    "tcp": {
+                        "port_max": 22,
+                        "port_min": 22
+                    }
+                },
+                %{ if "${powervs_mgmt_cidr}" != null }
+                {
+                    "name": "allow-pvs-mgmt-inbound",
+                    "direction": "inbound",
+                    "source": "${powervs_mgmt_cidr}",
+                    "tcp": {
+                        "port_max": 22,
+                        "port_min": 22
+                    }
+                },
+                %{ endif }
+                %{ if "${powervs_bckp_cidr}" != null }
+                {
+                    "name": "allow-pvs-bckp-inbound",
+                    "direction": "inbound",
+                    "source": "${powervs_bckp_cidr}",
+                    "tcp": {
+                        "port_max": 22,
+                        "port_min": 22
+                    }
+                },
+                %{ endif }
+                %{ if "${vpn_client_cidr}" != null }
+                {
+                    "name": "allow-vpn-client-inbound",
+                    "direction": "inbound",
+                    "source": "${vpn_client_cidr}",
+                    "tcp": {
+                        "port_max": 22,
+                        "port_min": 22
+                    }
+                },
+                %{ endif }
                 {
                     "name": "allow-ssh-inbound-schematics1",
                     "direction": "inbound",
@@ -571,20 +613,46 @@
                     "source": "161.26.0.0/16"
                 },
                 {
+                    "name": "allow-vpn-inbound",
                     "direction": "inbound",
-                    "name": "allow-private1-inbound",
-                    "source": "10.0.0.0/8"
+                    "source": "${vpc_subnet_cidrs.vpn}"
                 },
                 {
+                    "name": "allow-mgmt-inbound",
                     "direction": "inbound",
-                    "name": "allow-private2-inbound",
-                    "source": "172.16.0.0/12"
+                    "source": "${vpc_subnet_cidrs.mgmt}"
                 },
                 {
+                    "name": "allow-vpe-inbound",
                     "direction": "inbound",
-                    "name": "allow-private3-inbound",
-                    "source": "192.168.0.0/16"
+                    "source": "${vpc_subnet_cidrs.vpe}"
                 },
+                {
+                    "name": "allow-edge-inbound",
+                    "direction": "inbound",
+                    "source": "${vpc_subnet_cidrs.edge}"
+                },
+                %{ if "${powervs_mgmt_cidr}" != null }
+                {
+                    "name": "allow-pvs-mgmt-inbound",
+                    "direction": "inbound",
+                    "source": "${powervs_mgmt_cidr}"
+                },
+                %{ endif }
+                %{ if "${powervs_bckp_cidr}" != null }
+                {
+                    "name": "allow-pvs-bckp-inbound",
+                    "direction": "inbound",
+                    "source": "${powervs_bckp_cidr}"
+                },
+                %{ endif }
+                %{ if "${vpn_client_cidr}" != null }
+                {
+                    "direction": "inbound",
+                    "name": "allow-vpn-client-inbound",
+                    "source": "${vpn_client_cidr}"
+                },
+                %{ endif }
                 {
                     "direction": "outbound",
                     "name": "allow-all-outbound",
@@ -598,35 +666,60 @@
             "resource_group": "${second_rg_name}",
             "show": false,
             "rules": [
+                %{ if "${powervs_mgmt_cidr}" != null }
+                {
+                    "name": "allow-pvs-mgmt-inbound",
+                    "direction": "inbound",
+                    "source": "${powervs_mgmt_cidr}"
+                },
+                %{ endif }
+                %{ if "${powervs_bckp_cidr}" != null }
+                {
+                    "name": "allow-pvs-bckp-inbound",
+                    "direction": "inbound",
+                    "source": "${powervs_bckp_cidr}"
+                },
+                %{ endif }
+                %{ if "${vpn_client_cidr}" != null }
+                {
+                    "direction": "inbound",
+                    "name": "allow-vpn-client-inbound",
+                    "source": "${vpn_client_cidr}"
+                },
+                {
+                    "direction": "outbound",
+                    "name": "allow-all-outbound",
+                    "source": "0.0.0.0/0"
+                },
+                %{ endif }
                 {
                     "direction": "inbound",
                     "name": "allow-ibm-inbound",
                     "source": "161.26.0.0/16"
                 },
                 {
+                    "name": "allow-vpn-inbound",
                     "direction": "inbound",
-                    "name": "allow-private1-inbound",
-                    "source": "10.0.0.0/8"
+                    "source": "${vpc_subnet_cidrs.vpn}"
                 },
                 {
+                    "name": "allow-mgmt-inbound",
                     "direction": "inbound",
-                    "name": "allow-private2-inbound",
-                    "source": "172.16.0.0/12"
+                    "source": "${vpc_subnet_cidrs.mgmt}"
                 },
                 {
+                    "name": "allow-vpe-inbound",
                     "direction": "inbound",
-                    "name": "allow-private3-inbound",
-                    "source": "192.168.0.0/16"
+                    "source": "${vpc_subnet_cidrs.vpe}"
                 },
                 {
-                    "direction": "outbound",
-                    "name": "allow-all-outbound",
-                    "source": "0.0.0.0/0"
+                    "name": "allow-edge-inbound",
+                    "direction": "inbound",
+                    "source": "${vpc_subnet_cidrs.edge}"
                 }
             ]
         }
     ],
-    "network_cidr": "10.0.0.0/8",
     "vpcs": [
         {
             "prefix": "edge",
@@ -642,10 +735,10 @@
             ],
             "address_prefixes": {
                 "zone-1": [
-                    "10.30.10.4/24",
-                    "10.30.20.0/24",
-                    "10.30.30.0/24",
-                    "10.30.40.0/24"
+                    "${vpc_subnet_cidrs.vpn}",
+                    "${vpc_subnet_cidrs.mgmt}",
+                    "${vpc_subnet_cidrs.vpe}",
+                    "${vpc_subnet_cidrs.edge}"
                 ]
             },
             "network_acls": [
@@ -673,25 +766,25 @@
                 "zone-1": [
                     {
                         "name": "vpn-zone-1",
-                        "cidr": "10.30.10.0/24",
+                        "cidr": "${vpc_subnet_cidrs.vpn}",
                         "public_gateway": false,
                         "acl_name": "acl"
                     },
                     {
                         "name": "vsi-management-zone-1",
-                        "cidr": "10.30.20.0/24",
+                        "cidr": "${vpc_subnet_cidrs.mgmt}",
                         "public_gateway": false,
                         "acl_name": "acl"
                     },
                     {
                         "name": "vpe-zone-1",
-                        "cidr": "10.30.30.0/24",
+                        "cidr": "${vpc_subnet_cidrs.vpe}",
                         "public_gateway": false,
                         "acl_name": "acl"
                     },
                     {
                         "name": "vsi-edge-zone-1",
-                        "cidr": "10.30.40.0/24",
+                        "cidr": "${vpc_subnet_cidrs.edge}",
                         "public_gateway": true,
                         "acl_name": "acl"
                     }

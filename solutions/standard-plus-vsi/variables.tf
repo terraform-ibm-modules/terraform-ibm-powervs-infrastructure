@@ -45,6 +45,26 @@ variable "ansible_vault_password" {
 }
 
 #####################################################
+# Optional Parameters VPC
+#####################################################
+
+variable "vpc_subnet_cidrs" {
+  description = "CIDR values for the VPC subnets to be created. It's customer responsibility that none of the defined networks collide, including the PowerVS subnets and VPN client pool."
+  type = object({
+    vpn  = string
+    mgmt = string
+    vpe  = string
+    edge = string
+  })
+  default = {
+    "vpn"  = "10.30.10.0/24"
+    "mgmt" = "10.30.20.0/24"
+    "vpe"  = "10.30.30.0/24"
+    "edge" = "10.30.40.0/24"
+  }
+}
+
+#####################################################
 # Optional Parameters PowerVS Instance
 #####################################################
 
@@ -100,6 +120,11 @@ variable "powervs_management_network" {
     "name" : "mgmt_net",
     "cidr" : "10.51.0.0/24"
   }
+
+  validation {
+    condition     = can(regex("^([a-z]|[a-z][-_a-z0-9]*[a-z0-9])$", var.powervs_management_network.name))
+    error_message = "powervs_management_network.name can only contain 'a-z', '0-9', '-', '_' and must end on a letter or number."
+  }
 }
 
 variable "powervs_backup_network" {
@@ -112,6 +137,11 @@ variable "powervs_backup_network" {
   default = {
     "name" : "bkp_net",
     "cidr" : "10.52.0.0/24"
+  }
+
+  validation {
+    condition     = var.powervs_backup_network != null ? can(regex("^([a-z]|[a-z][-_a-z0-9]*[a-z0-9])$", var.powervs_backup_network.name)) : true
+    error_message = "powervs_backup_network.name can only contain 'a-z', '0-9', '-', '_' and must end on a letter or number."
   }
 }
 
