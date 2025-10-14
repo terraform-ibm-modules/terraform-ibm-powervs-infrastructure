@@ -666,31 +666,6 @@
             "resource_group": "${second_rg_name}",
             "show": false,
             "rules": [
-                {
-                    "direction": "inbound",
-                    "name": "allow-ibm-inbound",
-                    "source": "161.26.0.0/16"
-                },
-                {
-                    "name": "allow-vpn-inbound",
-                    "direction": "inbound",
-                    "source": "${vpc_subnet_cidrs.vpn}"
-                },
-                {
-                    "name": "allow-mgmt-inbound",
-                    "direction": "inbound",
-                    "source": "${vpc_subnet_cidrs.mgmt}"
-                },
-                {
-                    "name": "allow-vpe-inbound",
-                    "direction": "inbound",
-                    "source": "${vpc_subnet_cidrs.vpe}"
-                },
-                {
-                    "name": "allow-edge-inbound",
-                    "direction": "inbound",
-                    "source": "${vpc_subnet_cidrs.edge}"
-                },
                 %{ if "${powervs_mgmt_cidr}" != null }
                 {
                     "name": "allow-pvs-mgmt-inbound",
@@ -715,8 +690,33 @@
                     "direction": "outbound",
                     "name": "allow-all-outbound",
                     "source": "0.0.0.0/0"
-                }
+                },
                 %{ endif }
+                {
+                    "direction": "inbound",
+                    "name": "allow-ibm-inbound",
+                    "source": "161.26.0.0/16"
+                },
+                {
+                    "name": "allow-vpn-inbound",
+                    "direction": "inbound",
+                    "source": "${vpc_subnet_cidrs.vpn}"
+                },
+                {
+                    "name": "allow-mgmt-inbound",
+                    "direction": "inbound",
+                    "source": "${vpc_subnet_cidrs.mgmt}"
+                },
+                {
+                    "name": "allow-vpe-inbound",
+                    "direction": "inbound",
+                    "source": "${vpc_subnet_cidrs.vpe}"
+                },
+                {
+                    "name": "allow-edge-inbound",
+                    "direction": "inbound",
+                    "source": "${vpc_subnet_cidrs.edge}"
+                }
             ]
         }
     ],
