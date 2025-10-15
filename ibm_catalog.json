@@ -229,10 +229,20 @@
               }
             },
             {
-              "key": "powervs_management_network"
+              "key": "powervs_management_network",
+              "custom_config": {
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "type": "code_editor"
+              }
             },
             {
-              "key": "powervs_backup_network"
+              "key": "powervs_backup_network",
+              "custom_config": {
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "type": "code_editor"
+              }
             },
             {
               "key": "tags"
@@ -282,10 +292,20 @@
               "key": "configure_nfs_server"
             },
             {
-              "key": "dns_forwarder_config"
+              "key": "dns_forwarder_config",
+              "custom_config": {
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "type": "code_editor"
+              }
             },
             {
-              "key": "nfs_server_config"
+              "key": "nfs_server_config",
+              "custom_config": {
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "type": "code_editor"
+              }
             },
             {
               "key": "enable_scc_wp"
@@ -307,7 +327,12 @@
               "key": "existing_monitoring_instance_crn"
             },
             {
-              "key": "client_to_site_vpn"
+              "key": "client_to_site_vpn",
+              "custom_config": {
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "type": "code_editor"
+              }
             },
             {
               "key": "sm_service_plan"
@@ -888,10 +913,20 @@
               }
             },
             {
-              "key": "powervs_management_network"
+              "key": "powervs_management_network",
+              "custom_config": {
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "type": "code_editor"
+              }
             },
             {
-              "key": "powervs_backup_network"
+              "key": "powervs_backup_network",
+              "custom_config": {
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "type": "code_editor"
+              }
             },
             {
               "key": "tags"
@@ -916,10 +951,20 @@
               "key": "configure_nfs_server"
             },
             {
-              "key": "dns_forwarder_config"
+              "key": "dns_forwarder_config",
+              "custom_config": {
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "type": "code_editor"
+              }
             },
             {
-              "key": "nfs_server_config"
+              "key": "nfs_server_config",
+              "custom_config": {
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "type": "code_editor"
+              }
             },
             {
               "key": "enable_scc_wp"
@@ -931,7 +976,12 @@
               "key": "existing_monitoring_instance_crn"
             },
             {
-              "key": "client_to_site_vpn"
+              "key": "client_to_site_vpn",
+              "custom_config": {
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "type": "code_editor"
+              }
             },
             {
               "key": "sm_service_plan"
@@ -1329,7 +1379,12 @@
               "key": "existing_monitoring_instance_crn"
             },
             {
-              "key": "client_to_site_vpn"
+              "key": "client_to_site_vpn",
+              "custom_config": {
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "type": "code_editor"
+              }
             },
             {
               "key": "sm_service_plan"
