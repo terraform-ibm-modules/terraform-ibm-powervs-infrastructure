@@ -324,6 +324,9 @@
               "key": "enable_monitoring"
             },
             {
+              "key": "enable_monitoring_host"
+            },
+            {
               "key": "existing_monitoring_instance_crn"
             },
             {
@@ -971,6 +974,9 @@
             },
             {
               "key": "enable_monitoring"
+            },
+            {
+              "key": "enable_monitoring_host"
             },
             {
               "key": "existing_monitoring_instance_crn"

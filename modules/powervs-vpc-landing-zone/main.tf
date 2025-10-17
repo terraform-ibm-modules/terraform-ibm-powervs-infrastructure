@@ -13,7 +13,7 @@ locals {
       network_services_vsi_profile = var.network_services_vsi_profile,
       user_data                    = var.user_data != null ? replace(var.user_data, "\n", "\\n") : null
       transit_gateway_global       = var.transit_gateway_global,
-      enable_monitoring            = var.enable_monitoring,
+      enable_monitoring_host       = var.enable_monitoring_host,
       sles_image                   = var.vpc_intel_images.sles_image,
       second_rg_name               = local.second_rg_name,
       tgw_rg_name                  = local.tgw_rg_name

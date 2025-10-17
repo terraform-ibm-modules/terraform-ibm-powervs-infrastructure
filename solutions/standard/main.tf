@@ -33,6 +33,7 @@ module "standard" {
   existing_sm_instance_region                  = var.existing_sm_instance_region
   network_services_vsi_profile                 = var.network_services_vsi_profile
   enable_monitoring                            = var.enable_monitoring
+  enable_monitoring_host                       = var.enable_monitoring_host
   existing_monitoring_instance_crn             = var.existing_monitoring_instance_crn
   enable_scc_wp                                = var.enable_scc_wp
   ansible_vault_password                       = var.ansible_vault_password

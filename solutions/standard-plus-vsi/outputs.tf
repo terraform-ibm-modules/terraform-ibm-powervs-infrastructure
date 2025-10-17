@@ -102,7 +102,7 @@ output "network_services_config" {
 ########################################################################
 
 output "monitoring_instance" {
-  description = "Details of the IBM Cloud Monitoring Instance: CRN, location, guid."
+  description = "Details of the IBM Cloud Monitoring Instance: CRN, location, guid, monitoring_host_ip. monitoring_host_ip is an empty string if enable_monitoring_host is disabled."
   value       = module.standard.monitoring_instance
 }
 

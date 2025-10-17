@@ -215,7 +215,7 @@ variable "enable_scc_wp" {
 }
 
 variable "enable_monitoring" {
-  description = "Specify whether Monitoring will be enabled. This includes the creation of an IBM Cloud Monitoring Instance and an Intel Monitoring Instance to host the services. If you already have an existing monitoring instance then specify in optional parameter 'existing_monitoring_instance_crn' and setting this parameter to true."
+  description = "Specify whether Monitoring will be enabled. This includes the creation of an IBM Cloud Monitoring Instance. If you already have an existing monitoring instance, set this to true and specify in optional parameter 'existing_monitoring_instance_crn'."
   type        = bool
   default     = false
 }

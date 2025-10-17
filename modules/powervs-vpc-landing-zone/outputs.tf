@@ -156,7 +156,7 @@ output "powervs_images" {
 ########################################################################
 
 output "monitoring_instance" {
-  description = "Details of the IBM Cloud Monitoring Instance: CRN, location, guid, monitoring_host_ip."
+  description = "Details of the IBM Cloud Monitoring Instance: CRN, location, guid, monitoring_host_ip. monitoring_host_ip is an empty string if enable_monitoring_host is disabled."
   value       = local.monitoring_instance
 }
 
