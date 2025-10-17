@@ -247,18 +247,6 @@ variable "enable_monitoring" {
   default     = true
 }
 
-variable "enable_monitoring_host" {
-  description = "Specify whether to create an additional Intel Instance that can be used to configure additional monitoring services."
-  type        = bool
-  default     = false
-}
-
-variable "existing_monitoring_instance_crn" {
-  description = "Existing CRN of IBM Cloud Monitoring Instance. If value is null, then an IBM Cloud Monitoring Instance will not be created but an intel VSI instance will be created if 'enable_monitoring_host' is true. "
-  type        = string
-  default     = null
-}
-
 ###########################################################
 # Optional Parameters Secret Manager for client to site VPN
 ###########################################################

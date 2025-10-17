@@ -220,12 +220,6 @@ variable "enable_monitoring" {
   default     = false
 }
 
-variable "existing_monitoring_instance_crn" {
-  description = "Existing CRN of IBM Cloud Monitoring Instance. If value is null, then an IBM Cloud Monitoring Instance will not be created but an intel VSI instance will be created if 'enable_monitoring' is true. "
-  type        = string
-  default     = null
-}
-
 ###########################################################
 # Optional Parameters Secret Manager for client to site VPN
 ###########################################################

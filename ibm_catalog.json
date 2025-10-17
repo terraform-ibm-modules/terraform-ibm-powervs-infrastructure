@@ -324,12 +324,6 @@
               "key": "enable_monitoring"
             },
             {
-              "key": "enable_monitoring_host"
-            },
-            {
-              "key": "existing_monitoring_instance_crn"
-            },
-            {
               "key": "client_to_site_vpn",
               "custom_config": {
                 "grouping": "deployment",
@@ -976,12 +970,6 @@
               "key": "enable_monitoring"
             },
             {
-              "key": "enable_monitoring_host"
-            },
-            {
-              "key": "existing_monitoring_instance_crn"
-            },
-            {
               "key": "client_to_site_vpn",
               "custom_config": {
                 "grouping": "deployment",
@@ -1380,9 +1368,6 @@
             },
             {
               "key": "enable_monitoring"
-            },
-            {
-              "key": "existing_monitoring_instance_crn"
             },
             {
               "key": "client_to_site_vpn",
