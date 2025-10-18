@@ -19,7 +19,7 @@ locals {
     crn                = var.enable_monitoring && var.existing_monitoring_instance_crn == null ? resource.ibm_resource_instance.monitoring_instance[0].crn : var.existing_monitoring_instance_crn != null ? var.existing_monitoring_instance_crn : ""
     location           = var.enable_monitoring && var.existing_monitoring_instance_crn == null ? resource.ibm_resource_instance.monitoring_instance[0].location : var.existing_monitoring_instance_crn != null ? split(":", var.existing_monitoring_instance_crn)[5] : ""
     guid               = var.enable_monitoring && var.existing_monitoring_instance_crn == null ? resource.ibm_resource_instance.monitoring_instance[0].guid : var.existing_monitoring_instance_crn != null ? split(":", var.existing_monitoring_instance_crn)[7] : ""
-    monitoring_host_ip = local.monitoring_vsi_ip
+    monitoring_host_ip = var.enable_monitoring_host ? local.monitoring_vsi_ip : ""
   }
 }
 
@@ -32,7 +32,7 @@ module "configure_monitoring_host" {
 
   source     = "./submodules/ansible"
   depends_on = [module.configure_network_services]
-  count      = var.enable_monitoring ? 1 : 0
+  count      = var.enable_monitoring_host ? 1 : 0
 
   bastion_host_ip        = local.access_host_or_ip
   ansible_host_or_ip     = local.network_services_vsi_ip

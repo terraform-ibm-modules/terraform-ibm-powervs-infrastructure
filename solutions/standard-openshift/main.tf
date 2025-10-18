@@ -31,27 +31,26 @@ module "standard" {
 
   providers = { ibm.ibm-is = ibm.ibm-is, ibm.ibm-pi = ibm.ibm-pi, ibm.ibm-sm = ibm.ibm-sm }
 
-  powervs_zone                     = var.powervs_zone
-  prefix                           = var.cluster_name
-  external_access_ip               = var.external_access_ip
-  ssh_public_key                   = var.ssh_public_key
-  ssh_private_key                  = var.ssh_private_key
-  client_to_site_vpn               = local.client_to_site_vpn
-  vpc_intel_images                 = var.vpc_intel_images
-  user_data                        = var.intel_user_data
-  powervs_resource_group_name      = null
-  powervs_management_network       = null
-  powervs_backup_network           = null
-  tags                             = var.tags
-  sm_service_plan                  = var.sm_service_plan
-  existing_sm_instance_guid        = var.existing_sm_instance_guid
-  existing_sm_instance_region      = var.existing_sm_instance_region
-  network_services_vsi_profile     = var.network_services_vsi_profile
-  enable_monitoring                = var.enable_monitoring
-  existing_monitoring_instance_crn = var.existing_monitoring_instance_crn
-  enable_scc_wp                    = var.enable_scc_wp
-  ansible_vault_password           = var.ansible_vault_password
-  ibm_dns_service                  = { enable = true, name = "${var.cluster_name}-dns", base_domain = var.cluster_base_domain, label = var.cluster_name }
+  powervs_zone                 = var.powervs_zone
+  prefix                       = var.cluster_name
+  external_access_ip           = var.external_access_ip
+  ssh_public_key               = var.ssh_public_key
+  ssh_private_key              = var.ssh_private_key
+  client_to_site_vpn           = local.client_to_site_vpn
+  vpc_intel_images             = var.vpc_intel_images
+  user_data                    = var.intel_user_data
+  powervs_resource_group_name  = null
+  powervs_management_network   = null
+  powervs_backup_network       = null
+  tags                         = var.tags
+  sm_service_plan              = var.sm_service_plan
+  existing_sm_instance_guid    = var.existing_sm_instance_guid
+  existing_sm_instance_region  = var.existing_sm_instance_region
+  network_services_vsi_profile = var.network_services_vsi_profile
+  enable_monitoring            = var.enable_monitoring
+  enable_scc_wp                = var.enable_scc_wp
+  ansible_vault_password       = var.ansible_vault_password
+  ibm_dns_service              = { enable = true, name = "${var.cluster_name}-dns", base_domain = var.cluster_base_domain, label = var.cluster_name }
 }
 
 #####################################################
