@@ -1,7 +1,7 @@
 ---
 copyright:
   years: 2024, 2025
-lastupdated: "2025-10-09"
+lastupdated: "2025-10-17"
 keywords:
 subcollection: deployable-reference-architectures
 authors:
@@ -15,7 +15,7 @@ image_source: https://github.com/terraform-ibm-modules/terraform-ibm-powervs-inf
 use-case: ITServiceManagement
 industry: Technology
 content-type: reference-architecture
-version: v10.1.0
+version: v10.2.0
 compliance:
 
 ---
@@ -27,7 +27,7 @@ compliance:
 {: toc-content-type="reference-architecture"}
 {: toc-industry="Technology"}
 {: toc-use-case="ITServiceManagement"}
-{: toc-version="v10.1.0"}
+{: toc-version="v10.2.0"}
 
 The Quickstart OpenShift deployment on Power Virtual Server with a VPC landing zone uses the Red Hat IPI installer to set up an OpenShift cluster. Before the deployment begins, it provisions VPC services and creates a Power Virtual Server workspace, which together form the landing zone used to access and manage the cluster.
 
@@ -64,8 +64,8 @@ IBM Cloud® Power Virtual Servers (PowerVS) is a public cloud offering that an e
 |* Create a virtual server instance that can act as an internet proxy server |Network services VPC instance|Create a Linux VPC instance that can host management components. Preconfigure ACL and security group rules to allow traffic over private networks only.|Configure application load balancer to act as proxy server manually, Modify number of virtual server instances and allowed ports in preset or perform the modifications manually|
 |* Create DNS Service instance as pre-requisite for IPI installer | DNS Service Instance | Create a DNS Service instance and a custom resolver to internally resolve the cluster domain. | |
 |* Ensure financial services compliancy for VPC services  \n * Perform network setup of all created services  \n * Perform network isolation of all created services  \n * Ensure all created services are interconnected |Secure landing zone components|Create a minimum set of required components for a secure landing zone|Create a modified set of required components for a secure landing zone in preset|
-|* Allow customer to optionally enable monitoring in the deployment|IBM Cloud® monitoring instance and Monitoring Host VPC Instance|Optionally, create or import an existing IBM Cloud® monitoring instance (customer provided details) and create and pre-configure the Monitoring Host VPC instance to  collect information and send it to the IBM Cloud® monitoring instance.| |
-|* Allow customer to optionally enable [Security and Compliance Center Workload Protection](/docs/workload-protection) in the deployment \n * Collect posture management information, enable vulnerability scanning and threat detection|IBM Cloud® Security and Compliance Center Workload Protection and SCC Workload Protection agent on all VPC instances in the deployment.|Optionally, create an IBM Cloud® Security and Compliance Center Workload Protection instance and install and setup the SCC Workload Protection agent on all VPC instances in the deployment (bastion, network services, monitoring hosts).| |
+|* Allow customer to optionally enable monitoring in the deployment|IBM Cloud® monitoring instance|Optionally, create or import an existing IBM Cloud® monitoring instance (customer provided details).| |
+|* Allow customer to optionally enable [Security and Compliance Center Workload Protection](/docs/workload-protection) in the deployment \n * Collect posture management information, enable vulnerability scanning and threat detection|IBM Cloud® Security and Compliance Center Workload Protection and SCC Workload Protection agent on all VPC instances in the deployment.|Optionally, create an IBM Cloud® Security and Compliance Center Workload Protection instance and install and setup the SCC Workload Protection agent on all VPC instances in the deployment (bastion, network services).| |
 {: caption="Table 1. VPC architecture decisions" caption-side="bottom"}
 
 ### PowerVS workspace architecture decisions

@@ -29,8 +29,8 @@ variable "vpc_intel_images" {
     error_message = "The rhel_image attribute of vpc_intel_images must not be empty. Please specify an OS image name to be used for creating management and network services VSI instances."
   }
   validation {
-    condition     = var.enable_monitoring ? (var.vpc_intel_images.sles_image != "" ? true : false) : true
-    error_message = "The sles_image attribute of var.vpc_intel_images cannot be empty when enable_monitoring is set to true. Please provide a valid SLES OS stock image name to create monitoring VSI."
+    condition     = var.enable_monitoring_host ? (var.vpc_intel_images.sles_image != "" ? true : false) : true
+    error_message = "The sles_image attribute of var.vpc_intel_images cannot be empty when enable_monitoring_host is set to true. Please provide a valid SLES OS stock image name to create monitoring VSI."
   }
 }
 
@@ -321,13 +321,24 @@ variable "existing_sm_instance_region" {
 #####################################################
 
 variable "enable_monitoring" {
-  description = "Specify whether Monitoring will be enabled. This includes the creation of an IBM Cloud Monitoring Instance and an Intel Monitoring Instance to host the services. If you already have an existing monitoring instance then specify in optional parameter 'existing_monitoring_instance_crn'."
+  description = "Specify whether Monitoring will be enabled. This includes the creation of an IBM Cloud Monitoring Instance. If you already have an existing monitoring instance, set this to true and specify in optional parameter 'existing_monitoring_instance_crn'."
   type        = bool
   default     = false
 }
 
+variable "enable_monitoring_host" {
+  description = "Specify whether to create an additional Intel Instance that can be used to configure additional monitoring services."
+  type        = bool
+  default     = false
+
+  validation {
+    condition     = var.enable_monitoring_host ? var.enable_monitoring && var.enable_monitoring_host : true
+    error_message = "enable_monitoring must be set to true to set enable_monitoring_host to true."
+  }
+}
+
 variable "existing_monitoring_instance_crn" {
-  description = "Existing CRN of IBM Cloud Monitoring Instance. If value is null, then an IBM Cloud Monitoring Instance will not be created but an intel VSI instance will be created if 'enable_monitoring' is true. "
+  description = "Existing CRN of IBM Cloud Monitoring Instance. If value is null, then an IBM Cloud Monitoring Instance will not be created but an intel VSI instance will be created if 'enable_monitoring_host' is true. "
   type        = string
   default     = null
 }
