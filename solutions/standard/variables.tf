@@ -268,7 +268,7 @@ variable "ansible_vault_password" {
 #################################################
 
 variable "enable_monitoring" {
-  description = "Specify whether Monitoring will be enabled. This includes the creation of an IBM Cloud Monitoring Instance. If you already have an existing monitoring instance, set this to true and specify in optional parameter 'existing_monitoring_instance_crn'."
+  description = "Specify whether Monitoring will be enabled. This creates a new IBM Cloud Monitoring Instance."
   type        = bool
   default     = false
 }
