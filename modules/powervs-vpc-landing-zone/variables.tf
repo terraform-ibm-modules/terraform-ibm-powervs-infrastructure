@@ -84,12 +84,7 @@ variable "ibm_dns_service" {
     label       = optional(string)
   })
   default = {
-    "enable" = false
-  }
-
-  validation {
-    condition     = var.ibm_dns_service.enable != var.configure_dns_forwarder
-    error_message = "The 'ibm_dns_service' and 'configure_dns_forwarder' cannot both be true."
+    enable = false
   }
 }
 
