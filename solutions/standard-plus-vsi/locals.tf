@@ -97,7 +97,7 @@ locals {
   }
 
   network_services_config = {
-    squid = { enable = true, squid_server_ip_port = module.standard.proxy_host_or_ip_port, no_proxy_hosts = "161.0.0.0/0,${var.vpc_subnet_cidrs.vpn},${var.vpc_subnet_cidrs.mgmt},${var.vpc_subnet_cidrs.vpe},${var.vpc_subnet_cidrs.edge},${var.powervs_management_network != null ? "${var.powervs_management_network.cidr}," : ""}${var.powervs_backup_network != null ? "${var.powervs_backup_network.cidr}," : ""}${var.client_to_site_vpn.client_ip_pool}" }
+    squid = { enable = true, squid_server_ip_port = module.standard.proxy_host_or_ip_port, no_proxy_hosts = "161.0.0.0/8,${var.vpc_subnet_cidrs.vpn},${var.vpc_subnet_cidrs.mgmt},${var.vpc_subnet_cidrs.vpe},${var.vpc_subnet_cidrs.edge},${var.powervs_management_network != null ? "${var.powervs_management_network.cidr}," : ""}${var.powervs_backup_network != null ? "${var.powervs_backup_network.cidr}," : ""}${var.client_to_site_vpn.client_ip_pool}" }
     nfs   = { enable = var.configure_nfs_server, nfs_server_path = module.standard.nfs_host_or_ip_path, nfs_client_path = lookup(var.nfs_server_config, "mount_path", ""), opts = "sec=sys,nfsvers=4.1,nofail", fstype = "nfs4" }
     dns   = { enable = var.configure_dns_forwarder, dns_server_ip = module.standard.dns_host_or_ip }
     ntp   = { enable = var.configure_ntp_forwarder, ntp_server_ip = module.standard.ntp_host_or_ip }
