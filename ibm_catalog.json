@@ -509,7 +509,8 @@
               }
             ]
           },
-          "terraform_version": "1.10.5"
+          "terraform_version": "1.10.5",
+          "ignore_readme": true
         },
         {
           "label": "Quickstart",
@@ -1155,7 +1156,8 @@
               }
             ]
           },
-          "terraform_version": "1.10.5"
+          "terraform_version": "1.10.5",
+          "ignore_readme": true
         },
         {
           "label": "Quickstart OpenShift",
@@ -1563,7 +1565,8 @@
               }
             ]
           },
-          "terraform_version": "1.10.5"
+          "terraform_version": "1.10.5",
+          "ignore_readme": true
         }
       ]
     }
