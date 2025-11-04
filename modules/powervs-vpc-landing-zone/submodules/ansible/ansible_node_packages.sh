@@ -90,7 +90,7 @@ main::install_packages() {
     for collection in $GLOBAL_GALAXY_COLLECTIONS; do
       local count=0
       local max_count=3
-      while ! ansible-galaxy collection install "${collection}" -f; do
+      while ! ansible-galaxy collection install "${collection}" --upgrade; do
         count=$((count + 1))
         sleep 3
         # shellcheck disable=SC2317
@@ -101,7 +101,7 @@ main::install_packages() {
       done
     done
 
-    ansible-galaxy collection install -r '/root/.ansible/collections/ansible_collections/ibm/power_linux_sap/requirements.yml' -f
+    ansible-galaxy collection install -r '/root/.ansible/collections/ansible_collections/ibm/power_linux_sap/requirements.yml' --upgrade
     main::log_info "All packages installed successfully"
   fi
 
