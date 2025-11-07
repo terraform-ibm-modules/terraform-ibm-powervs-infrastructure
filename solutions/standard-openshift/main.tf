@@ -18,12 +18,75 @@ locals {
   ]
   client_to_site_vpn = merge(var.client_to_site_vpn, { "powervs_server_routes" : local.powervs_server_routes })
 
-  # automatically pick the supported system type unless it's overwritten by the user
-  p10_unsupported_regions = ["che01", "lon04", "mon01", "syd04", "syd05", "tor01", "us-east"] # datacenters that don't support P10 yet
-  system_type             = contains(local.p10_unsupported_regions, var.powervs_zone) ? "s922" : "s1022"
+  tshirt_sizes = {
+    "xs" = {
+      "master_node_config" = {
+        "processors" = "0.5",
+        "memory"     = "32",
+        "proc_type"  = "Shared",
+        "replicas"   = "1"
+      },
+      "worker_node_config" = {
+        "processors" = "1",
+        "memory"     = "32",
+        "proc_type"  = "Shared",
+        "replicas"   = "3"
+      },
+    }
+    "s" = {
+      "master_node_config" = {
+        "processors" = "1",
+        "memory"     = "32",
+        "proc_type"  = "Shared",
+        "replicas"   = "1"
+      },
+      "worker_node_config" = {
+        "processors" = "1",
+        "memory"     = "32",
+        "proc_type"  = "Shared",
+        "replicas"   = "5"
+      },
+    }
+    "m" = {
+      "master_node_config" = {
+        "processors" = "2",
+        "memory"     = "32",
+        "proc_type"  = "Shared",
+        "replicas"   = "3"
+      },
+      "worker_node_config" = {
+        "processors" = "4",
+        "memory"     = "32",
+        "proc_type"  = "Shared",
+        "replicas"   = "4"
+      },
+    }
+    "l" = {
+      "master_node_config" = {
+        "processors" = "4",
+        "memory"     = "32",
+        "proc_type"  = "Shared",
+        "replicas"   = "3"
+      },
+      "worker_node_config" = {
+        "processors" = "8",
+        "memory"     = "32",
+        "proc_type"  = "Shared",
+        "replicas"   = "8"
+      },
+    }
+  }
 
-  cluster_master_node_config = var.cluster_master_node_config.system_type != null ? var.cluster_master_node_config : merge(var.cluster_master_node_config, { system_type : local.system_type })
-  cluster_worker_node_config = var.cluster_worker_node_config.system_type != null ? var.cluster_worker_node_config : merge(var.cluster_worker_node_config, { system_type : local.system_type })
+  # set node configs based on whether t shirt was selected or custom config is being used
+  use_tshirt             = var.tshirt_size != "custom"
+  tmp_master_node_config = local.use_tshirt ? lookup(lookup(local.tshirt_sizes, var.tshirt_size, null), "master_node_config", null) : var.custom_master_node_config
+  tmp_worker_node_config = local.use_tshirt ? lookup(lookup(local.tshirt_sizes, var.tshirt_size, null), "worker_node_config", null) : var.custom_worker_node_config
+
+  # automatically pick the supported system type unless it's overwritten by the user
+  p10_unsupported_regions    = ["che01", "lon04", "mon01", "syd04", "syd05", "tor01", "us-east"] # datacenters that don't support P10 yet
+  system_type                = contains(local.p10_unsupported_regions, var.powervs_zone) ? "s922" : "s1022"
+  cluster_master_node_config = lookup(local.tmp_master_node_config, "system_type", null) != null ? local.tmp_master_node_config : merge(local.tmp_master_node_config, { system_type : local.system_type })
+  cluster_worker_node_config = lookup(local.tmp_worker_node_config, "system_type", null) != null ? local.tmp_worker_node_config : merge(local.tmp_worker_node_config, { system_type : local.system_type })
 }
 
 module "standard" {

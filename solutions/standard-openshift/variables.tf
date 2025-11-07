@@ -92,8 +92,19 @@ variable "cluster_network_config" {
   }
 }
 
-variable "cluster_master_node_config" {
-  description = "Configuration for the master nodes of the OpenShift cluster, including CPU, system type, processor type, and replica count. If system_type is null, it's chosen based on whether it's supported in the region. This can be overwritten by passing a value, e.g. 's1022' or 's922'. Memory is in GB."
+variable "tshirt_size" {
+  description = "OpenShift Cluster profiles for the master and worker nodes. These profiles can be overridden by setting this value to 'custom' and specifying 'custom_master_node_config' and 'cluster_woker_node_config' values in the optional parameters section."
+  type        = string
+  default     = "xs"
+
+  validation {
+    condition     = contains(["custom", "xs", "s", "m", "l"], var.tshirt_size)
+    error_message = "Only Following values are supported: custom, xs, s, m, l"
+  }
+}
+
+variable "custom_master_node_config" {
+  description = "Specify 'custom' for 'tshirt_size' to use. Configuration for the master nodes of the OpenShift cluster, including CPU, system type, processor type, and replica count. If system_type is null, it's chosen based on whether it's supported in the region. This can be overwritten by passing a value, e.g. 's1022' or 's922'. Memory is in GB."
   type = object({
     processors  = number
     memory      = number
@@ -109,25 +120,25 @@ variable "cluster_master_node_config" {
     "replicas" : "3"
   }
   validation {
-    condition     = var.cluster_master_node_config.system_type != null ? contains(["s1122", "s1022", "s922", "e980", "e1080", "e1050"], var.cluster_master_node_config.system_type) : true
+    condition     = var.custom_master_node_config.system_type != null ? contains(["s1122", "s1022", "s922", "e980", "e1080", "e1050"], var.custom_master_node_config.system_type) : true
     error_message = "system_type needs to be one of s1122, s1022, s922, e980, e1080, e1050."
   }
   validation {
-    condition     = contains(["Capped", "Dedicated", "Shared"], var.cluster_master_node_config.proc_type)
-    error_message = "Unsupported value for cluster_master_node_config.proc_type. Allowed values: Capped, Dedicated, Shared."
+    condition     = contains(["Capped", "Dedicated", "Shared"], var.custom_master_node_config.proc_type)
+    error_message = "Unsupported value for custom_master_node_config.proc_type. Allowed values: Capped, Dedicated, Shared."
   }
   validation {
-    condition     = var.cluster_master_node_config.memory >= 2 && var.cluster_master_node_config.memory <= 64
+    condition     = var.custom_master_node_config.memory >= 2 && var.custom_master_node_config.memory <= 64
     error_message = "Memory needs to be at least 2 and at most 64."
   }
   validation {
-    condition     = var.cluster_master_node_config.replicas == 1 || var.cluster_master_node_config.replicas == 3
+    condition     = var.custom_master_node_config.replicas == 1 || var.custom_master_node_config.replicas == 3
     error_message = "The number of master nodes needs to be 3 or 1 for single-node openshift."
   }
 }
 
-variable "cluster_worker_node_config" {
-  description = "Configuration for the worker nodes of the OpenShift cluster, including CPU, system type, processor type, and replica count. If system_type is null, it's chosen based on whether it's supported in the region. This can be overwritten by passing a value, e.g. 's1022' or 's922'. Memory is in GB."
+variable "custom_worker_node_config" {
+  description = "Specify 'custom' for 'tshirt_size' to use. Configuration for the worker nodes of the OpenShift cluster, including CPU, system type, processor type, and replica count. If system_type is null, it's chosen based on whether it's supported in the region. This can be overwritten by passing a value, e.g. 's1022' or 's922'. Memory is in GB."
   type = object({
     processors  = number
     memory      = number
@@ -143,19 +154,19 @@ variable "cluster_worker_node_config" {
     "replicas" : "3"
   }
   validation {
-    condition     = var.cluster_worker_node_config.system_type != null ? contains(["s1122", "s1022", "s922", "e980", "e1080", "e1050"], var.cluster_worker_node_config.system_type) : true
+    condition     = var.custom_worker_node_config.system_type != null ? contains(["s1122", "s1022", "s922", "e980", "e1080", "e1050"], var.custom_worker_node_config.system_type) : true
     error_message = "system_type needs to be one of s1122, s1022, s922, e980, e1080, e1050."
   }
   validation {
-    condition     = contains(["Capped", "Dedicated", "Shared"], var.cluster_worker_node_config.proc_type)
-    error_message = "Unsupported value for cluster_worker_node_config.proc_type. Allowed values: Capped, Dedicated, Shared."
+    condition     = contains(["Capped", "Dedicated", "Shared"], var.custom_worker_node_config.proc_type)
+    error_message = "Unsupported value for custom_worker_node_config.proc_type. Allowed values: Capped, Dedicated, Shared."
   }
   validation {
-    condition     = var.cluster_worker_node_config.memory >= 2 && var.cluster_worker_node_config.memory <= 64
+    condition     = var.custom_worker_node_config.memory >= 2 && var.custom_worker_node_config.memory <= 64
     error_message = "Memory needs to be at least 2 and at most 64."
   }
   validation {
-    condition     = var.cluster_worker_node_config.replicas >= 2
+    condition     = var.custom_worker_node_config.replicas >= 2
     error_message = "The number of worker nodes needs to be 2 or more."
   }
 }
