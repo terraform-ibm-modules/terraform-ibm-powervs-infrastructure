@@ -12,6 +12,17 @@ variable "cluster_name" {
   type        = string
 }
 
+variable "tshirt_size" {
+  description = "OpenShift Cluster profiles for the master and worker nodes. These profiles can be overridden by setting this value to 'custom' and specifying 'custom_master_node_config' and 'custom_woker_node_config' values in the optional parameters section."
+  type        = string
+  default     = "xs"
+
+  validation {
+    condition     = contains(["custom", "xs", "s", "m", "l"], var.tshirt_size)
+    error_message = "Only Following values are supported: custom, xs, s, m, l"
+  }
+}
+
 variable "ssh_public_key" {
   description = "Public SSH Key for VSI creation. Must be an RSA key with a key size of either 2048 bits or 4096 bits (recommended). Must be a valid SSH key that does not already exist in the deployment region. If you're unsure how to create one, check [Generate a SSH Key Pair](https://cloud.ibm.com/docs/powervs-vpc?topic=powervs-vpc-powervs-automation-prereqs#powervs-automation-ssh-key) in our docs. For more information about SSH keys, see [SSH keys](https://cloud.ibm.com/docs/vpc?topic=vpc-ssh-keys) in the VPC docs."
   type        = string
@@ -92,19 +103,8 @@ variable "cluster_network_config" {
   }
 }
 
-variable "tshirt_size" {
-  description = "OpenShift Cluster profiles for the master and worker nodes. These profiles can be overridden by setting this value to 'custom' and specifying 'custom_master_node_config' and 'cluster_woker_node_config' values in the optional parameters section."
-  type        = string
-  default     = "xs"
-
-  validation {
-    condition     = contains(["custom", "xs", "s", "m", "l"], var.tshirt_size)
-    error_message = "Only Following values are supported: custom, xs, s, m, l"
-  }
-}
-
 variable "custom_master_node_config" {
-  description = "Specify 'custom' for 'tshirt_size' to use. Configuration for the master nodes of the OpenShift cluster, including CPU, system type, processor type, and replica count. If system_type is null, it's chosen based on whether it's supported in the region. This can be overwritten by passing a value, e.g. 's1022' or 's922'. Memory is in GB."
+  description = "This value is ignored if 'tshirt_size' is not set to 'custom'. Configuration for the master nodes of the OpenShift cluster, including CPU, system type, processor type, and replica count. If system_type is null, it's chosen based on whether it's supported in the region. This can be overwritten by passing a value, e.g. 's1022' or 's922'. Memory is in GB."
   type = object({
     processors  = number
     memory      = number
@@ -138,7 +138,7 @@ variable "custom_master_node_config" {
 }
 
 variable "custom_worker_node_config" {
-  description = "Specify 'custom' for 'tshirt_size' to use. Configuration for the worker nodes of the OpenShift cluster, including CPU, system type, processor type, and replica count. If system_type is null, it's chosen based on whether it's supported in the region. This can be overwritten by passing a value, e.g. 's1022' or 's922'. Memory is in GB."
+  description = "This value is ignored if 'tshirt_size' is not set to 'custom'. Configuration for the worker nodes of the OpenShift cluster, including CPU, system type, processor type, and replica count. If system_type is null, it's chosen based on whether it's supported in the region. This can be overwritten by passing a value, e.g. 's1022' or 's922'. Memory is in GB."
   type = object({
     processors  = number
     memory      = number
