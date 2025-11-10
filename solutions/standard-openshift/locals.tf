@@ -20,13 +20,13 @@ locals {
         "processors" = "0.5",
         "memory"     = "32",
         "proc_type"  = "Shared",
-        "replicas"   = "1"
+        "replicas"   = "3"
       },
       "worker_node_config" = {
         "processors" = "1",
         "memory"     = "32",
         "proc_type"  = "Shared",
-        "replicas"   = "3"
+        "replicas"   = "2"
       },
     }
     "s" = {
@@ -34,24 +34,24 @@ locals {
         "processors" = "1",
         "memory"     = "32",
         "proc_type"  = "Shared",
-        "replicas"   = "1"
+        "replicas"   = "3"
       },
       "worker_node_config" = {
         "processors" = "1",
         "memory"     = "32",
         "proc_type"  = "Shared",
-        "replicas"   = "5"
+        "replicas"   = "3"
       },
     }
     "m" = {
       "master_node_config" = {
-        "processors" = "2",
+        "processors" = "1",
         "memory"     = "32",
         "proc_type"  = "Shared",
         "replicas"   = "3"
       },
       "worker_node_config" = {
-        "processors" = "4",
+        "processors" = "2",
         "memory"     = "32",
         "proc_type"  = "Shared",
         "replicas"   = "4"
@@ -59,16 +59,16 @@ locals {
     }
     "l" = {
       "master_node_config" = {
-        "processors" = "4",
+        "processors" = "1",
         "memory"     = "32",
         "proc_type"  = "Shared",
         "replicas"   = "3"
       },
       "worker_node_config" = {
-        "processors" = "8",
-        "memory"     = "32",
+        "processors" = "2",
+        "memory"     = "64",
         "proc_type"  = "Shared",
-        "replicas"   = "8"
+        "replicas"   = "4"
       },
     }
   }

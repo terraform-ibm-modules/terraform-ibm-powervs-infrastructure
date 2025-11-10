@@ -13,7 +13,7 @@ variable "cluster_name" {
 }
 
 variable "tshirt_size" {
-  description = "OpenShift Cluster profiles for the master and worker nodes. These profiles can be overridden by setting this value to 'custom' and specifying 'custom_master_node_config' and 'custom_woker_node_config' values in the optional parameters section."
+  description = "OpenShift Cluster profiles for the master and worker nodes. These profiles can be overridden by setting this value to 'custom' and specifying 'custom_master_node_config' and 'custom_worker_node_config' values in the optional parameters section."
   type        = string
   default     = "xs"
 
