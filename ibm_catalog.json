@@ -64,7 +64,7 @@
           "label": "Standard Landscape",
           "name": "standard",
           "install_type": "fullstack",
-          "index": 2,
+          "index": 9,
           "working_directory": "solutions/standard",
           "compliance": {
             "authority": "scc-v3",
