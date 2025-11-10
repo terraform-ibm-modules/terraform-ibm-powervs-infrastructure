@@ -152,3 +152,35 @@ module "ocp_cluster_deployment" {
   dst_inventory_file_name     = "${var.cluster_name}-playbook-ocp-install-config-inventory"
   inventory_template_vars     = { "host_or_ip" : module.standard.ansible_host_or_ip }
 }
+
+module "ocp_destroy_cluster" {
+  source     = "./ansible"
+  depends_on = [module.ocp_cluster_deployment]
+  count      = var.destroy_cluster ? 1 : 0
+
+  bastion_host_ip        = module.standard.access_host_or_ip
+  ansible_host_or_ip     = module.standard.ansible_host_or_ip
+  ssh_private_key        = var.ssh_private_key
+  ansible_vault_password = var.ansible_vault_password
+  encrypt_playbook       = false
+  configure_ansible_host = false
+  ibmcloud_api_key       = var.ibmcloud_api_key
+
+  src_script_template_name = "deploy-openshift-cluster/ansible_exec.sh.tftpl"
+  dst_script_file_name     = "destroy-ocp-cluster.sh"
+
+  src_playbook_template_name = "deploy-openshift-cluster/playbook-destroy-ocp-cluster.yml.tftpl"
+  dst_playbook_file_name     = "ocp-cluster-destroy-playbook.yml"
+  playbook_template_vars = {
+    CLUSTER_DIR : local.cluster_dir,
+    CLUSTER_NAME : var.cluster_name,
+    OPENSHIFT_INSTALL_BOOTSTRAP_TIMEOUT : "120m",
+    OPENSHIFT_INSTALL_MACHINE_WAIT_TIMEOUT : "35m",
+    OPENSHIFT_INSTALL_CLUSTER_TIMEOUT : "180m",
+    OPENSHIFT_INSTALL_DESTROY_TIMEOUT : "60m",
+  }
+
+  src_inventory_template_name = "inventory.tftpl"
+  dst_inventory_file_name     = "${var.cluster_name}-playbook-ocp-install-config-inventory"
+  inventory_template_vars     = { "host_or_ip" : module.standard.ansible_host_or_ip }
+}

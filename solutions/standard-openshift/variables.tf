@@ -71,6 +71,12 @@ variable "cluster_base_domain" {
 # Optional Parameters Openshift Cluster
 #####################################################
 
+variable "destroy_cluster" {
+  description = "Destroying this environment is a 2-step process. 1. set this value to true and apply - this will destroy the cluster resources. 2. trigger a terraform destroy - this will destroy the landing zone resources."
+  type        = bool
+  default     = false
+}
+
 variable "openshift_release" {
   description = "The OpenShift IPI release version to deploy."
   type        = string

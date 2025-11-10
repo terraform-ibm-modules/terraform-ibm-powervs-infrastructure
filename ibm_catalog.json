@@ -1312,6 +1312,9 @@
               "required": true
             },
             {
+              "key": "destroy_cluster"
+            },
+            {
               "key": "openshift_release",
               "type": "string"
             },
