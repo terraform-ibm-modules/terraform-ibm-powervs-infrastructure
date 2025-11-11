@@ -1,9 +1,3 @@
-	openshift-install destroy cluster  --log-level=debug  --dir=ocp-deploy/
-	Clean up Service Ids
-	cd ocp-deploy
-	ccoctl ibmcloud delete-service-id --credentials-requests-dir ./credreqs --name {{cluster_name}}
-
-
 ---
 - name: Destroy the OpenShift Cluster
   hosts: all
