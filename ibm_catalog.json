@@ -396,119 +396,59 @@
           ],
           "iam_permissions": [
             {
-              "service_name": "cloud-monitoring",
               "role_crns": [
-                "crn:v1:bluemix:public:iam::::role:Administrator",
                 "crn:v1:bluemix:public:iam::::serviceRole:Manager"
-              ]
+              ],
+              "service_name": "appid"
             },
             {
-              "service_name": "account-management",
               "role_crns": [
-                "crn:v1:bluemix:public:iam::::role:Administrator"
-              ]
-            },
-            {
-              "service_name": "kms",
-              "role_crns": [
-                "crn:v1:bluemix:public:iam::::role:Administrator",
                 "crn:v1:bluemix:public:iam::::serviceRole:Manager"
-              ]
+              ],
+              "service_name": "cloud-object-storage"
             },
             {
-              "service_name": "resource-controller",
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::serviceRole:Manager"
+              ],
+              "service_name": "hs-crypto"
+            },
+            {
               "role_crns": [
                 "crn:v1:bluemix:public:iam::::role:Administrator"
-              ]
+              ],
+              "service_name": "iam-identity"
             },
             {
-              "service_name": "iam-identity",
               "role_crns": [
-                "crn:v1:bluemix:public:iam::::role:Administrator"
-              ]
+                "crn:v1:bluemix:public:iam::::serviceRole:Manager"
+              ],
+              "service_name": "kms"
             },
             {
-              "service_name": "monitoring",
               "role_crns": [
+                "crn:v1:bluemix:public:iam::::serviceRole:Manager",
                 "crn:v1:bluemix:public:iam::::role:Administrator"
-              ]
+              ],
+              "service_name": "is.vpc"
             },
             {
-              "service_name": "activity-tracker",
               "role_crns": [
                 "crn:v1:bluemix:public:iam::::role:Editor"
-              ]
+              ],
+              "service_name": "is.vpc"
             },
             {
-              "service_name": "app-configuration",
               "role_crns": [
-                "crn:v1:bluemix:public:iam::::serviceRole:Manager",
-                "crn:v1:bluemix:public:iam::::role:Administrator"
-              ]
-            },
-            {
-              "service_name": "secrets-manager",
-              "role_crns": [
-                "crn:v1:bluemix:public:iam::::serviceRole:Manager",
-                "crn:v1:bluemix:public:iam::::role:Administrator"
-              ]
-            },
-            {
-              "service_name": "security-compliance",
-              "role_crns": [
-                "crn:v1:bluemix:public:iam::::serviceRole:Manager",
-                "crn:v1:bluemix:public:iam::::role:Administrator"
-              ]
-            },
-            {
-              "service_name": "power-iaas",
-              "role_crns": [
-                "crn:v1:bluemix:public:iam::::serviceRole:Manager",
                 "crn:v1:bluemix:public:iam::::role:Editor"
-              ]
+              ],
+              "service_name": "transit.gateway"
             },
             {
-              "service_name": "is.vpc",
               "role_crns": [
-                "crn:v1:bluemix:public:iam::::serviceRole:Manager",
-                "crn:v1:bluemix:public:iam::::role:Administrator",
-                "crn:v1:bluemix:public:iam::::role:Editor"
-              ]
-            },
-            {
-              "service_name": "hs-crypto",
-              "role_crns": [
-                "crn:v1:bluemix:public:iam::::serviceRole:Manager",
-                "crn:v1:bluemix:public:iam::::role:Administrator"
-              ]
-            },
-            {
-              "service_name": "iam",
-              "role_crns": [
-                "crn:v1:bluemix:public:iam::::serviceRole:Manager",
-                "crn:v1:bluemix:public:iam::::role:Administrator"
-              ]
-            },
-            {
-              "service_name": "transit.gateway",
-              "role_crns": [
-                "crn:v1:bluemix:public:iam::::serviceRole:Manager",
-                "crn:v1:bluemix:public:iam::::role:Editor"
-              ]
-            },
-            {
-              "service_name": "container-registry",
-              "role_crns": [
-                "crn:v1:bluemix:public:iam::::role:Reader",
-                "crn:v1:bluemix:public:iam::::role:Viewer"
-              ]
-            },
-            {
-              "service_name": "cloud-object-storage",
-              "role_crns": [
-                "crn:v1:bluemix:public:iam::::serviceRole:Manager",
-                "crn:v1:bluemix:public:iam::::role:Administrator"
-              ]
+                "crn:v1:bluemix:public:iam::::serviceRole:Manager"
+              ],
+              "service_name": "power-iaas"
             }
           ],
           "architecture": {
@@ -1102,59 +1042,119 @@
           ],
           "iam_permissions": [
             {
+              "service_name": "cloud-monitoring",
               "role_crns": [
+                "crn:v1:bluemix:public:iam::::role:Administrator",
                 "crn:v1:bluemix:public:iam::::serviceRole:Manager"
-              ],
-              "service_name": "appid"
+              ]
             },
             {
-              "role_crns": [
-                "crn:v1:bluemix:public:iam::::serviceRole:Manager"
-              ],
-              "service_name": "cloud-object-storage"
-            },
-            {
-              "role_crns": [
-                "crn:v1:bluemix:public:iam::::serviceRole:Manager"
-              ],
-              "service_name": "hs-crypto"
-            },
-            {
+              "service_name": "account-management",
               "role_crns": [
                 "crn:v1:bluemix:public:iam::::role:Administrator"
-              ],
-              "service_name": "iam-identity"
+              ]
             },
             {
+              "service_name": "kms",
               "role_crns": [
+                "crn:v1:bluemix:public:iam::::role:Administrator",
                 "crn:v1:bluemix:public:iam::::serviceRole:Manager"
-              ],
-              "service_name": "kms"
+              ]
             },
             {
+              "service_name": "resource-controller",
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::role:Administrator"
+              ]
+            },
+            {
+              "service_name": "iam-identity",
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::role:Administrator"
+              ]
+            },
+            {
+              "service_name": "monitoring",
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::role:Administrator"
+              ]
+            },
+            {
+              "service_name": "atracker",
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::role:Editor"
+              ]
+            },
+            {
+              "service_name": "apprapp",
               "role_crns": [
                 "crn:v1:bluemix:public:iam::::serviceRole:Manager",
                 "crn:v1:bluemix:public:iam::::role:Administrator"
-              ],
-              "service_name": "is.vpc"
+              ]
             },
             {
+              "service_name": "secrets-manager",
               "role_crns": [
+                "crn:v1:bluemix:public:iam::::serviceRole:Manager",
+                "crn:v1:bluemix:public:iam::::role:Administrator"
+              ]
+            },
+            {
+              "service_name": "security-compliance",
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::serviceRole:Manager",
+                "crn:v1:bluemix:public:iam::::role:Administrator"
+              ]
+            },
+            {
+              "service_name": "power-iaas",
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::serviceRole:Manager",
                 "crn:v1:bluemix:public:iam::::role:Editor"
-              ],
-              "service_name": "is.vpc"
+              ]
             },
             {
+              "service_name": "is.vpc",
               "role_crns": [
+                "crn:v1:bluemix:public:iam::::serviceRole:Manager",
+                "crn:v1:bluemix:public:iam::::role:Administrator",
                 "crn:v1:bluemix:public:iam::::role:Editor"
-              ],
-              "service_name": "transit.gateway"
+              ]
             },
             {
+              "service_name": "hs-crypto",
               "role_crns": [
-                "crn:v1:bluemix:public:iam::::serviceRole:Manager"
-              ],
-              "service_name": "power-iaas"
+                "crn:v1:bluemix:public:iam::::serviceRole:Manager",
+                "crn:v1:bluemix:public:iam::::role:Administrator"
+              ]
+            },
+            {
+              "service_name": "iam",
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::serviceRole:Manager",
+                "crn:v1:bluemix:public:iam::::role:Administrator"
+              ]
+            },
+            {
+              "service_name": "transit.gateway",
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::serviceRole:Manager",
+                "crn:v1:bluemix:public:iam::::role:Editor"
+              ]
+            },
+            {
+              "service_name": "container-registry",
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::role:Reader",
+                "crn:v1:bluemix:public:iam::::role:Viewer"
+              ]
+            },
+            {
+              "service_name": "cloud-object-storage",
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::serviceRole:Manager",
+                "crn:v1:bluemix:public:iam::::role:Administrator"
+              ]
             }
           ],
           "architecture": {
