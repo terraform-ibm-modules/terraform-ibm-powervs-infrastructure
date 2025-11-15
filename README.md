@@ -41,16 +41,60 @@ Three solutions are offered:
 You need the following permissions to run this module.
 
 - Account Management
-    - **Resource Group** service
-        - `Viewer` platform access
+    - **All Account Management services** service
+        - `Administrator` platform access
     - IAM Services
-        - **Workspace for Power Virtual Server** service
-        - **Power Virtual Server** service
-            - `Editor` platform access
+        - **IAM Identity Service** service
+            - `Administrator` platform access
+        - **All Identity and Access enabled services** service
+            -`Manager` service access
+            -`Administrator` platform access
+    - Resource Management
+        - **Resource Management** service
+            -`Administrator` platform access
+    - Networking Services
         - **VPC Infrastructure Services** service
-            - `Editor` platform access
+            -`manager` service access
+            -`VPN Client` , `Administrator` ,`Share Broker` , `Share Remote Account Accessor` platform access
         - **Transit Gateway** service
-            - `Editor` platform access
+            -`manager` service access
+            -`Editor` platform access
+    - Compute Services
+        - **Power Virtual Server Workspace** service
+            -`Manager` service access
+            -`Editor` platform access
+    - Security Services
+        - **Key Protect** service
+            -`Manager` service access
+            -`Administrator` platform access
+        - **Secrets Manager** service
+            -`Manager` service access
+            -`Administrator` platform access
+        - **Hyper Protect Crypto Services** service
+            -`Manager` service access
+            -`Administrator` platform access
+        - **Security and Compliance Center Workload Protection** service
+            -`Manager` service access
+            -`Administrator` platform access
+    - Monitoring & Management
+        - **Cloud Monitoring** service
+            -`Manager` service access
+            -`Administrator` platform access
+        - **Monitoring** service
+            -`Administrator` platform access
+        - **Activity Tracker Event Routing** service
+            -`Editor` platform access
+    - Storage Services
+        - **Cloud Object Storage** service
+            -`Manager` service access
+            -`Administrator` platform access
+        - **Container Registry** service
+            -`Reader` service access
+            -`Viewer` platform access
+    - Application Services
+        - **App Configuration service** service
+            -`Manager` service access
+            -`Administrator` platform access
 
 <!-- BEGIN CONTRIBUTING HOOK -->
 ## Contributing
