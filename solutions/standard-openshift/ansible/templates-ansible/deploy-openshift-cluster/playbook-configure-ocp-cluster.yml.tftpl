@@ -153,7 +153,7 @@
               name: worker
               platform:
                 powervs:
-                  processors: "{{ worker_processors }}"
+                  processors: {{ worker_processors }}
                   sysType: "{{ worker_system_type }}"
                   procType: "{{ worker_proc_type }}"
                   memoryGiB: {{ worker_memory }}
@@ -165,7 +165,7 @@
             name: master
             platform:
               powervs:
-                processors: "{{ master_processors }}"
+                processors: {{ master_processors }}
                 sysType: "{{ master_system_type }}"
                 procType: "{{ master_proc_type }}"
                 memoryGiB: {{ master_memory }}

@@ -17,7 +17,7 @@ locals {
   tshirt_sizes = {
     "xs" = {
       "master_node_config" = {
-        "processors" = "0.5",
+        "processors" = "1",
         "memory"     = "32",
         "proc_type"  = "Shared",
         "replicas"   = "3"
