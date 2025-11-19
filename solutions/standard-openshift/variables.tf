@@ -141,6 +141,10 @@ variable "custom_master_node_config" {
     condition     = var.custom_master_node_config.replicas == 1 || var.custom_master_node_config.replicas == 3
     error_message = "The number of master nodes needs to be 3 or 1 for single-node openshift."
   }
+  validation {
+    condition     = var.custom_master_node_config.processors == floor(var.custom_master_node_config.processors)
+    error_message = "custom_master_node_config.processors must be a whole number."
+  }
 }
 
 variable "custom_worker_node_config" {
@@ -174,6 +178,10 @@ variable "custom_worker_node_config" {
   validation {
     condition     = var.custom_worker_node_config.replicas >= 2
     error_message = "The number of worker nodes needs to be 2 or more."
+  }
+  validation {
+    condition     = var.custom_worker_node_config.processors == floor(var.custom_worker_node_config.processors)
+    error_message = "custom_worker_node_config.processors must be a whole number."
   }
 }
 
