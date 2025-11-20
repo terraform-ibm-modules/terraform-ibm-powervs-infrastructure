@@ -17,7 +17,7 @@ variable "tshirt_size" {
 
   validation {
     condition     = contains(["custom", "aix_xs", "aix_s", "aix_m", "aix_l", "ibm_i_xs", "ibm_i_s", "ibm_i_m", "ibm_i_l", "sap_dev_rhel", "sap_dev_sles"], var.tshirt_size.tshirt_size)
-    error_message = "Only Following DC values are supported :  custom, aix_xs, aix_s, aix_m, aix_l, ibm_i_xs, ibm_i_s, ibm_i_m, ibm_i_l, sap_dev_rhel, sap_dev_sles"
+    error_message = "Only Following values are supported :  custom, aix_xs, aix_s, aix_m, aix_l, ibm_i_xs, ibm_i_s, ibm_i_m, ibm_i_l, sap_dev_rhel, sap_dev_sles"
   }
 }
 

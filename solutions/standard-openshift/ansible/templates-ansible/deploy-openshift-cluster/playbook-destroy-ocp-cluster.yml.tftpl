@@ -1,0 +1,37 @@
+---
+- name: Destroy the OpenShift Cluster
+  hosts: all
+
+  vars:
+    cluster_dir: "${CLUSTER_DIR}"
+    cluster_name: $"{CLUSTER_NAME}"
+    openshift_install_bootstrap_timeout: "${OPENSHIFT_INSTALL_BOOTSTRAP_TIMEOUT}"
+    openshift_install_machine_wait_timeout: "${OPENSHIFT_INSTALL_MACHINE_WAIT_TIMEOUT}"
+    openshift_install_cluster_timeout: "${OPENSHIFT_INSTALL_CLUSTER_TIMEOUT}"
+    openshift_install_destroy_timeout: "${OPENSHIFT_INSTALL_DESTROY_TIMEOUT}"
+
+  tasks:
+    - name: Destroy the Cluster resources
+      block:
+        - name: Run openshift-install destroy cluster
+          ansible.builtin.shell: |
+            openshift-install destroy cluster --dir={{ cluster_dir }} --log-level=debug
+          environment:
+            OPENSHIFT_INSTALL_BOOTSTRAP_TIMEOUT: "{{ openshift_install_bootstrap_timeout }}"
+            OPENSHIFT_INSTALL_MACHINE_WAIT_TIMEOUT: "{{ openshift_install_machine_wait_timeout }}"
+            OPENSHIFT_INSTALL_CLUSTER_TIMEOUT: "{{ openshift_install_cluster_timeout }}"
+            OPENSHIFT_INSTALL_DESTROY_TIMEOUT: "{{ openshift_install_destroy_timeout }}"
+          ignore_errors: false
+          retries: 3
+          delay: 30
+
+        - name: Delete the Service IDs
+          ansible.builtin.shell: |
+            ccoctl ibmcloud delete-service-id --credentials-requests-dir {{ cluster_dir }}/credreqs --name {{ cluster_name }}
+          environment:
+            IBMCLOUD_API_KEY: "{{ lookup('env', 'IBMCLOUD_API_KEY') }}"
+            OPENSHIFT_INSTALL_BOOTSTRAP_TIMEOUT: "{{ openshift_install_bootstrap_timeout }}"
+            OPENSHIFT_INSTALL_MACHINE_WAIT_TIMEOUT: "{{ openshift_install_machine_wait_timeout }}"
+            OPENSHIFT_INSTALL_CLUSTER_TIMEOUT: "{{ openshift_install_cluster_timeout }}"
+            OPENSHIFT_INSTALL_DESTROY_TIMEOUT: "{{ openshift_install_destroy_timeout }}"
+          ignore_errors: false
