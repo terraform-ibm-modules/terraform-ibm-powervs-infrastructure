@@ -1450,19 +1450,19 @@
               "default_value": "xs",
               "options": [
                 {
-                  "displayname": "xs",
+                  "displayname": "xs (2xW:1x32 3xM:1x32)",
                   "value": "xs"
                 },
                 {
-                  "displayname": "s",
+                  "displayname": "s (3xW:1x32 3xM:1x32)",
                   "value": "s"
                 },
                 {
-                  "displayname": "m",
+                  "displayname": "m (4xW:2x32 3xM:1x32)",
                   "value": "m"
                 },
                 {
-                  "displayname": "l",
+                  "displayname": "l (4xW:1x64 3xM:1x32)",
                   "value": "l"
                 }
               ],
