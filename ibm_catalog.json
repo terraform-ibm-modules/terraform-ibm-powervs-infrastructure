@@ -1447,6 +1447,7 @@
             {
               "key": "tshirt_size",
               "type": "string",
+              "required": true,
               "default_value": "xs",
               "options": [
                 {
@@ -1464,6 +1465,10 @@
                 {
                   "displayname": "l (4xW:1x64 3xM:1x32)",
                   "value": "l"
+                },
+                {
+                  "displayname": "custom (specify in optional section)",
+                  "value": "custom"
                 }
               ],
               "custom_config": {}
