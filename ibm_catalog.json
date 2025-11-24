@@ -1448,7 +1448,7 @@
               "key": "tshirt_size",
               "type": "string",
               "required": true,
-              "default_value": "xs",
+              "default_value": "",
               "options": [
                 {
                   "displayname": "xs (2xW:1x32 3xM:1x32)",
