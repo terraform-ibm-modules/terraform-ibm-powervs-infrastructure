@@ -908,12 +908,12 @@
                   "value": "RHEL9-SP6-SAP-NETWEAVER"
                 },
                 {
-                  "displayname": "SAP - RHEL9-SP2-SAP",
-                  "value": "RHEL9-SP2-SAP"
+                  "displayname": "SAP - RHEL9-SP4-SAP",
+                  "value": "RHEL9-SP4-SAP"
                 },
                 {
-                  "displayname": "SAP - RHEL9-SP2-SAP-NETWEAVER",
-                  "value": "RHEL9-SP2-SAP-NETWEAVER"
+                  "displayname": "SAP - RHEL9-SP4-SAP-NETWEAVER",
+                  "value": "RHEL9-SP4-SAP-NETWEAVER"
                 },
                 {
                   "displayname": "SAP - SLES15-SP6-SAP",
