@@ -108,7 +108,7 @@ module "private_secret_engine" {
 # Create a secret group to place the certificate in
 module "secrets_manager_group" {
   source    = "terraform-ibm-modules/secrets-manager-secret-group/ibm"
-  version   = "1.3.18"
+  version   = "1.3.19"
   providers = { ibm = ibm.ibm-sm }
   count     = var.client_to_site_vpn.enable ? 1 : 0
 
@@ -122,7 +122,7 @@ module "secrets_manager_group" {
 # Create private cert to use for VPN server
 module "secrets_manager_private_certificate" {
   source     = "terraform-ibm-modules/secrets-manager-private-cert/ibm"
-  version    = "1.8.1"
+  version    = "1.9.2"
   providers  = { ibm = ibm.ibm-sm }
   count      = var.client_to_site_vpn.enable ? 1 : 0
   depends_on = [module.private_secret_engine]
@@ -141,7 +141,7 @@ module "secrets_manager_private_certificate" {
 # Create client to site VPN Server
 module "client_to_site_vpn" {
   source    = "terraform-ibm-modules/client-to-site-vpn/ibm"
-  version   = "3.4.4"
+  version   = "3.5.0"
   providers = { ibm = ibm.ibm-is }
   count     = var.client_to_site_vpn.enable ? 1 : 0
 
