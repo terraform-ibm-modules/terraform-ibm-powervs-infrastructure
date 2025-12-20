@@ -5,7 +5,7 @@
 # Create new App Config instance
 module "app_config" {
   source    = "terraform-ibm-modules/app-configuration/ibm"
-  version   = "1.14.2"
+  version   = "1.14.4"
   providers = { ibm = ibm.ibm-is }
   count     = var.enable_scc_wp ? 1 : 0
 
@@ -20,7 +20,7 @@ module "app_config" {
 
 module "scc_wp_instance" {
   source    = "terraform-ibm-modules/scc-workload-protection/ibm"
-  version   = "1.16.4"
+  version   = "1.16.7"
   providers = { ibm = ibm.ibm-is }
   count     = var.enable_scc_wp ? 1 : 0
 
