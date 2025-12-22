@@ -28,7 +28,7 @@ locals {
 
 module "landing_zone" {
   source    = "terraform-ibm-modules/landing-zone/ibm//patterns//vsi//module"
-  version   = "8.14.3"
+  version   = "8.14.4"
   providers = { ibm = ibm.ibm-is }
 
   ssh_public_key       = var.ssh_public_key
