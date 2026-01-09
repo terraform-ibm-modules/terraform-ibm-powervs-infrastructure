@@ -72,6 +72,13 @@
               "key": "prefix",
               "type": "string",
               "default_value": "",
+              "value_constraints": [
+                {
+                  "type": "regex",
+                  "description": "Prefix must start with a letter, be 1-16 characters long, and contain only letters and digits.",
+                  "value": "^[a-z][a-z0-9-]{0,14}[a-z0-9]$"
+                }
+              ],
               "required": true
             },
             {
@@ -573,6 +580,13 @@
             {
               "key": "prefix",
               "default_value": "",
+              "value_constraints": [
+                {
+                  "type": "regex",
+                  "description": "Prefix must start with a letter, be 1-16 characters long, and contain only letters and digits.",
+                  "value": "^[a-z][a-z0-9-]{0,14}[a-z0-9]$"
+                }
+              ],
               "required": true
             },
             {
@@ -1270,6 +1284,13 @@
             {
               "key": "cluster_name",
               "type": "string",
+              "value_constraints": [
+                {
+                  "type": "regex",
+                  "description": "cluster name must start with a letter, be 1-16 characters long, and contain only letters and digits.",
+                  "value": "^[a-z][a-z0-9-]{0,14}[a-z0-9]$"
+                }
+              ],
               "required": true
             },
             {
