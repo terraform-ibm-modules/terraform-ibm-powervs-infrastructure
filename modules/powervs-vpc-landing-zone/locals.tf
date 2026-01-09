@@ -26,6 +26,32 @@ locals {
     "wdc06"    = "us-east"
     "wdc07"    = "us-east"
   }
+
+  ibm_powervs_availability_zone_map = {
+    "syd04"    = "zone-2"
+    "syd05"    = "zone-3"
+    "sao01"    = "zone-1"
+    "sao04"    = "zone-2"
+    "tor01"    = "zone-1"
+    "mon01"    = "zone-1"
+    "eu-de-1"  = "zone-2"
+    "eu-de-2"  = "zone-3"
+    "mad02"    = "zone-1"
+    "mad04"    = "zone-2"
+    "lon04"    = "zone-1"
+    "lon06"    = "zone-3"
+    "osa21"    = "zone-1"
+    "tok04"    = "zone-2"
+    "us-south" = "zone-3"
+    "dal10"    = "zone-1"
+    "dal12"    = "zone-2"
+    "dal14"    = "zone-3"
+    "us-east"  = "zone-1"
+    "wdc06"    = "zone-2"
+    "wdc07"    = "zone-3"
+  }
+  availability_zone        = lookup(local.ibm_powervs_availability_zone_map, var.powervs_zone, null) # "zone-n"
+  availability_zone_number = substr(local.availability_zone, -1, 1)                                  # "n"
 }
 
 #####################################################
