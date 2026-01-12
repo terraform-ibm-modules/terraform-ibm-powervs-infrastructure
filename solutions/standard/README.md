@@ -14,6 +14,7 @@ This example sets up the following infrastructure:
     - KMS keys
     - Activity tracker
     - Optional Secrets Manager Instance Instance with private certificate.
+    - For single zone components, the VPC zone is automatically chosen to be in the same availability zone with the selected PowerVS zone.
 
 - A local or global **transit gateway**
 - An optional IBM Cloud Monitoring Instance
