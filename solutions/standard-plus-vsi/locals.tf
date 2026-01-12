@@ -3,7 +3,7 @@
 #####################################################
 
 locals {
-  p10_unsupported_regions = ["che01", "lon04", "mon01", "syd04", "syd05", "tor01", "us-east"] # datacenters that don't support P10 yet
+  p10_unsupported_regions = ["che01", "mon01", "us-east"] # datacenters that don't support P10 yet
   server_type             = contains(local.p10_unsupported_regions, var.powervs_zone) ? "s922" : "s1022"
   sap_profile_id          = contains(local.p10_unsupported_regions, var.powervs_zone) ? "ush1-4x256" : "sh2-4x256" # sap_profile_id for P9 and P10
 
