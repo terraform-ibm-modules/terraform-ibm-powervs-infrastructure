@@ -8,6 +8,7 @@ locals {
     "syd05"    = "au-syd"
     "sao01"    = "br-sao"
     "sao04"    = "br-sao"
+    "sao05"    = "br-sao"
     "tor01"    = "ca-tor"
     "mon01"    = "ca-tor"
     "eu-de-1"  = "eu-de"
