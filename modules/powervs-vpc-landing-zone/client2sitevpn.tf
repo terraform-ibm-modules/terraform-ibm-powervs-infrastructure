@@ -148,7 +148,7 @@ module "client_to_site_vpn" {
   vpn_gateway_name  = "${var.prefix}-vpc-pvs-vpn"
   resource_group_id = module.landing_zone.resource_group_data["${var.prefix}-${local.second_rg_name}"]
   access_group_name = "${var.prefix}-client-to-site-vpn-access-group"
-  subnet_ids        = [for subnet in module.landing_zone.subnet_data : subnet.id if subnet.name == "${var.prefix}-edge-vpn-zone-1"]
+  subnet_ids        = [for subnet in module.landing_zone.subnet_data : subnet.id if subnet.name == "${var.prefix}-edge-vpn-${local.availability_zone}"]
   client_ip_pool    = var.client_to_site_vpn.client_ip_pool
   # vpn supports only 2 dns servers
   client_dns_server_ips         = var.ibm_dns_service.enable ? slice([for location in ibm_dns_custom_resolver.dns_resolver[0].locations : location.dns_server_ip], 0, 2) : null
@@ -163,7 +163,7 @@ resource "ibm_is_vpc_address_prefix" "vpn_address_prefix" {
   count      = var.client_to_site_vpn.enable ? 1 : 0
   depends_on = [module.landing_zone, module.client_to_site_vpn]
 
-  zone = "${lookup(local.ibm_powervs_zone_cloud_region_map, var.powervs_zone, null)}-1"
+  zone = "${lookup(local.ibm_powervs_zone_cloud_region_map, var.powervs_zone, null)}-${local.availability_zone_number}"
   name = "${var.prefix}-vpn-address-prefix"
   vpc  = [for vpc in module.landing_zone.vpc_data : vpc.vpc_id if vpc.vpc_name == "${var.prefix}-edge"][0]
   cidr = var.client_to_site_vpn.client_ip_pool

@@ -734,7 +734,7 @@
                 }
             ],
             "address_prefixes": {
-                "zone-1": [
+                "${availability_zone}": [
                     "${vpc_subnet_cidrs.vpn}",
                     "${vpc_subnet_cidrs.mgmt}",
                     "${vpc_subnet_cidrs.vpe}",
@@ -763,39 +763,40 @@
                 }
             ],
             "subnets": {
-                "zone-1": [
+                "${availability_zone}": [
                     {
-                        "name": "vpn-zone-1",
+                        "name": "vpn-${availability_zone}",
                         "cidr": "${vpc_subnet_cidrs.vpn}",
                         "public_gateway": false,
                         "acl_name": "acl"
                     },
                     {
-                        "name": "vsi-management-zone-1",
+                        "name": "vsi-management-${availability_zone}",
                         "cidr": "${vpc_subnet_cidrs.mgmt}",
                         "public_gateway": false,
                         "acl_name": "acl"
                     },
                     {
-                        "name": "vpe-zone-1",
+                        "name": "vpe-${availability_zone}",
                         "cidr": "${vpc_subnet_cidrs.vpe}",
                         "public_gateway": false,
                         "acl_name": "acl"
                     },
                     {
-                        "name": "vsi-edge-zone-1",
+                        "name": "vsi-edge-${availability_zone}",
                         "cidr": "${vpc_subnet_cidrs.edge}",
                         "public_gateway": true,
                         "acl_name": "acl"
                     }
-                ],
-                "zone-2": null,
-                "zone-3": null
+                ]
+                %{ for zone in ["zone-1", "zone-2", "zone-3"] ~}
+                    %{~ if availability_zone != zone },"${zone}": null%{ endif }
+                %{ endfor ~}
             },
             "use_public_gateways": {
-                "zone-1": true,
-                "zone-2": false,
-                "zone-3": false
+                "zone-1": ${ availability_zone == "zone-1" },
+                "zone-2": ${ availability_zone == "zone-2" },
+                "zone-3": ${ availability_zone == "zone-3" }
             }
         }
     ],
@@ -810,7 +811,7 @@
             "boot_volume_encryption_key_name": "slz-vsi-volume-key",
             "ssh_keys": ["ssh-key"],
             "vsi_per_subnet": 1,
-            "subnet_names": ["vsi-management-zone-1"],
+            "subnet_names": ["vsi-management-${availability_zone}"],
             "block_storage_volumes": [],
             "security_groups": ["management-sg"]
             %{ if "${user_data}" != "" && "${user_data}" != null }
@@ -828,7 +829,7 @@
             "boot_volume_encryption_key_name": "slz-vsi-volume-key",
             "ssh_keys": ["ssh-key"],
             "vsi_per_subnet": 1,
-            "subnet_names": ["vsi-edge-zone-1"],
+            "subnet_names": ["vsi-edge-${availability_zone}"],
             "block_storage_volumes": [],
             "security_groups": ["network-services-sg"]
             %{ if "${user_data}" != "" && "${user_data}" != null }
@@ -848,7 +849,7 @@
             "boot_volume_encryption_key_name": "slz-vsi-volume-key",
             "ssh_keys": ["ssh-key"],
             "vsi_per_subnet": 1,
-            "subnet_names": ["vsi-edge-zone-1"],
+            "subnet_names": ["vsi-edge-${availability_zone}"],
             "block_storage_volumes": [],
             "security_groups": ["network-services-sg"]
             %{ if "${user_data}" != "" && "${user_data}" != null }
@@ -867,7 +868,7 @@
                 {
                     "name": "edge",
                     "security_group_name": "vpe-sg",
-                    "subnets": ["vpe-zone-1"]
+                    "subnets": ["vpe-${availability_zone}"]
                 }
             ]
         }

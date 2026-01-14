@@ -4,7 +4,7 @@
 
 This module provisions the following resources in IBM Cloud:
 - A **VPC Infrastructure** with the following components:
-    - One VSI for management (jump/bastion) VSI,
+    - One VSI for management (jump/bastion) VSI
     - One VSI for network-services configured as squid proxy, NTP and DNS servers(using Ansible Galaxy collection roles [ibm.power_linux_sap collection](https://galaxy.ansible.com/ui/repo/published/ibm/power_linux_sap/). This VSI also acts as central ansible execution node.
     - Optional VSI for Monitoring host
     - Optional [Client to site VPN server](https://cloud.ibm.com/docs/vpc?topic=vpc-vpn-client-to-site-overview)
@@ -16,6 +16,7 @@ This module provisions the following resources in IBM Cloud:
     - KMS keys
     - Activity tracker
     - Optional Secrets Manager Instance Instance with private certificate.
+    - For single zone components, the VPC zone is automatically chosen to be in the same availability zone with the selected PowerVS zone.
 
 
 - A local or global **transit gateway**

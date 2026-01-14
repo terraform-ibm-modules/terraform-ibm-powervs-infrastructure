@@ -13,6 +13,7 @@ This example sets up an OpenShift Cluster on PowerVS following infrastructure:
     - Activity tracker
     - Optional Secrets Manager Instance Instance with private certificate.
     - Three application load balancers for internal OpenShift API, public OpenShift API, and OpenShift applications
+    - For single zone components, the VPC zone is automatically chosen to be in the same availability zone with the selected PowerVS zone.
 
 - A local **transit gateway**
 - An IBM Cloud DNS Service Instance
