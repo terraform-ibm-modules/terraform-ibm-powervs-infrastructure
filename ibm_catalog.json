@@ -67,6 +67,9 @@
           "index": 9,
           "working_directory": "solutions/standard",
           "short_description": "The Power Virtual Server with VPC landing zone as variation 'Standard Landscape' deploys VPC services and a Power Virtual Server workspace and interconnects them. Required and optional management components are configured.",
+          "schematics_env_values": {
+            "value": "[{\"name\": \"API_DATA_IS_SENSITIVE\",\"value\": \"true\",\"secure\": false,\"hidden\": true}]"
+          },
           "configuration": [
             {
               "key": "prefix",
@@ -573,6 +576,9 @@
           "index": 1,
           "working_directory": "solutions/standard-plus-vsi",
           "short_description": "The Power Virtual Server with VPC landing zone as 'Quickstart' variation deploys VPC services and a Power Virtual Server workspace and interconnects them. It also creates one Power virtual server instance of chosen t-shirt size or custom configuration. Required and optional management components are configured.",
+          "schematics_env_values": {
+            "value": "[{\"name\": \"API_DATA_IS_SENSITIVE\",\"value\": \"true\",\"secure\": false,\"hidden\": true}]"
+          },
           "configuration": [
             {
               "key": "prefix",
@@ -1274,6 +1280,9 @@
           "index": 3,
           "working_directory": "solutions/standard-openshift",
           "short_description": "The Power Virtual Server with VPC landing zone as variation 'Quickstart OpenShift' deploys VPC services and an Openshift Cluster on PowerVS and interconnects them. Required and optional management components are configured.",
+          "schematics_env_values": {
+            "value": "[{\"name\": \"API_DATA_IS_SENSITIVE\",\"value\": \"true\",\"secure\": false,\"hidden\": true}]"
+          },
           "configuration": [
             {
               "key": "cluster_name",
