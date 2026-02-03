@@ -733,31 +733,31 @@
                   }
                 },
                 {
-                  "displayname": "IBM i - XS (0.25cpu,8GB,disk-100GB,IBMi-75-06-2984-1)",
+                  "displayname": "IBM i - XS (0.25cpu,8GB,disk-100GB,IBMi-76-00-2984-2)",
                   "value": {
                     "tshirt_size": "ibm_i_xs",
-                    "image": "IBMi-75-06-2984-1"
+                    "image": "IBMi-76-00-2984-2"
                   }
                 },
                 {
-                  "displayname": "IBM i - S (1cpu,32GB,disk-500GB,IBMi-75-06-2984-1)",
+                  "displayname": "IBM i - S (1cpu,32GB,disk-500GB,IBMi-76-00-2984-2)",
                   "value": {
                     "tshirt_size": "ibm_i_s",
-                    "image": "IBMi-75-06-2984-1"
+                    "image": "IBMi-76-00-2984-2"
                   }
                 },
                 {
-                  "displayname": "IBM i - M (2cpu,64GB,disk-1000GB,IBMi-75-06-2984-1)",
+                  "displayname": "IBM i - M (2cpu,64GB,disk-1000GB,IBMi-76-00-2984-2)",
                   "value": {
                     "tshirt_size": "ibm_i_m",
-                    "image": "IBMi-75-06-2984-1"
+                    "image": "IBMi-76-00-2984-2"
                   }
                 },
                 {
-                  "displayname": "IBM i - L (4cpu,132GB,disk-2000GB,IBMi-75-06-2984-1)",
+                  "displayname": "IBM i - L (4cpu,132GB,disk-2000GB,IBMi-76-00-2984-2)",
                   "value": {
                     "tshirt_size": "ibm_i_l",
-                    "image": "IBMi-75-06-2984-1"
+                    "image": "IBMi-76-00-2984-2"
                   }
                 },
                 {
@@ -768,10 +768,10 @@
                   }
                 },
                 {
-                  "displayname": "SAP DEV SLES (4x256,disk-750GB,SLES15-SP6-SAP)",
+                  "displayname": "SAP DEV SLES (4x256,disk-750GB,SLES15-SP7-SAP)",
                   "value": {
                     "tshirt_size": "sap_dev_sles",
-                    "image": "SLES15-SP6-SAP"
+                    "image": "SLES15-SP7-SAP"
                   }
                 }
               ],
@@ -836,36 +836,28 @@
                   "value": "7200-05-10"
                 },
                 {
+                  "displayname": "AIX - 7200-05-11",
+                  "value": "7200-05-11"
+                },
+                {
                   "displayname": "AIX - 7300-03-01",
                   "value": "7300-03-01"
                 },
                 {
-                  "displayname": "IBM i - IBMi-72-09-2924-12",
-                  "value": "IBMi-72-09-2924-12"
+                  "displayname": "AIX - 7300-04-00",
+                  "value": "7300-04-00"
                 },
                 {
                   "displayname": "IBM i - IBMi-72-09-2924-13",
                   "value": "IBMi-72-09-2924-13"
                 },
                 {
-                  "displayname": "IBM i - IBMi-72-09-2984-12",
-                  "value": "IBMi-72-09-2984-12"
-                },
-                {
                   "displayname": "IBM i - IBMi-72-09-2984-13",
                   "value": "IBMi-72-09-2984-13"
                 },
                 {
-                  "displayname": "IBM i - IBMi-73-13-2924-5",
-                  "value": "IBMi-73-13-2924-5"
-                },
-                {
                   "displayname": "IBM i - IBMi-73-13-2924-6",
                   "value": "IBMi-73-13-2924-6"
-                },
-                {
-                  "displayname": "IBM i - IBMi-73-13-2984-5",
-                  "value": "IBMi-73-13-2984-5"
                 },
                 {
                   "displayname": "IBM i - IBMi-73-13-2984-6",
@@ -876,16 +868,24 @@
                   "value": "IBMi-74-12-2924-1"
                 },
                 {
+                  "displayname": "IBM i - IBMi-74-12-2924-2",
+                  "value": "IBMi-74-12-2924-2"
+                },
+                {
                   "displayname": "IBM i - IBMi-74-12-2984-1",
                   "value": "IBMi-74-12-2984-1"
                 },
                 {
-                  "displayname": "IBM i - IBMi-75-06-2924-1",
-                  "value": "IBMi-75-06-2924-1"
+                  "displayname": "IBM i - IBMi-74-12-2984-2",
+                  "value": "IBMi-74-12-2984-2"
                 },
                 {
-                  "displayname": "IBM i - IBMi-75-06-2984-1",
-                  "value": "IBMi-75-06-2984-1"
+                  "displayname": "IBM i - IBMi-75-07-2924-1",
+                  "value": "IBMi-75-07-2924-1"
+                },
+                {
+                  "displayname": "IBM i - IBMi-75-07-2984-1",
+                  "value": "IBMi-75-07-2984-1"
                 },
                 {
                   "displayname": "IBM i - IBMi-76-00-2924-2",
@@ -896,24 +896,20 @@
                   "value": "IBMi-76-00-2984-2"
                 },
                 {
-                  "displayname": "IBM i - IBMi_COR-74-11-1",
-                  "value": "IBMi_COR-74-11-1"
-                },
-                {
                   "displayname": "IBM i - IBMi_COR-74-12-1",
                   "value": "IBMi_COR-74-12-1"
                 },
                 {
-                  "displayname": "Linux - RHEL9-SP2",
-                  "value": "RHEL9-SP2"
+                  "displayname": "Linux - RHEL9-SP6",
+                  "value": "RHEL9-SP6"
                 },
                 {
-                  "displayname": "Linux - RHEL8-SP8",
-                  "value": "RHEL8-SP8"
+                  "displayname": "Linux - RHEL9-SP4",
+                  "value": "RHEL9-SP4"
                 },
                 {
-                  "displayname": "Linux - SLES15-SP5",
-                  "value": "SLES15-SP5"
+                  "displayname": "Linux - RHEL8-SP10",
+                  "value": "RHEL8-SP10"
                 },
                 {
                   "displayname": "SAP - RHEL9-SP6-SAP",
@@ -930,6 +926,38 @@
                 {
                   "displayname": "SAP - RHEL9-SP4-SAP-NETWEAVER",
                   "value": "RHEL9-SP4-SAP-NETWEAVER"
+                },
+                {
+                  "displayname": "SAP - RHEL9-SP2-SAP",
+                  "value": "RHEL9-SP2-SAP"
+                },
+                {
+                  "displayname": "SAP - RHEL9-SP2-SAP-NETWEAVER",
+                  "value": "RHEL9-SP2-SAP-NETWEAVER"
+                },
+                {
+                  "displayname": "SAP - RHEL8-SP10-SAP",
+                  "value": "RHEL8-SP10-SAP"
+                },
+                {
+                  "displayname": "SAP - RHEL8-SP10-SAP-NETWEAVER",
+                  "value": "RHEL8-SP10-SAP-NETWEAVER"
+                },
+                {
+                  "displayname": "Linux - SLES15-SP7",
+                  "value": "SLES15-SP7"
+                },
+                {
+                  "displayname": "Linux - SLES15-SP6",
+                  "value": "SLES15-SP6"
+                },
+                {
+                  "displayname": "SAP - SLES15-SP7-SAP",
+                  "value": "SLES15-SP7-SAP"
+                },
+                {
+                  "displayname": "SAP - SLES15-SP7-SAP-NETWEAVER",
+                  "value": "SLES15-SP7-SAP-NETWEAVER"
                 },
                 {
                   "displayname": "SAP - SLES15-SP6-SAP",
