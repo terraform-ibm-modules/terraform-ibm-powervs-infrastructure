@@ -24,24 +24,20 @@ locals {
   sap_boot_images = [
     "RHEL8-SP10-SAP",
     "RHEL8-SP10-SAP-NETWEAVER",
-    "RHEL8-SP4-SAP",
-    "RHEL8-SP4-SAP-NETWEAVER",
-    "RHEL8-SP6-SAP-NETWEAVER",
-    "RHEL8-SP8-SAP",
-    "RHEL8-SP8-SAP-NETWEAVER",
     "RHEL9-SP2-SAP",
     "RHEL9-SP2-SAP-NETWEAVER",
     "RHEL9-SP4-SAP",
     "RHEL9-SP4-SAP-NETWEAVER",
     "RHEL9-SP6-SAP",
     "RHEL9-SP6-SAP-NETWEAVER",
-    "SLES15-SP3-SAP",
-    "SLES15-SP3-SAP-NETWEAVER",
+    "SLES15-SP4-SAP",
     "SLES15-SP4-SAP-NETWEAVER",
     "SLES15-SP5-SAP",
     "SLES15-SP5-SAP-NETWEAVER",
     "SLES15-SP6-SAP",
     "SLES15-SP6-SAP-NETWEAVER",
+    "SLES15-SP7-SAP",
+    "SLES15-SP7-SAP-NETWEAVER",
   ]
 
   qs_tshirt_choice = lookup(local.ibm_powervs_quickstart_tshirt_sizes, var.tshirt_size.tshirt_size, null)

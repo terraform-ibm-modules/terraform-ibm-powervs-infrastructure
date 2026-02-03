@@ -99,7 +99,7 @@ Due to technical limitations, the cost estimate Projects gives does not include 
 | <a name="input_tags"></a> [tags](#input\_tags) | List of tag names for the IBM Cloud PowerVS workspace | `list(string)` | `[]` | no |
 | <a name="input_tshirt_size"></a> [tshirt\_size](#input\_tshirt\_size) | OpenShift Cluster profiles for the master and worker nodes. These profiles can be overridden by setting this value to 'custom' and specifying 'custom\_master\_node\_config' and 'custom\_worker\_node\_config' values in the optional parameters section. | `string` | `"xs"` | no |
 | <a name="input_user_id"></a> [user\_id](#input\_user\_id) | The IBM Cloud login user ID associated with the account where the cluster will be deployed. | `string` | n/a | yes |
-| <a name="input_vpc_intel_images"></a> [vpc\_intel\_images](#input\_vpc\_intel\_images) | Stock OS image names for creating VPC landing zone VSI instances: RHEL (management and network services) and SLES (monitoring). | <pre>object({<br/>    rhel_image = string<br/>    sles_image = string<br/>  })</pre> | <pre>{<br/>  "rhel_image": "ibm-redhat-9-4-amd64-sap-applications-7",<br/>  "sles_image": "ibm-sles-15-7-amd64-sap-applications-1"<br/>}</pre> | no |
+| <a name="input_vpc_intel_images"></a> [vpc\_intel\_images](#input\_vpc\_intel\_images) | Stock OS image names for creating VPC landing zone VSI instances: RHEL (management and network services) and SLES (monitoring). | <pre>object({<br/>    rhel_image = string<br/>    sles_image = string<br/>  })</pre> | <pre>{<br/>  "rhel_image": "ibm-redhat-9-6-amd64-sap-applications-4",<br/>  "sles_image": "ibm-sles-15-7-amd64-sap-applications-3"<br/>}</pre> | no |
 
 ### Outputs
 
