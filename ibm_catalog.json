@@ -584,7 +584,7 @@
                 {
                   "type": "regex",
                   "description": "Prefix must start with a letter, be 1-16 characters long, and contain only letters and digits.",
-                  "value": "^[a-z][a-z0-9-]{0,14}[a-z0-9]$"
+                  "value": "^[a-z](?:[a-z0-9-]{0,14}[a-z0-9])?$"
                 }
               ],
               "required": true
