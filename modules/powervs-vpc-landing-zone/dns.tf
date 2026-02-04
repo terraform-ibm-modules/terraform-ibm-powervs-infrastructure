@@ -35,15 +35,15 @@ resource "ibm_dns_custom_resolver" "dns_resolver" {
   profile                  = "essential"
   allow_disruptive_updates = false
   locations {
-    subnet_crn = module.landing_zone.vpc_data[0].subnet_detail_map["zone-1"][0].crn
+    subnet_crn = module.landing_zone.vpc_data[0].subnet_detail_map[local.availability_zone][0].crn
     enabled    = true
   }
   locations {
-    subnet_crn = module.landing_zone.vpc_data[0].subnet_detail_map["zone-1"][1].crn
+    subnet_crn = module.landing_zone.vpc_data[0].subnet_detail_map[local.availability_zone][1].crn
     enabled    = true
   }
   locations {
-    subnet_crn = module.landing_zone.vpc_data[0].subnet_detail_map["zone-1"][2].crn
+    subnet_crn = module.landing_zone.vpc_data[0].subnet_detail_map[local.availability_zone][2].crn
     enabled    = true
   }
 }

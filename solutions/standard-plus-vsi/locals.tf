@@ -3,7 +3,7 @@
 #####################################################
 
 locals {
-  p10_unsupported_regions = ["che01", "lon04", "mon01", "syd04", "syd05", "tor01", "us-east"] # datacenters that don't support P10 yet
+  p10_unsupported_regions = ["che01", "mon01", "us-east"] # datacenters that don't support P10 yet
   server_type             = contains(local.p10_unsupported_regions, var.powervs_zone) ? "s922" : "s1022"
   sap_profile_id          = contains(local.p10_unsupported_regions, var.powervs_zone) ? "ush1-4x256" : "sh2-4x256" # sap_profile_id for P9 and P10
 
@@ -24,24 +24,20 @@ locals {
   sap_boot_images = [
     "RHEL8-SP10-SAP",
     "RHEL8-SP10-SAP-NETWEAVER",
-    "RHEL8-SP4-SAP",
-    "RHEL8-SP4-SAP-NETWEAVER",
-    "RHEL8-SP6-SAP-NETWEAVER",
-    "RHEL8-SP8-SAP",
-    "RHEL8-SP8-SAP-NETWEAVER",
     "RHEL9-SP2-SAP",
     "RHEL9-SP2-SAP-NETWEAVER",
     "RHEL9-SP4-SAP",
     "RHEL9-SP4-SAP-NETWEAVER",
     "RHEL9-SP6-SAP",
     "RHEL9-SP6-SAP-NETWEAVER",
-    "SLES15-SP3-SAP",
-    "SLES15-SP3-SAP-NETWEAVER",
+    "SLES15-SP4-SAP",
     "SLES15-SP4-SAP-NETWEAVER",
     "SLES15-SP5-SAP",
     "SLES15-SP5-SAP-NETWEAVER",
     "SLES15-SP6-SAP",
     "SLES15-SP6-SAP-NETWEAVER",
+    "SLES15-SP7-SAP",
+    "SLES15-SP7-SAP-NETWEAVER",
   ]
 
   qs_tshirt_choice = lookup(local.ibm_powervs_quickstart_tshirt_sizes, var.tshirt_size.tshirt_size, null)

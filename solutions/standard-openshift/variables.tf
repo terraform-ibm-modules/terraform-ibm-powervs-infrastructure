@@ -1,9 +1,9 @@
 variable "powervs_zone" {
-  description = "IBM Cloud data center location where IBM PowerVS infrastructure will be created. Supported regions are: dal10, dal12, eu-de-1, eu-de-2, lon04, lon06, mad02, mad04, osa21, sao01, sao04, syd04, syd05, us-east, us-south, wdc06, wdc07."
+  description = "IBM Cloud data center location where IBM PowerVS infrastructure will be created. Supported regions are: dal10, dal12, eu-de-1, eu-de-2, lon04, lon06, mad02, mad04, osa21, sao01, sao04, sao05, syd04, syd05, us-east, us-south, wdc06, wdc07."
   type        = string
   validation {
-    condition     = contains(["dal10", "dal12", "eu-de-1", "eu-de-2", "lon04", "lon06", "mad02", "mad04", "osa21", "sao01", "sao04", "syd04", "syd05", "us-east", "us-south", "wdc06", "wdc07"], var.powervs_zone)
-    error_message = "Unsupported powervs_zone. Supported zones are: dal10, dal12, eu-de-1, eu-de-2, lon04, lon06, mad02, mad04, osa21, sao01, sao04, syd04, syd05, us-east, us-south, wdc06, wdc07."
+    condition     = contains(["dal10", "dal12", "eu-de-1", "eu-de-2", "lon04", "lon06", "mad02", "mad04", "osa21", "sao01", "sao04", "sao05", "syd04", "syd05", "us-east", "us-south", "wdc06", "wdc07"], var.powervs_zone)
+    error_message = "Unsupported powervs_zone. Supported zones are: dal10, dal12, eu-de-1, eu-de-2, lon04, lon06, mad02, mad04, osa21, sao01, sao04, sao05, syd04, syd05, us-east, us-south, wdc06, wdc07."
   }
 }
 
@@ -206,8 +206,8 @@ variable "vpc_intel_images" {
     sles_image = string
   })
   default = {
-    "rhel_image" : "ibm-redhat-9-4-amd64-sap-applications-7",
-    "sles_image" : "ibm-sles-15-7-amd64-sap-applications-1"
+    "rhel_image" : "ibm-redhat-9-6-amd64-sap-applications-4",
+    "sles_image" : "ibm-sles-15-7-amd64-sap-applications-3"
   }
 }
 

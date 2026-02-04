@@ -17,6 +17,7 @@ locals {
       sles_image                   = var.vpc_intel_images.sles_image,
       second_rg_name               = local.second_rg_name,
       tgw_rg_name                  = local.tgw_rg_name
+      availability_zone            = local.availability_zone
       vpc_subnet_cidrs             = var.vpc_subnet_cidrs
       powervs_mgmt_cidr            = var.powervs_management_network != null ? var.powervs_management_network.cidr : null
       powervs_bckp_cidr            = var.powervs_backup_network != null ? var.powervs_backup_network.cidr : null
@@ -28,7 +29,7 @@ locals {
 
 module "landing_zone" {
   source    = "terraform-ibm-modules/landing-zone/ibm//patterns//vsi//module"
-  version   = "8.14.10"
+  version   = "8.14.20"
   providers = { ibm = ibm.ibm-is }
 
   ssh_public_key       = var.ssh_public_key

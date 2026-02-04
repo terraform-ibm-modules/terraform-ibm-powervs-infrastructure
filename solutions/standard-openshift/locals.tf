@@ -79,7 +79,7 @@ locals {
   tmp_worker_node_config = local.use_tshirt ? lookup(lookup(local.tshirt_sizes, var.tshirt_size, null), "worker_node_config", null) : var.custom_worker_node_config
 
   # automatically pick the supported system type unless it's overwritten by the user
-  p10_unsupported_regions    = ["che01", "lon04", "mon01", "syd04", "syd05", "tor01", "us-east"] # datacenters that don't support P10 yet
+  p10_unsupported_regions    = ["che01", "mon01", "us-east"] # datacenters that don't support P10 yet
   system_type                = contains(local.p10_unsupported_regions, var.powervs_zone) ? "s922" : "s1022"
   cluster_master_node_config = lookup(local.tmp_master_node_config, "system_type", null) != null ? local.tmp_master_node_config : merge(local.tmp_master_node_config, { system_type : local.system_type })
   cluster_worker_node_config = lookup(local.tmp_worker_node_config, "system_type", null) != null ? local.tmp_worker_node_config : merge(local.tmp_worker_node_config, { system_type : local.system_type })

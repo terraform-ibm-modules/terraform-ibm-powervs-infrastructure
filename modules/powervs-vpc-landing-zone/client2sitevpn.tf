@@ -91,7 +91,7 @@ resource "ibm_resource_instance" "secrets_manager" {
 # Configure private cert engine if provisioning a new SM instance
 module "private_secret_engine" {
   source     = "terraform-ibm-modules/secrets-manager-private-cert-engine/ibm"
-  version    = "1.12.8"
+  version    = "1.12.13"
   providers  = { ibm = ibm.ibm-sm }
   count      = var.client_to_site_vpn.enable ? 1 : 0
   depends_on = [ibm_resource_instance.secrets_manager]
@@ -108,7 +108,7 @@ module "private_secret_engine" {
 # Create a secret group to place the certificate in
 module "secrets_manager_group" {
   source    = "terraform-ibm-modules/secrets-manager-secret-group/ibm"
-  version   = "1.3.36"
+  version   = "1.4.2"
   providers = { ibm = ibm.ibm-sm }
   count     = var.client_to_site_vpn.enable ? 1 : 0
 
@@ -122,7 +122,7 @@ module "secrets_manager_group" {
 # Create private cert to use for VPN server
 module "secrets_manager_private_certificate" {
   source     = "terraform-ibm-modules/secrets-manager-private-cert/ibm"
-  version    = "1.10.13"
+  version    = "1.10.19"
   providers  = { ibm = ibm.ibm-sm }
   count      = var.client_to_site_vpn.enable ? 1 : 0
   depends_on = [module.private_secret_engine]
@@ -141,14 +141,14 @@ module "secrets_manager_private_certificate" {
 # Create client to site VPN Server
 module "client_to_site_vpn" {
   source    = "terraform-ibm-modules/client-to-site-vpn/ibm"
-  version   = "3.5.2"
+  version   = "3.5.6"
   providers = { ibm = ibm.ibm-is }
   count     = var.client_to_site_vpn.enable ? 1 : 0
 
   vpn_gateway_name  = "${var.prefix}-vpc-pvs-vpn"
   resource_group_id = module.landing_zone.resource_group_data["${var.prefix}-${local.second_rg_name}"]
   access_group_name = "${var.prefix}-client-to-site-vpn-access-group"
-  subnet_ids        = [for subnet in module.landing_zone.subnet_data : subnet.id if subnet.name == "${var.prefix}-edge-vpn-zone-1"]
+  subnet_ids        = [for subnet in module.landing_zone.subnet_data : subnet.id if subnet.name == "${var.prefix}-edge-vpn-${local.availability_zone}"]
   client_ip_pool    = var.client_to_site_vpn.client_ip_pool
   # vpn supports only 2 dns servers
   client_dns_server_ips         = var.ibm_dns_service.enable ? slice([for location in ibm_dns_custom_resolver.dns_resolver[0].locations : location.dns_server_ip], 0, 2) : null
@@ -163,7 +163,7 @@ resource "ibm_is_vpc_address_prefix" "vpn_address_prefix" {
   count      = var.client_to_site_vpn.enable ? 1 : 0
   depends_on = [module.landing_zone, module.client_to_site_vpn]
 
-  zone = "${lookup(local.ibm_powervs_zone_cloud_region_map, var.powervs_zone, null)}-1"
+  zone = "${lookup(local.ibm_powervs_zone_cloud_region_map, var.powervs_zone, null)}-${local.availability_zone_number}"
   name = "${var.prefix}-vpn-address-prefix"
   vpc  = [for vpc in module.landing_zone.vpc_data : vpc.vpc_id if vpc.vpc_name == "${var.prefix}-edge"][0]
   cidr = var.client_to_site_vpn.client_ip_pool

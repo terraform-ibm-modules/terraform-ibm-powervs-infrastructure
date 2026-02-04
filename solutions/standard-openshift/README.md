@@ -13,6 +13,7 @@ This example sets up an OpenShift Cluster on PowerVS following infrastructure:
     - Activity tracker
     - Optional Secrets Manager Instance Instance with private certificate.
     - Three application load balancers for internal OpenShift API, public OpenShift API, and OpenShift applications
+    - For single zone components, the VPC zone is automatically chosen to be in the same availability zone with the selected PowerVS zone.
 
 - A local **transit gateway**
 - An IBM Cloud DNS Service Instance
@@ -49,7 +50,7 @@ Due to technical limitations, the cost estimate Projects gives does not include 
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.9 |
-| <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | 1.86.1 |
+| <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | 1.87.3 |
 | <a name="requirement_restapi"></a> [restapi](#requirement\_restapi) | 2.0.1 |
 
 ### Modules
@@ -66,7 +67,7 @@ Due to technical limitations, the cost estimate Projects gives does not include 
 
 | Name | Type |
 |------|------|
-| [ibm_iam_auth_token.auth_token](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.86.1/docs/data-sources/iam_auth_token) | data source |
+| [ibm_iam_auth_token.auth_token](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.87.3/docs/data-sources/iam_auth_token) | data source |
 
 ### Inputs
 
@@ -91,14 +92,14 @@ Due to technical limitations, the cost estimate Projects gives does not include 
 | <a name="input_network_services_vsi_profile"></a> [network\_services\_vsi\_profile](#input\_network\_services\_vsi\_profile) | Compute profile configuration of the network services vsi (cpu and memory configuration). Must be one of the supported profiles. See [here](https://cloud.ibm.com/docs/vpc?topic=vpc-profiles&interface=ui). | `string` | `"cx2-2x4"` | no |
 | <a name="input_openshift_pull_secret"></a> [openshift\_pull\_secret](#input\_openshift\_pull\_secret) | Pull secret from Red Hat OpenShift Cluster Manager for authenticating OpenShift image downloads from Red Hat container registries. A RedHat account is required. It can be obtained on https://console.redhat.com/openshift/install/pull-secret. | `string` | n/a | yes |
 | <a name="input_openshift_release"></a> [openshift\_release](#input\_openshift\_release) | The OpenShift IPI release version to deploy. | `string` | `"4.19.13"` | no |
-| <a name="input_powervs_zone"></a> [powervs\_zone](#input\_powervs\_zone) | IBM Cloud data center location where IBM PowerVS infrastructure will be created. Supported regions are: dal10, dal12, eu-de-1, eu-de-2, lon04, lon06, mad02, mad04, osa21, sao01, sao04, syd04, syd05, us-east, us-south, wdc06, wdc07. | `string` | n/a | yes |
+| <a name="input_powervs_zone"></a> [powervs\_zone](#input\_powervs\_zone) | IBM Cloud data center location where IBM PowerVS infrastructure will be created. Supported regions are: dal10, dal12, eu-de-1, eu-de-2, lon04, lon06, mad02, mad04, osa21, sao01, sao04, sao05, syd04, syd05, us-east, us-south, wdc06, wdc07. | `string` | n/a | yes |
 | <a name="input_sm_service_plan"></a> [sm\_service\_plan](#input\_sm\_service\_plan) | The service/pricing plan to use when provisioning a new Secrets Manager instance. Allowed values: `standard` and `trial`. Only used if `existing_sm_instance_guid` is set to null. | `string` | `"standard"` | no |
 | <a name="input_ssh_private_key"></a> [ssh\_private\_key](#input\_ssh\_private\_key) | Private SSH key (RSA format) to login to Intel VSIs to configure network management services (SQUID, NTP, DNS and ansible). Should match to public SSH key referenced by 'ssh\_public\_key'. The key is not uploaded or stored. If you're unsure how to create one, check [Generate a SSH Key Pair](https://cloud.ibm.com/docs/powervs-vpc?topic=powervs-vpc-powervs-automation-prereqs#powervs-automation-ssh-key) in our docs. For more information about SSH keys, see [SSH keys](https://cloud.ibm.com/docs/vpc?topic=vpc-ssh-keys) in the VPC docs. | `string` | n/a | yes |
 | <a name="input_ssh_public_key"></a> [ssh\_public\_key](#input\_ssh\_public\_key) | Public SSH Key for VSI creation. Must be an RSA key with a key size of either 2048 bits or 4096 bits (recommended). Must be a valid SSH key that does not already exist in the deployment region. If you're unsure how to create one, check [Generate a SSH Key Pair](https://cloud.ibm.com/docs/powervs-vpc?topic=powervs-vpc-powervs-automation-prereqs#powervs-automation-ssh-key) in our docs. For more information about SSH keys, see [SSH keys](https://cloud.ibm.com/docs/vpc?topic=vpc-ssh-keys) in the VPC docs. | `string` | n/a | yes |
 | <a name="input_tags"></a> [tags](#input\_tags) | List of tag names for the IBM Cloud PowerVS workspace | `list(string)` | `[]` | no |
 | <a name="input_tshirt_size"></a> [tshirt\_size](#input\_tshirt\_size) | OpenShift Cluster profiles for the master and worker nodes. These profiles can be overridden by setting this value to 'custom' and specifying 'custom\_master\_node\_config' and 'custom\_worker\_node\_config' values in the optional parameters section. | `string` | `"xs"` | no |
 | <a name="input_user_id"></a> [user\_id](#input\_user\_id) | The IBM Cloud login user ID associated with the account where the cluster will be deployed. | `string` | n/a | yes |
-| <a name="input_vpc_intel_images"></a> [vpc\_intel\_images](#input\_vpc\_intel\_images) | Stock OS image names for creating VPC landing zone VSI instances: RHEL (management and network services) and SLES (monitoring). | <pre>object({<br/>    rhel_image = string<br/>    sles_image = string<br/>  })</pre> | <pre>{<br/>  "rhel_image": "ibm-redhat-9-4-amd64-sap-applications-7",<br/>  "sles_image": "ibm-sles-15-7-amd64-sap-applications-1"<br/>}</pre> | no |
+| <a name="input_vpc_intel_images"></a> [vpc\_intel\_images](#input\_vpc\_intel\_images) | Stock OS image names for creating VPC landing zone VSI instances: RHEL (management and network services) and SLES (monitoring). | <pre>object({<br/>    rhel_image = string<br/>    sles_image = string<br/>  })</pre> | <pre>{<br/>  "rhel_image": "ibm-redhat-9-6-amd64-sap-applications-4",<br/>  "sles_image": "ibm-sles-15-7-amd64-sap-applications-3"<br/>}</pre> | no |
 
 ### Outputs
 
