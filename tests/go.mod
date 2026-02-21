@@ -1,11 +1,11 @@
 module github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure
 
-go 1.26
+go 1.26.0
 
 require (
 	github.com/gruntwork-io/terratest v0.56.0
 	github.com/stretchr/testify v1.11.1
-	github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper v1.68.2
+	github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper v1.69.0
 )
 
 require (
