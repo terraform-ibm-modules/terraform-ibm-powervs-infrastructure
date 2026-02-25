@@ -1314,520 +1314,12 @@
             ]
           },
           "terraform_version": "1.10.5"
-        },
-        {
-          "label": "Quickstart OpenShift",
-          "name": "standard-openshift",
-          "install_type": "fullstack",
-          "index": 3,
-          "working_directory": "solutions/standard-openshift",
-          "short_description": "The Power Virtual Server with VPC landing zone as variation 'Quickstart OpenShift' deploys VPC services and an Openshift Cluster on PowerVS and interconnects them. Required and optional management components are configured.",
-          "schematics_env_values": {
-            "value": "[{\"name\": \"API_DATA_IS_SENSITIVE\",\"value\": \"true\",\"secure\": false,\"hidden\": true}]"
-          },
-          "configuration": [
-            {
-              "key": "cluster_name",
-              "type": "string",
-              "value_constraints": [
-                {
-                  "type": "regex",
-                  "description": "cluster name must start with a letter, be 1-16 characters long, and contain only letters and digits.",
-                  "value": "^[a-z](?:[a-z0-9-]{0,14}[a-z0-9])?$"
-                }
-              ],
-              "required": true
-            },
-            {
-              "key": "powervs_zone",
-              "type": "string",
-              "required": true,
-              "default_value": "",
-              "options": [
-                {
-                  "displayname": "Dallas (dallas)",
-                  "value": "us-south"
-                },
-                {
-                  "displayname": "Dallas 10 (dal10)",
-                  "value": "dal10"
-                },
-                {
-                  "displayname": "Dallas 12 (dal12)",
-                  "value": "dal12"
-                },
-                {
-                  "displayname": "Frankfurt 1 (eu-de-1)",
-                  "value": "eu-de-1"
-                },
-                {
-                  "displayname": "Frankfurt 2 (eu-de-2)",
-                  "value": "eu-de-2"
-                },
-                {
-                  "displayname": "London 04 (lon04)",
-                  "value": "lon04"
-                },
-                {
-                  "displayname": "London 06 (lon06)",
-                  "value": "lon06"
-                },
-                {
-                  "displayname": "Madrid 02 (mad02)",
-                  "value": "mad02"
-                },
-                {
-                  "displayname": "Madrid 04 (mad04)",
-                  "value": "mad04"
-                },
-                {
-                  "displayname": "Osaka 21 (osa21)",
-                  "value": "osa21"
-                },
-                {
-                  "displayname": "Sao Paulo 01 (sao01)",
-                  "value": "sao01"
-                },
-                {
-                  "displayname": "Sao Paulo 04 (sao04)",
-                  "value": "sao04"
-                },
-                {
-                  "displayname": "Sydney 04 (syd04)",
-                  "value": "syd04"
-                },
-                {
-                  "displayname": "Sydney 05 (syd05)",
-                  "value": "syd05"
-                },
-                {
-                  "displayname": "Washington DC (us-east)",
-                  "value": "us-east"
-                },
-                {
-                  "displayname": "Washington DC 06 (wdc06)",
-                  "value": "wdc06"
-                },
-                {
-                  "displayname": "Washington DC 07 (wdc07)",
-                  "value": "wdc07"
-                }
-              ],
-              "custom_config": {}
-            },
-            {
-              "key": "external_access_ip",
-              "default_value": "__NULL__",
-              "required": true
-            },
-            {
-              "key": "ssh_public_key",
-              "type": "multiline_secure_value",
-              "required": true,
-              "custom_config": {
-                "grouping": "deployment",
-                "original_grouping": "deployment",
-                "type": "multiline_secure_value"
-              }
-            },
-            {
-              "key": "ssh_private_key",
-              "type": "multiline_secure_value",
-              "required": true,
-              "custom_config": {
-                "grouping": "deployment",
-                "original_grouping": "deployment",
-                "type": "multiline_secure_value"
-              }
-            },
-            {
-              "key": "ibmcloud_api_key",
-              "type": "multiline_secure_value",
-              "display_name": "Multiline secure value",
-              "required": true,
-              "custom_config": {
-                "grouping": "deployment",
-                "original_grouping": "deployment",
-                "type": "multiline_secure_value"
-              }
-            },
-            {
-              "key": "user_id",
-              "type": "string",
-              "required": true
-            },
-            {
-              "key": "openshift_pull_secret",
-              "type": "multiline_secure_value",
-              "required": true,
-              "custom_config": {
-                "type": "multiline_secure_value",
-                "grouping": "deployment",
-                "original_grouping": "deployment"
-              }
-            },
-            {
-              "key": "cluster_base_domain",
-              "type": "string",
-              "required": true
-            },
-            {
-              "key": "destroy_cluster"
-            },
-            {
-              "key": "openshift_release",
-              "type": "string"
-            },
-            {
-              "key": "cluster_network_config",
-              "custom_config": {
-                "grouping": "deployment",
-                "original_grouping": "deployment",
-                "type": "code_editor"
-              }
-            },
-            {
-              "key": "tshirt_size",
-              "type": "string",
-              "required": true,
-              "default_value": "",
-              "options": [
-                {
-                  "displayname": "xs (2xW:1x32 3xM:1x32)",
-                  "value": "xs"
-                },
-                {
-                  "displayname": "s (3xW:1x32 3xM:1x32)",
-                  "value": "s"
-                },
-                {
-                  "displayname": "m (4xW:2x32 3xM:1x32)",
-                  "value": "m"
-                },
-                {
-                  "displayname": "l (4xW:1x64 3xM:1x32)",
-                  "value": "l"
-                },
-                {
-                  "displayname": "custom (specify in optional section)",
-                  "value": "custom"
-                }
-              ],
-              "custom_config": {}
-            },
-            {
-              "key": "custom_master_node_config",
-              "custom_config": {
-                "grouping": "deployment",
-                "original_grouping": "deployment",
-                "type": "code_editor"
-              }
-            },
-            {
-              "key": "custom_worker_node_config",
-              "custom_config": {
-                "grouping": "deployment",
-                "original_grouping": "deployment",
-                "type": "code_editor"
-              }
-            },
-            {
-              "key": "tags"
-            },
-            {
-              "key": "vpc_intel_images",
-              "hidden": true
-            },
-            {
-              "key": "network_services_vsi_profile"
-            },
-            {
-              "key": "intel_user_data",
-              "hidden": true
-            },
-            {
-              "key": "enable_scc_wp"
-            },
-            {
-              "key": "ansible_vault_password",
-              "type": "multiline_secure_value",
-              "required": true,
-              "custom_config": {
-                "type": "multiline_secure_value",
-                "grouping": "deployment",
-                "original_grouping": "deployment"
-              }
-            },
-            {
-              "key": "enable_monitoring"
-            },
-            {
-              "key": "client_to_site_vpn",
-              "custom_config": {
-                "grouping": "deployment",
-                "original_grouping": "deployment",
-                "type": "code_editor"
-              }
-            },
-            {
-              "key": "sm_service_plan"
-            },
-            {
-              "key": "existing_sm_instance_guid"
-            },
-            {
-              "key": "existing_sm_instance_region",
-              "type": "string",
-              "default_value": "__NULL__",
-              "options": [
-                {
-                  "displayname": "Null",
-                  "value": "__NULL__"
-                },
-                {
-                  "displayname": "au-syd",
-                  "value": "au-syd"
-                },
-                {
-                  "displayname": "br-sao",
-                  "value": "br-sao"
-                },
-                {
-                  "displayname": "ca-mon",
-                  "value": "ca-mon"
-                },
-                {
-                  "displayname": "ca-tor",
-                  "value": "ca-tor"
-                },
-                {
-                  "displayname": "eu-de",
-                  "value": "eu-de"
-                },
-                {
-                  "displayname": "eu-gb",
-                  "value": "eu-gb"
-                },
-                {
-                  "displayname": "jp-osa",
-                  "value": "jp-osa"
-                },
-                {
-                  "displayname": "jp-tok",
-                  "value": "jp-tok"
-                },
-                {
-                  "displayname": "us-east",
-                  "value": "us-east"
-                },
-                {
-                  "displayname": "us-south",
-                  "value": "us-south"
-                }
-              ],
-              "custom_config": {}
-            },
-            {
-              "key": "IC_SCHEMATICS_WORKSPACE_ID",
-              "hidden": true
-            }
-          ],
-          "iam_permissions": [
-            {
-              "role_crns": [
-                "crn:v1:bluemix:public:iam::::role:Administrator",
-                "crn:v1:bluemix:public:iam::::serviceRole:Manager"
-              ],
-              "service_name": "cloud-monitoring"
-            },
-            {
-              "role_crns": [
-                "crn:v1:bluemix:public:iam::::serviceRole:Manager",
-                "crn:v1:bluemix:public:iam::::role:Administrator"
-              ],
-              "service_name": "dns-svcs"
-            },
-            {
-              "role_crns": [
-                "crn:v1:bluemix:public:iam::::role:Administrator"
-              ],
-              "service_name": "account-management"
-            },
-            {
-              "role_crns": [
-                "crn:v1:bluemix:public:iam::::role:Administrator",
-                "crn:v1:bluemix:public:iam::::serviceRole:Manager"
-              ],
-              "service_name": "kms"
-            },
-            {
-              "role_crns": [
-                "crn:v1:bluemix:public:iam::::role:Administrator"
-              ],
-              "service_name": "resource-controller"
-            },
-            {
-              "role_crns": [
-                "crn:v1:bluemix:public:iam::::role:Administrator"
-              ],
-              "service_name": "iam-identity"
-            },
-            {
-              "role_crns": [
-                "crn:v1:bluemix:public:iam::::role:Administrator"
-              ],
-              "service_name": "monitoring"
-            },
-            {
-              "role_crns": [
-                "crn:v1:bluemix:public:iam::::role:Editor"
-              ],
-              "service_name": "atracker"
-            },
-            {
-              "role_crns": [
-                "crn:v1:bluemix:public:iam::::serviceRole:Manager",
-                "crn:v1:bluemix:public:iam::::role:Administrator"
-              ],
-              "service_name": "apprapp"
-            },
-            {
-              "role_crns": [
-                "crn:v1:bluemix:public:iam::::serviceRole:Manager",
-                "crn:v1:bluemix:public:iam::::role:Administrator"
-              ],
-              "service_name": "secrets-manager"
-            },
-            {
-              "role_crns": [
-                "crn:v1:bluemix:public:iam::::serviceRole:Manager",
-                "crn:v1:bluemix:public:iam::::role:Administrator"
-              ],
-              "service_name": "security-compliance"
-            },
-            {
-              "role_crns": [
-                "crn:v1:bluemix:public:iam::::serviceRole:Manager",
-                "crn:v1:bluemix:public:iam::::role:Editor"
-              ],
-              "service_name": "power-iaas"
-            },
-            {
-              "role_crns": [
-                "crn:v1:bluemix:public:iam::::serviceRole:Manager",
-                "crn:v1:bluemix:public:iam::::role:Administrator"
-              ],
-              "service_name": "is.vpc"
-            },
-            {
-              "role_crns": [
-                "crn:v1:bluemix:public:iam::::serviceRole:Manager",
-                "crn:v1:bluemix:public:iam::::role:Administrator"
-              ],
-              "service_name": "hs-crypto"
-            },
-            {
-              "role_crns": [
-                "crn:v1:bluemix:public:iam::::serviceRole:Manager",
-                "crn:v1:bluemix:public:iam::::role:Administrator"
-              ],
-              "service_name": "iam"
-            },
-            {
-              "role_crns": [
-                "crn:v1:bluemix:public:iam::::serviceRole:Manager",
-                "crn:v1:bluemix:public:iam::::role:Editor"
-              ],
-              "service_name": "transit.gateway"
-            },
-            {
-              "role_crns": [
-                "crn:v1:bluemix:public:iam::::serviceRole:Reader",
-                "crn:v1:bluemix:public:iam::::role:Viewer"
-              ],
-              "service_name": "container-registry"
-            },
-            {
-              "role_crns": [
-                "crn:v1:bluemix:public:iam::::serviceRole:Manager",
-                "crn:v1:bluemix:public:iam::::role:Administrator"
-              ],
-              "service_name": "cloud-object-storage"
-            }
-          ],
-          "architecture": {
-            "features": [
-              {
-                "title": "Power Virtual Server Control Plane Instances",
-                "description": "1 or 3"
-              },
-              {
-                "title": "Power Virtual Server Compute Instances",
-                "description": "2...N"
-              },
-              {
-                "title": "Number of OpenShift Clusters on PowerVS",
-                "description": "1"
-              },
-              {
-                "title": "Number of Intel Virtual Server Instance",
-                "description": "2"
-              },
-              {
-                "title": "Number of VPCs",
-                "description": "1"
-              },
-              {
-                "title": "Number of Power Virtual Server Workspace",
-                "description": "1"
-              },
-              {
-                "title": "Increased security with Key Management",
-                "description": "Yes"
-              },
-              {
-                "title": "Internet proxy on VPC",
-                "description": "Proxy service to reach public internet from PowerVS Workspace"
-              },
-              {
-                "title": "IBM Cloud DNS Service",
-                "description": "Configure DNS server for internal resolution of the Cluster domain"
-              },
-              {
-                "title": "Number of Application load balancers to ensure Cluster API availability",
-                "description": "3"
-              },
-              {
-                "title": "Client to site VPN with new or existing Secrets Manager instance",
-                "description": "Optional"
-              },
-              {
-                "title": "SCC Workload Protection instance",
-                "description": "Optional"
-              },
-              {
-                "title": "Monitoring Instance and Monitoring Intel VSI Host",
-                "description": "Optional"
-              }
-            ],
-            "diagrams": [
-              {
-                "diagram": {
-                  "caption": "Power Virtual Server with VPC landing zone 'Quickstart OpenShift' variation",
-                  "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/refs/tags/v11.0.0/reference-architectures/standard-openshift/deploy-arch-ibm-pvs-inf-standard-openshift.svg",
-                  "type": "image/svg+xml"
-                },
-                "description": "The Power Virtual Server with VPC landing zone as variation 'Quickstart OpenShift' deploys VPC services and an Openshift Cluster on PowerVS and interconnects them.\n \nRequired and optional management components are configured."
-              }
-            ]
-          },
-          "terraform_version": "1.10.5"
         }
       ]
     },
     {
-      "name": "deploy-arch-ibm-pvs-quickstart",
-      "label": "Power Virtual Server with VPC landing zone - Quickstart OpenShift",
+      "name": "deploy-arch-ibm-pvs-openshift",
+      "label": "Power Virtual Server with VPC Landing Zone for Quickstart OpenShift",
       "product_kind": "solution",
       "tags": [
         "ibm_created",
@@ -1849,39 +1341,46 @@
         "sap",
         "sap hana",
         "sap netweaver",
+        "powervs",
+        "openshift",
+        "ocp",
+        "kubernetes",
+        "cluster",
         "power solution",
         "power infrastructure",
-        "powervs",
-        "power vs",
         "power framework",
-        "sap power",
         "automation",
         "secure",
         "networking",
-        "vertical scaling",
-        "scalable server",
+        "vpc",
+        "landing zone",
         "quickstart",
-        "quick",
-        "ibmi",
-        "aix",
-        "linux"
+        "quick"
       ],
-      "short_description": "Deploy an IBM® Cloud Power Virtual Server (PowerVS) infrastructure in accordance with IBM Cloud best practices and compliance requirements.",
-      "long_description": "IBM Cloud® Power Virtual Servers (PowerVS) is a public cloud offering that an enterprise can use to establish its own private IBM Power computing environment on shared public cloud infrastructure. PowerVS is logically isolated from all other public cloud tenants and infrastructure components, creating a private, secure place on the public cloud. This deployable architecture offers Quickstart options for IBM i, AIX and Linux varieties as well as providing a framework to build a PowerVS offering according to the best practices and requirements from the IBM Cloud.",
+      "short_description": "Deploy an IBM® Cloud Power Virtual Server (PowerVS) OpenShift Quickstart landscape with a VPC landing zone. In accordance with IBM Cloud best practices and compliance requirements.",
+      "long_description": "This deployable architecture provisions IBM Cloud® Power Virtual Servers (PowerVS) with a VPC landing zone and deploys an OpenShift cluster on PowerVS. It follows IBM Cloud best practices for networking, security, and management, providing an opinionated Quickstart for OpenShift workloads on PowerVS.",
       "offering_docs_url": "https://cloud.ibm.com/docs/powervs-vpc",
-      "offering_icon_url": "data:image/svg+xml;base64,PHN2ZyBpZD0iUG93ZXJJbmZyYXN0cnVjdHVyZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmlld0JveD0iMCAwIDMyIDMyIj48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9Inc2aHpjbXV6amEiIHgxPSItMTg1NS4yMDgiIHkxPSItMjUwMi41NjMiIHgyPSItMTg1NS4yMDgiIHkyPSItMjUyMi4xNzkiIGdyYWRpZW50VHJhbnNmb3JtPSJtYXRyaXgoMS4wNiAwIDAgLS40OTEgMTk3My42NzYgLTEyMjcuMjkzKSIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiPjxzdG9wIG9mZnNldD0iMCIvPjxzdG9wIG9mZnNldD0iLjgiIHN0b3Atb3BhY2l0eT0iMCIvPjwvbGluZWFyR3JhZGllbnQ+PGxpbmVhckdyYWRpZW50IGlkPSI2dmZkbzMxaXNiIiB4MT0iMzI4LjUwMiIgeTE9Ii02NzY1LjY0NyIgeDI9IjMyOC41MDIiIHkyPSItNjc4NS4yNjMiIGdyYWRpZW50VHJhbnNmb3JtPSJtYXRyaXgoMS4wNiAwIDAgLjUxNSAtMzM5Ljk2NiAzNTEzLjI1KSIgeGxpbms6aHJlZj0iI3c2aHpjbXV6amEiLz48bGluZWFyR3JhZGllbnQgaWQ9ImJ0eDNhMG9vZ2MiIHgxPSItOTUzLjI2NiIgeTE9Ii0yODI4LjY1OSIgeDI9Ii05NTMuMjY2IiB5Mj0iLTI4MzguNTMzIiBncmFkaWVudFRyYW5zZm9ybT0ibWF0cml4KDEuMDYgMCAwIC0uNjY5IDEwMzcuMjE4IC0xODc2LjQzOSkiIHhsaW5rOmhyZWY9IiN3Nmh6Y211emphIi8+PGxpbmVhckdyYWRpZW50IGlkPSI2NmhzYWNybDVkIiB4MT0iLTE5MjMuMjUiIHkxPSItMjYyMC4yOSIgeDI9Ii0xOTIzLjI1IiB5Mj0iLTI2MjcuODg0IiBncmFkaWVudFRyYW5zZm9ybT0ibWF0cml4KDEuMDYgMCAwIC42NjkgMjA0OC4wOTEgMTc4Mi4zNjQpIiB4bGluazpocmVmPSIjdzZoemNtdXpqYSIvPjxsaW5lYXJHcmFkaWVudCBpZD0idXp2YXRxaGhwZSIgeDE9Ii0xOTE1LjgwMiIgeTE9Ii0zMTkxLjI5NCIgeDI9Ii0xOTE1LjgwMiIgeTI9Ii0zMTk4Ljg4OSIgZ3JhZGllbnRUcmFuc2Zvcm09Im1hdHJpeCgxLjA2IDAgMCAuNjY5IDIwNDMuNDggMjE0MS4xMjgpIiB4bGluazpocmVmPSIjdzZoemNtdXpqYSIvPjxsaW5lYXJHcmFkaWVudCBpZD0iZTFxMWF3ZXJxZyIgeDE9IjAiIHkxPSIzMiIgeDI9IjMyIiB5Mj0iMCIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiPjxzdG9wIG9mZnNldD0iLjEiIHN0b3AtY29sb3I9IiMwOGJkYmEiLz48c3RvcCBvZmZzZXQ9Ii45IiBzdG9wLWNvbG9yPSIjMGY2MmZlIi8+PC9saW5lYXJHcmFkaWVudD48bWFzayBpZD0idnZmcnV4eXl1ZiIgeD0iMCIgeT0iMCIgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiBtYXNrVW5pdHM9InVzZXJTcGFjZU9uVXNlIj48cGF0aCBkPSJNMTUuOTgyIDMwYy03LjcyIDAtMTQtNi4yOC0xNC0xNHM2LjI4MS0xNCAxNC0xNCAxNCA2LjI4IDE0IDE0LTYuMjggMTQtMTQgMTR6bTAtMjZjLTYuNjE3IDAtMTIgNS4zODMtMTIgMTJzNS4zODMgMTIgMTIgMTIgMTItNS4zODMgMTItMTItNS4zODMtMTItMTItMTJ6IiBzdHlsZT0iZmlsbDojZmZmIi8+PHBhdGggZD0iTTMwLjY5MSAzMC43MDhIMTEuNzI5bDMtOC43MDggMTAuNDY1LjAxMSA1LjU3Ny0uMDIxLS4wOCA4LjcxOHpNNi45ODIgMjBsLTYgNS40OTRWNi44MDdsNiA1LjAxNVYyMHpNMTYuMDAzIDFoMTQuOTk5djEzLjAzMkgxNi4wMDN6Ii8+PHBhdGggdHJhbnNmb3JtPSJyb3RhdGUoLTEzNSA3Ljk0MyA2Ljc4NykiIHN0eWxlPSJmaWxsOnVybCgjdzZoemNtdXpqYSkiIGQ9Ik00Ljc2NCAxLjk3aDYuMzU3djkuNjM1SDQuNzY0eiIvPjxwYXRoIHRyYW5zZm9ybT0icm90YXRlKDEzNSA4LjEwNiAyNS4zNDQpIiBzdHlsZT0iZmlsbDp1cmwoIzZ2ZmRvMzFpc2IpIiBkPSJNNC45MjggMjAuMjk1aDYuMzU3djEwLjA5OEg0LjkyOHoiLz48cGF0aCB0cmFuc2Zvcm09InJvdGF0ZSgxODAgMjcuMTYxIDE4Ljg2MykiIHN0eWxlPSJmaWxsOnVybCgjYnR4M2Ewb29nYykiIGQ9Ik0yMy45ODIgMTUuNTYxaDYuMzU3djYuNjA0aC02LjM1N3oiLz48cGF0aCB0cmFuc2Zvcm09InJvdGF0ZSgtNzAuNzkgMTAuMjYyIDI3LjE5NSkiIHN0eWxlPSJmaWxsOnVybCgjNjZoc2Fjcmw1ZCkiIGQ9Ik03LjA4NCAyNC42NTVoNi4zNTd2NS4wOEg3LjA4NHoiLz48cGF0aCBkPSJNOC45ODIgMjAuOThoLTZjLTEuMTAzIDAtMi0uODk3LTItMnYtNmMwLTEuMTAzLjg5Ny0yIDItMmg2YzEuMTAzIDAgMiAuODk3IDIgMnY2YzAgMS4xMDMtLjg5NyAyLTIgMnptLTYtOHY2aDYuMDAxdi02SDIuOTgyeiIgc3R5bGU9ImZpbGw6I2ZmZiIvPjxwYXRoIHRyYW5zZm9ybT0icm90YXRlKC05MCAxMy41NDMgNC4wMzIpIiBzdHlsZT0iZmlsbDp1cmwoI3V6dmF0cWhocGUpIiBkPSJNMTAuMzY0IDEuNDkyaDYuMzU3djUuMDhoLTYuMzU3eiIvPjxwYXRoIGQ9Ik0yNy4zMDQgNy4xMzRjMC0uMzctLjA2Ny0uNzIxLS4xNjEtMS4wNjJMMjkgNWwtMS0xLjczMi0xLjg0NyAxLjA2NmEzLjk5MSAzLjk5MSAwIDAgMC0xLjg0OS0xLjA1OFYxLjEzNGgtMnYyLjE0MmEzLjk5MSAzLjk5MSAwIDAgMC0xLjg0OSAxLjA1OGwtMS44NDctMS4wNjYtMSAxLjczMiAxLjg1NyAxLjA3MmMtLjA5NC4zNC0uMTYxLjY5Mi0uMTYxIDEuMDYycy4wNjcuNzIxLjE2MSAxLjA2MmwtMS44NTcgMS4wNzIgMSAxLjczMiAxLjg0Ny0xLjA2NmMuNS41MDkgMS4xMzguODczIDEuODQ5IDEuMDU4djIuMTQyaDJ2LTIuMTQyYTMuOTkxIDMuOTkxIDAgMCAwIDEuODQ5LTEuMDU4TDI4IDExbDEtMS43MzItMS44NTctMS4wNzJjLjA5NC0uMzQuMTYxLS42OTIuMTYxLTEuMDYyem0tNCAyYy0xLjEwMyAwLTItLjg5Ny0yLTJzLjg5Ny0yIDItMiAyIC44OTcgMiAyLS44OTcgMi0yIDJ6IiBzdHlsZT0iZmlsbDojZmZmIi8+PC9tYXNrPjwvZGVmcz48ZyBzdHlsZT0ibWFzazp1cmwoI3Z2ZnJ1eHl5dWYpIj48cGF0aCBzdHlsZT0iZmlsbDp1cmwoI2UxcTFhd2VycWcpIiBkPSJNMCAwaDMydjMySDB6Ii8+PC9nPjxwYXRoIGQ9Ik0yOS4wMDIgMzFoLTEzYy0xLjEwMyAwLTItLjg5Ny0yLTJ2LTRjMC0xLjEwMy44OTctMiAyLTJoMTNjMS4xMDMgMCAyIC44OTcgMiAydjRjMCAxLjEwMy0uODk3IDItMiAyem0tMTMtNnY0aDEzLjAwMXYtNEgxNi4wMDJ6IiBzdHlsZT0iZmlsbDojMDAxZDZjIi8+PGNpcmNsZSBjeD0iMTkuMDAyIiBjeT0iMjciIHI9IjEiIHN0eWxlPSJmaWxsOiMwMDFkNmMiLz48L3N2Zz4=",
+      "offering_icon_url": "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPCEtLSBEbyBub3QgZWRpdCB0aGlzIGZpbGUgd2l0aCBlZGl0b3JzIG90aGVyIHRoYW4gZHJhdy5pbyAtLT4KPCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj4KPHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHN0eWxlPSJiYWNrZ3JvdW5kOiAjZmZmZmZmOyBiYWNrZ3JvdW5kLWNvbG9yOiAjZmZmZmZmOyBjb2xvci1zY2hlbWU6IGxpZ2h0OyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHZlcnNpb249IjEuMSIgd2lkdGg9IjI2NHB4IiBoZWlnaHQ9IjI2NHB4IiB2aWV3Qm94PSItMC41IC0wLjUgMjY0IDI2NCIgY29udGVudD0iJmx0O214ZmlsZSBob3N0PSZxdW90O0VsZWN0cm9uJnF1b3Q7IGFnZW50PSZxdW90O01vemlsbGEvNS4wIChNYWNpbnRvc2g7IEludGVsIE1hYyBPUyBYIDEwXzE1XzcpIEFwcGxlV2ViS2l0LzUzNy4zNiAoS0hUTUwsIGxpa2UgR2Vja28pIGRyYXcuaW8vMjYuMS4xIENocm9tZS8xMzIuMC42ODM0LjIxMCBFbGVjdHJvbi8zNC4zLjMgU2FmYXJpLzUzNy4zNiZxdW90OyB2ZXJzaW9uPSZxdW90OzI2LjEuMSZxdW90OyBzY2FsZT0mcXVvdDsxJnF1b3Q7IGJvcmRlcj0mcXVvdDswJnF1b3Q7Jmd0OyYjMTA7ICAmbHQ7ZGlhZ3JhbSBuYW1lPSZxdW90O1BhZ2UtMSZxdW90OyBpZD0mcXVvdDtyVDVERnZZWjZoZWF1a3Z4NW1vTSZxdW90OyZndDsmIzEwOyAgICAmbHQ7bXhHcmFwaE1vZGVsIGR4PSZxdW90OzExOTQmcXVvdDsgZHk9JnF1b3Q7ODc4JnF1b3Q7IGdyaWQ9JnF1b3Q7MCZxdW90OyBncmlkU2l6ZT0mcXVvdDsxMCZxdW90OyBndWlkZXM9JnF1b3Q7MSZxdW90OyB0b29sdGlwcz0mcXVvdDsxJnF1b3Q7IGNvbm5lY3Q9JnF1b3Q7MSZxdW90OyBhcnJvd3M9JnF1b3Q7MSZxdW90OyBmb2xkPSZxdW90OzEmcXVvdDsgcGFnZT0mcXVvdDsxJnF1b3Q7IHBhZ2VTY2FsZT0mcXVvdDsxJnF1b3Q7IHBhZ2VXaWR0aD0mcXVvdDs4MjcmcXVvdDsgcGFnZUhlaWdodD0mcXVvdDsxMTY5JnF1b3Q7IGJhY2tncm91bmQ9JnF1b3Q7bm9uZSZxdW90OyBtYXRoPSZxdW90OzAmcXVvdDsgc2hhZG93PSZxdW90OzAmcXVvdDsmZ3Q7JiMxMDsgICAgICAmbHQ7cm9vdCZndDsmIzEwOyAgICAgICAgJmx0O214Q2VsbCBpZD0mcXVvdDswJnF1b3Q7IC8mZ3Q7JiMxMDsgICAgICAgICZsdDtteENlbGwgaWQ9JnF1b3Q7MSZxdW90OyBwYXJlbnQ9JnF1b3Q7MCZxdW90OyAvJmd0OyYjMTA7ICAgICAgICAmbHQ7bXhDZWxsIGlkPSZxdW90O1RrVHdubjJGTl9HLVZoNm9vMEMyLTEmcXVvdDsgdmFsdWU9JnF1b3Q7JnF1b3Q7IHN0eWxlPSZxdW90O2ltYWdlO2FzcGVjdD1maXhlZDtodG1sPTE7cG9pbnRzPVtdO2FsaWduPWNlbnRlcjtmb250U2l6ZT0xMjtpbWFnZT1pbWcvbGliL2F6dXJlMi9jb250YWluZXJzL0F6dXJlX1JlZF9IYXRfT3BlblNoaWZ0LnN2ZzsmcXVvdDsgdmVydGV4PSZxdW90OzEmcXVvdDsgcGFyZW50PSZxdW90OzEmcXVvdDsmZ3Q7JiMxMDsgICAgICAgICAgJmx0O214R2VvbWV0cnkgeD0mcXVvdDsyNDImcXVvdDsgeT0mcXVvdDsyMjImcXVvdDsgd2lkdGg9JnF1b3Q7MjY0JnF1b3Q7IGhlaWdodD0mcXVvdDsyNjQmcXVvdDsgYXM9JnF1b3Q7Z2VvbWV0cnkmcXVvdDsgLyZndDsmIzEwOyAgICAgICAgJmx0Oy9teENlbGwmZ3Q7JiMxMDsgICAgICAmbHQ7L3Jvb3QmZ3Q7JiMxMDsgICAgJmx0Oy9teEdyYXBoTW9kZWwmZ3Q7JiMxMDsgICZsdDsvZGlhZ3JhbSZndDsmIzEwOyZsdDsvbXhmaWxlJmd0OyYjMTA7Ij48ZGVmcz48c3R5bGUgdHlwZT0idGV4dC9jc3MiPkBmb250LWZhY2Uge2ZvbnQtZmFtaWx5OiAiSUJNIFBsZXggU2FucyI7c3JjOiB1cmwoImZvbnRzL0lCTVBsZXhTYW5zLVJlZ3VsYXIud29mZiIpfSYjeGE7PC9zdHlsZT48L2RlZnM+PHJlY3QgZmlsbD0iI2ZmZmZmZiIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgeD0iMCIgeT0iMCIgc3R5bGU9ImZpbGw6IHJnYigyNTUsIDI1NSwgMjU1KTsiLz48Zz48ZyBkYXRhLWNlbGwtaWQ9IjAiPjxnIGRhdGEtY2VsbC1pZD0iMSI+PGcgZGF0YS1jZWxsLWlkPSJUa1R3bm4yRk5fRy1WaDZvbzBDMi0xIj48Zz48Zz48c3ZnIHZpZXdCb3g9IjAgMCAxNy44IDE2LjMzOSIgaGVpZ2h0PSIyNjQiIHdpZHRoPSIyNjQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeD0iLTAuNSIgeT0iLTAuNSIgc3R5bGU9ImZvbnQtZmFtaWx5OiBpbml0aWFsOyI+JiN4YTsJPHBhdGggZmlsbD0iI2MzMjAzNCIgZD0iTTUuMTY3IDcuMzM4TDIuMzEgOC4zODFhNy4xNzIgNy4xNzIgMCAwIDAgLjIzMyAxLjM2MWwyLjcxLS45ODFhNS42MDcgNS42MDcgMCAwIDEtLjA4Ni0xLjQyM00xNy44IDQuMTcxYTguOCA4LjggMCAwIDAtLjY4Ny0xLjE3N2wtMi44NjEgMS4wNDJhNS44MTQgNS44MTQgMCAwIDEgLjg0OCAxLjEyOGMtLjAxNC0uMDEyIDIuNy0uOTkzIDIuNy0uOTkzeiIvPiYjeGE7CTxwYXRoIGZpbGw9IiNkYjIxMmYiIGQ9Ik0xMS41MTIgMy4zNjFhNS4zNTggNS4zNTggMCAwIDEgMS41NDUgMS4xbDIuODU4LTEuMDQyQTguMTYgOC4xNiAwIDAgMCAxLjEzOSA4LjgwNUw0IDcuNzYzYTUuMjQgNS4yNCAwIDAgMSAuNDc4LTEuODQgNS4zIDUuMyAwIDAgMSA3LjAzNC0yLjU2MiIvPiYjeGE7CTxwYXRoIGZpbGw9IiNlYTIyMjciIGQ9Ik0yLjcxNCA5LjY1OEwwIDEwLjYzOWE4LjUgOC41IDAgMCAwIDEuMjggMi43NzJsMi44NDUtMS4wNGE1LjM2NiA1LjM2NiAwIDAgMS0xLjQxMS0yLjcxIi8+JiN4YTsJPHBhdGggZmlsbD0iI2RiMjEyZiIgZD0iTTE0LjU2IDguNTc5YTUuNTE0IDUuNTE0IDAgMCAxLS40NzkgMS44NCA1LjMgNS4zIDAgMCAxLTcuMDUgMi41NjIgNS4zNTggNS4zNTggMCAwIDEtMS41NDUtMS4xTDIuNjQxIDEyLjkyYTguMDY0IDguMDY0IDAgMCAwIDMuMTg4IDIuNjUxIDguMTU4IDguMTU4IDAgMCAwIDExLjU4OC04LjAzNHoiLz4mI3hhOwk8cGF0aCBmaWxsPSIjZWEyMjI3IiBkPSJNMTUuMjYyIDUuMDg4bC0yLjcxLjk4MWE1LjMgNS4zIDAgMCAxIC42NjIgMi45OTJsMi44NDUtMS4wNDJhOC4yNiA4LjI2IDAgMCAwLS44LTIuOTMxIi8+JiN4YTsJPHBhdGggZmlsbD0iI2FkMjEzYSIgZD0iTTIuMzE3IDguMzcxbDIuODQ1LTEuMDMtLjAxMi41NjRMMi40IDguOTI0em0xMS45MzItNC4zNTJsMi44OTQtLjk4MS4zMDcuNDQyLTIuODA4Ljk4Yy0uMDEzLjAxMy0uMzkzLS40NDEtLjM5My0uNDQxeiIvPiYjeGE7CTxwYXRoIGZpbGw9IiNiYTIwMzQiIGQ9Ik0yLjYyNiAxMi45MTVsMi44NDUtMS4wMTguODU4LjgtMi45OTIgMS4xYy4wMTMuMDAxLS43MTEtLjg4Mi0uNzExLS44ODJ6bTE0LjgzLTUuMzU2bC0yLjg5NCAxLjAzLS4yMDggMS4xNDEgMy4wOS0xLjA4Yy0uMDEzLS4wMTIuMDEyLTEuMDkxLjAxMi0xLjA5MXoiLz4mI3hhOzwvc3ZnPjwvZz48L2c+PC9nPjwvZz48L2c+PC9nPjwvc3ZnPg==",
       "features": [
         {
-          "description": "VPC services (landing zone)",
-          "title": "Edge VPC services are created using VSI on VPC landing zone presets."
+          "title": "OpenShift cluster on PowerVS",
+          "description": "Deploys a production-ready OpenShift cluster on PowerVS including control plane and worker nodes, with opinionated defaults for reliability."
         },
         {
-          "description": "Power Virtual Server workspaces",
-          "title": "One PowerVS workspace is created by initial deployment. Additional PowerVS workspaces may be deployed as extension."
+          "title": "VPC landing zone",
+          "description": "Creates VPC networking, subnets, routing, and edge network services (bastion, NAT/proxy) required for the cluster."
         },
         {
-          "description": "Network management services",
-          "title": "Bastion host, internet proxy based on SQUID, NTP forwarder, DNS forwarder & NFS as a service."
+          "title": "Integrated DNS & load balancing",
+          "description": "Configures IBM Cloud DNS for cluster domain resolution and application load balancers to ensure Cluster API and app availability."
+        },
+        {
+          "title": "Security & secrets management",
+          "description": "Integrates Key Management and Secrets Manager for encryption and secure handling of cluster and application credentials."
+        },
+        {
+          "title": "Management & observability",
+          "description": "Optional monitoring, NTP/DNS forwarders, NFS service and other management components to support cluster operations and observability."
         }
       ],
       "flavors": [
