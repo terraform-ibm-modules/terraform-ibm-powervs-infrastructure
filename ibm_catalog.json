@@ -1319,7 +1319,7 @@
     },
     {
       "name": "deploy-arch-ibm-pvs-openshift",
-      "label": "Power Virtual Server with VPC Landing Zone for Quickstart OpenShift",
+      "label": "Openshift on Power Virtual Server",
       "product_kind": "solution",
       "tags": [
         "ibm_created",
