@@ -1314,7 +1314,76 @@
             ]
           },
           "terraform_version": "1.10.5"
+        }
+      ]
+    },
+    {
+      "name": "deploy-arch-ibm-pvs-openshift",
+      "label": "Openshift on Power Virtual Server",
+      "product_kind": "solution",
+      "tags": [
+        "ibm_created",
+        "target_terraform",
+        "terraform",
+        "solution",
+        "network_vpc",
+        "free",
+        "Technology",
+        "SoftwareAndPlatformApplications",
+        "reference_architecture",
+        "support_ibm",
+        "infra_only",
+        "single_system",
+        "platform_engineering"
+      ],
+      "keywords": [
+        "power",
+        "sap",
+        "sap hana",
+        "sap netweaver",
+        "powervs",
+        "openshift",
+        "ocp",
+        "kubernetes",
+        "cluster",
+        "power solution",
+        "power infrastructure",
+        "power framework",
+        "automation",
+        "secure",
+        "networking",
+        "vpc",
+        "landing zone",
+        "quickstart",
+        "quick"
+      ],
+      "short_description": "Deploy an IBM® Cloud Power Virtual Server (PowerVS) OpenShift Quickstart landscape with a VPC landing zone, in accordance with IBM Cloud best practices and compliance requirements.",
+      "long_description": "This deployable architecture provisions IBM Cloud® Power Virtual Servers (PowerVS) with a VPC landing zone and deploys an OpenShift cluster on PowerVS. It follows IBM Cloud best practices for networking, security, and management, providing an opinionated Quickstart for OpenShift workloads on Power Virtual Server.",
+      "offering_docs_url": "https://cloud.ibm.com/docs/powervs-vpc",
+      "offering_icon_url": "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPCEtLSBEbyBub3QgZWRpdCB0aGlzIGZpbGUgd2l0aCBlZGl0b3JzIG90aGVyIHRoYW4gZHJhdy5pbyAtLT4KPCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj4KPHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHN0eWxlPSJiYWNrZ3JvdW5kOiAjZmZmZmZmOyBiYWNrZ3JvdW5kLWNvbG9yOiAjZmZmZmZmOyBjb2xvci1zY2hlbWU6IGxpZ2h0OyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHZlcnNpb249IjEuMSIgd2lkdGg9IjI2NHB4IiBoZWlnaHQ9IjI2NHB4IiB2aWV3Qm94PSItMC41IC0wLjUgMjY0IDI2NCIgY29udGVudD0iJmx0O214ZmlsZSBob3N0PSZxdW90O0VsZWN0cm9uJnF1b3Q7IGFnZW50PSZxdW90O01vemlsbGEvNS4wIChNYWNpbnRvc2g7IEludGVsIE1hYyBPUyBYIDEwXzE1XzcpIEFwcGxlV2ViS2l0LzUzNy4zNiAoS0hUTUwsIGxpa2UgR2Vja28pIGRyYXcuaW8vMjYuMS4xIENocm9tZS8xMzIuMC42ODM0LjIxMCBFbGVjdHJvbi8zNC4zLjMgU2FmYXJpLzUzNy4zNiZxdW90OyB2ZXJzaW9uPSZxdW90OzI2LjEuMSZxdW90OyBzY2FsZT0mcXVvdDsxJnF1b3Q7IGJvcmRlcj0mcXVvdDswJnF1b3Q7Jmd0OyYjMTA7ICAmbHQ7ZGlhZ3JhbSBuYW1lPSZxdW90O1BhZ2UtMSZxdW90OyBpZD0mcXVvdDtyVDVERnZZWjZoZWF1a3Z4NW1vTSZxdW90OyZndDsmIzEwOyAgICAmbHQ7bXhHcmFwaE1vZGVsIGR4PSZxdW90OzExOTQmcXVvdDsgZHk9JnF1b3Q7ODc4JnF1b3Q7IGdyaWQ9JnF1b3Q7MCZxdW90OyBncmlkU2l6ZT0mcXVvdDsxMCZxdW90OyBndWlkZXM9JnF1b3Q7MSZxdW90OyB0b29sdGlwcz0mcXVvdDsxJnF1b3Q7IGNvbm5lY3Q9JnF1b3Q7MSZxdW90OyBhcnJvd3M9JnF1b3Q7MSZxdW90OyBmb2xkPSZxdW90OzEmcXVvdDsgcGFnZT0mcXVvdDsxJnF1b3Q7IHBhZ2VTY2FsZT0mcXVvdDsxJnF1b3Q7IHBhZ2VXaWR0aD0mcXVvdDs4MjcmcXVvdDsgcGFnZUhlaWdodD0mcXVvdDsxMTY5JnF1b3Q7IGJhY2tncm91bmQ9JnF1b3Q7bm9uZSZxdW90OyBtYXRoPSZxdW90OzAmcXVvdDsgc2hhZG93PSZxdW90OzAmcXVvdDsmZ3Q7JiMxMDsgICAgICAmbHQ7cm9vdCZndDsmIzEwOyAgICAgICAgJmx0O214Q2VsbCBpZD0mcXVvdDswJnF1b3Q7IC8mZ3Q7JiMxMDsgICAgICAgICZsdDtteENlbGwgaWQ9JnF1b3Q7MSZxdW90OyBwYXJlbnQ9JnF1b3Q7MCZxdW90OyAvJmd0OyYjMTA7ICAgICAgICAmbHQ7bXhDZWxsIGlkPSZxdW90O1RrVHdubjJGTl9HLVZoNm9vMEMyLTEmcXVvdDsgdmFsdWU9JnF1b3Q7JnF1b3Q7IHN0eWxlPSZxdW90O2ltYWdlO2FzcGVjdD1maXhlZDtodG1sPTE7cG9pbnRzPVtdO2FsaWduPWNlbnRlcjtmb250U2l6ZT0xMjtpbWFnZT1pbWcvbGliL2F6dXJlMi9jb250YWluZXJzL0F6dXJlX1JlZF9IYXRfT3BlblNoaWZ0LnN2ZzsmcXVvdDsgdmVydGV4PSZxdW90OzEmcXVvdDsgcGFyZW50PSZxdW90OzEmcXVvdDsmZ3Q7JiMxMDsgICAgICAgICAgJmx0O214R2VvbWV0cnkgeD0mcXVvdDsyNDImcXVvdDsgeT0mcXVvdDsyMjImcXVvdDsgd2lkdGg9JnF1b3Q7MjY0JnF1b3Q7IGhlaWdodD0mcXVvdDsyNjQmcXVvdDsgYXM9JnF1b3Q7Z2VvbWV0cnkmcXVvdDsgLyZndDsmIzEwOyAgICAgICAgJmx0Oy9teENlbGwmZ3Q7JiMxMDsgICAgICAmbHQ7L3Jvb3QmZ3Q7JiMxMDsgICAgJmx0Oy9teEdyYXBoTW9kZWwmZ3Q7JiMxMDsgICZsdDsvZGlhZ3JhbSZndDsmIzEwOyZsdDsvbXhmaWxlJmd0OyYjMTA7Ij48ZGVmcz48c3R5bGUgdHlwZT0idGV4dC9jc3MiPkBmb250LWZhY2Uge2ZvbnQtZmFtaWx5OiAiSUJNIFBsZXggU2FucyI7c3JjOiB1cmwoImZvbnRzL0lCTVBsZXhTYW5zLVJlZ3VsYXIud29mZiIpfSYjeGE7PC9zdHlsZT48L2RlZnM+PHJlY3QgZmlsbD0iI2ZmZmZmZiIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgeD0iMCIgeT0iMCIgc3R5bGU9ImZpbGw6IHJnYigyNTUsIDI1NSwgMjU1KTsiLz48Zz48ZyBkYXRhLWNlbGwtaWQ9IjAiPjxnIGRhdGEtY2VsbC1pZD0iMSI+PGcgZGF0YS1jZWxsLWlkPSJUa1R3bm4yRk5fRy1WaDZvbzBDMi0xIj48Zz48Zz48c3ZnIHZpZXdCb3g9IjAgMCAxNy44IDE2LjMzOSIgaGVpZ2h0PSIyNjQiIHdpZHRoPSIyNjQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeD0iLTAuNSIgeT0iLTAuNSIgc3R5bGU9ImZvbnQtZmFtaWx5OiBpbml0aWFsOyI+JiN4YTsJPHBhdGggZmlsbD0iI2MzMjAzNCIgZD0iTTUuMTY3IDcuMzM4TDIuMzEgOC4zODFhNy4xNzIgNy4xNzIgMCAwIDAgLjIzMyAxLjM2MWwyLjcxLS45ODFhNS42MDcgNS42MDcgMCAwIDEtLjA4Ni0xLjQyM00xNy44IDQuMTcxYTguOCA4LjggMCAwIDAtLjY4Ny0xLjE3N2wtMi44NjEgMS4wNDJhNS44MTQgNS44MTQgMCAwIDEgLjg0OCAxLjEyOGMtLjAxNC0uMDEyIDIuNy0uOTkzIDIuNy0uOTkzeiIvPiYjeGE7CTxwYXRoIGZpbGw9IiNkYjIxMmYiIGQ9Ik0xMS41MTIgMy4zNjFhNS4zNTggNS4zNTggMCAwIDEgMS41NDUgMS4xbDIuODU4LTEuMDQyQTguMTYgOC4xNiAwIDAgMCAxLjEzOSA4LjgwNUw0IDcuNzYzYTUuMjQgNS4yNCAwIDAgMSAuNDc4LTEuODQgNS4zIDUuMyAwIDAgMSA3LjAzNC0yLjU2MiIvPiYjeGE7CTxwYXRoIGZpbGw9IiNlYTIyMjciIGQ9Ik0yLjcxNCA5LjY1OEwwIDEwLjYzOWE4LjUgOC41IDAgMCAwIDEuMjggMi43NzJsMi44NDUtMS4wNGE1LjM2NiA1LjM2NiAwIDAgMS0xLjQxMS0yLjcxIi8+JiN4YTsJPHBhdGggZmlsbD0iI2RiMjEyZiIgZD0iTTE0LjU2IDguNTc5YTUuNTE0IDUuNTE0IDAgMCAxLS40NzkgMS44NCA1LjMgNS4zIDAgMCAxLTcuMDUgMi41NjIgNS4zNTggNS4zNTggMCAwIDEtMS41NDUtMS4xTDIuNjQxIDEyLjkyYTguMDY0IDguMDY0IDAgMCAwIDMuMTg4IDIuNjUxIDguMTU4IDguMTU4IDAgMCAwIDExLjU4OC04LjAzNHoiLz4mI3hhOwk8cGF0aCBmaWxsPSIjZWEyMjI3IiBkPSJNMTUuMjYyIDUuMDg4bC0yLjcxLjk4MWE1LjMgNS4zIDAgMCAxIC42NjIgMi45OTJsMi44NDUtMS4wNDJhOC4yNiA4LjI2IDAgMCAwLS44LTIuOTMxIi8+JiN4YTsJPHBhdGggZmlsbD0iI2FkMjEzYSIgZD0iTTIuMzE3IDguMzcxbDIuODQ1LTEuMDMtLjAxMi41NjRMMi40IDguOTI0em0xMS45MzItNC4zNTJsMi44OTQtLjk4MS4zMDcuNDQyLTIuODA4Ljk4Yy0uMDEzLjAxMy0uMzkzLS40NDEtLjM5My0uNDQxeiIvPiYjeGE7CTxwYXRoIGZpbGw9IiNiYTIwMzQiIGQ9Ik0yLjYyNiAxMi45MTVsMi44NDUtMS4wMTguODU4LjgtMi45OTIgMS4xYy4wMTMuMDAxLS43MTEtLjg4Mi0uNzExLS44ODJ6bTE0LjgzLTUuMzU2bC0yLjg5NCAxLjAzLS4yMDggMS4xNDEgMy4wOS0xLjA4Yy0uMDEzLS4wMTIuMDEyLTEuMDkxLjAxMi0xLjA5MXoiLz4mI3hhOzwvc3ZnPjwvZz48L2c+PC9nPjwvZz48L2c+PC9nPjwvc3ZnPg==",
+      "features": [
+        {
+          "title": "OpenShift cluster on PowerVS",
+          "description": "Deploys a production-ready OpenShift cluster on PowerVS including control plane and worker nodes, with opinionated defaults for reliability."
         },
+        {
+          "title": "VPC landing zone",
+          "description": "Creates VPC networking, subnets, routing, and edge network services (bastion, NAT/proxy) required for the cluster."
+        },
+        {
+          "title": "Integrated DNS & load balancing",
+          "description": "Configures IBM Cloud DNS for cluster domain resolution and application load balancers to ensure Cluster API and app availability."
+        },
+        {
+          "title": "Security & secrets management",
+          "description": "Integrates Key Management and Secrets Manager for encryption and secure handling of cluster and application credentials."
+        },
+        {
+          "title": "Management & observability",
+          "description": "Optional monitoring, NTP/DNS forwarders, NFS service and other management components to support cluster operations and observability."
+        }
+      ],
+      "flavors": [
         {
           "label": "Quickstart OpenShift",
           "name": "standard-openshift",
