@@ -21,7 +21,7 @@ offerings:
   - name: deploy-arch-ibm-pvs-openshift
     kind: solution
     catalog_id: da12d6f3-3cb7-402e-9350-878837212a6e
-    offering_id: 2dd486c7-b317-4aaa-907b-42671485ad96
+    offering_id: 80239886-a883-454f-9b41-6c08e67517b9
     variations:
       - name: standard-openshift
         mark_ready: false
