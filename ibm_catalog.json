@@ -1319,7 +1319,7 @@
     },
     {
       "name": "deploy-arch-ibm-pvs-openshift",
-      "label": "Openshift on Power Virtual Server",
+      "label": "OpenShift on Power Virtual Server",
       "product_kind": "solution",
       "tags": [
         "ibm_created",
