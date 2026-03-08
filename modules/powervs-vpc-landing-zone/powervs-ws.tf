@@ -27,7 +27,7 @@ locals {
 
 module "powervs_workspace" {
   source  = "terraform-ibm-modules/powervs-workspace/ibm"
-  version = "4.1.2"
+  version = "4.3.0"
 
   providers = { ibm = ibm.ibm-pi }
 
