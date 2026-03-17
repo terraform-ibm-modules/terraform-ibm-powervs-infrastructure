@@ -1430,14 +1430,6 @@
               "default_value": "",
               "options": [
                 {
-                  "displayname": "Chennai 02 (che02)",
-                  "value": "che02"
-                },
-                {
-                  "displayname": "Chennai 03 (che03)",
-                  "value": "che03"
-                },
-                {
                   "displayname": "Dallas (dallas)",
                   "value": "us-south"
                 },

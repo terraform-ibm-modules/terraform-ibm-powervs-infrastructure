@@ -22,8 +22,8 @@ locals {
     "us-east"  = "us-east"
     "wdc06"    = "us-east"
     "wdc07"    = "us-east"
-    "che02"    = "che"
-    "che03"    = "che"
+    "che02"    = "in-che"
+    "che03"    = "in-che"
 
   }
 
@@ -77,8 +77,6 @@ locals {
     "us-east"  = "us-east"
     "wdc06"    = "wdc"
     "wdc07"    = "wdc"
-    "che02"    = "che"
-    "che03"    = "che"
 
   }
 }
