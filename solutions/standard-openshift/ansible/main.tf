@@ -127,7 +127,7 @@ resource "terraform_data" "execute_playbooks" {
   # Decrypt ocp config if it already exists
   provisioner "remote-exec" {
     inline = [
-      "if [ -f /root/.powervs/config.json ]; then",
+      "if sudo [ -f /root/.powervs/config.json ]; then",
       "  if sudo head -n 1 /root/.powervs/config.json | grep -q '^$ANSIBLE_VAULT'; then",
       "    sudo ansible-vault decrypt /root/.powervs/config.json --vault-password-file password_file",
       "  fi",
@@ -159,7 +159,7 @@ resource "terraform_data" "execute_playbooks" {
   # Encrypt ocp config if it already exists
   provisioner "remote-exec" {
     inline = [
-      "if [ -f /root/.powervs/config.json ]; then",
+      "if sudo [ -f /root/.powervs/config.json ]; then",
       "  if ! ( sudo head -n 1 /root/.powervs/config.json | grep -q '^$ANSIBLE_VAULT' ); then",
       "    echo ${var.ansible_vault_password} > password_file",
       "    sudo ansible-vault encrypt /root/.powervs/config.json --vault-password-file password_file",
@@ -256,7 +256,7 @@ resource "terraform_data" "execute_playbooks_with_vault" {
   # Decrypt ocp config if it already exists
   provisioner "remote-exec" {
     inline = [
-      "if [ -f /root/.powervs/config.json ]; then",
+      "if sudo [ -f /root/.powervs/config.json ]; then",
       "  if sudo head -n 1 /root/.powervs/config.json | grep -q '^$ANSIBLE_VAULT'; then",
       "    sudo ansible-vault decrypt /root/.powervs/config.json --vault-password-file password_file",
       "  fi",
@@ -275,7 +275,7 @@ resource "terraform_data" "execute_playbooks_with_vault" {
   # Encrypt ocp config if it already exists
   provisioner "remote-exec" {
     inline = [
-      "if [ -f /root/.powervs/config.json ]; then",
+      "if sudo [ -f /root/.powervs/config.json ]; then",
       "  if ! ( sudo head -n 1 /root/.powervs/config.json | grep -q '^$ANSIBLE_VAULT' ); then",
       "    echo ${var.ansible_vault_password} > password_file",
       "    sudo ansible-vault encrypt /root/.powervs/config.json --vault-password-file password_file",
