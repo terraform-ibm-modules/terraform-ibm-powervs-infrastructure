@@ -1,9 +1,9 @@
 variable "powervs_zone" {
-  description = "IBM Cloud data center location where IBM PowerVS infrastructure will be created. Supported regions are: dal10, dal12, eu-de-1, eu-de-2, lon04, lon06, mad02, mad04, osa21, sao01, sao04, sao05, syd04, syd05, us-east, us-south, wdc06, wdc07."
+  description = "IBM Cloud data center location where IBM PowerVS infrastructure will be created. Supported regions are: dal10, dal12, eu-de-1, eu-de-2, lon04, lon06, mad02, mad04, osa21, sao01, sao04, sao05, syd04, syd05, us-east, us-south, wdc06, wdc07 ,che02, che03."
   type        = string
   validation {
-    condition     = contains(["dal10", "dal12", "eu-de-1", "eu-de-2", "lon04", "lon06", "mad02", "mad04", "osa21", "sao01", "sao04", "sao05", "syd04", "syd05", "us-east", "us-south", "wdc06", "wdc07"], var.powervs_zone)
-    error_message = "Unsupported powervs_zone. Supported zones are: dal10, dal12, eu-de-1, eu-de-2, lon04, lon06, mad02, mad04, osa21, sao01, sao04, sao05, syd04, syd05, us-east, us-south, wdc06, wdc07."
+    condition     = contains(["dal10", "dal12", "eu-de-1", "eu-de-2", "lon04", "lon06", "mad02", "mad04", "osa21", "sao01", "sao04", "sao05", "syd04", "syd05", "us-east", "us-south", "wdc06", "wdc07", "che02", "che03"], var.powervs_zone)
+    error_message = "Unsupported powervs_zone. Supported zones are: dal10, dal12, eu-de-1, eu-de-2, lon04, lon06, mad02, mad04, osa21, sao01, sao04, sao05, syd04, syd05, us-east, us-south, wdc06, wdc07, che02, che03."
   }
 }
 
@@ -214,7 +214,7 @@ variable "vpc_intel_images" {
 variable "network_services_vsi_profile" {
   description = "Compute profile configuration of the network services vsi (cpu and memory configuration). Must be one of the supported profiles. See [here](https://cloud.ibm.com/docs/vpc?topic=vpc-profiles&interface=ui)."
   type        = string
-  default     = "cx2-2x4"
+  default     = "cxf-2x4"
 }
 
 variable "intel_user_data" {
