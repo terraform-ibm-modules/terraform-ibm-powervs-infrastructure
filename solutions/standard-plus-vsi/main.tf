@@ -68,6 +68,7 @@ module "powervs_instance" {
     enable             = false
     bastion_host_ip    = ""
     ansible_host_or_ip = ""
+    ssh_user           = ""
     ssh_private_key    = ""
   }
   pi_network_services_config = local.pi_instance_os_type == "linux" ? local.network_services_config : null
