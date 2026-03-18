@@ -95,7 +95,7 @@ variable "ibm_dns_service" {
 variable "network_services_vsi_profile" {
   description = "Compute profile configuration of the network services vsi (cpu and memory configuration). Must be one of the supported profiles. See [here](https://cloud.ibm.com/docs/vpc?topic=vpc-profiles&interface=ui)."
   type        = string
-  default     = "cx2-2x4"
+  default     = "cxf-2x4"
 }
 
 variable "user_data" {
