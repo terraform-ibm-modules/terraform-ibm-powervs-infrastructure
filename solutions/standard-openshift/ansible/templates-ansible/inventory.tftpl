@@ -1,1 +1,3 @@
-${host_or_ip} ansible_user=vpcuser
+%{ for ip in split("\n", host_or_ip) ~}
+${ip} ansible_user=vpcuser
+%{ endfor ~}
