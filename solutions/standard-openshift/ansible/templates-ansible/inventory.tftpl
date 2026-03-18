@@ -1,3 +1,3 @@
 %{ for ip in split("\n", host_or_ip) ~}
-${ip} ansible_user=vpcuser
+${ip}${target_type == "vpc" ? " ansible_user=vpcuser" : ""}
 %{ endfor ~}

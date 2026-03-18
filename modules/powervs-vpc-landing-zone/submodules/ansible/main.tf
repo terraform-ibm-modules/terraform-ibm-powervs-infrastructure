@@ -93,7 +93,7 @@ resource "terraform_data" "execute_playbooks" {
 
   # Copy and create ansible inventory template file on ansible host
   provisioner "file" {
-    content     = templatefile(local.src_inventory_tftpl_path, var.inventory_template_vars)
+    content     = templatefile(local.src_inventory_tftpl_path, merge(var.inventory_template_vars, { target_type = var.target_type }))
     destination = local.dst_inventory_file_path
   }
 
@@ -130,7 +130,7 @@ resource "terraform_data" "execute_playbooks" {
   # Again delete private ssh key
   provisioner "remote-exec" {
     inline = [
-      "rm -rf ${local.private_key_file}"
+      "sudo rm -rf ${local.private_key_file}"
     ]
   }
 }
@@ -160,19 +160,20 @@ resource "terraform_data" "execute_playbooks_with_vault" {
   provisioner "file" {
     content     = templatefile(local.src_playbook_tftpl_path, var.playbook_template_vars)
     destination = local.dst_playbook_file_path
+
   }
 
   #########  Encrypting the ansible playbook file with sensitive information using ansible vault  #########
   provisioner "remote-exec" {
     inline = [
       "echo ${var.ansible_vault_password} > password_file",
-      "sudo ansible-vault encrypt ${local.dst_playbook_file_path} --vault-password-file password_file"
+      "ansible-vault encrypt ${local.dst_playbook_file_path} --vault-password-file password_file"
     ]
   }
 
   # Copy and create ansible inventory template file on ansible host
   provisioner "file" {
-    content     = templatefile(local.src_inventory_tftpl_path, var.inventory_template_vars)
+    content     = templatefile(local.src_inventory_tftpl_path, merge(var.inventory_template_vars, { target_type = var.target_type }))
     destination = local.dst_inventory_file_path
   }
 
@@ -214,10 +215,4 @@ resource "terraform_data" "execute_playbooks_with_vault" {
       "rm -rf ${local.private_key_file}"
     ]
   }
-}
-
-
-moved {
-  from = terraform_data.setup_ansible_host
-  to   = terraform_data.setup_ansible_host[0]
 }
