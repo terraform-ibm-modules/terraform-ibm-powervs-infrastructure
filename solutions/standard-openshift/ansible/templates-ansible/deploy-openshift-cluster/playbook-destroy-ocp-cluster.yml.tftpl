@@ -1,6 +1,7 @@
 ---
 - name: Destroy the OpenShift Cluster
   hosts: all
+  become: yes
 
   vars:
     cluster_dir: "${CLUSTER_DIR}"

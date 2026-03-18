@@ -100,3 +100,13 @@ variable "ibmcloud_api_key" {
   sensitive   = true
   default     = null
 }
+
+variable "target_type" {
+  description = "Type of target hosts: 'vpc' for VPC VSIs (use vpcuser), 'powervs' for PowerVS instances (use root)"
+  type        = string
+  default     = "vpc"
+  validation {
+    condition     = contains(["vpc", "powervs"], var.target_type)
+    error_message = "target_type must be either 'vpc' or 'powervs'"
+  }
+}

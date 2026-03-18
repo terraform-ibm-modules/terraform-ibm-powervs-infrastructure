@@ -4,6 +4,7 @@
 # This bash script performs                                #
 # - installation of packages                               #
 # - ansible galaxy collections.                            #
+# Note: This script is executed with sudo privileges       #
 #                                                          #
 ############################################################
 
@@ -101,7 +102,13 @@ main::install_packages() {
       done
     done
 
-    ansible-galaxy collection install -r '/root/.ansible/collections/ansible_collections/ibm/power_linux_sap/requirements.yml' --upgrade
+    # Use the actual user's home directory for ansible collections
+    ANSIBLE_USER_HOME=$(getent passwd "${SUDO_USER:-$USER}" | cut -d: -f6)
+    if [ -f "${ANSIBLE_USER_HOME}/.ansible/collections/ansible_collections/ibm/power_linux_sap/requirements.yml" ]; then
+      ansible-galaxy collection install -r "${ANSIBLE_USER_HOME}/.ansible/collections/ansible_collections/ibm/power_linux_sap/requirements.yml" --upgrade
+    elif [ -f '/root/.ansible/collections/ansible_collections/ibm/power_linux_sap/requirements.yml' ]; then
+      ansible-galaxy collection install -r '/root/.ansible/collections/ansible_collections/ibm/power_linux_sap/requirements.yml' --upgrade
+    fi
     main::log_info "All packages installed successfully"
   fi
 

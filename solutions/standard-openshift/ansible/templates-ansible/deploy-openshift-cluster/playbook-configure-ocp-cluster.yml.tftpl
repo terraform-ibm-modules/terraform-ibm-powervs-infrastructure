@@ -1,5 +1,6 @@
 - name: Install or upgrade OpenShift tools and create install-config.yaml file
   hosts: all
+  become: yes
   vars:
     openshift_release: "${OPENSHIFT_RELEASE}"
     base_domain: "${BASE_DOMAIN}"

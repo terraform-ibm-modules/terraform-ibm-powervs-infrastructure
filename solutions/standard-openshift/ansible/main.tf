@@ -1,7 +1,7 @@
 locals {
   src_ansible_templates_dir  = "${path.module}/templates-ansible"
   ansible_node_config_script = "${path.module}/ansible_node_packages.sh"
-  dst_files_dir              = "/root/terraform_files"
+  dst_files_dir              = "/home/vpcuser/terraform_files"
 
   src_script_tftpl_path    = "${local.src_ansible_templates_dir}/${var.src_script_template_name}"
   dst_script_file_path     = "${local.dst_files_dir}/${var.dst_script_file_name}"
@@ -17,7 +17,7 @@ resource "random_id" "filename" {
 }
 
 locals {
-  private_key_file = "/root/.ssh/id_rsa_${substr(random_id.filename.b64_url, 0, 4)}"
+  private_key_file = "/home/vpcuser/.ssh/id_rsa_${substr(random_id.filename.b64_url, 0, 4)}"
 }
 ##############################################################
 # 1. Execute shell script to install ansible roles/collections
@@ -28,7 +28,7 @@ resource "terraform_data" "setup_ansible_host" {
 
   connection {
     type         = "ssh"
-    user         = "root"
+    user         = "vpcuser"
     bastion_host = var.bastion_host_ip
     host         = var.ansible_host_or_ip
     private_key  = var.ssh_private_key
@@ -38,7 +38,7 @@ resource "terraform_data" "setup_ansible_host" {
 
   # Create terraform scripts directory
   provisioner "remote-exec" {
-    inline = ["mkdir -p ${local.dst_files_dir}", "chmod 777 ${local.dst_files_dir}", ]
+    inline = ["sudo mkdir -p ${local.dst_files_dir}", "sudo chmod 777 ${local.dst_files_dir}", ]
   }
 
   # Copy ansible_node_packages.sh shell file to ansible host
@@ -50,8 +50,8 @@ resource "terraform_data" "setup_ansible_host" {
   # Execute ansible_node_packages.sh shell script to configure ansible host
   provisioner "remote-exec" {
     inline = [
-      "chmod +x ${local.dst_files_dir}/ansible_node_packages.sh",
-      "${local.dst_files_dir}/ansible_node_packages.sh",
+      "sudo chmod +x ${local.dst_files_dir}/ansible_node_packages.sh",
+      "sudo ${local.dst_files_dir}/ansible_node_packages.sh",
     ]
   }
 }
@@ -70,7 +70,7 @@ resource "terraform_data" "execute_playbooks" {
 
   connection {
     type         = "ssh"
-    user         = "root"
+    user         = "vpcuser"
     bastion_host = var.bastion_host_ip
     host         = var.ansible_host_or_ip
     private_key  = var.ssh_private_key
@@ -82,7 +82,7 @@ resource "terraform_data" "execute_playbooks" {
 
   # Create terraform scripts directory
   provisioner "remote-exec" {
-    inline = ["mkdir -p ${local.dst_files_dir}", "chmod 777 ${local.dst_files_dir}", ]
+    inline = ["sudo mkdir -p ${local.dst_files_dir}", "sudo chmod 777 ${local.dst_files_dir}", ]
   }
 
   # Copy and create ansible playbook template file on ansible host
@@ -93,7 +93,7 @@ resource "terraform_data" "execute_playbooks" {
 
   # Copy and create ansible inventory template file on ansible host
   provisioner "file" {
-    content     = templatefile(local.src_inventory_tftpl_path, var.inventory_template_vars)
+    content     = templatefile(local.src_inventory_tftpl_path, merge(var.inventory_template_vars, { target_type = var.target_type }))
     destination = local.dst_inventory_file_path
   }
 
@@ -112,8 +112,8 @@ resource "terraform_data" "execute_playbooks" {
   # Write ssh user's ssh private key
   provisioner "remote-exec" {
     inline = [
-      "mkdir -p /root/.ssh/",
-      "chmod 700 /root/.ssh",
+      "mkdir -p /home/vpcuser/.ssh/",
+      "chmod 700 /home/vpcuser/.ssh",
       "echo '${var.ssh_private_key}' > ${local.private_key_file}",
       "chmod 600 ${local.private_key_file}",
     ]
@@ -128,8 +128,8 @@ resource "terraform_data" "execute_playbooks" {
   provisioner "remote-exec" {
     inline = [
       "if [ -f /root/.powervs/config.json ]; then",
-      "  if head -n 1 /root/.powervs/config.json | grep -q '^$ANSIBLE_VAULT'; then",
-      "    ansible-vault decrypt /root/.powervs/config.json --vault-password-file password_file",
+      "  if sudo head -n 1 /root/.powervs/config.json | grep -q '^$ANSIBLE_VAULT'; then",
+      "    sudo ansible-vault decrypt /root/.powervs/config.json --vault-password-file password_file",
       "  fi",
       "fi"
     ]
@@ -139,8 +139,8 @@ resource "terraform_data" "execute_playbooks" {
   # create password file so the script can encrypt the ocp config
   provisioner "remote-exec" {
     inline = [
-      "chmod +x ${local.dst_script_file_path}",
-      "export IBMCLOUD_API_KEY=${local.ibmcloud_api_key} && ${local.dst_script_file_path}"
+      "sudo chmod +x ${local.dst_script_file_path}",
+      "export IBMCLOUD_API_KEY=${local.ibmcloud_api_key} && sudo -E ${local.dst_script_file_path}"
     ]
   }
 
@@ -160,9 +160,9 @@ resource "terraform_data" "execute_playbooks" {
   provisioner "remote-exec" {
     inline = [
       "if [ -f /root/.powervs/config.json ]; then",
-      "  if ! ( head -n 1 /root/.powervs/config.json | grep -q '^$ANSIBLE_VAULT' ); then",
+      "  if ! ( sudo head -n 1 /root/.powervs/config.json | grep -q '^$ANSIBLE_VAULT' ); then",
       "    echo ${var.ansible_vault_password} > password_file",
-      "    ansible-vault encrypt /root/.powervs/config.json --vault-password-file password_file",
+      "    sudo ansible-vault encrypt /root/.powervs/config.json --vault-password-file password_file",
       "  fi",
       "fi",
       "rm -f password_file"
@@ -174,8 +174,8 @@ resource "terraform_data" "execute_playbooks" {
     inline = [
       "if [ ! -z $IBMCLOUD_API_KEY ]; then",
       "  IBMCLOUD_API_KEY=\"${local.ibmcloud_api_key}\"",
-      "  grep -RIl --devices=skip --exclude-dir='.ansible/' -- \"$IBMCLOUD_API_KEY\" \"/root\" | while IFS= read -r file; do",
-      "    sed -i 's/'\"$IBMCLOUD_API_KEY\"'/***redacted***/g' \"$file\"",
+      "  sudo grep -RIl --devices=skip --exclude-dir='.ansible/' -- \"$IBMCLOUD_API_KEY\" \"/root\" | while IFS= read -r file; do",
+      "    sudo sed -i 's/'\"$IBMCLOUD_API_KEY\"'/***redacted***/g' \"$file\"",
       "  done",
       "fi"
     ]
@@ -196,7 +196,7 @@ resource "terraform_data" "execute_playbooks_with_vault" {
 
   connection {
     type         = "ssh"
-    user         = "root"
+    user         = "vpcuser"
     bastion_host = var.bastion_host_ip
     host         = var.ansible_host_or_ip
     private_key  = var.ssh_private_key
@@ -208,7 +208,7 @@ resource "terraform_data" "execute_playbooks_with_vault" {
 
   # Create terraform scripts directory
   provisioner "remote-exec" {
-    inline = ["mkdir -p ${local.dst_files_dir}", "chmod 777 ${local.dst_files_dir}", ]
+    inline = ["sudo mkdir -p ${local.dst_files_dir}", "sudo chmod 777 ${local.dst_files_dir}", ]
   }
 
   # Copy and create ansible playbook template file on ansible host
@@ -227,7 +227,7 @@ resource "terraform_data" "execute_playbooks_with_vault" {
 
   # Copy and create ansible inventory template file on ansible host
   provisioner "file" {
-    content     = templatefile(local.src_inventory_tftpl_path, var.inventory_template_vars)
+    content     = templatefile(local.src_inventory_tftpl_path, merge(var.inventory_template_vars, { target_type = var.target_type }))
     destination = local.dst_inventory_file_path
   }
 
@@ -246,8 +246,8 @@ resource "terraform_data" "execute_playbooks_with_vault" {
   # Write ssh user's ssh private key
   provisioner "remote-exec" {
     inline = [
-      "mkdir -p /root/.ssh/",
-      "chmod 700 /root/.ssh",
+      "mkdir -p /home/vpcuser/.ssh/",
+      "chmod 700 /home/vpcuser/.ssh",
       "echo '${var.ssh_private_key}' > ${local.private_key_file}",
       "chmod 600 ${local.private_key_file}",
     ]
@@ -257,8 +257,8 @@ resource "terraform_data" "execute_playbooks_with_vault" {
   provisioner "remote-exec" {
     inline = [
       "if [ -f /root/.powervs/config.json ]; then",
-      "  if head -n 1 /root/.powervs/config.json | grep -q '^$ANSIBLE_VAULT'; then",
-      "    ansible-vault decrypt /root/.powervs/config.json --vault-password-file password_file",
+      "  if sudo head -n 1 /root/.powervs/config.json | grep -q '^$ANSIBLE_VAULT'; then",
+      "    sudo ansible-vault decrypt /root/.powervs/config.json --vault-password-file password_file",
       "  fi",
       "fi"
     ]
@@ -267,8 +267,8 @@ resource "terraform_data" "execute_playbooks_with_vault" {
   # Execute bash shell script to run ansible playbooks
   provisioner "remote-exec" {
     inline = [
-      "chmod +x ${local.dst_script_file_path}",
-      "export IBMCLOUD_API_KEY=${local.ibmcloud_api_key} && ${local.dst_script_file_path}",
+      "sudo chmod +x ${local.dst_script_file_path}",
+      "export IBMCLOUD_API_KEY=${local.ibmcloud_api_key} && sudo -E ${local.dst_script_file_path}",
     ]
   }
 
@@ -276,9 +276,9 @@ resource "terraform_data" "execute_playbooks_with_vault" {
   provisioner "remote-exec" {
     inline = [
       "if [ -f /root/.powervs/config.json ]; then",
-      "  if ! ( head -n 1 /root/.powervs/config.json | grep -q '^$ANSIBLE_VAULT' ); then",
+      "  if ! ( sudo head -n 1 /root/.powervs/config.json | grep -q '^$ANSIBLE_VAULT' ); then",
       "    echo ${var.ansible_vault_password} > password_file",
-      "    ansible-vault encrypt /root/.powervs/config.json --vault-password-file password_file",
+      "    sudo ansible-vault encrypt /root/.powervs/config.json --vault-password-file password_file",
       "  fi",
       "fi",
       "rm -f password_file"
@@ -290,8 +290,8 @@ resource "terraform_data" "execute_playbooks_with_vault" {
     inline = [
       "if [ ! -z $IBMCLOUD_API_KEY ]; then",
       "  IBMCLOUD_API_KEY=\"${local.ibmcloud_api_key}\"",
-      "  grep -RIl --devices=skip --exclude-dir='.ansible/' -- \"$IBMCLOUD_API_KEY\" \"/root\" | while IFS= read -r file; do",
-      "    sed -i 's/'\"$IBMCLOUD_API_KEY\"'/***redacted***/g' \"$file\"",
+      "  sudo grep -RIl --devices=skip --exclude-dir='.ansible/' -- \"$IBMCLOUD_API_KEY\" \"/root\" | while IFS= read -r file; do",
+      "    sudo sed -i 's/'\"$IBMCLOUD_API_KEY\"'/***redacted***/g' \"$file\"",
       "  done",
       "fi"
     ]
@@ -306,10 +306,4 @@ resource "terraform_data" "execute_playbooks_with_vault" {
     ]
   }
 
-}
-
-
-moved {
-  from = terraform_data.setup_ansible_host
-  to   = terraform_data.setup_ansible_host[0]
 }

@@ -59,6 +59,16 @@ variable "inventory_template_vars" {
   type        = map(any)
 }
 
+variable "target_type" {
+  description = "Type of target hosts: 'vpc' for VPC VSIs (use vpcuser), 'powervs' for PowerVS instances (use root)"
+  type        = string
+  default     = "vpc"
+  validation {
+    condition     = contains(["vpc", "powervs"], var.target_type)
+    error_message = "target_type must be either 'vpc' or 'powervs'"
+  }
+}
+
 variable "ansible_vault_password" {
   description = "Vault password to encrypt ansible playbooks that contain sensitive information. Password requirements: 15-100 characters and at least one uppercase letter, one lowercase letter, one number, and one special character. Allowed characters: A-Z, a-z, 0-9, !#$%&()*+-.:;<=>?@[]_{|}~."
   type        = string
