@@ -117,7 +117,8 @@ resource "terraform_data" "execute_playbooks" {
       "echo '${var.ssh_private_key}' > ${local.private_key_file}",
       "echo '${var.ssh_private_key}' | sudo tee /root/.ssh/id_rsa",
       "chmod 600 ${local.private_key_file}",
-      "sudo chmod 600 /root/.ssh/id_rsa"
+      "sudo chmod 600 /root/.ssh/id_rsa",
+      "sudo chown -R root:root  /root/.ssh/id_rsa"
     ]
   }
 
@@ -253,7 +254,8 @@ resource "terraform_data" "execute_playbooks_with_vault" {
       "echo '${var.ssh_private_key}' > ${local.private_key_file}",
       "chmod 600 ${local.private_key_file}",
       "echo '${var.ssh_private_key}' | sudo tee /root/.ssh/id_rsa",
-      "sudo chmod 600 /root/.ssh/id_rsa"
+      "sudo chmod 600 /root/.ssh/id_rsa",
+      "sudo chown -R root:root  /root/.ssh/id_rsa"
     ]
   }
 
