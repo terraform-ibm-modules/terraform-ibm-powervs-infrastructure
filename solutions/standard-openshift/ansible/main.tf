@@ -115,7 +115,9 @@ resource "terraform_data" "execute_playbooks" {
       "mkdir -p /home/vpcuser/.ssh/",
       "chmod 700 /home/vpcuser/.ssh",
       "echo '${var.ssh_private_key}' > ${local.private_key_file}",
+      "echo '${var.ssh_private_key}' | sudo tee /root/.ssh/id_rsa",
       "chmod 600 ${local.private_key_file}",
+      "sudo chmod 600 /root/.ssh/id_rsa"
     ]
   }
 
@@ -250,6 +252,8 @@ resource "terraform_data" "execute_playbooks_with_vault" {
       "chmod 700 /home/vpcuser/.ssh",
       "echo '${var.ssh_private_key}' > ${local.private_key_file}",
       "chmod 600 ${local.private_key_file}",
+      "echo '${var.ssh_private_key}' | sudo tee /root/.ssh/id_rsa",
+      "sudo chmod 600 /root/.ssh/id_rsa"
     ]
   }
 
@@ -302,7 +306,8 @@ resource "terraform_data" "execute_playbooks_with_vault" {
   provisioner "remote-exec" {
     inline = [
       "rm -rf password_file",
-      "rm -rf ${local.private_key_file}"
+      "rm -rf ${local.private_key_file}",
+      "sudo rm -rf /root/.ssh/id_rsa"
     ]
   }
 
