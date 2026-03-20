@@ -16,7 +16,7 @@ import (
 
 // Use existing resource group
 const resourceGroup = "geretain-test-resources"
-const defaultExampleTerraformDir = "solutions/standard"
+const defaultExampleTerraformDir = "solutions/standard-plus-vsi"
 
 //const quickstartExampleTerraformDir = "solutions/standard-plus-vsi"
 
@@ -85,6 +85,10 @@ func setupOptionsStandardSolution(t *testing.T, prefix string, powervs_zone stri
 		"enable_monitoring":           false,
 		"enable_scc_wp":               true,
 		"ansible_vault_password":      "SecurePassw0rd!",
+		"tshirt_size": map[string]interface{}{
+			"tshirt_size": "aix_xs",
+			"image":       "7300-03-01",
+		},
 	}
 
 	return options

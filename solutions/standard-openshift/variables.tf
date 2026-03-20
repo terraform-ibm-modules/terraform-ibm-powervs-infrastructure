@@ -1,10 +1,6 @@
 variable "powervs_zone" {
-  description = "IBM Cloud data center location where IBM PowerVS infrastructure will be created. Supported regions are: dal10, dal12, eu-de-1, eu-de-2, lon04, lon06, mad02, mad04, osa21, sao01, sao04, sao05, syd04, syd05, us-east, us-south, wdc06, wdc07 ,che02, che03."
+  description = "IBM Cloud data center location where IBM PowerVS infrastructure will be created."
   type        = string
-  validation {
-    condition     = contains(["dal10", "dal12", "eu-de-1", "eu-de-2", "lon04", "lon06", "mad02", "mad04", "osa21", "sao01", "sao04", "sao05", "syd04", "syd05", "us-east", "us-south", "wdc06", "wdc07", "che02", "che03"], var.powervs_zone)
-    error_message = "Unsupported powervs_zone. Supported zones are: dal10, dal12, eu-de-1, eu-de-2, lon04, lon06, mad02, mad04, osa21, sao01, sao04, sao05, syd04, syd05, us-east, us-south, wdc06, wdc07, che02, che03."
-  }
 }
 
 variable "cluster_name" {
