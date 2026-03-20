@@ -6,12 +6,26 @@ locals {
   # Openshift IPI requires VPC resources, PowerVS resources, and TGW to be in the same resource group
   second_rg_name = var.powervs_resource_group_name != null ? "slz-edge-rg" : "ocp-rg"
   tgw_rg_name    = var.powervs_resource_group_name != null ? "slz-service-rg" : "ocp-rg"
+
+  # Generate user_data with SSH public key
+  generated_user_data = <<-EOT
+#cloud-config
+# vim: syntax=yaml
+write_files:
+- content: |
+    ${var.ssh_public_key}
+  path: /root/.ssh/authorized_keys
+  permissions: '0600'
+  owner: root:root
+EOT
+
+
   override_json_string = templatefile("${path.module}/presets/slz-preset.json.tftpl",
     {
       external_access_ip           = local.external_access_ip,
       rhel_image                   = var.vpc_intel_images.rhel_image,
       network_services_vsi_profile = var.network_services_vsi_profile,
-      user_data                    = var.user_data != null ? replace(var.user_data, "\n", "\\n") : null
+      user_data                    = var.user_data != null ? replace(var.user_data, "\n", "\\n") : replace(local.generated_user_data, "\n", "\\n")
       transit_gateway_global       = var.transit_gateway_global,
       enable_monitoring_host       = var.enable_monitoring_host,
       sles_image                   = var.vpc_intel_images.sles_image,
