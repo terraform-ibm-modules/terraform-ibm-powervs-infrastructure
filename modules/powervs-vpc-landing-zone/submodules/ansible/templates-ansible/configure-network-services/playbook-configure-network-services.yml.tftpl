@@ -9,7 +9,6 @@
 
 - name: Ansible play to install management network services on network-services vsi in edge vpc
   hosts: all
-  become: yes
   vars:
     server_config: ${server_config}
     client_config: ${client_config}

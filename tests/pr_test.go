@@ -16,7 +16,7 @@ import (
 
 // Use existing resource group
 const resourceGroup = "geretain-test-resources"
-const defaultExampleTerraformDir = "solutions/standard"
+const defaultExampleTerraformDir = "solutions/standard-plus-vsi"
 
 //const quickstartExampleTerraformDir = "solutions/standard-plus-vsi"
 
@@ -85,6 +85,10 @@ func setupOptionsStandardSolution(t *testing.T, prefix string, powervs_zone stri
 		"enable_monitoring":           false,
 		"enable_scc_wp":               true,
 		"ansible_vault_password":      "SecurePassw0rd!",
+		"tshirt_size": map[string]interface{}{
+			"tshirt_size": "aix_xs",
+			"image":       "7300-03-01",
+		},
 	}
 
 	return options
@@ -93,7 +97,7 @@ func setupOptionsStandardSolution(t *testing.T, prefix string, powervs_zone stri
 func TestRunBranchStandardExample(t *testing.T) {
 	t.Parallel()
 
-	options := setupOptionsStandardSolution(t, "pvs-i-b", "us-east")
+	options := setupOptionsStandardSolution(t, "pvs-i-b", "syd05")
 
 	output, err := options.RunTestConsistency()
 	assert.Nil(t, err, "This should not have errored")
@@ -102,7 +106,7 @@ func TestRunBranchStandardExample(t *testing.T) {
 
 func TestRunMainStandardExample(t *testing.T) {
 	t.Parallel()
-	options := setupOptionsStandardSolution(t, "pvs-i-m", "us-south")
+	options := setupOptionsStandardSolution(t, "pvs-i-m", "sao01")
 
 	output, err := options.RunTestUpgrade()
 	if !options.UpgradeTestSkipped {

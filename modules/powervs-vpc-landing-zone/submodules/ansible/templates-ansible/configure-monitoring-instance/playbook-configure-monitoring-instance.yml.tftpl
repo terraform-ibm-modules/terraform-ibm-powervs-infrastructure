@@ -2,7 +2,6 @@
 
 - name: Ansible play to configure Network services DNS, NTP and NFS
   hosts: all
-  become: yes
   vars:
     client_config: ${client_config}
 
@@ -12,7 +11,6 @@
 
 - name: Update OS and reboot
   hosts: all
-  become: yes
 
   tasks:
     - name: Update OS packages (SLES)

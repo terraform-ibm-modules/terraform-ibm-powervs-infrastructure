@@ -39,7 +39,7 @@ module "standard" {
 
 module "powervs_instance" {
   source    = "terraform-ibm-modules/powervs-instance/ibm"
-  version   = "2.8.8"
+  version   = "2.8.9"
   providers = { ibm = ibm.ibm-pi }
 
   pi_workspace_guid      = module.standard.powervs_workspace_guid
@@ -60,7 +60,6 @@ module "powervs_instance" {
     enable             = true
     bastion_host_ip    = module.standard.access_host_or_ip
     ansible_host_or_ip = module.standard.ansible_host_or_ip
-    ssh_user           = "vpcuser"
     # same as: ssh_private_key    = var.ssh_private_key
     # creates implicit dependencies without affecting the value of ssh_private_key
     ssh_private_key = "${var.ssh_private_key}${module.standard.nlb_nfs_network_services_ready ? "" : ""}"
@@ -68,7 +67,6 @@ module "powervs_instance" {
     enable             = false
     bastion_host_ip    = ""
     ansible_host_or_ip = ""
-    ssh_user           = ""
     ssh_private_key    = ""
   }
   pi_network_services_config = local.pi_instance_os_type == "linux" ? local.network_services_config : null
@@ -83,7 +81,6 @@ module "pi_aix_configure_services" {
   ansible_host_or_ip     = module.standard.ansible_host_or_ip
   ssh_private_key        = var.ssh_private_key
   configure_ansible_host = false
-  target_type            = "powervs"
 
   src_script_template_name = "configure-aix-services/ansible_exec.sh.tftpl"
   dst_script_file_name     = "${var.prefix}-configure_aix_services_pi.sh"
@@ -137,7 +134,6 @@ module "pi_scc_wp_agent" {
   ssh_private_key        = var.ssh_private_key
   ansible_vault_password = var.ansible_vault_password
   configure_ansible_host = false
-  target_type            = "powervs"
 
   src_script_template_name = "configure-scc-wp-agent/ansible_configure_scc_wp_agent.sh.tftpl"
   dst_script_file_name     = "${var.prefix}-configure_scc_wp_agent_pi_${local.pi_instance_os_type}.sh"
@@ -147,9 +143,7 @@ module "pi_scc_wp_agent" {
   playbook_template_vars = {
     COLLECTOR_ENDPOINT : module.standard.scc_wp_instance.ingestion_endpoint,
     API_ENDPOINT : module.standard.scc_wp_instance.api_endpoint,
-    ACCESS_KEY : module.standard.scc_wp_instance.access_key,
-    PROXY_SERVER : module.standard.proxy_host_or_ip_port
-
+    ACCESS_KEY : module.standard.scc_wp_instance.access_key
   }
   src_inventory_template_name = "inventory.tftpl"
   dst_inventory_file_name     = "${var.prefix}-scc-wp-inventory-pi-${local.pi_instance_os_type}"

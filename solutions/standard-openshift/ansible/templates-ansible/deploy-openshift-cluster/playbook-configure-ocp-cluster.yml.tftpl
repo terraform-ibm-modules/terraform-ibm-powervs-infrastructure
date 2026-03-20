@@ -1,6 +1,5 @@
 - name: Install or upgrade OpenShift tools and create install-config.yaml file
   hosts: all
-  become: yes
   vars:
     openshift_release: "${OPENSHIFT_RELEASE}"
     base_domain: "${BASE_DOMAIN}"
@@ -49,7 +48,7 @@
       file:
         path: "{{ base_path }}"
         state: directory
-        mode: '0777'
+        mode: '0755'
 
     - name: Check if binaries exist (excluding ccoctl)
       stat:

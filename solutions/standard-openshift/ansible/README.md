@@ -41,7 +41,6 @@ No modules.
 | <a name="input_src_playbook_template_name"></a> [src\_playbook\_template\_name](#input\_src\_playbook\_template\_name) | Name of the playbook template file located within the 'templates-ansible' directory. | `string` | n/a | yes |
 | <a name="input_src_script_template_name"></a> [src\_script\_template\_name](#input\_src\_script\_template\_name) | Name of the bash script template file located within the 'templates-ansible' directory. | `string` | n/a | yes |
 | <a name="input_ssh_private_key"></a> [ssh\_private\_key](#input\_ssh\_private\_key) | Private SSH key used to login to jump/bastion server, also the ansible host and all the hosts on which tasks will be executed. This key will be written temporarily on ansible host and deleted after execution. | `string` | n/a | yes |
-| <a name="input_target_type"></a> [target\_type](#input\_target\_type) | Type of target hosts: 'vpc' for VPC VSIs (use vpcuser), 'powervs' for PowerVS instances (use root) | `string` | `"vpc"` | no |
 
 ### Outputs
 

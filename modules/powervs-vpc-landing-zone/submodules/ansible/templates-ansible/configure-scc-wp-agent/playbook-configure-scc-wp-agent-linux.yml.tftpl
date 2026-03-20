@@ -7,7 +7,6 @@
 
 - name: Install and connect SCC Workload Protection Agent
   hosts: all
-  become: yes
   vars:
     collector_endpoint: "${COLLECTOR_ENDPOINT}"
     wp_api_endpoint: "${API_ENDPOINT}"
@@ -23,10 +22,6 @@
         url: https://ibm.biz/install-sysdig-agent
         dest: /tmp/install-agent.sh
         mode: "0755"
-        use_proxy: yes
-      environment:
-        http_proxy: "http://${PROXY_SERVER}"
-        https_proxy: "http://${PROXY_SERVER}"
       when: not file_exists_before.stat.exists
       retries: 3
       delay: 20
@@ -46,9 +41,6 @@
           - "{{ '--universal_ebpf' if ansible_kernel is version('5.8','>=') else '--kmod' }}"
           - --additional_conf
           - "sysdig_api_endpoint: {{ wp_api_endpoint }}\nhost_scanner:\n enabled: true\n scan_on_start: true\nkspm_analyzer:\n enabled: true"
-      environment:
-        http_proxy: "http://${PROXY_SERVER}"
-        https_proxy: "http://${PROXY_SERVER}"
       when: not file_exists_before.stat.exists
 
     - name: Ensure SCC Workload Protection agent is enabled and started

@@ -67,8 +67,7 @@ module "configure_scc_wp_agent" {
   playbook_template_vars = {
     COLLECTOR_ENDPOINT : local.scc_wp_instance.ingestion_endpoint,
     API_ENDPOINT : local.scc_wp_instance.api_endpoint,
-    ACCESS_KEY : local.scc_wp_instance.access_key,
-    PROXY_SERVER : "${local.network_services_vsi_ip}:${local.network_services_config.squid.squid_port}"
+    ACCESS_KEY : local.scc_wp_instance.access_key
   }
   src_inventory_template_name = "inventory.tftpl"
   dst_inventory_file_name     = "${var.prefix}-scc-wp-inventory"
