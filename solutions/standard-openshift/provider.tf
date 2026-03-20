@@ -74,6 +74,7 @@ locals {
     "us-south" = "us-south"
     "dal10"    = "dal"
     "dal12"    = "dal"
+    "dal14"    = "dal"
     "us-east"  = "us-east"
     "wdc06"    = "wdc"
     "wdc07"    = "wdc"
