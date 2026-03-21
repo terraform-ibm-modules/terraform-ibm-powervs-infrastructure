@@ -49,7 +49,7 @@ This example sets up the following infrastructure:
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.9 |
 | <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | 1.89.0 |
-| <a name="requirement_restapi"></a> [restapi](#requirement\_restapi) | 2.0.1 |
+| <a name="requirement_restapi"></a> [restapi](#requirement\_restapi) | 3.0.0 |
 
 ### Modules
 
