@@ -1,7 +1,7 @@
 ---
 copyright:
   years: 2024, 2025, 2026
-lastupdated: "2026-03-20"
+lastupdated: "2026-03-23"
 keywords:
 subcollection: deployable-reference-architectures
 authors:
@@ -15,7 +15,7 @@ image_source: https://github.com/terraform-ibm-modules/terraform-ibm-powervs-inf
 use-case: ITServiceManagement
 industry: Technology
 content-type: reference-architecture
-version: v11.1.1
+version: v11.1.2
 compliance:
 
 ---
@@ -27,7 +27,7 @@ compliance:
 {: toc-content-type="reference-architecture"}
 {: toc-industry="Technology"}
 {: toc-use-case="ITServiceManagement"}
-{: toc-version="v11.1.1"}
+{: toc-version="v11.1.2"}
 
 The Quickstart OpenShift deployment on Power Virtual Server with a VPC landing zone uses the Red Hat IPI installer to set up an OpenShift cluster. Before the deployment begins, it provisions VPC services and creates a Power Virtual Server workspace, which together form the landing zone used to access and manage the cluster.
 
