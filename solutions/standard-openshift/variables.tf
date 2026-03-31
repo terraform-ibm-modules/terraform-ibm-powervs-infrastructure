@@ -76,7 +76,7 @@ variable "destroy_cluster" {
 variable "openshift_release" {
   description = "The OpenShift IPI release version to deploy."
   type        = string
-  default     = "4.19.13"
+  default     = "4.21.6"
 }
 
 variable "cluster_network_config" {
