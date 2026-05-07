@@ -5,7 +5,7 @@
 # Create new App Config instance
 module "app_config" {
   source    = "terraform-ibm-modules/app-configuration/ibm"
-  version   = "1.15.16"
+  version   = "1.18.0"
   providers = { ibm = ibm.ibm-is }
   count     = var.enable_scc_wp ? 1 : 0
 
@@ -13,14 +13,14 @@ module "app_config" {
   resource_group_id                      = module.landing_zone.resource_group_data["${var.prefix}-slz-service-rg"]
   app_config_plan                        = "basic"
   app_config_name                        = "${var.prefix}-app-config"
-  app_config_tags                        = var.tags
+  resource_tags                          = var.tags
   enable_config_aggregator               = true
   config_aggregator_trusted_profile_name = "${var.prefix}-app-config-tp"
 }
 
 module "scc_wp_instance" {
   source    = "terraform-ibm-modules/scc-workload-protection/ibm"
-  version   = "1.18.0"
+  version   = "1.19.1"
   providers = { ibm = ibm.ibm-is }
   count     = var.enable_scc_wp ? 1 : 0
 
