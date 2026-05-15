@@ -288,3 +288,13 @@ variable "IC_SCHEMATICS_WORKSPACE_ID" {
   type        = string
   default     = ""
 }
+
+#####################################################
+# Optional Parameters VPC Flow Logs
+#####################################################
+
+variable "enable_vpc_flow_logs" {
+  description = "Enable VPC flow logs. If true, flow logs will be stored in the atracker bucket."
+  type        = bool
+  default     = false
+}

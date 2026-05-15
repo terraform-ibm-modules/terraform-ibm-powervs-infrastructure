@@ -338,6 +338,9 @@
               "key": "enable_monitoring"
             },
             {
+              "key": "enable_vpc_flow_logs"
+            },
+            {
               "key": "client_to_site_vpn",
               "custom_config": {
                 "grouping": "deployment",
@@ -1089,6 +1092,9 @@
               "key": "enable_monitoring"
             },
             {
+              "key": "enable_vpc_flow_logs"
+            },
+            {
               "key": "client_to_site_vpn",
               "custom_config": {
                 "grouping": "deployment",
@@ -1649,6 +1655,9 @@
             },
             {
               "key": "enable_monitoring"
+            },
+            {
+              "key": "enable_vpc_flow_logs"
             },
             {
               "key": "client_to_site_vpn",

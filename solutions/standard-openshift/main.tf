@@ -26,6 +26,7 @@ module "standard" {
   enable_monitoring            = var.enable_monitoring
   enable_scc_wp                = var.enable_scc_wp
   ansible_vault_password       = var.ansible_vault_password
+  enable_vpc_flow_logs         = var.enable_vpc_flow_logs
   ibm_dns_service              = { enable = true, name = "${var.cluster_name}-dns", base_domain = var.cluster_base_domain, label = var.cluster_name }
 }
 

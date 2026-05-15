@@ -724,8 +724,8 @@
         {
             "prefix": "edge",
             "resource_group": "${second_rg_name}",
-            "clean_default_sg_acl": false,
-            "flow_logs_bucket_name": "atracker-bucket",
+            "clean_default_sg_acl": false%{ if enable_vpc_flow_logs },
+            "flow_logs_bucket_name": "atracker-bucket"%{ endif },
             "default_security_group_rules": [
                 {
                     "name": "all-inbound",
@@ -804,7 +804,7 @@
         {
             "name": "jump-box",
             "image_name": "${rhel_image}",
-            "machine_type": "cxf-2x4",
+            "machine_type": "nxf-1x2",
             "vpc_name": "edge",
             "resource_group": "${second_rg_name}",
             "enable_floating_ip": true,
