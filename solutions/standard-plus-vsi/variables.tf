@@ -302,7 +302,7 @@ variable "IC_SCHEMATICS_WORKSPACE_ID" {
 variable "enable_atracker" {
   description = "Enable Activity Tracker. If true, Activity Tracker resources (KMS key, COS instance, bucket, and atracker configuration) will be created."
   type        = bool
-  default     = true
+  default     = false
 }
 
 variable "enable_vpc_flow_logs" {
