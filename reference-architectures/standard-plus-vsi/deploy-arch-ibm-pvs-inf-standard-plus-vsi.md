@@ -9,7 +9,7 @@ authors:
   - name: Suraj Bharadwaj
   - name: Stafania Saju
   - name: Ludwig Mueller
-  - nam
+  - name : Babitha Padiri
 production: true
 deployment-url: https://cloud.ibm.com/catalog/architecture/deploy-arch-ibm-pvs-inf-2dd486c7-b317-4aaa-907b-42671485ad96-global
 docs: https://cloud.ibm.com/docs/powervs-vpc
@@ -30,7 +30,6 @@ compliance:
 {: toc-industry="Technology"}
 {: toc-use-case="ITServiceManagement"}
 {: toc-version="11.1.4"}
-{: toc-version="v11.1.3"}
 
 Quickstart deployment of the Power Virtual Server with VPC landing zone creates VPC services, a Power Virtual Server workspace, and interconnects them. It also deploys a Power Virtual Server of chosen T-shirt size or custom configuration. Supported Os are Aix, IBM i, and Linux images.
 

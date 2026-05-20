@@ -30,7 +30,6 @@ compliance: SAPCertified
 {: toc-use-case="ITServiceManagement"}
 {: toc-compliance="SAPCertified"}
 {: toc-version="11.1.4"}
-{: toc-version="v11.1.3"}
 
 The Standard deployment of the Power Virtual Server with VPC landing zone creates VPC services and a Power Virtual Server workspace and interconnects them.
 
