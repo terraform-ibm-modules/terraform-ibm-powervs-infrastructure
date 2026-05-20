@@ -338,6 +338,9 @@
               "key": "enable_monitoring"
             },
             {
+              "key": "enable_atracker"
+            },
+            {
               "key": "enable_vpc_flow_logs"
             },
             {
@@ -1092,6 +1095,9 @@
               "key": "enable_monitoring"
             },
             {
+              "key": "enable_atracker"
+            },
+            {
               "key": "enable_vpc_flow_logs"
             },
             {
@@ -1655,6 +1661,9 @@
             },
             {
               "key": "enable_monitoring"
+            },
+            {
+              "key": "enable_atracker"
             },
             {
               "key": "enable_vpc_flow_logs"

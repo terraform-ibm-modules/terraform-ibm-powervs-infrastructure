@@ -36,6 +36,7 @@ EOT
       powervs_mgmt_cidr            = var.powervs_management_network != null ? var.powervs_management_network.cidr : null
       powervs_bckp_cidr            = var.powervs_backup_network != null ? var.powervs_backup_network.cidr : null
       vpn_client_cidr              = var.client_to_site_vpn.enable ? var.client_to_site_vpn.client_ip_pool : null
+      enable_atracker              = var.enable_atracker
       enable_vpc_flow_logs         = var.enable_vpc_flow_logs
     }
   )
