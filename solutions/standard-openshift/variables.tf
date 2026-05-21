@@ -288,3 +288,19 @@ variable "IC_SCHEMATICS_WORKSPACE_ID" {
   type        = string
   default     = ""
 }
+
+#####################################################
+# Optional Parameters Activity Tracker and VPC Flow Logs
+#####################################################
+
+variable "enable_atracker" {
+  description = "Enable Activity Tracker. If true, Activity Tracker resources (KMS key, COS instance, bucket, and atracker configuration) will be created."
+  type        = bool
+  default     = false
+}
+
+variable "enable_vpc_flow_logs" {
+  description = "Enable VPC flow logs. If true, flow logs will be stored in the atracker bucket."
+  type        = bool
+  default     = false
+}

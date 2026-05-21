@@ -32,6 +32,7 @@
                     }
                 }
             },
+            %{ if enable_atracker || enable_vpc_flow_logs }
             {
                 "name": "slz-atracker-key",
                 "key_ring": "slz-slz-ring",
@@ -47,6 +48,7 @@
                     }
                 }
             },
+            %{ endif }
             {
                 "name": "slz-vsi-volume-key",
                 "key_ring": "slz-slz-ring",
@@ -68,6 +70,7 @@
     "service_endpoints": "private",
     "vpn_gateways": [],
     "cos": [
+        %{ if enable_atracker || enable_vpc_flow_logs }
         {
             "name": "atracker-cos",
             "plan": "standard",
@@ -91,6 +94,7 @@
                 }
             ]
         },
+        %{ endif }
         {
             "name": "cos",
             "plan": "standard",
@@ -109,12 +113,14 @@
             "keys": []
         }
     ],
+    %{ if enable_atracker }
     "atracker": {
         "collector_bucket_name": "atracker-bucket",
         "receive_global_events": true,
         "resource_group": "slz-service-rg",
         "add_route": true
     },
+    %{ endif }
     "enable_transit_gateway": true,
     "transit_gateway_resource_group": "${tgw_rg_name}",
     "transit_gateway_global": ${transit_gateway_global},
@@ -724,8 +730,8 @@
         {
             "prefix": "edge",
             "resource_group": "${second_rg_name}",
-            "clean_default_sg_acl": false,
-            "flow_logs_bucket_name": "atracker-bucket",
+            "clean_default_sg_acl": false%{ if enable_vpc_flow_logs },
+            "flow_logs_bucket_name": "atracker-bucket"%{ endif },
             "default_security_group_rules": [
                 {
                     "name": "all-inbound",
@@ -804,7 +810,7 @@
         {
             "name": "jump-box",
             "image_name": "${rhel_image}",
-            "machine_type": "cxf-2x4",
+            "machine_type": "nxf-1x2",
             "vpc_name": "edge",
             "resource_group": "${second_rg_name}",
             "enable_floating_ip": true,

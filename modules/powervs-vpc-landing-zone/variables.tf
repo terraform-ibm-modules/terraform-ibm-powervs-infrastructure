@@ -359,3 +359,15 @@ variable "ansible_vault_password" {
     error_message = "ansible_vault_password is required when enable_scc_wp=true"
   }
 }
+
+variable "enable_atracker" {
+  description = "Enable Activity Tracker. If true, Activity Tracker resources (KMS key, COS instance, bucket, and atracker configuration) will be created."
+  type        = bool
+  default     = false
+}
+
+variable "enable_vpc_flow_logs" {
+  description = "Enable VPC flow logs. If true, flow logs will be stored in the atracker bucket."
+  type        = bool
+  default     = true
+}
