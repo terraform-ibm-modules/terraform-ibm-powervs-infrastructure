@@ -113,14 +113,12 @@
             "keys": []
         }
     ],
-    %{ if enable_atracker }
     "atracker": {
-        "collector_bucket_name": "atracker-bucket",
+        "collector_bucket_name": %{ if enable_atracker || enable_vpc_flow_logs }"atracker-bucket"%{ else }null%{ endif },
         "receive_global_events": true,
         "resource_group": "slz-service-rg",
-        "add_route": true
+        "add_route": ${enable_atracker}
     },
-    %{ endif }
     "enable_transit_gateway": true,
     "transit_gateway_resource_group": "${tgw_rg_name}",
     "transit_gateway_global": ${transit_gateway_global},
