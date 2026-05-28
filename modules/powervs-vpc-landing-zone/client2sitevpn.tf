@@ -96,13 +96,15 @@ module "private_secret_engine" {
   count      = var.client_to_site_vpn.enable ? 1 : 0
   depends_on = [ibm_resource_instance.secrets_manager]
 
-  secrets_manager_guid      = local.sm_guid
-  region                    = local.sm_region
-  root_ca_name              = local.root_ca_name
-  root_ca_common_name       = local.root_ca_common_name
-  root_ca_max_ttl           = "8760h"
-  intermediate_ca_name      = local.intermediate_ca_name
-  certificate_template_name = local.certificate_template_name
+  secrets_manager_guid = local.sm_guid
+  region               = local.sm_region
+  root_ca_name         = local.root_ca_name
+  root_ca_common_name  = local.root_ca_common_name
+  root_ca_max_ttl      = "8760h"
+  intermediate_ca_name = local.intermediate_ca_name
+  certificate_templates = [{
+    name = local.certificate_template_name
+  }]
 }
 
 # Create a secret group to place the certificate in
