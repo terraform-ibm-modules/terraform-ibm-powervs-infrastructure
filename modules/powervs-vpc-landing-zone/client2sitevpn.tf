@@ -91,18 +91,20 @@ resource "ibm_resource_instance" "secrets_manager" {
 # Configure private cert engine if provisioning a new SM instance
 module "private_secret_engine" {
   source     = "terraform-ibm-modules/secrets-manager-private-cert-engine/ibm"
-  version    = "1.14.2"
+  version    = "2.0.1"
   providers  = { ibm = ibm.ibm-sm }
   count      = var.client_to_site_vpn.enable ? 1 : 0
   depends_on = [ibm_resource_instance.secrets_manager]
 
-  secrets_manager_guid      = local.sm_guid
-  region                    = local.sm_region
-  root_ca_name              = local.root_ca_name
-  root_ca_common_name       = local.root_ca_common_name
-  root_ca_max_ttl           = "8760h"
-  intermediate_ca_name      = local.intermediate_ca_name
-  certificate_template_name = local.certificate_template_name
+  secrets_manager_guid = local.sm_guid
+  region               = local.sm_region
+  root_ca_name         = local.root_ca_name
+  root_ca_common_name  = local.root_ca_common_name
+  root_ca_max_ttl      = "8760h"
+  intermediate_ca_name = local.intermediate_ca_name
+  certificate_templates = [{
+    name = local.certificate_template_name
+  }]
 }
 
 # Create a secret group to place the certificate in
