@@ -106,7 +106,7 @@ func TestRunBranchStandardExample(t *testing.T) {
 
 func TestRunMainStandardExample(t *testing.T) {
 	t.Parallel()
-	options := setupOptionsStandardSolution(t, "pvs-i-m", "sao01")
+	options := setupOptionsStandardSolution(t, "pvs-i-m", "eu-de-2")
 
 	output, err := options.RunTestUpgrade()
 	if !options.UpgradeTestSkipped {
