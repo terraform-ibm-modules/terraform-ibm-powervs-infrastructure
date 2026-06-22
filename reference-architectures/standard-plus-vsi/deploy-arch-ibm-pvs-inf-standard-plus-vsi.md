@@ -17,7 +17,7 @@ image_source: https://github.com/terraform-ibm-modules/terraform-ibm-powervs-inf
 use-case: ITServiceManagement
 industry: Technology
 content-type: reference-architecture
-version: v11.1.5
+version: v11.1.6
 compliance:
 
 ---

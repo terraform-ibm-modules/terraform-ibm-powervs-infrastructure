@@ -108,7 +108,7 @@
       block:
         - name: Install curl package using dnf
           ansible.builtin.shell: |
-            . /etc/profile && echo 'y' | /opt/freeware/bin/dnf install curl-7.53*
+            . /etc/profile && echo 'y' | /opt/freeware/bin/dnf install --nogpgcheck curl-7.53*
           register: curl_install
           changed_when: "'Complete!' in curl_install.stdout or 'Nothing to do.' in curl_install.stdout"
 
