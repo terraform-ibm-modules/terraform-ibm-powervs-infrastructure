@@ -28,7 +28,7 @@ compliance:
 {: toc-content-type="reference-architecture"}
 {: toc-industry="Technology"}
 {: toc-use-case="ITServiceManagement"}
-{: toc-version="11.1.4"}
+{: toc-version="11.1.6"}
 
 The Quickstart OpenShift deployment on Power Virtual Server with a VPC landing zone uses the Red Hat IPI installer to set up an OpenShift cluster. Before the deployment begins, it provisions VPC services and creates a Power Virtual Server workspace, which together form the landing zone used to access and manage the cluster.
 
