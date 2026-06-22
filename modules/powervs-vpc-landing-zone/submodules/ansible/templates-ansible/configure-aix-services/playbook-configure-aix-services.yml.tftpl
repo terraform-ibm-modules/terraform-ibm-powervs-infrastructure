@@ -175,6 +175,8 @@
             fs_type: jfs2
             auto_mount: yes
             permissions: rw
+            attributes:
+              - "size={{ datalv_size }}"
             state: present
 
         - name: Ensure mount is active
