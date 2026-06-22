@@ -17,6 +17,9 @@ write_files:
   path: /root/.ssh/authorized_keys
   permissions: '0600'
   owner: root:root
+runcmd:
+- sed -i 's/^PermitRootLogin no/PermitRootLogin yes/' /etc/ssh/sshd_config
+- systemctl restart sshd
 EOT
 
 
