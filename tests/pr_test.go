@@ -87,7 +87,7 @@ func setupOptionsStandardSolution(t *testing.T, prefix string, powervs_zone stri
 		"ansible_vault_password":      "SecurePassw0rd!",
 		"tshirt_size": map[string]interface{}{
 			"tshirt_size": "aix_xs",
-			"image":       "7300-03-01",
+			"image":       "7300-03-02",
 		},
 	}
 
