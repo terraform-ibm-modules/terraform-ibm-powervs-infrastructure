@@ -28,6 +28,8 @@ locals {
     "wdc07"    = "us-east"
     "che02"    = "in-che"
     "che03"    = "in-che"
+    "in-mum-1" = "in-mum"
+    "in-mum-2" = "in-mum"
   }
 
   ibm_powervs_availability_zone_map = {
@@ -55,6 +57,8 @@ locals {
     "wdc07"    = "zone-3"
     "che02"    = "zone-2"
     "che03"    = "zone-3"
+    "in-mum-1" = "zone-2"
+    "in-mum-2" = "zone-1"
   }
   availability_zone        = lookup(local.ibm_powervs_availability_zone_map, var.powervs_zone, null) # "zone-n"
   availability_zone_number = substr(local.availability_zone, -1, 1)                                  # "n"

@@ -87,7 +87,7 @@ func setupOptionsStandardSolution(t *testing.T, prefix string, powervs_zone stri
 		"ansible_vault_password":      "SecurePassw0rd!",
 		"tshirt_size": map[string]interface{}{
 			"tshirt_size": "aix_xs",
-			"image":       "7300-03-01",
+			"image":       "7300-03-02",
 		},
 	}
 
@@ -97,7 +97,7 @@ func setupOptionsStandardSolution(t *testing.T, prefix string, powervs_zone stri
 func TestRunBranchStandardExample(t *testing.T) {
 	t.Parallel()
 
-	options := setupOptionsStandardSolution(t, "pvs-i-b", "syd05")
+	options := setupOptionsStandardSolution(t, "pvs-i-b", "mad04")
 
 	output, err := options.RunTestConsistency()
 	assert.Nil(t, err, "This should not have errored")
@@ -106,7 +106,7 @@ func TestRunBranchStandardExample(t *testing.T) {
 
 func TestRunMainStandardExample(t *testing.T) {
 	t.Parallel()
-	options := setupOptionsStandardSolution(t, "pvs-i-m", "sao01")
+	options := setupOptionsStandardSolution(t, "pvs-i-m", "eu-de-2")
 
 	output, err := options.RunTestUpgrade()
 	if !options.UpgradeTestSkipped {

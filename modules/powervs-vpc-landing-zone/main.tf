@@ -17,6 +17,9 @@ write_files:
   path: /root/.ssh/authorized_keys
   permissions: '0600'
   owner: root:root
+runcmd:
+- sed -i 's/^PermitRootLogin no/PermitRootLogin yes/' /etc/ssh/sshd_config
+- systemctl restart sshd
 EOT
 
 
@@ -45,7 +48,7 @@ EOT
 
 module "landing_zone" {
   source    = "terraform-ibm-modules/landing-zone/ibm//patterns//vsi//module"
-  version   = "8.17.4"
+  version   = "8.19.1"
   providers = { ibm = ibm.ibm-is }
 
   ssh_public_key       = var.ssh_public_key
