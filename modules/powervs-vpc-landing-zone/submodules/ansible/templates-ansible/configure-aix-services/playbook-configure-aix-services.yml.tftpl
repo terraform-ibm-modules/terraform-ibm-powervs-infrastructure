@@ -112,6 +112,12 @@
           register: curl_install
           changed_when: "'Complete!' in curl_install.stdout or 'Nothing to do.' in curl_install.stdout"
 
+        - name: Ensure /opt/freeware/bin is in system PATH
+          lineinfile:
+            path: /etc/profile
+            line: 'export PATH=$PATH:/opt/freeware/bin'
+            state: present
+
         - name: Verify curl installation
           ansible.builtin.shell: |
             . /etc/profile && /opt/freeware/bin/dnf list installed curl | grep curl

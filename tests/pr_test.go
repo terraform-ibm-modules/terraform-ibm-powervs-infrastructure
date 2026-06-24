@@ -97,7 +97,7 @@ func setupOptionsStandardSolution(t *testing.T, prefix string, powervs_zone stri
 func TestRunBranchStandardExample(t *testing.T) {
 	t.Parallel()
 
-	options := setupOptionsStandardSolution(t, "pvs-i-b", "mad04")
+	options := setupOptionsStandardSolution(t, "pvs-i-b", "eu-de-2")
 
 	output, err := options.RunTestConsistency()
 	assert.Nil(t, err, "This should not have errored")
@@ -106,7 +106,7 @@ func TestRunBranchStandardExample(t *testing.T) {
 
 func TestRunMainStandardExample(t *testing.T) {
 	t.Parallel()
-	options := setupOptionsStandardSolution(t, "pvs-i-m", "eu-de-2")
+	options := setupOptionsStandardSolution(t, "pvs-i-m", "mad04")
 
 	output, err := options.RunTestUpgrade()
 	if !options.UpgradeTestSkipped {
