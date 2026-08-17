@@ -608,7 +608,7 @@
               }
             ]
           },
-          "terraform_version": "1.10.5"
+          "terraform_version": "1.12.2"
         },
         {
           "label": "Quickstart",
@@ -1381,7 +1381,7 @@
               }
             ]
           },
-          "terraform_version": "1.10.5"
+          "terraform_version": "1.12.2"
         }
       ]
     },
@@ -1972,7 +1972,7 @@
               }
             ]
           },
-          "terraform_version": "1.10.5"
+          "terraform_version": "1.12.2"
         }
       ]
     }
