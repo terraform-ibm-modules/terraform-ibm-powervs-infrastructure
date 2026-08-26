@@ -337,3 +337,9 @@ variable "enable_vpc_flow_logs" {
   type        = bool
   default     = true
 }
+
+variable "enable_webdispatcher" {
+  description = "Specify whether to create 2 additional Intel VSIs running SAP Web Dispatcher, fronted by an Application Load Balancer, for SAP HTTP(S) ingress."
+  type        = bool
+  default     = false
+}

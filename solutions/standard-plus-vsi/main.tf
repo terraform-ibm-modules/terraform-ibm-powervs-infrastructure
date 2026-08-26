@@ -33,6 +33,7 @@ module "standard" {
   ansible_vault_password       = var.ansible_vault_password
   enable_atracker              = var.enable_atracker
   enable_vpc_flow_logs         = var.enable_vpc_flow_logs
+  enable_webdispatcher         = var.enable_webdispatcher
 }
 
 #####################################################
