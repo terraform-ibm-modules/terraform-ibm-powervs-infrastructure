@@ -638,6 +638,13 @@
                     "direction": "inbound",
                     "source": "${vpc_subnet_cidrs.edge}"
                 },
+                %{ if "${enable_webdispatcher}" == true }
+                {
+                    "name": "allow-webdispatcher-inbound",
+                    "direction": "inbound",
+                    "source": "${vpc_subnet_cidrs.webdispatcher}"
+                },
+                %{ endif }
                 %{ if "${powervs_mgmt_cidr}" != null }
                 {
                     "name": "allow-pvs-mgmt-inbound",
@@ -666,6 +673,27 @@
                 }
             ]
         },
+        %{ if "${enable_webdispatcher}" == true }
+        {
+            "name": "${prefix}-webdispatcher-sg",
+            "vpc_name": "edge",
+            "rules": [
+                { "name": "allow-vpn-ssh-inbound", "direction": "inbound", "source": "${vpc_subnet_cidrs.vpn}",
+                  "tcp": { "port_max": 22, "port_min": 22 } },
+                { "name": "allow-mgmt-ssh-inbound", "direction": "inbound", "source": "${vpc_subnet_cidrs.mgmt}",
+                  "tcp": { "port_max": 22, "port_min": 22 } },
+                { "name": "allow-network-services-ssh-inbound", "direction": "inbound", "source": "${vpc_subnet_cidrs.edge}",
+                  "tcp": { "port_max": 22, "port_min": 22 } },
+                %{ if "${vpn_client_cidr}" != null }
+                { "name": "allow-vpn-client-ssh-inbound", "direction": "inbound", "source": "${vpn_client_cidr}",
+                  "tcp": { "port_max": 22, "port_min": 22 } },
+                %{ endif }
+                { "name": "allow-webdispatcher-lb-inbound", "direction": "inbound", "source": "${vpc_subnet_cidrs.webdispatcher}",
+                  "tcp": { "port_max": ${webdispatcher_listener_port}, "port_min": ${webdispatcher_listener_port} } },
+                { "direction": "outbound", "name": "allow-all-outbound", "source": "0.0.0.0/0" }
+            ]
+        },
+        %{ endif }
         {
             "name": "vpe-sg",
             "vpc_name": "edge",
@@ -745,6 +773,7 @@
                     "${vpc_subnet_cidrs.mgmt}",
                     "${vpc_subnet_cidrs.vpe}",
                     "${vpc_subnet_cidrs.edge}"
+                    %{ if "${enable_webdispatcher}" == true },"${vpc_subnet_cidrs.webdispatcher}"%{ endif }
                 ]
             },
             "network_acls": [
@@ -794,6 +823,14 @@
                         "public_gateway": true,
                         "acl_name": "acl"
                     }
+                    %{ if "${enable_webdispatcher}" == true }
+                    ,{
+                        "name": "vsi-webdispatcher-${availability_zone}",
+                        "cidr": "${vpc_subnet_cidrs.webdispatcher}",
+                        "public_gateway": true,
+                        "acl_name": "acl"
+                    }
+                    %{ endif }
                 ]
                 %{ for zone in ["zone-1", "zone-2", "zone-3"] ~}
                     %{~ if availability_zone != zone },"${zone}": null%{ endif }
@@ -861,6 +898,48 @@
             %{ if "${user_data}" != "" && "${user_data}" != null }
             ,
             "user_data" : "${user_data}"
+            %{ endif }
+        }
+        %{ endif }
+        %{ if "${enable_webdispatcher}" == true }
+        ,
+        {
+            "name": "webdispatcher",
+            "image_name": "${rhel_image}",
+            "machine_type": "${webdispatcher_vsi_profile}",
+            "vpc_name": "edge",
+            "resource_group": "${second_rg_name}",
+            "enable_floating_ip": false,
+            "boot_volume_encryption_key_name": "slz-vsi-volume-key",
+            "ssh_keys": ["ssh-key"],
+            "vsi_per_subnet": 2,
+            "subnet_names": ["vsi-webdispatcher-${availability_zone}"],
+            "block_storage_volumes": [
+                {
+                    "name": "swap",
+                    "profile": "general-purpose",
+                    "capacity": 25
+                }
+            ],
+            "security_groups": ["${prefix}-webdispatcher-sg"],
+            "load_balancers": [
+                {
+                    "name": "alb",
+                    "type": "${webdispatcher_lb_type}",
+                    "listener_port": ${webdispatcher_listener_port},
+                    "listener_protocol": "tcp",
+                    "connection_limit": 15000,
+                    "algorithm": "round_robin",
+                    "protocol": "tcp",
+                    "health_delay": 15,
+                    "health_retries": 3,
+                    "health_timeout": 5,
+                    "health_type": "tcp",
+                    "pool_member_port": "${webdispatcher_listener_port}"
+                }
+            ]
+            %{ if "${webdispatcher_user_data}" != "" && "${webdispatcher_user_data}" != null }
+            , "user_data" : "${webdispatcher_user_data}"
             %{ endif }
         }
         %{ endif }

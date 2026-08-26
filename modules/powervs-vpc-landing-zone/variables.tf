@@ -50,12 +50,13 @@ variable "ssh_private_key" {
 #####################################################
 
 variable "vpc_subnet_cidrs" {
-  description = "CIDR values for the VPC subnets to be created. It's customer responsibility that none of the defined networks collide, including the PowerVS subnets and VPN client pool."
+  description = "CIDR values for the VPC subnets to be created. It's customer responsibility that none of the defined networks collide, including the PowerVS subnets and VPN client pool. The 'webdispatcher' key is optional and defaults to '10.30.50.0/24'; it is only used when 'enable_webdispatcher' is true."
   type = object({
-    vpn  = string
-    mgmt = string
-    vpe  = string
-    edge = string
+    vpn           = string
+    mgmt          = string
+    vpe           = string
+    edge          = string
+    webdispatcher = optional(string, "10.30.50.0/24")
   })
   default = {
     "vpn"  = "10.30.10.0/24"
@@ -370,4 +371,37 @@ variable "enable_vpc_flow_logs" {
   description = "Enable VPC flow logs. If true, flow logs will be stored in the atracker bucket."
   type        = bool
   default     = true
+}
+
+#####################################################
+# Optional Parameters Web Dispatcher
+#####################################################
+
+variable "enable_webdispatcher" {
+  description = "Specify whether to create 2 additional Intel VSIs running SAP Web Dispatcher, fronted by an Application Load Balancer, for SAP HTTP(S) ingress."
+  type        = bool
+  default     = false
+}
+
+variable "webdispatcher_vsi_profile" {
+  description = "Compute profile of the Web Dispatcher VSIs."
+  type        = string
+  default     = "cxf-2x4"
+}
+
+variable "webdispatcher_lb_type" {
+  description = "Whether the Web Dispatcher ALB is 'public' or 'private'."
+  type        = string
+  default     = "public"
+
+  validation {
+    condition     = contains(["public", "private"], var.webdispatcher_lb_type)
+    error_message = "webdispatcher_lb_type must be 'public' or 'private'."
+  }
+}
+
+variable "webdispatcher_listener_port" {
+  description = "ALB listener port for Web Dispatcher traffic (also the backend pool member + health-check port)."
+  type        = number
+  default     = 44321
 }

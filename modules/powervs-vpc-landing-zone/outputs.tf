@@ -173,3 +173,12 @@ output "nlb_nfs_network_services_ready" {
   description = "Output value that always returns true but depends on nfs, nlb, and network services playbook. Used to create implicit dependency for PowerVS initialization so PowerVS instance creation can start in parallel with nfs, nlb, and network services."
   value       = length([module.configure_network_services.playbook_output, ibm_is_vpc_routing_table_route.nfs_route, ibm_is_lb_listener.nfs_front_end_listener]) >= 0
 }
+
+########################################################################
+# Web Dispatcher output
+########################################################################
+
+output "webdispatcher_vsi_ips" {
+  description = "Private IPv4 addresses of the 2 Web Dispatcher VSIs. Empty list if enable_webdispatcher is disabled."
+  value       = local.webdispatcher_vsi_ips
+}

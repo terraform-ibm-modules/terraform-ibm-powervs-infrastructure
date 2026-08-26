@@ -22,6 +22,22 @@ runcmd:
 - systemctl restart sshd
 EOT
 
+  webdispatcher_generated_user_data = <<-EOT
+#cloud-config
+# vim: syntax=yaml
+write_files:
+- content: |
+    ${var.ssh_public_key}
+  path: /root/.ssh/authorized_keys
+  permissions: '0600'
+  owner: root:root
+runcmd:
+- sed -i 's/^PermitRootLogin no/PermitRootLogin yes/' /etc/ssh/sshd_config
+- systemctl restart sshd
+- WDISP_IP_OCTET=$(hostname -I | awk '{print $1}' | awk -F. '{print $4}')
+- hostnamectl set-hostname webdisp$WDISP_IP_OCTET
+EOT
+
 
   override_json_string = templatefile("${path.module}/presets/slz-preset.json.tftpl",
     {
@@ -29,6 +45,7 @@ EOT
       rhel_image                   = var.vpc_intel_images.rhel_image,
       network_services_vsi_profile = var.network_services_vsi_profile,
       user_data                    = var.user_data != null ? replace(var.user_data, "\n", "\\n") : replace(local.generated_user_data, "\n", "\\n")
+      webdispatcher_user_data      = var.user_data != null ? replace(var.user_data, "\n", "\\n") : replace(local.webdispatcher_generated_user_data, "\n", "\\n")
       transit_gateway_global       = var.transit_gateway_global,
       enable_monitoring_host       = var.enable_monitoring_host,
       sles_image                   = var.vpc_intel_images.sles_image,
@@ -41,6 +58,11 @@ EOT
       vpn_client_cidr              = var.client_to_site_vpn.enable ? var.client_to_site_vpn.client_ip_pool : null
       enable_atracker              = var.enable_atracker
       enable_vpc_flow_logs         = var.enable_vpc_flow_logs
+      enable_webdispatcher         = var.enable_webdispatcher
+      webdispatcher_vsi_profile    = var.webdispatcher_vsi_profile
+      webdispatcher_lb_type        = var.webdispatcher_lb_type
+      webdispatcher_listener_port  = var.webdispatcher_listener_port
+      prefix                       = var.prefix
     }
   )
 }
