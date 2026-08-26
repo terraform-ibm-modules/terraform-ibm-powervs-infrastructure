@@ -356,6 +356,9 @@
               "key": "enable_vpc_flow_logs"
             },
             {
+              "key": "enable_webdispatcher"
+            },
+            {
               "key": "client_to_site_vpn",
               "custom_config": {
                 "grouping": "deployment",
@@ -1127,6 +1130,9 @@
             },
             {
               "key": "enable_vpc_flow_logs"
+            },
+            {
+              "key": "enable_webdispatcher"
             },
             {
               "key": "client_to_site_vpn",

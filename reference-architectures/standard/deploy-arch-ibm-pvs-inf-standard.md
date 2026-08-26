@@ -1,7 +1,7 @@
 ---
 copyright:
   years: 2024, 2025, 2026
-lastupdated: "2026-08-07"
+lastupdated: "2026-08-26"
 keywords:
 subcollection: deployable-reference-architectures
 authors:
@@ -33,7 +33,7 @@ compliance: SAPCertified
 
 The Standard deployment of the Power Virtual Server with VPC landing zone creates VPC services and a Power Virtual Server workspace and interconnects them.
 
-A proxy service for public internet access from the PowerVS workspace is configured. You can optionally configure some management components on VPC (such as an NFS service, NTP forwarder, and DNS forwarder), as well as Monitoring and Security and Compliance Center Workload Protection.
+A proxy service for public internet access from the PowerVS workspace is configured. You can optionally configure some management components on VPC (such as an NFS service, NTP forwarder, and DNS forwarder), as well as Monitoring, Security and Compliance Center Workload Protection, and SAP Web Dispatcher VSIs fronted by an Application Load Balancer for SAP HTTP(S) ingress.
 
 ## Architecture diagram
 {: #standard-architecture-diagram}
