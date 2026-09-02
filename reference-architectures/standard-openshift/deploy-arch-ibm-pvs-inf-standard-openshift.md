@@ -16,7 +16,7 @@ image_source: https://github.com/terraform-ibm-modules/terraform-ibm-powervs-inf
 use-case: ITServiceManagement
 industry: Technology
 content-type: reference-architecture
-version: v11.3.0
+version: v11.4.0
 compliance:
 
 ---
@@ -28,7 +28,7 @@ compliance:
 {: toc-content-type="reference-architecture"}
 {: toc-industry="Technology"}
 {: toc-use-case="ITServiceManagement"}
-{: toc-version="11.3.0"}
+{: toc-version="11.4.0"}
 
 The Quickstart OpenShift deployment on Power Virtual Server with a VPC landing zone uses the Red Hat IPI installer to set up an OpenShift cluster. Before the deployment begins, it provisions VPC services and creates a Power Virtual Server workspace, which together form the landing zone used to access and manage the cluster.
 
@@ -55,18 +55,18 @@ IBM Cloud® Power Virtual Servers (PowerVS) is a public cloud offering that an e
 ### VPC architecture decisions
 {: #standard-openshift-vpc-components-arch}
 
-| Requirement | Component | Choice | Alternative choice |
+|Requirement|Component|Choice|Alternative choice|
 |-------------|-----------|--------------------|--------------------|
-|* Ensure public internet connectivity  \n * Isolate most virtual instances to not be reachable directly from the public internet|Edge VPC service with network services security group.|Create a separate security group service where public internet connectivity is allowed to be configured| |
-|* Provide infrastructure administration access  \n * Limit the number of infrastructure administration entry points to ensure security audit|Edge VPC service with management security group.|Create a separate security group where SSH connectivity from outside is allowed| |
-|* Provide infrastructure for service management components like backup, monitoring, IT service management, shared storage  \n * Ensure you can reach all IBM Cloud and on-premises services|Client to site VPN and security groups |Create a client to site VPN and VPE full strict security groups rules without direct public internet connectivity and without direct SSH access| |
-|* Allow customer to choose operating system from two most widely used commercial Linux operating system offerings  \n * Support new OS releases|Linux operating system|Red Hat Enterprise Linux (RHEL)| |
-|* Create a virtual server instance as the only management access point to the landscape|Bastion host VPC instance|Create a Linux VPC instance that acts as a bastion host. Configure ACL and security group rules to allow SSH connectivity (port 22). Add a public IP address to the VPC instance. Allow connectivity from a restricted and limited number of public IP addresses. Allow connectivity from IP addresses of the Schematics engine nodes| |
-|* Create a virtual server instance that can act as an internet proxy server |Network services VPC instance|Create a Linux VPC instance that can host management components. Preconfigure ACL and security group rules to allow traffic over private networks only.|Configure application load balancer to act as proxy server manually, Modify number of virtual server instances and allowed ports in preset or perform the modifications manually|
-|* Create DNS Service instance as pre-requisite for IPI installer | DNS Service Instance | Create a DNS Service instance and a custom resolver to internally resolve the cluster domain. | |
-|* Ensure financial services compliancy for VPC services  \n * Perform network setup of all created services  \n * Perform network isolation of all created services  \n * Ensure all created services are interconnected |Secure landing zone components|Create a minimum set of required components for a secure landing zone|Create a modified set of required components for a secure landing zone in preset|
-|* Allow customer to optionally enable monitoring in the deployment|IBM Cloud® monitoring instance|Optionally, create or import an existing IBM Cloud® monitoring instance (customer provided details).| |
-|* Allow customer to optionally enable [Security and Compliance Center Workload Protection](/docs/workload-protection) in the deployment \n * Collect posture management information, enable vulnerability scanning and threat detection|IBM Cloud® Security and Compliance Center Workload Protection and SCC Workload Protection agent on all VPC instances in the deployment.|Optionally, create an IBM Cloud® Security and Compliance Center Workload Protection instance and install and setup the SCC Workload Protection agent on all VPC instances in the deployment (bastion, network services).| |
+|* Ensure public internet connectivity  \n * Isolate most virtual instances to not be reachable directly from the public internet|Edge VPC service with network services security group.|Create a separate security group service where public internet connectivity is allowed to be configured||
+|* Provide infrastructure administration access  \n * Limit the number of infrastructure administration entry points to ensure security audit|Edge VPC service with management security group.|Create a separate security group where SSH connectivity from outside is allowed||
+|* Provide infrastructure for service management components like backup, monitoring, IT service management, shared storage  \n * Ensure you can reach all IBM Cloud and on-premises services|Client to site VPN and security groups|Create a client to site VPN and VPE full strict security groups rules without direct public internet connectivity and without direct SSH access||
+|* Allow customer to choose operating system from two most widely used commercial Linux operating system offerings  \n * Support new OS releases|Linux operating system|Red Hat Enterprise Linux (RHEL)||
+|* Create a virtual server instance as the only management access point to the landscape|Bastion host VPC instance|Create a Linux VPC instance that acts as a bastion host. Configure ACL and security group rules to allow SSH connectivity (port 22). Add a public IP address to the VPC instance. Allow connectivity from a restricted and limited number of public IP addresses. Allow connectivity from IP addresses of the Schematics engine nodes||
+|* Create a virtual server instance that can act as an internet proxy server|Network services VPC instance|Create a Linux VPC instance that can host management components. Preconfigure ACL and security group rules to allow traffic over private networks only.|Configure application load balancer to act as proxy server manually, Modify number of virtual server instances and allowed ports in preset or perform the modifications manually|
+|* Create DNS Service instance as pre-requisite for IPI installer|DNS Service Instance|Create a DNS Service instance and a custom resolver to internally resolve the cluster domain.||
+|* Ensure financial services compliancy for VPC services  \n * Perform network setup of all created services  \n * Perform network isolation of all created services  \n * Ensure all created services are interconnected|Secure landing zone components|Create a minimum set of required components for a secure landing zone|Create a modified set of required components for a secure landing zone in preset|
+|* Allow customer to optionally enable monitoring in the deployment|IBM Cloud® monitoring instance|Optionally, create or import an existing IBM Cloud® monitoring instance (customer provided details).||
+|* Allow customer to optionally enable [Security and Compliance Center Workload Protection](/docs/workload-protection) in the deployment \n * Collect posture management information, enable vulnerability scanning and threat detection|IBM Cloud® Security and Compliance Center Workload Protection and SCC Workload Protection agent on all VPC instances in the deployment.|Optionally, create an IBM Cloud® Security and Compliance Center Workload Protection instance and install and setup the SCC Workload Protection agent on all VPC instances in the deployment (bastion, network services).||
 {: caption="Table 1. VPC architecture decisions" caption-side="bottom"}
 
 ### PowerVS workspace architecture decisions
@@ -81,12 +81,12 @@ IBM Cloud® Power Virtual Servers (PowerVS) is a public cloud offering that an e
 ### Network security architecture decisions
 {: #standard-openshift-net-sec}
 
-| Requirement | Component | Choice | Alternative choice |
+|Requirement|Component|Choice|Alternative choice|
 |-------------|-----------|--------------------|--------------------|
-|* Preload VPN configuration to simplify VPN setup|VPNs|VPN configuration is the responsibility of the customer. Automation creates a client to site VPN server| |
-|* Enable floating IP on bastion host to execute deployment|Floating IPs on bastion host in management VPC|Use floating IP on bastion host from IBM Schematics to complete deployment| |
+|* Preload VPN configuration to simplify VPN setup|VPNs|VPN configuration is the responsibility of the customer. Automation creates a client to site VPN server||
+|* Enable floating IP on bastion host to execute deployment|Floating IPs on bastion host in management VPC|Use floating IP on bastion host from IBM Schematics to complete deployment||
 |* Isolate management VSI and allow only a limited number of network connections  \n * All other connections from or to management VPC are forbidden|Security group rules for management VSI|Open following ports by default: 22 (for limited number of IPs).  \n All ports to PowerVS workspace are open.  \n All ports to other VPCs are open.|More ports might be opened in preset or added manually after deployment|
-|* Isolate network services VSI and VPEs |Security group rules in edge VPC|Separate security groups are created for each component and only certain IPs or Ports are allowed. |More ports might be opened in preset or added manually after deployment|
+|* Isolate network services VSI and VPEs|Security group rules in edge VPC|Separate security groups are created for each component and only certain IPs or Ports are allowed.|More ports might be opened in preset or added manually after deployment|
 {: caption="Table 3. Network security architecture decisions" caption-side="bottom"}
 
 ### Key and password management architecture decisions
@@ -104,10 +104,10 @@ IBM Cloud® Power Virtual Servers (PowerVS) is a public cloud offering that an e
 Once the landing zone components are deployed, this architecture leverages the [RedHat IPI installer](https://docs.redhat.com/en/documentation/openshift_container_platform/4.19/html-single/installing_on_ibm_power_virtual_server/index){: external} to create an OpenShift cluster.
 
 | Requirement | Component | Choice | Alternative choice |
-|-------------|-----------|--------|--------------------|
-|* Deploy PowerVS instances for Bootstrap (temporary), Master, and Worker nodes. | PowerVS instances | The customer can specify the number of master and worker nodes and customize their compute profiles. |
-|* Modify the DNS Service instance to correctly resolve the cluster API | DNS Service instance | Add CNAME entries to DNS zone to resolve internal and external cluster APIs. Only support .test, .example, .invalid domains to prevent public resolution. |
-|* Application Load Balancers to establish connectivity to the cluster API. | Three Application Load Balancers | One for internal API, one for external api, and one for the applications deployed in the cluster. |
-|* Use DHCP to dynamically assign IP addresses to the nodes | DHCP Subnet in PowerVS | Machine network dynamically assigns IP addresses to the nodes. |
-|* Modify security groups to allow network traffic to API. | Default Security Group | The default security group is attached to the load balancers and configured so the required network traffic is able to pass. |
+| ------------- | ----------- | -------- | -------------------- |
+| * Deploy PowerVS instances for Bootstrap (temporary), Master, and Worker nodes. | PowerVS instances | The customer can specify the number of master and worker nodes and customize their compute profiles. |
+| * Modify the DNS Service instance to correctly resolve the cluster API | DNS Service instance | Add CNAME entries to DNS zone to resolve internal and external cluster APIs. Only support .test, .example, .invalid domains to prevent public resolution. |
+| * Application Load Balancers to establish connectivity to the cluster API. | Three Application Load Balancers | One for internal API, one for external api, and one for the applications deployed in the cluster. |
+| * Use DHCP to dynamically assign IP addresses to the nodes | DHCP Subnet in PowerVS | Machine network dynamically assigns IP addresses to the nodes. |
+| * Modify security groups to allow network traffic to API. | Default Security Group | The default security group is attached to the load balancers and configured so the required network traffic is able to pass. |
 {: caption="Table 6. OpenShift architecture decisions" caption-side="bottom"}
