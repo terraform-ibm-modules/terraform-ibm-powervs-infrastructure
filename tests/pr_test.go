@@ -58,12 +58,14 @@ func TestMain(m *testing.M) {
 func setupOptionsStandardSolution(t *testing.T, prefix string, powervs_zone string) *testhelper.TestOptions {
 
 	options := testhelper.TestOptionsDefault(&testhelper.TestOptions{
-		Testing:         t,
-		TerraformDir:    defaultExampleTerraformDir,
-		Prefix:          prefix,
-		ResourceGroup:   resourceGroup,
-		Region:          powervs_zone,
-		ImplicitDestroy: []string{},
+		Testing:       t,
+		TerraformDir:  defaultExampleTerraformDir,
+		Prefix:        prefix,
+		ResourceGroup: resourceGroup,
+		Region:        powervs_zone,
+		ImplicitDestroy: []string{
+			"module.standard.module.landing_zone.module.landing_zone.ibm_resource_group.resource_groups",
+		},
 		// workaround for https://github.com/terraform-ibm-modules/terraform-ibm-scc-workload-protection/issues/243
 		IgnoreAdds: testhelper.Exemptions{
 			List: []string{"module.standard.module.scc_wp_instance[0].restapi_object.cspm"},
@@ -97,7 +99,7 @@ func setupOptionsStandardSolution(t *testing.T, prefix string, powervs_zone stri
 func TestRunBranchStandardExample(t *testing.T) {
 	t.Parallel()
 
-	options := setupOptionsStandardSolution(t, "pvs-i-b", "eu-de-2")
+	options := setupOptionsStandardSolution(t, "pvs-i-b", "syd04")
 
 	output, err := options.RunTestConsistency()
 	assert.Nil(t, err, "This should not have errored")
@@ -106,7 +108,7 @@ func TestRunBranchStandardExample(t *testing.T) {
 
 func TestRunMainStandardExample(t *testing.T) {
 	t.Parallel()
-	options := setupOptionsStandardSolution(t, "pvs-i-m", "mad04")
+	options := setupOptionsStandardSolution(t, "pvs-i-m", "sao01")
 
 	output, err := options.RunTestUpgrade()
 	if !options.UpgradeTestSkipped {
