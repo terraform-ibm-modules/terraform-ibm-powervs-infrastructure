@@ -70,7 +70,7 @@ EOT
 
 module "landing_zone" {
   source    = "terraform-ibm-modules/landing-zone/ibm//patterns//vsi//module"
-  version   = "8.21.10"
+  version   = "8.21.12"
   providers = { ibm = ibm.ibm-is }
 
   ssh_public_key       = var.ssh_public_key
