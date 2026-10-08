@@ -1,0 +1,41 @@
+---
+- name: Install and Configure MariaDB
+  hosts: all
+  environment:
+    http_proxy: "http://${PROXY_IP_PORT}"
+    https_proxy: "http://${PROXY_IP_PORT}"
+    HTTP_PROXY: "http://${PROXY_IP_PORT}"
+    HTTPS_PROXY: "http://${PROXY_IP_PORT}"
+
+  vars:
+    mariadb_use_official_repo: true
+    mariadb_use_official_repo_version: "${MARIADB_VERSION}"
+    mariadb_bind_address: "*"
+    mariadb_innodb_raw: |
+      innodb_buffer_pool_size = ${INNODB_BUFFER_POOL_SIZE}
+      innodb_buffer_pool_size_auto_min = ${INNODB_BUFFER_POOL_SIZE_MIN}
+
+  tasks:
+    - name: Include fauust.mariadb Ansible Role
+      include_role:
+        name: fauust.mariadb
+
+    - name: Ensure /var/lib/mysql directory exists
+      file:
+        path: /var/lib/mysql
+        state: directory
+        owner: mysql
+        group: mysql
+        mode: '0755'
+
+    - name: Apply SELinux context to /var/lib/mysql
+      command: restorecon -Rv /var/lib/mysql
+      register: selinux_out
+      changed_when: selinux_out.stdout != ""
+      failed_when: false
+
+    - name: Ensure MariaDB service is running
+      systemd:
+        name: mariadb
+        state: started
+        enabled: yes
