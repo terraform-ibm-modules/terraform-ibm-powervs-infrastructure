@@ -1,0 +1,13 @@
+{
+  "ibmcloud_api_key": $VALIDATION_APIKEY,
+  "powervs_zone": "dal12",
+  "prefix": "mariadb-val",
+  "tshirt_size": {
+      "tshirt_size": "mariadb_s",
+      "image": "RHEL10-SP2"
+   },
+  "powervs_resource_group_name": "Default",
+  "ssh_public_key": $SSH_PUB_KEY,
+  "ssh_private_key": $SSH_PRV_KEY,
+  "ansible_vault_password": "SecurePassw0rd!"
+}
