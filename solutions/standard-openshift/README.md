@@ -48,15 +48,15 @@ Due to technical limitations, the cost estimate Projects gives does not include 
 ### Requirements
 
 | Name | Version |
-|------|---------|
+| ---- | ------- |
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.9 |
-| <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | 2.6.2 |
+| <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | 2.7.0 |
 | <a name="requirement_restapi"></a> [restapi](#requirement\_restapi) | 2.0.1 |
 
 ### Modules
 
 | Name | Source | Version |
-|------|--------|---------|
+| ---- | ------ | ------- |
 | <a name="module_ocp_cluster_deployment"></a> [ocp\_cluster\_deployment](#module\_ocp\_cluster\_deployment) | ./ansible | n/a |
 | <a name="module_ocp_cluster_install_configuration"></a> [ocp\_cluster\_install\_configuration](#module\_ocp\_cluster\_install\_configuration) | ./ansible | n/a |
 | <a name="module_ocp_cluster_manifest_creation"></a> [ocp\_cluster\_manifest\_creation](#module\_ocp\_cluster\_manifest\_creation) | ./ansible | n/a |
@@ -66,13 +66,13 @@ Due to technical limitations, the cost estimate Projects gives does not include 
 ### Resources
 
 | Name | Type |
-|------|------|
-| [ibm_iam_auth_token.auth_token](https://registry.terraform.io/providers/IBM-Cloud/ibm/2.6.2/docs/data-sources/iam_auth_token) | data source |
+| ---- | ---- |
+| [ibm_iam_auth_token.auth_token](https://registry.terraform.io/providers/IBM-Cloud/ibm/2.7.0/docs/data-sources/iam_auth_token) | data source |
 
 ### Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
+| ---- | ----------- | ---- | ------- | :------: |
 | <a name="input_IC_SCHEMATICS_WORKSPACE_ID"></a> [IC\_SCHEMATICS\_WORKSPACE\_ID](#input\_IC\_SCHEMATICS\_WORKSPACE\_ID) | leave blank if running locally. This variable will be automatically populated if running from an IBM Cloud Schematics workspace | `string` | `""` | no |
 | <a name="input_ansible_vault_password"></a> [ansible\_vault\_password](#input\_ansible\_vault\_password) | Vault password to encrypt ansible playbooks that contain sensitive information. Password requirements: 15-100 characters and at least one uppercase letter, one lowercase letter, one number, and one special character. Allowed characters: A-Z, a-z, 0-9, !#$%&()*+-.:;<=>?@[]\_{\|}~. | `string` | n/a | yes |
 | <a name="input_client_to_site_vpn"></a> [client\_to\_site\_vpn](#input\_client\_to\_site\_vpn) | VPN configuration - the client ip pool and list of users email ids to access the environment. If enabled, then a Secret Manager instance is also provisioned with certificates generated. See optional parameters to reuse an existing Secrets manager instance. | <pre>object({<br/>    enable                        = bool<br/>    client_ip_pool                = string<br/>    vpn_client_access_group_users = list(string)<br/>  })</pre> | <pre>{<br/>  "client_ip_pool": "192.168.0.0/16",<br/>  "enable": true,<br/>  "vpn_client_access_group_users": []<br/>}</pre> | no |
@@ -106,7 +106,7 @@ Due to technical limitations, the cost estimate Projects gives does not include 
 ### Outputs
 
 | Name | Description |
-|------|-------------|
+| ---- | ----------- |
 | <a name="output_access_host_or_ip"></a> [access\_host\_or\_ip](#output\_access\_host\_or\_ip) | Access host(jump/bastion) for created PowerVS infrastructure. |
 | <a name="output_ansible_host_or_ip"></a> [ansible\_host\_or\_ip](#output\_ansible\_host\_or\_ip) | Central Ansible node private IP address. |
 | <a name="output_cluster_base_domain"></a> [cluster\_base\_domain](#output\_cluster\_base\_domain) | The base domain the cluster is using. |
