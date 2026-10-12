@@ -9,7 +9,7 @@ variable "prefix" {
 }
 
 variable "tshirt_size" {
-  description = "MariaDB PowerVS instance profile preset."
+  description = "MariaDB PowerVS instance profile preset. The 'image' field must be a RHEL image (e.g., RHEL9-SP4, RHEL9-SP6). Only RHEL is supported."
   type = object({
     tshirt_size = string
     image       = string
@@ -20,8 +20,8 @@ variable "tshirt_size" {
   }
 
   validation {
-    condition     = contains(["custom", "mariadb_dev", "mariadb_s", "mariadb_m", "mariadb_l"], var.tshirt_size.tshirt_size)
-    error_message = "Supported tshirt_size values: custom, mariadb_dev, mariadb_s, mariadb_m, mariadb_l."
+    condition     = contains(["custom", "mariadb_xs", "mariadb_s", "mariadb_m", "mariadb_l"], var.tshirt_size.tshirt_size)
+    error_message = "Supported tshirt_size values: custom, mariadb_xs, mariadb_s, mariadb_m, mariadb_l."
   }
 
   validation {
@@ -180,14 +180,12 @@ variable "tags" {
 #####################################################
 
 variable "vpc_intel_images" {
-  description = "Stock OS image names for creating VPC landing zone VSI instances: RHEL (management and network services) and SLES (monitoring)."
+  description = "Stock OS image names for creating VPC landing zone VSI instances. Only RHEL is used (management and network services)."
   type = object({
     rhel_image = string
-    sles_image = string
   })
   default = {
     "rhel_image" : "ibm-redhat-9-6-amd64-sap-applications-9"
-    "sles_image" : "ibm-sles-15-7-amd64-sap-applications-7"
   }
 }
 
@@ -217,9 +215,9 @@ variable "configure_ntp_forwarder" {
 }
 
 variable "configure_nfs_server" {
-  description = "Specify if NFS server will be configured. This will allow you easily to share files between PowerVS instances (e.g., SAP installation files). [File storage share and mount target](https://cloud.ibm.com/docs/vpc?topic=vpc-file-storage-create&interface=ui) in VPC will be created.. If yes, ensure 'nfs_server_config' optional variable is set properly below. Default value is '200GB' which will be mounted on specified directory in network-service vsi."
+  description = "Specify if NFS server will be configured. A [file storage share and mount target](https://cloud.ibm.com/docs/vpc?topic=vpc-file-storage-create&interface=ui) will be created in VPC and mounted on the network services VSI. Not required for MariaDB. If enabled, ensure 'nfs_server_config' is set properly."
   type        = bool
-  default     = true
+  default     = false
 }
 
 variable "dns_forwarder_config" {
@@ -260,7 +258,7 @@ variable "enable_scc_wp" {
 }
 
 variable "enable_monitoring" {
-  description = "Specify whether Monitoring will be enabled. This creates a new IBM Cloud Monitoring Instance."
+  description = "Specify whether an IBM Cloud Monitoring (Sysdig) service instance will be created. No additional VSI is provisioned — metrics can be shipped from the MariaDB PowerVS host directly via a Prometheus exporter or Sysdig agent installed on the host."
   type        = bool
   default     = true
 }

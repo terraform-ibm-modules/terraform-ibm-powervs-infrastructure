@@ -3,15 +3,14 @@
 #####################################################
 
 locals {
-  p10_unsupported_regions = ["che01", "us-east"]
-  server_type             = contains(local.p10_unsupported_regions, var.powervs_zone) ? "s922" : "s1022"
+  server_type = "s1022"
 
   ibm_powervs_mariadb_tshirt_sizes = {
-    "mariadb_dev" = { "server_type" = local.server_type, "proc_type" = "shared", "cores" = "0.25", "memory" = "4", "storage" = "50", "tier" = "tier3", "image" = var.tshirt_size.image }
-    "mariadb_s"   = { "server_type" = local.server_type, "proc_type" = "shared", "cores" = "1", "memory" = "8", "storage" = "100", "tier" = "tier3", "image" = var.tshirt_size.image }
-    "mariadb_m"   = { "server_type" = local.server_type, "proc_type" = "shared", "cores" = "2", "memory" = "16", "storage" = "250", "tier" = "tier3", "image" = var.tshirt_size.image }
-    "mariadb_l"   = { "server_type" = local.server_type, "proc_type" = "shared", "cores" = "4", "memory" = "32", "storage" = "500", "tier" = "tier3", "image" = var.tshirt_size.image }
-    "custom"      = { "server_type" = var.custom_profile.server_type, "proc_type" = var.custom_profile.proc_type, "cores" = var.custom_profile.cores, "memory" = var.custom_profile.memory, "storage" = var.custom_profile.storage.size, "tier" = var.custom_profile.storage.tier, "image" = var.tshirt_size.image }
+    "mariadb_xs" = { "server_type" = local.server_type, "proc_type" = "shared", "cores" = "0.25", "memory" = "4", "storage" = "50", "tier" = "tier3", "image" = var.tshirt_size.image }
+    "mariadb_s"  = { "server_type" = local.server_type, "proc_type" = "shared", "cores" = "1", "memory" = "8", "storage" = "100", "tier" = "tier3", "image" = var.tshirt_size.image }
+    "mariadb_m"  = { "server_type" = local.server_type, "proc_type" = "shared", "cores" = "2", "memory" = "16", "storage" = "250", "tier" = "tier3", "image" = var.tshirt_size.image }
+    "mariadb_l"  = { "server_type" = local.server_type, "proc_type" = "shared", "cores" = "4", "memory" = "32", "storage" = "500", "tier" = "tier3", "image" = var.tshirt_size.image }
+    "custom"     = { "server_type" = var.custom_profile.server_type, "proc_type" = var.custom_profile.proc_type, "cores" = var.custom_profile.cores, "memory" = var.custom_profile.memory, "storage" = var.custom_profile.storage.size, "tier" = var.custom_profile.storage.tier, "image" = var.tshirt_size.image }
   }
 
   qs_tshirt_choice = lookup(local.ibm_powervs_mariadb_tshirt_sizes, var.tshirt_size.tshirt_size, local.ibm_powervs_mariadb_tshirt_sizes["mariadb_s"])
@@ -21,7 +20,7 @@ locals {
   innodb_buffer_pool_size     = "${floor(local.mem_total_mb * 0.80)}M"
   innodb_buffer_pool_size_min = "${floor(local.mem_total_mb * 0.50)}M"
 
-  pi_instance_os_type = can(regex("RHEL|SLES", local.qs_tshirt_choice.image)) ? "linux" : can(regex("^7\\d{3}-\\d{2}-\\d{2}$", local.qs_tshirt_choice.image)) ? "aix" : "ibm_i"
+  pi_instance_os_type = "linux"
 
   pi_instance = {
     pi_image_id             = local.qs_tshirt_choice.image

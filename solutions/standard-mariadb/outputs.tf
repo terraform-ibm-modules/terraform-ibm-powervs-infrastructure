@@ -187,3 +187,88 @@ output "schematics_workspace_id" {
   description = "ID of the IBM Cloud Schematics workspace. Returns null if not ran in Schematics."
   value       = var.IC_SCHEMATICS_WORKSPACE_ID
 }
+
+output "mariadb_version" {
+  description = "MariaDB version installed from the official repo."
+  value       = var.mariadb_version
+}
+
+output "mariadb_instance_name" {
+  description = "Name of the PowerVS instance running MariaDB."
+  value       = local.pi_instance.pi_instance_name
+}
+
+output "mariadb_tshirt_size" {
+  description = "Selected MariaDB t-shirt size profile."
+  value       = var.tshirt_size.tshirt_size
+}
+
+output "mariadb_cpu_cores" {
+  description = "Number of CPU cores allocated to the MariaDB instance."
+  value       = local.qs_tshirt_choice.cores
+}
+
+output "mariadb_memory_gb" {
+  description = "Memory (in GB) allocated to the MariaDB instance."
+  value       = local.qs_tshirt_choice.memory
+}
+
+output "mariadb_proc_type" {
+  description = "Processor type (shared/dedicated/capped) of the MariaDB instance."
+  value       = local.qs_tshirt_choice.proc_type
+}
+
+output "mariadb_server_type" {
+  description = "PowerVS server type (e.g. s1022) hosting the MariaDB instance."
+  value       = local.qs_tshirt_choice.server_type
+}
+
+output "mariadb_storage_size_gb" {
+  description = "Size (in GB) of the data volume attached to the MariaDB instance."
+  value       = local.qs_tshirt_choice.storage
+}
+
+output "mariadb_storage_tier" {
+  description = "Storage tier of the MariaDB data volume (e.g. tier3)."
+  value       = local.qs_tshirt_choice.tier
+}
+
+output "mariadb_storage_mount" {
+  description = "Filesystem mount point for the MariaDB data volume."
+  value       = "/var/lib/mysql"
+}
+
+output "mariadb_innodb_buffer_pool_size" {
+  description = "InnoDB buffer pool size configured for MariaDB (80% of instance RAM)."
+  value       = local.innodb_buffer_pool_size
+}
+
+output "mariadb_innodb_buffer_pool_size_min" {
+  description = "InnoDB buffer pool minimum size configured for MariaDB (50% of instance RAM)."
+  value       = local.innodb_buffer_pool_size_min
+}
+
+output "mariadb_instance_id" {
+  description = "Composite ID of the MariaDB PowerVS instance (<workspace_id>/<instance_id>)."
+  value       = module.powervs_instance.pi_instance_id
+}
+
+output "mariadb_instance_unique_id" {
+  description = "Unique identifier of the MariaDB PowerVS instance."
+  value       = module.powervs_instance.pi_instance_instance_id
+}
+
+output "mariadb_os_image" {
+  description = "OS image used for the MariaDB PowerVS instance (e.g. RHEL9-SP4)."
+  value       = var.tshirt_size.image
+}
+
+output "mariadb_bind_address" {
+  description = "Network address MariaDB is configured to listen on ('*' means all interfaces)."
+  value       = "*"
+}
+
+output "mariadb_installation_output" {
+  description = "Output from the Ansible playbook that installed and configured MariaDB."
+  value       = module.mariadb_installation.playbook_output
+}

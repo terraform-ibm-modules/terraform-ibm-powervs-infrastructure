@@ -14,7 +14,7 @@ module "standard" {
   ssh_private_key              = var.ssh_private_key
   client_to_site_vpn           = var.client_to_site_vpn
   vpc_subnet_cidrs             = var.vpc_subnet_cidrs
-  vpc_intel_images             = var.vpc_intel_images
+  vpc_intel_images             = merge(var.vpc_intel_images, { sles_image = "" })
   configure_dns_forwarder      = var.configure_dns_forwarder
   configure_ntp_forwarder      = var.configure_ntp_forwarder
   configure_nfs_server         = var.configure_nfs_server
@@ -98,7 +98,6 @@ module "mariadb_installation" {
     MARIADB_VERSION             = var.mariadb_version
     INNODB_BUFFER_POOL_SIZE     = local.innodb_buffer_pool_size
     INNODB_BUFFER_POOL_SIZE_MIN = local.innodb_buffer_pool_size_min
-    PROXY_IP_PORT               = module.standard.proxy_host_or_ip_port
   }
 }
 
@@ -107,7 +106,7 @@ module "pi_scc_wp_agent" {
 
   source     = "../../modules/powervs-vpc-landing-zone/submodules/ansible"
   depends_on = [module.standard, module.powervs_instance]
-  count      = var.enable_scc_wp && contains(["aix", "linux"], local.pi_instance_os_type) ? 1 : 0
+  count      = var.enable_scc_wp ? 1 : 0
 
   bastion_host_ip        = module.standard.access_host_or_ip
   ansible_host_or_ip     = module.standard.ansible_host_or_ip

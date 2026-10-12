@@ -1,11 +1,6 @@
 ---
 - name: Install and Configure MariaDB
   hosts: all
-  environment:
-    http_proxy: "http://${PROXY_IP_PORT}"
-    https_proxy: "http://${PROXY_IP_PORT}"
-    HTTP_PROXY: "http://${PROXY_IP_PORT}"
-    HTTPS_PROXY: "http://${PROXY_IP_PORT}"
 
   vars:
     mariadb_use_official_repo: true
