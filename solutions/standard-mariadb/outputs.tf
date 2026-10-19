@@ -271,4 +271,57 @@ output "mariadb_bind_address" {
 output "mariadb_installation_output" {
   description = "Output from the Ansible playbook that installed and configured MariaDB."
   value       = module.mariadb_installation.playbook_output
+  sensitive   = true
+}
+
+########################################################################
+# Replication outputs
+########################################################################
+
+output "mariadb_replication_role" {
+  description = "Replication role of this MariaDB instance: standalone, primary, or replica."
+  value       = var.mariadb_replication.role
+}
+
+output "mariadb_replication_primary_ip" {
+  description = "IP address of the primary MariaDB instance. Empty string when role is standalone or primary."
+  value       = var.mariadb_replication.primary_ip
+}
+
+output "mariadb_replica_count" {
+  description = "Number of MariaDB replica PowerVS instances provisioned."
+  value       = var.mariadb_replication.replica_count
+}
+
+output "mariadb_replica_instance_ips" {
+  description = "Management IP addresses of all MariaDB replica PowerVS instances."
+  value       = [for r in module.powervs_replica_instance : r.pi_instance_primary_ip]
+}
+
+########################################################################
+# Sample data outputs
+########################################################################
+
+output "mariadb_sample_data_loaded" {
+  description = "Sample dataset loaded into MariaDB after installation (none, sakila, world, or vector)."
+  value       = var.mariadb_sample_data
+}
+
+########################################################################
+# Prometheus Exporter outputs
+########################################################################
+
+output "prometheus_exporter_enabled" {
+  description = "Whether mysqld_exporter is installed and running on the MariaDB PowerVS instance."
+  value       = var.enable_prometheus_exporter
+}
+
+output "prometheus_exporter_endpoint" {
+  description = "Local scrape endpoint for mysqld_exporter. Only accessible from the MariaDB host itself (127.0.0.1:9104)."
+  value       = var.enable_prometheus_exporter ? "http://127.0.0.1:9104/metrics" : "disabled"
+}
+
+output "prometheus_remote_scrape_enabled" {
+  description = "Whether remote password-based Prometheus scraping is configured."
+  value       = var.prometheus_remote_scrape
 }

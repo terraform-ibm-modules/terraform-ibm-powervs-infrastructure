@@ -58,20 +58,82 @@ module "powervs_instance" {
   pi_boot_image_storage_tier = "tier3"
   pi_storage_config          = local.pi_instance.pi_storage_config
   pi_user_tags               = var.tags
-  pi_instance_init_linux = local.pi_instance_os_type == "linux" ? {
+  pi_user_data               = base64encode(local.pi_user_data)
+  pi_instance_init_linux = {
     enable             = true
     bastion_host_ip    = module.standard.access_host_or_ip
     ansible_host_or_ip = module.standard.ansible_host_or_ip
     # same as: ssh_private_key    = var.ssh_private_key
     # creates implicit dependencies without affecting the value of ssh_private_key
     ssh_private_key = "${var.ssh_private_key}${module.standard.nlb_nfs_network_services_ready ? "" : ""}"
-    } : {
-    enable             = false
-    bastion_host_ip    = ""
-    ansible_host_or_ip = ""
-    ssh_private_key    = ""
   }
-  pi_network_services_config = local.pi_instance_os_type == "linux" ? local.network_services_config : null
+  pi_network_services_config = local.network_services_config
+}
+
+#####################################################
+# PowerVS Replica Instance(s) module
+#####################################################
+
+module "powervs_replica_instance" {
+  count     = var.mariadb_replication.replica_count
+  source    = "terraform-ibm-modules/powervs-instance/ibm"
+  version   = "2.8.9"
+  providers = { ibm = ibm.ibm-pi }
+
+  pi_workspace_guid      = module.standard.powervs_workspace_guid
+  pi_ssh_public_key_name = module.standard.powervs_ssh_public_key.name
+
+  pi_image_id                = local.pi_replica_instance.pi_image_id
+  pi_networks                = local.pi_replica_instance.pi_networks
+  pi_instance_name           = "${local.pi_replica_instance.pi_instance_name}-${count.index}"
+  pi_sap_profile_id          = local.pi_replica_instance.pi_sap_profile_id
+  pi_server_type             = local.pi_replica_instance.pi_server_type
+  pi_number_of_processors    = local.pi_replica_instance.pi_number_of_processors
+  pi_memory_size             = local.pi_replica_instance.pi_memory_size
+  pi_cpu_proc_type           = local.pi_replica_instance.pi_cpu_proc_type
+  pi_boot_image_storage_tier = "tier3"
+  pi_storage_config          = local.pi_replica_instance.pi_storage_config
+  pi_user_tags               = var.tags
+  pi_user_data               = base64encode(local.pi_user_data)
+  pi_instance_init_linux = {
+    enable             = true
+    bastion_host_ip    = module.standard.access_host_or_ip
+    ansible_host_or_ip = module.standard.ansible_host_or_ip
+    # same as: ssh_private_key    = var.ssh_private_key
+    # creates implicit dependencies without affecting the value of ssh_private_key
+    ssh_private_key = "${var.ssh_private_key}${module.standard.nlb_nfs_network_services_ready ? "" : ""}"
+  }
+  pi_network_services_config = local.network_services_config
+}
+
+resource "terraform_data" "wait_replica_cloudinit" {
+  count      = var.mariadb_replication.replica_count
+  depends_on = [module.powervs_replica_instance]
+
+  connection {
+    type         = "ssh"
+    user         = "root"
+    bastion_host = module.standard.access_host_or_ip
+    host         = module.powervs_replica_instance[count.index].pi_instance_primary_ip
+    private_key  = var.ssh_private_key
+    agent        = false
+    timeout      = "10m"
+  }
+
+  provisioner "remote-exec" {
+    inline = ["echo replica ssh ready"]
+  }
+}
+
+#####################################################
+# Replication password (generated, never hardcoded)
+#####################################################
+
+resource "random_password" "replication_password" {
+  count            = var.mariadb_replication.role != "standalone" ? 1 : 0
+  length           = 32
+  special          = true
+  override_special = "!#$%&*+-.:;<=>?@[]_{|}~"
 }
 
 module "mariadb_installation" {
@@ -81,6 +143,7 @@ module "mariadb_installation" {
   bastion_host_ip        = module.standard.access_host_or_ip
   ansible_host_or_ip     = module.standard.ansible_host_or_ip
   ssh_private_key        = var.ssh_private_key
+  ansible_vault_password = var.ansible_vault_password
   configure_ansible_host = false
 
   src_script_template_name    = "configure-mariadb/ansible_exec.sh.tftpl"
@@ -98,9 +161,117 @@ module "mariadb_installation" {
     MARIADB_VERSION             = var.mariadb_version
     INNODB_BUFFER_POOL_SIZE     = local.innodb_buffer_pool_size
     INNODB_BUFFER_POOL_SIZE_MIN = local.innodb_buffer_pool_size_min
+    REPLICATION_ROLE            = var.mariadb_replication.role
+    REPLICATION_PRIMARY_IP      = var.mariadb_replication.primary_ip
+    REPLICATION_PASSWORD        = var.mariadb_replication.role != "standalone" ? random_password.replication_password[0].result : ""
+    SERVER_ID                   = 1
   }
 }
 
+#####################################################
+# MariaDB Replica configuration (Ansible)
+#####################################################
+
+module "mariadb_replica_installation" {
+  source     = "../../modules/powervs-vpc-landing-zone/submodules/ansible"
+  count      = var.mariadb_replication.replica_count
+  depends_on = [module.mariadb_installation, module.powervs_replica_instance, terraform_data.wait_replica_cloudinit]
+
+  bastion_host_ip        = module.standard.access_host_or_ip
+  ansible_host_or_ip     = module.standard.ansible_host_or_ip
+  ssh_private_key        = var.ssh_private_key
+  ansible_vault_password = var.ansible_vault_password
+  configure_ansible_host = false
+
+  src_script_template_name    = "configure-mariadb/ansible_exec.sh.tftpl"
+  dst_script_file_name        = "${var.prefix}-mariadb-replica-${count.index}-install.sh"
+  src_playbook_template_name  = "configure-mariadb/playbook-mariadb.yml.tftpl"
+  dst_playbook_file_name      = "${var.prefix}-playbook-mariadb-replica-${count.index}.yml"
+  src_inventory_template_name = "inventory.tftpl"
+  dst_inventory_file_name     = "${var.prefix}-mariadb-replica-${count.index}-inventory"
+
+  inventory_template_vars = {
+    host_or_ip = module.powervs_replica_instance[count.index].pi_instance_primary_ip
+  }
+
+  playbook_template_vars = {
+    MARIADB_VERSION             = var.mariadb_version
+    INNODB_BUFFER_POOL_SIZE     = local.innodb_buffer_pool_size
+    INNODB_BUFFER_POOL_SIZE_MIN = local.innodb_buffer_pool_size_min
+    REPLICATION_ROLE            = "replica"
+    REPLICATION_PRIMARY_IP      = module.powervs_instance.pi_instance_primary_ip
+    REPLICATION_PASSWORD        = random_password.replication_password[0].result
+    SERVER_ID                   = count.index + 2
+  }
+}
+
+#####################################################
+# Sample Data module (optional)
+#####################################################
+
+module "mariadb_sample_data" {
+  source     = "../../modules/powervs-vpc-landing-zone/submodules/ansible"
+  count      = var.mariadb_sample_data != "none" ? 1 : 0
+  depends_on = [module.mariadb_installation]
+
+  bastion_host_ip        = module.standard.access_host_or_ip
+  ansible_host_or_ip     = module.standard.ansible_host_or_ip
+  ssh_private_key        = var.ssh_private_key
+  configure_ansible_host = false
+
+  src_script_template_name    = "configure-mariadb/ansible_exec.sh.tftpl"
+  dst_script_file_name        = "${var.prefix}-mariadb-sampledata.sh"
+  src_playbook_template_name  = "configure-mariadb/playbook-mariadb-sampledata.yml.tftpl"
+  dst_playbook_file_name      = "${var.prefix}-playbook-mariadb-sampledata.yml"
+  src_inventory_template_name = "inventory.tftpl"
+  dst_inventory_file_name     = "${var.prefix}-mariadb-sampledata-inventory"
+
+  inventory_template_vars = {
+    host_or_ip = module.powervs_instance.pi_instance_primary_ip
+  }
+
+  playbook_template_vars = {
+    SAMPLE_DATA = var.mariadb_sample_data
+  }
+}
+
+#####################################################
+# Prometheus Exporter module (optional)
+#####################################################
+
+module "mariadb_prometheus_exporter" {
+  source     = "../../modules/powervs-vpc-landing-zone/submodules/ansible"
+  count      = var.enable_prometheus_exporter ? 1 : 0
+  depends_on = [module.mariadb_installation]
+
+  bastion_host_ip        = module.standard.access_host_or_ip
+  ansible_host_or_ip     = module.standard.ansible_host_or_ip
+  ssh_private_key        = var.ssh_private_key
+  configure_ansible_host = false
+
+  src_script_template_name    = "configure-mariadb/ansible_exec.sh.tftpl"
+  dst_script_file_name        = "${var.prefix}-mariadb-prometheus.sh"
+  src_playbook_template_name  = "configure-mariadb/playbook-mariadb-prometheus.yml.tftpl"
+  dst_playbook_file_name      = "${var.prefix}-playbook-mariadb-prometheus.yml"
+  src_inventory_template_name = "inventory.tftpl"
+  dst_inventory_file_name     = "${var.prefix}-mariadb-prometheus-inventory"
+
+  inventory_template_vars = {
+    host_or_ip = module.powervs_instance.pi_instance_primary_ip
+  }
+
+  playbook_template_vars = {
+    REMOTE_SCRAPE       = var.prometheus_remote_scrape
+    PROMETHEUS_PASSWORD = var.prometheus_remote_scrape ? random_password.prometheus_password[0].result : ""
+  }
+}
+
+resource "random_password" "prometheus_password" {
+  count            = var.prometheus_remote_scrape ? 1 : 0
+  length           = 32
+  special          = true
+  override_special = "!#$%&*+-.:;<=>?@[]_{|}~"
+}
 
 module "pi_scc_wp_agent" {
 
@@ -115,16 +286,16 @@ module "pi_scc_wp_agent" {
   configure_ansible_host = false
 
   src_script_template_name = "configure-scc-wp-agent/ansible_configure_scc_wp_agent.sh.tftpl"
-  dst_script_file_name     = "${var.prefix}-configure_scc_wp_agent_pi_${local.pi_instance_os_type}.sh"
+  dst_script_file_name     = "${var.prefix}-configure_scc_wp_agent_pi_linux.sh"
 
-  src_playbook_template_name = "configure-scc-wp-agent/playbook-configure-scc-wp-agent-${local.pi_instance_os_type}.yml.tftpl"
-  dst_playbook_file_name     = "${var.prefix}-playbook-configure-scc-wp-agent-pi-${local.pi_instance_os_type}.yml"
+  src_playbook_template_name = "configure-scc-wp-agent/playbook-configure-scc-wp-agent-linux.yml.tftpl"
+  dst_playbook_file_name     = "${var.prefix}-playbook-configure-scc-wp-agent-pi-linux.yml"
   playbook_template_vars = {
     COLLECTOR_ENDPOINT : module.standard.scc_wp_instance.ingestion_endpoint,
     API_ENDPOINT : module.standard.scc_wp_instance.api_endpoint,
     ACCESS_KEY : module.standard.scc_wp_instance.access_key
   }
   src_inventory_template_name = "inventory.tftpl"
-  dst_inventory_file_name     = "${var.prefix}-scc-wp-inventory-pi-${local.pi_instance_os_type}"
+  dst_inventory_file_name     = "${var.prefix}-scc-wp-inventory-pi-linux"
   inventory_template_vars     = { "host_or_ip" : module.powervs_instance.pi_instance_primary_ip }
 }

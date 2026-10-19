@@ -258,10 +258,11 @@ variable "enable_scc_wp" {
 }
 
 variable "enable_monitoring" {
-  description = "Specify whether an IBM Cloud Monitoring (Sysdig) service instance will be created. No additional VSI is provisioned — metrics can be shipped from the MariaDB PowerVS host directly via a Prometheus exporter or Sysdig agent installed on the host."
+  description = "Specify whether Monitoring will be enabled. This creates a new IBM Cloud Monitoring Instance."
   type        = bool
   default     = true
 }
+
 
 ###########################################################
 # Optional Parameters Secret Manager for client to site VPN
@@ -325,4 +326,57 @@ variable "enable_vpc_flow_logs" {
   description = "Enable VPC flow logs. If true, flow logs will be stored in the atracker bucket."
   type        = bool
   default     = true
+}
+
+#####################################################
+# Optional Parameters MariaDB Replication
+#####################################################
+
+variable "mariadb_replication" {
+  description = "MariaDB replication configuration. 'role' can be 'standalone', 'primary', or 'replica'. 'primary_ip' is the primary instance IP (required when role is 'replica'). 'replica_count' is the number of replica instances to provision when role is 'primary'."
+  type = object({
+    role          = string
+    primary_ip    = string
+    replica_count = number
+  })
+  default = {
+    role          = "standalone"
+    primary_ip    = ""
+    replica_count = 0
+  }
+
+  validation {
+    condition     = contains(["standalone", "primary", "replica"], var.mariadb_replication.role)
+    error_message = "Variable 'mariadb_replication.role' must be one of: 'standalone', 'primary', or 'replica'."
+  }
+}
+
+#####################################################
+# Optional Parameters MariaDB Sample Data
+#####################################################
+
+variable "mariadb_sample_data" {
+  description = "Load sample dataset into MariaDB after installation. Options: 'none', 'sakila', 'world', 'vector' (CSV only), 'vector_full' (CSV + Python embeddings via sentence-transformers)."
+  type        = string
+  default     = "none"
+  validation {
+    condition     = contains(["none", "sakila", "world", "vector", "vector_full"], var.mariadb_sample_data)
+    error_message = "Allowed values: none, sakila, world, vector."
+  }
+}
+
+#####################################################
+# Optional Parameters Prometheus Exporter
+#####################################################
+
+variable "enable_prometheus_exporter" {
+  description = "Install mysqld_exporter (ppc64le binary) on the MariaDB PowerVS instance and configure it as a systemd service running as the 'prometheus' system user. Scrape endpoint binds to 127.0.0.1:9104 only. Requires enable_monitoring = true to ship metrics to IBM Cloud Monitoring."
+  type        = bool
+  default     = false
+}
+
+variable "prometheus_remote_scrape" {
+  description = "Enable remote Prometheus scraping. Creates a password-based MariaDB user for mysqld_exporter. Password is randomly generated and stored in Secrets Manager. Only set to true if the Prometheus scraper runs on a different host."
+  type        = bool
+  default     = false
 }

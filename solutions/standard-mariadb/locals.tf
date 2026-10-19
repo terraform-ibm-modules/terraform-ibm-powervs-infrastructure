@@ -20,12 +20,32 @@ locals {
   innodb_buffer_pool_size     = "${floor(local.mem_total_mb * 0.80)}M"
   innodb_buffer_pool_size_min = "${floor(local.mem_total_mb * 0.50)}M"
 
-  pi_instance_os_type = "linux"
-
   pi_instance = {
     pi_image_id             = local.qs_tshirt_choice.image
     pi_networks             = concat([module.standard.powervs_management_subnet], module.standard.powervs_backup_subnet != null ? [module.standard.powervs_backup_subnet] : [])
     pi_instance_name        = "${var.prefix}-mariadb-pvs"
+    pi_sap_profile_id       = null
+    pi_server_type          = local.qs_tshirt_choice.server_type
+    pi_number_of_processors = local.qs_tshirt_choice.cores
+    pi_memory_size          = local.qs_tshirt_choice.memory
+    pi_cpu_proc_type        = local.qs_tshirt_choice.proc_type
+    pi_storage_config = [
+      {
+        name   = "mariadbdata"
+        size   = local.qs_tshirt_choice.storage
+        count  = "1"
+        tier   = local.qs_tshirt_choice.tier
+        mount  = "/var/lib/mysql"
+        fstype = "xfs"
+      }
+    ]
+  }
+
+  # Replica instance — same sizing as primary
+  pi_replica_instance = {
+    pi_image_id             = local.qs_tshirt_choice.image
+    pi_networks             = concat([module.standard.powervs_management_subnet], module.standard.powervs_backup_subnet != null ? [module.standard.powervs_backup_subnet] : [])
+    pi_instance_name        = "${var.prefix}-mariadb-replica-pvs"
     pi_sap_profile_id       = null
     pi_server_type          = local.qs_tshirt_choice.server_type
     pi_number_of_processors = local.qs_tshirt_choice.cores
@@ -49,4 +69,21 @@ locals {
     dns   = { enable = var.configure_dns_forwarder, dns_server_ip = module.standard.dns_host_or_ip }
     ntp   = { enable = var.configure_ntp_forwarder, ntp_server_ip = module.standard.ntp_host_or_ip }
   }
+
+  # Cloud-init user-data for PowerVS instances.
+  # Required by ibm.power_linux_sap.powervs_os_registration (pi_instance_init_linux)
+  # which checks that /var/lib/cloud/instance/user-data.txt is non-empty.
+  pi_user_data = <<-EOT
+#cloud-config
+# vim: syntax=yaml
+write_files:
+- content: |
+    ${var.ssh_public_key}
+  path: /root/.ssh/authorized_keys
+  permissions: '0600'
+  owner: root:root
+runcmd:
+- sed -i 's/^PermitRootLogin no/PermitRootLogin yes/' /etc/ssh/sshd_config
+- systemctl restart sshd
+EOT
 }

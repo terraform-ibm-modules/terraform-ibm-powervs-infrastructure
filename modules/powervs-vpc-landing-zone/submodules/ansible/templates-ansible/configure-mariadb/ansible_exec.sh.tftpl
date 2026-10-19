@@ -13,13 +13,12 @@ export ANSIBLE_LOG_PATH=$${ansible_log_path}/$${ansible_playbook_name}.$(date "+
 export ANSIBLE_PRIVATE_KEY_FILE=$${ansible_private_key_file}
 
 ansible-galaxy install fauust.mariadb --force
+ansible-galaxy collection install community.mysql --force
 ansible-galaxy collection install ansible.mariadb --force
 
-#Execute ansible playbook
-unbuffer ansible-playbook -i $${ansible_inventory} $${ansible_playbook}
-if [ $? -ne 0 ]; then
-    rm -rf $${ansible_private_key_file}
-    exit 1
+# Execute ansible playbook
+if [ -f password_file ]; then
+  unbuffer ansible-playbook -i $${ansible_inventory} $${ansible_playbook} --vault-password-file password_file
+else
+  unbuffer ansible-playbook -i $${ansible_inventory} $${ansible_playbook}
 fi
-echo \"Playbook command successful\"
-rm -rf $${ansible_private_key_file}
