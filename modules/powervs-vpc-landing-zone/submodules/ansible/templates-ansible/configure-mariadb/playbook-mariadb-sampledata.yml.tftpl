@@ -1,0 +1,138 @@
+---
+- name: Load MariaDB Sample Data
+  hosts: all
+
+  vars:
+    sample_dataset: "${SAMPLE_DATA}"
+
+  tasks:
+
+    # ── Sakila ───────────────────────────────────────────────────────────────
+    # Full schema + data — https://dev.mysql.com/doc/sakila/en/
+    - name: Download Sakila archive
+      when: sample_dataset == "sakila"
+      shell: >
+        curl -fsSL --retry 3 --max-time 120
+        https://downloads.mysql.com/docs/sakila-db.tar.gz
+        -o /tmp/sakila-db.tar.gz
+
+    - name: Extract Sakila archive
+      when: sample_dataset == "sakila"
+      unarchive:
+        src: /tmp/sakila-db.tar.gz
+        dest: /tmp/
+        remote_src: yes
+
+    - name: Import Sakila schema
+      when: sample_dataset == "sakila"
+      shell: mariadb < /tmp/sakila-db/sakila-schema.sql
+
+    - name: Import Sakila data
+      when: sample_dataset == "sakila"
+      shell: mariadb < /tmp/sakila-db/sakila-data.sql
+
+    # ── World ────────────────────────────────────────────────────────────────
+    # Countries and cities — https://dev.mysql.com/doc/index-other.html
+    - name: Download World database
+      when: sample_dataset == "world"
+      shell: >
+        curl -fsSL --retry 3 --max-time 120
+        https://downloads.mysql.com/docs/world.sql.gz
+        -o /tmp/world.sql.gz
+
+    - name: Import World database
+      when: sample_dataset == "world"
+      shell: gunzip -c /tmp/world.sql.gz | mariadb
+
+    # ── Vector (products.csv from MariaDB Vector Search Workshop) ────────────
+    # https://github.com/mariadb-developers/vector-search-workshop
+    - name: Download products.csv
+      when: sample_dataset == "vector"
+      get_url:
+        url: https://raw.githubusercontent.com/mariadb-developers/vector-search-workshop/main/products.csv
+        dest: /tmp/products.csv
+        mode: '0644'
+
+    - name: Create vector_demo database and products table
+      when: sample_dataset == "vector"
+      shell: |
+        mariadb -e "CREATE DATABASE IF NOT EXISTS vector_demo;"
+        mariadb vector_demo -e "
+          CREATE TABLE IF NOT EXISTS products (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            name VARCHAR(255) NOT NULL,
+            description TEXT,
+            embedding VECTOR(384) NOT NULL,
+            VECTOR INDEX (embedding)
+          ) ENGINE=InnoDB;
+        "
+
+    - name: Load products.csv into vector_demo
+      when: sample_dataset == "vector"
+      shell: |
+        mariadb vector_demo -e "
+          LOAD DATA LOCAL INFILE '/tmp/products.csv'
+          INTO TABLE products
+          FIELDS TERMINATED BY ','
+          ENCLOSED BY '\"'
+          LINES TERMINATED BY '\n'
+          IGNORE 1 ROWS
+          (name, description, @vec_str)
+          SET embedding = VEC_FromText(@vec_str);
+        "
+
+    # ── Vector Full (pre-computed embeddings, no Python/torch required) ───────
+    # Uses the pre-computed embeddings CSV from the Vector Search Workshop.
+    # All 384-dim vectors are already computed — loaded directly via mariadb CLI.
+    # Ref: https://github.com/mariadb-developers/vector-search-workshop
+    - name: Download pre-computed embeddings CSV (vector_full)
+      when: sample_dataset == "vector_full"
+      get_url:
+        url: https://raw.githubusercontent.com/mariadb-developers/vector-search-workshop/main/products.csv
+        dest: /tmp/products_with_embeddings.csv
+        mode: '0644'
+
+    - name: Create vector_demo database and products table (vector_full)
+      when: sample_dataset == "vector_full"
+      shell: |
+        mariadb -e "CREATE DATABASE IF NOT EXISTS vector_demo;"
+        mariadb vector_demo -e "
+          CREATE TABLE IF NOT EXISTS products (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            name VARCHAR(255) NOT NULL,
+            description TEXT,
+            embedding VECTOR(384) NOT NULL,
+            VECTOR INDEX (embedding)
+          ) ENGINE=InnoDB;
+        "
+
+    - name: Load pre-computed embeddings into vector_demo
+      when: sample_dataset == "vector_full"
+      shell: |
+        mariadb vector_demo -e "
+          LOAD DATA LOCAL INFILE '/tmp/products_with_embeddings.csv'
+          INTO TABLE products
+          FIELDS TERMINATED BY ','
+          ENCLOSED BY '\"'
+          LINES TERMINATED BY '\n'
+          IGNORE 1 ROWS
+          (name, description, @vec_str)
+          SET embedding = VEC_FromText(@vec_str);
+        "
+
+    - name: Verify vector_demo data loaded
+      when: sample_dataset == "vector_full"
+      shell: mariadb vector_demo -e "SELECT COUNT(*) FROM products;"
+      register: vector_count
+      failed_when: vector_count.rc != 0
+
+    - name: Show vector_demo row count
+      when: sample_dataset == "vector_full"
+      debug:
+        msg: "vector_demo.products row count: {{ vector_count.stdout }}"
+
+    - name: Run embedding generator
+      when: sample_dataset == "vector_full"
+      shell: python3 /tmp/generate_embeddings.py
+      async: 600
+      poll: 10

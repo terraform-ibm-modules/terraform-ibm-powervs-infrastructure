@@ -1975,6 +1975,429 @@
           "terraform_version": "1.12.2"
         }
       ]
+    },
+    {
+      "name": "deploy-arch-ibm-pvs-mariadb",
+      "label": "MariaDB on Power Virtual Server",
+      "product_kind": "solution",
+      "tags": [
+        "ibm_created",
+        "target_terraform",
+        "terraform",
+        "solution",
+        "network_vpc",
+        "free",
+        "Technology",
+        "SoftwareAndPlatformApplications",
+        "reference_architecture",
+        "support_ibm",
+        "infra_only",
+        "single_system",
+        "platform_engineering"
+      ],
+      "keywords": [
+        "power",
+        "powervs",
+        "mariadb",
+        "mysql",
+        "database",
+        "relational database",
+        "power infrastructure",
+        "vpc landing zone",
+        "rhel",
+        "linux",
+        "automation",
+        "ansible",
+        "secure",
+        "networking",
+        "quickstart",
+        "innodb",
+        "replication"
+      ],
+      "short_description": "Deploy MariaDB on IBM® Cloud Power Virtual Server (PowerVS) with a full VPC landing zone, automated Ansible-based installation, and InnoDB memory auto-tuning — following IBM Cloud best practices.",
+      "long_description": "This deployable architecture provisions a complete MariaDB environment on IBM Cloud® Power Virtual Server (PowerVS). It creates a VPC landing zone with edge network services (bastion, SQUID proxy, NTP, DNS), a PowerVS workspace, and a RHEL-based PowerVS instance with MariaDB installed and configured by Ansible. InnoDB buffer pool size is automatically tuned to 80 % of the available instance RAM. The solution includes KMS key management, Activity Tracker, VPC flow logs, and an optional client-to-site VPN backed by Secrets Manager. SCC Workload Protection, MariaDB replication (primary/replica), a Prometheus mysqld_exporter for metrics, and sample datasets (Sakila, World, vector) are all available as optional add-ons.",
+      "offering_docs_url": "https://cloud.ibm.com/docs/powervs-vpc",
+      "offering_icon_url": "<same SVG as existing PVS product or a new one>",
+      "features": [
+        {
+          "title": "Automated MariaDB installation on PowerVS",
+          "description": "MariaDB is installed from the official repo via Ansible on a RHEL PowerVS instance with InnoDB buffer pool automatically tuned to 80 % of instance RAM."
+        },
+        {
+          "title": "VPC landing zone with edge network services",
+          "description": "Deploys a VPC with bastion host, SQUID internet proxy, NTP forwarder, and DNS forwarder — providing secure, managed network access from PowerVS."
+        },
+        {
+          "title": "T-shirt sizing for MariaDB instances",
+          "description": "Choose from four predefined profiles (XS: 0.25 vCPU / 4 GB, S: 1 vCPU / 8 GB, M: 2 vCPU / 16 GB, L: 4 vCPU / 32 GB) or supply a fully custom profile."
+        },
+        {
+          "title": "Security and compliance built-in",
+          "description": "KMS key management, Activity Tracker, VPC flow logs, and optional SCC Workload Protection agent are enabled by default."
+        },
+        {
+          "title": "Client-to-site VPN with Secrets Manager",
+          "description": "Optional VPN server with private certificate provisioned in Secrets Manager provides secure remote access to the environment."
+        },
+        {
+          "title": "MariaDB replication support",
+          "description": "Optional primary/replica replication topology — deploy additional replica PowerVS instances with a randomly generated, Secrets-Manager-stored replication password."
+        },
+        {
+          "title": "Prometheus metrics exporter",
+          "description": "Optional mysqld_exporter (ppc64le) installed as a systemd service, scraping MariaDB metrics at 127.0.0.1:9104 for integration with IBM Cloud Monitoring."
+        },
+        {
+          "title": "NFS server not required",
+          "description": "NFS file storage share is disabled by default — MariaDB data is served from a dedicated XFS volume mounted at /var/lib/mysql on the PowerVS instance."
+        }
+      ],
+      "flavors": [
+        {
+          "label": "Quickstart MariaDB",
+          "name": "standard-mariadb",
+          "install_type": "fullstack",
+          "index": 2,
+          "working_directory": "solutions/standard-mariadb",
+          "short_description": "Deploys a VPC landing zone and a RHEL PowerVS instance with MariaDB fully installed and configured via Ansible. InnoDB buffer pool is auto-tuned, KMS encryption and Activity Tracker are enabled by default. Optional: client-to-site VPN, SCC Workload Protection, replication, Prometheus exporter, and sample datasets.",
+          "schematics_env_values": {
+            "value": "[{\"name\": \"API_DATA_IS_SENSITIVE\",\"value\": \"true\",\"secure\": false,\"hidden\": true}]"
+          },
+          "configuration": [
+            {
+              "key": "prefix",
+              "type": "string",
+              "default_value": "",
+              "value_constraints": [
+                {
+                  "type": "regex",
+                  "description": "Prefix must start with a letter, be 1-16 characters long, and contain only lowercase letters, numbers, and hyphens.",
+                  "value": "^[a-z](?:[a-z0-9-]{0,14}[a-z0-9])?$"
+                }
+              ],
+              "required": true
+            },
+            {
+              "key": "powervs_resource_group_name",
+              "required": true,
+              "default_value": "",
+              "custom_config": {
+                "config_constraints": {
+                  "identifier": "rg_name"
+                },
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "type": "resource_group"
+              }
+            },
+            {
+              "key": "powervs_zone",
+              "type": "string",
+              "required": true,
+              "default_value": "",
+              "options": [ /* same zone list as the other flavors */],
+              "custom_config": {}
+            },
+            {
+              "key": "tshirt_size",
+              "type": "object",
+              "required": true,
+              "default_value": "",
+              "options": [
+                {
+                  "displayname": "MariaDB XS (0.25 vCPU, 4 GB RAM, 50 GB disk, RHEL9-SP4)",
+                  "value": {
+                    "tshirt_size": "mariadb_xs",
+                    "image": "RHEL9-SP4"
+                  }
+                },
+                {
+                  "displayname": "MariaDB S (1 vCPU, 8 GB RAM, 100 GB disk, RHEL9-SP4)",
+                  "value": {
+                    "tshirt_size": "mariadb_s",
+                    "image": "RHEL9-SP4"
+                  }
+                },
+                {
+                  "displayname": "MariaDB M (2 vCPU, 16 GB RAM, 250 GB disk, RHEL9-SP4)",
+                  "value": {
+                    "tshirt_size": "mariadb_m",
+                    "image": "RHEL9-SP4"
+                  }
+                },
+                {
+                  "displayname": "MariaDB L (4 vCPU, 32 GB RAM, 500 GB disk, RHEL9-SP4)",
+                  "value": {
+                    "tshirt_size": "mariadb_l",
+                    "image": "RHEL9-SP4"
+                  }
+                },
+                {
+                  "displayname": "Custom (configure in optional parameters)",
+                  "value": {
+                    "tshirt_size": "custom",
+                    "image": ""
+                  }
+                }
+              ],
+              "custom_config": {}
+            },
+            {
+              "key": "mariadb_version",
+              "type": "string",
+              "default_value": "12.3"
+            },
+            {
+              "key": "ssh_public_key",
+              "type": "multiline_secure_value",
+              "required": true,
+              "custom_config": {
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "type": "multiline_secure_value"
+              }
+            },
+            {
+              "key": "ssh_private_key",
+              "type": "multiline_secure_value",
+              "required": true,
+              "custom_config": {
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "type": "multiline_secure_value"
+              }
+            },
+            {
+              "key": "ibmcloud_api_key",
+              "type": "multiline_secure_value",
+              "display_name": "Multiline secure value",
+              "required": true,
+              "custom_config": {
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "type": "multiline_secure_value"
+              }
+            },
+            {
+              "key": "ansible_vault_password",
+              "type": "multiline_secure_value",
+              "required": true,
+              "custom_config": {
+                "type": "multiline_secure_value",
+                "grouping": "deployment",
+                "original_grouping": "deployment"
+              }
+            },
+            {
+              "key": "external_access_ip",
+              "default_value": "__NULL__",
+              "required": true
+            },
+            {
+              "key": "vpc_subnet_cidrs",
+              "custom_config": {
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "type": "code_editor"
+              }
+            },
+            {
+              "key": "powervs_management_network",
+              "custom_config": {
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "type": "code_editor"
+              }
+            },
+            {
+              "key": "powervs_backup_network",
+              "custom_config": {
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "type": "code_editor"
+              }
+            },
+            {
+              "key": "custom_profile",
+              "custom_config": {
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "type": "code_editor"
+              }
+            },
+            {
+              "key": "tags"
+            },
+            {
+              "key": "vpc_intel_images",
+              "hidden": true
+            },
+            {
+              "key": "network_services_vsi_profile"
+            },
+            {
+              "key": "configure_dns_forwarder"
+            },
+            {
+              "key": "configure_ntp_forwarder"
+            },
+            {
+              "key": "configure_nfs_server"
+            },
+            {
+              "key": "dns_forwarder_config",
+              "custom_config": {
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "type": "code_editor"
+              }
+            },
+            {
+              "key": "nfs_server_config",
+              "custom_config": {
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "type": "code_editor"
+              }
+            },
+            {
+              "key": "enable_scc_wp"
+            },
+            {
+              "key": "enable_atracker"
+            },
+            {
+              "key": "enable_vpc_flow_logs"
+            },
+            {
+              "key": "client_to_site_vpn",
+              "custom_config": {
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "type": "code_editor"
+              }
+            },
+            {
+              "key": "sm_service_plan"
+            },
+            {
+              "key": "existing_sm_instance_guid"
+            },
+            {
+              "key": "existing_sm_instance_region",
+              "type": "string",
+              "default_value": "__NULL__",
+              "options": [ /* same SM region list as the other flavors */],
+              "custom_config": {}
+            },
+            {
+              "key": "mariadb_replication",
+              "custom_config": {
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "type": "code_editor"
+              }
+            },
+            {
+              "key": "mariadb_sample_data"
+            },
+            {
+              "key": "enable_prometheus_exporter"
+            },
+            {
+              "key": "prometheus_remote_scrape"
+            },
+            {
+              "key": "IC_SCHEMATICS_WORKSPACE_ID",
+              "hidden": true
+            }
+          ],
+          "iam_permissions": [ /* same IAM permissions as standard-plus-vsi flavor */],
+          "architecture": {
+            "features": [
+              {
+                "title": "MariaDB PowerVS Instance",
+                "description": "Yes, 1 RHEL instance (XS/S/M/L or custom)"
+              },
+              {
+                "title": "MariaDB version",
+                "description": "11.4 LTS (configurable)"
+              },
+              {
+                "title": "InnoDB buffer pool auto-tuning",
+                "description": "Yes — 80 % of instance RAM at startup"
+              },
+              {
+                "title": "Number of Intel Virtual Server Instances",
+                "description": "2 (bastion + network-services)"
+              },
+              {
+                "title": "Number of VPCs",
+                "description": "1"
+              },
+              {
+                "title": "Number of PowerVS Workspaces",
+                "description": "1"
+              },
+              {
+                "title": "KMS key management",
+                "description": "Yes"
+              },
+              {
+                "title": "Activity Tracker",
+                "description": "Enabled by default"
+              },
+              {
+                "title": "VPC flow logs",
+                "description": "Enabled by default"
+              },
+              {
+                "title": "Internet proxy (SQUID) on VPC",
+                "description": "Yes — routes PowerVS internet traffic via VPC"
+              },
+              {
+                "title": "DNS and NTP forwarders",
+                "description": "Enabled by default on network-services VSI"
+              },
+              {
+                "title": "NFS server",
+                "description": "Disabled — not required for MariaDB"
+              },
+              {
+                "title": "Client-to-site VPN + Secrets Manager",
+                "description": "Optional (enabled by default)"
+              },
+              {
+                "title": "SCC Workload Protection agent",
+                "description": "Optional (enabled by default)"
+              },
+              {
+                "title": "MariaDB replication (primary/replica)",
+                "description": "Optional (standalone by default)"
+              },
+              {
+                "title": "Prometheus mysqld_exporter",
+                "description": "Optional (disabled by default)"
+              },
+              {
+                "title": "Sample datasets (Sakila, World, Vector)",
+                "description": "Optional (none by default)"
+              }
+            ],
+            "diagrams": [
+              {
+                "diagram": {
+                  "caption": "MariaDB on Power Virtual Server — Quickstart variation",
+                  "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/refs/heads/main/reference-architectures/standard-mariadb/deploy-arch-ibm-pvs-inf-standard-mariadb.svg",
+                  "type": "image/svg+xml"
+                },
+                "description": "Deploys a VPC landing zone and a RHEL PowerVS instance with MariaDB fully installed and Ansible-configured. Includes KMS encryption, Activity Tracker, VPC flow logs, SQUID proxy, DNS/NTP forwarders, and an optional VPN + Secrets Manager. SCC Workload Protection, replication, Prometheus exporter, and sample datasets are available as optional add-ons."
+              }
+            ]
+          },
+          "terraform_version": "1.12.2"
+        }
+      ]
     }
   ]
 }
