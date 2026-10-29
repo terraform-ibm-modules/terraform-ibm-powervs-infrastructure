@@ -122,8 +122,8 @@ variable "custom_master_node_config" {
     "replicas" : "3"
   }
   validation {
-    condition     = var.custom_master_node_config.system_type != null ? contains(["s1122", "s1022", "e980", "e1080", "e1050"], var.custom_master_node_config.system_type) : true
-    error_message = "system_type needs to be one of s1122, s1022, e980, e1080, e1050."
+    condition     = var.custom_master_node_config.system_type != null ? contains(["s1122", "s1022", "s922", "e980", "e1080", "e1050"], var.custom_master_node_config.system_type) : true
+    error_message = "system_type needs to be one of s1122, s1022, s922, e980, e1080, e1050."
   }
   validation {
     condition     = contains(["Capped", "Dedicated", "Shared"], var.custom_master_node_config.proc_type)
@@ -144,7 +144,7 @@ variable "custom_master_node_config" {
 }
 
 variable "custom_worker_node_config" {
-  description = "This value is ignored if 'tshirt_size' is not set to 'custom'. Configuration for the worker nodes of the OpenShift cluster, including CPU, system type, processor type, and replica count. If system_type is null, it's chosen based on whether it's supported in the region. This can be overwritten by passing a value, e.g. 's1022' or 's922'. Memory is in GB."
+  description = "This value is ignored if 'tshirt_size' is not set to 'custom'. Configuration for the worker nodes of the OpenShift cluster, including CPU, system type, processor type, and replica count. If system_type is null, it's chosen based on whether it's supported in the region. This can be overwritten by passing a value, e.g. 's1022'. Memory is in GB."
   type = object({
     processors  = number
     memory      = number

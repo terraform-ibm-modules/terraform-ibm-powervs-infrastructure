@@ -28,12 +28,13 @@ module "standard" {
   existing_sm_instance_guid    = var.existing_sm_instance_guid
   existing_sm_instance_region  = var.existing_sm_instance_region
   network_services_vsi_profile = var.network_services_vsi_profile
-  enable_monitoring            = var.enable_monitoring
+  enable_monitoring            = false
   enable_scc_wp                = var.enable_scc_wp
   ansible_vault_password       = var.ansible_vault_password
   enable_atracker              = var.enable_atracker
   enable_vpc_flow_logs         = var.enable_vpc_flow_logs
 }
+
 
 #####################################################
 # PowerVS Instance module
@@ -125,17 +126,6 @@ resource "terraform_data" "wait_replica_cloudinit" {
   }
 }
 
-#####################################################
-# Replication password (generated, never hardcoded)
-#####################################################
-
-resource "random_password" "replication_password" {
-  count            = var.mariadb_replication.role != "standalone" ? 1 : 0
-  length           = 32
-  special          = true
-  override_special = "!#$%&*+-.:;<=>?@[]_{|}~"
-}
-
 module "mariadb_installation" {
   source     = "../../modules/powervs-vpc-landing-zone/submodules/ansible"
   depends_on = [module.standard, module.powervs_instance]
@@ -150,11 +140,12 @@ module "mariadb_installation" {
   dst_script_file_name        = "${var.prefix}-mariadb-install.sh"
   src_playbook_template_name  = "configure-mariadb/playbook-mariadb.yml.tftpl"
   dst_playbook_file_name      = "${var.prefix}-playbook-mariadb.yml"
-  src_inventory_template_name = "inventory.tftpl"
+  src_inventory_template_name = "inventory-primary.tftpl"
   dst_inventory_file_name     = "${var.prefix}-mariadb-inventory"
 
   inventory_template_vars = {
     host_or_ip = module.powervs_instance.pi_instance_primary_ip
+    server_id  = 1
   }
 
   playbook_template_vars = {
@@ -163,8 +154,7 @@ module "mariadb_installation" {
     INNODB_BUFFER_POOL_SIZE_MIN = local.innodb_buffer_pool_size_min
     REPLICATION_ROLE            = var.mariadb_replication.role
     REPLICATION_PRIMARY_IP      = var.mariadb_replication.primary_ip
-    REPLICATION_PASSWORD        = var.mariadb_replication.role != "standalone" ? random_password.replication_password[0].result : ""
-    SERVER_ID                   = 1
+    REPLICATION_PASSWORD        = var.mariadb_replication.role != "standalone" ? var.mariadb_replication_password : ""
   }
 }
 
@@ -174,7 +164,7 @@ module "mariadb_installation" {
 
 module "mariadb_replica_installation" {
   source     = "../../modules/powervs-vpc-landing-zone/submodules/ansible"
-  count      = var.mariadb_replication.replica_count
+  count      = var.mariadb_replication.replica_count > 0 ? 1 : 0
   depends_on = [module.mariadb_installation, module.powervs_replica_instance, terraform_data.wait_replica_cloudinit]
 
   bastion_host_ip        = module.standard.access_host_or_ip
@@ -184,14 +174,19 @@ module "mariadb_replica_installation" {
   configure_ansible_host = false
 
   src_script_template_name    = "configure-mariadb/ansible_exec.sh.tftpl"
-  dst_script_file_name        = "${var.prefix}-mariadb-replica-${count.index}-install.sh"
+  dst_script_file_name        = "${var.prefix}-mariadb-replica-install.sh"
   src_playbook_template_name  = "configure-mariadb/playbook-mariadb.yml.tftpl"
-  dst_playbook_file_name      = "${var.prefix}-playbook-mariadb-replica-${count.index}.yml"
-  src_inventory_template_name = "inventory.tftpl"
-  dst_inventory_file_name     = "${var.prefix}-mariadb-replica-${count.index}-inventory"
+  dst_playbook_file_name      = "${var.prefix}-playbook-mariadb-replica.yml"
+  src_inventory_template_name = "inventory-replicas.tftpl"
+  dst_inventory_file_name     = "${var.prefix}-mariadb-replica-inventory"
 
   inventory_template_vars = {
-    host_or_ip = module.powervs_replica_instance[count.index].pi_instance_primary_ip
+    replicas = [
+      for i, inst in module.powervs_replica_instance : {
+        ip        = inst.pi_instance_primary_ip
+        server_id = i + 2
+      }
+    ]
   }
 
   playbook_template_vars = {
@@ -200,8 +195,7 @@ module "mariadb_replica_installation" {
     INNODB_BUFFER_POOL_SIZE_MIN = local.innodb_buffer_pool_size_min
     REPLICATION_ROLE            = "replica"
     REPLICATION_PRIMARY_IP      = module.powervs_instance.pi_instance_primary_ip
-    REPLICATION_PASSWORD        = random_password.replication_password[0].result
-    SERVER_ID                   = count.index + 2
+    REPLICATION_PASSWORD        = var.mariadb_replication_password
   }
 }
 
@@ -233,44 +227,6 @@ module "mariadb_sample_data" {
   playbook_template_vars = {
     SAMPLE_DATA = var.mariadb_sample_data
   }
-}
-
-#####################################################
-# Prometheus Exporter module (optional)
-#####################################################
-
-module "mariadb_prometheus_exporter" {
-  source     = "../../modules/powervs-vpc-landing-zone/submodules/ansible"
-  count      = var.enable_prometheus_exporter ? 1 : 0
-  depends_on = [module.mariadb_installation]
-
-  bastion_host_ip        = module.standard.access_host_or_ip
-  ansible_host_or_ip     = module.standard.ansible_host_or_ip
-  ssh_private_key        = var.ssh_private_key
-  configure_ansible_host = false
-
-  src_script_template_name    = "configure-mariadb/ansible_exec.sh.tftpl"
-  dst_script_file_name        = "${var.prefix}-mariadb-prometheus.sh"
-  src_playbook_template_name  = "configure-mariadb/playbook-mariadb-prometheus.yml.tftpl"
-  dst_playbook_file_name      = "${var.prefix}-playbook-mariadb-prometheus.yml"
-  src_inventory_template_name = "inventory.tftpl"
-  dst_inventory_file_name     = "${var.prefix}-mariadb-prometheus-inventory"
-
-  inventory_template_vars = {
-    host_or_ip = module.powervs_instance.pi_instance_primary_ip
-  }
-
-  playbook_template_vars = {
-    REMOTE_SCRAPE       = var.prometheus_remote_scrape
-    PROMETHEUS_PASSWORD = var.prometheus_remote_scrape ? random_password.prometheus_password[0].result : ""
-  }
-}
-
-resource "random_password" "prometheus_password" {
-  count            = var.prometheus_remote_scrape ? 1 : 0
-  length           = 32
-  special          = true
-  override_special = "!#$%&*+-.:;<=>?@[]_{|}~"
 }
 
 module "pi_scc_wp_agent" {

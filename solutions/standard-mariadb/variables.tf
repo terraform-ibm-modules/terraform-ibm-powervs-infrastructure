@@ -248,17 +248,11 @@ variable "nfs_server_config" {
 
 
 #####################################################
-# Optional Parameters Monitoring and SCC WP Instance
+# Optional Parameters SCC WP Instance
 #####################################################
 
 variable "enable_scc_wp" {
   description = "Enable SCC Workload Protection and install and configure the SCC Workload Protection agent on all intel VSIs in this deployment. If set to true, then value for 'ansible_vault_password' in optional parameter must be set."
-  type        = bool
-  default     = true
-}
-
-variable "enable_monitoring" {
-  description = "Specify whether Monitoring will be enabled. This creates a new IBM Cloud Monitoring Instance."
   type        = bool
   default     = true
 }
@@ -351,32 +345,30 @@ variable "mariadb_replication" {
   }
 }
 
+variable "mariadb_replication_password" {
+  description = "Password for the MariaDB replication user ('ReplicationUser'). Required when 'mariadb_replication.role' is 'primary' or 'replica'. Must be at least 15 characters."
+  type        = string
+  sensitive   = true
+  default     = null
+
+  validation {
+    condition = var.mariadb_replication.role == "standalone" || (
+      var.mariadb_replication_password != null && length(var.mariadb_replication_password) >= 15
+    )
+    error_message = "Variable 'mariadb_replication_password' must be provided and at least 15 characters when 'mariadb_replication.role' is 'primary' or 'replica'."
+  }
+}
+
 #####################################################
 # Optional Parameters MariaDB Sample Data
 #####################################################
 
 variable "mariadb_sample_data" {
-  description = "Load sample dataset into MariaDB after installation. Options: 'none', 'sakila', 'world', 'vector' (CSV only), 'vector_full' (CSV + Python embeddings via sentence-transformers)."
+  description = "Load sample dataset into MariaDB after installation. Options: 'none', 'sakila', 'world', 'vector' (MariaDB Vector Search Workshop products.csv)."
   type        = string
   default     = "none"
   validation {
-    condition     = contains(["none", "sakila", "world", "vector", "vector_full"], var.mariadb_sample_data)
+    condition     = contains(["none", "sakila", "world", "vector"], var.mariadb_sample_data)
     error_message = "Allowed values: none, sakila, world, vector."
   }
-}
-
-#####################################################
-# Optional Parameters Prometheus Exporter
-#####################################################
-
-variable "enable_prometheus_exporter" {
-  description = "Install mysqld_exporter (ppc64le binary) on the MariaDB PowerVS instance and configure it as a systemd service running as the 'prometheus' system user. Scrape endpoint binds to 127.0.0.1:9104 only. Requires enable_monitoring = true to ship metrics to IBM Cloud Monitoring."
-  type        = bool
-  default     = false
-}
-
-variable "prometheus_remote_scrape" {
-  description = "Enable remote Prometheus scraping. Creates a password-based MariaDB user for mysqld_exporter. Password is randomly generated and stored in Secrets Manager. Only set to true if the Prometheus scraper runs on a different host."
-  type        = bool
-  default     = false
 }

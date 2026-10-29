@@ -2015,9 +2015,9 @@
         "replication"
       ],
       "short_description": "Deploy MariaDB on IBM® Cloud Power Virtual Server (PowerVS) with a full VPC landing zone, automated Ansible-based installation, and InnoDB memory auto-tuning — following IBM Cloud best practices.",
-      "long_description": "This deployable architecture provisions a complete MariaDB environment on IBM Cloud® Power Virtual Server (PowerVS). It creates a VPC landing zone with edge network services (bastion, SQUID proxy, NTP, DNS), a PowerVS workspace, and a RHEL-based PowerVS instance with MariaDB installed and configured by Ansible. InnoDB buffer pool size is automatically tuned to 80 % of the available instance RAM. The solution includes KMS key management, Activity Tracker, VPC flow logs, and an optional client-to-site VPN backed by Secrets Manager. SCC Workload Protection, MariaDB replication (primary/replica), a Prometheus mysqld_exporter for metrics, and sample datasets (Sakila, World, vector) are all available as optional add-ons.",
+      "long_description": "This deployable architecture provisions a complete MariaDB environment on IBM Cloud® Power Virtual Server (PowerVS). It creates a VPC landing zone with edge network services (bastion, SQUID proxy, NTP, DNS), a PowerVS workspace, and a RHEL-based PowerVS instance with MariaDB installed and configured by Ansible. InnoDB buffer pool size is automatically tuned to 80 % of the available instance RAM. The solution includes KMS key management, Activity Tracker, VPC flow logs, and an optional client-to-site VPN backed by Secrets Manager. SCC Workload Protection, MariaDB replication (primary/replica) and sample datasets (Sakila, World, vector) are all available as optional add-ons.",
       "offering_docs_url": "https://cloud.ibm.com/docs/powervs-vpc",
-      "offering_icon_url": "<same SVG as existing PVS product or a new one>",
+      "offering_icon_url": "data:image/svg+xml;base64,PHN2ZyBpZD0iUG93ZXJJbmZyYXN0cnVjdHVyZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmlld0JveD0iMCAwIDMyIDMyIj48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9Inc2aHpjbXV6amEiIHgxPSItMTg1NS4yMDgiIHkxPSItMjUwMi41NjMiIHgyPSItMTg1NS4yMDgiIHkyPSItMjUyMi4xNzkiIGdyYWRpZW50VHJhbnNmb3JtPSJtYXRyaXgoMS4wNiAwIDAgLS40OTEgMTk3My42NzYgLTEyMjcuMjkzKSIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiPjxzdG9wIG9mZnNldD0iMCIvPjxzdG9wIG9mZnNldD0iLjgiIHN0b3Atb3BhY2l0eT0iMCIvPjwvbGluZWFyR3JhZGllbnQ+PGxpbmVhckdyYWRpZW50IGlkPSI2dmZkbzMxaXNiIiB4MT0iMzI4LjUwMiIgeTE9Ii02NzY1LjY0NyIgeDI9IjMyOC41MDIiIHkyPSItNjc4NS4yNjMiIGdyYWRpZW50VHJhbnNmb3JtPSJtYXRyaXgoMS4wNiAwIDAgLjUxNSAtMzM5Ljk2NiAzNTEzLjI1KSIgeGxpbms6aHJlZj0iI3c2aHpjbXV6amEiLz48bGluZWFyR3JhZGllbnQgaWQ9ImJ0eDNhMG9vZ2MiIHgxPSItOTUzLjI2NiIgeTE9Ii0yODI4LjY1OSIgeDI9Ii05NTMuMjY2IiB5Mj0iLTI4MzguNTMzIiBncmFkaWVudFRyYW5zZm9ybT0ibWF0cml4KDEuMDYgMCAwIC0uNjY5IDEwMzcuMjE4IC0xODc2LjQzOSkiIHhsaW5rOmhyZWY9IiN3Nmh6Y211emphIi8+PGxpbmVhckdyYWRpZW50IGlkPSI2NmhzYWNybDVkIiB4MT0iLTE5MjMuMjUiIHkxPSItMjYyMC4yOSIgeDI9Ii0xOTIzLjI1IiB5Mj0iLTI2MjcuODg0IiBncmFkaWVudFRyYW5zZm9ybT0ibWF0cml4KDEuMDYgMCAwIC42NjkgMjA0OC4wOTEgMTc4Mi4zNjQpIiB4bGluazpocmVmPSIjdzZoemNtdXpqYSIvPjxsaW5lYXJHcmFkaWVudCBpZD0idXp2YXRxaGhwZSIgeDE9Ii0xOTE1LjgwMiIgeTE9Ii0zMTkxLjI5NCIgeDI9Ii0xOTE1LjgwMiIgeTI9Ii0zMTk4Ljg4OSIgZ3JhZGllbnRUcmFuc2Zvcm09Im1hdHJpeCgxLjA2IDAgMCAuNjY5IDIwNDMuNDggMjE0MS4xMjgpIiB4bGluazpocmVmPSIjdzZoemNtdXpqYSIvPjxsaW5lYXJHcmFkaWVudCBpZD0iZTFxMWF3ZXJxZyIgeDE9IjAiIHkxPSIzMiIgeDI9IjMyIiB5Mj0iMCIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiPjxzdG9wIG9mZnNldD0iLjEiIHN0b3AtY29sb3I9IiMwOGJkYmEiLz48c3RvcCBvZmZzZXQ9Ii45IiBzdG9wLWNvbG9yPSIjMGY2MmZlIi8+PC9saW5lYXJHcmFkaWVudD48bWFzayBpZD0idnZmcnV4eXl1ZiIgeD0iMCIgeT0iMCIgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiBtYXNrVW5pdHM9InVzZXJTcGFjZU9uVXNlIj48cGF0aCBkPSJNMTUuOTgyIDMwYy03LjcyIDAtMTQtNi4yOC0xNC0xNHM2LjI4MS0xNCAxNC0xNCAxNCA2LjI4IDE0IDE0LTYuMjggMTQtMTQgMTR6bTAtMjZjLTYuNjE3IDAtMTIgNS4zODMtMTIgMTJzNS4zODMgMTIgMTIgMTIgMTItNS4zODMgMTItMTItNS4zODMtMTItMTItMTJ6IiBzdHlsZT0iZmlsbDojZmZmIi8+PHBhdGggZD0iTTMwLjY5MSAzMC43MDhIMTEuNzI5bDMtOC43MDggMTAuNDY1LjAxMSA1LjU3Ny0uMDIxLS4wOCA4LjcxOHpNNi45ODIgMjBsLTYgNS40OTRWNi44MDdsNiA1LjAxNVYyMHpNMTYuMDAzIDFoMTQuOTk5djEzLjAzMkgxNi4wMDN6Ii8+PHBhdGggdHJhbnNmb3JtPSJyb3RhdGUoLTEzNSA3Ljk0MyA2Ljc4NykiIHN0eWxlPSJmaWxsOnVybCgjdzZoemNtdXpqYSkiIGQ9Ik00Ljc2NCAxLjk3aDYuMzU3djkuNjM1SDQuNzY0eiIvPjxwYXRoIHRyYW5zZm9ybT0icm90YXRlKDEzNSA4LjEwNiAyNS4zNDQpIiBzdHlsZT0iZmlsbDp1cmwoIzZ2ZmRvMzFpc2IpIiBkPSJNNC45MjggMjAuMjk1aDYuMzU3djEwLjA5OEg0LjkyOHoiLz48cGF0aCB0cmFuc2Zvcm09InJvdGF0ZSgxODAgMjcuMTYxIDE4Ljg2MykiIHN0eWxlPSJmaWxsOnVybCgjYnR4M2Ewb29nYykiIGQ9Ik0yMy45ODIgMTUuNTYxaDYuMzU3djYuNjA0aC02LjM1N3oiLz48cGF0aCB0cmFuc2Zvcm09InJvdGF0ZSgtNzAuNzkgMTAuMjYyIDI3LjE5NSkiIHN0eWxlPSJmaWxsOnVybCgjNjZoc2Fjcmw1ZCkiIGQ9Ik03LjA4NCAyNC42NTVoNi4zNTd2NS4wOEg3LjA4NHoiLz48cGF0aCBkPSJNOC45ODIgMjAuOThoLTZjLTEuMTAzIDAtMi0uODk3LTItMnYtNmMwLTEuMTAzLjg5Ny0yIDItMmg2YzEuMTAzIDAgMiAuODk3IDIgMnY2YzAgMS4xMDMtLjg5NyAyLTIgMnptLTYtOHY2aDYuMDAxdi02SDIuOTgyeiIgc3R5bGU9ImZpbGw6I2ZmZiIvPjxwYXRoIHRyYW5zZm9ybT0icm90YXRlKC05MCAxMy41NDMgNC4wMzIpIiBzdHlsZT0iZmlsbDp1cmwoI3V6dmF0cWhocGUpIiBkPSJNMTAuMzY0IDEuNDkyaDYuMzU3djUuMDhoLTYuMzU3eiIvPjxwYXRoIGQ9Ik0yNy4zMDQgNy4xMzRjMC0uMzctLjA2Ny0uNzIxLS4xNjEtMS4wNjJMMjkgNWwtMS0xLjczMi0xLjg0NyAxLjA2NmEzLjk5MSAzLjk5MSAwIDAgMC0xLjg0OS0xLjA1OFYxLjEzNGgtMnYyLjE0MmEzLjk5MSAzLjk5MSAwIDAgMC0xLjg0OSAxLjA1OGwtMS44NDctMS4wNjYtMSAxLjczMiAxLjg1NyAxLjA3MmMtLjA5NC4zNC0uMTYxLjY5Mi0uMTYxIDEuMDYycy4wNjcuNzIxLjE2MSAxLjA2MmwtMS44NTcgMS4wNzIgMSAxLjczMiAxLjg0Ny0xLjA2NmMuNS41MDkgMS4xMzguODczIDEuODQ5IDEuMDU4djIuMTQyaDJ2LTIuMTQyYTMuOTkxIDMuOTkxIDAgMCAwIDEuODQ5LTEuMDU4TDI4IDExbDEtMS43MzItMS44NTctMS4wNzJjLjA5NC0uMzQuMTYxLS42OTIuMTYxLTEuMDYyem0tNCAyYy0xLjEwMyAwLTItLjg5Ny0yLTJzLjg5Ny0yIDItMiAyIC44OTcgMiAyLS44OTcgMi0yIDJ6IiBzdHlsZT0iZmlsbDojZmZmIi8+PC9tYXNrPjwvZGVmcz48ZyBzdHlsZT0ibWFzazp1cmwoI3Z2ZnJ1eHl5dWYpIj48cGF0aCBzdHlsZT0iZmlsbDp1cmwoI2UxcTFhd2VycWcpIiBkPSJNMCAwaDMydjMySDB6Ii8+PC9nPjxwYXRoIGQ9Ik0yOS4wMDIgMzFoLTEzYy0xLjEwMyAwLTItLjg5Ny0yLTJ2LTRjMC0xLjEwMy44OTctMiAyLTJoMTNjMS4xMDMgMCAyIC44OTcgMiAydjRjMCAxLjEwMy0uODk3IDItMiAyem0tMTMtNnY0aDEzLjAwMXYtNEgxNi4wMDJ6IiBzdHlsZT0iZmlsbDojMDAxZDZjIi8+PGNpcmNsZSBjeD0iMTkuMDAyIiBjeT0iMjciIHI9IjEiIHN0eWxlPSJmaWxsOiMwMDFkNmMiLz48L3N2Zz4=",
       "features": [
         {
           "title": "Automated MariaDB installation on PowerVS",
@@ -2041,11 +2041,7 @@
         },
         {
           "title": "MariaDB replication support",
-          "description": "Optional primary/replica replication topology — deploy additional replica PowerVS instances with a randomly generated, Secrets-Manager-stored replication password."
-        },
-        {
-          "title": "Prometheus metrics exporter",
-          "description": "Optional mysqld_exporter (ppc64le) installed as a systemd service, scraping MariaDB metrics at 127.0.0.1:9104 for integration with IBM Cloud Monitoring."
+          "description": "Optional primary/replica replication topology — deploy additional replica PowerVS instances with user-supplied mariadb_replication_password (at least 15 characters), Secrets-Manager-stored replication password."
         },
         {
           "title": "NFS server not required",
@@ -2059,7 +2055,7 @@
           "install_type": "fullstack",
           "index": 2,
           "working_directory": "solutions/standard-mariadb",
-          "short_description": "Deploys a VPC landing zone and a RHEL PowerVS instance with MariaDB fully installed and configured via Ansible. InnoDB buffer pool is auto-tuned, KMS encryption and Activity Tracker are enabled by default. Optional: client-to-site VPN, SCC Workload Protection, replication, Prometheus exporter, and sample datasets.",
+          "short_description": "Deploys a VPC landing zone and a RHEL PowerVS instance with MariaDB fully installed and configured via Ansible. InnoDB buffer pool is auto-tuned, KMS encryption and Activity Tracker are enabled by default. Optional: client-to-site VPN, SCC Workload Protection, replication and sample datasets.",
           "schematics_env_values": {
             "value": "[{\"name\": \"API_DATA_IS_SENSITIVE\",\"value\": \"true\",\"secure\": false,\"hidden\": true}]"
           },
@@ -2095,7 +2091,112 @@
               "type": "string",
               "required": true,
               "default_value": "",
-              "options": [ /* same zone list as the other flavors */],
+              "options": [
+                {
+                  "displayname": "Chennai 02 (che02)",
+                  "value": "che02"
+                },
+                {
+                  "displayname": "Chennai 03 (che03)",
+                  "value": "che03"
+                },
+                {
+                  "displayname": "Dallas (dallas)",
+                  "value": "us-south"
+                },
+                {
+                  "displayname": "Dallas 10 (dal10)",
+                  "value": "dal10"
+                },
+                {
+                  "displayname": "Dallas 12 (dal12)",
+                  "value": "dal12"
+                },
+                {
+                  "displayname": "Dallas 14 (dal14)",
+                  "value": "dal14"
+                },
+                {
+                  "displayname": "Frankfurt 1 (eu-de-1)",
+                  "value": "eu-de-1"
+                },
+                {
+                  "displayname": "Frankfurt 2 (eu-de-2)",
+                  "value": "eu-de-2"
+                },
+                {
+                  "displayname": "London 04 (lon04)",
+                  "value": "lon04"
+                },
+                {
+                  "displayname": "London 06 (lon06)",
+                  "value": "lon06"
+                },
+                {
+                  "displayname": "Madrid 02 (mad02)",
+                  "value": "mad02"
+                },
+                {
+                  "displayname": "Madrid 04 (mad04)",
+                  "value": "mad04"
+                },
+                {
+                  "displayname": "Montreal 01 (mon01)",
+                  "value": "mon01"
+                },
+                {
+                  "displayname": "Mumbai 01 (in-mum-1)",
+                  "value": "in-mum-1"
+                },
+                {
+                  "displayname": "Mumbai 02 (in-mum-2)",
+                  "value": "in-mum-2"
+                },
+                {
+                  "displayname": "Osaka 21 (osa21)",
+                  "value": "osa21"
+                },
+                {
+                  "displayname": "Sao Paulo 01 (sao01)",
+                  "value": "sao01"
+                },
+                {
+                  "displayname": "Sao Paulo 04 (sao04)",
+                  "value": "sao04"
+                },
+                {
+                  "displayname": "Sao Paulo 05 (sao05)",
+                  "value": "sao05"
+                },
+                {
+                  "displayname": "Sydney 04 (syd04)",
+                  "value": "syd04"
+                },
+                {
+                  "displayname": "Sydney 05 (syd05)",
+                  "value": "syd05"
+                },
+                {
+                  "displayname": "Tokyo 04 (tok04)",
+                  "value": "tok04"
+                },
+                {
+                  "displayname": "Toronto 01 (tor01)",
+                  "value": "tor01"
+                },
+                {
+                  "displayname": "Washington DC (us-east)",
+                  "value": "us-east"
+                },
+                {
+                  "displayname": "Washington DC 06 (wdc06)",
+                  "value": "wdc06"
+                },
+                {
+                  "displayname": "Washington DC 07 (wdc07)",
+                  "value": "wdc07"
+                }
+              ],
               "custom_config": {}
             },
             {
@@ -2287,7 +2388,60 @@
               "key": "existing_sm_instance_region",
               "type": "string",
               "default_value": "__NULL__",
-              "options": [ /* same SM region list as the other flavors */],
+              "options": [
+                {
+                  "displayname": "Null",
+                  "value": "__NULL__"
+                },
+                {
+                  "displayname": "au-syd",
+                  "value": "au-syd"
+                },
+                {
+                  "displayname": "br-sao",
+                  "value": "br-sao"
+                },
+                {
+                  "displayname": "ca-mon",
+                  "value": "ca-mon"
+                },
+                {
+                  "displayname": "ca-tor",
+                  "value": "ca-tor"
+                },
+                {
+                  "displayname": "eu-de",
+                  "value": "eu-de"
+                },
+                {
+                  "displayname": "eu-gb",
+                  "value": "eu-gb"
+                },
+                {
+                  "displayname": "in-mum",
+                  "value": "in-mum"
+                },
+                {
+                  "displayname": "in-che",
+                  "value": "in-che"
+                },
+                {
+                  "displayname": "jp-osa",
+                  "value": "jp-osa"
+                },
+                {
+                  "displayname": "jp-tok",
+                  "value": "jp-tok"
+                },
+                {
+                  "displayname": "us-east",
+                  "value": "us-east"
+                },
+                {
+                  "displayname": "us-south",
+                  "value": "us-south"
+                }
+              ],
               "custom_config": {}
             },
             {
@@ -2299,20 +2453,138 @@
               }
             },
             {
+              "key": "mariadb_replication_password",
+              "type": "multiline_secure_value",
+              "custom_config": {
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "type": "multiline_secure_value"
+              }
+            },
+            {
               "key": "mariadb_sample_data"
-            },
-            {
-              "key": "enable_prometheus_exporter"
-            },
-            {
-              "key": "prometheus_remote_scrape"
             },
             {
               "key": "IC_SCHEMATICS_WORKSPACE_ID",
               "hidden": true
             }
           ],
-          "iam_permissions": [ /* same IAM permissions as standard-plus-vsi flavor */],
+          "iam_permissions": [
+            {
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::role:Administrator",
+                "crn:v1:bluemix:public:iam::::serviceRole:Manager"
+              ],
+              "service_name": "cloud-monitoring"
+            },
+            {
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::role:Administrator"
+              ],
+              "service_name": "account-management"
+            },
+            {
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::role:Administrator",
+                "crn:v1:bluemix:public:iam::::serviceRole:Manager"
+              ],
+              "service_name": "kms"
+            },
+            {
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::role:Administrator"
+              ],
+              "service_name": "resource-controller"
+            },
+            {
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::role:Administrator"
+              ],
+              "service_name": "iam-identity"
+            },
+            {
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::role:Administrator"
+              ],
+              "service_name": "monitoring"
+            },
+            {
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::role:Editor"
+              ],
+              "service_name": "atracker"
+            },
+            {
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::serviceRole:Manager",
+                "crn:v1:bluemix:public:iam::::role:Administrator"
+              ],
+              "service_name": "apprapp"
+            },
+            {
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::serviceRole:Manager",
+                "crn:v1:bluemix:public:iam::::role:Administrator"
+              ],
+              "service_name": "secrets-manager"
+            },
+            {
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::serviceRole:Manager",
+                "crn:v1:bluemix:public:iam::::role:Administrator"
+              ],
+              "service_name": "security-compliance"
+            },
+            {
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::serviceRole:Manager",
+                "crn:v1:bluemix:public:iam::::role:Editor"
+              ],
+              "service_name": "power-iaas"
+            },
+            {
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::serviceRole:Manager",
+                "crn:v1:bluemix:public:iam::::role:Administrator"
+              ],
+              "service_name": "is.vpc"
+            },
+            {
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::serviceRole:Manager",
+                "crn:v1:bluemix:public:iam::::role:Administrator"
+              ],
+              "service_name": "hs-crypto"
+            },
+            {
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::serviceRole:Manager",
+                "crn:v1:bluemix:public:iam::::role:Administrator"
+              ],
+              "service_name": "iam"
+            },
+            {
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::serviceRole:Manager",
+                "crn:v1:bluemix:public:iam::::role:Editor"
+              ],
+              "service_name": "transit.gateway"
+            },
+            {
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::serviceRole:Reader",
+                "crn:v1:bluemix:public:iam::::role:Viewer"
+              ],
+              "service_name": "container-registry"
+            },
+            {
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::serviceRole:Manager",
+                "crn:v1:bluemix:public:iam::::role:Administrator"
+              ],
+              "service_name": "cloud-object-storage"
+            }
+          ],
           "architecture": {
             "features": [
               {
@@ -2321,7 +2593,7 @@
               },
               {
                 "title": "MariaDB version",
-                "description": "11.4 LTS (configurable)"
+                "description": "12.3 LTS (configurable)"
               },
               {
                 "title": "InnoDB buffer pool auto-tuning",
@@ -2376,10 +2648,6 @@
                 "description": "Optional (standalone by default)"
               },
               {
-                "title": "Prometheus mysqld_exporter",
-                "description": "Optional (disabled by default)"
-              },
-              {
                 "title": "Sample datasets (Sakila, World, Vector)",
                 "description": "Optional (none by default)"
               }
@@ -2388,10 +2656,10 @@
               {
                 "diagram": {
                   "caption": "MariaDB on Power Virtual Server — Quickstart variation",
-                  "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/refs/heads/main/reference-architectures/standard-mariadb/deploy-arch-ibm-pvs-inf-standard-mariadb.svg",
+                  "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/refs/tags/v11.4.0/reference-architectures/standard-mariadb/deploy-arch-ibm-pvs-inf-standard-mariadb.svg",
                   "type": "image/svg+xml"
                 },
-                "description": "Deploys a VPC landing zone and a RHEL PowerVS instance with MariaDB fully installed and Ansible-configured. Includes KMS encryption, Activity Tracker, VPC flow logs, SQUID proxy, DNS/NTP forwarders, and an optional VPN + Secrets Manager. SCC Workload Protection, replication, Prometheus exporter, and sample datasets are available as optional add-ons."
+                "description": "Deploys a VPC landing zone and a RHEL PowerVS instance with MariaDB fully installed and Ansible-configured. Includes KMS encryption, Activity Tracker, VPC flow logs, SQUID proxy, DNS/NTP forwarders, and an optional VPN + Secrets Manager. SCC Workload Protection, replication and sample datasets are available as optional add-ons."
               }
             ]
           },

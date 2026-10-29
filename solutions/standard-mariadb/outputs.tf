@@ -98,15 +98,6 @@ output "network_services_config" {
 }
 
 ########################################################################
-# Monitoring Instance outputs
-########################################################################
-
-output "monitoring_instance" {
-  description = "Details of the IBM Cloud Monitoring Instance: CRN, location, guid, monitoring_host_ip. monitoring_host_ip is an empty string if enable_monitoring_host is disabled."
-  value       = module.standard.monitoring_instance
-}
-
-########################################################################
 # SCC Workload Protection outputs
 ########################################################################
 output "scc_wp_instance" {
@@ -305,23 +296,4 @@ output "mariadb_replica_instance_ips" {
 output "mariadb_sample_data_loaded" {
   description = "Sample dataset loaded into MariaDB after installation (none, sakila, world, or vector)."
   value       = var.mariadb_sample_data
-}
-
-########################################################################
-# Prometheus Exporter outputs
-########################################################################
-
-output "prometheus_exporter_enabled" {
-  description = "Whether mysqld_exporter is installed and running on the MariaDB PowerVS instance."
-  value       = var.enable_prometheus_exporter
-}
-
-output "prometheus_exporter_endpoint" {
-  description = "Local scrape endpoint for mysqld_exporter. Only accessible from the MariaDB host itself (127.0.0.1:9104)."
-  value       = var.enable_prometheus_exporter ? "http://127.0.0.1:9104/metrics" : "disabled"
-}
-
-output "prometheus_remote_scrape_enabled" {
-  description = "Whether remote password-based Prometheus scraping is configured."
-  value       = var.prometheus_remote_scrape
 }

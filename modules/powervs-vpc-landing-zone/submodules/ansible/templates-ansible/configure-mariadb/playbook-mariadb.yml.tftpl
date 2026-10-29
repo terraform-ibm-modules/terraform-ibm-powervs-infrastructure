@@ -10,7 +10,7 @@
       innodb_buffer_pool_size = ${INNODB_BUFFER_POOL_SIZE}
       innodb_buffer_pool_size_auto_min = ${INNODB_BUFFER_POOL_SIZE_MIN}
     mariadb_replication_role: "${REPLICATION_ROLE == "primary" ? "primary" : "none"}"
-    mariadb_server_id: ${SERVER_ID}
+    mariadb_server_id: "{{ server_id }}"
     replication_role: "${REPLICATION_ROLE}"
 %{ if REPLICATION_ROLE == "primary" ~}
     mariadb_replication_user:
