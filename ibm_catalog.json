@@ -1382,6 +1382,622 @@
             ]
           },
           "terraform_version": "1.12.2"
+        },
+        {
+          "label": "Quickstart MariaDB",
+          "name": "standard-mariadb",
+          "install_type": "fullstack",
+          "index": 2,
+          "working_directory": "solutions/standard-mariadb",
+          "short_description": "Deploys a VPC landing zone and a RHEL PowerVS instance with MariaDB fully installed and configured via Ansible. InnoDB buffer pool is auto-tuned, KMS encryption and Activity Tracker are enabled by default. Optional: client-to-site VPN, SCC Workload Protection, replication and sample datasets.",
+          "schematics_env_values": {
+            "value": "[{\"name\": \"API_DATA_IS_SENSITIVE\",\"value\": \"true\",\"secure\": false,\"hidden\": true}]"
+          },
+          "configuration": [
+            {
+              "key": "prefix",
+              "type": "string",
+              "default_value": "",
+              "value_constraints": [
+                {
+                  "type": "regex",
+                  "description": "Prefix must start with a letter, be 1-16 characters long, and contain only lowercase letters, numbers, and hyphens.",
+                  "value": "^[a-z](?:[a-z0-9-]{0,14}[a-z0-9])?$"
+                }
+              ],
+              "required": true
+            },
+            {
+              "key": "powervs_resource_group_name",
+              "required": true,
+              "default_value": "",
+              "custom_config": {
+                "config_constraints": {
+                  "identifier": "rg_name"
+                },
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "type": "resource_group"
+              }
+            },
+            {
+              "key": "powervs_zone",
+              "type": "string",
+              "required": true,
+              "default_value": "",
+              "options": [
+                {
+                  "displayname": "Chennai 02 (che02)",
+                  "value": "che02"
+                },
+                {
+                  "displayname": "Chennai 03 (che03)",
+                  "value": "che03"
+                },
+                {
+                  "displayname": "Dallas (dallas)",
+                  "value": "us-south"
+                },
+                {
+                  "displayname": "Dallas 10 (dal10)",
+                  "value": "dal10"
+                },
+                {
+                  "displayname": "Dallas 12 (dal12)",
+                  "value": "dal12"
+                },
+                {
+                  "displayname": "Dallas 14 (dal14)",
+                  "value": "dal14"
+                },
+                {
+                  "displayname": "Frankfurt 1 (eu-de-1)",
+                  "value": "eu-de-1"
+                },
+                {
+                  "displayname": "Frankfurt 2 (eu-de-2)",
+                  "value": "eu-de-2"
+                },
+                {
+                  "displayname": "London 04 (lon04)",
+                  "value": "lon04"
+                },
+                {
+                  "displayname": "London 06 (lon06)",
+                  "value": "lon06"
+                },
+                {
+                  "displayname": "Madrid 02 (mad02)",
+                  "value": "mad02"
+                },
+                {
+                  "displayname": "Madrid 04 (mad04)",
+                  "value": "mad04"
+                },
+                {
+                  "displayname": "Montreal 01 (mon01)",
+                  "value": "mon01"
+                },
+                {
+                  "displayname": "Mumbai 01 (in-mum-1)",
+                  "value": "in-mum-1"
+                },
+                {
+                  "displayname": "Mumbai 02 (in-mum-2)",
+                  "value": "in-mum-2"
+                },
+                {
+                  "displayname": "Osaka 21 (osa21)",
+                  "value": "osa21"
+                },
+                {
+                  "displayname": "Sao Paulo 01 (sao01)",
+                  "value": "sao01"
+                },
+                {
+                  "displayname": "Sao Paulo 04 (sao04)",
+                  "value": "sao04"
+                },
+                {
+                  "displayname": "Sao Paulo 05 (sao05)",
+                  "value": "sao05"
+                },
+                {
+                  "displayname": "Sydney 04 (syd04)",
+                  "value": "syd04"
+                },
+                {
+                  "displayname": "Sydney 05 (syd05)",
+                  "value": "syd05"
+                },
+                {
+                  "displayname": "Tokyo 04 (tok04)",
+                  "value": "tok04"
+                },
+                {
+                  "displayname": "Toronto 01 (tor01)",
+                  "value": "tor01"
+                },
+                {
+                  "displayname": "Washington DC (us-east)",
+                  "value": "us-east"
+                },
+                {
+                  "displayname": "Washington DC 06 (wdc06)",
+                  "value": "wdc06"
+                },
+                {
+                  "displayname": "Washington DC 07 (wdc07)",
+                  "value": "wdc07"
+                }
+              ],
+              "custom_config": {}
+            },
+            {
+              "key": "tshirt_size",
+              "type": "object",
+              "required": true,
+              "default_value": "",
+              "options": [
+                {
+                  "displayname": "MariaDB XS (0.25 vCPU, 4 GB RAM, 50 GB disk, RHEL9-SP4)",
+                  "value": {
+                    "tshirt_size": "mariadb_xs",
+                    "image": "RHEL9-SP4"
+                  }
+                },
+                {
+                  "displayname": "MariaDB S (1 vCPU, 8 GB RAM, 100 GB disk, RHEL9-SP4)",
+                  "value": {
+                    "tshirt_size": "mariadb_s",
+                    "image": "RHEL9-SP4"
+                  }
+                },
+                {
+                  "displayname": "MariaDB M (2 vCPU, 16 GB RAM, 250 GB disk, RHEL9-SP4)",
+                  "value": {
+                    "tshirt_size": "mariadb_m",
+                    "image": "RHEL9-SP4"
+                  }
+                },
+                {
+                  "displayname": "MariaDB L (4 vCPU, 32 GB RAM, 500 GB disk, RHEL9-SP4)",
+                  "value": {
+                    "tshirt_size": "mariadb_l",
+                    "image": "RHEL9-SP4"
+                  }
+                },
+                {
+                  "displayname": "Custom (configure in optional parameters)",
+                  "value": {
+                    "tshirt_size": "custom",
+                    "image": ""
+                  }
+                }
+              ],
+              "custom_config": {}
+            },
+            {
+              "key": "mariadb_version",
+              "type": "string",
+              "default_value": "12.3"
+            },
+            {
+              "key": "ssh_public_key",
+              "type": "multiline_secure_value",
+              "required": true,
+              "custom_config": {
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "type": "multiline_secure_value"
+              }
+            },
+            {
+              "key": "ssh_private_key",
+              "type": "multiline_secure_value",
+              "required": true,
+              "custom_config": {
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "type": "multiline_secure_value"
+              }
+            },
+            {
+              "key": "ibmcloud_api_key",
+              "type": "multiline_secure_value",
+              "display_name": "Multiline secure value",
+              "required": true,
+              "custom_config": {
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "type": "multiline_secure_value"
+              }
+            },
+            {
+              "key": "ansible_vault_password",
+              "type": "multiline_secure_value",
+              "required": true,
+              "custom_config": {
+                "type": "multiline_secure_value",
+                "grouping": "deployment",
+                "original_grouping": "deployment"
+              }
+            },
+            {
+              "key": "external_access_ip",
+              "default_value": "__NULL__",
+              "required": true
+            },
+            {
+              "key": "vpc_subnet_cidrs",
+              "custom_config": {
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "type": "code_editor"
+              }
+            },
+            {
+              "key": "powervs_management_network",
+              "custom_config": {
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "type": "code_editor"
+              }
+            },
+            {
+              "key": "powervs_backup_network",
+              "custom_config": {
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "type": "code_editor"
+              }
+            },
+            {
+              "key": "custom_profile",
+              "custom_config": {
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "type": "code_editor"
+              }
+            },
+            {
+              "key": "tags"
+            },
+            {
+              "key": "vpc_intel_images",
+              "hidden": true
+            },
+            {
+              "key": "network_services_vsi_profile"
+            },
+            {
+              "key": "configure_dns_forwarder"
+            },
+            {
+              "key": "configure_ntp_forwarder"
+            },
+            {
+              "key": "configure_nfs_server"
+            },
+            {
+              "key": "dns_forwarder_config",
+              "custom_config": {
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "type": "code_editor"
+              }
+            },
+            {
+              "key": "nfs_server_config",
+              "custom_config": {
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "type": "code_editor"
+              }
+            },
+            {
+              "key": "enable_scc_wp"
+            },
+            {
+              "key": "enable_atracker"
+            },
+            {
+              "key": "enable_vpc_flow_logs"
+            },
+            {
+              "key": "client_to_site_vpn",
+              "custom_config": {
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "type": "code_editor"
+              }
+            },
+            {
+              "key": "sm_service_plan"
+            },
+            {
+              "key": "existing_sm_instance_guid"
+            },
+            {
+              "key": "existing_sm_instance_region",
+              "type": "string",
+              "default_value": "__NULL__",
+              "options": [
+                {
+                  "displayname": "Null",
+                  "value": "__NULL__"
+                },
+                {
+                  "displayname": "au-syd",
+                  "value": "au-syd"
+                },
+                {
+                  "displayname": "br-sao",
+                  "value": "br-sao"
+                },
+                {
+                  "displayname": "ca-mon",
+                  "value": "ca-mon"
+                },
+                {
+                  "displayname": "ca-tor",
+                  "value": "ca-tor"
+                },
+                {
+                  "displayname": "eu-de",
+                  "value": "eu-de"
+                },
+                {
+                  "displayname": "eu-gb",
+                  "value": "eu-gb"
+                },
+                {
+                  "displayname": "in-mum",
+                  "value": "in-mum"
+                },
+                {
+                  "displayname": "in-che",
+                  "value": "in-che"
+                },
+                {
+                  "displayname": "jp-osa",
+                  "value": "jp-osa"
+                },
+                {
+                  "displayname": "jp-tok",
+                  "value": "jp-tok"
+                },
+                {
+                  "displayname": "us-east",
+                  "value": "us-east"
+                },
+                {
+                  "displayname": "us-south",
+                  "value": "us-south"
+                }
+              ],
+              "custom_config": {}
+            },
+            {
+              "key": "mariadb_replication",
+              "custom_config": {
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "type": "code_editor"
+              }
+            },
+            {
+              "key": "mariadb_replication_password",
+              "type": "multiline_secure_value",
+              "custom_config": {
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "type": "multiline_secure_value"
+              }
+            },
+            {
+              "key": "mariadb_sample_data"
+            },
+            {
+              "key": "IC_SCHEMATICS_WORKSPACE_ID",
+              "hidden": true
+            }
+          ],
+          "iam_permissions": [
+            {
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::role:Administrator",
+                "crn:v1:bluemix:public:iam::::serviceRole:Manager"
+              ],
+              "service_name": "cloud-monitoring"
+            },
+            {
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::role:Administrator"
+              ],
+              "service_name": "account-management"
+            },
+            {
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::role:Administrator",
+                "crn:v1:bluemix:public:iam::::serviceRole:Manager"
+              ],
+              "service_name": "kms"
+            },
+            {
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::role:Administrator"
+              ],
+              "service_name": "resource-controller"
+            },
+            {
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::role:Administrator"
+              ],
+              "service_name": "iam-identity"
+            },
+            {
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::role:Administrator"
+              ],
+              "service_name": "monitoring"
+            },
+            {
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::role:Editor"
+              ],
+              "service_name": "atracker"
+            },
+            {
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::serviceRole:Manager",
+                "crn:v1:bluemix:public:iam::::role:Administrator"
+              ],
+              "service_name": "apprapp"
+            },
+            {
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::serviceRole:Manager",
+                "crn:v1:bluemix:public:iam::::role:Administrator"
+              ],
+              "service_name": "secrets-manager"
+            },
+            {
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::serviceRole:Manager",
+                "crn:v1:bluemix:public:iam::::role:Administrator"
+              ],
+              "service_name": "security-compliance"
+            },
+            {
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::serviceRole:Manager",
+                "crn:v1:bluemix:public:iam::::role:Editor"
+              ],
+              "service_name": "power-iaas"
+            },
+            {
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::serviceRole:Manager",
+                "crn:v1:bluemix:public:iam::::role:Administrator"
+              ],
+              "service_name": "is.vpc"
+            },
+            {
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::serviceRole:Manager",
+                "crn:v1:bluemix:public:iam::::role:Administrator"
+              ],
+              "service_name": "hs-crypto"
+            },
+            {
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::serviceRole:Manager",
+                "crn:v1:bluemix:public:iam::::role:Administrator"
+              ],
+              "service_name": "iam"
+            },
+            {
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::serviceRole:Manager",
+                "crn:v1:bluemix:public:iam::::role:Editor"
+              ],
+              "service_name": "transit.gateway"
+            },
+            {
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::serviceRole:Reader",
+                "crn:v1:bluemix:public:iam::::role:Viewer"
+              ],
+              "service_name": "container-registry"
+            },
+            {
+              "role_crns": [
+                "crn:v1:bluemix:public:iam::::serviceRole:Manager",
+                "crn:v1:bluemix:public:iam::::role:Administrator"
+              ],
+              "service_name": "cloud-object-storage"
+            }
+          ],
+          "architecture": {
+            "features": [
+              {
+                "title": "MariaDB PowerVS Instance",
+                "description": "Yes, 1 RHEL instance (XS/S/M/L or custom)"
+              },
+              {
+                "title": "MariaDB version",
+                "description": "12.3 LTS (configurable)"
+              },
+              {
+                "title": "InnoDB buffer pool auto-tuning",
+                "description": "Yes — 80 % of instance RAM at startup"
+              },
+              {
+                "title": "Number of Intel Virtual Server Instances",
+                "description": "2 (bastion + network-services)"
+              },
+              {
+                "title": "Number of VPCs",
+                "description": "1"
+              },
+              {
+                "title": "Number of PowerVS Workspaces",
+                "description": "1"
+              },
+              {
+                "title": "KMS key management",
+                "description": "Yes"
+              },
+              {
+                "title": "Activity Tracker",
+                "description": "Enabled by default"
+              },
+              {
+                "title": "VPC flow logs",
+                "description": "Enabled by default"
+              },
+              {
+                "title": "Internet proxy (SQUID) on VPC",
+                "description": "Yes — routes PowerVS internet traffic via VPC"
+              },
+              {
+                "title": "DNS and NTP forwarders",
+                "description": "Enabled by default on network-services VSI"
+              },
+              {
+                "title": "NFS server",
+                "description": "Disabled — not required for MariaDB"
+              },
+              {
+                "title": "Client-to-site VPN + Secrets Manager",
+                "description": "Optional (enabled by default)"
+              },
+              {
+                "title": "SCC Workload Protection agent",
+                "description": "Optional (enabled by default)"
+              },
+              {
+                "title": "MariaDB replication (primary/replica)",
+                "description": "Optional (standalone by default)"
+              },
+              {
+                "title": "Sample datasets (Sakila, World, Vector)",
+                "description": "Optional (none by default)"
+              }
+            ],
+            "diagrams": [
+              {
+                "diagram": {
+                  "caption": "MariaDB on Power Virtual Server — Quickstart variation",
+                  "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/refs/tags/v11.4.0/reference-architectures/standard-mariadb/deploy-arch-ibm-pvs-inf-standard-mariadb.svg",
+                  "type": "image/svg+xml"
+                },
+                "description": "Deploys a VPC landing zone and a RHEL PowerVS instance with MariaDB fully installed and Ansible-configured. Includes KMS encryption, Activity Tracker, VPC flow logs, SQUID proxy, DNS/NTP forwarders, and an optional VPN + Secrets Manager. SCC Workload Protection, replication and sample datasets are available as optional add-ons."
+              }
+            ]
+          },
+          "terraform_version": "1.12.2"
         }
       ]
     },
