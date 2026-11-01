@@ -1,0 +1,87 @@
+---
+- name: Install and Configure MariaDB
+  hosts: all
+
+  vars:
+    mariadb_use_official_repo: true
+    mariadb_use_official_repo_version: "${MARIADB_VERSION}"
+    mariadb_bind_address: "*"
+    mariadb_innodb_raw: |
+      innodb_buffer_pool_size = ${INNODB_BUFFER_POOL_SIZE}
+      innodb_buffer_pool_size_auto_min = ${INNODB_BUFFER_POOL_SIZE_MIN}
+    mariadb_replication_role: "${REPLICATION_ROLE == "primary" ? "primary" : "none"}"
+    mariadb_server_id: "{{ server_id }}"
+    replication_role: "${REPLICATION_ROLE}"
+%{ if REPLICATION_ROLE == "primary" ~}
+    mariadb_replication_user:
+      - name: ReplicationUser
+        password: "${REPLICATION_PASSWORD}"
+        priv: "*.*:REPLICATION SLAVE,REPLICATION CLIENT"
+        host: "%"
+        state: present
+%{ endif ~}
+%{ if REPLICATION_ROLE == "replica" ~}
+    replication_primary_ip: "${REPLICATION_PRIMARY_IP}"
+    replication_password: "${REPLICATION_PASSWORD}"
+%{ endif ~}
+
+  tasks:
+    - name: Include fauust.mariadb Ansible Role
+      include_role:
+        name: fauust.mariadb
+
+    - name: Ensure /var/lib/mysql directory exists
+      file:
+        path: /var/lib/mysql
+        state: directory
+        owner: mysql
+        group: mysql
+        mode: '0755'
+
+    - name: Apply SELinux context to /var/lib/mysql
+      command: restorecon -Rv /var/lib/mysql
+      register: selinux_out
+      changed_when: selinux_out.stdout != ""
+      failed_when: false
+
+    - name: Ensure MariaDB service is running
+      systemd:
+        name: mariadb
+        state: started
+        enabled: yes
+
+    # Stop replica before changing primary (idempotent / handles re-runs)
+    - name: Stop replica replication
+      when: replication_role == "replica"
+      community.mysql.mysql_replication:
+        mode: stopreplica
+        login_unix_socket: /var/lib/mysql/mysql.sock
+      failed_when: false
+
+    # Configure replication source on replica nodes
+    - name: Configure replication source on replica
+      when: replication_role == "replica"
+      community.mysql.mysql_replication:
+        mode: changeprimary
+        primary_host: "{{ replication_primary_ip }}"
+        primary_user: ReplicationUser
+        primary_password: "{{ replication_password }}"
+        login_unix_socket: /var/lib/mysql/mysql.sock
+
+    # Start replication on replica nodes
+    - name: Start replica replication
+      when: replication_role == "replica"
+      community.mysql.mysql_replication:
+        mode: startreplica
+        login_unix_socket: /var/lib/mysql/mysql.sock
+
+    # Verify replica IO thread is connected before finishing (replica nodes only)
+    - name: Verify replica IO thread is running
+      when: replication_role == "replica"
+      community.mysql.mysql_replication:
+        mode: getreplica
+        login_unix_socket: /var/lib/mysql/mysql.sock
+      register: replica_status
+      retries: 10
+      delay: 5
+      until: (replica_status.Replica_IO_Running | default(replica_status.Slave_IO_Running | default('No'))) == "Yes"
