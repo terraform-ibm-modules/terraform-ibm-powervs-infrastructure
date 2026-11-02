@@ -150,13 +150,13 @@ variable "custom_profile" {
     })
   })
   default = {
-    cores       = "1"
-    memory      = "8"
-    server_type = "s1022"
-    proc_type   = "shared"
+    cores       = ""
+    memory      = ""
+    server_type = ""
+    proc_type   = ""
     storage = {
-      size = "50"
-      tier = "tier3"
+      size = ""
+      tier = ""
     }
   }
 

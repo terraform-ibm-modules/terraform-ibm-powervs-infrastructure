@@ -4,7 +4,7 @@
   "prefix": "mariadb-val",
   "tshirt_size": {
       "tshirt_size": "mariadb_s",
-      "image": "RHEL10-SP2"
+      "image": "RHEL9-SP6"
    },
   "powervs_resource_group_name": "Default",
   "ssh_public_key": $SSH_PUB_KEY,

@@ -1541,31 +1541,31 @@
               "default_value": "",
               "options": [
                 {
-                  "displayname": "MariaDB XS (0.25 vCPU, 4 GB RAM, 50 GB disk, RHEL9-SP4)",
+                  "displayname": "MariaDB XS (0.25 vCPU, 4 GB RAM, 50 GB disk, RHEL9-SP6)",
                   "value": {
                     "tshirt_size": "mariadb_xs",
-                    "image": "RHEL9-SP4"
+                    "image": "RHEL9-SP6"
                   }
                 },
                 {
-                  "displayname": "MariaDB S (1 vCPU, 8 GB RAM, 100 GB disk, RHEL9-SP4)",
+                  "displayname": "MariaDB S (1 vCPU, 8 GB RAM, 100 GB disk, RHEL9-SP6)",
                   "value": {
                     "tshirt_size": "mariadb_s",
-                    "image": "RHEL9-SP4"
+                    "image": "RHEL9-SP6"
                   }
                 },
                 {
-                  "displayname": "MariaDB M (2 vCPU, 16 GB RAM, 250 GB disk, RHEL9-SP4)",
+                  "displayname": "MariaDB M (2 vCPU, 16 GB RAM, 250 GB disk, RHEL9-SP6)",
                   "value": {
                     "tshirt_size": "mariadb_m",
-                    "image": "RHEL9-SP4"
+                    "image": "RHEL9-SP6"
                   }
                 },
                 {
-                  "displayname": "MariaDB L (4 vCPU, 32 GB RAM, 500 GB disk, RHEL9-SP4)",
+                  "displayname": "MariaDB L (4 vCPU, 32 GB RAM, 500 GB disk, RHEL9-SP6)",
                   "value": {
                     "tshirt_size": "mariadb_l",
-                    "image": "RHEL9-SP4"
+                    "image": "RHEL9-SP6"
                   }
                 },
                 {
@@ -1688,8 +1688,8 @@
                   "value": "RHEL9-SP6"
                 },
                 {
-                  "displayname": "Linux - RHEL9-SP4",
-                  "value": "RHEL9-SP4"
+                  "displayname": "Linux - RHEL8-SP10",
+                  "value": "RHEL8-SP10"
                 }
               ],
               "custom_config": {}
