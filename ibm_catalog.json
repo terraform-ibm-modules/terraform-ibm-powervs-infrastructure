@@ -1582,7 +1582,7 @@
               "key": "mariadb_version",
               "type": "string",
               "default_value": "12.3",
-              "required": true,
+              "required": true
             },
             {
               "key": "mariadb_sample_data",
