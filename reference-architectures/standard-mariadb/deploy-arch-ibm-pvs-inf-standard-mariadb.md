@@ -1,7 +1,7 @@
 ---
 copyright:
   years: 2026
-lastupdated: "2026-10-29"
+lastupdated: "2026-11-07"
 keywords:
 subcollection: deployable-reference-architectures
 authors:
@@ -15,7 +15,7 @@ image_source: https://github.com/terraform-ibm-modules/terraform-ibm-powervs-inf
 use-case: ITServiceManagement
 industry: Technology
 content-type: reference-architecture
-version: v11.4.0
+version: v11.5.0
 compliance:
 
 ---
@@ -27,7 +27,7 @@ compliance:
 {: toc-content-type="reference-architecture"}
 {: toc-industry="Technology"}
 {: toc-use-case="ITServiceManagement"}
-{: toc-version="11.4.0"}
+{: toc-version="11.5.0"}
 
 Quickstart MariaDB deployment of the Power Virtual Server with VPC landing zone creates VPC services, a Power Virtual Server workspace, and interconnects them. It also deploys a RHEL Power Virtual Server instance of chosen T-shirt size (`mariadb_xs`, `mariadb_s`, `mariadb_m`, `mariadb_l`) or custom configuration, with MariaDB 12.3 LTS installed and configured by Ansible. The InnoDB buffer pool is auto-tuned to the memory of the instance, and the data is stored on a dedicated XFS volume mounted on `/var/lib/mysql`.
 
@@ -109,7 +109,7 @@ IBM Cloud® Power Virtual Servers (PowerVS) is a public cloud offering that an e
 ### MariaDB architecture decisions
 {: #standard-mariadb-db-components}
 
-| Requirement | Component | Choice | Alternative choice |
+|Requirement|Component|Choice|Alternative choice|
 |-------------|-----------|--------------------|--------------------|
 |* Install and configure the database without manual steps  \n * Use memory of the instance efficiently|MariaDB 12.3 LTS installed by Ansible from the network services VSI|MariaDB is installed and configured automatically. The InnoDB buffer pool is auto-tuned based on the memory of the PowerVS instance.||
 |* Provide high availability or read scaling for the database|MariaDB replication (`mariadb_replication`)|`standalone` (default). Optionally `primary`, which creates `replica_count` additional PowerVS replica instances with the same sizing as the primary, or `replica`, which replicates from `primary_ip`. The replication password is supplied through the sensitive `mariadb_replication_password` variable. It is required for the `primary` and `replica` roles and must be at least 15 characters long.|Configure replication manually after deployment|

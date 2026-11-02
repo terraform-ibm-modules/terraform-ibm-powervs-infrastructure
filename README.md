@@ -9,7 +9,7 @@
 ## Summary
 This repository contains deployable architecture solutions that help provision VPC landing zones, PowerVS workspaces, and interconnect them. The solutions are available in the IBM Cloud Catalog and can also be deployed without the catalog, except for the second solution below.
 
-Three solutions are offered:
+Four solutions are offered:
 1. [Standard Landscape](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/tree/main/solutions/standard)
     - Creates a VPC and Power Virtual Server workspace, interconnects them, and configures OS network management services (SQUID proxy, NTP, NFS, and DNS services) using Ansible Galaxy collection roles [ibm.power_linux_sap collection](https://galaxy.ansible.com/ui/repo/published/ibm/power_linux_sap/).
 2. [Quickstart (Standard Landscape plus VSI)](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/tree/main/solutions/standard-plus-vsi)
@@ -21,19 +21,27 @@ Three solutions are offered:
     - The number of PowerVS Master and Worker nodes and their compute configuration is fully customizable.
     - Optionally creates IBM Cloud Monitoring and a SCC Workload protection instances.
     - This solution is typically utilized for **PoCs, demos, and quick onboarding** of OpenShift on PowerVS Infrastructure.
+4. [Quickstart MariaDB](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/tree/main/solutions/standard-mariadb)
+    - Creates a VPC and a Power Virtual Server workspace, interconnects them, and deploys a RHEL Power Virtual Server instance of a selected t-shirt size (`mariadb_xs`, `mariadb_s`, `mariadb_m`, `mariadb_l`) or custom configuration.
+    - Installs and configures MariaDB 12.3 LTS via Ansible. The InnoDB buffer pool is auto-tuned to the instance memory and data is stored on a dedicated XFS volume mounted on `/var/lib/mysql`.
+    - Optionally supports MariaDB replication, sample datasets (Sakila, World, Vector), NFS, NTP, DNS management services, and SCC Workload Protection.
+    - This solution is typically utilized for **PoCs, demos, and quick onboarding** of MariaDB on PowerVS Infrastructure.
+
 
 ## Reference architectures
 - [Standard Landscape](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/tree/main/reference-architectures/standard/deploy-arch-ibm-pvs-inf-standard.md)
 - [Quickstart (Standard Landscape plus VSI)](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/tree/main/reference-architectures/standard-plus-vsi/deploy-arch-ibm-pvs-inf-standard-plus-vsi.md)
 - [Quickstart OpenShift](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/tree/main/reference-architectures/standard-openshift/deploy-arch-ibm-pvs-inf-standard-openshift.md)
+- [Quickstart MariaDB](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/tree/main/reference-architectures/standard-mariadb/deploy-arch-ibm-pvs-inf-standard-mariadb.md)
 
 ## Solutions
 
-| Variation  | Available on IBM Catalog  |   Creates VPC Landing Zone | Performs VPC VSI OS Config | Creates PowerVS Infrastructure | Creates PowerVS Instance | Performs PowerVS OS Config |
+| Variation | Available on IBM Catalog | Creates VPC Landing Zone | Performs VPC VSI OS Config | Creates PowerVS Infrastructure | Creates PowerVS Instance | Performs PowerVS OS Config |
 | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
-| [Standard Landscape](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/tree/main/solutions/standard)  | :heavy_check_mark:   | :heavy_check_mark:  | :heavy_check_mark:  |  :heavy_check_mark: | N/A | N/A |
-| [Quickstart (Standard Landscape plus VSI)](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/tree/main/solutions/standard-plus-vsi)    | :heavy_check_mark:    | :heavy_check_mark:| :heavy_check_mark: | :heavy_check_mark:  | :heavy_check_mark: | :heavy_check_mark: |
-| [Quickstart OpenShift](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/tree/main/solutions/standard-openshift)    | :heavy_check_mark:    | :heavy_check_mark:| :heavy_check_mark: | :heavy_check_mark:  | :heavy_check_mark: | :heavy_check_mark: |
+| [Standard Landscape](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/tree/main/solutions/standard) | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | N/A | N/A |
+| [Quickstart (Standard Landscape plus VSI)](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/tree/main/solutions/standard-plus-vsi) | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
+| [Quickstart OpenShift](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/tree/main/solutions/standard-openshift) | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
+| [Quickstart MariaDB](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/tree/main/solutions/standard-mariadb) | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
 
 
 ## Required IAM access policies

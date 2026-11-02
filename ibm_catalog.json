@@ -601,7 +601,7 @@
               {
                 "diagram": {
                   "caption": "Power Virtual Server with VPC landing zone 'Standard Landscape' variation",
-                  "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/refs/tags/v11.4.0/reference-architectures/standard/deploy-arch-ibm-pvs-inf-standard.svg",
+                  "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/refs/tags/v11.5.0/reference-architectures/standard/deploy-arch-ibm-pvs-inf-standard.svg",
                   "type": "image/svg+xml"
                 },
                 "description": "The Power Virtual Server with VPC landing zone as variation 'Standard Landscape' deploys VPC services and a Power Virtual Server workspace and interconnects them.\n \nRequired and optional management components are configured."
@@ -1374,7 +1374,7 @@
               {
                 "diagram": {
                   "caption": "Power Virtual Server with VPC landing zone 'Quickstart' variation",
-                  "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/refs/tags/v11.4.0/reference-architectures/standard-plus-vsi/deploy-arch-ibm-pvs-inf-standard-plus-vsi.svg",
+                  "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/refs/tags/v11.5.0/reference-architectures/standard-plus-vsi/deploy-arch-ibm-pvs-inf-standard-plus-vsi.svg",
                   "type": "image/svg+xml"
                 },
                 "description": "The Power Virtual Server with VPC landing zone as 'Quickstart' variation deploys VPC services and a Power Virtual Server workspace and interconnects them. It also creates one Power virtual server instance of chosen t-shirt size or custom configuration.\n \nRequired and optional management components are configured."
@@ -1389,7 +1389,7 @@
           "install_type": "fullstack",
           "index": 2,
           "working_directory": "solutions/standard-mariadb",
-          "short_description": "Deploys a VPC landing zone and a RHEL PowerVS instance with MariaDB fully installed and configured via Ansible. InnoDB buffer pool is auto-tuned, KMS encryption and Activity Tracker are enabled by default. Optional: client-to-site VPN, SCC Workload Protection, replication and sample datasets.",
+          "short_description": "Deploys a VPC landing zone and a RHEL Power Virtual Server instance with MariaDB fully installed and configured via Ansible. InnoDB buffer pool is auto-tuned, KMS encryption and Activity Tracker are enabled by default. Optional: client-to-site VPN, SCC Workload Protection, replication and sample datasets.",
           "schematics_env_values": {
             "value": "[{\"name\": \"API_DATA_IS_SENSITIVE\",\"value\": \"true\",\"secure\": false,\"hidden\": true}]"
           },
@@ -1606,7 +1606,8 @@
                   "displayname": "Vector",
                   "value": "vector"
                 }
-              ]
+              ],
+              "custom_config": {}
             },
             {
               "key": "mariadb_replication",
@@ -1975,10 +1976,6 @@
                 "description": "12.3 LTS (configurable)"
               },
               {
-                "title": "InnoDB buffer pool auto-tuning",
-                "description": "Yes — 80 % of instance RAM at startup"
-              },
-              {
                 "title": "Number of Intel Virtual Server Instances",
                 "description": "2 (bastion + network-services)"
               },
@@ -2035,10 +2032,10 @@
               {
                 "diagram": {
                   "caption": "MariaDB on Power Virtual Server — Quickstart variation",
-                  "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/refs/tags/v11.4.0/reference-architectures/standard-mariadb/deploy-arch-ibm-pvs-inf-standard-mariadb.svg",
+                  "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/refs/tags/v11.5.0/reference-architectures/standard-mariadb/deploy-arch-ibm-pvs-inf-standard-mariadb.svg",
                   "type": "image/svg+xml"
                 },
-                "description": "Deploys a VPC landing zone and a RHEL PowerVS instance with MariaDB fully installed and Ansible-configured. Includes KMS encryption, Activity Tracker, VPC flow logs, SQUID proxy, DNS/NTP forwarders, and an optional VPN + Secrets Manager. SCC Workload Protection, replication and sample datasets are available as optional add-ons."
+                "description": "Deploys a VPC landing zone and a RHEL Power Virtual Server instance with MariaDB fully installed and Ansible-configured. Includes KMS encryption, Activity Tracker, VPC flow logs, SQUID proxy, DNS/NTP forwarders, and an optional VPN + Secrets Manager. SCC Workload Protection, replication and sample datasets are available as optional add-ons."
               }
             ]
           },
@@ -2626,7 +2623,7 @@
               {
                 "diagram": {
                   "caption": "Power Virtual Server with VPC landing zone 'Quickstart OpenShift' variation",
-                  "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/refs/tags/v11.4.0/reference-architectures/standard-openshift/deploy-arch-ibm-pvs-inf-standard-openshift.svg",
+                  "url": "https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-powervs-infrastructure/refs/tags/v11.5.0/reference-architectures/standard-openshift/deploy-arch-ibm-pvs-inf-standard-openshift.svg",
                   "type": "image/svg+xml"
                 },
                 "description": "The Power Virtual Server with VPC landing zone as variation 'Quickstart OpenShift' deploys VPC services and an Openshift Cluster on PowerVS and interconnects them.\n \nRequired and optional management components are configured."
