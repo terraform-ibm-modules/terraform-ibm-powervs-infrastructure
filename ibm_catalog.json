@@ -1581,14 +1581,14 @@
             {
               "key": "mariadb_version",
               "type": "string",
-              "default_value": "12.3"
+              "default_value": "12.3",
+              "required": true,
             },
             {
               "key": "mariadb_sample_data",
               "type": "string",
               "default_value": "none",
-              "display_name": "Sample data",
-              "required": false,
+              "required": true,
               "options": [
                 {
                   "displayname": "None",
@@ -1610,6 +1610,7 @@
             },
             {
               "key": "mariadb_replication",
+              "required": true,
               "custom_config": {
                 "grouping": "deployment",
                 "original_grouping": "deployment",
@@ -1619,6 +1620,7 @@
             {
               "key": "mariadb_replication_password",
               "type": "multiline_secure_value",
+              "required": true,
               "custom_config": {
                 "grouping": "deployment",
                 "original_grouping": "deployment",
