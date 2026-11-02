@@ -4,7 +4,7 @@
 ### Requirements
 
 | Name | Version |
-|------|---------|
+| ---- | ------- |
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.9.0 |
 | <a name="requirement_random"></a> [random](#requirement\_random) | 3.9.1 |
 
@@ -15,7 +15,7 @@ No modules.
 ### Resources
 
 | Name | Type |
-|------|------|
+| ---- | ---- |
 | [random_id.filename](https://registry.terraform.io/providers/hashicorp/random/3.9.1/docs/resources/id) | resource |
 | [terraform_data.execute_playbooks](https://registry.terraform.io/providers/hashicorp/terraform/latest/docs/resources/data) | resource |
 | [terraform_data.execute_playbooks_with_vault](https://registry.terraform.io/providers/hashicorp/terraform/latest/docs/resources/data) | resource |
@@ -25,7 +25,7 @@ No modules.
 ### Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
+| ---- | ----------- | ---- | ------- | :------: |
 | <a name="input_ansible_host_or_ip"></a> [ansible\_host\_or\_ip](#input\_ansible\_host\_or\_ip) | Private IP of virtual server instance running RHEL OS on which ansible will be installed and configured to act as central ansible node. | `string` | n/a | yes |
 | <a name="input_ansible_vault_password"></a> [ansible\_vault\_password](#input\_ansible\_vault\_password) | Vault password to encrypt ansible playbooks that contain sensitive information. Password requirements: 15-100 characters and at least one uppercase letter, one lowercase letter, one number, and one special character. Allowed characters: A-Z, a-z, 0-9, !#$%&()*+-.:;<=>?@[]\_{\|}~. | `string` | n/a | yes |
 | <a name="input_bastion_host_ip"></a> [bastion\_host\_ip](#input\_bastion\_host\_ip) | Jump/Bastion server public IP address to reach the ansible host which has private IP. | `string` | n/a | yes |
