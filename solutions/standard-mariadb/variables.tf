@@ -9,7 +9,7 @@ variable "prefix" {
 }
 
 variable "tshirt_size" {
-  description = "MariaDB PowerVS instance profile preset. The 'tshirt_size' field selects the compute profile (mariadb_xs, mariadb_s, mariadb_m, mariadb_l, or 'custom'). The 'image' field sets the RHEL boot image (e.g., RHEL9-SP4, RHEL9-SP6) for preset sizes. When 'custom' is selected, 'image' is ignored. These profiles can be overridden by specifying 'custom_profile_instance_boot_image' and 'custom_profile' values in optional parameters."
+  description = "MariaDB PowerVS instance profile preset. These profiles can be overridden by specifying 'custom_profile_instance_boot_image' and 'custom_profile' values in optional parameters."
   type = object({
     tshirt_size = string
     image       = string
