@@ -66,6 +66,35 @@ Supply the password for the replication user via `mariadb_replication_password`.
 ### Sample data
 `mariadb_sample_data` accepts `none` (default), `sakila`, `world` and `vector`. The vector options create a `vector_demo.products` and load it from the MariaDB Vector Search Workshop `products.csv`.
 
+### Custom profile
+
+Set `tshirt_size.tshirt_size` to `"custom"` to define your own compute and storage sizing instead of using a preset. You must also set:
+
+- **`custom_profile_instance_boot_image`** — the RHEL boot image (e.g., `RHEL9-SP4`, `RHEL9-SP6`). Required when `tshirt_size = "custom"`.
+- **`custom_profile`** — the compute and storage specification.
+
+Example:
+```hcl
+tshirt_size = {
+  tshirt_size = "custom"
+  image       = ""
+}
+
+custom_profile_instance_boot_image = "RHEL9-SP6"
+
+custom_profile = {
+  cores       = "2"
+  memory      = "16"
+  server_type = "s1022"
+  proc_type   = "shared"
+  storage = {
+    size = "200"
+    tier = "tier3"
+  }
+}
+```
+
+
 
 ## Accessing the deployment
 Connect through the bastion/VPN to `powervs_instance_management_ip`. MariaDB listens on all interfaces (`mariadb_bind_address = "*"`) on port 3306. The data volume is mounted at `/var/lib/mysql` (XFS).
@@ -89,12 +118,14 @@ Connect through the bastion/VPN to `powervs_instance_management_ip`. MariaDB lis
 | <a name="module_mariadb_sample_data"></a> [mariadb\_sample\_data](#module\_mariadb\_sample\_data) | ../../modules/powervs-vpc-landing-zone/submodules/ansible | n/a |
 | <a name="module_pi_scc_wp_agent"></a> [pi\_scc\_wp\_agent](#module\_pi\_scc\_wp\_agent) | ../../modules/powervs-vpc-landing-zone/submodules/ansible | n/a |
 | <a name="module_powervs_instance"></a> [powervs\_instance](#module\_powervs\_instance) | terraform-ibm-modules/powervs-instance/ibm | 2.8.9 |
+| <a name="module_powervs_replica_instance"></a> [powervs\_replica\_instance](#module\_powervs\_replica\_instance) | terraform-ibm-modules/powervs-instance/ibm | 2.8.9 |
 | <a name="module_standard"></a> [standard](#module\_standard) | ../../modules/powervs-vpc-landing-zone | n/a |
 
 ### Resources
 
 | Name | Type |
 |------|------|
+| [terraform_data.wait_replica_cloudinit](https://registry.terraform.io/providers/hashicorp/terraform/latest/docs/resources/data) | resource |
 | [ibm_iam_auth_token.auth_token](https://registry.terraform.io/providers/IBM-Cloud/ibm/2.6.2/docs/data-sources/iam_auth_token) | data source |
 
 ### Inputs
@@ -108,7 +139,7 @@ Connect through the bastion/VPN to `powervs_instance_management_ip`. MariaDB lis
 | <a name="input_configure_nfs_server"></a> [configure\_nfs\_server](#input\_configure\_nfs\_server) | Specify if NFS server will be configured. A [file storage share and mount target](https://cloud.ibm.com/docs/vpc?topic=vpc-file-storage-create&interface=ui) will be created in VPC and mounted on the network services VSI. Not required for MariaDB. If enabled, ensure 'nfs\_server\_config' is set properly. | `bool` | `false` | no |
 | <a name="input_configure_ntp_forwarder"></a> [configure\_ntp\_forwarder](#input\_configure\_ntp\_forwarder) | Specify if NTP forwarder will be configured. This will allow you to synchronize time between IBM PowerVS instances. NTP forwarder will be installed on the network-services vsi. | `bool` | `true` | no |
 | <a name="input_custom_profile"></a> [custom\_profile](#input\_custom\_profile) | Overrides t-shirt profile when 'tshirt\_size.tshirt\_size' is set to 'custom'. Specify cores (min 0.25, default 1), memory in GB (min 4, default 8), server\_type, proc\_type, and storage (size in GB, tier). | <pre>object({<br/>    cores       = string<br/>    memory      = string<br/>    server_type = string<br/>    proc_type   = string<br/>    storage = object({<br/>      size = string<br/>      tier = string<br/>    })<br/>  })</pre> | <pre>{<br/>  "cores": "1",<br/>  "memory": "8",<br/>  "proc_type": "shared",<br/>  "server_type": "s1022",<br/>  "storage": {<br/>    "size": "50",<br/>    "tier": "tier3"<br/>  }<br/>}</pre> | no |
-| <a name="input_custom_profile_instance_boot_image"></a> [custom\_profile\_instance\_boot\_image](#input\_custom\_profile\_instance\_boot\_image) | Override the t-shirt size specs of PowerVS Workspace instance by selecting an image name and providing valid 'custom\_profile' optional parameter. | `string` | `"none"` | no |
+| <a name="input_custom_profile_instance_boot_image"></a> [custom\_profile\_instance\_boot\_image](#input\_custom\_profile\_instance\_boot\_image) | Boot image for the PowerVS instance when 'tshirt\_size.tshirt\_size' is set to 'custom'. Must be a RHEL image name (e.g., RHEL9-SP4, RHEL9-SP6). Set to 'none' when using a preset t-shirt size (image is taken from the 'tshirt\_size.image' field instead). | `string` | `"none"` | no |
 | <a name="input_dns_forwarder_config"></a> [dns\_forwarder\_config](#input\_dns\_forwarder\_config) | Configuration for the DNS forwarder to a DNS service that is not reachable directly from PowerVS. | <pre>object({<br/>    dns_servers = string<br/>  })</pre> | <pre>{<br/>  "dns_servers": "161.26.0.7; 161.26.0.8; 9.9.9.9;"<br/>}</pre> | no |
 | <a name="input_enable_atracker"></a> [enable\_atracker](#input\_enable\_atracker) | Enable Activity Tracker. If true, Activity Tracker resources (KMS key, COS instance, bucket, and atracker configuration) will be created. | `bool` | `true` | no |
 | <a name="input_enable_scc_wp"></a> [enable\_scc\_wp](#input\_enable\_scc\_wp) | Enable SCC Workload Protection and install and configure the SCC Workload Protection agent on all intel VSIs in this deployment. If set to true, then value for 'ansible\_vault\_password' in optional parameter must be set. | `bool` | `true` | no |
@@ -117,10 +148,10 @@ Connect through the bastion/VPN to `powervs_instance_management_ip`. MariaDB lis
 | <a name="input_existing_sm_instance_region"></a> [existing\_sm\_instance\_region](#input\_existing\_sm\_instance\_region) | Required if value is passed into `var.existing_sm_instance_guid`. | `string` | `null` | no |
 | <a name="input_external_access_ip"></a> [external\_access\_ip](#input\_external\_access\_ip) | Specify the source IP address or CIDR for login through SSH to the environment after deployment. Access to the environment will be allowed only from this IP address. Can be set to 'null' if you choose to use client to site vpn. | `string` | `"0.0.0.0/0"` | no |
 | <a name="input_ibmcloud_api_key"></a> [ibmcloud\_api\_key](#input\_ibmcloud\_api\_key) | The IBM Cloud platform API key needed to deploy IAM enabled resources. | `string` | n/a | yes |
+| <a name="input_mariadb_replication"></a> [mariadb\_replication](#input\_mariadb\_replication) | MariaDB replication configuration. 'role' can be 'standalone', 'primary', or 'replica'. 'primary\_ip' is the primary instance IP (required when role is 'replica'). 'replica\_count' is the number of replica instances to provision when role is 'primary'. | <pre>object({<br/>    role          = string<br/>    primary_ip    = string<br/>    replica_count = number<br/>  })</pre> | <pre>{<br/>  "primary_ip": "",<br/>  "replica_count": 0,<br/>  "role": "standalone"<br/>}</pre> | no |
+| <a name="input_mariadb_replication_password"></a> [mariadb\_replication\_password](#input\_mariadb\_replication\_password) | Password for the MariaDB replication user ('ReplicationUser'). Required when 'mariadb\_replication.role' is 'primary' or 'replica'. Must be at least 15 characters. | `string` | `null` | no |
+| <a name="input_mariadb_sample_data"></a> [mariadb\_sample\_data](#input\_mariadb\_sample\_data) | Load sample dataset into MariaDB after installation. Options: 'none', 'sakila', 'world', 'vector' (MariaDB Vector Search Workshop products.csv). | `string` | `"none"` | no |
 | <a name="input_mariadb_version"></a> [mariadb\_version](#input\_mariadb\_version) | MariaDB version to install from official repo. | `string` | `"12.3"` | no |
-| <a name="input_mariadb_replication"></a> [mariadb\_replication](#input\_mariadb\_replication) | MariaDB replication configuration. 'role' can be 'standalone', 'primary', or 'replica'. 'primary_ip' is the primary instance IP (required when role is 'replica'). 'replica_count' is the number of replica instances to provision when role is 'primary'. | <pre>object({<br/>    role          = string<br/>    primary_ip    = string<br/>    replica_count = number<br/>  })</pre> | <pre>{<br/>  "primary_ip": "",<br/>  "replica_count": 0,<br/>  "role": "standalone"<br/>}</pre> | no |
-| <a name="input_mariadb_replication_password"></a> [mariadb\_replication\_password](#input\_mariadb\_replication\_password) | Password for the MariaDB replication user ('ReplicationUser'). Required when 'mariadb_replication.role' is 'primary' or 'replica'. Must be at least 15 characters. | `string` | `null` | no |
-| <a name="input_mariadb_sample_data"></a> [mariadb\_sample\_data](#input\_mariadb\_sample\_data) | Load sample dataset into MariaDB after installation. Options: 'none', 'sakila', 'world', 'vector' (MariaDB Vector Search Workshop products.csv), | `string` | `"none"` | no |
 | <a name="input_network_services_vsi_profile"></a> [network\_services\_vsi\_profile](#input\_network\_services\_vsi\_profile) | Compute profile configuration of the network services vsi (cpu and memory configuration). Must be one of the supported profiles. See [here](https://cloud.ibm.com/docs/vpc?topic=vpc-profiles&interface=ui). | `string` | `"cxf-2x4"` | no |
 | <a name="input_nfs_server_config"></a> [nfs\_server\_config](#input\_nfs\_server\_config) | Configuration for the NFS server. 'size' is in GB, 'iops' is maximum input/output operation performance bandwidth per second, 'mount\_path' defines the target mount point on os. Set 'configure\_nfs\_server' to false to ignore creating file storage share. | <pre>object({<br/>    size       = number<br/>    iops       = number<br/>    mount_path = string<br/>  })</pre> | <pre>{<br/>  "iops": 600,<br/>  "mount_path": "/nfs",<br/>  "size": 200<br/>}</pre> | no |
 | <a name="input_powervs_backup_network"></a> [powervs\_backup\_network](#input\_powervs\_backup\_network) | Name of the IBM Cloud PowerVS backup network and CIDR to create. | <pre>object({<br/>    name = string<br/>    cidr = string<br/>  })</pre> | <pre>{<br/>  "cidr": "10.52.0.0/24",<br/>  "name": "bkp_net"<br/>}</pre> | no |
@@ -132,7 +163,7 @@ Connect through the bastion/VPN to `powervs_instance_management_ip`. MariaDB lis
 | <a name="input_ssh_private_key"></a> [ssh\_private\_key](#input\_ssh\_private\_key) | Private SSH key (RSA format) to login to Intel VSIs to configure network management services (SQUID, NTP, DNS and ansible). Should match to public SSH key referenced by 'ssh\_public\_key'. The key is not uploaded or stored. If you're unsure how to create one, check [Generate a SSH Key Pair](https://cloud.ibm.com/docs/powervs-vpc?topic=powervs-vpc-powervs-automation-prereqs#powervs-automation-ssh-key) in our docs. For more information about SSH keys, see [SSH keys](https://cloud.ibm.com/docs/vpc?topic=vpc-ssh-keys) in the VPC docs. | `string` | n/a | yes |
 | <a name="input_ssh_public_key"></a> [ssh\_public\_key](#input\_ssh\_public\_key) | Public SSH Key for VSI creation. Must be an RSA key with a key size of either 2048 bits or 4096 bits (recommended). Must be a valid SSH key that does not already exist in the deployment region. If you're unsure how to create one, check [Generate a SSH Key Pair](https://cloud.ibm.com/docs/powervs-vpc?topic=powervs-vpc-powervs-automation-prereqs#powervs-automation-ssh-key) in our docs. For more information about SSH keys, see [SSH keys](https://cloud.ibm.com/docs/vpc?topic=vpc-ssh-keys) in the VPC docs. | `string` | n/a | yes |
 | <a name="input_tags"></a> [tags](#input\_tags) | List of tag names for the IBM Cloud PowerVS workspace | `list(string)` | `[]` | no |
-| <a name="input_tshirt_size"></a> [tshirt\_size](#input\_tshirt\_size) | MariaDB PowerVS instance profile preset. The 'image' field must be a RHEL image (e.g., RHEL9-SP4, RHEL9-SP6). Only RHEL is supported. | <pre>object({<br/>    tshirt_size = string<br/>    image       = string<br/>  })</pre> | <pre>{<br/>  "image": "RHEL9-SP4",<br/>  "tshirt_size": "mariadb_s"<br/>}</pre> | no |
+| <a name="input_tshirt_size"></a> [tshirt\_size](#input\_tshirt\_size) | MariaDB PowerVS instance profile preset. The 'tshirt\_size' field selects the compute profile (mariadb\_xs, mariadb\_s, mariadb\_m, mariadb\_l, or 'custom'). The 'image' field sets the RHEL boot image (e.g., RHEL9-SP4, RHEL9-SP6) for preset sizes. When 'custom' is selected, 'image' is ignored. These profiles can be overridden by specifying 'custom\_profile\_instance\_boot\_image' and 'custom\_profile' values in optional parameters. | <pre>object({<br/>    tshirt_size = string<br/>    image       = string<br/>  })</pre> | <pre>{<br/>  "image": "RHEL9-SP4",<br/>  "tshirt_size": "mariadb_s"<br/>}</pre> | no |
 | <a name="input_vpc_intel_images"></a> [vpc\_intel\_images](#input\_vpc\_intel\_images) | Stock OS image names for creating VPC landing zone VSI instances. Only RHEL is used (management and network services). | <pre>object({<br/>    rhel_image = string<br/>  })</pre> | <pre>{<br/>  "rhel_image": "ibm-redhat-9-6-amd64-sap-applications-9"<br/>}</pre> | no |
 | <a name="input_vpc_subnet_cidrs"></a> [vpc\_subnet\_cidrs](#input\_vpc\_subnet\_cidrs) | CIDR values for the VPC subnets to be created. It's customer responsibility that none of the defined networks collide, including the PowerVS subnets and VPN client pool. | <pre>object({<br/>    vpn  = string<br/>    mgmt = string<br/>    vpe  = string<br/>    edge = string<br/>  })</pre> | <pre>{<br/>  "edge": "10.30.40.0/24",<br/>  "mgmt": "10.30.20.0/24",<br/>  "vpe": "10.30.30.0/24",<br/>  "vpn": "10.30.10.0/24"<br/>}</pre> | no |
 
@@ -149,23 +180,23 @@ Connect through the bastion/VPN to `powervs_instance_management_ip`. MariaDB lis
 | <a name="output_mariadb_innodb_buffer_pool_size"></a> [mariadb\_innodb\_buffer\_pool\_size](#output\_mariadb\_innodb\_buffer\_pool\_size) | InnoDB buffer pool size configured for MariaDB (80% of instance RAM). |
 | <a name="output_mariadb_innodb_buffer_pool_size_min"></a> [mariadb\_innodb\_buffer\_pool\_size\_min](#output\_mariadb\_innodb\_buffer\_pool\_size\_min) | InnoDB buffer pool minimum size configured for MariaDB (50% of instance RAM). |
 | <a name="output_mariadb_installation_output"></a> [mariadb\_installation\_output](#output\_mariadb\_installation\_output) | Output from the Ansible playbook that installed and configured MariaDB. |
-| <a name="output_mariadb_instance_id"></a> [mariadb\_instance\_id](#output\_mariadb\_instance\_id) | Composite ID of the MariaDB PowerVS instance (\<workspace\_id\>/\<instance\_id\>). |
+| <a name="output_mariadb_instance_id"></a> [mariadb\_instance\_id](#output\_mariadb\_instance\_id) | Composite ID of the MariaDB PowerVS instance (<workspace\_id>/<instance\_id>). |
 | <a name="output_mariadb_instance_name"></a> [mariadb\_instance\_name](#output\_mariadb\_instance\_name) | Name of the PowerVS instance running MariaDB. |
 | <a name="output_mariadb_instance_unique_id"></a> [mariadb\_instance\_unique\_id](#output\_mariadb\_instance\_unique\_id) | Unique identifier of the MariaDB PowerVS instance. |
 | <a name="output_mariadb_memory_gb"></a> [mariadb\_memory\_gb](#output\_mariadb\_memory\_gb) | Memory (in GB) allocated to the MariaDB instance. |
 | <a name="output_mariadb_os_image"></a> [mariadb\_os\_image](#output\_mariadb\_os\_image) | OS image used for the MariaDB PowerVS instance (e.g. RHEL9-SP4). |
 | <a name="output_mariadb_proc_type"></a> [mariadb\_proc\_type](#output\_mariadb\_proc\_type) | Processor type (shared/dedicated/capped) of the MariaDB instance. |
+| <a name="output_mariadb_replica_count"></a> [mariadb\_replica\_count](#output\_mariadb\_replica\_count) | Number of MariaDB replica PowerVS instances provisioned. |
+| <a name="output_mariadb_replica_instance_ips"></a> [mariadb\_replica\_instance\_ips](#output\_mariadb\_replica\_instance\_ips) | Management IP addresses of all MariaDB replica PowerVS instances. |
+| <a name="output_mariadb_replication_primary_ip"></a> [mariadb\_replication\_primary\_ip](#output\_mariadb\_replication\_primary\_ip) | IP address of the primary MariaDB instance. Empty string when role is standalone or primary. |
+| <a name="output_mariadb_replication_role"></a> [mariadb\_replication\_role](#output\_mariadb\_replication\_role) | Replication role of this MariaDB instance: standalone, primary, or replica. |
+| <a name="output_mariadb_sample_data_loaded"></a> [mariadb\_sample\_data\_loaded](#output\_mariadb\_sample\_data\_loaded) | Sample dataset loaded into MariaDB after installation (none, sakila, world, or vector). |
 | <a name="output_mariadb_server_type"></a> [mariadb\_server\_type](#output\_mariadb\_server\_type) | PowerVS server type (e.g. s1022) hosting the MariaDB instance. |
 | <a name="output_mariadb_storage_mount"></a> [mariadb\_storage\_mount](#output\_mariadb\_storage\_mount) | Filesystem mount point for the MariaDB data volume. |
 | <a name="output_mariadb_storage_size_gb"></a> [mariadb\_storage\_size\_gb](#output\_mariadb\_storage\_size\_gb) | Size (in GB) of the data volume attached to the MariaDB instance. |
 | <a name="output_mariadb_storage_tier"></a> [mariadb\_storage\_tier](#output\_mariadb\_storage\_tier) | Storage tier of the MariaDB data volume (e.g. tier3). |
 | <a name="output_mariadb_tshirt_size"></a> [mariadb\_tshirt\_size](#output\_mariadb\_tshirt\_size) | Selected MariaDB t-shirt size profile. |
 | <a name="output_mariadb_version"></a> [mariadb\_version](#output\_mariadb\_version) | MariaDB version installed from the official repo. |
-| <a name="output_mariadb_replica_count"></a> [mariadb\_replica\_count](#output\_mariadb\_replica\_count) | Number of MariaDB replica PowerVS instances provisioned. |
-| <a name="output_mariadb_replica_instance_ips"></a> [mariadb\_replica\_instance\_ips](#output\_mariadb\_replica\_instance\_ips) | Management IP addresses of all MariaDB replica PowerVS instances. |
-| <a name="output_mariadb_replication_primary_ip"></a> [mariadb\_replication\_primary\_ip](#output\_mariadb\_replication\_primary\_ip) | IP address of the primary MariaDB instance. Empty string when role is standalone or primary. |
-| <a name="output_mariadb_replication_role"></a> [mariadb\_replication\_role](#output\_mariadb\_replication\_role) | Replication role of this MariaDB instance: standalone, primary, or replica. |
-| <a name="output_mariadb_sample_data_loaded"></a> [mariadb\_sample\_data\_loaded](#output\_mariadb\_sample\_data\_loaded) | Sample dataset loaded into MariaDB after installation (none, sakila, world, or vector). |
 | <a name="output_network_load_balancer"></a> [network\_load\_balancer](#output\_network\_load\_balancer) | Details of network load balancer. |
 | <a name="output_network_services_config"></a> [network\_services\_config](#output\_network\_services\_config) | Complete configuration of network management services. |
 | <a name="output_nfs_host_or_ip_path"></a> [nfs\_host\_or\_ip\_path](#output\_nfs\_host\_or\_ip\_path) | NFS host for created PowerVS infrastructure. |

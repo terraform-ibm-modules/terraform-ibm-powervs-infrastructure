@@ -251,8 +251,9 @@ output "mariadb_instance_unique_id" {
 
 output "mariadb_os_image" {
   description = "OS image used for the MariaDB PowerVS instance (e.g. RHEL9-SP4)."
-  value       = var.tshirt_size.image
+  value       = local.qs_tshirt_choice.image
 }
+
 
 output "mariadb_bind_address" {
   description = "Network address MariaDB is configured to listen on ('*' means all interfaces)."

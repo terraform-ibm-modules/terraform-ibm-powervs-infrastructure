@@ -10,10 +10,14 @@ locals {
     "mariadb_s"  = { "server_type" = local.server_type, "proc_type" = "shared", "cores" = "1", "memory" = "8", "storage" = "100", "tier" = "tier3", "image" = var.tshirt_size.image }
     "mariadb_m"  = { "server_type" = local.server_type, "proc_type" = "shared", "cores" = "2", "memory" = "16", "storage" = "250", "tier" = "tier3", "image" = var.tshirt_size.image }
     "mariadb_l"  = { "server_type" = local.server_type, "proc_type" = "shared", "cores" = "4", "memory" = "32", "storage" = "500", "tier" = "tier3", "image" = var.tshirt_size.image }
-    "custom"     = { "server_type" = var.custom_profile.server_type, "proc_type" = var.custom_profile.proc_type, "cores" = var.custom_profile.cores, "memory" = var.custom_profile.memory, "storage" = var.custom_profile.storage.size, "tier" = var.custom_profile.storage.tier, "image" = var.tshirt_size.image }
+    "custom"     = { "server_type" = var.custom_profile.server_type, "proc_type" = var.custom_profile.proc_type, "cores" = var.custom_profile.cores, "memory" = var.custom_profile.memory, "storage" = var.custom_profile.storage.size, "tier" = var.custom_profile.storage.tier, "image" = var.custom_profile_instance_boot_image }
   }
 
-  qs_tshirt_choice = lookup(local.ibm_powervs_mariadb_tshirt_sizes, var.tshirt_size.tshirt_size, local.ibm_powervs_mariadb_tshirt_sizes["mariadb_s"])
+  qs_tshirt_choice         = lookup(local.ibm_powervs_mariadb_tshirt_sizes, var.tshirt_size.tshirt_size, local.ibm_powervs_mariadb_tshirt_sizes["mariadb_s"])
+  custom_profile_enabled   = var.tshirt_size.tshirt_size == "custom"
+  valid_custom_profile_msg = "'tshirt_size' is 'custom', so 'custom_profile_instance_boot_image' must be set to a RHEL image and not 'none'."
+  # tflint-ignore: terraform_unused_declarations
+  valid_custom_profile_chk = regex("^${local.valid_custom_profile_msg}$", (local.custom_profile_enabled && var.custom_profile_instance_boot_image == "none" ? "" : local.valid_custom_profile_msg))
 
   # Calculate 80% and 50% RAM for InnoDB buffer pool
   mem_total_mb                = tonumber(local.qs_tshirt_choice.memory) * 1024

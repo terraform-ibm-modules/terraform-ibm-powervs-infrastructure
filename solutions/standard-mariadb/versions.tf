@@ -1,5 +1,5 @@
 #####################################################
-# PowerVS Standard plus VSI solution
+# PowerVS Standard MariaDB solution
 #####################################################
 
 terraform {

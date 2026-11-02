@@ -9,7 +9,7 @@ variable "prefix" {
 }
 
 variable "tshirt_size" {
-  description = "MariaDB PowerVS instance profile preset. The 'image' field must be a RHEL image (e.g., RHEL9-SP4, RHEL9-SP6). Only RHEL is supported."
+  description = "MariaDB PowerVS instance profile preset. The 'tshirt_size' field selects the compute profile (mariadb_xs, mariadb_s, mariadb_m, mariadb_l, or 'custom'). The 'image' field sets the RHEL boot image (e.g., RHEL9-SP4, RHEL9-SP6) for preset sizes. When 'custom' is selected, 'image' is ignored. These profiles can be overridden by specifying 'custom_profile_instance_boot_image' and 'custom_profile' values in optional parameters."
   type = object({
     tshirt_size = string
     image       = string
@@ -25,8 +25,51 @@ variable "tshirt_size" {
   }
 
   validation {
-    condition     = can(regex("^RHEL[0-9]+-SP[0-9]+", var.tshirt_size.image))
-    error_message = "Image must match pattern: RHELx-SPx (e.g., RHEL9-SP4, RHEL9-SP6)."
+    condition     = var.tshirt_size.tshirt_size == "custom" || can(regex("^RHEL[0-9]+-SP[0-9]+", var.tshirt_size.image))
+    error_message = "Image must match pattern: RHELx-SPx (e.g., RHEL9-SP4, RHEL9-SP6). For 'custom', the image is taken from 'custom_profile_instance_boot_image'."
+  }
+}
+
+variable "mariadb_replication" {
+  description = "MariaDB replication configuration. 'role' can be 'standalone', 'primary', or 'replica'. 'primary_ip' is the primary instance IP (required when role is 'replica'). 'replica_count' is the number of replica instances to provision when role is 'primary'."
+  type = object({
+    role          = string
+    primary_ip    = string
+    replica_count = number
+  })
+  default = {
+    role          = "standalone"
+    primary_ip    = ""
+    replica_count = 0
+  }
+
+  validation {
+    condition     = contains(["standalone", "primary", "replica"], var.mariadb_replication.role)
+    error_message = "Variable 'mariadb_replication.role' must be one of: 'standalone', 'primary', or 'replica'."
+  }
+}
+
+variable "mariadb_replication_password" {
+  description = "Password for the MariaDB replication user ('ReplicationUser'). Required when 'mariadb_replication.role' is 'primary' or 'replica'. Must be at least 15 characters."
+  type        = string
+  sensitive   = true
+  default     = null
+
+  validation {
+    condition = var.mariadb_replication.role == "standalone" || (
+      var.mariadb_replication_password != null && length(var.mariadb_replication_password) >= 15
+    )
+    error_message = "Variable 'mariadb_replication_password' must be provided and at least 15 characters when 'mariadb_replication.role' is 'primary' or 'replica'."
+  }
+}
+
+variable "mariadb_sample_data" {
+  description = "Load sample dataset into MariaDB after installation. Options: 'none', 'sakila', 'world', 'vector' (MariaDB Vector Search Workshop products.csv)."
+  type        = string
+  default     = "none"
+  validation {
+    condition     = contains(["none", "sakila", "world", "vector"], var.mariadb_sample_data)
+    error_message = "Allowed values: none, sakila, world, vector."
   }
 }
 
@@ -84,13 +127,18 @@ variable "vpc_subnet_cidrs" {
 #####################################################
 
 variable "custom_profile_instance_boot_image" {
-  description = "Override the t-shirt size specs of PowerVS Workspace instance by selecting an image name and providing valid 'custom_profile' optional parameter."
+  description = "Boot image for the PowerVS instance when 'tshirt_size.tshirt_size' is set to 'custom'. Must be a RHEL image name (e.g., RHEL9-SP4, RHEL9-SP6). Set to 'none' when using a preset t-shirt size (image is taken from the 'tshirt_size.image' field instead)."
   type        = string
   default     = "none"
+
+  validation {
+    condition     = var.custom_profile_instance_boot_image == "none" || can(regex("^RHEL[0-9]+-SP[0-9]+$", var.custom_profile_instance_boot_image))
+    error_message = "Variable 'custom_profile_instance_boot_image' must be 'none' or a RHEL image (e.g., RHEL9-SP4, RHEL9-SP6)."
+  }
 }
 
 variable "custom_profile" {
-  description = "Overrides t-shirt profile when 'tshirt_size.tshirt_size' is set to 'custom'. Specify cores (min 0.25, default 1), memory in GB (min 4, default 8), server_type, proc_type, and storage (size in GB, tier)."
+  description = "Overrides t-shirt profile when 'tshirt_size.tshirt_size' is set to 'custom'. Specify cores (min 0.25, default 1), memory in GB (min 4, default 8), server_type, proc_type, and storage (size in GB, tier). The boot image is specified via 'custom_profile_instance_boot_image'."
   type = object({
     cores       = string
     memory      = string
@@ -320,55 +368,4 @@ variable "enable_vpc_flow_logs" {
   description = "Enable VPC flow logs. If true, flow logs will be stored in the atracker bucket."
   type        = bool
   default     = true
-}
-
-#####################################################
-# Optional Parameters MariaDB Replication
-#####################################################
-
-variable "mariadb_replication" {
-  description = "MariaDB replication configuration. 'role' can be 'standalone', 'primary', or 'replica'. 'primary_ip' is the primary instance IP (required when role is 'replica'). 'replica_count' is the number of replica instances to provision when role is 'primary'."
-  type = object({
-    role          = string
-    primary_ip    = string
-    replica_count = number
-  })
-  default = {
-    role          = "standalone"
-    primary_ip    = ""
-    replica_count = 0
-  }
-
-  validation {
-    condition     = contains(["standalone", "primary", "replica"], var.mariadb_replication.role)
-    error_message = "Variable 'mariadb_replication.role' must be one of: 'standalone', 'primary', or 'replica'."
-  }
-}
-
-variable "mariadb_replication_password" {
-  description = "Password for the MariaDB replication user ('ReplicationUser'). Required when 'mariadb_replication.role' is 'primary' or 'replica'. Must be at least 15 characters."
-  type        = string
-  sensitive   = true
-  default     = null
-
-  validation {
-    condition = var.mariadb_replication.role == "standalone" || (
-      var.mariadb_replication_password != null && length(var.mariadb_replication_password) >= 15
-    )
-    error_message = "Variable 'mariadb_replication_password' must be provided and at least 15 characters when 'mariadb_replication.role' is 'primary' or 'replica'."
-  }
-}
-
-#####################################################
-# Optional Parameters MariaDB Sample Data
-#####################################################
-
-variable "mariadb_sample_data" {
-  description = "Load sample dataset into MariaDB after installation. Options: 'none', 'sakila', 'world', 'vector' (MariaDB Vector Search Workshop products.csv)."
-  type        = string
-  default     = "none"
-  validation {
-    condition     = contains(["none", "sakila", "world", "vector"], var.mariadb_sample_data)
-    error_message = "Allowed values: none, sakila, world, vector."
-  }
 }

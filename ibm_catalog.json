@@ -1537,6 +1537,7 @@
               "key": "tshirt_size",
               "type": "object",
               "required": true,
+              "description": "The 'tshirt_size' field selects the compute profile (mariadb_xs, mariadb_s, mariadb_m, mariadb_l, or 'custom'). The 'image' field sets the RHEL boot image for preset sizes. When 'custom' is selected, 'image' is ignored and the boot image must be set via 'custom_profile_instance_boot_image'.",
               "default_value": "",
               "options": [
                 {
@@ -1576,6 +1577,48 @@
                 }
               ],
               "custom_config": {}
+            },
+            {
+              "key": "mariadb_replication",
+              "custom_config": {
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "type": "code_editor"
+              }
+            },
+            {
+              "key": "mariadb_replication_password",
+              "type": "multiline_secure_value",
+              "custom_config": {
+                "grouping": "deployment",
+                "original_grouping": "deployment",
+                "type": "multiline_secure_value"
+              }
+            },
+            {
+              "key": "mariadb_sample_data",
+              "type": "string",
+              "default_value": "none",
+              "display_name": "Sample data",
+              "required": false,
+              "options": [
+                {
+                  "displayname": "None",
+                  "value": "none"
+                },
+                {
+                  "displayname": "Sakila",
+                  "value": "sakila"
+                },
+                {
+                  "displayname": "World",
+                  "value": "world"
+                },
+                {
+                  "displayname": "Vector",
+                  "value": "vector"
+                }
+              ]
             },
             {
               "key": "mariadb_version",
@@ -1653,7 +1696,29 @@
               }
             },
             {
+              "key": "custom_profile_instance_boot_image",
+              "type": "string",
+              "default_value": "none",
+              "options": [
+                {
+                  "displayname": "None",
+                  "value": "none"
+                },
+                {
+                  "displayname": "Linux - RHEL9-SP6",
+                  "value": "RHEL9-SP6"
+                },
+                {
+                  "displayname": "Linux - RHEL9-SP4",
+                  "value": "RHEL9-SP4"
+                }
+              ],
+              "custom_config": {}
+            },
+            {
               "key": "custom_profile",
+              "display_name": "Custom profile (cores, memory, server_type, proc_type, storage) — used when tshirt_size is set to 'custom'",
+              "description": "Defines the compute and storage profile when 'tshirt_size.tshirt_size' is 'custom'. Set cores (min 0.25), memory in GB (min 4), server_type (s922, s1022, e980, e1080), proc_type (shared, dedicated, capped), and storage size/tier. The boot image is set separately via 'custom_profile_instance_boot_image'.",
               "custom_config": {
                 "grouping": "deployment",
                 "original_grouping": "deployment",
@@ -1777,26 +1842,6 @@
                 }
               ],
               "custom_config": {}
-            },
-            {
-              "key": "mariadb_replication",
-              "custom_config": {
-                "grouping": "deployment",
-                "original_grouping": "deployment",
-                "type": "code_editor"
-              }
-            },
-            {
-              "key": "mariadb_replication_password",
-              "type": "multiline_secure_value",
-              "custom_config": {
-                "grouping": "deployment",
-                "original_grouping": "deployment",
-                "type": "multiline_secure_value"
-              }
-            },
-            {
-              "key": "mariadb_sample_data"
             },
             {
               "key": "IC_SCHEMATICS_WORKSPACE_ID",
