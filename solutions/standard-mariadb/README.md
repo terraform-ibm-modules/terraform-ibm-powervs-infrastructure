@@ -28,7 +28,7 @@ This example sets up the following infrastructure:
     - Custom profile (cores, memory, storage and image)
     - 1 volume mounted on `/var/lib/mysql` (XFS filesystem)
     - Network management services, filesystems, SCC Workload protection agents, and automated **MariaDB** installation(version set by `mariadb_version`, default `12.3`)  with InnoDB memory auto-tuning are configured for the instance.
-    - Optional **MariaDB replication** (`mariadb_replication`): `standalone` (default), `primary` (provisions `replica_count` additional PowerVS replica instances with the same sizing as the primary) or `replica` (the instance replicates from `primary_ip`, which is required for this role). For `primary` and `replica`, supply the replication user password via `mariadb_replication_password` (minimum 15 characters).
+    - Optional **MariaDB replication** (`mariadb_replica_count`): `0` (default) deploys a standalone instance. A value above `0` deploys a primary and that many PowerVS replica instances with the same sizing as the primary, configured in a single apply. When above `0`, supply the replication user password via `mariadb_replication_password` (minimum 15 characters).
     - Optional **sample dataset** (`mariadb_sample_data`): `sakila`, `world`, `vector` , loaded after installation.
 
 
@@ -47,20 +47,17 @@ This example sets up the following infrastructure:
 ## Optional features
 
 ### Replication
-| `mariadb_replication.role` | Behavior |
+| `mariadb_replica_count` | Behavior |
 |---|---|
-| `standalone` (default) | Single MariaDB instance, no replication. |
-| `primary` | Configures a `ReplicationUser` and creates `replica_count` replica PowerVS instances (`<prefix>-mariadb-replica-pvs-<n>`), each configured to replicate from the primary. |
-| `replica` | Configures this instance as a replica of `primary_ip`. |
+| `0` (default) | Single MariaDB instance, no replication. |
+| `> 0` | Configures a `ReplicationUser` on the primary and creates that many replica PowerVS instances (`<prefix>-mariadb-replica-pvs-<n>`), each configured to replicate from the primary. The primary IP is set internally. |
 
 Example:
 ```hcl
-mariadb_replication = {
-  role          = "primary"
-  primary_ip    = ""
-  replica_count = 2
-}
+mariadb_replica_count        = 2
+mariadb_replication_password = "<at-least-15-characters>"
 ```
+
 Supply the password for the replication user via `mariadb_replication_password`. Replica `server_id` values start at 2 (the primary is 1).
 
 ### Sample data
@@ -125,7 +122,6 @@ Connect through the bastion/VPN to `powervs_instance_management_ip`. MariaDB lis
 
 | Name | Type |
 | ---- | ---- |
-| [terraform_data.wait_replica_cloudinit](https://registry.terraform.io/providers/hashicorp/terraform/latest/docs/resources/data) | resource |
 | [ibm_iam_auth_token.auth_token](https://registry.terraform.io/providers/IBM-Cloud/ibm/2.8.2/docs/data-sources/iam_auth_token) | data source |
 
 ### Inputs
@@ -148,8 +144,8 @@ Connect through the bastion/VPN to `powervs_instance_management_ip`. MariaDB lis
 | <a name="input_existing_sm_instance_region"></a> [existing\_sm\_instance\_region](#input\_existing\_sm\_instance\_region) | Required if value is passed into `var.existing_sm_instance_guid`. | `string` | `null` | no |
 | <a name="input_external_access_ip"></a> [external\_access\_ip](#input\_external\_access\_ip) | Specify the source IP address or CIDR for login through SSH to the environment after deployment. Access to the environment will be allowed only from this IP address. Can be set to 'null' if you choose to use client to site vpn. | `string` | `"0.0.0.0/0"` | no |
 | <a name="input_ibmcloud_api_key"></a> [ibmcloud\_api\_key](#input\_ibmcloud\_api\_key) | The IBM Cloud platform API key needed to deploy IAM enabled resources. | `string` | n/a | yes |
-| <a name="input_mariadb_replication"></a> [mariadb\_replication](#input\_mariadb\_replication) | MariaDB replication configuration. 'role' can be 'standalone', 'primary', or 'replica'. 'primary\_ip' is the primary instance IP (required when role is 'replica'). 'replica\_count' is the number of replica instances to provision when role is 'primary'. | <pre>object({<br/>    role          = string<br/>    primary_ip    = string<br/>    replica_count = number<br/>  })</pre> | <pre>{<br/>  "primary_ip": "",<br/>  "replica_count": 0,<br/>  "role": "standalone"<br/>}</pre> | no |
-| <a name="input_mariadb_replication_password"></a> [mariadb\_replication\_password](#input\_mariadb\_replication\_password) | Password for the MariaDB replication user ('ReplicationUser'). Required when 'mariadb\_replication.role' is 'primary' or 'replica'. Must be at least 15 characters. | `string` | `null` | no |
+| <a name="input_mariadb_replica_count"></a> [mariadb\_replica\_count](#input\_mariadb\_replica\_count) | Number of MariaDB replica instances to provision. 0 deploys a standalone instance; any value greater than 0 deploys a primary with that many replicas in a single apply. | `number` | `0` | no |
+| <a name="input_mariadb_replication_password"></a> [mariadb\_replication\_password](#input\_mariadb\_replication\_password) | Password for the MariaDB replication user ('ReplicationUser'). Required when 'mariadb\_replica\_count' is greater than 0. Must be at least 15 characters. | `string` | `null` | no |
 | <a name="input_mariadb_sample_data"></a> [mariadb\_sample\_data](#input\_mariadb\_sample\_data) | Load sample dataset into MariaDB after installation. Options: 'none', 'sakila', 'world', 'vector' (MariaDB Vector Search Workshop products.csv). | `string` | `"none"` | no |
 | <a name="input_mariadb_version"></a> [mariadb\_version](#input\_mariadb\_version) | MariaDB version to install from official repo. | `string` | `"12.3"` | no |
 | <a name="input_network_services_vsi_profile"></a> [network\_services\_vsi\_profile](#input\_network\_services\_vsi\_profile) | Compute profile configuration of the network services vsi (cpu and memory configuration). Must be one of the supported profiles. See [here](https://cloud.ibm.com/docs/vpc?topic=vpc-profiles&interface=ui). | `string` | `"cxf-2x4"` | no |
@@ -188,8 +184,7 @@ Connect through the bastion/VPN to `powervs_instance_management_ip`. MariaDB lis
 | <a name="output_mariadb_proc_type"></a> [mariadb\_proc\_type](#output\_mariadb\_proc\_type) | Processor type (shared/dedicated/capped) of the MariaDB instance. |
 | <a name="output_mariadb_replica_count"></a> [mariadb\_replica\_count](#output\_mariadb\_replica\_count) | Number of MariaDB replica PowerVS instances provisioned. |
 | <a name="output_mariadb_replica_instance_ips"></a> [mariadb\_replica\_instance\_ips](#output\_mariadb\_replica\_instance\_ips) | Management IP addresses of all MariaDB replica PowerVS instances. |
-| <a name="output_mariadb_replication_primary_ip"></a> [mariadb\_replication\_primary\_ip](#output\_mariadb\_replication\_primary\_ip) | IP address of the primary MariaDB instance. Empty string when role is standalone or primary. |
-| <a name="output_mariadb_replication_role"></a> [mariadb\_replication\_role](#output\_mariadb\_replication\_role) | Replication role of this MariaDB instance: standalone, primary, or replica. |
+| <a name="output_mariadb_replication_role"></a> [mariadb\_replication\_role](#output\_mariadb\_replication\_role) | Replication role of this MariaDB instance: standalone or primary. |
 | <a name="output_mariadb_sample_data_loaded"></a> [mariadb\_sample\_data\_loaded](#output\_mariadb\_sample\_data\_loaded) | Sample dataset loaded into MariaDB after installation (none, sakila, world, or vector). |
 | <a name="output_mariadb_server_type"></a> [mariadb\_server\_type](#output\_mariadb\_server\_type) | PowerVS server type (e.g. s1022) hosting the MariaDB instance. |
 | <a name="output_mariadb_storage_mount"></a> [mariadb\_storage\_mount](#output\_mariadb\_storage\_mount) | Filesystem mount point for the MariaDB data volume. |

@@ -11,11 +11,7 @@
   "ssh_private_key": $SSH_PRV_KEY,
   "ansible_vault_password": "SecurePassw0rd!",
   "mariadb_version": "12.3",
-  "mariadb_replication": {
-    "role": "primary",
-    "primary_ip": "",
-    "replica_count": 1
-  },
+  "mariadb_replica_count": 1,
   "mariadb_replication_password": "Repl!ca-Passw0rd!",
   "mariadb_sample_data": "sakila"
 }

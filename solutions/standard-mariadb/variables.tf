@@ -30,36 +30,28 @@ variable "tshirt_size" {
   }
 }
 
-variable "mariadb_replication" {
-  description = "MariaDB replication configuration. 'role' can be 'standalone', 'primary', or 'replica'. 'primary_ip' is the primary instance IP (required when role is 'replica'). 'replica_count' is the number of replica instances to provision when role is 'primary'."
-  type = object({
-    role          = string
-    primary_ip    = string
-    replica_count = number
-  })
-  default = {
-    role          = "standalone"
-    primary_ip    = ""
-    replica_count = 0
-  }
+variable "mariadb_replica_count" {
+  description = "Number of MariaDB replica instances to provision. 0 deploys a standalone instance; any value greater than 0 deploys a primary with that many replicas in a single apply."
+  type        = number
+  default     = 0
 
   validation {
-    condition     = contains(["standalone", "primary", "replica"], var.mariadb_replication.role)
-    error_message = "Variable 'mariadb_replication.role' must be one of: 'standalone', 'primary', or 'replica'."
+    condition     = var.mariadb_replica_count >= 0 && floor(var.mariadb_replica_count) == var.mariadb_replica_count
+    error_message = "Variable 'mariadb_replica_count' must be a non-negative integer."
   }
 }
 
 variable "mariadb_replication_password" {
-  description = "Password for the MariaDB replication user ('ReplicationUser'). Required when 'mariadb_replication.role' is 'primary' or 'replica'. Must be at least 15 characters."
+  description = "Password for the MariaDB replication user ('ReplicationUser'). Required when 'mariadb_replica_count' is greater than 0. Must be at least 15 characters."
   type        = string
   sensitive   = true
   default     = null
 
   validation {
-    condition = var.mariadb_replication.role == "standalone" || (
+    condition = var.mariadb_replica_count == 0 || (
       var.mariadb_replication_password != null && length(var.mariadb_replication_password) >= 15
     )
-    error_message = "Variable 'mariadb_replication_password' must be provided and at least 15 characters when 'mariadb_replication.role' is 'primary' or 'replica'."
+    error_message = "Variable 'mariadb_replication_password' must be provided and at least 15 characters when 'mariadb_replica_count' is greater than 0."
   }
 }
 
@@ -161,16 +153,15 @@ variable "custom_profile" {
   }
 
   validation {
-    condition     = contains(["shared", "dedicated", "capped"], var.custom_profile.proc_type)
+    condition     = var.custom_profile.proc_type == "" || contains(["shared", "dedicated", "capped"], var.custom_profile.proc_type)
     error_message = "Variable 'custom_profile.proc_type' must be one of: 'shared', 'dedicated', or 'capped'."
   }
 
   validation {
-    condition     = contains(["s922", "s1022", "e980", "e1080"], var.custom_profile.server_type)
+    condition     = var.custom_profile.server_type == "" || contains(["s922", "s1022", "e980", "e1080"], var.custom_profile.server_type)
     error_message = "Variable 'custom_profile.server_type' must be one of: 's922', 's1022', 'e980', 'e1080'."
   }
 }
-
 #####################################################
 # Optional Parameters PowerVS Workspace
 #####################################################

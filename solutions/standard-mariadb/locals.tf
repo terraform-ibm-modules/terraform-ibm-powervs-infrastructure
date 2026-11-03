@@ -13,6 +13,8 @@ locals {
     "custom"     = { "server_type" = var.custom_profile.server_type, "proc_type" = var.custom_profile.proc_type, "cores" = var.custom_profile.cores, "memory" = var.custom_profile.memory, "storage" = var.custom_profile.storage.size, "tier" = var.custom_profile.storage.tier, "image" = var.custom_profile_instance_boot_image }
   }
 
+  mariadb_primary_role = var.mariadb_replica_count > 0 ? "primary" : "standalone"
+
   qs_tshirt_choice         = lookup(local.ibm_powervs_mariadb_tshirt_sizes, var.tshirt_size.tshirt_size, local.ibm_powervs_mariadb_tshirt_sizes["mariadb_s"])
   custom_profile_enabled   = var.tshirt_size.tshirt_size == "custom"
   valid_custom_profile_msg = "'tshirt_size' is 'custom', so 'custom_profile_instance_boot_image' must be set to a RHEL image and not 'none'."

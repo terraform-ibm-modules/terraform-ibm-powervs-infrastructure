@@ -271,18 +271,13 @@ output "mariadb_installation_output" {
 ########################################################################
 
 output "mariadb_replication_role" {
-  description = "Replication role of this MariaDB instance: standalone, primary, or replica."
-  value       = var.mariadb_replication.role
-}
-
-output "mariadb_replication_primary_ip" {
-  description = "IP address of the primary MariaDB instance. Empty string when role is standalone or primary."
-  value       = var.mariadb_replication.primary_ip
+  description = "Replication role of this MariaDB instance: standalone or primary."
+  value       = local.mariadb_primary_role
 }
 
 output "mariadb_replica_count" {
   description = "Number of MariaDB replica PowerVS instances provisioned."
-  value       = var.mariadb_replication.replica_count
+  value       = var.mariadb_replica_count
 }
 
 output "mariadb_replica_instance_ips" {

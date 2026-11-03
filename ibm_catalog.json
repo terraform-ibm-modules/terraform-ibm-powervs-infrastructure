@@ -1610,12 +1610,11 @@
               "custom_config": {}
             },
             {
-              "key": "mariadb_replication",
+              "key": "mariadb_replica_count",
               "required": true,
               "custom_config": {
                 "grouping": "deployment",
-                "original_grouping": "deployment",
-                "type": "code_editor"
+                "original_grouping": "deployment"
               }
             },
             {
@@ -2020,7 +2019,7 @@
                 "description": "Optional (enabled by default)"
               },
               {
-                "title": "MariaDB replication (primary/replica)",
+                "title": "MariaDB replicas (primary/replica)",
                 "description": "Optional (standalone by default)"
               },
               {

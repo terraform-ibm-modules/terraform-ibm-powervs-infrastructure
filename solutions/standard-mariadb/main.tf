@@ -76,7 +76,7 @@ module "powervs_instance" {
 #####################################################
 
 module "powervs_replica_instance" {
-  count     = var.mariadb_replication.replica_count
+  count     = var.mariadb_replica_count
   source    = "terraform-ibm-modules/powervs-instance/ibm"
   version   = "2.8.9"
   providers = { ibm = ibm.ibm-pi }
@@ -107,24 +107,6 @@ module "powervs_replica_instance" {
   pi_network_services_config = local.network_services_config
 }
 
-resource "terraform_data" "wait_replica_cloudinit" {
-  count      = var.mariadb_replication.replica_count
-  depends_on = [module.powervs_replica_instance]
-
-  connection {
-    type         = "ssh"
-    user         = "root"
-    bastion_host = module.standard.access_host_or_ip
-    host         = module.powervs_replica_instance[count.index].pi_instance_primary_ip
-    private_key  = var.ssh_private_key
-    agent        = false
-    timeout      = "10m"
-  }
-
-  provisioner "remote-exec" {
-    inline = ["echo replica ssh ready"]
-  }
-}
 
 module "mariadb_installation" {
   source     = "../../modules/powervs-vpc-landing-zone/submodules/ansible"
@@ -152,9 +134,8 @@ module "mariadb_installation" {
     MARIADB_VERSION             = var.mariadb_version
     INNODB_BUFFER_POOL_SIZE     = local.innodb_buffer_pool_size
     INNODB_BUFFER_POOL_SIZE_MIN = local.innodb_buffer_pool_size_min
-    REPLICATION_ROLE            = var.mariadb_replication.role
-    REPLICATION_PRIMARY_IP      = var.mariadb_replication.primary_ip
-    REPLICATION_PASSWORD        = var.mariadb_replication.role != "standalone" ? var.mariadb_replication_password : ""
+    REPLICATION_ROLE            = local.mariadb_primary_role
+    REPLICATION_PASSWORD        = var.mariadb_replica_count > 0 ? var.mariadb_replication_password : ""
   }
 }
 
@@ -164,8 +145,8 @@ module "mariadb_installation" {
 
 module "mariadb_replica_installation" {
   source     = "../../modules/powervs-vpc-landing-zone/submodules/ansible"
-  count      = var.mariadb_replication.replica_count > 0 ? 1 : 0
-  depends_on = [module.mariadb_installation, module.powervs_replica_instance, terraform_data.wait_replica_cloudinit]
+  count      = var.mariadb_replica_count > 0 ? 1 : 0
+  depends_on = [module.mariadb_installation, module.powervs_replica_instance]
 
   bastion_host_ip        = module.standard.access_host_or_ip
   ansible_host_or_ip     = module.standard.ansible_host_or_ip
@@ -175,7 +156,7 @@ module "mariadb_replica_installation" {
 
   src_script_template_name    = "configure-mariadb/ansible_exec.sh.tftpl"
   dst_script_file_name        = "${var.prefix}-mariadb-replica-install.sh"
-  src_playbook_template_name  = "configure-mariadb/playbook-mariadb.yml.tftpl"
+  src_playbook_template_name  = "configure-mariadb/playbook-mariadb-replica.yml.tftpl"
   dst_playbook_file_name      = "${var.prefix}-playbook-mariadb-replica.yml"
   src_inventory_template_name = "inventory-replicas.tftpl"
   dst_inventory_file_name     = "${var.prefix}-mariadb-replica-inventory"
@@ -193,7 +174,6 @@ module "mariadb_replica_installation" {
     MARIADB_VERSION             = var.mariadb_version
     INNODB_BUFFER_POOL_SIZE     = local.innodb_buffer_pool_size
     INNODB_BUFFER_POOL_SIZE_MIN = local.innodb_buffer_pool_size_min
-    REPLICATION_ROLE            = "replica"
     REPLICATION_PRIMARY_IP      = module.powervs_instance.pi_instance_primary_ip
     REPLICATION_PASSWORD        = var.mariadb_replication_password
   }
