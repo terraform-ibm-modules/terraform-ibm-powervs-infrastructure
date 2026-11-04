@@ -52,7 +52,7 @@
         mode: changeprimary
         primary_host: "{{ replication_primary_ip }}"
         primary_user: ReplicationUser
-        primary_password: "{{ replication_password }}"
+        primary_password: "{{ replication_password }}" # pragma: allowlist secret
         login_unix_socket: /var/lib/mysql/mysql.sock
 
     # Start replication

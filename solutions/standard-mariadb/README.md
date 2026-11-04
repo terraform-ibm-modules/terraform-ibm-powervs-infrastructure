@@ -55,7 +55,7 @@ This example sets up the following infrastructure:
 Example:
 ```hcl
 mariadb_replica_count        = 2
-mariadb_replication_password = "<at-least-15-characters>"
+mariadb_replication_password = "<at-least-15-characters>" # pragma: allowlist secret
 ```
 
 Supply the password for the replication user via `mariadb_replication_password`. Replica `server_id` values start at 2 (the primary is 1).

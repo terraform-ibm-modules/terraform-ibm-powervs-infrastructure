@@ -7,7 +7,7 @@ subcollection: deployable-reference-architectures
 authors:
   - name: Suraj Bharadwaj
   - name: Ludwig Mueller
-  - name : Lavanya B N
+  - name: Lavanya B N
 production: true
 deployment-url:
 docs: https://cloud.ibm.com/docs/powervs-vpc
