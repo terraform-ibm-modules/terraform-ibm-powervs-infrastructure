@@ -1,0 +1,4 @@
+[replicas]
+%{ for r in replicas ~}
+${r.ip} server_id=${r.server_id}
+%{ endfor ~}

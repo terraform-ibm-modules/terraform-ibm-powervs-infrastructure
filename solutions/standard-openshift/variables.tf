@@ -106,7 +106,7 @@ variable "cluster_network_config" {
 }
 
 variable "custom_master_node_config" {
-  description = "This value is ignored if 'tshirt_size' is not set to 'custom'. Configuration for the master nodes of the OpenShift cluster, including CPU, system type, processor type, and replica count. If system_type is null, it's chosen based on whether it's supported in the region. This can be overwritten by passing a value, e.g. 's1022' or 's922'. Memory is in GB."
+  description = "This value is ignored if 'tshirt_size' is not set to 'custom'. Configuration for the master nodes of the OpenShift cluster, including CPU, system type, processor type, and replica count. If system_type is null, it's chosen based on whether it's supported in the region. This can be overwritten by passing a value, e.g. 's1022'. Memory is in GB."
   type = object({
     processors  = number
     memory      = number
@@ -144,7 +144,7 @@ variable "custom_master_node_config" {
 }
 
 variable "custom_worker_node_config" {
-  description = "This value is ignored if 'tshirt_size' is not set to 'custom'. Configuration for the worker nodes of the OpenShift cluster, including CPU, system type, processor type, and replica count. If system_type is null, it's chosen based on whether it's supported in the region. This can be overwritten by passing a value, e.g. 's1022' or 's922'. Memory is in GB."
+  description = "This value is ignored if 'tshirt_size' is not set to 'custom'. Configuration for the worker nodes of the OpenShift cluster, including CPU, system type, processor type, and replica count. If system_type is null, it's chosen based on whether it's supported in the region. This can be overwritten by passing a value, e.g. 's1022'. Memory is in GB."
   type = object({
     processors  = number
     memory      = number

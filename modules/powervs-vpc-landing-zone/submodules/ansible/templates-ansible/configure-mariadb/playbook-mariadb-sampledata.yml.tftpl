@@ -1,0 +1,91 @@
+---
+- name: Load MariaDB Sample Data
+  hosts: all
+
+  vars:
+    sample_dataset: "${SAMPLE_DATA}"
+
+  tasks:
+
+    # ── Sakila ───────────────────────────────────────────────────────────────
+    # Full schema + data — https://dev.mysql.com/doc/sakila/en/
+    - name: Download Sakila archive
+      when: sample_dataset == "sakila"
+      shell: >
+        curl -fsSL --retry 3 --max-time 120
+        https://downloads.mysql.com/docs/sakila-db.tar.gz
+        -o /tmp/sakila-db.tar.gz
+
+    - name: Extract Sakila archive
+      when: sample_dataset == "sakila"
+      unarchive:
+        src: /tmp/sakila-db.tar.gz
+        dest: /tmp/
+        remote_src: yes
+
+    - name: Create Sakila database
+      when: sample_dataset == "sakila"
+      shell: mariadb -e "CREATE DATABASE IF NOT EXISTS sakila CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;"
+
+    - name: Import Sakila schema
+      when: sample_dataset == "sakila"
+      shell: mariadb < /tmp/sakila-db/sakila-schema.sql
+
+    - name: Import Sakila data
+      when: sample_dataset == "sakila"
+      shell: mariadb < /tmp/sakila-db/sakila-data.sql
+
+    # ── World ────────────────────────────────────────────────────────────────
+    # Countries and cities — https://dev.mysql.com/doc/index-other.html
+    - name: Download World archive
+      when: sample_dataset == "world"
+      shell: >
+        curl -fsSL --retry 3 --max-time 120
+        https://downloads.mysql.com/docs/world-db.tar.gz
+        -o /tmp/world-db.tar.gz
+
+    - name: Extract World archive
+      when: sample_dataset == "world"
+      unarchive:
+        src: /tmp/world-db.tar.gz
+        dest: /tmp/
+        remote_src: yes
+
+    - name: Import World database
+      when: sample_dataset == "world"
+      shell: mariadb < /tmp/world-db/world.sql
+
+    # ── Vector (products.csv from MariaDB Vector Search Workshop) ────────────
+    # https://github.com/mariadb-developers/vector-search-workshop
+    - name: Download products.csv
+      when: sample_dataset == "vector"
+      get_url:
+        url: https://raw.githubusercontent.com/mariadb-developers/vector-search-workshop/main/products.csv
+        dest: /tmp/products.csv
+        mode: '0644'
+
+    - name: Create vector_demo database and products table
+      when: sample_dataset == "vector"
+      shell: |
+        mariadb -e "CREATE DATABASE IF NOT EXISTS vector_demo CHARACTER SET utf8mb4;"
+        mariadb vector_demo -e "
+          CREATE TABLE IF NOT EXISTS products (
+            id INT PRIMARY KEY, name VARCHAR(255), category VARCHAR(100),
+            price DECIMAL(10,2), description TEXT
+          );
+        "
+
+    - name: Load products.csv into vector_demo
+      when: sample_dataset == "vector"
+      shell: |
+        mariadb --local-infile=1 vector_demo -e "
+          LOAD DATA LOCAL INFILE '/tmp/products.csv' IGNORE INTO TABLE products
+          FIELDS TERMINATED BY ',' ENCLOSED BY '\"' LINES TERMINATED BY '\n'
+          IGNORE 1 ROWS (id, name, category, price, description);
+        "
+
+    - name: Verify vector_demo data loaded
+      when: sample_dataset == "vector"
+      shell: mariadb -N vector_demo -e "SELECT COUNT(*) FROM products;"
+      register: vector_check
+      failed_when: vector_check.stdout | trim | int < 1
