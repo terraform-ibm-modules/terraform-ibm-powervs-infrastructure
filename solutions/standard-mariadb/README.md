@@ -103,7 +103,7 @@ Connect through the bastion/VPN to `powervs_instance_management_ip`. MariaDB lis
 | Name | Version |
 | ---- | ------- |
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.9 |
-| <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | 2.8.2 |
+| <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | 2.9.0 |
 | <a name="requirement_restapi"></a> [restapi](#requirement\_restapi) | 2.0.1 |
 
 ### Modules
@@ -114,15 +114,15 @@ Connect through the bastion/VPN to `powervs_instance_management_ip`. MariaDB lis
 | <a name="module_mariadb_replica_installation"></a> [mariadb\_replica\_installation](#module\_mariadb\_replica\_installation) | ../../modules/powervs-vpc-landing-zone/submodules/ansible | n/a |
 | <a name="module_mariadb_sample_data"></a> [mariadb\_sample\_data](#module\_mariadb\_sample\_data) | ../../modules/powervs-vpc-landing-zone/submodules/ansible | n/a |
 | <a name="module_pi_scc_wp_agent"></a> [pi\_scc\_wp\_agent](#module\_pi\_scc\_wp\_agent) | ../../modules/powervs-vpc-landing-zone/submodules/ansible | n/a |
-| <a name="module_powervs_instance"></a> [powervs\_instance](#module\_powervs\_instance) | terraform-ibm-modules/powervs-instance/ibm | 2.8.9 |
-| <a name="module_powervs_replica_instance"></a> [powervs\_replica\_instance](#module\_powervs\_replica\_instance) | terraform-ibm-modules/powervs-instance/ibm | 2.8.9 |
+| <a name="module_powervs_instance"></a> [powervs\_instance](#module\_powervs\_instance) | terraform-ibm-modules/powervs-instance/ibm | 2.9.0 |
+| <a name="module_powervs_replica_instance"></a> [powervs\_replica\_instance](#module\_powervs\_replica\_instance) | terraform-ibm-modules/powervs-instance/ibm | 2.9.0 |
 | <a name="module_standard"></a> [standard](#module\_standard) | ../../modules/powervs-vpc-landing-zone | n/a |
 
 ### Resources
 
 | Name | Type |
 | ---- | ---- |
-| [ibm_iam_auth_token.auth_token](https://registry.terraform.io/providers/IBM-Cloud/ibm/2.8.2/docs/data-sources/iam_auth_token) | data source |
+| [ibm_iam_auth_token.auth_token](https://registry.terraform.io/providers/IBM-Cloud/ibm/2.9.0/docs/data-sources/iam_auth_token) | data source |
 
 ### Inputs
 
